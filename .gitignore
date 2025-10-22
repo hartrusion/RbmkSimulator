@@ -1,0 +1,17 @@
+# IDE: IntelliJ IDEA
+/.idea
+/lib
+/META-INF
+/out
+/*.iml
+/build.xml
+/manifest.mf
+
+# IDE: NetBeans
+/build
+/dist
+/nbproject
+
+# Operating system
+.DS_Store
+Thumbs.db
