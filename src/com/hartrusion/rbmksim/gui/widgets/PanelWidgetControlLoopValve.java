@@ -53,10 +53,9 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
     int valueXCoord = 45;
 
     private String component = "undefined";
-    private String componentControlCommand;
-    private String componentControlState;
-    private String componentControlUpdateU;
-    private String componentValue;
+    private String actionCommand;
+    private String componentUpdateAuto;
+    private String componentUpdateValue;
 
     public String getComponent() {
         return component;
@@ -68,10 +67,9 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         String old = this.component;
         this.component = component;
         // build component identification strings
-        componentControlCommand = component + "ControlCommand";
-        componentControlState = component + "ControlState";
-        componentControlUpdateU = component + "ControlUpdateU";
-        componentValue = component + "Value";
+        actionCommand = component + "ControlCommand";
+        componentUpdateAuto = component + "ControlAuto";
+        componentUpdateValue = component + "ControlUpdateU";
         firePropertyChange("component", old, component);
     }
 
@@ -120,7 +118,7 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
     private void initComponents() {
 
         jButtonUpper = new javax.swing.JButton();
-        jButtonAutp = new javax.swing.JButton();
+        jButtonAuto = new javax.swing.JButton();
         jButtonManual = new javax.swing.JButton();
         jButtonLower = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -149,18 +147,18 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         });
         add(jButtonUpper, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 18, 20, 16));
 
-        jButtonAutp.setBackground(new java.awt.Color(255, 255, 204));
-        jButtonAutp.setText("Ꝋ");
-        jButtonAutp.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonAutp.setMaximumSize(new java.awt.Dimension(24, 20));
-        jButtonAutp.setMinimumSize(new java.awt.Dimension(24, 20));
-        jButtonAutp.setPreferredSize(new java.awt.Dimension(24, 20));
-        jButtonAutp.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAuto.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonAuto.setText("Ꝋ");
+        jButtonAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonAuto.setMaximumSize(new java.awt.Dimension(24, 20));
+        jButtonAuto.setMinimumSize(new java.awt.Dimension(24, 20));
+        jButtonAuto.setPreferredSize(new java.awt.Dimension(24, 20));
+        jButtonAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAutpActionPerformed(evt);
+                jButtonAutoActionPerformed(evt);
             }
         });
-        add(jButtonAutp, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 18, 20, 16));
+        add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 18, 20, 16));
 
         jButtonManual.setBackground(new java.awt.Color(255, 255, 204));
         jButtonManual.setText("н");
@@ -199,31 +197,33 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 8, 12));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonAutpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAutpActionPerformed
+    private void jButtonAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutoActionPerformed
+        controller.userAction(new ActionCommand(actionCommand,
+                ControlCommand.AUTOMATIC));
+    }//GEN-LAST:event_jButtonAutoActionPerformed
 
     private void jButtonManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManualActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand(actionCommand,
+                ControlCommand.MANUAL_OPERATION));
     }//GEN-LAST:event_jButtonManualActionPerformed
 
     private void jButtonLowerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLowerMousePressed
-        controller.userAction(new ActionCommand(componentControlCommand, 
+        controller.userAction(new ActionCommand(actionCommand,
                 ControlCommand.OUTPUT_DECREASE));
     }//GEN-LAST:event_jButtonLowerMousePressed
 
     private void jButtonLowerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLowerMouseReleased
-        controller.userAction(new ActionCommand(componentControlCommand,
+        controller.userAction(new ActionCommand(actionCommand,
                 ControlCommand.OUTPUT_CONTINUE));
     }//GEN-LAST:event_jButtonLowerMouseReleased
 
     private void jButtonUpperMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpperMousePressed
-        controller.userAction(new ActionCommand(componentControlCommand, 
+        controller.userAction(new ActionCommand(actionCommand,
                 ControlCommand.OUTPUT_INCREASE));
     }//GEN-LAST:event_jButtonUpperMousePressed
 
     private void jButtonUpperMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpperMouseReleased
-        controller.userAction(new ActionCommand(componentControlCommand,
+        controller.userAction(new ActionCommand(actionCommand,
                 ControlCommand.OUTPUT_CONTINUE));
     }//GEN-LAST:event_jButtonUpperMouseReleased
 
@@ -253,7 +253,7 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAutp;
+    private javax.swing.JButton jButtonAuto;
     private javax.swing.JButton jButtonLower;
     private javax.swing.JButton jButtonManual;
     private javax.swing.JButton jButtonUpper;
@@ -262,13 +262,14 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(componentControlState)) {
+        if (evt.getPropertyName().equals(componentUpdateAuto)) {
             switch ((ControlCommand) evt.getNewValue()) {
                 case AUTOMATIC:
                     jLabel1.setText("A");
                     break;
                 case MANUAL_OPERATION:
                     jLabel1.setText("M");
+                    break;
             }
         }
     }
@@ -280,7 +281,7 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        if (propertyName.equals(componentControlUpdateU)) {
+        if (propertyName.equals(componentUpdateValue)) {
             if (newValue < 0.0) {
                 newValue = 0.0;
             } else if (newValue > 100) {

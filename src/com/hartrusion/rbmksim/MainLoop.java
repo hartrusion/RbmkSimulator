@@ -73,7 +73,7 @@ public class MainLoop implements Runnable, ModelManipulation {
 
         try {
             // Get all the values and GUI commands first.
-            controller.firePropertyUpdates();
+            controller.fireActions();
             
             // Feedback from process to reactor core model (previous cycle)
             core.setCoreTemp(process.getCoreTemp());
@@ -118,15 +118,15 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     }
 
-    @Override // Called from controller upon firePropertyUpdates here in run()
-    public void updateProperty(ActionCommand ac) {
+    @Override // Called from controller upon fireActions here in run()
+    public void handleAction(ActionCommand ac) {
          Logger.getLogger(MainLoop.class.getName())
                     .log(Level.INFO, "Received Action: " + ac.getPropertyName()
                     + ", Value: " + ac.getValue());
         if (ac.getPropertyName().startsWith("Reactor")) {
-            core.updateProperty(ac);
+            core.handleAction(ac);
         }
-        process.updateProperty(ac);
+        process.handleAction(ac);
     }
 
     @Override // called on initialization

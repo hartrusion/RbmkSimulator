@@ -52,10 +52,10 @@ import com.hartrusion.mvc.ModelManipulation;
  * Describes the thermal process layout of the plant.
  *
  * <p>
- * Pump assembly: Define, init signal listener, connect suction and discharge
- * valves by getting the valve elements, call initCharacteristic to set
- * properties, set initial conditions if necessary, submit runnable to runner,
- * call operate methods or similar in updateProperty
+Pump assembly: Define, init signal listener, connect suction and discharge
+valves by getting the valve elements, call initCharacteristic to set
+properties, set initial conditions if necessary, submit runnable to runner,
+call operate methods or similar in handleAction
  *
  * @author Viktor Alexander Hartung
  */
@@ -800,7 +800,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     public void run() {
         // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
-        // updateProperty in this class here. So the first thing happening is
+        // handleAction in this class here. So the first thing happening is
         // all the commands from GUI will be processed.
 
         // Invoke all runnable assemblies, this will for example set the valve 
@@ -964,7 +964,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     }
 
     @Override
-    public void updateProperty(ActionCommand ac) {
+    public void handleAction(ActionCommand ac) {
         // <editor-fold defaultstate="collapsed" desc="Receive and process control commands from controller (GUI)">
         if (ac.getPropertyName().startsWith("Loop")) {
             // property name is smtn like this: Loop2#mcp3ValveDischarge
@@ -976,49 +976,49 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 if (idx >= 0 && idx <= 3 && jdx >= 0 && jdx <= 3) {
                     String command = ac.getPropertyName()
                             .substring(10, ac.getPropertyName().length());
-                    if (!loopAssembly[idx][jdx].updateProperty(ac)) {
-                        loopTrimValve[idx][jdx].updateProperty(ac);
+                    if (!loopAssembly[idx][jdx].handleAction(ac)) {
+                        loopTrimValve[idx][jdx].handleAction(ac);
                     }
                 }
                 return;
             }
             switch (ac.getPropertyName()) {
                 case "Loop1#Bypass":
-                    loopBypass[0].updateProperty(ac);
+                    loopBypass[0].handleAction(ac);
                     break;
                 case "Loop2#Bypass":
-                    loopBypass[1].updateProperty(ac);
+                    loopBypass[1].handleAction(ac);
                     break;
             }
         } else if (ac.getPropertyName().startsWith("Blowdown")) {
             for (int idx = 0; idx < 2; idx++) {
-                if (blowdownCooldownPumps[idx].updateProperty(ac)) {
+                if (blowdownCooldownPumps[idx].handleAction(ac)) {
                     return;
                 }
-                if (blowdownValveFromLoop[idx].updateProperty(ac)) {
+                if (blowdownValveFromLoop[idx].handleAction(ac)) {
                     return;
                 }
-                if (blowdownValveFromLoop[idx].updateProperty(ac)) {
+                if (blowdownValveFromLoop[idx].handleAction(ac)) {
                     return;
                 }
-                if (blowdownReturnValve[idx].updateProperty(ac)) {
+                if (blowdownReturnValve[idx].handleAction(ac)) {
                     return;
                 }
             }
 
-            if (blowdownValvePassiveFlow.updateProperty(ac)) {
+            if (blowdownValvePassiveFlow.handleAction(ac)) {
                 return;
-            } else if (blowdownValvePumpsToRegenerator.updateProperty(ac)) {
+            } else if (blowdownValvePumpsToRegenerator.handleAction(ac)) {
                 return;
-            } else if (blowdownValvePumpsToCooler.updateProperty(ac)) {
+            } else if (blowdownValvePumpsToCooler.handleAction(ac)) {
                 return;
-            } else if (blowdownValveRegeneratorToCooler.updateProperty(ac)) {
+            } else if (blowdownValveRegeneratorToCooler.handleAction(ac)) {
                 return;
-            } else if (blowdownValveTreatmentBypass.updateProperty(ac)) {
+            } else if (blowdownValveTreatmentBypass.handleAction(ac)) {
                 return;
-            } else if (blowdownValveRegeneratorToCooler.updateProperty(ac)) {
+            } else if (blowdownValveRegeneratorToCooler.handleAction(ac)) {
                 return;
-            } else if (blowdownValveRegeneratedToDrums.updateProperty(ac)) {
+            } else if (blowdownValveRegeneratedToDrums.handleAction(ac)) {
                 return;
             }
 
@@ -1053,7 +1053,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 if (idx >= 0 && idx <= 1 && jdx >= 0 && jdx <= 1) {
                     String command = ac.getPropertyName()
                             .substring(16, ac.getPropertyName().length());
-                    if (feedwaterPump[idx][jdx].updateProperty(ac)) {
+                    if (feedwaterPump[idx][jdx].handleAction(ac)) {
                         return;
                     }
                 }
@@ -1065,10 +1065,10 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
                 case "Main1#SteamShutoffValve":
-                    mainSteamShutoffValve[0].updateProperty(ac);
+                    mainSteamShutoffValve[0].handleAction(ac);
                     break;
                 case "Main2#SteamShutoffValve":
-                    mainSteamShutoffValve[1].updateProperty(ac);
+                    mainSteamShutoffValve[1].handleAction(ac);
                     break;
             }
         }

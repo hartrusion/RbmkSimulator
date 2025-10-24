@@ -167,7 +167,7 @@ public class ReactorCore implements Runnable, ModelManipulation {
      * @param evt
      */
     @Override
-    public void updateProperty(ActionCommand ac) {
+    public void handleAction(ActionCommand ac) {
         if (!ac.getPropertyName().startsWith("Reactor#")) {
             return;
         }
