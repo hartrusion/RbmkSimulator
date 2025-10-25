@@ -45,7 +45,11 @@ public class XenonBuildup {
 
         for (int idx = 0; idx < steps; idx++) {
             xTime[idx] = (double) idx * stepTime / 60;
-            if (xTime[idx] > 5) {
+            if (xTime[idx] > 35) {
+                neutronFlux = 5;
+            } else  if (xTime[idx] > 30) {
+                neutronFlux = 40;
+            } else if (xTime[idx] > 5) {
                 neutronFlux = 100;
             } else {
                 neutronFlux = 0;
@@ -62,6 +66,8 @@ public class XenonBuildup {
         plot(xTime, yFlux);
         plot(xTime, yIodine);
         axis(0, 60, 0, 250);
+        xlabel("Time (Hours)");
+        ylabel("Percentage");
     }
 
     /**
