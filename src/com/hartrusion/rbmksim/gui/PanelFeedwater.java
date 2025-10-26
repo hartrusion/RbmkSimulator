@@ -114,7 +114,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close10 = new javax.swing.JButton();
         jLabelCaptionDrain5 = new javax.swing.JLabel();
         jLabelCaptionDrain6 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -177,7 +176,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetControlLoopValve1s.setComponent("Feedwater2#FlowRegulationValve2");
         add(panelWidgetControlLoopValve1s, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 156, -1, -1));
 
-        panelWidgetControlLoopValve21.setComponent("Feedwater1#FlowRegulationValve3");
+        panelWidgetControlLoopValve21.setComponent("Feedwater2#FlowRegulationValve3");
         add(panelWidgetControlLoopValve21, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 198, -1, -1));
 
         panelWidgetControlLoopValve22.setComponent("Feedwater1#FlowRegulationValve1");
@@ -373,19 +372,19 @@ public class PanelFeedwater extends AbstractPanelWidget
         add(jButtonLoop2Close6, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 128, 20, 20));
 
         panelWidgetPump11.setChornobylPrefix("Feedwater1#Pump1");
-        add(panelWidgetPump11, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 94, -1, -1));
+        add(panelWidgetPump11, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 86, -1, -1));
 
         panelWidgetPump12.setChornobylPrefix("Feedwater1#Pump2");
-        add(panelWidgetPump12, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 94, -1, -1));
+        add(panelWidgetPump12, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 86, -1, -1));
 
         panelWidgetPump21.setChornobylPrefix("Feedwater2#Pump1");
-        add(panelWidgetPump21, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 94, -1, -1));
+        add(panelWidgetPump21, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 86, -1, -1));
 
         panelWidgetPump22.setChornobylPrefix("Feedwater2#Pump2");
-        add(panelWidgetPump22, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 94, -1, -1));
+        add(panelWidgetPump22, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 86, -1, -1));
 
         panelWidgetPump3.setChornobylPrefix("Feedwater#Pump3");
-        add(panelWidgetPump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 222, -1, -1));
+        add(panelWidgetPump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 86, -1, -1));
 
         jLabeljLabelCaptionRegenToCooler9.setFont(jLabeljLabelCaptionRegenToCooler9.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler9.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -393,7 +392,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler9.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler9.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler9.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler9, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 292, 52, 14));
+        add(jLabeljLabelCaptionRegenToCooler9, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 290, 52, 14));
 
         jButtonLoop2Open7.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open7.setText("O");
@@ -407,7 +406,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Open7ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open7, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 306, 20, 20));
+        add(jButtonLoop2Open7, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 304, 20, 20));
 
         jButtonLoop2Close7.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close7.setText("C");
@@ -421,7 +420,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Close7ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close7, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 306, 20, 20));
+        add(jButtonLoop2Close7, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 304, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler10.setFont(jLabeljLabelCaptionRegenToCooler10.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler10.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -429,7 +428,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler10.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler10.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler10, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 238, 52, 14));
+        add(jLabeljLabelCaptionRegenToCooler10, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 236, 52, 14));
 
         jButtonLoop2Open8.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open8.setText("O");
@@ -443,7 +442,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Open8ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open8, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 252, 20, 20));
+        add(jButtonLoop2Open8, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 250, 20, 20));
 
         jButtonLoop2Close8.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close8.setText("C");
@@ -457,7 +456,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Close8ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close8, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 252, 20, 20));
+        add(jButtonLoop2Close8, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 250, 20, 20));
 
         jLabelCaptionDrain.setFont(jLabelCaptionDrain.getFont().deriveFont(jLabelCaptionDrain.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain.getFont().getSize()-2));
         jLabelCaptionDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -465,7 +464,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 78, 64, 14));
+        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(394, 70, 64, 14));
 
         jLabelCaptionDrain1.setFont(jLabelCaptionDrain1.getFont().deriveFont(jLabelCaptionDrain1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain1.getFont().getSize()-2));
         jLabelCaptionDrain1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -473,7 +472,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 78, 64, 14));
+        add(jLabelCaptionDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 70, 64, 14));
 
         jLabelCaptionDrain2.setFont(jLabelCaptionDrain2.getFont().deriveFont(jLabelCaptionDrain2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain2.getFont().getSize()-2));
         jLabelCaptionDrain2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -481,7 +480,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 78, 64, 14));
+        add(jLabelCaptionDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 70, 64, 14));
 
         jLabelCaptionDrain3.setFont(jLabelCaptionDrain3.getFont().deriveFont(jLabelCaptionDrain3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain3.getFont().getSize()-2));
         jLabelCaptionDrain3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -489,7 +488,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain3, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 278, 102, 14));
+        add(jLabelCaptionDrain3, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 276, 102, 14));
 
         jLabelCaptionDrain4.setFont(jLabelCaptionDrain4.getFont().deriveFont(jLabelCaptionDrain4.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain4.getFont().getSize()-2));
         jLabelCaptionDrain4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -497,7 +496,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain4, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 78, 64, 14));
+        add(jLabelCaptionDrain4, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 70, 64, 14));
 
         jLabeljLabelCaptionRegenToCooler11.setFont(jLabeljLabelCaptionRegenToCooler11.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler11.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -505,7 +504,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler11.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler11.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 292, 52, 14));
+        add(jLabeljLabelCaptionRegenToCooler11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 52, 14));
 
         jButtonLoop2Open9.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open9.setText("O");
@@ -519,7 +518,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Open9ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 306, 20, 20));
+        add(jButtonLoop2Open9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 304, 20, 20));
 
         jButtonLoop2Close9.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close9.setText("C");
@@ -533,7 +532,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Close9ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close9, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 306, 20, 20));
+        add(jButtonLoop2Close9, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 304, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler12.setFont(jLabeljLabelCaptionRegenToCooler12.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler12.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -541,7 +540,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler12.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler12.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 238, 52, 14));
+        add(jLabeljLabelCaptionRegenToCooler12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 236, 52, 14));
 
         jButtonLoop2Open10.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open10.setText("O");
@@ -555,7 +554,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Open10ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 252, 20, 20));
+        add(jButtonLoop2Open10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 20, 20));
 
         jButtonLoop2Close10.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close10.setText("C");
@@ -569,7 +568,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Close10ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close10, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 252, 20, 20));
+        add(jButtonLoop2Close10, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 250, 20, 20));
 
         jLabelCaptionDrain5.setFont(jLabelCaptionDrain5.getFont().deriveFont(jLabelCaptionDrain5.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain5.getFont().getSize()-2));
         jLabelCaptionDrain5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -577,7 +576,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain5, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 208, 64, 14));
+        add(jLabelCaptionDrain5, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 70, 64, 14));
 
         jLabelCaptionDrain6.setFont(jLabelCaptionDrain6.getFont().deriveFont(jLabelCaptionDrain6.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain6.getFont().getSize()-2));
         jLabelCaptionDrain6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -585,10 +584,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 222, 102, 14));
-
-        jSpinner1.setFont(jSpinner1.getFont().deriveFont(jSpinner1.getFont().getStyle() & ~java.awt.Font.BOLD, jSpinner1.getFont().getSize()-3));
-        add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 212, 52, -1));
+        add(jLabelCaptionDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 220, 102, 14));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
         jLabel5.setText("Feed 1");
@@ -782,7 +778,6 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler7;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler8;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler9;
-    private javax.swing.JSpinner jSpinner1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve11;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve12;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve1s;
