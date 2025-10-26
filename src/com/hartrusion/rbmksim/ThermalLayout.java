@@ -27,6 +27,7 @@ import com.hartrusion.modeling.assemblies.HeatExchanger;
 import com.hartrusion.modeling.assemblies.HeatFluidPump;
 import com.hartrusion.modeling.assemblies.HeatFluidPumpRealSwitching;
 import com.hartrusion.modeling.assemblies.HeatValve;
+import com.hartrusion.modeling.assemblies.HeatValveControlled;
 import com.hartrusion.modeling.assemblies.PhasedValve;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
 import com.hartrusion.modeling.general.FlowSource;
@@ -170,8 +171,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatNode[] feedwaterAfterStartupNode = new HeatNode[2];
     private final HeatValve[][] feedwaterShutoffValve = new HeatValve[2][3];
     private final HeatNode[][] feedwaterIntoFlowRegNode = new HeatNode[2][3];
-    private final HeatValve[][] feedwaterFlowRegulationValve
-            = new HeatValve[2][3];
+    private final HeatValveControlled[][] feedwaterFlowRegulationValve
+            = new HeatValveControlled[2][3];
     // </editor-fold>
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
@@ -415,9 +416,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 feedwaterIntoFlowRegNode[idx][jdx].setName(
                         "Feedwater" + (idx + 1)
                         + "#IntoFlowRegNode" + (jdx + 1));
-                feedwaterFlowRegulationValve[idx][jdx] = new HeatValve();
-                // Will be named something like
+                feedwaterFlowRegulationValve[idx][jdx] 
+                        = new HeatValveControlled();
+                // Name has to match the designator on the GUI element. like:
                 // Feedwater1#FlowRegulationValve3
+                feedwaterFlowRegulationValve[idx][jdx].initPControl();
                 feedwaterFlowRegulationValve[idx][jdx]
                         .initName("Feedwater" + (idx + 1)
                                 + "#FlowRegulationValve" + (jdx + 1));
@@ -454,8 +457,20 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             for (int jdx = 0; jdx < 2; jdx++) {
                 feedwaterPump[idx][jdx].initSignalListener(controller);
             }
+            feedwaterSparePumpInValve[idx].initSignalListener(controller);
         }
         feedwaterPump3.initSignalListener(controller);
+        for (int idx = 0; idx < 2; idx++) {
+            feedwaterSparePumpOutValve[idx].initSignalListener(controller);
+            feedwaterStartupReductionValve[idx].initSignalListener(controller);
+            for (int jdx = 0; jdx < 3; jdx++) {
+                feedwaterShutoffValve[idx][jdx].initSignalListener(controller);
+                feedwaterFlowRegulationValve[idx][jdx]
+                        .initSignalListener(controller);
+                feedwaterFlowRegulationValve[idx][jdx]
+                        .initParameterHandler(outputValues);
+            }
+        }
 
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
         // Define the primary loop from drum through mcps and reactor and back.
@@ -600,7 +615,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         feedwaterPump3.getSuctionValve().connectTo(feedwaterSparePumpIn);
         feedwaterPump3.getDischargeValve().connectTo(feedwaterSparePumpOut);
-        // Pumps to drum connection, this is a bit messed up.
+        // Pumps to drum connection, this is a bit messed up. It gets 
+        // distributed from collector node as follows:
+        // - StartRed - aftSNode - ShutoffValve[0] - intoFlowRegN[0] - flowRegV
+        // - ShutoffValve[1] - intoFlowRegN[1] - flowRegV[2]
+        // - ShutoffValve[2] - intoFlowRegN[2] - flowRegV[2]
         for (int idx = 0; idx < 2; idx++) { // idx is still loop side btw.
             // Distribution to both sides with out valves:
             feedwaterSparePumpOutValve[idx].getValveElement().connectBetween(
@@ -704,6 +723,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownToRegeneratorFirstResistance.setResistanceParameter(1000);
         blowdownToRegeneratorSecondResistance.setResistanceParameter(1000);
         blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
+        
+        for (int idx = 0; idx < 2; idx++) {
+            // RXmodel has a base area of 40, use this value here
+            deaerator[idx].setBaseArea(40);
+        }
 
         // Feedwater
         for (int idx = 0; idx < 2; idx++) {
@@ -750,6 +774,10 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
         blowdownCoolantFlow.initFlow(800);
+        for (int idx = 0; idx <= 1; idx++) {
+            // try to have a fill level of 100 cm (normal level)
+            deaerator[idx].setInitialState(40000, 35 + 273.15);
+        }
         // </editor-fold>
 
         // Initialize solver and build model. This is only a small line of code,
@@ -780,14 +808,31 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(blowdownReturnValve[idx]);
         }
-
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
-                // Todo: Proper pump characteristic
                 runner.submit(feedwaterPump[idx][jdx]);
             }
+            runner.submit(feedwaterSparePumpInValve[idx]);
         }
         runner.submit(feedwaterPump3);
+
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(feedwaterSparePumpOutValve[idx]);
+            runner.submit(feedwaterStartupReductionValve[idx]);       
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 3; jdx++) {
+                runner.submit(feedwaterShutoffValve[idx][jdx]);
+            }
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 3; jdx++) {
+                runner.submit(feedwaterFlowRegulationValve[idx][jdx]);
+                // not sure where to put this for now
+                feedwaterFlowRegulationValve[idx][jdx].initPControl();
+            }
+        }
+        
 
         // Still no idea where to put this so let's put it here.
         controlLoopBlowdownDrumLevel.setParameterK(30);
@@ -837,6 +882,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         controlLoopBlowdownDrumLevel.setInput(
                 (loopSteamDrum[1].getStoredMass()
                 - loopSteamDrum[0].getStoredMass()) * 2e-3);
+        
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 3; jdx++) {
+                feedwaterFlowRegulationValve[idx][jdx].setInput(
+                        loopSteamDrum[idx].getFillHeight());
+            }
+        }
 
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
         for (int idx = 0; idx < 2; idx++) {
@@ -918,6 +970,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     + "#BlowdownFlowToFeedwaterIn",
                     -loopFeedwaterIn[idx].getFlow( // negative = into node
                             blowdownReturnValve[idx].getValveElement()));
+            
+            outputValues.setParameterValue("Deaerator" + (idx + 1) + "#Level",
+                    deaerator[idx].getFillHeight() * 100); // m to cm
         }
 
         // Blowdown and Cooldown system
@@ -1058,9 +1113,15 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     }
                 }
             }
-            //switch (ac.getPropertyName()) { // TODO Feedwater here
-
-            //}
+            // level regulation valves
+            for (int idx = 0; idx < 2; idx++) {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    if (feedwaterFlowRegulationValve[idx][jdx]
+                            .handleAction(ac)) {
+                        return;
+                    }
+                }
+            }
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {

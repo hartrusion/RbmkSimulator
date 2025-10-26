@@ -64,19 +64,15 @@ public class PanelFeedwater extends AbstractPanelWidget
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chornobylGaugeFeed2Temp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeFeed2Flow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelGaugeFeed2Flow = new javax.swing.JLabel();
-        jLabelGaugeFeed2Temp = new javax.swing.JLabel();
         jLabelCaptionFeed22 = new javax.swing.JLabel();
         jButtonFeed23Open = new javax.swing.JButton();
         jButtonFeed23Close = new javax.swing.JButton();
-        panelWidgetControlLoopValve11 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve();
-        panelWidgetControlLoopValve12 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve();
-        panelWidgetControlLoopValve1s = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve();
-        panelWidgetControlLoopValve21 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve();
-        panelWidgetControlLoopValve22 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve();
-        panelWidgetControlLoopValve2s = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve();
+        panelWidgetControlLoopValve11 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        panelWidgetControlLoopValve12 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        panelWidgetControlLoopValve1s = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        panelWidgetControlLoopValve21 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        panelWidgetControlLoopValve22 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        panelWidgetControlLoopValve2s = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
         integralSwitchStartupReduction1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchStartupReduction2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabeljLabelCaptionRegenToCooler4 = new javax.swing.JLabel();
@@ -94,12 +90,8 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler8 = new javax.swing.JLabel();
         jButtonLoop2Open6 = new javax.swing.JButton();
         jButtonLoop2Close6 = new javax.swing.JButton();
-        chornobylGaugeLoop2Pressure2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeLoop2Level2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         panelWidgetPump11 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPump12 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         panelWidgetPump21 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPump22 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPump3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
@@ -122,33 +114,23 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close10 = new javax.swing.JButton();
         jLabelCaptionDrain5 = new javax.swing.JLabel();
         jLabelCaptionDrain6 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        chornobylGaugeLoop1Pressure = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeLoop1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        chornobylGaugeLoop2Pressure1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeLoop2Level1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
 
         setMinimumSize(new java.awt.Dimension(410, 340));
         setPreferredSize(new java.awt.Dimension(410, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        chornobylGaugeFeed2Temp.setChornobylMaximum(200.0F);
-        chornobylGaugeFeed2Temp.setChornobylMinimum(20.0F);
-        chornobylGaugeFeed2Temp.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
-        chornobylGaugeFeed2Temp.setChornobylUnitText("°C");
-        add(chornobylGaugeFeed2Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 38, -1, -1));
-
-        chornobylGaugeFeed2Flow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeFeed2Flow.setChornobylMaximum(1800.0F);
-        chornobylGaugeFeed2Flow.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed2Flow.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
-        chornobylGaugeFeed2Flow.setChornobylUnitText("kg/s");
-        add(chornobylGaugeFeed2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 6, -1, -1));
-
-        jLabelGaugeFeed2Flow.setFont(jLabelGaugeFeed2Flow.getFont().deriveFont(jLabelGaugeFeed2Flow.getFont().getSize()-2f));
-        jLabelGaugeFeed2Flow.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabelGaugeFeed2Flow.setText("Feed Flow 2");
-        add(jLabelGaugeFeed2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 12, 58, -1));
-
-        jLabelGaugeFeed2Temp.setFont(jLabelGaugeFeed2Temp.getFont().deriveFont(jLabelGaugeFeed2Temp.getFont().getSize()-2f));
-        jLabelGaugeFeed2Temp.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabelGaugeFeed2Temp.setText("Feed Temp 2");
-        add(jLabelGaugeFeed2Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 44, 58, -1));
 
         jLabelCaptionFeed22.setFont(jLabelCaptionFeed22.getFont().deriveFont(jLabelCaptionFeed22.getFont().getSize()-2f));
         jLabelCaptionFeed22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,8 +185,12 @@ public class PanelFeedwater extends AbstractPanelWidget
 
         panelWidgetControlLoopValve2s.setComponent("Feedwater2#FlowRegulationValve1");
         add(panelWidgetControlLoopValve2s, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 296, -1, -1));
-        add(integralSwitchStartupReduction1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 260, -1, -1));
-        add(integralSwitchStartupReduction2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 302, -1, -1));
+
+        integralSwitchStartupReduction1.setComponent("Feedwater1#StartupReductionValve");
+        add(integralSwitchStartupReduction1, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 260, -1, -1));
+
+        integralSwitchStartupReduction2.setComponent("Feedwater2#StartupReductionValve");
+        add(integralSwitchStartupReduction2, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 302, -1, -1));
 
         jLabeljLabelCaptionRegenToCooler4.setFont(jLabeljLabelCaptionRegenToCooler4.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler4.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -248,7 +234,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 52, 14));
+        add(jLabeljLabelCaptionRegenToCooler5, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 252, 52, 14));
 
         jButtonLoop2Open3.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open3.setText("O");
@@ -262,7 +248,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Open3ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 264, 20, 20));
+        add(jButtonLoop2Open3, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 266, 20, 20));
 
         jButtonLoop2Close3.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close3.setText("C");
@@ -276,7 +262,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Close3ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close3, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 264, 20, 20));
+        add(jButtonLoop2Close3, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 266, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler6.setFont(jLabeljLabelCaptionRegenToCooler6.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler6.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -284,7 +270,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 294, 52, 14));
+        add(jLabeljLabelCaptionRegenToCooler6, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 296, 52, 14));
 
         jButtonLoop2Open4.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open4.setText("O");
@@ -298,7 +284,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Open4ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 308, 20, 20));
+        add(jButtonLoop2Open4, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 310, 20, 20));
 
         jButtonLoop2Close4.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close4.setText("C");
@@ -312,7 +298,7 @@ public class PanelFeedwater extends AbstractPanelWidget
                 jButtonLoop2Close4ActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close4, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 308, 20, 20));
+        add(jButtonLoop2Close4, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 310, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler7.setFont(jLabeljLabelCaptionRegenToCooler7.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler7.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -386,34 +372,11 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButtonLoop2Close6, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 128, 20, 20));
 
-        chornobylGaugeLoop2Pressure2.setChornobylMaximum(200.0F);
-        chornobylGaugeLoop2Pressure2.setChornobylMinimum(20.0F);
-        chornobylGaugeLoop2Pressure2.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
-        chornobylGaugeLoop2Pressure2.setChornobylUnitText("°C");
-        add(chornobylGaugeLoop2Pressure2, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 38, -1, -1));
-
-        chornobylGaugeLoop2Level2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop2Level2.setChornobylMaximum(1800.0F);
-        chornobylGaugeLoop2Level2.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop2Level2.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
-        chornobylGaugeLoop2Level2.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop2Level2, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 6, -1, -1));
-
         panelWidgetPump11.setChornobylPrefix("Feedwater1#Pump1");
         add(panelWidgetPump11, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 94, -1, -1));
 
         panelWidgetPump12.setChornobylPrefix("Feedwater1#Pump2");
         add(panelWidgetPump12, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 94, -1, -1));
-
-        jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getSize()-2f));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel19.setText("Feed Temp 1");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 44, 58, -1));
-
-        jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getSize()-2f));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel20.setText("Feed Flow 1");
-        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 12, 58, -1));
 
         panelWidgetPump21.setChornobylPrefix("Feedwater2#Pump1");
         add(panelWidgetPump21, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 94, -1, -1));
@@ -623,6 +586,67 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDrain6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain6.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 222, 102, 14));
+
+        jSpinner1.setFont(jSpinner1.getFont().deriveFont(jSpinner1.getFont().getStyle() & ~java.awt.Font.BOLD, jSpinner1.getFont().getSize()-3));
+        add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 212, 52, -1));
+
+        jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
+        jLabel5.setText("Feed 1");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
+
+        jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getSize()-2f));
+        jLabel20.setText("Flow");
+        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
+
+        jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getSize()-2f));
+        jLabel7.setText("Feed 1");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 34, 52, 14));
+
+        jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getSize()-2f));
+        jLabel19.setText("Temp");
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 48, 52, 14));
+
+        chornobylGaugeLoop1Pressure.setChornobylMaximum(200.0F);
+        chornobylGaugeLoop1Pressure.setChornobylMinimum(20.0F);
+        chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
+        chornobylGaugeLoop1Pressure.setChornobylUnitText("°C");
+        add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+
+        chornobylGaugeLoop1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeLoop1Level.setChornobylMaximum(1800.0F);
+        chornobylGaugeLoop1Level.setChornobylMinimum(0.0F);
+        chornobylGaugeLoop1Level.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
+        chornobylGaugeLoop1Level.setChornobylUnitText("kg/s");
+        add(chornobylGaugeLoop1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+
+        jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getSize()-2f));
+        jLabel24.setText("Feed 2");
+        add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
+
+        jLabel18.setFont(jLabel18.getFont().deriveFont(jLabel18.getFont().getSize()-2f));
+        jLabel18.setText("Flow");
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
+
+        jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getSize()-2f));
+        jLabel23.setText("Feed 2");
+        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 34, 52, 14));
+
+        jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getSize()-2f));
+        jLabel17.setText("Temp");
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 48, 52, 14));
+
+        chornobylGaugeLoop2Pressure1.setChornobylMaximum(200.0F);
+        chornobylGaugeLoop2Pressure1.setChornobylMinimum(20.0F);
+        chornobylGaugeLoop2Pressure1.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
+        chornobylGaugeLoop2Pressure1.setChornobylUnitText("°C");
+        add(chornobylGaugeLoop2Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
+
+        chornobylGaugeLoop2Level1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeLoop2Level1.setChornobylMaximum(1800.0F);
+        chornobylGaugeLoop2Level1.setChornobylMinimum(0.0F);
+        chornobylGaugeLoop2Level1.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
+        chornobylGaugeLoop2Level1.setChornobylUnitText("kg/s");
+        add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFeed23OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed23OpenActionPerformed
@@ -707,10 +731,10 @@ public class PanelFeedwater extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Flow;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Level2;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Pressure2;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Level;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Pressure;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Level1;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Pressure1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchStartupReduction1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchStartupReduction2;
     private javax.swing.JButton jButtonFeed23Close;
@@ -733,8 +757,14 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JButton jButtonLoop2Open7;
     private javax.swing.JButton jButtonLoop2Open8;
     private javax.swing.JButton jButtonLoop2Open9;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCaptionDrain;
     private javax.swing.JLabel jLabelCaptionDrain1;
     private javax.swing.JLabel jLabelCaptionDrain2;
@@ -743,8 +773,6 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaptionDrain5;
     private javax.swing.JLabel jLabelCaptionDrain6;
     private javax.swing.JLabel jLabelCaptionFeed22;
-    private javax.swing.JLabel jLabelGaugeFeed2Flow;
-    private javax.swing.JLabel jLabelGaugeFeed2Temp;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler10;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler11;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler12;
@@ -754,12 +782,13 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler7;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler8;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler9;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve panelWidgetControlLoopValve11;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve panelWidgetControlLoopValve12;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve panelWidgetControlLoopValve1s;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve panelWidgetControlLoopValve21;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve panelWidgetControlLoopValve22;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetControlLoopValve panelWidgetControlLoopValve2s;
+    private javax.swing.JSpinner jSpinner1;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve11;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve12;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve1s;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve21;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve22;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve2s;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump11;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump12;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump21;
@@ -780,6 +809,36 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetControlLoopValve21.updateComponent(evt);
         panelWidgetControlLoopValve22.updateComponent(evt);
         panelWidgetControlLoopValve2s.updateComponent(evt);
+        
+        integralSwitchStartupReduction1.updateComponent(evt);
+        integralSwitchStartupReduction2.updateComponent(evt);
+        
+        switch (evt.getPropertyName()) {
+            case "Feedwater1#ShutoffValve1_Pos":
+                setValveButtons(jButtonLoop2Close3, 
+                        jButtonLoop2Open3, evt.getNewValue());
+                break;
+            case "Feedwater2#ShutoffValve1_Pos":
+                setValveButtons(jButtonLoop2Close4, 
+                        jButtonLoop2Open4, evt.getNewValue());
+                break;
+            case "Feedwater1#ShutoffValve2_Pos":
+                setValveButtons(jButtonLoop2Close2, 
+                        jButtonLoop2Open2, evt.getNewValue());
+                break;
+            case "Feedwater2#ShutoffValve2_Pos":
+                setValveButtons(jButtonLoop2Close5, 
+                        jButtonLoop2Open5, evt.getNewValue());
+                break;
+            case "Feedwater1#ShutoffValve3_Pos":
+                setValveButtons(jButtonLoop2Close6, 
+                        jButtonLoop2Open6, evt.getNewValue());
+                break;
+            case "Feedwater2#ShutoffValve3_Pos":
+                setValveButtons(jButtonFeed23Close, 
+                        jButtonFeed23Open, evt.getNewValue());
+                break;
+        }
     }
 
     @Override

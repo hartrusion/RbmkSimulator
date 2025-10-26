@@ -132,57 +132,57 @@ public class PanelMCP extends AbstractPanelWidget
         chornobylGaugeLoop1Level.setChornobylMaximum(70.0F);
         chornobylGaugeLoop1Level.setChornobylMinimum(-70.0F);
         chornobylGaugeLoop1Level.setChornobylTicks(new float[] {-60.0f, -30.0f, 0.0f, 30.0f, 60.0f});
-        add(chornobylGaugeLoop1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 2, -1, -1));
+        add(chornobylGaugeLoop1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {0.0f, 20.0f, 70.0f, 100.0f});
         chornobylGaugeLoop1Pressure.setChornobylUnitText("bar");
-        add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 32, -1, -1));
+        add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
         jLabel5.setText("Drum 1");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 2, 52, 14));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
 
         jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getSize()-2f));
         jLabel6.setText("Drum 1");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 52, 14));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 64, 52, 14));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getSize()-2f));
         jLabel7.setText("Drum 1");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 32, 52, 14));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 34, 52, 14));
 
         chornobylGaugeLoop1Temperature.setChornobylMaximum(350.0F);
         chornobylGaugeLoop1Temperature.setChornobylMinimum(20.0F);
         chornobylGaugeLoop1Temperature.setChornobylTicks(new float[] {40.0f, 100.0f, 200.0f, 300.0f});
         chornobylGaugeLoop1Temperature.setChornobylUnitText("°C");
-        add(chornobylGaugeLoop1Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 62, -1, -1));
+        add(chornobylGaugeLoop1Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 64, -1, -1));
 
         chornobylGaugeLoop1RecircFlow.setChornobylMaximum(8000.0F);
         chornobylGaugeLoop1RecircFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 5000.0f, 8000.0f});
         chornobylGaugeLoop1RecircFlow.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop1RecircFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 92, -1, -1));
+        add(chornobylGaugeLoop1RecircFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 94, -1, -1));
 
         jLabel8.setFont(jLabel8.getFont().deriveFont(jLabel8.getFont().getSize()-2f));
         jLabel8.setText("Loop 1");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 92, 52, 14));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 94, 52, 14));
 
         chornobylGaugeLoop2RecircFlow.setChornobylMaximum(8000.0F);
         chornobylGaugeLoop2RecircFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 5000.0f, 8000.0f});
         chornobylGaugeLoop2RecircFlow.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop2RecircFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 92, -1, -1));
+        add(chornobylGaugeLoop2RecircFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 94, -1, -1));
 
         chornobylGaugeLoop2Temperature.setChornobylMaximum(350.0F);
         chornobylGaugeLoop2Temperature.setChornobylMinimum(20.0F);
         chornobylGaugeLoop2Temperature.setChornobylTicks(new float[] {40.0f, 100.0f, 200.0f, 300.0f});
         chornobylGaugeLoop2Temperature.setChornobylUnitText("°C");
-        add(chornobylGaugeLoop2Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 62, -1, -1));
+        add(chornobylGaugeLoop2Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 64, -1, -1));
 
         jLabel15.setFont(jLabel15.getFont().deriveFont(jLabel15.getFont().getSize()-2f));
         jLabel15.setText("Temp");
-        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 76, 52, 14));
+        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 78, 52, 14));
 
         jLabel16.setFont(jLabel16.getFont().deriveFont(jLabel16.getFont().getSize()-2f));
         jLabel16.setText("Rc. Flow");
-        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 106, 52, 14));
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 108, 52, 14));
 
         jButtonLoop1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop1Close.setText("C");
@@ -258,21 +258,21 @@ public class PanelMCP extends AbstractPanelWidget
 
         chornobylGaugeLoop2Pressure1.setChornobylTicks(new float[] {0.0f, 20.0f, 70.0f, 100.0f});
         chornobylGaugeLoop2Pressure1.setChornobylUnitText("bar");
-        add(chornobylGaugeLoop2Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 32, -1, -1));
+        add(chornobylGaugeLoop2Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
 
         jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getSize()-2f));
         jLabel17.setText("Pressure");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 46, 52, 14));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 48, 52, 14));
 
         jLabel18.setFont(jLabel18.getFont().deriveFont(jLabel18.getFont().getSize()-2f));
         jLabel18.setText("Level");
-        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 14, 52, 14));
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
 
         chornobylGaugeLoop2Level1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         chornobylGaugeLoop2Level1.setChornobylMaximum(70.0F);
         chornobylGaugeLoop2Level1.setChornobylMinimum(-70.0F);
         chornobylGaugeLoop2Level1.setChornobylTicks(new float[] {-60.0f, -30.0f, 0.0f, 30.0f, 60.0f});
-        add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 2, -1, -1));
+        add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
 
         integralSwitch1.setComponent("Main1#SteamShutoffValve");
         add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 40, -1, -1));
@@ -306,65 +306,65 @@ public class PanelMCP extends AbstractPanelWidget
 
         jLabel13.setFont(jLabel13.getFont().deriveFont(jLabel13.getFont().getSize()-2f));
         jLabel13.setText("Rc. Flow");
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 106, 52, 14));
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 108, 52, 14));
 
         jLabel14.setFont(jLabel14.getFont().deriveFont(jLabel14.getFont().getSize()-2f));
         jLabel14.setText("Temp.");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 76, 52, 14));
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 78, 52, 14));
 
         jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getSize()-2f));
         jLabel19.setText("Pressure");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 48, 52, 14));
 
         jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getSize()-2f));
         jLabel20.setText("Level");
-        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 14, 52, 14));
+        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
 
         jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getSize()-2f));
         jLabel21.setText("Loop 2");
-        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 92, 52, 14));
+        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 94, 52, 14));
 
         jLabel22.setFont(jLabel22.getFont().deriveFont(jLabel22.getFont().getSize()-2f));
         jLabel22.setText("Drum 2");
-        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 62, 52, 14));
+        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 64, 52, 14));
 
         jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getSize()-2f));
         jLabel23.setText("Drum 2");
-        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 32, 52, 14));
+        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 34, 52, 14));
 
         jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getSize()-2f));
         jLabel24.setText("Drum 2");
-        add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 2, 52, 14));
+        add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
 
         chornobylGaugeLoop1RecircFlow1.setChornobylMaximum(5.0F);
         chornobylGaugeLoop1RecircFlow1.setChornobylMinimum(-30.0F);
         chornobylGaugeLoop1RecircFlow1.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
         chornobylGaugeLoop1RecircFlow1.setChornobylUnitText("K");
         chornobylGaugeLoop1RecircFlow1.setChornobylValue(-10.0F);
-        add(chornobylGaugeLoop1RecircFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 122, -1, -1));
+        add(chornobylGaugeLoop1RecircFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 124, -1, -1));
 
         jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getSize()-2f));
         jLabel25.setText("MCP 1");
-        add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 122, 52, 14));
+        add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 124, 52, 14));
 
         chornobylGaugeLoop2RecircFlow1.setChornobylMaximum(5.0F);
         chornobylGaugeLoop2RecircFlow1.setChornobylMinimum(-30.0F);
         chornobylGaugeLoop2RecircFlow1.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
         chornobylGaugeLoop2RecircFlow1.setChornobylUnitText("K");
         chornobylGaugeLoop2RecircFlow1.setChornobylValue(-10.0F);
-        add(chornobylGaugeLoop2RecircFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 122, -1, -1));
+        add(chornobylGaugeLoop2RecircFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 124, -1, -1));
 
         jLabel26.setFont(jLabel26.getFont().deriveFont(jLabel26.getFont().getSize()-2f));
         jLabel26.setText("Cooldown");
-        add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 136, 52, 14));
+        add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 138, 52, 14));
 
         jLabel27.setFont(jLabel27.getFont().deriveFont(jLabel27.getFont().getSize()-2f));
         jLabel27.setText("Cooldown");
-        add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 136, 52, 14));
+        add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 138, 52, 14));
 
         jLabel28.setFont(jLabel28.getFont().deriveFont(jLabel28.getFont().getSize()-2f));
         jLabel28.setText("MCP 2");
-        add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 122, 52, 14));
+        add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 124, 52, 14));
 
         controlPanelMCPPumpColumn4.setChornobylPrefix("Loop1#mcp4");
         add(controlPanelMCPPumpColumn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 184, -1, -1));

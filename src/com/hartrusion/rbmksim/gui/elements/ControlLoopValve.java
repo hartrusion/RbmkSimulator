@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui.widgets;
+package com.hartrusion.rbmksim.gui.elements;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -40,7 +40,7 @@ import com.hartrusion.mvc.UpdateReceiver;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelWidgetControlLoopValve extends javax.swing.JPanel
+public class ControlLoopValve extends javax.swing.JPanel
         implements UpdateReceiver {
 
     protected ActionReceiver controller;
@@ -54,8 +54,8 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
 
     private String component = "undefined";
     private String actionCommand;
-    private String componentUpdateAuto;
-    private String componentUpdateValue;
+    private String componentControlState;
+    // private String componentUpdateValue;
 
     public String getComponent() {
         return component;
@@ -68,8 +68,8 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         this.component = component;
         // build component identification strings
         actionCommand = component + "ControlCommand";
-        componentUpdateAuto = component + "ControlAuto";
-        componentUpdateValue = component + "ControlUpdateU";
+        componentControlState = component + "ControlState";
+        // componentUpdateValue = component + "ControlUpdateU";
         firePropertyChange("component", old, component);
     }
 
@@ -80,7 +80,7 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
     /**
      * Creates new form ControlPanelControlledValve
      */
-    public PanelWidgetControlLoopValve() {
+    public ControlLoopValve() {
         initComponents();
     }
 
@@ -104,7 +104,8 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
     // calculates pixel value on set
     private void updateDisplayValue(double value) {
         this.value = value;
-        valueXCoord = (int) (0.36 * value + 27);
+        // 0..100 % will be between 25 px and 65 px
+        valueXCoord = (int) (0.40 * value + 25.0);
         repaint();
     }
 
@@ -134,9 +135,9 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         jButtonUpper.setText(">");
         jButtonUpper.setToolTipText("");
         jButtonUpper.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonUpper.setMaximumSize(new java.awt.Dimension(24, 20));
-        jButtonUpper.setMinimumSize(new java.awt.Dimension(24, 20));
-        jButtonUpper.setPreferredSize(new java.awt.Dimension(24, 20));
+        jButtonUpper.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonUpper.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonUpper.setPreferredSize(new java.awt.Dimension(20, 16));
         jButtonUpper.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButtonUpperMousePressed(evt);
@@ -150,9 +151,9 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         jButtonAuto.setBackground(new java.awt.Color(255, 255, 204));
         jButtonAuto.setText("Ꝋ");
         jButtonAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonAuto.setMaximumSize(new java.awt.Dimension(24, 20));
-        jButtonAuto.setMinimumSize(new java.awt.Dimension(24, 20));
-        jButtonAuto.setPreferredSize(new java.awt.Dimension(24, 20));
+        jButtonAuto.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonAuto.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonAuto.setPreferredSize(new java.awt.Dimension(20, 16));
         jButtonAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAutoActionPerformed(evt);
@@ -163,9 +164,9 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         jButtonManual.setBackground(new java.awt.Color(255, 255, 204));
         jButtonManual.setText("н");
         jButtonManual.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonManual.setMaximumSize(new java.awt.Dimension(24, 20));
-        jButtonManual.setMinimumSize(new java.awt.Dimension(24, 20));
-        jButtonManual.setPreferredSize(new java.awt.Dimension(24, 20));
+        jButtonManual.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonManual.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonManual.setPreferredSize(new java.awt.Dimension(20, 16));
         jButtonManual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonManualActionPerformed(evt);
@@ -176,9 +177,9 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         jButtonLower.setBackground(new java.awt.Color(255, 255, 204));
         jButtonLower.setText("<");
         jButtonLower.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLower.setMaximumSize(new java.awt.Dimension(24, 20));
-        jButtonLower.setMinimumSize(new java.awt.Dimension(24, 20));
-        jButtonLower.setPreferredSize(new java.awt.Dimension(24, 20));
+        jButtonLower.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonLower.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonLower.setPreferredSize(new java.awt.Dimension(20, 16));
         jButtonLower.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButtonLowerMousePressed(evt);
@@ -194,7 +195,7 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("H");
         jLabel1.setOpaque(true);
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 8, 12));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 9, 12));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutoActionPerformed
@@ -262,13 +263,13 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(componentUpdateAuto)) {
+        if (evt.getPropertyName().equals(componentControlState)) {
             switch ((ControlCommand) evt.getNewValue()) {
                 case AUTOMATIC:
                     jLabel1.setText("A");
                     break;
                 case MANUAL_OPERATION:
-                    jLabel1.setText("M");
+                    jLabel1.setText("H");
                     break;
             }
         }
@@ -281,7 +282,7 @@ public class PanelWidgetControlLoopValve extends javax.swing.JPanel
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        if (propertyName.equals(componentUpdateValue)) {
+        if (propertyName.equals(component)) {
             if (newValue < 0.0) {
                 newValue = 0.0;
             } else if (newValue > 100) {

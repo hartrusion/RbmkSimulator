@@ -71,6 +71,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelBlowdown1 = new com.hartrusion.rbmksim.gui.PanelBlowdown();
         panelFeedwater1 = new com.hartrusion.rbmksim.gui.PanelFeedwater();
         panelRodSelector1 = new com.hartrusion.rbmksim.gui.PanelCoreControl();
+        panelDeaerators1 = new com.hartrusion.rbmksim.gui.PanelDeaerators();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuPanels = new javax.swing.JMenu();
@@ -95,6 +96,8 @@ public class ControlPanel extends javax.swing.JFrame
         panelFeedwater1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         panelRodSelector1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        panelDeaerators1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jMenuFile.setText("File");
         jMenuBar1.add(jMenuFile);
@@ -187,7 +190,9 @@ public class ControlPanel extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelMCP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelBlowdown1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelBlowdown1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelDeaerators1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelRodSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,9 +209,11 @@ public class ControlPanel extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelMCP1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panelBlowdown1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelBlowdown1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelDeaerators1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(12, 12, 12))
         );
 
@@ -348,6 +355,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelMCP1.registerActionReceiver(controller);
         panelBlowdown1.registerActionReceiver(controller);
         panelFeedwater1.registerActionReceiver(controller);
+        panelDeaerators1.registerActionReceiver(controller);
     }
 
     @Override
@@ -356,6 +364,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelMCP1.updateComponent(evt);
         panelBlowdown1.updateComponent(evt);
         panelFeedwater1.updateComponent(evt);
+        panelDeaerators1.updateComponent(evt);
         if (frameMnemonicBlowdown != null) {
             frameMnemonicBlowdown.updateComponent(evt);
         }
@@ -383,6 +392,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelMCP1.updateComponent(propertyName, newValue);
         panelBlowdown1.updateComponent(propertyName, newValue);
         panelFeedwater1.updateComponent(propertyName, newValue);
+        panelDeaerators1.updateComponent(propertyName, newValue);
 
     }
 
@@ -392,6 +402,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelBlowdown1.updateComponent(propertyName, newValue);
         panelFeedwater1.updateComponent(propertyName, newValue);
         panelRodSelector1.updateComponent(propertyName, newValue);
+        panelDeaerators1.updateComponent(propertyName, newValue);
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }
@@ -415,6 +426,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelBlowdown1.updateComponent(propertyName, newValue);
         panelFeedwater1.updateComponent(propertyName, newValue);
         panelRodSelector1.updateComponent(propertyName, newValue);
+        panelDeaerators1.updateComponent(propertyName, newValue);
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }
@@ -444,6 +456,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenu jMenuPanels;
     private javax.swing.JMenuItem jMenuRodPositions;
     private com.hartrusion.rbmksim.gui.PanelBlowdown panelBlowdown1;
+    private com.hartrusion.rbmksim.gui.PanelDeaerators panelDeaerators1;
     private com.hartrusion.rbmksim.gui.PanelFeedwater panelFeedwater1;
     private com.hartrusion.rbmksim.gui.PanelMCP panelMCP1;
     private com.hartrusion.rbmksim.gui.PanelCoreControl panelRodSelector1;
