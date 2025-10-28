@@ -78,7 +78,7 @@ public class PanelDeaerators extends AbstractPanelWidget {
 
         jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getSize()-2f));
         jLabel19.setText("Level");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 48, 52, 14));
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
         chornobylGaugeDA2Level.setChornobylMaximum(220.0F);
         chornobylGaugeDA2Level.setChornobylMinimum(0.0F);
