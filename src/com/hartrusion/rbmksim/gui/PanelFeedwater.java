@@ -45,6 +45,9 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetControlLoopValve21.registerActionReceiver(controller);
         panelWidgetControlLoopValve22.registerActionReceiver(controller);
         panelWidgetControlLoopValve2s.registerActionReceiver(controller);
+        
+        setpointControl1.registerActionReceiver(controller);
+        setpointControl2.registerActionReceiver(controller);
 
     }
 
@@ -150,9 +153,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonFeed23Open.setText("O");
         jButtonFeed23Open.setToolTipText("");
         jButtonFeed23Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed23Open.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonFeed23Open.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonFeed23Open.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonFeed23Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFeed23OpenActionPerformed(evt);
@@ -164,9 +164,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonFeed23Close.setText("C");
         jButtonFeed23Close.setToolTipText("");
         jButtonFeed23Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed23Close.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonFeed23Close.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonFeed23Close.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonFeed23Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFeed23CloseActionPerformed(evt);
@@ -210,9 +207,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open2.setText("O");
         jButtonLoop2Open2.setToolTipText("");
         jButtonLoop2Open2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open2.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open2.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open2.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open2ActionPerformed(evt);
@@ -224,9 +218,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close2.setText("C");
         jButtonLoop2Close2.setToolTipText("");
         jButtonLoop2Close2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close2.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close2.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close2.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close2ActionPerformed(evt);
@@ -246,9 +237,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open3.setText("O");
         jButtonLoop2Open3.setToolTipText("");
         jButtonLoop2Open3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open3.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open3.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open3.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open3ActionPerformed(evt);
@@ -260,9 +248,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close3.setText("C");
         jButtonLoop2Close3.setToolTipText("");
         jButtonLoop2Close3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close3.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close3.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close3.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close3ActionPerformed(evt);
@@ -282,9 +267,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open4.setText("O");
         jButtonLoop2Open4.setToolTipText("");
         jButtonLoop2Open4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open4.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open4.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open4.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open4ActionPerformed(evt);
@@ -296,9 +278,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close4.setText("C");
         jButtonLoop2Close4.setToolTipText("");
         jButtonLoop2Close4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close4.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close4.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close4.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close4ActionPerformed(evt);
@@ -318,9 +297,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open5.setText("O");
         jButtonLoop2Open5.setToolTipText("");
         jButtonLoop2Open5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open5.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open5.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open5.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open5ActionPerformed(evt);
@@ -332,9 +308,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close5.setText("C");
         jButtonLoop2Close5.setToolTipText("");
         jButtonLoop2Close5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close5.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close5.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close5.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close5ActionPerformed(evt);
@@ -354,9 +327,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open6.setText("O");
         jButtonLoop2Open6.setToolTipText("");
         jButtonLoop2Open6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open6.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open6.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open6.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open6ActionPerformed(evt);
@@ -368,9 +338,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close6.setText("C");
         jButtonLoop2Close6.setToolTipText("");
         jButtonLoop2Close6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close6.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close6.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close6.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close6ActionPerformed(evt);
@@ -405,9 +372,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open7.setText("O");
         jButtonLoop2Open7.setToolTipText("");
         jButtonLoop2Open7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open7.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open7.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open7.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open7ActionPerformed(evt);
@@ -419,9 +383,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close7.setText("C");
         jButtonLoop2Close7.setToolTipText("");
         jButtonLoop2Close7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close7.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close7.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close7.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close7ActionPerformed(evt);
@@ -441,9 +402,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open8.setText("O");
         jButtonLoop2Open8.setToolTipText("");
         jButtonLoop2Open8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open8.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open8.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open8.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open8ActionPerformed(evt);
@@ -455,9 +413,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close8.setText("C");
         jButtonLoop2Close8.setToolTipText("");
         jButtonLoop2Close8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close8.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close8.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close8.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close8ActionPerformed(evt);
@@ -521,9 +476,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open9.setText("O");
         jButtonLoop2Open9.setToolTipText("");
         jButtonLoop2Open9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open9.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open9.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open9.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open9ActionPerformed(evt);
@@ -535,9 +487,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close9.setText("C");
         jButtonLoop2Close9.setToolTipText("");
         jButtonLoop2Close9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close9.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close9.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close9.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close9ActionPerformed(evt);
@@ -557,9 +506,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Open10.setText("O");
         jButtonLoop2Open10.setToolTipText("");
         jButtonLoop2Open10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open10.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open10.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open10.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Open10ActionPerformed(evt);
@@ -571,9 +517,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jButtonLoop2Close10.setText("C");
         jButtonLoop2Close10.setToolTipText("");
         jButtonLoop2Close10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close10.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close10.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close10.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2Close10ActionPerformed(evt);
@@ -654,7 +597,11 @@ public class PanelFeedwater extends AbstractPanelWidget
         chornobylGaugeLoop2Level1.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
         chornobylGaugeLoop2Level1.setChornobylUnitText("kg/s");
         add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
+
+        setpointControl1.setComponent("Loop1#DrumLevelSetpoint");
         add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 284, -1, -1));
+
+        setpointControl2.setComponent("Loop2#DrumLevelSetpoint");
         add(setpointControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, -1, -1));
 
         jLabel9.setFont(jLabel9.getFont().deriveFont(jLabel9.getFont().getSize()-2f));
@@ -888,6 +835,9 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetControlLoopValve21.updateComponent(propertyName, newValue);
         panelWidgetControlLoopValve22.updateComponent(propertyName, newValue);
         panelWidgetControlLoopValve2s.updateComponent(propertyName, newValue);
+        
+        setpointControl1.updateComponent(propertyName, newValue);
+        setpointControl2.updateComponent(propertyName, newValue);
     }
 
     @Override

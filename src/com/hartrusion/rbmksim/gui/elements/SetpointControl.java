@@ -49,7 +49,7 @@ public class SetpointControl extends javax.swing.JPanel
     }
     
     public String getFormat() {
-        return component;
+        return displayFormat;
     }
 
     @BeanProperty(preferred = true, visualUpdate = true, description
@@ -126,7 +126,7 @@ public class SetpointControl extends javax.swing.JPanel
         add(jButtonLower, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 2, 16, 18));
 
         jLabelReading.setBackground(new java.awt.Color(51, 51, 51));
-        jLabelReading.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelReading.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         jLabelReading.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReading.setText("___,_");
