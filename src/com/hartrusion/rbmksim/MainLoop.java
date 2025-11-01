@@ -123,9 +123,8 @@ public class MainLoop implements Runnable, ModelManipulation {
          Logger.getLogger(MainLoop.class.getName())
                     .log(Level.INFO, "Received Action: " + ac.getPropertyName()
                     + ", Value: " + ac.getValue());
-        if (ac.getPropertyName().startsWith("Reactor")) {
-            core.handleAction(ac);
-        }
+        
+        core.handleAction(ac);
         process.handleAction(ac);
     }
 

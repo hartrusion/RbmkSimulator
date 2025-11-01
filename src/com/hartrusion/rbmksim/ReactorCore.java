@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.control.Setpoint;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
@@ -40,6 +41,9 @@ public class ReactorCore implements Runnable, ModelManipulation {
 
     private ModelListener controller;
 
+    private final Setpoint setpointPowerGradient;
+    private final Setpoint setpointNeutronFlux;
+
     /**
      * Stores all output values as string value pair. Values from model will be
      * written into this handler.
@@ -56,7 +60,7 @@ public class ReactorCore implements Runnable, ModelManipulation {
     private final List<ControlRod> controlRods = new ArrayList<>();
 
     /**
-     * Each rod has the possibility to absorp between 0 and 1, short rods will
+     * Each rod has the possibility to absorb between 0 and 1, short rods will
      * do a smaller value. This is the total sum of those factors.
      */
     private double maxAbsorption = 0.0; // should be inited to 35.4
@@ -84,8 +88,19 @@ public class ReactorCore implements Runnable, ModelManipulation {
     private final NeutronFluxModel neutronFluxModel = new NeutronFluxModel();
     private final XenonModel xenonModel = new XenonModel();
 
+    ReactorCore() {
+        setpointPowerGradient = new Setpoint();
+        setpointPowerGradient.initName("SetpointPowerGradient");
+
+        setpointNeutronFlux = new Setpoint();
+        setpointNeutronFlux.initName("SetpointNeutronFlux");
+    }
+
     @Override
     public void run() {
+        setpointNeutronFlux.run();
+        setpointPowerGradient.run();
+
         for (ControlRod rod : controlRods) {
             // Write speed change to selected rods:
             if (rod.isSelected() && !rod.isAutomatic()) {
@@ -113,7 +128,7 @@ public class ReactorCore implements Runnable, ModelManipulation {
         avgRodPosition = totalPosition / (double) controlRods.size();
         // Generate a 0..100 % value from rod absorption
         rodAbsorption = absorption / maxAbsorption * 100;
-        
+
         // This magic formula sets how the whole thing behaves
         reactivity = 65.0 // generally present reactivity.
                 - xenonModel.getYXenon() / 200 * 60
@@ -168,6 +183,12 @@ public class ReactorCore implements Runnable, ModelManipulation {
      */
     @Override
     public void handleAction(ActionCommand ac) {
+        if (setpointNeutronFlux.handleAction(ac)) {
+            return;
+        } else if (setpointPowerGradient.handleAction(ac)) {
+            return;
+        }
+
         if (!ac.getPropertyName().startsWith("Reactor#")) {
             return;
         }
@@ -323,6 +344,12 @@ public class ReactorCore implements Runnable, ModelManipulation {
         for (ControlRod rod : controlRods) {
             maxAbsorption += rod.getMaxAbsorption();
         }
+
+        setpointPowerGradient.setUpperLimit(1.0);
+        setpointPowerGradient.setMaxRate(0.2);
+
+        setpointNeutronFlux.forceOutputValue(40.0);
+        setpointNeutronFlux.setMaxRate(8);
     } // </editor-fold>
 
     public ReactorElement getElement(int x, int y) {
@@ -370,6 +397,8 @@ public class ReactorCore implements Runnable, ModelManipulation {
 
     public void registerParameterOutput(ParameterHandler output) {
         this.outputValues = output;
+        setpointNeutronFlux.initParameterHandler(outputValues);
+        setpointPowerGradient.initParameterHandler(outputValues);
     }
 
     public void registerPlotDataVault(FloatSeriesVault plotData) {

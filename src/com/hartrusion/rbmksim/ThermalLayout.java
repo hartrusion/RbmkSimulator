@@ -178,7 +178,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatValveControlled[][] feedwaterFlowRegulationValve
             = new HeatValveControlled[2][3];
     // </editor-fold>
-
+    
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
@@ -434,7 +434,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             }
         }
 
-        //</editor-fold>
+        //</editor-fold>      
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx] = new Setpoint();
             setpointDrumLevel[idx].initName(
@@ -483,7 +483,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .initParameterHandler(outputValues);
             }
         }
-
+        
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx].initParameterHandler(outputValues);
@@ -853,8 +853,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(setpointDrumLevel[idx]);
         }
-
+        
         // Control Loop configuration
+        
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx].setLowerLimit(-10);
             setpointDrumLevel[idx].setUpperLimit(10);
@@ -1170,7 +1171,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     }
                 }
             }
-            // level regulation valves
+            // level regulation valves (those include control elements)
             for (int idx = 0; idx < 2; idx++) {
                 for (int jdx = 0; jdx < 3; jdx++) {
                     if (feedwaterFlowRegulationValve[idx][jdx]
@@ -1179,7 +1180,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     }
                 }
             }
-        } else {
+            // Shutoff valves
+            
+        } else {             
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
                 case "Main1#SteamShutoffValve":

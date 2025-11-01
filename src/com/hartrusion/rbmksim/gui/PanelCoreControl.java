@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
@@ -153,7 +154,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton4028.setBackground(new java.awt.Color(0, 128, 0));
-        jButton4028.setFont(jButton4028.getFont().deriveFont(jButton4028.getFont().getSize()-4f));
+        jButton4028.setFont(jButton4028.getFont().deriveFont(jButton4028.getFont().getSize()-5f));
         jButton4028.setText("40-28");
         jButton4028.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4028.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -166,7 +167,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton4028, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 102, 26, 26));
 
         jButton4031.setBackground(new java.awt.Color(0, 128, 0));
-        jButton4031.setFont(jButton4031.getFont().deriveFont(jButton4031.getFont().getSize()-4f));
+        jButton4031.setFont(jButton4031.getFont().deriveFont(jButton4031.getFont().getSize()-5f));
         jButton4031.setText("40-31");
         jButton4031.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4031.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -180,7 +181,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton4031, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 102, -1, -1));
 
         jButton4034.setBackground(new java.awt.Color(0, 128, 0));
-        jButton4034.setFont(jButton4034.getFont().deriveFont(jButton4034.getFont().getSize()-4f));
+        jButton4034.setFont(jButton4034.getFont().deriveFont(jButton4034.getFont().getSize()-5f));
         jButton4034.setText("40-34");
         jButton4034.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4034.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -194,7 +195,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton4034, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 102, -1, -1));
 
         jButton3728.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3728.setFont(jButton3728.getFont().deriveFont(jButton3728.getFont().getSize()-4f));
+        jButton3728.setFont(jButton3728.getFont().deriveFont(jButton3728.getFont().getSize()-5f));
         jButton3728.setText("37-28");
         jButton3728.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3728.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -207,7 +208,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3728, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 134, 26, 26));
 
         jButton3725.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3725.setFont(jButton3725.getFont().deriveFont(jButton3725.getFont().getSize()-4f));
+        jButton3725.setFont(jButton3725.getFont().deriveFont(jButton3725.getFont().getSize()-5f));
         jButton3725.setText("37-25");
         jButton3725.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3725.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -220,7 +221,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3725, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 134, 26, 26));
 
         jButton3731.setBackground(new java.awt.Color(128, 0, 0));
-        jButton3731.setFont(jButton3731.getFont().deriveFont(jButton3731.getFont().getSize()-4f));
+        jButton3731.setFont(jButton3731.getFont().deriveFont(jButton3731.getFont().getSize()-5f));
         jButton3731.setText("37-31");
         jButton3731.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3731.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -233,7 +234,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 134, 26, 26));
 
         jButton3734.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3734.setFont(jButton3734.getFont().deriveFont(jButton3734.getFont().getSize()-4f));
+        jButton3734.setFont(jButton3734.getFont().deriveFont(jButton3734.getFont().getSize()-5f));
         jButton3734.setText("37-34");
         jButton3734.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3734.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -246,7 +247,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3734, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 134, 26, 26));
 
         jButton3737.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3737.setFont(jButton3737.getFont().deriveFont(jButton3737.getFont().getSize()-4f));
+        jButton3737.setFont(jButton3737.getFont().deriveFont(jButton3737.getFont().getSize()-5f));
         jButton3737.setText("37-37");
         jButton3737.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3737.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -259,7 +260,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3737, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 134, 26, 26));
 
         jButton3428.setBackground(new java.awt.Color(128, 128, 0));
-        jButton3428.setFont(jButton3428.getFont().deriveFont(jButton3428.getFont().getSize()-4f));
+        jButton3428.setFont(jButton3428.getFont().deriveFont(jButton3428.getFont().getSize()-5f));
         jButton3428.setText("34-28");
         jButton3428.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3428.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -272,7 +273,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 166, 26, 26));
 
         jButton3425.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3425.setFont(jButton3425.getFont().deriveFont(jButton3425.getFont().getSize()-4f));
+        jButton3425.setFont(jButton3425.getFont().deriveFont(jButton3425.getFont().getSize()-5f));
         jButton3425.setText("34-25");
         jButton3425.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3425.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -285,7 +286,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3425, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 166, 26, 26));
 
         jButton3431.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3431.setFont(jButton3431.getFont().deriveFont(jButton3431.getFont().getSize()-4f));
+        jButton3431.setFont(jButton3431.getFont().deriveFont(jButton3431.getFont().getSize()-5f));
         jButton3431.setText("34-31");
         jButton3431.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3431.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -298,7 +299,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3431, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 166, 26, 26));
 
         jButton3434.setBackground(new java.awt.Color(128, 128, 0));
-        jButton3434.setFont(jButton3434.getFont().deriveFont(jButton3434.getFont().getSize()-4f));
+        jButton3434.setFont(jButton3434.getFont().deriveFont(jButton3434.getFont().getSize()-5f));
         jButton3434.setText("34-34");
         jButton3434.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3434.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -311,7 +312,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 166, 26, 26));
 
         jButton3437.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3437.setFont(jButton3437.getFont().deriveFont(jButton3437.getFont().getSize()-4f));
+        jButton3437.setFont(jButton3437.getFont().deriveFont(jButton3437.getFont().getSize()-5f));
         jButton3437.setText("34-37");
         jButton3437.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3437.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -324,7 +325,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3437, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 166, 26, 26));
 
         jButton3440.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3440.setFont(jButton3440.getFont().deriveFont(jButton3440.getFont().getSize()-4f));
+        jButton3440.setFont(jButton3440.getFont().deriveFont(jButton3440.getFont().getSize()-5f));
         jButton3440.setText("34-40");
         jButton3440.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3440.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -337,7 +338,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3440, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 166, 26, 26));
 
         jButton3422.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3422.setFont(jButton3422.getFont().deriveFont(jButton3422.getFont().getSize()-4f));
+        jButton3422.setFont(jButton3422.getFont().deriveFont(jButton3422.getFont().getSize()-5f));
         jButton3422.setText("34-22");
         jButton3422.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3422.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -350,7 +351,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3422, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 166, 26, 26));
 
         jButton3122.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3122.setFont(jButton3122.getFont().deriveFont(jButton3122.getFont().getSize()-4f));
+        jButton3122.setFont(jButton3122.getFont().deriveFont(jButton3122.getFont().getSize()-5f));
         jButton3122.setText("31-22");
         jButton3122.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3122.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -363,7 +364,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3122, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 198, 26, 26));
 
         jButton3128.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3128.setFont(jButton3128.getFont().deriveFont(jButton3128.getFont().getSize()-4f));
+        jButton3128.setFont(jButton3128.getFont().deriveFont(jButton3128.getFont().getSize()-5f));
         jButton3128.setText("31-28");
         jButton3128.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3128.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -376,7 +377,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3128, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 198, 26, 26));
 
         jButton3125.setBackground(new java.awt.Color(128, 0, 0));
-        jButton3125.setFont(jButton3125.getFont().deriveFont(jButton3125.getFont().getSize()-4f));
+        jButton3125.setFont(jButton3125.getFont().deriveFont(jButton3125.getFont().getSize()-5f));
         jButton3125.setText("31-25");
         jButton3125.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3125.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -389,7 +390,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 198, 26, 26));
 
         jButton3131.setBackground(new java.awt.Color(128, 0, 0));
-        jButton3131.setFont(jButton3131.getFont().deriveFont(jButton3131.getFont().getSize()-4f));
+        jButton3131.setFont(jButton3131.getFont().deriveFont(jButton3131.getFont().getSize()-5f));
         jButton3131.setText("31-31");
         jButton3131.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3131.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -402,7 +403,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 198, 26, 26));
 
         jButton3134.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3134.setFont(jButton3134.getFont().deriveFont(jButton3134.getFont().getSize()-4f));
+        jButton3134.setFont(jButton3134.getFont().deriveFont(jButton3134.getFont().getSize()-5f));
         jButton3134.setText("31-34");
         jButton3134.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3134.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -415,7 +416,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3134, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 198, 26, 26));
 
         jButton3137.setBackground(new java.awt.Color(128, 0, 0));
-        jButton3137.setFont(jButton3137.getFont().deriveFont(jButton3137.getFont().getSize()-4f));
+        jButton3137.setFont(jButton3137.getFont().deriveFont(jButton3137.getFont().getSize()-5f));
         jButton3137.setText("31-37");
         jButton3137.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3137.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -428,7 +429,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 198, 26, 26));
 
         jButton3140.setBackground(new java.awt.Color(0, 128, 0));
-        jButton3140.setFont(jButton3140.getFont().deriveFont(jButton3140.getFont().getSize()-4f));
+        jButton3140.setFont(jButton3140.getFont().deriveFont(jButton3140.getFont().getSize()-5f));
         jButton3140.setText("31-40");
         jButton3140.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3140.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -441,7 +442,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton3140, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 198, 26, 26));
 
         jButton2822.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2822.setFont(jButton2822.getFont().deriveFont(jButton2822.getFont().getSize()-4f));
+        jButton2822.setFont(jButton2822.getFont().deriveFont(jButton2822.getFont().getSize()-5f));
         jButton2822.setText("28-22");
         jButton2822.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2822.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -454,7 +455,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2822, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 26, 26));
 
         jButton2828.setBackground(new java.awt.Color(128, 128, 0));
-        jButton2828.setFont(jButton2828.getFont().deriveFont(jButton2828.getFont().getSize()-4f));
+        jButton2828.setFont(jButton2828.getFont().deriveFont(jButton2828.getFont().getSize()-5f));
         jButton2828.setText("28-28");
         jButton2828.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2828.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -467,7 +468,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 230, 26, 26));
 
         jButton2825.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2825.setFont(jButton2825.getFont().deriveFont(jButton2825.getFont().getSize()-4f));
+        jButton2825.setFont(jButton2825.getFont().deriveFont(jButton2825.getFont().getSize()-5f));
         jButton2825.setText("28-25");
         jButton2825.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2825.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -480,7 +481,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2825, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 230, 26, 26));
 
         jButton2831.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2831.setFont(jButton2831.getFont().deriveFont(jButton2831.getFont().getSize()-4f));
+        jButton2831.setFont(jButton2831.getFont().deriveFont(jButton2831.getFont().getSize()-5f));
         jButton2831.setText("28-31");
         jButton2831.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2831.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -493,7 +494,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2831, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 230, 26, 26));
 
         jButton2834.setBackground(new java.awt.Color(128, 128, 0));
-        jButton2834.setFont(jButton2834.getFont().deriveFont(jButton2834.getFont().getSize()-4f));
+        jButton2834.setFont(jButton2834.getFont().deriveFont(jButton2834.getFont().getSize()-5f));
         jButton2834.setText("28-34");
         jButton2834.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2834.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -506,7 +507,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 230, 26, 26));
 
         jButton2837.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2837.setFont(jButton2837.getFont().deriveFont(jButton2837.getFont().getSize()-4f));
+        jButton2837.setFont(jButton2837.getFont().deriveFont(jButton2837.getFont().getSize()-5f));
         jButton2837.setText("28-37");
         jButton2837.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2837.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -519,7 +520,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2837, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 26, 26));
 
         jButton2840.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2840.setFont(jButton2840.getFont().deriveFont(jButton2840.getFont().getSize()-4f));
+        jButton2840.setFont(jButton2840.getFont().deriveFont(jButton2840.getFont().getSize()-5f));
         jButton2840.setText("28-40");
         jButton2840.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2840.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -532,7 +533,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2840, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 230, 26, 26));
 
         jButton2528.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2528.setFont(jButton2528.getFont().deriveFont(jButton2528.getFont().getSize()-4f));
+        jButton2528.setFont(jButton2528.getFont().deriveFont(jButton2528.getFont().getSize()-5f));
         jButton2528.setText("25-28");
         jButton2528.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2528.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -545,7 +546,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2528, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 262, 26, 26));
 
         jButton2525.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2525.setFont(jButton2525.getFont().deriveFont(jButton2525.getFont().getSize()-4f));
+        jButton2525.setFont(jButton2525.getFont().deriveFont(jButton2525.getFont().getSize()-5f));
         jButton2525.setText("25-25");
         jButton2525.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2525.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -558,7 +559,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2525, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 262, 26, 26));
 
         jButton2531.setBackground(new java.awt.Color(128, 0, 0));
-        jButton2531.setFont(jButton2531.getFont().deriveFont(jButton2531.getFont().getSize()-4f));
+        jButton2531.setFont(jButton2531.getFont().deriveFont(jButton2531.getFont().getSize()-5f));
         jButton2531.setText("25-31");
         jButton2531.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2531.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -571,7 +572,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 262, 26, 26));
 
         jButton2534.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2534.setFont(jButton2534.getFont().deriveFont(jButton2534.getFont().getSize()-4f));
+        jButton2534.setFont(jButton2534.getFont().deriveFont(jButton2534.getFont().getSize()-5f));
         jButton2534.setText("25-34");
         jButton2534.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2534.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -584,7 +585,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2534, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 262, 26, 26));
 
         jButton2537.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2537.setFont(jButton2537.getFont().deriveFont(jButton2537.getFont().getSize()-4f));
+        jButton2537.setFont(jButton2537.getFont().deriveFont(jButton2537.getFont().getSize()-5f));
         jButton2537.setText("25-37");
         jButton2537.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2537.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -597,7 +598,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2537, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 262, 26, 26));
 
         jButton2228.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2228.setFont(jButton2228.getFont().deriveFont(jButton2228.getFont().getSize()-4f));
+        jButton2228.setFont(jButton2228.getFont().deriveFont(jButton2228.getFont().getSize()-5f));
         jButton2228.setText("22-28");
         jButton2228.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2228.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -610,7 +611,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2228, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 294, 26, 26));
 
         jButton2231.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2231.setFont(jButton2231.getFont().deriveFont(jButton2231.getFont().getSize()-4f));
+        jButton2231.setFont(jButton2231.getFont().deriveFont(jButton2231.getFont().getSize()-5f));
         jButton2231.setText("22-31");
         jButton2231.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2231.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -624,7 +625,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jButton2231, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 294, -1, -1));
 
         jButton2234.setBackground(new java.awt.Color(0, 128, 0));
-        jButton2234.setFont(jButton2234.getFont().deriveFont(jButton2234.getFont().getSize()-4f));
+        jButton2234.setFont(jButton2234.getFont().deriveFont(jButton2234.getFont().getSize()-5f));
         jButton2234.setText("22-34");
         jButton2234.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2234.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -830,8 +831,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jLabelCaptionControlGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 34, 52, 14));
 
         chornobylGaugControlGradient.setChornobylMaximum(1.0F);
-        chornobylGaugControlGradient.setChornobylMinimum(-1.0F);
-        chornobylGaugControlGradient.setChornobylTicks(new float[] {-0.8f, -0.4f, 0.0f, 0.4f, 0.8f});
+        chornobylGaugControlGradient.setChornobylMinimum(-0.1F);
+        chornobylGaugControlGradient.setChornobylTicks(new float[] {0.0f, 0.2f, 0.4f, 0.6f, 0.8f});
         chornobylGaugControlGradient.setChornobylUnitText("%/s");
         chornobylGaugControlGradient.setChornobylValue(0.0F);
         add(chornobylGaugControlGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
@@ -993,9 +994,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonSetpointPos.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonSetpointPos.setMinimumSize(new java.awt.Dimension(18, 22));
         jButtonSetpointPos.setPreferredSize(new java.awt.Dimension(18, 22));
-        jButtonSetpointPos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSetpointPosActionPerformed(evt);
+        jButtonSetpointPos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonSetpointPosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonSetpointPosMouseReleased(evt);
             }
         });
         add(jButtonSetpointPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 130, 18, 22));
@@ -1007,9 +1011,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonSetpointNeg.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonSetpointNeg.setMinimumSize(new java.awt.Dimension(18, 22));
         jButtonSetpointNeg.setPreferredSize(new java.awt.Dimension(18, 22));
-        jButtonSetpointNeg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSetpointNegActionPerformed(evt);
+        jButtonSetpointNeg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonSetpointNegMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonSetpointNegMouseReleased(evt);
             }
         });
         add(jButtonSetpointNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 18, 22));
@@ -1029,9 +1036,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonGradientPos.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonGradientPos.setMinimumSize(new java.awt.Dimension(18, 22));
         jButtonGradientPos.setPreferredSize(new java.awt.Dimension(18, 22));
-        jButtonGradientPos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGradientPosActionPerformed(evt);
+        jButtonGradientPos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonGradientPosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonGradientPosMouseReleased(evt);
             }
         });
         add(jButtonGradientPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 178, 18, 22));
@@ -1043,9 +1053,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonGradientNeg.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonGradientNeg.setMinimumSize(new java.awt.Dimension(18, 22));
         jButtonGradientNeg.setPreferredSize(new java.awt.Dimension(18, 22));
-        jButtonGradientNeg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGradientNegActionPerformed(evt);
+        jButtonGradientNeg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonGradientNegMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonGradientNegMouseReleased(evt);
             }
         });
         add(jButtonGradientNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 178, 18, 22));
@@ -1425,22 +1438,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
         controller.userAction(new ActionCommand("Reactor#AllRodStop", null));
     }//GEN-LAST:event_jButtonClearSelection2ActionPerformed
 
-    private void jButtonSetpointPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointPosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSetpointPosActionPerformed
-
-    private void jButtonSetpointNegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointNegActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSetpointNegActionPerformed
-
-    private void jButtonGradientPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGradientPosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGradientPosActionPerformed
-
-    private void jButtonGradientNegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGradientNegActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGradientNegActionPerformed
-
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
@@ -1468,6 +1465,46 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private void jButtonReset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReset1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonReset1ActionPerformed
+
+    private void jButtonSetpointNegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointNegMousePressed
+        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+                ControlCommand.SETPOINT_DECREASE));
+    }//GEN-LAST:event_jButtonSetpointNegMousePressed
+
+    private void jButtonSetpointNegMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointNegMouseReleased
+        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+                ControlCommand.SETPOINT_STOP));
+    }//GEN-LAST:event_jButtonSetpointNegMouseReleased
+
+    private void jButtonSetpointPosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointPosMousePressed
+        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+                ControlCommand.SETPOINT_INCREASE));
+    }//GEN-LAST:event_jButtonSetpointPosMousePressed
+
+    private void jButtonSetpointPosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointPosMouseReleased
+        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+                ControlCommand.SETPOINT_STOP));
+    }//GEN-LAST:event_jButtonSetpointPosMouseReleased
+
+    private void jButtonGradientNegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientNegMousePressed
+        controller.userAction(new ActionCommand("SetpointPowerGradient",
+                ControlCommand.SETPOINT_DECREASE));
+    }//GEN-LAST:event_jButtonGradientNegMousePressed
+
+    private void jButtonGradientNegMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientNegMouseReleased
+        controller.userAction(new ActionCommand("SetpointPowerGradient",
+                ControlCommand.SETPOINT_STOP));
+    }//GEN-LAST:event_jButtonGradientNegMouseReleased
+
+    private void jButtonGradientPosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientPosMousePressed
+        controller.userAction(new ActionCommand("SetpointPowerGradient",
+                ControlCommand.SETPOINT_INCREASE));
+    }//GEN-LAST:event_jButtonGradientPosMousePressed
+
+    private void jButtonGradientPosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientPosMouseReleased
+        controller.userAction(new ActionCommand("SetpointPowerGradient",
+                ControlCommand.SETPOINT_STOP));
+    }//GEN-LAST:event_jButtonGradientPosMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1622,18 +1659,19 @@ public class PanelCoreControl extends AbstractPanelWidget {
     @Override
     public void updateComponent(String propertyName, double newValue) {
         switch (propertyName) {
-            case "Reactor#NeutronFlux":
+            case "Reactor#NeutronFlux" ->
                 chornobylGaugeNeutronFlux.setChornobylValue((float) newValue);
-                break;
-            case "Reactor#NeutronFluxLog":
+            case "Reactor#NeutronFluxLog" ->
                 chornobylGaugeFluxLog.setChornobylValue((float) newValue);
-                break;
-            case "Reactor#NeutronRate":
+            case "Reactor#NeutronRate" ->
                 chornobylGaugeNeutronRate.setChornobylValue((float) newValue);
-                break;
-            case "Reactor#ThermalPower":
+            case "Reactor#ThermalPower" ->
                 jLabelReadingThermalPower.setText(
                         String.format("%05d", Math.round(newValue)));
+            case "SetpointNeutronFlux" ->
+                chornobylGaugeNeutronSetpoint.setChornobylValue((float) newValue);
+            case "SetpointPowerGradient" ->
+                chornobylGaugControlGradient.setChornobylValue((float) newValue);
         }
     }
 

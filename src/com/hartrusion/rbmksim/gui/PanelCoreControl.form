@@ -37,7 +37,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton4028" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton4028" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="40-28"/>
@@ -67,7 +67,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton4031" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton4031" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="40-31"/>
@@ -100,7 +100,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton4034" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton4034" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="40-34"/>
@@ -133,7 +133,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3728" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3728" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-28"/>
@@ -163,7 +163,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3725" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3725" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-25"/>
@@ -193,7 +193,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3731" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3731" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-31"/>
@@ -223,7 +223,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3734" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3734" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-34"/>
@@ -253,7 +253,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3737" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3737" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-37"/>
@@ -283,7 +283,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3428" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3428" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-28"/>
@@ -313,7 +313,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3425" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3425" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-25"/>
@@ -343,7 +343,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3431" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3431" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-31"/>
@@ -373,7 +373,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3434" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3434" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-34"/>
@@ -403,7 +403,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3437" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3437" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-37"/>
@@ -433,7 +433,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3440" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3440" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-40"/>
@@ -463,7 +463,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3422" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3422" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-22"/>
@@ -493,7 +493,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3122" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3122" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-22"/>
@@ -523,7 +523,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3128" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3128" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-28"/>
@@ -553,7 +553,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3125" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3125" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-25"/>
@@ -583,7 +583,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3131" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3131" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-31"/>
@@ -613,7 +613,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3134" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3134" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-34"/>
@@ -643,7 +643,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3137" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3137" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-37"/>
@@ -673,7 +673,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton3140" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton3140" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-40"/>
@@ -703,7 +703,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2822" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2822" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-22"/>
@@ -733,7 +733,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2828" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2828" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-28"/>
@@ -763,7 +763,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2825" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2825" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-25"/>
@@ -793,7 +793,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2831" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2831" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-31"/>
@@ -823,7 +823,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2834" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2834" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-34"/>
@@ -853,7 +853,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2837" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2837" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-37"/>
@@ -883,7 +883,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2840" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2840" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-40"/>
@@ -913,7 +913,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2528" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2528" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-28"/>
@@ -943,7 +943,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2525" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2525" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-25"/>
@@ -973,7 +973,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2531" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2531" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-31"/>
@@ -1003,7 +1003,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2534" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2534" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-34"/>
@@ -1033,7 +1033,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2537" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2537" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-37"/>
@@ -1063,7 +1063,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2228" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2228" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="22-28"/>
@@ -1093,7 +1093,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2231" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2231" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="22-31"/>
@@ -1126,7 +1126,7 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButton2234" property="font" relativeSize="true" size="-4"/>
+            <Font component="jButton2234" property="font" relativeSize="true" size="-5"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="22-34"/>
@@ -1672,9 +1672,9 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugControlGradient">
       <Properties>
         <Property name="chornobylMaximum" type="float" value="1.0"/>
-        <Property name="chornobylMinimum" type="float" value="-1.0"/>
+        <Property name="chornobylMinimum" type="float" value="-0.1"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[-0.8, -0.4, 0.0, 0.4, 0.8]"/>
+          <PropertyValue value="[0.0, 0.2, 0.4, 0.6, 0.8]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="%/s"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
@@ -2123,7 +2123,8 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSetpointPosActionPerformed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSetpointPosMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSetpointPosMouseReleased"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2154,7 +2155,8 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSetpointNegActionPerformed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSetpointNegMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSetpointNegMouseReleased"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2210,7 +2212,8 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGradientPosActionPerformed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonGradientPosMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonGradientPosMouseReleased"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2241,7 +2244,8 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGradientNegActionPerformed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonGradientNegMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonGradientNegMouseReleased"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
