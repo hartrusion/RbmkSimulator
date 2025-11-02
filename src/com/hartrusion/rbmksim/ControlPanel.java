@@ -27,6 +27,7 @@ import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
 import com.hartrusion.rbmksim.gui.FrameRodPositions;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
+import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicInternalLoad;
 
 /**
@@ -40,15 +41,16 @@ public class ControlPanel extends javax.swing.JFrame
 
     FrameRodPositions frameRodPositions;
     FrameCoreActivity frameCoreActivity;
-        
+
     FrameMnemonicCore frameMnemonicCore;
     FrameMnemonicBlowdown frameMnemonicBlowdown;
     FrameMnemonicLoop frameMnemonicLoop1;
     FrameMnemonicLoop frameMnemonicLoop2;
     FrameMnemonicInternalLoad frameMnemonicInternalLoad;
-    
+    FrameMnemonicFeedwater frameMnemonicFeedwater;
+
     FrameDiagramNeutronFlux frameDiagramNeutronFlux;
-    
+
     FloatSeriesVault plotData;
 
     /**
@@ -82,6 +84,7 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
@@ -155,6 +158,14 @@ public class ControlPanel extends javax.swing.JFrame
             }
         });
         jMenuMnemonics.add(jMenuItem3);
+
+        jMenuItem6.setText("Feedwater");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenuMnemonics.add(jMenuItem6);
 
         jMenuItem4.setText("Internal Load");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -348,6 +359,22 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        if (frameMnemonicFeedwater == null) {
+            frameMnemonicFeedwater = new FrameMnemonicFeedwater();
+            controller.fireLastPropertyChangesTo(frameMnemonicFeedwater);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameMnemonicFeedwater.setVisible(true);
+            });
+            frameMnemonicFeedwater.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameMnemonicFeedwater = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -373,6 +400,9 @@ public class ControlPanel extends javax.swing.JFrame
         }
         if (frameMnemonicLoop2 != null) {
             frameMnemonicLoop2.updateComponent(evt);
+        }
+        if (frameMnemonicFeedwater != null) {
+            frameMnemonicFeedwater.updateComponent(evt);
         }
     }
 
@@ -418,6 +448,9 @@ public class ControlPanel extends javax.swing.JFrame
         if (frameMnemonicLoop2 != null) {
             frameMnemonicLoop2.updateComponent(propertyName, newValue);
         }
+        if (frameMnemonicFeedwater != null) {
+            frameMnemonicFeedwater.updateComponent(propertyName, newValue);
+        }
     }
 
     @Override
@@ -451,6 +484,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;

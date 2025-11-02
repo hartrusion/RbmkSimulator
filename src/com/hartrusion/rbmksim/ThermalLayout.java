@@ -74,7 +74,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
     private final PhasedNode mainSteam;
-    
+
     private final PhasedClosedSteamedReservoir[] loopSteamDrum
             = new PhasedClosedSteamedReservoir[2];
     private final PhasedNode[] loopNodeDrumWaterOut = new PhasedNode[2];
@@ -178,15 +178,15 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatValveControlled[][] feedwaterFlowRegulationValve
             = new HeatValveControlled[2][3];
     // </editor-fold>
-    
+
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
-    
+
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
-    
+
     private final AbstractController controlLoopBlowdownDrumLevel
             = new PControl();
-    
+
     private ModelListener controller;
 
     /**
@@ -194,13 +194,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
      * written into this handler.
      */
     private ParameterHandler outputValues;
-    
+
     private FloatSeriesVault plotData;
-    
+
     private double voiding = 0;
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{24e6, 24e6};
-    
+
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
         // Generate all instances and name them. This is done here and not in
@@ -216,7 +216,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         mainSteam = new PhasedNode();
         mainSteam.setName("MainSteam");
-        
+
         for (int idx = 0; idx < 2; idx++) {
             loopSteamDrum[idx] = new PhasedClosedSteamedReservoir(phasedWater);
             loopSteamDrum[idx].setName("Loop" + (idx + 1) + "SteamDrum");
@@ -273,7 +273,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     = new PhasedExpandingThermalExchanger(phasedWater);
             loopEvaporator[idx].setName("Loop" + (idx + 1) + "#Evaporator");
         }
-        
+
         fuelGroundNode = new GeneralNode(PhysicalDomain.THERMAL);
         fuelGroundNode.setName("Fuel#GroundNode");
         fuelGround = new OpenOrigin(PhysicalDomain.THERMAL);
@@ -294,7 +294,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             fuelEvaporatorNode[idx] = new GeneralNode(PhysicalDomain.THERMAL);
             fuelEvaporatorNode[idx].setName("Fuel#EvaporatorNode" + (idx + 1));
         }
-        
+
         for (int idx = 0; idx < 2; idx++) {
             blowdownValveFromLoop[idx] = new HeatValve();
             blowdownValveFromLoop[idx].initName(
@@ -366,7 +366,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             blowdownReturnValve[idx] = new HeatValve();
             blowdownReturnValve[idx].initName("Blowdown#ReturnValve" + (idx + 1));
         }
-        
+
         for (int idx = 0; idx < 2; idx++) {
             deaerator[idx] = new PhasedClosedSteamedReservoir(phasedWater);
             deaerator[idx].setName("Deaerator" + (idx + 1));
@@ -384,7 +384,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaeratorOutHeatNode[idx].setName(
                     "Deaerator" + (idx + 1) + "#OutHeatNode");
         }
-        
+
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
                 feedwaterPump[idx][jdx] = new HeatFluidPumpRealSwitching();
@@ -441,7 +441,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     "Loop" + (idx + 1) + "#DrumLevelSetpoint");
         }
     }
-    
+
     public void init() {
         // Attach controller to monitor elements. Those monitor elements are
         // part of assemblies and send events to the controller, like a valve
@@ -483,7 +483,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .initParameterHandler(outputValues);
             }
         }
-        
+
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx].initParameterHandler(outputValues);
@@ -740,7 +740,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownToRegeneratorFirstResistance.setResistanceParameter(1000);
         blowdownToRegeneratorSecondResistance.setResistanceParameter(1000);
         blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
-        
+
         for (int idx = 0; idx < 2; idx++) {
             // RXmodel has a base area of 40, use this value here
             deaerator[idx].setBaseArea(40);
@@ -753,13 +753,23 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 feedwaterPump[idx][jdx].initCharacteristic(16e5, 12e5, 900);
             }
         }
+        feedwaterPump3.initCharacteristic(16e5, 12e5, 900);
+        // Todo: Feedwater valves characteristic
+        for (int idx = 0; idx < 2; idx++) {
+            feedwaterSparePumpOutValve[idx].initCharacteristic(500, -1.0);
+            feedwaterStartupReductionValve[idx].initCharacteristic(500, -1.0);
+            for (int jdx = 0; jdx < 3; jdx++) {
+                feedwaterShutoffValve[idx][jdx].initCharacteristic(500, -1.0);
+                feedwaterFlowRegulationValve[idx][jdx].initCharacteristic(500, -1.0);
+            }
+        }
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         for (int idx = 0; idx <= 1; idx++) {
             // See notes above, try to init with 0 cm fill level
             loopSteamDrum[idx].setInitialState(10000, 45 + 273.15);
-            
+
             loopEvaporator[idx].setInitialState(6.0, 1e5,
                     273.5 + 45, 273.5 + 45);
         }
@@ -832,7 +842,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             runner.submit(feedwaterSparePumpInValve[idx]);
         }
         runner.submit(feedwaterPump3);
-        
+
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(feedwaterSparePumpOutValve[idx]);
             runner.submit(feedwaterStartupReductionValve[idx]);
@@ -853,15 +863,14 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(setpointDrumLevel[idx]);
         }
-        
+
         // Control Loop configuration
-        
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx].setLowerLimit(-10);
             setpointDrumLevel[idx].setUpperLimit(10);
             setpointDrumLevel[idx].setMaxRate(0.5);
         }
-        
+
         controlLoopBlowdownDrumLevel.addInputProvider(new DataProvider() {
             @Override
             public double retrieveValue() {
@@ -876,7 +885,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         ((PControl) controlLoopBlowdownDrumLevel).setParameterK(20);
         controlLoopBlowdownDrumLevel.setMaxOutput(20);
         controlLoopBlowdownDrumLevel.setMinOutput(-20);
-        
+
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 feedwaterFlowRegulationValve[idx][jdx].initPIControl();
@@ -886,7 +895,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .getController()).setParameterTN(5);
             }
         }
-        
+
         for (int jdx = 0; jdx < 3; jdx++) {
             feedwaterFlowRegulationValve[0][jdx].getController()
                     .addInputProvider(new DataProvider() {
@@ -906,7 +915,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     });
         }
     }
-    
+
     @Override
     public void run() {
         // Before this run method is invoked from the MainLoop, the controller
@@ -951,7 +960,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             outputValues.setParameterValue("Loop" + (idx + 1)
                     + "#DrumTemperature",
                     loopSteamDrum[idx].getTemperature() - 273.5);
-            
+
             outputValues.setParameterValue("Main" + (idx + 1)
                     + "#SteamShutoffValve",
                     mainSteamShutoffValve[idx].getValveElement().getOpening());
@@ -977,7 +986,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#FuelInPressure",
                     loopDistributor[idx].getEffort() / 100000 - 1.0);
-            
+
             if (loopNodeDrumFromReactor[idx].flowUpdated(loopEvaporator[idx])) {
                 outputValues.setParameterValue(
                         "Loop" + (idx + 1) + "#ReactorOutFlow",
@@ -993,7 +1002,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             outputValues.setParameterValue(
                     "Core" + (idx + 1) + "#Temperature",
                     fuelThermalOut[idx].getEffort() - 273.5);
-            
+
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#Voiding",
                     loopEvaporator[idx].getVoiding());
@@ -1016,12 +1025,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                             ) - 273.15);
                 }
             }
-            
+
             outputValues.setParameterValue("Loop" + (idx + 1)
                     + "#BlowdownFlowToFeedwaterIn",
                     -loopFeedwaterIn[idx].getFlow( // negative = into node
                             blowdownReturnValve[idx].getValveElement()));
-            
+
             outputValues.setParameterValue("Deaerator" + (idx + 1) + "#Level",
                     deaerator[idx].getFillHeight() * 100); // m to cm
         }
@@ -1054,21 +1063,31 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .getNode(0)).getTemperature() - 273.5);
         outputValues.setParameterValue("Blowdown#CoolantOutFlow",
                 blowdownCoolantFlow.getFlowSource().getFlow());
-        
+
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue("Blowdown#ValveFromLoop" + (idx + 1),
                     blowdownValveFromLoop[idx].getValveElement().getOpening());
             outputValues.setParameterValue("Blowdown#ReturnValve" + (idx + 1),
                     blowdownReturnValve[idx].getValveElement().getOpening());
         }
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "Feedwater" + (idx + 1) + "#Temperature",
+                    feedwaterPumpCollectorNodes[idx].getTemperature() - 273.5);
+            outputValues.setParameterValue(
+                    "Feedwater" + (idx + 1) + "#Pressure",
+                    feedwaterPumpCollectorNodes[idx]
+                            .getEffort() / 100000 - 1.0);
+        }
+
         // </editor-fold>
     }
-    
+
     @Override
     public void updateNotification(String propertyName) {
-        
+
     }
-    
+
     @Override
     public void handleAction(ActionCommand ac) {
         // <editor-fold defaultstate="collapsed" desc="Receive and process control commands from controller (GUI)">
@@ -1095,7 +1114,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 case "Loop2#Bypass":
                     loopBypass[1].handleAction(ac);
                     break;
-                
+
                 case "Loop1#DrumLevelSetpoint":
                     setpointDrumLevel[0].handleAction(ac);
                     break;
@@ -1118,7 +1137,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     return;
                 }
             }
-            
+
             if (blowdownValvePassiveFlow.handleAction(ac)) {
                 return;
             } else if (blowdownValvePumpsToRegenerator.handleAction(ac)) {
@@ -1134,7 +1153,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             } else if (blowdownValveRegeneratedToDrums.handleAction(ac)) {
                 return;
             }
-            
+
             switch (ac.getPropertyName()) {
                 case "Blowdown#ValveCoolant":
                     switch ((int) ac.getValue()) {
@@ -1146,7 +1165,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                             blowdownCoolantFlow.setStopAtCurrentFlow();
                     }
                     break;
-                
+
                 case "Blowdown#Balance_ControlCommand":
                     if (ac.getValue().equals(ControlCommand.AUTOMATIC)) {
                         controlLoopBlowdownDrumLevel.setManualMode(false);
@@ -1171,6 +1190,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     }
                 }
             }
+            if (feedwaterPump3.handleAction(ac)) {
+                return;
+            }
             // level regulation valves (those include control elements)
             for (int idx = 0; idx < 2; idx++) {
                 for (int jdx = 0; jdx < 3; jdx++) {
@@ -1181,8 +1203,15 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 }
             }
             // Shutoff valves
-            
-        } else {             
+            for (int idx = 0; idx < 2; idx++) {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    if (feedwaterShutoffValve[idx][jdx]
+                            .handleAction(ac)) {
+                        return;
+                    }
+                }
+            }
+        } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
                 case "Main1#SteamShutoffValve":
@@ -1195,7 +1224,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         // </editor-fold>
     }
-    
+
     public void setThermalPower(int loop, double power) {
         thermalPower[loop] = power;
     }
@@ -1208,20 +1237,20 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     public double getVoiding() {
         return voiding;
     }
-    
+
     public double getCoreTemp() {
         return coreTemp;
     }
-    
+
     @Override
     public void registerController(ModelListener controller) {
         this.controller = controller;
     }
-    
+
     public void registerParameterOutput(ParameterHandler output) {
         this.outputValues = output;
     }
-    
+
     public void registerPlotDataVault(FloatSeriesVault plotData) {
         this.plotData = plotData;
     }
