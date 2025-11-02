@@ -17,6 +17,7 @@
 package com.hartrusion.rbmksim.gui.mnemonic;
 
 import com.hartrusion.control.ValveState;
+import com.hartrusion.modeling.assemblies.PumpState;
 import com.hartrusion.mvc.UpdateReceiver;
 import java.beans.PropertyChangeEvent;
 
@@ -223,10 +224,11 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
             case "Feedwater1#Pump1SuctionValve_Pos" ->
                 valve11Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Feedwater1#Pump1Pump_State" -> {
-                if ((boolean) evt.getNewValue()) {
-                    pump11.setStatus(3);
-                } else {
-                    pump11.setStatus(1);
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump11.setStatus(0);
+                    case READY -> pump11.setStatus(1);
+                    case STARTUP -> pump11.setStatus(2);
+                    case RUNNING -> pump11.setStatus(3);
                 }
             }
             case "Feedwater1#Pump1DischargeValve_Pos" ->
@@ -234,10 +236,11 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
             case "Feedwater1#Pump2SuctionValve_Pos" ->
                 valve12Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Feedwater1#Pump2Pump_State" -> {
-                if ((boolean) evt.getNewValue()) {
-                    pump12.setStatus(3);
-                } else {
-                    pump12.setStatus(1);
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump12.setStatus(0);
+                    case READY -> pump12.setStatus(1);
+                    case STARTUP -> pump12.setStatus(2);
+                    case RUNNING -> pump12.setStatus(3);
                 }
             }
             case "Feedwater1#Pump2DischargeValve_Pos" ->
@@ -245,10 +248,11 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
             case "Feedwater2#Pump1SuctionValve_Pos" ->
                 valve21Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Feedwater2#Pump1Pump_State" -> {
-                if ((boolean) evt.getNewValue()) {
-                    pump21.setStatus(3);
-                } else {
-                    pump21.setStatus(1);
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump21.setStatus(0);
+                    case READY -> pump21.setStatus(1);
+                    case STARTUP -> pump21.setStatus(2);
+                    case RUNNING -> pump21.setStatus(3);
                 }
             }
             case "Feedwater2#Pump1DischargeValve_Pos" ->
@@ -256,10 +260,11 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
             case "Feedwater2#Pump2SuctionValve_Pos" ->
                 valve22Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Feedwater2#Pump2Pump_State" -> {
-                if ((boolean) evt.getNewValue()) {
-                    pump22.setStatus(3);
-                } else {
-                    pump22.setStatus(1);
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump22.setStatus(0);
+                    case READY -> pump22.setStatus(1);
+                    case STARTUP -> pump22.setStatus(2);
+                    case RUNNING -> pump22.setStatus(3);
                 }
             }
             case "Feedwater2#Pump2DischargeValve_Pos" ->

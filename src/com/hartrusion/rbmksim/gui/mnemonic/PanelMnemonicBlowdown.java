@@ -18,6 +18,7 @@ package com.hartrusion.rbmksim.gui.mnemonic;
 
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.control.ValveState;
+import com.hartrusion.modeling.assemblies.PumpState;
 import com.hartrusion.mvc.UpdateReceiver;
 
 /**
@@ -353,10 +354,11 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 valvePump1Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
                 break;
             case "Blowdown#CooldownPump1Pump_State":
-                if ((boolean) evt.getNewValue()) {
-                    pump1.setStatus(3);
-                } else {
-                    pump1.setStatus(1);
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump1.setStatus(0);
+                    case READY -> pump1.setStatus(1);
+                    case STARTUP -> pump1.setStatus(2);
+                    case RUNNING -> pump1.setStatus(3);
                 }
                 break;
             case "Blowdown#CooldownPump1DischargeValve_Pos":
@@ -366,10 +368,11 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 valvePump2Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
                 break;
             case "Blowdown#CooldownPump2Pump_State":
-                if ((boolean) evt.getNewValue()) {
-                    pump2.setStatus(3);
-                } else {
-                    pump2.setStatus(1);
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump2.setStatus(0);
+                    case READY -> pump2.setStatus(1);
+                    case STARTUP -> pump2.setStatus(2);
+                    case RUNNING -> pump2.setStatus(3);
                 }
                 break;
             case "Blowdown#CooldownPump2DischargeValve_Pos":

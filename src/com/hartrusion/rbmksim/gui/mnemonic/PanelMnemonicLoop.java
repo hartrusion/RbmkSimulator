@@ -18,6 +18,7 @@ package com.hartrusion.rbmksim.gui.mnemonic;
 
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.control.ValveState;
+import com.hartrusion.modeling.assemblies.PumpState;
 import com.hartrusion.mvc.UpdateReceiver;
 
 /**
@@ -396,18 +397,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                     }
                 }
                 case "Pump_State" -> {
-                    if ((boolean) evt.getNewValue()) {
-                        switch (nr) {
-                            case 1 ->
-                                pump1.setStatus(3);
-                            case 2 ->
-                                pump2.setStatus(3);
-                            case 3 ->
-                                pump3.setStatus(3);
-                            case 4 ->
-                                pump4.setStatus(3);
-                        }
-                    } else {
+                    if (PumpState.OFFLINE == (PumpState) evt.getNewValue()) {
                         switch (nr) {
                             case 1 ->
                                 pump1.setStatus(0);
@@ -418,10 +408,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                             case 4 ->
                                 pump4.setStatus(0);
                         }
-                    }
-                }
-                case "Pump_StartupState" -> {
-                    if ((int) evt.getNewValue() == 3) {
+                    } else if (PumpState.READY == (PumpState) evt.getNewValue()) {
                         switch (nr) {
                             case 1 ->
                                 pump1.setStatus(1);
@@ -432,7 +419,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                             case 4 ->
                                 pump4.setStatus(1);
                         }
-                    } else if ((int) evt.getNewValue() == 4) {
+                    } else if (PumpState.STARTUP == (PumpState) evt.getNewValue()) {
                         switch (nr) {
                             case 1 ->
                                 pump1.setStatus(2);
@@ -442,6 +429,17 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                                 pump3.setStatus(2);
                             case 4 ->
                                 pump4.setStatus(2);
+                        }
+                    } else if (PumpState.RUNNING == (PumpState) evt.getNewValue()) {
+                        switch (nr) {
+                            case 1 ->
+                                pump1.setStatus(3);
+                            case 2 ->
+                                pump2.setStatus(3);
+                            case 3 ->
+                                pump3.setStatus(3);
+                            case 4 ->
+                                pump4.setStatus(3);
                         }
                     }
                 }
@@ -467,7 +465,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
             if (propertyName.substring(6, 23).equals("SteamFromDrumFlow")) {
                 if (Character.getNumericValue(propertyName.charAt(4)) == loop) {
                     jLabelSteamFlow.setText(
-                        String.format("%.0f", newValue) + " kg/s");
+                            String.format("%.0f", newValue) + " kg/s");
                     return;
                 }
             }

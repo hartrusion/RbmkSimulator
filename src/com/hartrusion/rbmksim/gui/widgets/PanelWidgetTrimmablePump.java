@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui.widgets;
 
+import com.hartrusion.modeling.assemblies.PumpState;
 import com.hartrusion.mvc.ActionCommand;
 import java.beans.BeanProperty;
 import java.beans.PropertyChangeEvent;
@@ -280,8 +281,8 @@ public class PanelWidgetTrimmablePump extends AbstractPanelWidget {
             case "Pump_State":
                 // Write the pump state back to the button as we might have an
                 // initial state that is on.
-                if ((boolean) evt.getNewValue()) {
-                    jToggleButtonPump.setSelected((boolean) evt.getNewValue());
+                if (PumpState.RUNNING == (PumpState) evt.getNewValue()) {
+                    jToggleButtonPump.setSelected(true);
                     jToggleButtonPump.setText("|");
                 }
                 break;

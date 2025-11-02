@@ -32,7 +32,7 @@ import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 
 /**
- * Pump Icon for mnmonic displays.
+ * Pump Icon for mnemonic displays.
  *
  * <ul>
  * <li>Pump wired: Outline glows bright.</li>
