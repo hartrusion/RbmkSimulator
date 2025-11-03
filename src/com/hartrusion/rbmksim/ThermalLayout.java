@@ -997,6 +997,15 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     "Loop" + (idx + 1) + "#FuelInPressure",
                     loopDistributor[idx].getEffort() / 100000 - 1.0);
 
+            // The MCP cooldown value is the temperature drop before the MCP 
+            // inlet. Used to prevent cavitation but below 100 °C this does not
+            // matter. The MPC cavitation is calculated different to make things
+            // worse.
+            outputValues.setParameterValue(
+                    "Loop" + (idx + 1) + "#McpCooldown",
+                    loopDistributor[idx].getTemperature()
+                    - loopSteamDrum[idx].getTemperature());
+
             if (loopNodeDrumFromReactor[idx].flowUpdated(loopEvaporator[idx])) {
                 outputValues.setParameterValue(
                         "Loop" + (idx + 1) + "#ReactorOutFlow",

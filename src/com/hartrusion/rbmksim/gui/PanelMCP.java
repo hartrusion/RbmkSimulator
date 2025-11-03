@@ -100,9 +100,9 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        chornobylGaugeLoop1RecircFlow1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeLoop1Cooldown = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel25 = new javax.swing.JLabel();
-        chornobylGaugeLoop2RecircFlow1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeLoop2Cooldown = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
@@ -188,9 +188,6 @@ public class PanelMCP extends AbstractPanelWidget
         jButtonLoop1Close.setText("C");
         jButtonLoop1Close.setToolTipText("");
         jButtonLoop1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop1Close.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop1Close.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop1Close.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop1Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop1CloseActionPerformed(evt);
@@ -202,9 +199,6 @@ public class PanelMCP extends AbstractPanelWidget
         jButtonLoop1Open.setText("O");
         jButtonLoop1Open.setToolTipText("");
         jButtonLoop1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop1Open.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop1Open.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop1Open.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop1Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop1OpenActionPerformed(evt);
@@ -224,9 +218,6 @@ public class PanelMCP extends AbstractPanelWidget
         jButtonLoop2Close.setText("C");
         jButtonLoop2Close.setToolTipText("");
         jButtonLoop2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Close.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2CloseActionPerformed(evt);
@@ -238,9 +229,6 @@ public class PanelMCP extends AbstractPanelWidget
         jButtonLoop2Open.setText("O");
         jButtonLoop2Open.setToolTipText("");
         jButtonLoop2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonLoop2Open.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonLoop2Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoop2OpenActionPerformed(evt);
@@ -336,23 +324,23 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel24.setText("Drum 2");
         add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
 
-        chornobylGaugeLoop1RecircFlow1.setChornobylMaximum(5.0F);
-        chornobylGaugeLoop1RecircFlow1.setChornobylMinimum(-30.0F);
-        chornobylGaugeLoop1RecircFlow1.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
-        chornobylGaugeLoop1RecircFlow1.setChornobylUnitText("K");
-        chornobylGaugeLoop1RecircFlow1.setChornobylValue(-10.0F);
-        add(chornobylGaugeLoop1RecircFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 124, -1, -1));
+        chornobylGaugeLoop1Cooldown.setChornobylMaximum(5.0F);
+        chornobylGaugeLoop1Cooldown.setChornobylMinimum(-30.0F);
+        chornobylGaugeLoop1Cooldown.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
+        chornobylGaugeLoop1Cooldown.setChornobylUnitText("K");
+        chornobylGaugeLoop1Cooldown.setChornobylValue(-10.0F);
+        add(chornobylGaugeLoop1Cooldown, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 124, -1, -1));
 
         jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getSize()-2f));
         jLabel25.setText("MCP 1");
         add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 124, 52, 14));
 
-        chornobylGaugeLoop2RecircFlow1.setChornobylMaximum(5.0F);
-        chornobylGaugeLoop2RecircFlow1.setChornobylMinimum(-30.0F);
-        chornobylGaugeLoop2RecircFlow1.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
-        chornobylGaugeLoop2RecircFlow1.setChornobylUnitText("K");
-        chornobylGaugeLoop2RecircFlow1.setChornobylValue(-10.0F);
-        add(chornobylGaugeLoop2RecircFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 124, -1, -1));
+        chornobylGaugeLoop2Cooldown.setChornobylMaximum(5.0F);
+        chornobylGaugeLoop2Cooldown.setChornobylMinimum(-30.0F);
+        chornobylGaugeLoop2Cooldown.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
+        chornobylGaugeLoop2Cooldown.setChornobylUnitText("K");
+        chornobylGaugeLoop2Cooldown.setChornobylValue(-10.0F);
+        add(chornobylGaugeLoop2Cooldown, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 124, -1, -1));
 
         jLabel26.setFont(jLabel26.getFont().deriveFont(jLabel26.getFont().getSize()-2f));
         jLabel26.setText("Cooldown");
@@ -457,15 +445,15 @@ public class PanelMCP extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Cooldown;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Level;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Pressure;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1RecircFlow;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1RecircFlow1;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Temperature;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Cooldown;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Level1;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Pressure1;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2RecircFlow;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2RecircFlow1;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Temperature;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetTrimmablePump controlPanelMCPPumpColumn1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetTrimmablePump controlPanelMCPPumpColumn10;
@@ -558,6 +546,8 @@ public class PanelMCP extends AbstractPanelWidget
                 chornobylGaugeLoop1Level.setChornobylValue((float) newValue);
             case "Loop1#DrumPressure" ->
                 chornobylGaugeLoop1Pressure.setChornobylValue((float) newValue);
+            case "Loop1#McpCooldown" ->
+                chornobylGaugeLoop1Cooldown.setChornobylValue((float) newValue);
             case "Loop2#ReactorOutFlow" ->
                 chornobylGaugeLoop2RecircFlow.setChornobylValue((float) newValue);
             case "Loop2#DrumTemperature" ->
@@ -566,6 +556,9 @@ public class PanelMCP extends AbstractPanelWidget
                 chornobylGaugeLoop2Level1.setChornobylValue((float) newValue);
             case "Loop2#DrumPressure" ->
                 chornobylGaugeLoop2Pressure1.setChornobylValue((float) newValue);
+            case "Loop2#McpCooldown" ->
+                chornobylGaugeLoop2Cooldown.setChornobylValue((float) newValue);
+                
         }
     }
 
