@@ -269,6 +269,26 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
             }
             case "Feedwater2#Pump2DischargeValve_Pos" ->
                 valve22Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Feedwater#Pump3SuctionValve_Pos" ->
+                valve3Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Feedwater#Pump3Pump_State" -> {
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump3.setStatus(0);
+                    case READY -> pump3.setStatus(1);
+                    case STARTUP -> pump3.setStatus(2);
+                    case RUNNING -> pump3.setStatus(3);
+                }
+            }
+            case "Feedwater#Pump3DischargeValve_Pos" ->
+                valve3Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Feedwater1#SparePumpInValve_Pos" ->
+                valve3In1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Feedwater2#SparePumpInValve_Pos" ->
+                valve3in2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Feedwater1#SparePumpOutValve_Pos" ->
+                valve3out1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Feedwater2#SparePumpOutValve_Pos" ->
+                valve3out2.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 
