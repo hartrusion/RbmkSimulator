@@ -18,7 +18,9 @@ package com.hartrusion.rbmksim;
 
 import com.hartrusion.control.AbstractController;
 import com.hartrusion.control.ControlCommand;
+import com.hartrusion.control.DataProvider;
 import com.hartrusion.control.FloatSeriesVault;
+import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
 import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.control.SerialRunner;
@@ -45,13 +47,11 @@ import com.hartrusion.modeling.heatfluid.HeatVolumizedFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
-import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
+import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
-import com.hartrusion.control.DataProvider;
-import com.hartrusion.control.PControl;
 
 /**
  * Describes the thermal process layout of the plant.
@@ -950,6 +950,16 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         coreTemp = (fuelThermalOut[0].getEffort()
                 + fuelThermalOut[0].getEffort()) / 2 - 273.5;
 
+        // Generate thermal lift for next cycle
+        for (int idx = 0; idx < 2; idx++) {
+            if (loopBypass[idx].getOpening() > 1.0) {
+                loopThermalLift[idx].setEffort(
+                        (loopEvaporator[idx].getTemperature()
+                        - loopDownflow[idx].getHeatHandler().getTemperature())
+                        * 1000); // its a coincidentce that this is 1000
+            }
+        }
+
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
         for (int idx = 0; idx < 2; idx++) {
             // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
@@ -1005,7 +1015,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#Voiding",
-                    loopEvaporator[idx].getVoiding());
+                    loopEvaporator[idx].getVoiding(1e5));
 
             // Flow from Blowdown into Feedwater mixture in drum
             if (loopNodeDrumFromReactor[idx].heatEnergyUpdated(
@@ -1225,6 +1235,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // </editor-fold>
     }
 
+    /**
+     * Set the current thermal power in the reactor.
+     *
+     * @param loop 0 or 1
+     * @param power in Megawatts
+     */
     public void setThermalPower(int loop, double power) {
         thermalPower[loop] = power;
     }
