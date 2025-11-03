@@ -39,14 +39,14 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetPump21.registerActionReceiver(controller);
         panelWidgetPump22.registerActionReceiver(controller);
         panelWidgetPump3.registerActionReceiver(controller);
-        
+
         panelWidgetControlLoopValve12.registerActionReceiver(controller);
         panelWidgetControlLoopValve13.registerActionReceiver(controller);
         panelWidgetControlLoopValve22.registerActionReceiver(controller);
         panelWidgetControlLoopValve23.registerActionReceiver(controller);
         panelWidgetControlLoopValve11.registerActionReceiver(controller);
         panelWidgetControlLoopValve21.registerActionReceiver(controller);
-        
+
         setpointControl1.registerActionReceiver(controller);
         setpointControl2.registerActionReceiver(controller);
 
@@ -100,11 +100,11 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetPump22 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPump3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         jLabelLoop1DA1Dis = new javax.swing.JLabel();
-        jButtonLoop2Open7 = new javax.swing.JButton();
-        jButtonLoop2Close7 = new javax.swing.JButton();
-        jLabeljLabelCaptionRegenToCooler10 = new javax.swing.JLabel();
-        jButtonLoop2Open8 = new javax.swing.JButton();
-        jButtonLoop2Close8 = new javax.swing.JButton();
+        jButton3to1Open = new javax.swing.JButton();
+        jButton3to1Close = new javax.swing.JButton();
+        jLabelCaptionDA1 = new javax.swing.JLabel();
+        jButton1to3Open = new javax.swing.JButton();
+        jButton1to3Close = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabelCaptionDrain = new javax.swing.JLabel();
         jLabelCaptionPump11 = new javax.swing.JLabel();
@@ -112,11 +112,11 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDischarge = new javax.swing.JLabel();
         jLabelCaptionump21 = new javax.swing.JLabel();
         jLabeljLabelCaptionRegenToCooler11 = new javax.swing.JLabel();
-        jButtonLoop2Open9 = new javax.swing.JButton();
-        jButtonLoop2Close9 = new javax.swing.JButton();
-        jLabeljLabelCaptionRegenToCooler12 = new javax.swing.JLabel();
-        jButtonLoop2Open10 = new javax.swing.JButton();
-        jButtonLoop2Close10 = new javax.swing.JButton();
+        jButton3ro2Open = new javax.swing.JButton();
+        jButton3to2Close = new javax.swing.JButton();
+        jLabelCaptionDA2 = new javax.swing.JLabel();
+        jButton2to3Open = new javax.swing.JButton();
+        jButton2to3Close = new javax.swing.JButton();
         jLabelCaptionPump3 = new javax.swing.JLabel();
         jLabelCaptionSetpoints = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -369,57 +369,57 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelLoop1DA1Dis.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelLoop1DA1Dis, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 296, 52, 14));
 
-        jButtonLoop2Open7.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonLoop2Open7.setText("O");
-        jButtonLoop2Open7.setToolTipText("");
-        jButtonLoop2Open7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open7.addActionListener(new java.awt.event.ActionListener() {
+        jButton3to1Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButton3to1Open.setText("O");
+        jButton3to1Open.setToolTipText("");
+        jButton3to1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton3to1Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Open7ActionPerformed(evt);
+                jButton3to1OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open7, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 310, 20, 20));
+        add(jButton3to1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 310, 20, 20));
 
-        jButtonLoop2Close7.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonLoop2Close7.setText("C");
-        jButtonLoop2Close7.setToolTipText("");
-        jButtonLoop2Close7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close7.addActionListener(new java.awt.event.ActionListener() {
+        jButton3to1Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButton3to1Close.setText("C");
+        jButton3to1Close.setToolTipText("");
+        jButton3to1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton3to1Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Close7ActionPerformed(evt);
+                jButton3to1CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close7, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 310, 20, 20));
+        add(jButton3to1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 310, 20, 20));
 
-        jLabeljLabelCaptionRegenToCooler10.setFont(jLabeljLabelCaptionRegenToCooler10.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler10.getFont().getSize()-2f));
-        jLabeljLabelCaptionRegenToCooler10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabeljLabelCaptionRegenToCooler10.setText("DA 1");
-        jLabeljLabelCaptionRegenToCooler10.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabeljLabelCaptionRegenToCooler10.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabeljLabelCaptionRegenToCooler10.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler10, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 242, 52, 14));
+        jLabelCaptionDA1.setFont(jLabelCaptionDA1.getFont().deriveFont(jLabelCaptionDA1.getFont().getSize()-2f));
+        jLabelCaptionDA1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDA1.setText("DA 1");
+        jLabelCaptionDA1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDA1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDA1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 242, 52, 14));
 
-        jButtonLoop2Open8.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonLoop2Open8.setText("O");
-        jButtonLoop2Open8.setToolTipText("");
-        jButtonLoop2Open8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open8.addActionListener(new java.awt.event.ActionListener() {
+        jButton1to3Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButton1to3Open.setText("O");
+        jButton1to3Open.setToolTipText("");
+        jButton1to3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton1to3Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Open8ActionPerformed(evt);
+                jButton1to3OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open8, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 256, 20, 20));
+        add(jButton1to3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 256, 20, 20));
 
-        jButtonLoop2Close8.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonLoop2Close8.setText("C");
-        jButtonLoop2Close8.setToolTipText("");
-        jButtonLoop2Close8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close8.addActionListener(new java.awt.event.ActionListener() {
+        jButton1to3Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButton1to3Close.setText("C");
+        jButton1to3Close.setToolTipText("");
+        jButton1to3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton1to3Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Close8ActionPerformed(evt);
+                jButton1to3CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close8, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 256, 20, 20));
+        add(jButton1to3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 256, 20, 20));
 
         jLabel8.setFont(jLabel8.getFont().deriveFont(jLabel8.getFont().getSize()-2f));
         jLabel8.setText("Drum 2");
@@ -473,57 +473,57 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler11.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabeljLabelCaptionRegenToCooler11, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 296, 52, 14));
 
-        jButtonLoop2Open9.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonLoop2Open9.setText("O");
-        jButtonLoop2Open9.setToolTipText("");
-        jButtonLoop2Open9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open9.addActionListener(new java.awt.event.ActionListener() {
+        jButton3ro2Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButton3ro2Open.setText("O");
+        jButton3ro2Open.setToolTipText("");
+        jButton3ro2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton3ro2Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Open9ActionPerformed(evt);
+                jButton3ro2OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open9, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 310, 20, 20));
+        add(jButton3ro2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 310, 20, 20));
 
-        jButtonLoop2Close9.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonLoop2Close9.setText("C");
-        jButtonLoop2Close9.setToolTipText("");
-        jButtonLoop2Close9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close9.addActionListener(new java.awt.event.ActionListener() {
+        jButton3to2Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButton3to2Close.setText("C");
+        jButton3to2Close.setToolTipText("");
+        jButton3to2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton3to2Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Close9ActionPerformed(evt);
+                jButton3to2CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close9, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 310, 20, 20));
+        add(jButton3to2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 310, 20, 20));
 
-        jLabeljLabelCaptionRegenToCooler12.setFont(jLabeljLabelCaptionRegenToCooler12.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler12.getFont().getSize()-2f));
-        jLabeljLabelCaptionRegenToCooler12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabeljLabelCaptionRegenToCooler12.setText("DA 2");
-        jLabeljLabelCaptionRegenToCooler12.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabeljLabelCaptionRegenToCooler12.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabeljLabelCaptionRegenToCooler12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler12, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 242, 52, 14));
+        jLabelCaptionDA2.setFont(jLabelCaptionDA2.getFont().deriveFont(jLabelCaptionDA2.getFont().getSize()-2f));
+        jLabelCaptionDA2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDA2.setText("DA 2");
+        jLabelCaptionDA2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDA2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDA2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 242, 52, 14));
 
-        jButtonLoop2Open10.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonLoop2Open10.setText("O");
-        jButtonLoop2Open10.setToolTipText("");
-        jButtonLoop2Open10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Open10.addActionListener(new java.awt.event.ActionListener() {
+        jButton2to3Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButton2to3Open.setText("O");
+        jButton2to3Open.setToolTipText("");
+        jButton2to3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton2to3Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Open10ActionPerformed(evt);
+                jButton2to3OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open10, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 256, 20, 20));
+        add(jButton2to3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 256, 20, 20));
 
-        jButtonLoop2Close10.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonLoop2Close10.setText("C");
-        jButtonLoop2Close10.setToolTipText("");
-        jButtonLoop2Close10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLoop2Close10.addActionListener(new java.awt.event.ActionListener() {
+        jButton2to3Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButton2to3Close.setText("C");
+        jButton2to3Close.setToolTipText("");
+        jButton2to3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton2to3Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoop2Close10ActionPerformed(evt);
+                jButton2to3CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close10, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 256, 20, 20));
+        add(jButton2to3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 256, 20, 20));
 
         jLabelCaptionPump3.setFont(jLabelCaptionPump3.getFont().deriveFont(jLabelCaptionPump3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump3.getFont().getSize()-2));
         jLabelCaptionPump3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -674,37 +674,37 @@ public class PanelFeedwater extends AbstractPanelWidget
         controller.userAction(new ActionCommand("Feedwater1#ShutoffValve3", false));
     }//GEN-LAST:event_jButtonFeed13CloseActionPerformed
 
-    private void jButtonLoop2Close10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Close10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Close10ActionPerformed
+    private void jButton2to3CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2to3CloseActionPerformed
+        controller.userAction(new ActionCommand("Feedwater2#SparePumpInValve", false));
+    }//GEN-LAST:event_jButton2to3CloseActionPerformed
 
-    private void jButtonLoop2Open10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Open10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Open10ActionPerformed
+    private void jButton2to3OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2to3OpenActionPerformed
+        controller.userAction(new ActionCommand("Feedwater2#SparePumpInValve", false));
+    }//GEN-LAST:event_jButton2to3OpenActionPerformed
 
-    private void jButtonLoop2Close9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Close9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Close9ActionPerformed
+    private void jButton3to2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3to2CloseActionPerformed
+        controller.userAction(new ActionCommand("Feedwater2#SparePumpOutValve", false));
+    }//GEN-LAST:event_jButton3to2CloseActionPerformed
 
-    private void jButtonLoop2Open9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Open9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Open9ActionPerformed
+    private void jButton3ro2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ro2OpenActionPerformed
+        controller.userAction(new ActionCommand("Feedwater2#SparePumpOutValve", true));
+    }//GEN-LAST:event_jButton3ro2OpenActionPerformed
 
-    private void jButtonLoop2Close8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Close8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Close8ActionPerformed
+    private void jButton1to3CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1to3CloseActionPerformed
+        controller.userAction(new ActionCommand("Feedwater1#SparePumpInValve", false));
+    }//GEN-LAST:event_jButton1to3CloseActionPerformed
 
-    private void jButtonLoop2Open8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Open8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Open8ActionPerformed
+    private void jButton1to3OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1to3OpenActionPerformed
+        controller.userAction(new ActionCommand("Feedwater1#SparePumpInValve", true));
+    }//GEN-LAST:event_jButton1to3OpenActionPerformed
 
-    private void jButtonLoop2Close7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Close7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Close7ActionPerformed
+    private void jButton3to1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3to1CloseActionPerformed
+        controller.userAction(new ActionCommand("Feedwater1#SparePumpOutValve", false));
+    }//GEN-LAST:event_jButton3to1CloseActionPerformed
 
-    private void jButtonLoop2Open7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2Open7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoop2Open7ActionPerformed
+    private void jButton3to1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3to1OpenActionPerformed
+        controller.userAction(new ActionCommand("Feedwater1#SparePumpOutValve", true));
+    }//GEN-LAST:event_jButton3to1OpenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -714,6 +714,14 @@ public class PanelFeedwater extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Pressure1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchStartupReduction1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchStartupReduction2;
+    private javax.swing.JButton jButton1to3Close;
+    private javax.swing.JButton jButton1to3Open;
+    private javax.swing.JButton jButton2to3Close;
+    private javax.swing.JButton jButton2to3Open;
+    private javax.swing.JButton jButton3ro2Open;
+    private javax.swing.JButton jButton3to1Close;
+    private javax.swing.JButton jButton3to1Open;
+    private javax.swing.JButton jButton3to2Close;
     private javax.swing.JButton jButtonFeed11Close;
     private javax.swing.JButton jButtonFeed11Open;
     private javax.swing.JButton jButtonFeed12Close;
@@ -726,14 +734,6 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JButton jButtonFeed22Open;
     private javax.swing.JButton jButtonFeed23Close;
     private javax.swing.JButton jButtonFeed23Open;
-    private javax.swing.JButton jButtonLoop2Close10;
-    private javax.swing.JButton jButtonLoop2Close7;
-    private javax.swing.JButton jButtonLoop2Close8;
-    private javax.swing.JButton jButtonLoop2Close9;
-    private javax.swing.JButton jButtonLoop2Open10;
-    private javax.swing.JButton jButtonLoop2Open7;
-    private javax.swing.JButton jButtonLoop2Open8;
-    private javax.swing.JButton jButtonLoop2Open9;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -744,6 +744,8 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCaptionDA1;
+    private javax.swing.JLabel jLabelCaptionDA2;
     private javax.swing.JLabel jLabelCaptionDischarge;
     private javax.swing.JLabel jLabelCaptionDrain;
     private javax.swing.JLabel jLabelCaptionDrain7;
@@ -760,9 +762,7 @@ public class PanelFeedwater extends AbstractPanelWidget
     private javax.swing.JLabel jLabelFeed21;
     private javax.swing.JLabel jLabelFeed22;
     private javax.swing.JLabel jLabelLoop1DA1Dis;
-    private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler10;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler11;
-    private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler12;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve11;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve12;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve13;
@@ -791,33 +791,33 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetControlLoopValve23.updateComponent(evt);
         panelWidgetControlLoopValve11.updateComponent(evt);
         panelWidgetControlLoopValve21.updateComponent(evt);
-        
+
         integralSwitchStartupReduction1.updateComponent(evt);
         integralSwitchStartupReduction2.updateComponent(evt);
-        
+
         switch (evt.getPropertyName()) {
             case "Feedwater1#ShutoffValve1_Pos":
-                setValveButtons(jButtonFeed11Close, 
+                setValveButtons(jButtonFeed11Close,
                         jButtonFeed11Open, evt.getNewValue());
                 break;
             case "Feedwater2#ShutoffValve1_Pos":
-                setValveButtons(jButtonFeed21Close, 
+                setValveButtons(jButtonFeed21Close,
                         jButtonFeed21Open, evt.getNewValue());
                 break;
             case "Feedwater1#ShutoffValve2_Pos":
-                setValveButtons(jButtonFeed12Close, 
+                setValveButtons(jButtonFeed12Close,
                         jButtonFeed12Open, evt.getNewValue());
                 break;
             case "Feedwater2#ShutoffValve2_Pos":
-                setValveButtons(jButtonFeed22Close, 
+                setValveButtons(jButtonFeed22Close,
                         jButtonFeed22Open, evt.getNewValue());
                 break;
             case "Feedwater1#ShutoffValve3_Pos":
-                setValveButtons(jButtonFeed13Close, 
+                setValveButtons(jButtonFeed13Close,
                         jButtonFeed13Open, evt.getNewValue());
                 break;
             case "Feedwater2#ShutoffValve3_Pos":
-                setValveButtons(jButtonFeed23Close, 
+                setValveButtons(jButtonFeed23Close,
                         jButtonFeed23Open, evt.getNewValue());
                 break;
         }
@@ -836,7 +836,7 @@ public class PanelFeedwater extends AbstractPanelWidget
         panelWidgetControlLoopValve23.updateComponent(propertyName, newValue);
         panelWidgetControlLoopValve11.updateComponent(propertyName, newValue);
         panelWidgetControlLoopValve21.updateComponent(propertyName, newValue);
-        
+
         setpointControl1.updateComponent(propertyName, newValue);
         setpointControl2.updateComponent(propertyName, newValue);
     }
