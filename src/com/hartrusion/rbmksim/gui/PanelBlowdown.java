@@ -112,6 +112,15 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         chornobylGaugeLoop1Pressure = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        jButtonCloseInput = new javax.swing.JButton();
+        jLabelCaptionInClose = new javax.swing.JLabel();
+        jLabelCaptionOutClose = new javax.swing.JLabel();
+        jButtonCloseOutput = new javax.swing.JButton();
+        jLabelCaptionBalanceControl2 = new javax.swing.JLabel();
+        jLabelCaptionInClose1 = new javax.swing.JLabel();
+        jLabelCaptionOutClose1 = new javax.swing.JLabel();
+        jToggleButtonBalanceControl1 = new javax.swing.JToggleButton();
+        jLabelCaptionBalanceControl3 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(200, 340));
         setMinimumSize(new java.awt.Dimension(200, 340));
@@ -138,9 +147,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonPumpsToRegenClose.setText("C");
         jButtonPumpsToRegenClose.setToolTipText("");
         jButtonPumpsToRegenClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonPumpsToRegenClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToRegenClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToRegenClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonPumpsToRegenClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPumpsToRegenCloseActionPerformed(evt);
@@ -152,9 +158,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonPumpsToRegenOpen.setText("O");
         jButtonPumpsToRegenOpen.setToolTipText("");
         jButtonPumpsToRegenOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonPumpsToRegenOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToRegenOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToRegenOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonPumpsToRegenOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPumpsToRegenOpenActionPerformed(evt);
@@ -188,9 +191,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonPumpsToCoolerClose.setText("C");
         jButtonPumpsToCoolerClose.setToolTipText("");
         jButtonPumpsToCoolerClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonPumpsToCoolerClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToCoolerClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToCoolerClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonPumpsToCoolerClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPumpsToCoolerCloseActionPerformed(evt);
@@ -202,9 +202,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonPumpsToCoolerOpen.setText("O");
         jButtonPumpsToCoolerOpen.setToolTipText("");
         jButtonPumpsToCoolerOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonPumpsToCoolerOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToCoolerOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonPumpsToCoolerOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonPumpsToCoolerOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPumpsToCoolerOpenActionPerformed(evt);
@@ -232,9 +229,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonRegenToCoolerClose.setText("C");
         jButtonRegenToCoolerClose.setToolTipText("");
         jButtonRegenToCoolerClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRegenToCoolerClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToCoolerClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToCoolerClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonRegenToCoolerClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegenToCoolerCloseActionPerformed(evt);
@@ -246,9 +240,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonRegenToCoolerOpen.setText("O");
         jButtonRegenToCoolerOpen.setToolTipText("");
         jButtonRegenToCoolerOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRegenToCoolerOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToCoolerOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToCoolerOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonRegenToCoolerOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegenToCoolerOpenActionPerformed(evt);
@@ -276,9 +267,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonTreatmentBypassClose.setText("C");
         jButtonTreatmentBypassClose.setToolTipText("");
         jButtonTreatmentBypassClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonTreatmentBypassClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonTreatmentBypassClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonTreatmentBypassClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonTreatmentBypassClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTreatmentBypassCloseActionPerformed(evt);
@@ -290,9 +278,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonTreatmentBypassOpen.setText("O");
         jButtonTreatmentBypassOpen.setToolTipText("");
         jButtonTreatmentBypassOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonTreatmentBypassOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonTreatmentBypassOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonTreatmentBypassOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonTreatmentBypassOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTreatmentBypassOpenActionPerformed(evt);
@@ -307,7 +292,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jToggleButtonjToggleButtonBalanceControlActionPerformed(evt);
             }
         });
-        add(jToggleButtonBalanceControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 146, 22, 20));
+        add(jToggleButtonBalanceControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 152, 22, 20));
 
         jLabelCaptionBlowdownLoop2.setFont(jLabelCaptionBlowdownLoop2.getFont().deriveFont(jLabelCaptionBlowdownLoop2.getFont().getSize()-2f));
         jLabelCaptionBlowdownLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -385,9 +370,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonRegenToDrumsClose.setText("C");
         jButtonRegenToDrumsClose.setToolTipText("");
         jButtonRegenToDrumsClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRegenToDrumsClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToDrumsClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToDrumsClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonRegenToDrumsClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegenToDrumsCloseActionPerformed(evt);
@@ -399,9 +381,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonRegenToDrumsOpen.setText("O");
         jButtonRegenToDrumsOpen.setToolTipText("");
         jButtonRegenToDrumsOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRegenToDrumsOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToDrumsOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonRegenToDrumsOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonRegenToDrumsOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegenToDrumsOpenActionPerformed(evt);
@@ -423,7 +402,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonCoolantPosMouseReleased(evt);
             }
         });
-        add(jButtonCoolantPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 254, 18, 22));
+        add(jButtonCoolantPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 256, 18, 22));
 
         jButtonCoolantNeg.setText("<");
         jButtonCoolantNeg.setToolTipText("");
@@ -439,7 +418,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonCoolantNegMouseReleased(evt);
             }
         });
-        add(jButtonCoolantNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 254, 18, 22));
+        add(jButtonCoolantNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 256, 18, 22));
 
         jLabelCaptionBlowdown.setFont(jLabelCaptionBlowdown.getFont().deriveFont(jLabelCaptionBlowdown.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBlowdown.getFont().getSize()-2));
         jLabelCaptionBlowdown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -461,9 +440,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonPassiveFlowOpen.setText("O");
         jButtonPassiveFlowOpen.setToolTipText("");
         jButtonPassiveFlowOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonPassiveFlowOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonPassiveFlowOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonPassiveFlowOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonPassiveFlowOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPassiveFlowOpenActionPerformed(evt);
@@ -475,9 +451,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonPassiveFlowClose.setText("C");
         jButtonPassiveFlowClose.setToolTipText("");
         jButtonPassiveFlowClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonPassiveFlowClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonPassiveFlowClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonPassiveFlowClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonPassiveFlowClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPassiveFlowCloseActionPerformed(evt);
@@ -495,11 +468,11 @@ public class PanelBlowdown extends AbstractPanelWidget {
 
         jLabelCaptionBalanceControl1.setFont(jLabelCaptionBalanceControl1.getFont().deriveFont(jLabelCaptionBalanceControl1.getFont().getSize()-2f));
         jLabelCaptionBalanceControl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionBalanceControl1.setText("B. Contr.");
+        jLabelCaptionBalanceControl1.setText("Balance");
         jLabelCaptionBalanceControl1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBalanceControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 126, 50, 16));
+        add(jLabelCaptionBalanceControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 136, 50, 16));
 
         jLabelCaptionCoolant1.setFont(jLabelCaptionCoolant1.getFont().deriveFont(jLabelCaptionCoolant1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCoolant1.getFont().getSize()-2));
         jLabelCaptionCoolant1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -507,7 +480,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionCoolant1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 224, 51, 14));
+        add(jLabelCaptionCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 226, 51, 14));
 
         jLabelCaptionCoolant2.setFont(jLabelCaptionCoolant2.getFont().deriveFont(jLabelCaptionCoolant2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCoolant2.getFont().getSize()-2));
         jLabelCaptionCoolant2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -515,7 +488,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionCoolant2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 238, 51, 14));
+        add(jLabelCaptionCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 240, 51, 14));
 
         jLabelCaptionDrain.setFont(jLabelCaptionDrain.getFont().deriveFont(jLabelCaptionDrain.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain.getFont().getSize()-2));
         jLabelCaptionDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -523,11 +496,11 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionDrain.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 174, 64, 14));
+        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 178, 64, 14));
 
         integralSwitchBlowdownLoop1.setComponent("Blowdown#ValveFromLoop1");
         add(integralSwitchBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 308, -1, -1));
-        add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 190, -1, -1));
+        add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 198, -1, -1));
 
         integralSwitchBlowdownLoop2.setComponent("Blowdown#ValveFromLoop2");
         add(integralSwitchBlowdownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 308, -1, -1));
@@ -565,6 +538,85 @@ public class PanelBlowdown extends AbstractPanelWidget {
         chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f, 200.0f});
         chornobylGaugeLoop1Pressure.setChornobylUnitText("°C");
         add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+
+        jButtonCloseInput.setFont(jButtonCloseInput.getFont().deriveFont(jButtonCloseInput.getFont().getSize()-2f));
+        jButtonCloseInput.setText("●");
+        jButtonCloseInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCloseInput.setPreferredSize(new java.awt.Dimension(20, 20));
+        jButtonCloseInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseInputActionPerformed(evt);
+            }
+        });
+        add(jButtonCloseInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 258, 20, 20));
+
+        jLabelCaptionInClose.setFont(jLabelCaptionInClose.getFont().deriveFont(jLabelCaptionInClose.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionInClose.getFont().getSize()-2));
+        jLabelCaptionInClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionInClose.setText("Close");
+        jLabelCaptionInClose.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionInClose.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionInClose.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionInClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 230, 48, 14));
+
+        jLabelCaptionOutClose.setFont(jLabelCaptionOutClose.getFont().deriveFont(jLabelCaptionOutClose.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionOutClose.getFont().getSize()-2));
+        jLabelCaptionOutClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionOutClose.setText("Return");
+        jLabelCaptionOutClose.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionOutClose.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionOutClose.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionOutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 138, 48, 14));
+
+        jButtonCloseOutput.setFont(jButtonCloseOutput.getFont().deriveFont(jButtonCloseOutput.getFont().getSize()-2f));
+        jButtonCloseOutput.setText("●");
+        jButtonCloseOutput.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCloseOutput.setPreferredSize(new java.awt.Dimension(20, 20));
+        jButtonCloseOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseOutputActionPerformed(evt);
+            }
+        });
+        add(jButtonCloseOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 152, 20, 20));
+
+        jLabelCaptionBalanceControl2.setFont(jLabelCaptionBalanceControl2.getFont().deriveFont(jLabelCaptionBalanceControl2.getFont().getSize()-2f));
+        jLabelCaptionBalanceControl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionBalanceControl2.setText("Level");
+        jLabelCaptionBalanceControl2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBalanceControl2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBalanceControl2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionBalanceControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 124, 50, 16));
+
+        jLabelCaptionInClose1.setFont(jLabelCaptionInClose1.getFont().deriveFont(jLabelCaptionInClose1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionInClose1.getFont().getSize()-2));
+        jLabelCaptionInClose1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionInClose1.setText("Inlets");
+        jLabelCaptionInClose1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionInClose1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionInClose1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionInClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 244, 48, 14));
+
+        jLabelCaptionOutClose1.setFont(jLabelCaptionOutClose1.getFont().deriveFont(jLabelCaptionOutClose1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionOutClose1.getFont().getSize()-2));
+        jLabelCaptionOutClose1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionOutClose1.setText("Close");
+        jLabelCaptionOutClose1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionOutClose1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionOutClose1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionOutClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 126, 48, 14));
+
+        jToggleButtonBalanceControl1.setText("—");
+        jToggleButtonBalanceControl1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonBalanceControl1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonjToggleButtonBalanceControl1ActionPerformed(evt);
+            }
+        });
+        add(jToggleButtonBalanceControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 204, 22, 20));
+
+        jLabelCaptionBalanceControl3.setFont(jLabelCaptionBalanceControl3.getFont().deriveFont(jLabelCaptionBalanceControl3.getFont().getSize()-2f));
+        jLabelCaptionBalanceControl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionBalanceControl3.setText("Auto");
+        jLabelCaptionBalanceControl3.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBalanceControl3.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBalanceControl3.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionBalanceControl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 188, 50, 16));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPumpsToRegenOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPumpsToRegenOpenActionPerformed
@@ -642,6 +694,21 @@ public class PanelBlowdown extends AbstractPanelWidget {
         controller.userAction(new ActionCommand("Blowdown#ValvePassiveFlow", false));
     }//GEN-LAST:event_jButtonPassiveFlowCloseActionPerformed
 
+    private void jButtonCloseInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseInputActionPerformed
+        controller.userAction(new ActionCommand("Blowdown#ValveFromLoop1", false));
+        controller.userAction(new ActionCommand("Blowdown#ValveFromLoop2", false));
+    }//GEN-LAST:event_jButtonCloseInputActionPerformed
+
+    private void jButtonCloseOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseOutputActionPerformed
+        controller.userAction(new ActionCommand("Blowdown#Balance_ControlCommand", ControlCommand.MANUAL_OPERATION));
+        controller.userAction(new ActionCommand("Blowdown#ReturnValve1", false));
+        controller.userAction(new ActionCommand("Blowdown#ReturnValve2", false));
+    }//GEN-LAST:event_jButtonCloseOutputActionPerformed
+
+    private void jToggleButtonjToggleButtonBalanceControl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonjToggleButtonBalanceControl1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButtonjToggleButtonBalanceControl1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Level;
@@ -651,6 +718,8 @@ public class PanelBlowdown extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDrain;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchReturn1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchReturn2;
+    private javax.swing.JButton jButtonCloseInput;
+    private javax.swing.JButton jButtonCloseOutput;
     private javax.swing.JButton jButtonCoolantNeg;
     private javax.swing.JButton jButtonCoolantPos;
     private javax.swing.JButton jButtonPassiveFlowClose;
@@ -670,12 +739,18 @@ public class PanelBlowdown extends AbstractPanelWidget {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCaptionBalanceControl1;
+    private javax.swing.JLabel jLabelCaptionBalanceControl2;
+    private javax.swing.JLabel jLabelCaptionBalanceControl3;
     private javax.swing.JLabel jLabelCaptionBlowdown;
     private javax.swing.JLabel jLabelCaptionBlowdownLoop1;
     private javax.swing.JLabel jLabelCaptionBlowdownLoop2;
     private javax.swing.JLabel jLabelCaptionCoolant1;
     private javax.swing.JLabel jLabelCaptionCoolant2;
     private javax.swing.JLabel jLabelCaptionDrain;
+    private javax.swing.JLabel jLabelCaptionInClose;
+    private javax.swing.JLabel jLabelCaptionInClose1;
+    private javax.swing.JLabel jLabelCaptionOutClose;
+    private javax.swing.JLabel jLabelCaptionOutClose1;
     private javax.swing.JLabel jLabelCaptionPassiveFlow1;
     private javax.swing.JLabel jLabelCaptionPassiveFlow2;
     private javax.swing.JLabel jLabelCaptionPump1;
@@ -694,6 +769,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionTreatmentBypass2;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler2;
     private javax.swing.JToggleButton jToggleButtonBalanceControl;
+    private javax.swing.JToggleButton jToggleButtonBalanceControl1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump2;
     // End of variables declaration//GEN-END:variables
