@@ -27,6 +27,7 @@ import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
 import com.hartrusion.rbmksim.gui.FrameRodPositions;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
+import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicDeaerator;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicInternalLoad;
 
@@ -48,6 +49,7 @@ public class ControlPanel extends javax.swing.JFrame
     FrameMnemonicLoop frameMnemonicLoop2;
     FrameMnemonicInternalLoad frameMnemonicInternalLoad;
     FrameMnemonicFeedwater frameMnemonicFeedwater;
+    FrameMnemonicDeaerator frameMnemonicDeaerator;
 
     FrameDiagramNeutronFlux frameDiagramNeutronFlux;
 
@@ -85,6 +87,7 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
@@ -166,6 +169,14 @@ public class ControlPanel extends javax.swing.JFrame
             }
         });
         jMenuMnemonics.add(jMenuItem6);
+
+        jMenuItem7.setText("Deaerators");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenuMnemonics.add(jMenuItem7);
 
         jMenuItem4.setText("Internal Load");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -375,6 +386,22 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        if (frameMnemonicDeaerator == null) {
+            frameMnemonicDeaerator = new FrameMnemonicDeaerator();
+            controller.fireLastPropertyChangesTo(frameMnemonicDeaerator);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameMnemonicDeaerator.setVisible(true);
+            });
+            frameMnemonicDeaerator.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameMnemonicDeaerator = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -403,6 +430,9 @@ public class ControlPanel extends javax.swing.JFrame
         }
         if (frameMnemonicFeedwater != null) {
             frameMnemonicFeedwater.updateComponent(evt);
+        }
+        if (frameMnemonicDeaerator != null) {
+            frameMnemonicDeaerator.updateComponent(evt);
         }
     }
 
@@ -451,6 +481,9 @@ public class ControlPanel extends javax.swing.JFrame
         if (frameMnemonicFeedwater != null) {
             frameMnemonicFeedwater.updateComponent(propertyName, newValue);
         }
+        if (frameMnemonicDeaerator != null) {
+            frameMnemonicDeaerator.updateComponent(propertyName, newValue);
+        }
     }
 
     @Override
@@ -485,6 +518,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;

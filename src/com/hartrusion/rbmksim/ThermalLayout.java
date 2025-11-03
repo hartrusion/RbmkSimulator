@@ -1128,12 +1128,41 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             }
             switch (ac.getPropertyName()) {
                 case "Loop1#Bypass":
-                    loopBypass[0].handleAction(ac);
+                    boolean allowOpening = true;
+                    // all 4 mcps must be closed to allow bypass valve to open.
+                    for (int idx = 0; idx < 4; idx++) {
+                        if (loopAssembly[0][idx].getDischargeValve()
+                                .getOpening() > 1.0) {
+                            allowOpening = false;
+                            break;
+                        }
+                    }
+                    if ((boolean) ac.getValue()) {
+                        if (allowOpening) {
+                            loopBypass[0].handleAction(ac);
+                        }
+                    } else {
+                        loopBypass[0].handleAction(ac);
+                    }
                     break;
                 case "Loop2#Bypass":
-                    loopBypass[1].handleAction(ac);
+                    allowOpening = true;
+                    // all 4 mcps must be closed to allow bypass valve to open.
+                    for (int idx = 0; idx < 4; idx++) {
+                        if (loopAssembly[1][idx].getDischargeValve()
+                                .getOpening() > 1.0) {
+                            allowOpening = false;
+                            break;
+                        }
+                    }
+                    if ((boolean) ac.getValue()) {
+                        if (allowOpening) {
+                            loopBypass[1].handleAction(ac);
+                        }
+                    } else {
+                        loopBypass[1].handleAction(ac);
+                    }
                     break;
-
                 case "Loop1#DrumLevelSetpoint":
                     setpointDrumLevel[0].handleAction(ac);
                     break;
