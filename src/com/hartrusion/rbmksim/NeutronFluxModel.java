@@ -19,24 +19,22 @@ package com.hartrusion.rbmksim;
 /**
  * Describes the neutron flux as a state space representation model with the
  * reactivity present in the reactor as an input. The model has two inputs, both
- * are reactivities but with one of them, the absorber rods, beeing treated a
- * little different in terms of dynamic behaviour.
- *
+ * are reactivities but with one of them, the absorber rods, being treated a
+ * little different in terms of dynamic behavior.
  * <p>
  * Does not take into account how the reactivity is formed, it is a integral
- * system controlled by reactivities and some nonlinearities. Features a prompt
- * neutron excursion.
- *
+ * system controlled by reactivities and some non-linear effects. Features a
+ * prompt neutron excursion.
  * <p>
  * The difference between the input reactivities is multiplied by K_REACTIVITY
- * and then 1 is added to get the Keff value.
+ * and then 1 is added to get the K_eff value.
  *
  * @author Viktor Alexander Hartung
  */
 public class NeutronFluxModel implements Runnable {
 
     /**
-     * Stept time in Seconds
+     * Step time in Seconds
      */
     private double stepTime = 0.1;
 
@@ -68,7 +66,7 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * Factor of rod movement derivative part which will be added to the
-     * effective neutron multiplication factor, just to add some weird behaviour
+     * effective neutron multiplication factor, just to add some weird behavior
      * to the reactor controls. I made this up. 0.9 seems a funny value
      */
     private final double K_DIFF_RODS = 0.9;
@@ -80,7 +78,7 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * Fraction of reactivity that will be instantly available as neutrons,
-     * directly chaning the effective neutron multiplication factor. The other
+     * directly changing the effective neutron multiplication factor. The other
      * part will be delayed with T_DELAYED_REACTIVITY. This is not to be
      * confused with the beta value, this will affect the dynamics of the system
      * and the reaction to the input.
@@ -96,7 +94,7 @@ public class NeutronFluxModel implements Runnable {
     /**
      * The difference between uReactivity and uAbsorberRods will be multiplied
      * with this factor, ultimately resulting in the effective neutron
-     * multiplication factor Keff.
+     * multiplication factor K_eff.
      */
     private final double K_REACTIVITY = 0.0001;
 
@@ -163,7 +161,7 @@ public class NeutronFluxModel implements Runnable {
     private double yNeutronFlux;
     private double yK;
     private double yNeutronRate;
-    private double yThermalPower1, yThermalPower2;
+    private double yThermalPower1, yThermalPower2; // In Megawatts
     private double yThermalPower;
 
     /**
@@ -288,15 +286,15 @@ public class NeutronFluxModel implements Runnable {
     public double getYNeutronFluxLog() {
         return yNeutronFluxLog;
     }
-    
+
     public double getYThermalPower1() {
         return yThermalPower1;
     }
-    
+
     public double getYThermalPower2() {
         return yThermalPower2;
     }
-    
+
     public double getYThermalPower() {
         return yThermalPower;
     }
