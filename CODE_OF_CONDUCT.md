@@ -10,7 +10,7 @@ it, it only takes a few minutes.
 Thoughtful, critical discussions that present different viewpoints and 
 perspectives are welcomed, provided they are conducted respectfully and do not 
 promote or endorse human rights violations. Constructive debate that questions 
-assumptions and explores different viewpoints is encouraged.
+assumptions and explores different solutions is encouraged.
 
 Contributions of any form which directly or indirectly try to undermine human 
 rights will not be tolerated and removed. This includes:
