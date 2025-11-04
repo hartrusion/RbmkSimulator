@@ -1259,6 +1259,14 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     }
                 }
             }
+            for (int idx = 0; idx < 2; idx++) {
+                if (feedwaterSparePumpInValve[idx].handleAction(ac)) {
+                    return;
+                }
+                if (feedwaterSparePumpOutValve[idx].handleAction(ac)) {
+                    return;
+                }
+            }
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
