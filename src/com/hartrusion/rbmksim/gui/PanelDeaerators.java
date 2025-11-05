@@ -42,15 +42,38 @@ public class PanelDeaerators extends AbstractPanelWidget {
     private void initComponents() {
 
         chornobylGaugeDA1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         chornobylGaugeDA2Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        panelWidgetControlLoopValve1 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
-        panelWidgetControlLoopValve2 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
         loopControl1 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         loopControl2 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch3 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch4 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch5 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch6 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabelCaptionDrain = new javax.swing.JLabel();
+        jLabelCaptionDrain1 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        controlLoopValve1 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        controlLoopValve2 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        integralSwitch7 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch8 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jLabel17 = new javax.swing.JLabel();
+        setpointControl1 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
+        setpointControl2 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
 
         setMaximumSize(new java.awt.Dimension(190, 340));
         setMinimumSize(new java.awt.Dimension(190, 340));
@@ -63,6 +86,15 @@ public class PanelDeaerators extends AbstractPanelWidget {
         chornobylGaugeDA1Level.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f, 200.0f});
         chornobylGaugeDA1Level.setChornobylValue(0.0F);
         add(chornobylGaugeDA1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+
+        jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getSize()-2f));
+        jLabel6.setText("DA 1");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 208, 36, 14));
+
+        jLabel8.setFont(jLabel8.getFont().deriveFont(jLabel8.getFont().getSize()-2f));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("DA 1");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 36, 14));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
         jLabel5.setText("DA 1");
@@ -85,24 +117,115 @@ public class PanelDeaerators extends AbstractPanelWidget {
         chornobylGaugeDA2Level.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f, 200.0f});
         chornobylGaugeDA2Level.setChornobylValue(0.0F);
         add(chornobylGaugeDA2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
-        add(panelWidgetControlLoopValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 212, -1, -1));
-        add(panelWidgetControlLoopValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 252, -1, -1));
-        add(loopControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 126, -1, -1));
-        add(loopControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 86, -1, -1));
+        add(loopControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 242, -1, -1));
+        add(loopControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 202, -1, -1));
+
+        jLabel9.setFont(jLabel9.getFont().deriveFont(jLabel9.getFont().getSize()-2f));
+        jLabel9.setText("Press.");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 222, 36, 14));
+
+        jLabel10.setFont(jLabel10.getFont().deriveFont(jLabel10.getFont().getSize()-2f));
+        jLabel10.setText("Press.");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 260, 36, 14));
+        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 310, -1, -1));
+        add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 310, -1, -1));
+        add(integralSwitch3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
+        add(integralSwitch4, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 310, -1, -1));
+        add(integralSwitch5, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 112, -1, -1));
+        add(integralSwitch6, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 82, -1, -1));
+
+        jLabel11.setFont(jLabel11.getFont().deriveFont(jLabel11.getFont().getSize()-2f));
+        jLabel11.setText("DA 2");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 246, 36, 14));
+
+        jLabel12.setFont(jLabel12.getFont().deriveFont(jLabel12.getFont().getSize()-2f));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("DA 2");
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 296, 36, 14));
+
+        jLabel13.setFont(jLabel13.getFont().deriveFont(jLabel13.getFont().getSize()-2f));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("DA 2");
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 296, 36, 14));
+
+        jLabel14.setFont(jLabel14.getFont().deriveFont(jLabel14.getFont().getSize()-2f));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("DA 1");
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 296, 36, 14));
+
+        jLabelCaptionDrain.setFont(jLabelCaptionDrain.getFont().deriveFont(jLabelCaptionDrain.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain.getFont().getSize()-2));
+        jLabelCaptionDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrain.setText("Main Steam");
+        jLabelCaptionDrain.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrain.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrain.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 282, 88, 14));
+
+        jLabelCaptionDrain1.setFont(jLabelCaptionDrain1.getFont().deriveFont(jLabelCaptionDrain1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain1.getFont().getSize()-2));
+        jLabelCaptionDrain1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrain1.setText("From Turbine");
+        jLabelCaptionDrain1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrain1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrain1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 282, 88, 14));
+
+        jLabel15.setFont(jLabel15.getFont().deriveFont(jLabel15.getFont().getSize()-2f));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Vent 1");
+        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 150, 36, 14));
+
+        jLabel16.setFont(jLabel16.getFont().deriveFont(jLabel16.getFont().getSize()-2f));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Drain");
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 64, 36, 14));
+        add(controlLoopValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 66, -1, -1));
+        add(controlLoopValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 104, -1, -1));
+        add(integralSwitch7, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 166, -1, -1));
+        add(integralSwitch8, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 166, -1, -1));
+
+        jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getSize()-2f));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Vent 2");
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 150, 36, 14));
+        add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 172, -1, -1));
+        add(setpointControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 146, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeDA1Level;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeDA2Level;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValve1;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValve2;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch3;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch4;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch5;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch6;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch7;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch8;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCaptionDrain;
+    private javax.swing.JLabel jLabelCaptionDrain1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControl1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControl2;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve1;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve panelWidgetControlLoopValve2;
+    private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControl1;
+    private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControl2;
     // End of variables declaration//GEN-END:variables
 
     @Override

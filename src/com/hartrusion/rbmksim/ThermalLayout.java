@@ -753,10 +753,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 feedwaterPump[idx][jdx].initCharacteristic(16e5, 12e5, 900);
             }
         }
-        feedwaterPump3.initCharacteristic(16e5, 12e5, 900);
+        feedwaterPump3.initCharacteristic(30e5, 22e5, 900);
         // Todo: Feedwater valves characteristic
         for (int idx = 0; idx < 2; idx++) {
-            feedwaterSparePumpOutValve[idx].initCharacteristic(500, -1.0);
+            feedwaterSparePumpInValve[idx].initCharacteristic(20, -1.0);
+            feedwaterSparePumpOutValve[idx].initCharacteristic(20, -1.0);
             feedwaterStartupReductionValve[idx].initCharacteristic(500, -1.0);
             for (int jdx = 0; jdx < 3; jdx++) {
                 feedwaterShutoffValve[idx][jdx].initCharacteristic(500, -1.0);
