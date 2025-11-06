@@ -446,6 +446,10 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
             }
             return;
         }
+        if (evt.getPropertyName().substring(6, 16).equals("Bypass_Pos")) {
+            valveMcpBypass.setActive(evt.getNewValue() != ValveState.CLOSED);
+            return;
+        }
     }
 
     @Override

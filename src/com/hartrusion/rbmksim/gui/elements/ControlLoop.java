@@ -62,11 +62,11 @@ public class ControlLoop extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButtonDown = new javax.swing.JButton();
+        jButtonAuto = new javax.swing.JButton();
+        jButtonSetpoint = new javax.swing.JButton();
+        jButtonHand = new javax.swing.JButton();
+        jButtonUp = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(205, 197, 170));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -75,98 +75,98 @@ public class ControlLoop extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(140, 38));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(229, 229, 229));
-        jButton1.setFont(jButton1.getFont().deriveFont(jButton1.getFont().getStyle() | java.awt.Font.BOLD, jButton1.getFont().getSize()-2));
-        jButton1.setText("▼");
-        jButton1.setToolTipText("");
-        jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton1.setMaximumSize(new java.awt.Dimension(20, 16));
-        jButton1.setMinimumSize(new java.awt.Dimension(20, 16));
-        jButton1.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDown.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonDown.setFont(jButtonDown.getFont().deriveFont(jButtonDown.getFont().getStyle() | java.awt.Font.BOLD, jButtonDown.getFont().getSize()-2));
+        jButtonDown.setText("▼");
+        jButtonDown.setToolTipText("");
+        jButtonDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonDown.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonDown.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonDown.setPreferredSize(new java.awt.Dimension(20, 16));
+        jButtonDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonDownActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
+        add(jButtonDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
 
-        jButton2.setBackground(new java.awt.Color(229, 229, 229));
-        jButton2.setText("A");
-        jButton2.setToolTipText("");
-        jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton2.setMaximumSize(new java.awt.Dimension(20, 16));
-        jButton2.setMinimumSize(new java.awt.Dimension(20, 16));
-        jButton2.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAuto.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonAuto.setText("A");
+        jButtonAuto.setToolTipText("");
+        jButtonAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonAuto.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonAuto.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonAuto.setPreferredSize(new java.awt.Dimension(20, 16));
+        jButtonAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonAutoActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
+        add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
 
-        jButton3.setBackground(new java.awt.Color(204, 0, 0));
-        jButton3.setText("S");
-        jButton3.setToolTipText("");
-        jButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton3.setMaximumSize(new java.awt.Dimension(20, 16));
-        jButton3.setMinimumSize(new java.awt.Dimension(20, 16));
-        jButton3.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSetpoint.setBackground(new java.awt.Color(204, 0, 0));
+        jButtonSetpoint.setText("S");
+        jButtonSetpoint.setToolTipText("");
+        jButtonSetpoint.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSetpoint.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonSetpoint.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonSetpoint.setPreferredSize(new java.awt.Dimension(20, 16));
+        jButtonSetpoint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonSetpointActionPerformed(evt);
             }
         });
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 20, 20, 16));
+        add(jButtonSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 20, 20, 16));
 
-        jButton4.setBackground(new java.awt.Color(229, 229, 229));
-        jButton4.setText("H");
-        jButton4.setToolTipText("");
-        jButton4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton4.setMaximumSize(new java.awt.Dimension(20, 16));
-        jButton4.setMinimumSize(new java.awt.Dimension(20, 16));
-        jButton4.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonHand.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonHand.setText("H");
+        jButtonHand.setToolTipText("");
+        jButtonHand.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonHand.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonHand.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonHand.setPreferredSize(new java.awt.Dimension(20, 16));
+        jButtonHand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonHandActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 20, 20, 16));
+        add(jButtonHand, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 20, 20, 16));
 
-        jButton5.setBackground(new java.awt.Color(229, 229, 229));
-        jButton5.setFont(jButton5.getFont().deriveFont(jButton5.getFont().getStyle() | java.awt.Font.BOLD, jButton5.getFont().getSize()-2));
-        jButton5.setText("▲");
-        jButton5.setToolTipText("");
-        jButton5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton5.setMaximumSize(new java.awt.Dimension(20, 16));
-        jButton5.setMinimumSize(new java.awt.Dimension(20, 16));
-        jButton5.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUp.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonUp.setFont(jButtonUp.getFont().deriveFont(jButtonUp.getFont().getStyle() | java.awt.Font.BOLD, jButtonUp.getFont().getSize()-2));
+        jButtonUp.setText("▲");
+        jButtonUp.setToolTipText("");
+        jButtonUp.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonUp.setMaximumSize(new java.awt.Dimension(20, 16));
+        jButtonUp.setMinimumSize(new java.awt.Dimension(20, 16));
+        jButtonUp.setPreferredSize(new java.awt.Dimension(20, 16));
+        jButtonUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButtonUpActionPerformed(evt);
             }
         });
-        add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 20, 16));
+        add(jButtonUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 20, 16));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDownActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonDownActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonAutoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonSetpointActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHandActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonHandActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonUpActionPerformed
 
 
     @Override
@@ -218,11 +218,11 @@ public class ControlLoop extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonAuto;
+    private javax.swing.JButton jButtonDown;
+    private javax.swing.JButton jButtonHand;
+    private javax.swing.JButton jButtonSetpoint;
+    private javax.swing.JButton jButtonUp;
     // End of variables declaration//GEN-END:variables
 
     

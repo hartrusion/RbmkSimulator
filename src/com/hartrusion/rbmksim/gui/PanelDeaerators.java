@@ -121,7 +121,13 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA2Level2.setFont(jLabelDA2Level2.getFont().deriveFont(jLabelDA2Level2.getFont().getSize()-2f));
         jLabelDA2Level2.setText("Level");
         add(jLabelDA2Level2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
+
+        loopControlDA2Pressure.setMaxValue(10.0);
+        loopControlDA2Pressure.setSetpoint(8.0);
         add(loopControlDA2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 242, -1, -1));
+
+        loopControlDA1Pressure.setMaxValue(10.0);
+        loopControlDA1Pressure.setSetpoint(8.0);
         add(loopControlDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 202, -1, -1));
 
         jLabelDA1Press2.setFont(jLabelDA1Press2.getFont().deriveFont(jLabelDA1Press2.getFont().getSize()-2f));
