@@ -16,35 +16,83 @@
  */
 package com.hartrusion.rbmksim.gui.elements;
 
+import com.hartrusion.control.ControlCommand;
+import com.hartrusion.mvc.ActionCommand;
+import com.hartrusion.mvc.ActionReceiver;
+import com.hartrusion.mvc.UpdateReceiver;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.beans.BeanProperty;
+import java.beans.PropertyChangeEvent;
 
 /**
+ * A small widget that allows controlling a control loop with a few buttons. It
+ * displays the current setpoint, current value and the output value. Setpoint
+ * and value have same units and scale and are displayed on one display, the
+ * output can (and will most likely be) a different value with different scale
+ * and has its own display.
+ * <p>
+ * There are two buttons for up/down, one button that toggles between setpoint
+ * and output setting for the up and down buttons and two buttons to trigger
+ * manual or automatic mode.
  *
  * @author Viktor Alexander Hartung
  */
-public class ControlLoop extends javax.swing.JPanel {
+public class ControlLoop extends javax.swing.JPanel
+        implements UpdateReceiver {
+
+    protected ActionReceiver controller;
 
     private final int[] outMajorTickX = {34, 44, 54, 64, 74, 84};
     private final int[] outMajorTickY
             = {36, 38, 40, 42, 46, 48, 50, 52, 56, 58, 60, 62, 66, 68, 70, 72,
-            76, 78, 80, 82};
- 
-    private static final Color COLOR_DARKGREEN = new Color(0,128,0);
+                76, 78, 80, 82};
+
+    private static final Color COLOR_DARKGREEN = new Color(0, 128, 0);
 
     private double outValue = 50;
     private int outValueXCoord = 45;
-    
+
     private double value = 15;
     private int valueXCoord = 50;
-    
+
     private double setpoint = 20;
     private int setpointXCoord = 60;
-    
+
     private double minValue = 0, maxValue = 100;
     private double minOutValue = 0, maxOutValue = 100;
+
+    // parameters for calculation of X-coodinates from values
+    private double mVal = 0.5, bVal = 34, mOut = 0.5, bOut = 34;
+
+    private String component = "undefined";
+    private String actionCommand;
+    private String setpointCommand;
+    private String componentControlState;
+
+    private boolean setpointSelected;
+
+    public String getComponent() {
+        return component;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "String identification of the component")
+    public void setComponent(String component) {
+        String old = this.component;
+        this.component = component;
+        // build component identification strings
+        actionCommand = component + "ControlCommand";
+        setpointCommand = component + "Setpoint";
+        componentControlState = component + "ControlState";
+        // componentUpdateValue = component + "ControlUpdateU";
+        firePropertyChange("component", old, component);
+    }
+
+    public void registerActionReceiver(ActionReceiver controller) {
+        this.controller = controller;
+    }
 
     /**
      * Creates new form LoopControl
@@ -83,9 +131,12 @@ public class ControlLoop extends javax.swing.JPanel {
         jButtonDown.setMaximumSize(new java.awt.Dimension(20, 16));
         jButtonDown.setMinimumSize(new java.awt.Dimension(20, 16));
         jButtonDown.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButtonDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDownActionPerformed(evt);
+        jButtonDown.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonDownMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonDownMouseReleased(evt);
             }
         });
         add(jButtonDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
@@ -140,34 +191,75 @@ public class ControlLoop extends javax.swing.JPanel {
         jButtonUp.setMaximumSize(new java.awt.Dimension(20, 16));
         jButtonUp.setMinimumSize(new java.awt.Dimension(20, 16));
         jButtonUp.setPreferredSize(new java.awt.Dimension(20, 16));
-        jButtonUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpActionPerformed(evt);
+        jButtonUp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonUpMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonUpMouseReleased(evt);
             }
         });
         add(jButtonUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 20, 16));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDownActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonDownActionPerformed
-
     private void jButtonAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutoActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand(actionCommand,
+                ControlCommand.AUTOMATIC));
     }//GEN-LAST:event_jButtonAutoActionPerformed
 
     private void jButtonSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointActionPerformed
-        // TODO add your handling code here:
+        setpointSelected = !setpointSelected;
+        if (setpointSelected) {
+            jButtonSetpoint.setBackground(new java.awt.Color(255, 0, 0));
+        } else {
+            jButtonSetpoint.setBackground(new java.awt.Color(204, 0, 0));
+        }
     }//GEN-LAST:event_jButtonSetpointActionPerformed
 
     private void jButtonHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHandActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand(actionCommand,
+                ControlCommand.MANUAL_OPERATION));
     }//GEN-LAST:event_jButtonHandActionPerformed
 
-    private void jButtonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonUpActionPerformed
+    private void jButtonUpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpMousePressed
+        if (setpointSelected) {
+            controller.userAction(new ActionCommand(setpointCommand,
+                    ControlCommand.SETPOINT_INCREASE));
+        } else {
+            controller.userAction(new ActionCommand(actionCommand,
+                    ControlCommand.OUTPUT_INCREASE));
+        }
+    }//GEN-LAST:event_jButtonUpMousePressed
 
+    private void jButtonUpMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpMouseReleased
+        if (setpointSelected) {
+            controller.userAction(new ActionCommand(setpointCommand,
+                    ControlCommand.SETPOINT_STOP));
+        } else {
+            controller.userAction(new ActionCommand(actionCommand,
+                    ControlCommand.OUTPUT_CONTINUE));
+        }
+    }//GEN-LAST:event_jButtonUpMouseReleased
+
+    private void jButtonDownMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDownMousePressed
+        if (setpointSelected) {
+            controller.userAction(new ActionCommand(setpointCommand,
+                    ControlCommand.SETPOINT_DECREASE));
+        } else {
+            controller.userAction(new ActionCommand(actionCommand,
+                    ControlCommand.OUTPUT_DECREASE));
+        }
+    }//GEN-LAST:event_jButtonDownMousePressed
+
+    private void jButtonDownMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDownMouseReleased
+        if (setpointSelected) {
+            controller.userAction(new ActionCommand(setpointCommand,
+                    ControlCommand.SETPOINT_STOP));
+        } else {
+            controller.userAction(new ActionCommand(actionCommand,
+                    ControlCommand.OUTPUT_CONTINUE));
+        }
+    }//GEN-LAST:event_jButtonDownMouseReleased
 
     @Override
     public void paintComponent(Graphics g) {
@@ -179,7 +271,7 @@ public class ControlLoop extends javax.swing.JPanel {
         g2.fillRect(29, 3, 60, 15);
         g2.setColor(Color.BLACK);
         g2.drawRect(29, 3, 60, 15);
-        
+
         // inner scale
         for (int xPos = 36; xPos < 83; xPos = xPos + 2) {
             g2.drawLine(xPos, 10, xPos, 11);
@@ -187,15 +279,15 @@ public class ControlLoop extends javax.swing.JPanel {
         // Scale ends
         g2.drawLine(34, 8, 34, 13);
         g2.drawLine(84, 8, 84, 13);
-        
+
         // Reference value marker from above
-         g2.setColor(COLOR_DARKGREEN);
+        g2.setColor(COLOR_DARKGREEN);
         g2.drawLine(valueXCoord, 4, valueXCoord, 8);
-        
+
         // Setpoint marker from below
         g2.setColor(Color.RED);
         g2.drawLine(setpointXCoord, 13, setpointXCoord, 17);
-        
+
         // Lower display
         // A rectangle with a black frame
         g2.setColor(Color.WHITE);
@@ -216,7 +308,7 @@ public class ControlLoop extends javax.swing.JPanel {
         g2.setColor(Color.BLUE);
         g2.drawLine(outValueXCoord, 21, outValueXCoord, 26);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAuto;
     private javax.swing.JButton jButtonDown;
@@ -225,7 +317,6 @@ public class ControlLoop extends javax.swing.JPanel {
     private javax.swing.JButton jButtonUp;
     // End of variables declaration//GEN-END:variables
 
-    
     public double getValue() {
         return value;
     }
@@ -233,11 +324,21 @@ public class ControlLoop extends javax.swing.JPanel {
     @BeanProperty(preferred = true, visualUpdate = true, description
             = "Current value to display")
     public void setValue(double value) {
+        if (value > maxValue) {
+            value = maxValue;
+        } else if (value < minValue) {
+            value = minValue;
+        }
         double old = this.value;
         this.value = value;
-        firePropertyChange("value", old, value);
+        if (old != value) {
+            valueXCoord = (int) (mVal * value + bVal);
+            firePropertyChange("value", old, value);
+            repaint();
+        }
+
     }
-    
+
     public double getSetpoint() {
         return setpoint;
     }
@@ -245,11 +346,20 @@ public class ControlLoop extends javax.swing.JPanel {
     @BeanProperty(preferred = true, visualUpdate = true, description
             = "Setpoint value to display")
     public void setSetpoint(double setpoint) {
+        if (setpoint > maxValue) {
+            setpoint = maxValue;
+        } else if (setpoint < minValue) {
+            setpoint = minValue;
+        }
         double old = this.setpoint;
         this.setpoint = setpoint;
-        firePropertyChange("setpoint", old, setpoint);
+        if (old != setpoint) {
+            setpointXCoord = (int) (mVal * setpoint + bVal);
+            firePropertyChange("setpoint", old, setpoint);
+            repaint();
+        }
     }
-      
+
     public double getMinValue() {
         return minValue;
     }
@@ -259,6 +369,10 @@ public class ControlLoop extends javax.swing.JPanel {
     public void setMinValue(double minValue) {
         double old = this.minValue;
         this.minValue = minValue;
+        if (minValue != maxValue) { // prevent div/0
+            mVal = 50.0 / (maxValue - minValue);
+            bVal = 84.0 - mVal * maxValue;
+        }
         firePropertyChange("minValue", old, minValue);
     }
 
@@ -271,9 +385,13 @@ public class ControlLoop extends javax.swing.JPanel {
     public void setMaxValue(double maxValue) {
         double old = this.maxValue;
         this.maxValue = maxValue;
+        if (minValue != maxValue) { // prevent div/0
+            mVal = 50.0 / (maxValue - minValue);
+            bVal = 84.0 - mVal * maxValue;
+        }
         firePropertyChange("maxValue", old, maxValue);
     }
-    
+
     public double getOutValue() {
         return outValue;
     }
@@ -281,9 +399,19 @@ public class ControlLoop extends javax.swing.JPanel {
     @BeanProperty(preferred = true, visualUpdate = true, description
             = "Output value to display")
     public void setOutValue(double outValue) {
+        if (outValue > maxOutValue) {
+            outValue = maxOutValue;
+        } else if (outValue < minOutValue) {
+            outValue = minOutValue;
+        }
         double old = this.outValue;
         this.outValue = outValue;
-        firePropertyChange("outValue", old, outValue);
+        if (old != outValue) {
+            outValueXCoord = (int) (mOut * outValue + bOut);
+            firePropertyChange("outValue", old, outValue);
+            repaint();
+        }
+
     }
 
     public double getMinOutValue() {
@@ -295,6 +423,10 @@ public class ControlLoop extends javax.swing.JPanel {
     public void setMinOutValue(double minOutValue) {
         double old = this.minOutValue;
         this.minOutValue = minOutValue;
+        if (minOutValue != maxOutValue) { // prevent div/0
+            mOut = 50.0 / (maxOutValue - minOutValue);
+            bOut = 84.0 - mOut * maxOutValue;
+        }
         firePropertyChange("minOutValue", old, minOutValue);
     }
 
@@ -307,6 +439,32 @@ public class ControlLoop extends javax.swing.JPanel {
     public void setMaxOutValue(double maxOutValue) {
         double old = this.maxOutValue;
         this.maxOutValue = maxOutValue;
+        if (minOutValue != maxOutValue) { // prevent div/0
+            mOut = 50.0 / (maxOutValue - minOutValue);
+            bOut = 84.0 - mOut * maxOutValue;
+        }
         firePropertyChange("maxOutValue", old, maxOutValue);
+    }
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+ 
+    }
+
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        if (propertyName.equals(component)) {
+            setOutValue(newValue);
+        }
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+
     }
 }

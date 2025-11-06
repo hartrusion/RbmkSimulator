@@ -55,7 +55,6 @@ public class ControlLoopValve extends javax.swing.JPanel
     private String component = "undefined";
     private String actionCommand;
     private String componentControlState;
-    // private String componentUpdateValue;
 
     public String getComponent() {
         return component;
