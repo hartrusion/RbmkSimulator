@@ -74,6 +74,10 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabel17 = new javax.swing.JLabel();
         setpointControl1 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         setpointControl2 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(190, 340));
         setMinimumSize(new java.awt.Dimension(190, 340));
@@ -189,6 +193,22 @@ public class PanelDeaerators extends AbstractPanelWidget {
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 150, 36, 14));
         add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 172, -1, -1));
         add(setpointControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 146, -1, -1));
+
+        jLabel18.setFont(jLabel18.getFont().deriveFont(jLabel18.getFont().getSize()-2f));
+        jLabel18.setText("DA 1");
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 72, 38, 14));
+
+        jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getSize()-2f));
+        jLabel21.setText("Flow");
+        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 84, 38, 14));
+
+        jLabel22.setFont(jLabel22.getFont().deriveFont(jLabel22.getFont().getSize()-2f));
+        jLabel22.setText("DA 2");
+        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 110, 38, 14));
+
+        jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getSize()-2f));
+        jLabel23.setText("Flow");
+        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 122, 38, 14));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -213,8 +233,12 @@ public class PanelDeaerators extends AbstractPanelWidget {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
