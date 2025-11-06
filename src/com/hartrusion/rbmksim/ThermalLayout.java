@@ -18,7 +18,6 @@ package com.hartrusion.rbmksim;
 
 import com.hartrusion.control.AbstractController;
 import com.hartrusion.control.ControlCommand;
-import com.hartrusion.control.DataProvider;
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
@@ -52,6 +51,7 @@ import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
+import java.util.function.DoubleSupplier;
 
 /**
  * Describes the thermal process layout of the plant.
@@ -60,7 +60,11 @@ import com.hartrusion.mvc.ModelManipulation;
  * Pump assembly: Define, init signal listener, connect suction and discharge
  * valves by getting the valve elements, call initCharacteristic to set
  * properties, set initial conditions if necessary, submit runnable to runner,
- * call operate methods or similar in handleAction
+ * redirect received user actions to assembly.
+ * <p>
+ * Control Loops: Define as P or PI or whatever, submit runnable to runner,
+ * add new DataProvider to define method that gets input value, set parameters,
+ * 
  *
  * @author Viktor Alexander Hartung
  */
@@ -872,9 +876,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDrumLevel[idx].setMaxRate(0.5);
         }
 
-        controlLoopBlowdownDrumLevel.addInputProvider(new DataProvider() {
+        controlLoopBlowdownDrumLevel.addInputProvider(new DoubleSupplier() {
             @Override
-            public double retrieveValue() {
+            public double getAsDouble() {
                 // Try to keep differences between drum levels equal.
                 // Setpoint is cm, level is m
                 return (setpointDrumLevel[0].getOutput()
@@ -899,17 +903,17 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         for (int jdx = 0; jdx < 3; jdx++) {
             feedwaterFlowRegulationValve[0][jdx].getController()
-                    .addInputProvider(new DataProvider() {
+                    .addInputProvider(new DoubleSupplier() {
                         @Override
-                        public double retrieveValue() {
+                        public double getAsDouble() {
                             return setpointDrumLevel[0].getOutput()
                                     - loopSteamDrum[0].getFillHeight();
                         }
                     });
             feedwaterFlowRegulationValve[1][jdx].getController()
-                    .addInputProvider(new DataProvider() {
+                    .addInputProvider(new DoubleSupplier() {
                         @Override
-                        public double retrieveValue() {
+                        public double getAsDouble() {
                             return setpointDrumLevel[1].getOutput()
                                     - loopSteamDrum[1].getFillHeight();
                         }
