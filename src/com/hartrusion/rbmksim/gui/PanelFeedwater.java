@@ -50,6 +50,9 @@ public class PanelFeedwater extends AbstractPanelWidget
         setpointControl1.registerActionReceiver(controller);
         setpointControl2.registerActionReceiver(controller);
 
+        integralSwitchStartupReduction1.registerActionReceiver(controller);
+        integralSwitchStartupReduction2.registerActionReceiver(controller);
+
     }
 
     /**

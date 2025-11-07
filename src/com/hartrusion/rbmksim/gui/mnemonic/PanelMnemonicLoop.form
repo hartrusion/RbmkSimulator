@@ -186,7 +186,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveMcpFeed1GateValve">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed1FlowReg">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -200,7 +200,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed1TrimValve">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed1Gate">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -228,7 +228,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed2GateValve">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed2FlowReg">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -242,7 +242,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed2TrimValve">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed2Gate">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -256,7 +256,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed2Gate">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed0FlowReg">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -281,7 +281,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartupTrim">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed0Gate">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -295,7 +295,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartupGate2">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartupRed">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>

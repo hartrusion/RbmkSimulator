@@ -65,15 +65,15 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         valveMcpTrim3 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMcpDischarge4 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMcpTrim4 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveMcpFeed1GateValve = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveFeed1TrimValve = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFeed1FlowReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFeed1Gate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMcpBypass = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveFeed2GateValve = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveFeed2TrimValve = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFeed2FlowReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFeed2Gate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFeed0FlowReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMainSteam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveStartupTrim = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveStartupGate2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFeed0Gate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveStartupRed = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         pump1 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
         pump2 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
         pump3 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
@@ -134,30 +134,30 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         valveMcpTrim4.setVertical(true);
         add(valveMcpTrim4, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 523, -1, -1));
 
-        valveMcpFeed1GateValve.setVertical(true);
-        add(valveMcpFeed1GateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 210, -1, -1));
+        valveFeed1FlowReg.setVertical(true);
+        add(valveFeed1FlowReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 210, -1, -1));
 
-        valveFeed1TrimValve.setVertical(true);
-        add(valveFeed1TrimValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 252, -1, -1));
+        valveFeed1Gate.setVertical(true);
+        add(valveFeed1Gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 252, -1, -1));
 
         valveMcpBypass.setVertical(true);
         add(valveMcpBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 504, -1, -1));
 
-        valveFeed2GateValve.setVertical(true);
-        add(valveFeed2GateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 210, -1, -1));
-
-        valveFeed2TrimValve.setVertical(true);
-        add(valveFeed2TrimValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 252, -1, -1));
+        valveFeed2FlowReg.setVertical(true);
+        add(valveFeed2FlowReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 210, -1, -1));
 
         valveFeed2Gate.setVertical(true);
-        add(valveFeed2Gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 210, -1, -1));
+        add(valveFeed2Gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 252, -1, -1));
+
+        valveFeed0FlowReg.setVertical(true);
+        add(valveFeed0FlowReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 210, -1, -1));
         add(valveMainSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 4, -1, -1));
 
-        valveStartupTrim.setVertical(true);
-        add(valveStartupTrim, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 252, -1, -1));
+        valveFeed0Gate.setVertical(true);
+        add(valveFeed0Gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 252, -1, -1));
 
-        valveStartupGate2.setVertical(true);
-        add(valveStartupGate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 294, -1, -1));
+        valveStartupRed.setVertical(true);
+        add(valveStartupRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 294, -1, -1));
 
         pump1.setOrientation(3);
         pump1.setPreferredSize(new java.awt.Dimension(36, 42));
@@ -331,17 +331,18 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump3;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump4;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed1TrimValve;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed0FlowReg;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed0Gate;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed1FlowReg;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed1Gate;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed2FlowReg;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed2Gate;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed2GateValve;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed2TrimValve;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMainSteam;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpBypass;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpDischarge1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpDischarge2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpDischarge3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpDischarge4;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpFeed1GateValve;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpSuction1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpSuction2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpSuction3;
@@ -350,12 +351,38 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpTrim2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpTrim3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMcpTrim4;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupGate2;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupTrim;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupRed;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
+        String command; // extracted part after the #
+        if (evt.getPropertyName().startsWith("Feedwater")) {
+            // check for correct loop number 
+            if (Character.getNumericValue(
+                    evt.getPropertyName().charAt(9)) != loop) {
+                return;
+            }
+            command = evt.getPropertyName().substring(11);
+            switch (command) {
+                case "StartupReductionValve_Pos" ->
+                    valveStartupRed.setActive(evt.getNewValue() != ValveState.CLOSED);
+                case "FlowRegulationValve1_Pos" ->
+                    valveFeed0FlowReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                case "FlowRegulationValve2_Pos" ->
+                    valveFeed1FlowReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                case "FlowRegulationValve3_Pos" ->
+                    valveFeed2FlowReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                case "ShutoffValve1_Pos" ->
+                    valveFeed0Gate.setActive(evt.getNewValue() != ValveState.CLOSED);
+                case "ShutoffValve2_Pos" ->
+                    valveFeed1Gate.setActive(evt.getNewValue() != ValveState.CLOSED);
+                case "ShutoffValve3_Pos" ->
+                    valveFeed2Gate.setActive(evt.getNewValue() != ValveState.CLOSED);
+            }
+
+            return;
+        }
         if (!evt.getPropertyName().startsWith("Loop")) {
             return;
         }
@@ -370,7 +397,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
             // Loop1#mcp1Pump_State with true/false value
             // Extract pump group number
             int nr = Character.getNumericValue(evt.getPropertyName().charAt(9));
-            String command = evt.getPropertyName().substring(10);
+            command = evt.getPropertyName().substring(10);
             switch (command) {
                 case "DischargeValve_Pos" -> {
                     switch (nr) {
