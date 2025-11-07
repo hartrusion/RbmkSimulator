@@ -30,6 +30,8 @@ import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicDeaerator;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicInternalLoad;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -414,6 +416,12 @@ public class ControlPanel extends javax.swing.JFrame
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
+        // Put all events on the log output for easier monitoring
+        Logger.getLogger(ControlPanel.class.getName())
+                    .log(Level.INFO, "Received PropertyChangeEvent "
+                    + evt.getPropertyName() + ", value: " 
+                    + evt.getNewValue());
+        
         panelRodSelector1.updateComponent(evt);
         panelMCP1.updateComponent(evt);
         panelBlowdown1.updateComponent(evt);
