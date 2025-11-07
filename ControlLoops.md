@@ -64,11 +64,51 @@ MANUAL_OPERATION ControlCommand
 A common widget with 3 gauges for setpoint, current value and output value 
 and some buttons. Allows full control and display of a control loop.
 * Send **cmpControlCommand** for auto, manual and output increase/decrease
-* Send **cmpSetpoint** for setpoint increase/decrease/stop
+* Send **setpoint** for setpoint increase/decrease/stop
 * Receive **cmp** primitive value and display it as Output Value
+* Receive **cmpControlState** for lighting up a small bulb if on auto mode
 * Receive **feedback** primitive value as Current value
-* Receive **cmpSetpoint** as primitie value for current setpoint value.
+* Receive **setpoint** as primitie value for current setpoint value.
 
 Due to the nameing of cmpSetpoint, the Setpoint class has to be named with
 the Setpoint-suffix in the main loop. This allows displaying the value and 
 controlling the setpoint integrator with the same commands as the other classes.
+
+## Example
+Deaerator pressure gets regulated with a valve from main steam. This valve is a
+PhasedValveControlled, that's the same as a HeatValveControlled but with a 
+different PhysicalDomain.
+
+There are 2 of those but to simplify, we will assume there is only one. 
+Essential steps are:
+
+mainSteamToDAValve.initController(new PIControl());
+mainSteamToDAValve.initName("Main#SteamToDAValve");
+mainSteamToDAValve.initSignalListener(controller);
+mainSteamToDAValve.initParameterHandler(outputValues);
+
+Valve Opening will be known in ParameterHandler as Main#SteamToDAValve. There
+will be Main#SteamToDAValveControlCommand received as ActionCommands and
+Main#SteamToDAValveControlState property change event will be send.
+
+A setpoint instance will be used to set the pressure setpoint.
+
+setpointDAPressure = new Setpoint();
+setpointDAPressure.initName("Deaerator#PressureSetpoint");
+setpointDAPressure.initParameterHandler(outputValues);
+
+The Setpoint will be known in ParameterHandler as Deaerator#PressureSetpoint.
+ActionCommands will be received also as Deaerator#PressureSetpoint to modify
+the setpoint via the SWI.
+
+On the GUI, a ControlLoop widget will be used. The properties to identify the
+components in the main loop have to be set accordingly to the naming of those:
+* **Deaerator#PressureSetpoint**
+* **Main#SteamToDAValve**
+* **Deaerator#Pressure**
+
+This will make the widget send and process the correct commands and values.
+
+The ControlLoop widget must be initialized and get a instance to a MVC 
+controller object and the updateComponent method calls have to be redirected
+to that widget.

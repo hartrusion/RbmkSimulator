@@ -75,26 +75,49 @@ public class ControlLoop extends javax.swing.JPanel
 
     private String component = "undefined";
     private String actionCommand = "undefinedControlCommand";
-    private String setpointCommand = "undefinedSetpoint";
     private String componentControlState = "undefinedControlState";
+    private String setpointComponent = "undefinedSetpoint";
+    private String feedback = "undefined";
 
     private boolean setpointSelected;
 
-    public String getComponent() {
+    public String getControlComponent() {
         return component;
     }
 
     @BeanProperty(preferred = true, visualUpdate = true, description
-            = "String identification of the component")
-    public void setComponent(String component) {
+            = "String identification of the control component")
+    public void setControlComponent(String component) {
         String old = this.component;
         this.component = component;
         // build component identification strings
         actionCommand = component + "ControlCommand";
-        setpointCommand = component + "Setpoint";
         componentControlState = component + "ControlState";
-        // componentUpdateValue = component + "ControlUpdateU";
         firePropertyChange("component", old, component);
+    }
+    
+    public String getSetpointComponent() {
+        return setpointComponent;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "String identification of the setpoint component")
+    public void setSetpointComponent(String setpointComponent) {
+        String old = this.setpointComponent;
+        this.setpointComponent = setpointComponent;
+        firePropertyChange("setpointComponent", old, setpointComponent);
+    }
+    
+    public String getFeedbackComponent() {
+        return feedback;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "String identification of the feedback (current) value")
+    public void setFeedbackComponent(String feedback) {
+        String old = this.feedback;
+        this.feedback = feedback;
+        firePropertyChange("feedback", old, feedback);
     }
 
     public void registerActionReceiver(ActionReceiver controller) {
@@ -230,7 +253,7 @@ public class ControlLoop extends javax.swing.JPanel
 
     private void jButtonUpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpMousePressed
         if (setpointSelected) {
-            controller.userAction(new ActionCommand(setpointCommand,
+            controller.userAction(new ActionCommand(setpointComponent,
                     ControlCommand.SETPOINT_INCREASE));
         } else {
             controller.userAction(new ActionCommand(actionCommand,
@@ -240,7 +263,7 @@ public class ControlLoop extends javax.swing.JPanel
 
     private void jButtonUpMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpMouseReleased
         if (setpointSelected) {
-            controller.userAction(new ActionCommand(setpointCommand,
+            controller.userAction(new ActionCommand(setpointComponent,
                     ControlCommand.SETPOINT_STOP));
         } else {
             controller.userAction(new ActionCommand(actionCommand,
@@ -250,7 +273,7 @@ public class ControlLoop extends javax.swing.JPanel
 
     private void jButtonDownMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDownMousePressed
         if (setpointSelected) {
-            controller.userAction(new ActionCommand(setpointCommand,
+            controller.userAction(new ActionCommand(setpointComponent,
                     ControlCommand.SETPOINT_DECREASE));
         } else {
             controller.userAction(new ActionCommand(actionCommand,
@@ -260,7 +283,7 @@ public class ControlLoop extends javax.swing.JPanel
 
     private void jButtonDownMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDownMouseReleased
         if (setpointSelected) {
-            controller.userAction(new ActionCommand(setpointCommand,
+            controller.userAction(new ActionCommand(setpointComponent,
                     ControlCommand.SETPOINT_STOP));
         } else {
             controller.userAction(new ActionCommand(actionCommand,
@@ -514,6 +537,10 @@ public class ControlLoop extends javax.swing.JPanel
     public void updateComponent(String propertyName, double newValue) {
         if (propertyName.equals(component)) {
             setOutValue(newValue);
+        } else if (propertyName.equals(feedback)) {
+            setValue(newValue);
+        } else if (propertyName.equals(setpointComponent)) {
+            setSetpoint(newValue);
         }
     }
 

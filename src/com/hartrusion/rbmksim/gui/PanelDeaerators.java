@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
 
@@ -24,6 +25,13 @@ import java.beans.PropertyChangeEvent;
  * @author Viktor Alexander Hartung
  */
 public class PanelDeaerators extends AbstractPanelWidget {
+    
+    @Override
+    public void registerActionReceiver(ActionReceiver controller) {
+        super.registerActionReceiver(controller);
+        loopControlDA1Pressure.registerActionReceiver(controller);
+        loopControlDA2Pressure.registerActionReceiver(controller);
+    }
 
     /**
      * Creates new form PanelDeaerators
@@ -122,12 +130,18 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA2Level2.setText("Level");
         add(jLabelDA2Level2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
+        loopControlDA2Pressure.setControlComponent("Main2#SteamToDAValve");
+        loopControlDA2Pressure.setFeedbackComponent("Deaerator2#Pressure");
         loopControlDA2Pressure.setMaxValue(10.0);
         loopControlDA2Pressure.setSetpoint(8.0);
+        loopControlDA2Pressure.setSetpointComponent("Deaerator2#PressureSetpoint");
         add(loopControlDA2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 242, -1, -1));
 
+        loopControlDA1Pressure.setControlComponent("Main1#SteamToDAValve");
+        loopControlDA1Pressure.setFeedbackComponent("Deaerator1#Pressure");
         loopControlDA1Pressure.setMaxValue(10.0);
         loopControlDA1Pressure.setSetpoint(8.0);
+        loopControlDA1Pressure.setSetpointComponent("Deaerator1#PressureSetpoint");
         add(loopControlDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 202, -1, -1));
 
         jLabelDA1Press2.setFont(jLabelDA1Press2.getFont().deriveFont(jLabelDA1Press2.getFont().getSize()-2f));
@@ -260,7 +274,8 @@ public class PanelDeaerators extends AbstractPanelWidget {
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-
+        loopControlDA1Pressure.updateComponent(evt);
+        loopControlDA2Pressure.updateComponent(evt);
     }
 
     @Override
@@ -276,6 +291,8 @@ public class PanelDeaerators extends AbstractPanelWidget {
             case "Deaerator2#Level" ->
                 chornobylGaugeDA2Level.setChornobylValue((float) newValue);
         }
+        loopControlDA1Pressure.updateComponent(propertyName, newValue);
+        loopControlDA2Pressure.updateComponent(propertyName, newValue);
     }
 
     @Override
