@@ -401,6 +401,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoopValve" name="controlLoopValveDA1Flow">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Deaerator1#FlowValve"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="48" y="66" width="-1" height="-1"/>
@@ -408,6 +411,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoopValve" name="controlLoopValveDA2Flow">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Deaerator2#FlowValve"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="48" y="104" width="-1" height="-1"/>
@@ -445,6 +451,11 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.SetpointControl" name="setpointControlDA2Level">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Deaerator2#LevelSetpoint"/>
+        <Property name="format" type="java.lang.String" value="%.0f"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="6" y="172" width="-1" height="-1"/>
@@ -452,6 +463,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.SetpointControl" name="setpointControlDA1Level">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Deaerator1#LevelSetpoint"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="6" y="146" width="-1" height="-1"/>

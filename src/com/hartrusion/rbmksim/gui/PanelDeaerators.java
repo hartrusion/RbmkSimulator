@@ -25,12 +25,25 @@ import java.beans.PropertyChangeEvent;
  * @author Viktor Alexander Hartung
  */
 public class PanelDeaerators extends AbstractPanelWidget {
-    
+
     @Override
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
+        controlLoopValveDA1Flow.registerActionReceiver(controller);
+        controlLoopValveDA2Flow.registerActionReceiver(controller);
         loopControlDA1Pressure.registerActionReceiver(controller);
         loopControlDA2Pressure.registerActionReceiver(controller);
+        setpointControlDA1Level.registerActionReceiver(controller);
+        setpointControlDA2Level.registerActionReceiver(controller);
+        integralSwitchDrain1.registerActionReceiver(controller);
+        integralSwitchDrain2.registerActionReceiver(controller);
+        integralSwitchDromSDA2.registerActionReceiver(controller);
+        integralSwitchFromSDA1.registerActionReceiver(controller);
+        integralSwitchFromTDA1.registerActionReceiver(controller);
+        integralSwitchFromTDA2.registerActionReceiver(controller);
+        integralSwitchVent1.registerActionReceiver(controller);
+        integralSwitchVent2.registerActionReceiver(controller);
+
     }
 
     /**
@@ -202,7 +215,11 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDrain.setText("Drain");
         add(jLabelDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 64, 36, 14));
+
+        controlLoopValveDA1Flow.setComponent("Deaerator1#FlowValve");
         add(controlLoopValveDA1Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 66, -1, -1));
+
+        controlLoopValveDA2Flow.setComponent("Deaerator2#FlowValve");
         add(controlLoopValveDA2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 104, -1, -1));
         add(integralSwitchVent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 166, -1, -1));
         add(integralSwitchVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 166, -1, -1));
@@ -211,7 +228,13 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelVent2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelVent2.setText("Vent 2");
         add(jLabelVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 150, 36, 14));
+
+        setpointControlDA2Level.setComponent("Deaerator2#LevelSetpoint");
+        setpointControlDA2Level.setFormat("%.0f");
+        setpointControlDA2Level.setToolTipText("");
         add(setpointControlDA2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 172, -1, -1));
+
+        setpointControlDA1Level.setComponent("Deaerator1#LevelSetpoint");
         add(setpointControlDA1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 146, -1, -1));
 
         jLabelDA1Flow1.setFont(jLabelDA1Flow1.getFont().deriveFont(jLabelDA1Flow1.getFont().getSize()-2f));
@@ -274,8 +297,22 @@ public class PanelDeaerators extends AbstractPanelWidget {
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
+        controlLoopValveDA1Flow.updateComponent(evt);
+        controlLoopValveDA2Flow.updateComponent(evt);
         loopControlDA1Pressure.updateComponent(evt);
         loopControlDA2Pressure.updateComponent(evt);
+        setpointControlDA1Level.updateComponent(evt);
+        setpointControlDA2Level.updateComponent(evt);
+        setpointControlDA1Level.updateComponent(evt);
+        setpointControlDA2Level.updateComponent(evt);
+        integralSwitchDrain1.updateComponent(evt);
+        integralSwitchDrain2.updateComponent(evt);
+        integralSwitchDromSDA2.updateComponent(evt);
+        integralSwitchFromSDA1.updateComponent(evt);
+        integralSwitchFromTDA1.updateComponent(evt);
+        integralSwitchFromTDA2.updateComponent(evt);
+        integralSwitchVent1.updateComponent(evt);
+        integralSwitchVent2.updateComponent(evt);
     }
 
     @Override
@@ -293,6 +330,8 @@ public class PanelDeaerators extends AbstractPanelWidget {
         }
         loopControlDA1Pressure.updateComponent(propertyName, newValue);
         loopControlDA2Pressure.updateComponent(propertyName, newValue);
+        setpointControlDA1Level.updateComponent(propertyName, newValue);
+        setpointControlDA2Level.updateComponent(propertyName, newValue);
     }
 
     @Override
