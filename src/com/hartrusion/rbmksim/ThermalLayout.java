@@ -431,7 +431,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         = new HeatValveControlled();
                 // Name has to match the designator on the GUI element. like:
                 // Feedwater1#FlowRegulationValve3
-                feedwaterFlowRegulationValve[idx][jdx].initPControl();
+                feedwaterFlowRegulationValve[idx][jdx].initController(
+                    new PControl());
                 feedwaterFlowRegulationValve[idx][jdx]
                         .initName("Feedwater" + (idx + 1)
                                 + "#FlowRegulationValve" + (jdx + 1));
@@ -893,7 +894,6 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
-                feedwaterFlowRegulationValve[idx][jdx].initPIControl();
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
                         .getController()).setParameterK(10);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
