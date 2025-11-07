@@ -23,6 +23,8 @@ import com.hartrusion.mvc.UpdateReceiver;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
 import java.beans.BeanProperty;
 import java.beans.PropertyChangeEvent;
 
@@ -41,6 +43,9 @@ import java.beans.PropertyChangeEvent;
  */
 public class ControlLoop extends javax.swing.JPanel
         implements UpdateReceiver {
+    
+    protected static final Color DARKRED = new Color(128, 0, 0);
+    protected static final Color RED = new Color(255, 0, 0);
 
     protected ActionReceiver controller;
 
@@ -65,11 +70,13 @@ public class ControlLoop extends javax.swing.JPanel
 
     // parameters for calculation of X-coodinates from values
     private double mVal = 0.5, bVal = 34, mOut = 0.5, bOut = 34;
+    
+    private boolean indicatorActive = false;
 
     private String component = "undefined";
-    private String actionCommand;
-    private String setpointCommand;
-    private String componentControlState;
+    private String actionCommand = "undefinedControlCommand";
+    private String setpointCommand = "undefinedSetpoint";
+    private String componentControlState = "undefinedControlState";
 
     private boolean setpointSelected;
 
@@ -210,9 +217,9 @@ public class ControlLoop extends javax.swing.JPanel
     private void jButtonSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointActionPerformed
         setpointSelected = !setpointSelected;
         if (setpointSelected) {
-            jButtonSetpoint.setBackground(new java.awt.Color(255, 0, 0));
+            jButtonSetpoint.setBackground(RED);
         } else {
-            jButtonSetpoint.setBackground(new java.awt.Color(204, 0, 0));
+            jButtonSetpoint.setBackground(DARKRED);
         }
     }//GEN-LAST:event_jButtonSetpointActionPerformed
 
@@ -265,6 +272,11 @@ public class ControlLoop extends javax.swing.JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        Object prevHint = g2.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        
         // Upper display
         // A rectangle with a black frame
         g2.setColor(Color.WHITE);
@@ -307,6 +319,23 @@ public class ControlLoop extends javax.swing.JPanel
         // Value marker
         g2.setColor(Color.BLUE);
         g2.drawLine(outValueXCoord, 21, outValueXCoord, 26);
+        
+        // A small indicator light, same as on the IntegralSwitch class
+        Ellipse2D.Float circle;
+        if (indicatorActive) {
+            g2.setColor(Color.WHITE);
+        } else {
+            g2.setColor(Color.GRAY);
+        }
+        
+        circle = new Ellipse2D.Float(102, 4, 6, 6);
+        g2.fill(circle);
+        // Draw the outer ring using foreground color.
+        g2.setColor(getForeground());
+        g2.draw(circle);
+        
+        // Reset the antialiasing to its previous value
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, prevHint);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -445,10 +474,35 @@ public class ControlLoop extends javax.swing.JPanel
         }
         firePropertyChange("maxOutValue", old, maxOutValue);
     }
+    
+    public boolean getIndicatorActive() {
+        return indicatorActive;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "State of the small indicator light bulb")
+    public void setIndicatorActive(boolean indicatorActive) {
+        boolean old = this.indicatorActive;
+        this.indicatorActive = indicatorActive;
+        if (old != indicatorActive) {
+            firePropertyChange("indicatorActive", old, maxOutValue);
+            repaint();
+        }
+        
+    }
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
- 
+        if (evt.getPropertyName().equals(componentControlState)) {
+            switch ((ControlCommand) evt.getNewValue()) {
+                case AUTOMATIC:
+                    setIndicatorActive(true);
+                    break;
+                case MANUAL_OPERATION:
+                    setIndicatorActive(false);
+                    break;
+            }
+        }
     }
 
     @Override

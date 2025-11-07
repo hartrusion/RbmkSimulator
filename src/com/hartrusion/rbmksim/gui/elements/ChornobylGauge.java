@@ -171,9 +171,11 @@ public final class ChornobylGauge extends javax.swing.JPanel {
     public void setChornobylValue(float value) {
         float old = this.value;
         this.value = value;
-        updateIndicatorPosition();
-        firePropertyChange("chornobylValue", old, value);
-        repaint();
+        if (value != old) {
+            updateIndicatorPosition();
+            firePropertyChange("chornobylValue", old, value);
+            repaint();
+        }
     }
 
     public float[] getChornobylTicks() {
