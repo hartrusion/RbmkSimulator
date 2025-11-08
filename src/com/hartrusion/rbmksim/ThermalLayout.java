@@ -1117,6 +1117,14 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     -loopFeedwaterIn[idx].getFlow( // negative = into node
                             blowdownReturnValve[idx].getValveElement()));
 
+            outputValues.setParameterValue("Feedwater" + (idx + 1) + "#Flow",
+                    - loopFeedwaterIn[idx].getFlow(
+                            feedwaterFlowRegulationValve[idx][0].getValveElement())
+                    - loopFeedwaterIn[idx].getFlow(
+                            feedwaterFlowRegulationValve[idx][1].getValveElement())
+                    - loopFeedwaterIn[idx].getFlow(
+                            feedwaterFlowRegulationValve[idx][2].getValveElement()));
+
             outputValues.setParameterValue("Deaerator" + (idx + 1) + "#Level",
                     deaerator[idx].getFillHeight() * 100); // m to cm
             outputValues.setParameterValue(

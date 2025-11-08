@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui.mnemonic;
 
+import com.hartrusion.control.ControlCommand;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.control.ValveState;
 import com.hartrusion.modeling.assemblies.PumpState;
@@ -134,6 +135,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         valveMcpTrim4.setVertical(true);
         add(valveMcpTrim4, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 523, -1, -1));
 
+        valveFeed1FlowReg.setControlIndicator(true);
         valveFeed1FlowReg.setVertical(true);
         add(valveFeed1FlowReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 210, -1, -1));
 
@@ -143,12 +145,14 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         valveMcpBypass.setVertical(true);
         add(valveMcpBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 504, -1, -1));
 
+        valveFeed2FlowReg.setControlIndicator(true);
         valveFeed2FlowReg.setVertical(true);
         add(valveFeed2FlowReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 210, -1, -1));
 
         valveFeed2Gate.setVertical(true);
         add(valveFeed2Gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 252, -1, -1));
 
+        valveFeed0FlowReg.setControlIndicator(true);
         valveFeed0FlowReg.setVertical(true);
         add(valveFeed0FlowReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 210, -1, -1));
         add(valveMainSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 4, -1, -1));
@@ -366,19 +370,35 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
             command = evt.getPropertyName().substring(11);
             switch (command) {
                 case "StartupReductionValve_Pos" ->
-                    valveStartupRed.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveStartupRed.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
                 case "FlowRegulationValve1_Pos" ->
-                    valveFeed0FlowReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveFeed0FlowReg.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
+                case "FlowRegulationValve1ControlState" ->
+                    valveFeed0FlowReg.setControlIndicatorActive(
+                            evt.getNewValue() == ControlCommand.AUTOMATIC);
                 case "FlowRegulationValve2_Pos" ->
-                    valveFeed1FlowReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveFeed1FlowReg.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
+                case "FlowRegulationValve2ControlState" ->
+                    valveFeed1FlowReg.setControlIndicatorActive(
+                            evt.getNewValue() == ControlCommand.AUTOMATIC);
                 case "FlowRegulationValve3_Pos" ->
-                    valveFeed2FlowReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveFeed2FlowReg.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
+                case "FlowRegulationValve3ControlState" ->
+                    valveFeed2FlowReg.setControlIndicatorActive(
+                            evt.getNewValue() == ControlCommand.AUTOMATIC);
                 case "ShutoffValve1_Pos" ->
-                    valveFeed0Gate.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveFeed0Gate.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
                 case "ShutoffValve2_Pos" ->
-                    valveFeed1Gate.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveFeed1Gate.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
                 case "ShutoffValve3_Pos" ->
-                    valveFeed2Gate.setActive(evt.getNewValue() != ValveState.CLOSED);
+                    valveFeed2Gate.setActive(
+                            evt.getNewValue() != ValveState.CLOSED);
             }
 
             return;
@@ -402,25 +422,33 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                 case "DischargeValve_Pos" -> {
                     switch (nr) {
                         case 1 ->
-                            valveMcpDischarge1.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpDischarge1.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                         case 2 ->
-                            valveMcpDischarge2.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpDischarge2.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                         case 3 ->
-                            valveMcpDischarge3.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpDischarge3.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                         case 4 ->
-                            valveMcpDischarge4.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpDischarge4.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                     }
                 }
                 case "SuctionValve_Pos" -> {
                     switch (nr) {
                         case 1 ->
-                            valveMcpSuction1.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpSuction1.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                         case 2 ->
-                            valveMcpSuction2.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpSuction2.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                         case 3 ->
-                            valveMcpSuction3.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpSuction3.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                         case 4 ->
-                            valveMcpSuction4.setActive(evt.getNewValue() != ValveState.CLOSED);
+                            valveMcpSuction4.setActive(
+                                    evt.getNewValue() != ValveState.CLOSED);
                     }
                 }
                 case "Pump_State" -> {
@@ -486,6 +514,15 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
+        if (propertyName.length() == 15) { // FeedwaterN#Flow
+            if (propertyName.substring(11).equals("Flow")) {
+                if (Character.getNumericValue(propertyName.charAt(9)) == loop) {
+                    jLabelFeedwaterFlow.setText(
+                            String.format("%.0f", newValue) + " kg/s");
+                    return;
+                }
+            }
+        }
         if (propertyName.equals("Blowdown#CoolantOutTemp")) {
             jLabelBlowdownTemp.setText(
                     String.format("%.1f", newValue)

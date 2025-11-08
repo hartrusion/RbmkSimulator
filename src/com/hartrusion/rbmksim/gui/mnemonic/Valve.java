@@ -16,7 +16,6 @@
  */
 package com.hartrusion.rbmksim.gui.mnemonic;
 
-import com.hartrusion.rbmksim.gui.mnemonic.MnemonicColors;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,23 +26,40 @@ import java.awt.geom.Rectangle2D;
 import java.beans.BeanProperty;
 
 /**
+ * A valve element for mnemonic displays. Even though it is designed to be used
+ * with the exact same size, it was made scaleable. It can be placed vertically
+ * or horizontally, changing this will automatically resize the element.
  *
  * @author vikto
  */
 public class Valve extends javax.swing.JComponent {
 
+    /**
+     * Size of the end part in parts of the length
+     */
     private static final float ENDS = 0.1F;
+
+    /**
+     * Size of the gap in parts of the length
+     */
     private static final float GAP = 0.05F;
+
+    private static final float INDICATOR_WIDTH = 0.2F;
+
+    private static final float INDICATOR_HEIGT = 0.45F;
 
     private boolean vertical = false;
 
     private boolean active;
 
+    private boolean hasControlIndicator;
+
+    private boolean controlIndicatorActive;
+
     public Valve() {
         // Initialize mnemnomic display colors.
         setBackground(MnemonicColors.getPassive()); // passive
         setForeground(MnemonicColors.getActive()); // active
-        // background color would be 56, 59, 58
 
         setPreferredSize(new Dimension(40, 18));
     }
@@ -52,8 +68,10 @@ public class Valve extends javax.swing.JComponent {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        float length, diameter, middleStart, middleEnd;
+        float length, diameter, middleStart, middleEnd, indicatorStart = 0.0F,
+                indicatorEnd = 0.0F;
         Shape shape;
+        Path2D.Float reduct;
 
         Graphics2D g2d = (Graphics2D) g;
         // Force the use of antialiasing to not look like 1997
@@ -79,6 +97,7 @@ public class Valve extends javax.swing.JComponent {
             g.setColor(getBackground());
         }
 
+        // Draw two end lines
         if (vertical) {
             shape = new Rectangle2D.Float(0, 0, diameter, length * ENDS);
             g2d.fill(shape);
@@ -91,7 +110,8 @@ public class Valve extends javax.swing.JComponent {
             g2d.fill(shape);
         }
 
-        Path2D.Float reduct = new Path2D.Float();
+        // Draw the valve itself (flow reduction depiction)
+        reduct = new Path2D.Float();
         if (vertical) {
             reduct.moveTo(0, middleStart);
             reduct.lineTo(diameter, middleEnd);
@@ -105,6 +125,29 @@ public class Valve extends javax.swing.JComponent {
         }
         reduct.closePath();
         g2d.fill(reduct);
+
+        // Draw the indicator
+        if (hasControlIndicator) {
+            indicatorStart = length * (1.0F - INDICATOR_WIDTH) * 0.5F;
+            indicatorEnd = indicatorStart + length * INDICATOR_WIDTH;
+            if (controlIndicatorActive) {
+                g.setColor(getForeground());
+            } else {
+                g.setColor(getBackground());
+            }
+            reduct = new Path2D.Float();
+            if (vertical) {
+                reduct.moveTo(diameter, indicatorStart);
+                reduct.lineTo((1.0F - INDICATOR_HEIGT) * diameter, length * 0.5F);
+                reduct.lineTo(diameter, indicatorEnd);
+            } else {
+                reduct.moveTo(indicatorStart, 0);
+                reduct.lineTo(length * 0.5F, INDICATOR_HEIGT * diameter);
+                reduct.lineTo(indicatorEnd, 0);
+            }
+            reduct.closePath();
+            g2d.fill(reduct);
+        }
 
         // Reset the antialiasing to its previous value
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, prevHint);
@@ -134,6 +177,28 @@ public class Valve extends javax.swing.JComponent {
             = "Switches to the foreground color")
     public void setActive(boolean active) {
         this.active = active;
+        repaint();
+    }
+
+    public boolean isControlIndicator() {
+        return hasControlIndicator;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Display of a control indicator")
+    public void setControlIndicator(boolean hasControlIndicator) {
+        this.hasControlIndicator = hasControlIndicator;
+        repaint();
+    }
+
+    public boolean isControlIndicatorActive() {
+        return controlIndicatorActive;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "The control indicator is displayed with highlight color.")
+    public void setControlIndicatorActive(boolean controlIndicatorActive) {
+        this.controlIndicatorActive = controlIndicatorActive;
         repaint();
     }
 }

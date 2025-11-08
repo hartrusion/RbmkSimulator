@@ -188,6 +188,7 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed1FlowReg">
       <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -230,6 +231,7 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed2FlowReg">
       <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -258,6 +260,7 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFeed0FlowReg">
       <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>

@@ -111,7 +111,11 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
 
         valveTreatmentBypass.setVertical(true);
         add(valveTreatmentBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 107, -1, -1));
+
+        valveOut2.setControlIndicator(true);
         add(valveOut2, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 13, -1, -1));
+
+        valveOut1.setControlIndicator(true);
         add(valveOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 13, -1, -1));
 
         valvePump1Suction.setVertical(true);
