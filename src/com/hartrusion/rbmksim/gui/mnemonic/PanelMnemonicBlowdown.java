@@ -50,7 +50,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         valveFromDistributor1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFromDistributor2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCoolantIn = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveAddFeedwater = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveDrain = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveTreatedToDrums = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveTreatmentBypass = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveOut2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -104,7 +104,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         valveFromDistributor2.setVertical(true);
         add(valveFromDistributor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 392, -1, -1));
         add(valveCoolantIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 175, -1, -1));
-        add(valveAddFeedwater, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 69, -1, -1));
+        add(valveDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 69, -1, -1));
 
         valveTreatedToDrums.setVertical(true);
         add(valveTreatedToDrums, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 106, -1, -1));
@@ -324,8 +324,8 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
     private javax.swing.JLabel jLabelReadingValveFromLoop2;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveAddFeedwater;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCoolantIn;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveDrain;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFromDistributor1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFromDistributor2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveOut1;
@@ -405,6 +405,9 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 break;
             case "Blowdown#ReturnValve2_Pos":
                 valveOut2.setActive(evt.getNewValue() != ValveState.CLOSED);
+                break;
+            case "Blowdown#ValveDrain_Pos":
+                valveDrain.setActive(evt.getNewValue() != ValveState.CLOSED);
                 break;
         }
     }

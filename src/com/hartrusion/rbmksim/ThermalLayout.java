@@ -40,6 +40,7 @@ import com.hartrusion.modeling.general.LinearDissipator;
 import com.hartrusion.modeling.general.OpenOrigin;
 import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.heatfluid.HeatEffortSource;
+import com.hartrusion.modeling.heatfluid.HeatFluidTank;
 import com.hartrusion.modeling.heatfluid.HeatNode;
 import com.hartrusion.modeling.heatfluid.HeatOrigin;
 import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
@@ -76,10 +77,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             = new PhasedPropertiesWater();
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
+    private final HeatFluidTank makeupStorage;
+    private final HeatNode makeupStorageNode;
+
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
     private final PhasedNode[] mainSteam = new PhasedNode[2];
-    ;
 
     private final PhasedClosedSteamedReservoir[] loopSteamDrum
             = new PhasedClosedSteamedReservoir[2];
@@ -147,6 +150,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatVolumizedFlowResistance blowdownTreatment;
     private final HeatNode blowdownTreatedOutNode;
     private final HeatValve blowdownValveRegeneratedToDrums;
+    private final HeatValve blowdownValveDrain;
     private final HeatNode blowdownOutNode;
     private final HeatValve[] blowdownReturnValve = new HeatValve[2];
 
@@ -215,6 +219,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // Generate all instances and name them. This is done here and not in
         // variables declaration so we can both instanciate single and array
         // elements in a common way.
+        makeupStorage = new HeatFluidTank();
+        makeupStorage.setName("MakeupStorage");
+        makeupStorageNode = new HeatNode();
+        makeupStorageNode.setName("MakeupStorageNode");
+
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDrumNode[idx] = new PhasedNode();
             mainSteamDrumNode[idx].setName("Main" + (idx + 1)
@@ -371,6 +380,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownValveRegeneratedToDrums = new HeatValve();
         blowdownValveRegeneratedToDrums.initName(
                 "Blowdown#ValveRegeneratedToDrums");
+        blowdownValveDrain = new HeatValve();
+        blowdownValveDrain.initName("Blowdown#ValveDrain");
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx] = new HeatValve();
             blowdownReturnValve[idx].initName("Blowdown#ReturnValve" + (idx + 1));
@@ -480,6 +491,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownValveRegeneratorToCooler.initSignalListener(controller);
         blowdownValveTreatmentBypass.initSignalListener(controller);
         blowdownValveRegeneratedToDrums.initSignalListener(controller);
+        blowdownValveDrain.initSignalListener(controller);
         blowdownCoolantFlow.initSignalListener(controller);
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].initSignalListener(controller);
@@ -511,6 +523,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
         // Define the primary loop from drum through mcps and reactor and back.
+        makeupStorage.connectTo(makeupStorageNode);
         for (int idx = 0; idx < 2; idx++) {
             loopSteamDrum[idx].connectToVia(
                     loopFromDrumConverter[idx], loopNodeDrumWaterOut[idx]);
@@ -611,6 +624,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownValveRegeneratedToDrums.getValveElement().connectBetween(
                 blowdownRegenerator.getSecondarySide().getNode(1),
                 blowdownOutNode);
+        // Add the drain back to makeup storage
+        blowdownValveDrain.getValveElement().connectBetween(
+                blowdownTreatedOutNode, makeupStorageNode);
         // Secondary coolant flow, just a flow source for forcing the flow.
         blowdownCoolantSource.connectTo(blowdownCoolantSourceNode);
         blowdownCoolantFlow.getFlowSource()
@@ -686,6 +702,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set element properties">
+        makeupStorage.setTimeConstant(100 / 9.81);
         // The main steam shutoff valve can be seen more as a cheat to keep the
         // model stable, it will be operated automatically. Randomly setting it 
         // to 200 for a little pressure loss.
@@ -759,6 +776,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownCooldownResistance.setResistanceParameter(2000);
         blowdownValveTreatmentBypass.initCharacteristic(500, -1.0);
         blowdownValveRegeneratedToDrums.initCharacteristic(500, -1.0);
+        blowdownValveDrain.initCharacteristic(400, 20.0);
         blowdownToRegeneratorFirstResistance.setResistanceParameter(1000);
         blowdownToRegeneratorSecondResistance.setResistanceParameter(1000);
         blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
@@ -789,6 +807,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
+        // Makeup storage has 2 meters fill level initially, quite low:
+        makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
         for (int idx = 0; idx <= 1; idx++) {
             // See notes above, try to init with 0 cm fill level
             loopSteamDrum[idx].setInitialState(10000, 45 + 273.15);
@@ -854,6 +874,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         runner.submit(blowdownValveRegeneratorToCooler);
         runner.submit(blowdownValveTreatmentBypass);
         runner.submit(blowdownValveRegeneratedToDrums);
+        runner.submit(blowdownValveDrain);
         runner.submit(blowdownCoolantFlow);
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(blowdownReturnValve[idx]);
@@ -1028,6 +1049,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
+        outputValues.setParameterValue("MakeupStorageLevel",
+                makeupStorage.getEffort() * 1.0224e-4); // Pa in meters
         for (int idx = 0; idx < 2; idx++) {
             // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumLevel",
@@ -1118,7 +1141,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                             blowdownReturnValve[idx].getValveElement()));
 
             outputValues.setParameterValue("Feedwater" + (idx + 1) + "#Flow",
-                    - loopFeedwaterIn[idx].getFlow(
+                    -loopFeedwaterIn[idx].getFlow(
                             feedwaterFlowRegulationValve[idx][0].getValveElement())
                     - loopFeedwaterIn[idx].getFlow(
                             feedwaterFlowRegulationValve[idx][1].getValveElement())
@@ -1277,6 +1300,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             } else if (blowdownValveRegeneratorToCooler.handleAction(ac)) {
                 return;
             } else if (blowdownValveRegeneratedToDrums.handleAction(ac)) {
+                return;
+            } else if (blowdownValveDrain.handleAction(ac)) {
                 return;
             }
 

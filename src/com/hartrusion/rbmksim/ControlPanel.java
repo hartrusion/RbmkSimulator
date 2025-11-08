@@ -442,6 +442,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelBlowdown1.updateComponent(evt);
         panelFeedwater1.updateComponent(evt);
         panelDeaerators1.updateComponent(evt);
+        panelMakeup1.updateComponent(evt);
         if (frameMnemonicBlowdown != null) {
             frameMnemonicBlowdown.updateComponent(evt);
         }
@@ -476,7 +477,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelBlowdown1.updateComponent(propertyName, newValue);
         panelFeedwater1.updateComponent(propertyName, newValue);
         panelDeaerators1.updateComponent(propertyName, newValue);
-
+        panelMakeup1.updateComponent(propertyName, newValue);
     }
 
     @Override
@@ -486,6 +487,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelFeedwater1.updateComponent(propertyName, newValue);
         panelRodSelector1.updateComponent(propertyName, newValue);
         panelDeaerators1.updateComponent(propertyName, newValue);
+        panelMakeup1.updateComponent(propertyName, newValue);
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }

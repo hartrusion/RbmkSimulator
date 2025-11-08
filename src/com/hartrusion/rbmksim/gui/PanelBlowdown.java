@@ -500,6 +500,8 @@ public class PanelBlowdown extends AbstractPanelWidget {
 
         integralSwitchBlowdownLoop1.setComponent("Blowdown#ValveFromLoop1");
         add(integralSwitchBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 308, -1, -1));
+
+        integralSwitchDrain.setComponent("Blowdown#ValveDrain");
         add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 198, -1, -1));
 
         integralSwitchBlowdownLoop2.setComponent("Blowdown#ValveFromLoop2");

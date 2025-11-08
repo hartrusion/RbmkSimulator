@@ -121,7 +121,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveAddFeedwater">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveDrain">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="275" y="69" width="-1" height="-1"/>

@@ -51,7 +51,7 @@ public class PanelMakeup extends AbstractPanelWidget {
         jLabelCaptionPump12 = new javax.swing.JLabel();
         jLabelDA1Level1 = new javax.swing.JLabel();
         jLabelDA1Level2 = new javax.swing.JLabel();
-        chornobylGaugeDA1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         panelWidgetSmallPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
 
         setMaximumSize(new java.awt.Dimension(190, 174));
@@ -115,12 +115,13 @@ public class PanelMakeup extends AbstractPanelWidget {
         jLabelDA1Level2.setText("Level");
         add(jLabelDA1Level2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
 
-        chornobylGaugeDA1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeDA1Level.setChornobylMaximum(220.0F);
-        chornobylGaugeDA1Level.setChornobylMinimum(0.0F);
-        chornobylGaugeDA1Level.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f, 200.0f});
-        chornobylGaugeDA1Level.setChornobylValue(0.0F);
-        add(chornobylGaugeDA1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+        chornobylGaugeLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeLevel.setChornobylMaximum(10.0F);
+        chornobylGaugeLevel.setChornobylMinimum(0.0F);
+        chornobylGaugeLevel.setChornobylTicks(new float[] {0.0f, 2.0f, 4.0f, 6.0f, 8.0f, 10.0f});
+        chornobylGaugeLevel.setChornobylUnitText("m");
+        chornobylGaugeLevel.setChornobylValue(0.0F);
+        add(chornobylGaugeLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
         add(panelWidgetSmallPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 54, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,7 +135,7 @@ public class PanelMakeup extends AbstractPanelWidget {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeDA1Level;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLevel;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
     private javax.swing.JButton jButtonFeed12Close;
@@ -149,21 +150,24 @@ public class PanelMakeup extends AbstractPanelWidget {
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch (propertyName) {
+            case "MakeupStorageLevel" ->
+                chornobylGaugeLevel.setChornobylValue((float) newValue);
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 }

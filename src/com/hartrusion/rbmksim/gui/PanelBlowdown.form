@@ -970,6 +970,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchDrain">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Blowdown#ValveDrain"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="156" y="198" width="-1" height="-1"/>
