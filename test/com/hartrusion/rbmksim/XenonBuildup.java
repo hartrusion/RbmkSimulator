@@ -14,10 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.test;
+package com.hartrusion.rbmksim;
 
 import static com.hartrusion.plot.VisualizeData.*;
-import com.hartrusion.rbmksim.XenonModel;
 
 /**
  *
