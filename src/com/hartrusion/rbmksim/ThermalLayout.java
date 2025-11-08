@@ -905,9 +905,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             public double getAsDouble() {
                 // Try to keep differences between drum levels equal.
                 // Setpoint is cm, level is m
-                return (setpointDrumLevel[0].getOutput()
+                return (setpointDrumLevel[0].getOutput() * 0.5
                         - loopSteamDrum[0].getFillHeight() * 100)
-                        - (setpointDrumLevel[1].getOutput()
+                        - (setpointDrumLevel[1].getOutput() * 0.5
                         - loopSteamDrum[1].getFillHeight() * 100);
             }
         });
