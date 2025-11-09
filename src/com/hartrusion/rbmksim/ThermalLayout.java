@@ -161,9 +161,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final PhasedNode[] deaeratorInNode = new PhasedNode[2];
     private final PhasedHeatFluidConverter[] deaeratorToFeedwaterConverter
             = new PhasedHeatFluidConverter[2];
-    private final HeatNode[] deaeratorOutHeatNode = new HeatNode[2];
+    private final HeatNode[] deaeratorFeedwaterOutHeatNode = new HeatNode[2];
     private final PhasedValveControlled[] mainSteamToDAValve
             = new PhasedValveControlled[2];
+    private final PhasedHeatFluidConverter[] deaeratorToDrainConverter
+            = new PhasedHeatFluidConverter[2];
+    private final HeatNode[] deaeratorDrainOutHeatNode = new HeatNode[2];
+
     private final HeatValve[] deaeratorDrain = new HeatValve[2];
 
     // Feedwater pumps system
@@ -402,13 +406,20 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     = new PhasedHeatFluidConverter(phasedWater);
             deaeratorToFeedwaterConverter[idx].setName(
                     "Deaerator" + (idx + 1) + "#ToFeedwaterConverter");
-            deaeratorOutHeatNode[idx] = new HeatNode();
-            deaeratorOutHeatNode[idx].setName(
-                    "Deaerator" + (idx + 1) + "#OutHeatNode");
+            deaeratorFeedwaterOutHeatNode[idx] = new HeatNode();
+            deaeratorFeedwaterOutHeatNode[idx].setName(
+                    "Deaerator" + (idx + 1) + "#FeedwaterOutHeatNode");
             mainSteamToDAValve[idx] = new PhasedValveControlled();
             mainSteamToDAValve[idx].initController(new PIControl());
             mainSteamToDAValve[idx].initName(
                     "Main" + (idx + 1) + "#SteamToDAValve");
+            deaeratorToDrainConverter[idx]
+                    = new PhasedHeatFluidConverter(phasedWater);
+            deaeratorToDrainConverter[idx].setName(
+                    "Deaerator" + (idx + 1) + "#ToDrainConverter");
+            deaeratorDrainOutHeatNode[idx] = new HeatNode();
+            deaeratorDrainOutHeatNode[idx].setName(
+                    "Deaerator" + (idx + 1) + "#DrainOutHeatNode");
             deaeratorDrain[idx] = new HeatValve();
             deaeratorDrain[idx].initName("Deaerator" + (idx + 1) + "Drain");
         }
@@ -464,9 +475,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         //</editor-fold>      
-        
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
-        
+
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx] = new Setpoint();
             setpointDrumLevel[idx].initName(
@@ -665,26 +675,32 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             // only heat fluid will leave DA, place a conveter after
             deaeratorToFeedwaterConverter[idx].connectBetween(
                     deaeratorOutNode[idx],
-                    deaeratorOutHeatNode[idx]);
-            // Drain:
+                    deaeratorFeedwaterOutHeatNode[idx]);
+            // Drain gets its own converter, this allows the model to be split 
+            // to its own path for a separate subnet solution. Otherwise model
+            // complexity would explode
+            deaeratorToDrainConverter[idx].connectBetween(
+                    deaeratorOutNode[idx],
+                    deaeratorDrainOutHeatNode[idx]);
             deaeratorDrain[idx].getValveElement().connectBetween(
-                    deaeratorOutHeatNode[idx], makeupStorageDrainCollector);
+                    deaeratorDrainOutHeatNode[idx],
+                    makeupStorageDrainCollector);
             // Steam in
             mainSteamToDAValve[idx].getValveElement().connectBetween(
-                    mainSteam[idx], deaeratorInNode[idx]);  
+                    mainSteam[idx], deaeratorInNode[idx]);
         }
         // Feedwater Pumps
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
                 // 2 Pumps on both sides
                 feedwaterPump[idx][jdx].getSuctionValve().connectTo(
-                        deaeratorOutHeatNode[idx]);
+                        deaeratorFeedwaterOutHeatNode[idx]);
                 feedwaterPump[idx][jdx].getDischargeValve().connectTo(
                         feedwaterPumpCollectorNodes[idx]);
             }
             // Valve from both DAs to spare pump in
             feedwaterSparePumpInValve[idx].getValveElement().connectBetween(
-                    deaeratorOutHeatNode[idx], feedwaterSparePumpIn);
+                    deaeratorFeedwaterOutHeatNode[idx], feedwaterSparePumpIn);
         }
         feedwaterPump3.getSuctionValve().connectTo(feedwaterSparePumpIn);
         feedwaterPump3.getDischargeValve().connectTo(feedwaterSparePumpOut);
