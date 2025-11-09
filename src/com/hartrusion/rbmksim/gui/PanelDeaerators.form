@@ -79,22 +79,6 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDA1FromT">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-          <FontInfo relative="true">
-            <Font component="jLabelDA1FromT" property="font" relativeSize="true" size="-2"/>
-          </FontInfo>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="DA 1"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="296" width="36" height="14"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabelDA1Level1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
@@ -157,7 +141,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlDA2Pressure">
       <Properties>
-        <Property name="controlComponent" type="java.lang.String" value="Main2#SteamToDAValve"/>
+        <Property name="controlComponent" type="java.lang.String" value="Deaerator2#SteamInRegValve"/>
         <Property name="feedbackComponent" type="java.lang.String" value="Deaerator2#Pressure"/>
         <Property name="maxValue" type="double" value="10.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
@@ -171,7 +155,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlDA1Pressure">
       <Properties>
-        <Property name="controlComponent" type="java.lang.String" value="Main1#SteamToDAValve"/>
+        <Property name="controlComponent" type="java.lang.String" value="Deaerator1#SteamInRegValve"/>
         <Property name="feedbackComponent" type="java.lang.String" value="Deaerator1#Pressure"/>
         <Property name="maxValue" type="double" value="10.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
@@ -216,18 +200,14 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchFromTDA1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="8" y="310" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchFromTDA2">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="54" y="310" width="-1" height="-1"/>
+          <AbsoluteConstraints x="32" y="304" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchFromSDA1">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Deaerator1#SteamFromMain"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="100" y="310" width="-1" height="-1"/>
@@ -235,6 +215,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchDromSDA2">
+      <Properties>
+        <Property name="component" type="java.lang.String" value="Deaerator2#SteamFromMain"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="144" y="310" width="-1" height="-1"/>
@@ -289,22 +272,6 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="144" y="296" width="36" height="14"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDA2FromT">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-          <FontInfo relative="true">
-            <Font component="jLabelDA2FromT" property="font" relativeSize="true" size="-2"/>
-          </FontInfo>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="DA 2"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="52" y="296" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -370,7 +337,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="8" y="282" width="88" height="14"/>
+          <AbsoluteConstraints x="8" y="286" width="88" height="14"/>
         </Constraint>
       </Constraints>
     </Component>

@@ -40,7 +40,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
         integralSwitchDromSDA2.registerActionReceiver(controller);
         integralSwitchFromSDA1.registerActionReceiver(controller);
         integralSwitchFromTDA1.registerActionReceiver(controller);
-        integralSwitchFromTDA2.registerActionReceiver(controller);
         integralSwitchVent1.registerActionReceiver(controller);
         integralSwitchVent2.registerActionReceiver(controller);
 
@@ -65,7 +64,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
         chornobylGaugeDA1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         chornobylGaugeDA2Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabelDA1Press1 = new javax.swing.JLabel();
-        jLabelDA1FromT = new javax.swing.JLabel();
         jLabelDA1Level1 = new javax.swing.JLabel();
         jLabelDA1Level2 = new javax.swing.JLabel();
         jLabelDA2Level1 = new javax.swing.JLabel();
@@ -75,14 +73,12 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA1Press2 = new javax.swing.JLabel();
         jLabelDA2Press2 = new javax.swing.JLabel();
         integralSwitchFromTDA1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitchFromTDA2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchFromSDA1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchDromSDA2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchDrain2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchDrain1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelDA2Press1 = new javax.swing.JLabel();
         jLabelDA2FromS = new javax.swing.JLabel();
-        jLabelDA2FromT = new javax.swing.JLabel();
         jLabelDA1FromS = new javax.swing.JLabel();
         jLabelCaptionMainSteam = new javax.swing.JLabel();
         jLabelCaptionFromTurbine = new javax.swing.JLabel();
@@ -122,11 +118,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA1Press1.setText("DA 1");
         add(jLabelDA1Press1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 208, 36, 14));
 
-        jLabelDA1FromT.setFont(jLabelDA1FromT.getFont().deriveFont(jLabelDA1FromT.getFont().getSize()-2f));
-        jLabelDA1FromT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelDA1FromT.setText("DA 1");
-        add(jLabelDA1FromT, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 36, 14));
-
         jLabelDA1Level1.setFont(jLabelDA1Level1.getFont().deriveFont(jLabelDA1Level1.getFont().getSize()-2f));
         jLabelDA1Level1.setText("DA 1");
         add(jLabelDA1Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
@@ -143,14 +134,14 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA2Level2.setText("Level");
         add(jLabelDA2Level2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        loopControlDA2Pressure.setControlComponent("Main2#SteamToDAValve");
+        loopControlDA2Pressure.setControlComponent("Deaerator2#SteamInRegValve");
         loopControlDA2Pressure.setFeedbackComponent("Deaerator2#Pressure");
         loopControlDA2Pressure.setMaxValue(10.0);
         loopControlDA2Pressure.setSetpoint(8.0);
         loopControlDA2Pressure.setSetpointComponent("Deaerator2#PressureSetpoint");
         add(loopControlDA2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 242, -1, -1));
 
-        loopControlDA1Pressure.setControlComponent("Main1#SteamToDAValve");
+        loopControlDA1Pressure.setControlComponent("Deaerator1#SteamInRegValve");
         loopControlDA1Pressure.setFeedbackComponent("Deaerator1#Pressure");
         loopControlDA1Pressure.setMaxValue(10.0);
         loopControlDA1Pressure.setSetpoint(8.0);
@@ -164,9 +155,12 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA2Press2.setFont(jLabelDA2Press2.getFont().deriveFont(jLabelDA2Press2.getFont().getSize()-2f));
         jLabelDA2Press2.setText("Press.");
         add(jLabelDA2Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 260, 36, 14));
-        add(integralSwitchFromTDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 310, -1, -1));
-        add(integralSwitchFromTDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 310, -1, -1));
+        add(integralSwitchFromTDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 304, -1, -1));
+
+        integralSwitchFromSDA1.setComponent("Deaerator1#SteamFromMain");
         add(integralSwitchFromSDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
+
+        integralSwitchDromSDA2.setComponent("Deaerator2#SteamFromMain");
         add(integralSwitchDromSDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 310, -1, -1));
 
         integralSwitchDrain2.setComponent("Deaerator2#Drain");
@@ -183,11 +177,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA2FromS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDA2FromS.setText("DA 2");
         add(jLabelDA2FromS, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 296, 36, 14));
-
-        jLabelDA2FromT.setFont(jLabelDA2FromT.getFont().deriveFont(jLabelDA2FromT.getFont().getSize()-2f));
-        jLabelDA2FromT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelDA2FromT.setText("DA 2");
-        add(jLabelDA2FromT, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 296, 36, 14));
 
         jLabelDA1FromS.setFont(jLabelDA1FromS.getFont().deriveFont(jLabelDA1FromS.getFont().getSize()-2f));
         jLabelDA1FromS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -208,7 +197,7 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelCaptionFromTurbine.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFromTurbine.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFromTurbine.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionFromTurbine, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 282, 88, 14));
+        add(jLabelCaptionFromTurbine, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 286, 88, 14));
 
         jLabelVent1.setFont(jLabelVent1.getFont().deriveFont(jLabelVent1.getFont().getSize()-2f));
         jLabelVent1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -269,7 +258,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDromSDA2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchFromSDA1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchFromTDA1;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchFromTDA2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchVent1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchVent2;
     private javax.swing.JLabel jLabelCaptionFromTurbine;
@@ -277,7 +265,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelDA1Flow1;
     private javax.swing.JLabel jLabelDA1Flow2;
     private javax.swing.JLabel jLabelDA1FromS;
-    private javax.swing.JLabel jLabelDA1FromT;
     private javax.swing.JLabel jLabelDA1Level1;
     private javax.swing.JLabel jLabelDA1Level2;
     private javax.swing.JLabel jLabelDA1Press1;
@@ -285,7 +272,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelDA2Flow1;
     private javax.swing.JLabel jLabelDA2Flow2;
     private javax.swing.JLabel jLabelDA2FromS;
-    private javax.swing.JLabel jLabelDA2FromT;
     private javax.swing.JLabel jLabelDA2Level1;
     private javax.swing.JLabel jLabelDA2Level2;
     private javax.swing.JLabel jLabelDA2Press1;
@@ -314,7 +300,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
         integralSwitchDromSDA2.updateComponent(evt);
         integralSwitchFromSDA1.updateComponent(evt);
         integralSwitchFromTDA1.updateComponent(evt);
-        integralSwitchFromTDA2.updateComponent(evt);
         integralSwitchVent1.updateComponent(evt);
         integralSwitchVent2.updateComponent(evt);
     }

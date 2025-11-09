@@ -16,6 +16,8 @@
  */
 package com.hartrusion.rbmksim.gui.mnemonic;
 
+import com.hartrusion.control.ControlCommand;
+import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.UpdateReceiver;
 import java.beans.PropertyChangeEvent;
 
@@ -283,7 +285,34 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-
+        switch (evt.getPropertyName()) {
+            case "Deaerator1#SteamInRegValve_Pos" ->
+                valveSteamIn1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Deaerator2#SteamInRegValve_Pos" ->
+                valveSteamIn2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Deaerator1#SteamInRegValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveSteamIn1.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveSteamIn1.setControlIndicatorActive(false);
+                }
+            }
+            case "Deaerator2#SteamInRegValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveSteamIn2.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveSteamIn2.setControlIndicatorActive(false);
+                }
+            }
+            case "Deaerator1#SteamFromMain_Pos" ->
+                valveSteamFromMain1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Deaerator2#SteamFromMain_Pos" ->
+                valveSteamFromMain2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Deaerator1#Drain_Pos" ->
+                valveDrain1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Deaerator2#Drain_Pos" ->
+                valveDrain2.setActive(evt.getNewValue() != ValveState.CLOSED);
+        }
     }
 
     @Override
@@ -297,35 +326,43 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
             return;
         }
         switch (propertyName) {
-            case "Deaerator1#Level":
+            case "Deaerator1#Level" ->
                 jLabelReadingDA1Level.setText(
                         String.format("%.1f", newValue));
-                break;
-            case "Deaerator2#Level":
+            case "Deaerator2#Level" ->
                 jLabelReadingDA2Level.setText(
                         String.format("%.1f", newValue) + " cm");
-                break;
-            case "Deaerator1#Temperature":
+            case "Deaerator1#Temperature" ->
                 jLabelReadingDA1Temperature.setText(
                         String.format("%.0f", newValue));
-                break;
-            case "Deaerator2#Temperature":
+            case "Deaerator2#Temperature" ->
                 jLabelReadingDA2Temperature.setText(
                         String.format("%.0f", newValue));
-                break;
-            case "Deaerator1#Pressure":
+            case "Deaerator1#Pressure" ->
                 jLabelReadingDA1Pressure.setText(
                         String.format("%.1f", newValue));
-                break;
-            case "Deaerator2#Pressure":
+            case "Deaerator2#Pressure" ->
                 jLabelReadingDA2Pressure.setText(
                         String.format("%.1f", newValue));
-                break;
-            case "Deaerator1#Drain": {
+            case "Deaerator1#SteamInRegValve" ->
+                jLabelReadingSteamIn1Valve.setText(
+                        String.format("%.0f", newValue));
+            case "Deaerator2#SteamInRegValve" ->
+                jLabelReadingSteamIn2Valve.setText(
+                        String.format("%.0f", newValue));
+            case "Deaerator1#SteamFromMain" ->
+                jLabelReadingSteamFromMain1Valve.setText(
+                        String.format("%.0f", newValue));
+            case "Deaerator2#SteamFromMain" ->
+                jLabelReadingSteamFromMain2Valve.setText(
+                        String.format("%.0f", newValue));
+            case "Deaerator1#Drain" ->
                 jLabelReadingDrain1Valve.setText(
                         String.format("%.0f", newValue));
-                break;
-            }
+            case "Deaerator2#Drain" ->
+                jLabelReadingDrain2Valve.setText(
+                        String.format("%.0f", newValue));
+
         }
     }
 

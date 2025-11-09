@@ -49,6 +49,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
+import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
@@ -162,8 +163,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final PhasedHeatFluidConverter[] deaeratorToFeedwaterConverter
             = new PhasedHeatFluidConverter[2];
     private final HeatNode[] deaeratorFeedwaterOutHeatNode = new HeatNode[2];
-    private final PhasedValveControlled[] mainSteamToDAValve
+    private final PhasedValveControlled[] deaeratorSteamInRegValve
             = new PhasedValveControlled[2];
+    private final PhasedNode[] deaeratorSteamInNode = new PhasedNode[2];
+    private final PhasedValve[] deaeratorSteamFromMain = new PhasedValve[2];
+    private final PhasedNode deaeratorSteamMiddle;
+    private final PhasedSimpleFlowResistance[] deaeratorSteamDistribution
+            = new PhasedSimpleFlowResistance[2];
     private final PhasedHeatFluidConverter[] deaeratorToDrainConverter
             = new PhasedHeatFluidConverter[2];
     private final HeatNode[] deaeratorDrainOutHeatNode = new HeatNode[2];
@@ -409,10 +415,24 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaeratorFeedwaterOutHeatNode[idx] = new HeatNode();
             deaeratorFeedwaterOutHeatNode[idx].setName(
                     "Deaerator" + (idx + 1) + "#FeedwaterOutHeatNode");
-            mainSteamToDAValve[idx] = new PhasedValveControlled();
-            mainSteamToDAValve[idx].initController(new PIControl());
-            mainSteamToDAValve[idx].initName(
-                    "Main" + (idx + 1) + "#SteamToDAValve");
+            deaeratorSteamInRegValve[idx] = new PhasedValveControlled();
+            deaeratorSteamInRegValve[idx].initController(new PIControl());
+            deaeratorSteamInRegValve[idx].initName(
+                    "Deaerator" + (idx + 1) + "#SteamInRegValve");
+            deaeratorSteamInNode[idx] = new PhasedNode();
+            deaeratorSteamInNode[idx].setName(
+                    "Deaerator" + (idx + 1) + "#SteaminNode");
+            deaeratorSteamFromMain[idx] = new PhasedValve();
+            deaeratorSteamFromMain[idx].initName(
+                    "Deaerator" + (idx + 1) + "#SteamFromMain");
+        }
+        deaeratorSteamMiddle = new PhasedNode();
+        deaeratorSteamMiddle.setName("Deaerator#SteamMiddle");
+        for (int idx = 0; idx < 2; idx++) {
+            deaeratorSteamDistribution[idx]
+                    = new PhasedSimpleFlowResistance();
+            deaeratorSteamDistribution[idx].setName(
+                    "Deaerator" + (idx + 1) + "#SteamDistribution");
             deaeratorToDrainConverter[idx]
                     = new PhasedHeatFluidConverter(phasedWater);
             deaeratorToDrainConverter[idx].setName(
@@ -496,8 +516,10 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // open state reached.
         for (int idx = 0; idx < 2; idx++) {
             mainSteamShutoffValve[idx].initSignalListener(controller);
-            mainSteamToDAValve[idx].initSignalListener(controller);
-            mainSteamToDAValve[idx].initParameterHandler(outputValues);
+            deaeratorSteamInRegValve[idx].initSignalListener(controller);
+            deaeratorSteamInRegValve[idx].initParameterHandler(outputValues);
+            deaeratorSteamFromMain[idx].initSignalListener(controller);
+            deaeratorSteamFromMain[idx].initParameterHandler(outputValues);
             for (int jdx = 0; jdx < 4; jdx++) {
                 loopAssembly[idx][jdx].initSignalListener(controller);
             }
@@ -689,7 +711,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     deaeratorDrainOutHeatNode[idx],
                     makeupStorageDrainCollector);
             // Steam in
-            mainSteamToDAValve[idx].getValveElement().connectBetween(
+            deaeratorSteamInRegValve[idx].getValveElement().connectBetween(
                     mainSteam[idx], deaeratorInNode[idx]);
         }
         // Feedwater Pumps
@@ -917,6 +939,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             runner.submit(blowdownReturnValve[idx]);
         }
         for (int idx = 0; idx < 2; idx++) {
+            runner.submit(deaeratorSteamInRegValve[idx]);
+            runner.submit(deaeratorSteamFromMain[idx]);
             runner.submit(deaeratorDrain[idx]);
         }
         for (int idx = 0; idx < 2; idx++) {
@@ -940,9 +964,6 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             for (int jdx = 0; jdx < 3; jdx++) {
                 runner.submit(feedwaterFlowRegulationValve[idx][jdx]);
             }
-        }
-        for (int idx = 0; idx < 2; idx++) {
-            runner.submit(mainSteamToDAValve[idx]);
         }
 
         // Add Solo control loops
@@ -1026,7 +1047,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDAPressure[idx].setMaxRate(1.0);
         }
 
-        mainSteamToDAValve[0].getController().addInputProvider(
+        deaeratorSteamInRegValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
@@ -1034,7 +1055,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         - deaerator[0].getEffort() * 1e-5 + 1.0; // as rel. bar
             }
         });
-        mainSteamToDAValve[1].getController().addInputProvider(
+        deaeratorSteamInRegValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
@@ -1044,9 +1065,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         });
 
         for (int idx = 0; idx < 2; idx++) {
-            ((PIControl) mainSteamToDAValve[idx].getController())
+            ((PIControl) deaeratorSteamInRegValve[idx].getController())
                     .setParameterK(1.0);
-            ((PIControl) mainSteamToDAValve[idx].getController())
+            ((PIControl) deaeratorSteamInRegValve[idx].getController())
                     .setParameterTN(20);
         }
     }
@@ -1416,6 +1437,18 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     return;
                 }
             }
+        } else if (ac.getPropertyName().startsWith("Deaerator")) {
+            setpointDAPressure[0].handleAction(ac);
+            setpointDAPressure[1].handleAction(ac);
+            setpointDALevel[0].handleAction(ac);
+            setpointDALevel[1].handleAction(ac);
+            deaeratorDrain[0].handleAction(ac);
+            deaeratorDrain[1].handleAction(ac);
+            deaeratorSteamInRegValve[0].handleAction(ac);
+            deaeratorSteamInRegValve[1].handleAction(ac);
+            deaeratorSteamFromMain[0].handleAction(ac);
+            deaeratorSteamFromMain[1].handleAction(ac);
+
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
@@ -1423,21 +1456,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     mainSteamShutoffValve[0].handleAction(ac);
                 case "Main2#SteamShutoffValve" ->
                     mainSteamShutoffValve[1].handleAction(ac);
-                case "Deaerator1#PressureSetpoint" ->
-                    setpointDAPressure[0].handleAction(ac);
-                case "Deaerator2#PressureSetpoint" ->
-                    setpointDAPressure[1].handleAction(ac);
-                case "Deaerator1#LevelSetpoint" ->
-                    setpointDALevel[0].handleAction(ac);
-                case "Deaerator2#LevelSetpoint" ->
-                    setpointDALevel[1].handleAction(ac);
             }
-            if (ac.getPropertyName().startsWith("Main1#SteamToDAValve")) {
-                mainSteamToDAValve[0].handleAction(ac);
-            } else if (ac.getPropertyName().startsWith("Main2#SteamToDAValve")) {
-                mainSteamToDAValve[1].handleAction(ac);
-            }
-
         }
         // </editor-fold>
     }
