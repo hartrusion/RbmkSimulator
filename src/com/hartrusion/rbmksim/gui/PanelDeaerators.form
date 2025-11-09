@@ -454,7 +454,6 @@
       <Properties>
         <Property name="component" type="java.lang.String" value="Deaerator2#LevelSetpoint"/>
         <Property name="format" type="java.lang.String" value="%.0f"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -465,6 +464,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.SetpointControl" name="setpointControlDA1Level">
       <Properties>
         <Property name="component" type="java.lang.String" value="Deaerator1#LevelSetpoint"/>
+        <Property name="format" type="java.lang.String" value="%.0f"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

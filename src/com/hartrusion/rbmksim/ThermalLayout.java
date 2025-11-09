@@ -193,6 +193,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
+    private final Setpoint[] setpointDALevel = new Setpoint[2];
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
@@ -467,6 +468,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDAPressure[idx] = new Setpoint();
             setpointDAPressure[idx].initName(
                     "Deaerator" + (idx + 1) + "#PressureSetpoint");
+            setpointDALevel[idx] = new Setpoint();
+            setpointDALevel[idx].initName(
+                    "Deaerator" + (idx + 1) + "#LevelSetpoint");
         }
     }
 
@@ -519,6 +523,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx].initParameterHandler(outputValues);
             setpointDAPressure[idx].initParameterHandler(outputValues);
+            setpointDALevel[idx].initParameterHandler(outputValues);
         }
 
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
@@ -912,6 +917,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(setpointDrumLevel[idx]);
             runner.submit(setpointDAPressure[idx]);
+            runner.submit(setpointDALevel[idx]);
         }
 
         // Control Loop configuration
@@ -919,6 +925,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDrumLevel[idx].setLowerLimit(-10);
             setpointDrumLevel[idx].setUpperLimit(10);
             setpointDrumLevel[idx].setMaxRate(0.5);
+        }
+
+        for (int idx = 0; idx < 2; idx++) {
+            setpointDALevel[idx].setLowerLimit(50);
+            setpointDALevel[idx].setUpperLimit(220);
+            setpointDALevel[idx].setMaxRate(10.0);
         }
 
         controlLoopBlowdownDrumLevel.addInputProvider(new DoubleSupplier() {
@@ -1376,18 +1388,18 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
-                case "Main1#SteamShutoffValve":
+                case "Main1#SteamShutoffValve" ->
                     mainSteamShutoffValve[0].handleAction(ac);
-                    break;
-                case "Main2#SteamShutoffValve":
+                case "Main2#SteamShutoffValve" ->
                     mainSteamShutoffValve[1].handleAction(ac);
-                    break;
-                case "Deaerator1#PressureSetpoint":
+                case "Deaerator1#PressureSetpoint" ->
                     setpointDAPressure[0].handleAction(ac);
-                    break;
-                case "Deaerator2#PressureSetpoint":
+                case "Deaerator2#PressureSetpoint" ->
                     setpointDAPressure[1].handleAction(ac);
-                    break;
+                case "Deaerator1#LevelSetpoint" ->
+                    setpointDALevel[0].handleAction(ac);
+                case "Deaerator2#LevelSetpoint" ->
+                    setpointDALevel[1].handleAction(ac);
             }
             if (ac.getPropertyName().startsWith("Main1#SteamToDAValve")) {
                 mainSteamToDAValve[0].handleAction(ac);

@@ -231,10 +231,10 @@ public class PanelDeaerators extends AbstractPanelWidget {
 
         setpointControlDA2Level.setComponent("Deaerator2#LevelSetpoint");
         setpointControlDA2Level.setFormat("%.0f");
-        setpointControlDA2Level.setToolTipText("");
         add(setpointControlDA2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 172, -1, -1));
 
         setpointControlDA1Level.setComponent("Deaerator1#LevelSetpoint");
+        setpointControlDA1Level.setFormat("%.0f");
         add(setpointControlDA1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 146, -1, -1));
 
         jLabelDA1Flow1.setFont(jLabelDA1Flow1.getFont().deriveFont(jLabelDA1Flow1.getFont().getSize()-2f));
