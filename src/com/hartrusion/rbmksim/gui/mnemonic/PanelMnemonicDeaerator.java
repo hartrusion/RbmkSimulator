@@ -48,6 +48,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel {
         valve8 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve9 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve10 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valve11 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabel1 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(400, 264));
@@ -55,26 +56,29 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         valve1.setVertical(true);
-        add(valve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 208, -1, -1));
+        add(valve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 211, -1, -1));
 
         valve2.setVertical(true);
-        add(valve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 208, -1, -1));
+        add(valve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 211, -1, -1));
 
         valve3.setVertical(true);
-        add(valve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 132, -1, -1));
+        add(valve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 132, -1, -1));
 
         valve4.setVertical(true);
-        add(valve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 150, -1, -1));
+        add(valve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 150, -1, -1));
 
         valve5.setVertical(true);
-        add(valve5, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 150, -1, -1));
+        add(valve5, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 150, -1, -1));
 
         valve6.setVertical(true);
-        add(valve6, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 132, -1, -1));
+        add(valve6, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 132, -1, -1));
         add(valve7, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 76, -1, -1));
         add(valve8, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 76, -1, -1));
         add(valve9, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 11, -1, -1));
         add(valve10, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 11, -1, -1));
+
+        valve11.setVertical(true);
+        add(valve11, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 208, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicDeaerator.png"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -85,6 +89,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve10;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve11;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve4;
