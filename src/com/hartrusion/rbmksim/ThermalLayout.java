@@ -421,7 +421,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaeratorDrainOutHeatNode[idx].setName(
                     "Deaerator" + (idx + 1) + "#DrainOutHeatNode");
             deaeratorDrain[idx] = new HeatValve();
-            deaeratorDrain[idx].initName("Deaerator" + (idx + 1) + "Drain");
+            deaeratorDrain[idx].initName("Deaerator" + (idx + 1) + "#Drain");
         }
 
         for (int idx = 0; idx < 2; idx++) {
@@ -503,6 +503,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             }
             loopBypass[idx].initSignalListener(controller);
             blowdownValveFromLoop[idx].initSignalListener(controller);
+            blowdownValveFromLoop[idx].initParameterHandler(outputValues);
             blowdownCooldownPumps[idx].initSignalListener(controller);
         }
         blowdownValvePassiveFlow.initSignalListener(controller);
@@ -515,10 +516,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownCoolantFlow.initSignalListener(controller);
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].initSignalListener(controller);
+            blowdownReturnValve[idx].initParameterHandler(outputValues);
         }
         blowdownBalanceControlLoop.addPropertyChangeListener(controller);
         for (int idx = 0; idx < 2; idx++) {
             deaeratorDrain[idx].initSignalListener(controller);
+            deaeratorDrain[idx].initParameterHandler(outputValues);
         }
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
@@ -1230,13 +1233,6 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .getNode(0)).getTemperature() - 273.5);
         outputValues.setParameterValue("Blowdown#CoolantOutFlow",
                 blowdownCoolantFlow.getFlowSource().getFlow());
-
-        for (int idx = 0; idx < 2; idx++) {
-            outputValues.setParameterValue("Blowdown#ValveFromLoop" + (idx + 1),
-                    blowdownValveFromLoop[idx].getValveElement().getOpening());
-            outputValues.setParameterValue("Blowdown#ReturnValve" + (idx + 1),
-                    blowdownReturnValve[idx].getValveElement().getOpening());
-        }
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Feedwater" + (idx + 1) + "#Temperature",

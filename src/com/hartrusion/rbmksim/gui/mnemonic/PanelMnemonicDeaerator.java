@@ -321,6 +321,11 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
                 jLabelReadingDA2Pressure.setText(
                         String.format("%.1f", newValue));
                 break;
+            case "Deaerator1#Drain": {
+                jLabelReadingDrain1Valve.setText(
+                        String.format("%.0f", newValue));
+                break;
+            }
         }
     }
 
