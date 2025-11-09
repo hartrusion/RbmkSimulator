@@ -78,7 +78,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
     private final HeatFluidTank makeupStorage;
-    private final HeatNode makeupStorageNode;
+    private final HeatNode makeupStorageDrainCollector;
 
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
@@ -164,6 +164,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatNode[] deaeratorOutHeatNode = new HeatNode[2];
     private final PhasedValveControlled[] mainSteamToDAValve
             = new PhasedValveControlled[2];
+    private final HeatValve[] deaeratorDrain = new HeatValve[2];
 
     // Feedwater pumps system
     // Two feedwater pumps per side
@@ -222,8 +223,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // elements in a common way.
         makeupStorage = new HeatFluidTank();
         makeupStorage.setName("MakeupStorage");
-        makeupStorageNode = new HeatNode();
-        makeupStorageNode.setName("MakeupStorageNode");
+        makeupStorageDrainCollector = new HeatNode();
+        makeupStorageDrainCollector.setName("MakeupStorageDrainCollector");
 
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDrumNode[idx] = new PhasedNode();
@@ -408,6 +409,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             mainSteamToDAValve[idx].initController(new PIControl());
             mainSteamToDAValve[idx].initName(
                     "Main" + (idx + 1) + "#SteamToDAValve");
+            deaeratorDrain[idx] = new HeatValve();
+            deaeratorDrain[idx].initName("Deaerator" + (idx + 1) + "Drain");
         }
 
         for (int idx = 0; idx < 2; idx++) {
@@ -505,6 +508,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         blowdownBalanceControlLoop.addPropertyChangeListener(controller);
         for (int idx = 0; idx < 2; idx++) {
+            deaeratorDrain[idx].initSignalListener(controller);
+        }
+        for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
                 feedwaterPump[idx][jdx].initSignalListener(controller);
             }
@@ -532,7 +538,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
         // Define the primary loop from drum through mcps and reactor and back.
-        makeupStorage.connectTo(makeupStorageNode);
+        makeupStorage.connectTo(makeupStorageDrainCollector);
         for (int idx = 0; idx < 2; idx++) {
             loopSteamDrum[idx].connectToVia(
                     loopFromDrumConverter[idx], loopNodeDrumWaterOut[idx]);
@@ -634,8 +640,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 blowdownRegenerator.getSecondarySide().getNode(1),
                 blowdownOutNode);
         // Add the drain back to makeup storage
-        blowdownValveDrain.getValveElement().connectBetween(
-                blowdownTreatedOutNode, makeupStorageNode);
+        blowdownValveDrain.getValveElement().connectBetween(blowdownTreatedOutNode, makeupStorageDrainCollector);
         // Secondary coolant flow, just a flow source for forcing the flow.
         blowdownCoolantSource.connectTo(blowdownCoolantSourceNode);
         blowdownCoolantFlow.getFlowSource()
@@ -657,12 +662,16 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             // will simply be added to the inNode.
             deaerator[idx].connectTo(deaeratorOutNode[idx]);
             deaerator[idx].connectTo(deaeratorInNode[idx]);
-            // Heat fluid will leave DA, place a conveter after
+            // only heat fluid will leave DA, place a conveter after
             deaeratorToFeedwaterConverter[idx].connectBetween(
                     deaeratorOutNode[idx],
                     deaeratorOutHeatNode[idx]);
+            // Drain:
+            deaeratorDrain[idx].getValveElement().connectBetween(
+                    deaeratorOutHeatNode[idx], makeupStorageDrainCollector);
+            // Steam in
             mainSteamToDAValve[idx].getValveElement().connectBetween(
-                    mainSteam[idx], deaeratorInNode[idx]);
+                    mainSteam[idx], deaeratorInNode[idx]);  
         }
         // Feedwater Pumps
         for (int idx = 0; idx < 2; idx++) {
@@ -887,6 +896,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         runner.submit(blowdownCoolantFlow);
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(blowdownReturnValve[idx]);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(deaeratorDrain[idx]);
         }
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {

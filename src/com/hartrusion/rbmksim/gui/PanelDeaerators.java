@@ -168,7 +168,11 @@ public class PanelDeaerators extends AbstractPanelWidget {
         add(integralSwitchFromTDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 310, -1, -1));
         add(integralSwitchFromSDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
         add(integralSwitchDromSDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 310, -1, -1));
+
+        integralSwitchDrain2.setComponent("Deaerator2#Drain");
         add(integralSwitchDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 112, -1, -1));
+
+        integralSwitchDrain1.setComponent("Deaerator1#Drain");
         add(integralSwitchDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 82, -1, -1));
 
         jLabelDA2Press1.setFont(jLabelDA2Press1.getFont().deriveFont(jLabelDA2Press1.getFont().getSize()-2f));
