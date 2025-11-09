@@ -710,9 +710,17 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaeratorDrain[idx].getValveElement().connectBetween(
                     deaeratorDrainOutHeatNode[idx],
                     makeupStorageDrainCollector);
-            // Steam in
+            // Steam in from main
+            deaeratorSteamFromMain[idx].getValveElement().connectBetween(
+                    mainSteam[idx], deaeratorSteamInNode[idx]);
             deaeratorSteamInRegValve[idx].getValveElement().connectBetween(
-                    mainSteam[idx], deaeratorInNode[idx]);
+                    deaeratorSteamInNode[idx], deaeratorInNode[idx]);
+            // Middle connection with flow resistance to common
+            // mid point,
+            deaeratorSteamDistribution[idx].connectBetween(
+                    deaeratorSteamInNode[idx], deaeratorSteamMiddle);
+            // The turbine tap gets connected between both steam valves.
+            // Todo
         }
         // Feedwater Pumps
         for (int idx = 0; idx < 2; idx++) {
@@ -843,6 +851,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             // RXmodel has a base area of 40, use this value here
             deaerator[idx].setBaseArea(40);
+            
+            
         }
 
         // Feedwater
