@@ -53,7 +53,7 @@ public class FrameMnemonicDeaerator extends javax.swing.JFrame implements Update
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        
+        panelMnemonicDeaerator1.updateComponent(evt);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class FrameMnemonicDeaerator extends javax.swing.JFrame implements Update
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        
+        panelMnemonicDeaerator1.updateComponent(propertyName, newValue);
     }
 
     @Override

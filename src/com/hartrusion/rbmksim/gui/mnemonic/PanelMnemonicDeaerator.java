@@ -16,11 +16,15 @@
  */
 package com.hartrusion.rbmksim.gui.mnemonic;
 
+import com.hartrusion.mvc.UpdateReceiver;
+import java.beans.PropertyChangeEvent;
+
 /**
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicDeaerator extends javax.swing.JPanel {
+public class PanelMnemonicDeaerator extends javax.swing.JPanel
+        implements UpdateReceiver {
 
     /**
      * Creates new form PanelMnemonicDeaerator
@@ -276,4 +280,52 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel {
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveVent1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveVent2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+
+    }
+
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        if (!propertyName.startsWith("Deaerator")) {
+            return;
+        }
+        switch (propertyName) {
+            case "Deaerator1#Level":
+                jLabelReadingDA1Level.setText(
+                        String.format("%.1f", newValue));
+                break;
+            case "Deaerator2#Level":
+                jLabelReadingDA2Level.setText(
+                        String.format("%.1f", newValue) + " cm");
+                break;
+            case "Deaerator1#Temperature":
+                jLabelReadingDA1Temperature.setText(
+                        String.format("%.0f", newValue));
+                break;
+            case "Deaerator2#Temperature":
+                jLabelReadingDA2Temperature.setText(
+                        String.format("%.0f", newValue));
+                break;
+            case "Deaerator1#Pressure":
+                jLabelReadingDA1Pressure.setText(
+                        String.format("%.1f", newValue));
+                break;
+            case "Deaerator2#Pressure":
+                jLabelReadingDA2Pressure.setText(
+                        String.format("%.1f", newValue));
+                break;
+        }
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+
+    }
 }

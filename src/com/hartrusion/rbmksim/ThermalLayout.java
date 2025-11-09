@@ -1169,6 +1169,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             outputValues.setParameterValue(
                     "Deaerator" + (idx + 1) + "#Pressure",
                     deaerator[idx].getEffort() * 1e-5 - 1.0); // Pa to bar rel.
+            outputValues.setParameterValue(
+                    "Deaerator" + (idx + 1) + "#Temperature",
+                    deaerator[idx].getTemperature() - 273.15);
         }
 
         // Blowdown and Cooldown system
