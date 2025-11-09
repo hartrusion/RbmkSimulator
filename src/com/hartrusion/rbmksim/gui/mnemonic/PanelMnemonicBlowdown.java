@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui.mnemonic;
 
+import com.hartrusion.control.ControlCommand;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.control.ValveState;
 import com.hartrusion.modeling.assemblies.PumpState;
@@ -359,10 +360,14 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 break;
             case "Blowdown#CooldownPump1Pump_State":
                 switch ((PumpState) evt.getNewValue()) {
-                    case OFFLINE -> pump1.setStatus(0);
-                    case READY -> pump1.setStatus(1);
-                    case STARTUP -> pump1.setStatus(2);
-                    case RUNNING -> pump1.setStatus(3);
+                    case OFFLINE ->
+                        pump1.setStatus(0);
+                    case READY ->
+                        pump1.setStatus(1);
+                    case STARTUP ->
+                        pump1.setStatus(2);
+                    case RUNNING ->
+                        pump1.setStatus(3);
                 }
                 break;
             case "Blowdown#CooldownPump1DischargeValve_Pos":
@@ -373,10 +378,14 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 break;
             case "Blowdown#CooldownPump2Pump_State":
                 switch ((PumpState) evt.getNewValue()) {
-                    case OFFLINE -> pump2.setStatus(0);
-                    case READY -> pump2.setStatus(1);
-                    case STARTUP -> pump2.setStatus(2);
-                    case RUNNING -> pump2.setStatus(3);
+                    case OFFLINE ->
+                        pump2.setStatus(0);
+                    case READY ->
+                        pump2.setStatus(1);
+                    case STARTUP ->
+                        pump2.setStatus(2);
+                    case RUNNING ->
+                        pump2.setStatus(3);
                 }
                 break;
             case "Blowdown#CooldownPump2DischargeValve_Pos":
@@ -408,6 +417,15 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 break;
             case "Blowdown#ValveDrain_Pos":
                 valveDrain.setActive(evt.getNewValue() != ValveState.CLOSED);
+                break;
+            case "Blowdown#BalanceControlControlState":
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveOut1.setControlIndicatorActive(true);
+                    valveOut2.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveOut1.setControlIndicatorActive(false);
+                    valveOut2.setControlIndicatorActive(false);
+                }
                 break;
         }
     }

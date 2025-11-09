@@ -198,7 +198,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
 
-    private final AbstractController controlLoopBlowdownDrumLevel
+    private final AbstractController blowdownBalanceControlLoop
             = new PControl();
 
     private ModelListener controller;
@@ -461,6 +461,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         //</editor-fold>      
+        
+        blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
+        
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx] = new Setpoint();
             setpointDrumLevel[idx].initName(
@@ -500,6 +503,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].initSignalListener(controller);
         }
+        blowdownBalanceControlLoop.addPropertyChangeListener(controller);
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
                 feedwaterPump[idx][jdx].initSignalListener(controller);
@@ -911,7 +915,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         // Add Solo control loops
-        runner.submit(controlLoopBlowdownDrumLevel);
+        runner.submit(blowdownBalanceControlLoop);
 
         // Add setpoint instances
         for (int idx = 0; idx < 2; idx++) {
@@ -933,7 +937,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDALevel[idx].setMaxRate(10.0);
         }
 
-        controlLoopBlowdownDrumLevel.addInputProvider(new DoubleSupplier() {
+        blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
                 // Try to keep differences between drum levels equal.
@@ -944,9 +948,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         - loopSteamDrum[1].getFillHeight() * 100);
             }
         });
-        ((PControl) controlLoopBlowdownDrumLevel).setParameterK(20);
-        controlLoopBlowdownDrumLevel.setMaxOutput(20);
-        controlLoopBlowdownDrumLevel.setMinOutput(-20);
+        ((PControl) blowdownBalanceControlLoop).setParameterK(20);
+        blowdownBalanceControlLoop.setMaxOutput(20);
+        blowdownBalanceControlLoop.setMinOutput(-20);
 
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
@@ -1035,11 +1039,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         // Write Control Outputs to model if necessary (some controllers are
         // already integrated into the elements)
-        if (!controlLoopBlowdownDrumLevel.isManualMode()) {
+        if (!blowdownBalanceControlLoop.isManualMode()) {
             blowdownReturnValve[0].operateSetOpening(80
-                    + controlLoopBlowdownDrumLevel.getOutput());
+                    + blowdownBalanceControlLoop.getOutput());
             blowdownReturnValve[1].operateSetOpening(80
-                    - controlLoopBlowdownDrumLevel.getOutput());
+                    - blowdownBalanceControlLoop.getOutput());
         }
 
         // Reset and solve (update) the whole thermal layout one cycle.
@@ -1331,9 +1335,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
                 case "Blowdown#Balance_ControlCommand":
                     if (ac.getValue().equals(ControlCommand.AUTOMATIC)) {
-                        controlLoopBlowdownDrumLevel.setManualMode(false);
+                        blowdownBalanceControlLoop.setManualMode(false);
                     } else if (ac.getValue().equals(ControlCommand.MANUAL_OPERATION)) {
-                        controlLoopBlowdownDrumLevel.setManualMode(true);
+                        blowdownBalanceControlLoop.setManualMode(true);
                     }
                     break;
             }
