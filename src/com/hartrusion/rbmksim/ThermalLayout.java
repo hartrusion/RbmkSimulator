@@ -848,6 +848,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownToRegeneratorSecondResistance.setResistanceParameter(1000);
         blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
 
+        // Temperature in Deaerators is supposed to be 165 °C / 8 barabs
         for (int idx = 0; idx < 2; idx++) {
             // RXmodel has a base area of 40, use this value here
             deaerator[idx].setBaseArea(40);
@@ -856,23 +857,54 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         // Feedwater
+        // Steam generation is about 5600 t/h which is 1555.56 kg/s so per side
+        // there must be 777.775 kg/s Feedwater flow. Expected pressure in 
+        // steam drum is 69 bar and 284 °C. All safety valves will open at 75.5
+        // bar so there should be no need to have a pump that can press huge 
+        // amounts of water.
+        // It is assumed that we need two pumps per side and two flow regulation
+        // valves per side so it's all in use on full power. The real plant has
+        // more valves on the feed side but the simulation core cannot calculate
+        // this. So per pump it will be 388.88 kg/s.
+        // Assume another pressure drop on the regulation valves (those include 
+        // the piping in the model) of 10 bar if full opened
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
-                // Todo: Proper pump characteristic
-                feedwaterPump[idx][jdx].initCharacteristic(16e5, 12e5, 900);
+                // Operating pressure is 69 + 10 - 8 = 71 bar = 7.1e6
+                feedwaterPump[idx][jdx].initCharacteristic(8e6, 7.1e6, 388.8);
             }
         }
-        feedwaterPump3.initCharacteristic(30e5, 22e5, 900);
-        // Todo: Feedwater valves characteristic
-        for (int idx = 0; idx < 2; idx++) {
-            feedwaterSparePumpInValve[idx].initCharacteristic(20, -1.0);
-            feedwaterSparePumpOutValve[idx].initCharacteristic(20, -1.0);
-            feedwaterStartupReductionValve[idx].initCharacteristic(500, -1.0);
+        feedwaterPump3.initCharacteristic(8e6, 6.6e6, 388.8);
+        // Main Feedwater valves will have a pressure drop of those 1e6 Pa we
+        // just defined previously at 388.88
+        // R = U/I <> R = p/Q - 1e6/388.88 = 2711
+        for (int idx = 0; idx < 2; idx++) {            
             for (int jdx = 0; jdx < 3; jdx++) {
-                feedwaterShutoffValve[idx][jdx].initCharacteristic(500, -1.0);
-                feedwaterFlowRegulationValve[idx][jdx].initCharacteristic(500, -1.0);
+                feedwaterShutoffValve[idx][jdx]
+                        .initCharacteristic(500, -1.0);
+                feedwaterFlowRegulationValve[idx][jdx]
+                        .initCharacteristic(2200, 100);
             }
         }
+        
+        // For startup will have an additional valve that will allow to have
+        // up to 200 kg/s on full pressure drop as we do not have any pressure
+        // from the steam on low temperatures. This has to work against max
+        // pump pressure of 8e6 Pa.
+        // 8e6 / 200 = 4e4 -> 180 kg/s reduce to 3e4
+        for (int idx = 0; idx < 2; idx++) {           
+            feedwaterStartupReductionValve[idx].initCharacteristic(3e4, 20);
+        }
+        
+        // Those from middle pump do not have much resistance, just a shutoff.
+        for (int idx = 0; idx < 2; idx++) {
+            feedwaterSparePumpInValve[idx].initCharacteristic(200, -1.0);
+            feedwaterSparePumpOutValve[idx].initCharacteristic(200, -1.0);
+        }
+        
+        
+        
+
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
