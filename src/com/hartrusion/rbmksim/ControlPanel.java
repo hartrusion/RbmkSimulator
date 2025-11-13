@@ -29,7 +29,7 @@ import com.hartrusion.rbmksim.gui.FrameRodPositions;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicDeaerator;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicInternalLoad;
+import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicAuxiliaryCondenser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +49,7 @@ public class ControlPanel extends javax.swing.JFrame
     FrameMnemonicBlowdown frameMnemonicBlowdown;
     FrameMnemonicLoop frameMnemonicLoop1;
     FrameMnemonicLoop frameMnemonicLoop2;
-    FrameMnemonicInternalLoad frameMnemonicInternalLoad;
+    FrameMnemonicAuxiliaryCondenser frameMnemonicInternalLoad;
     FrameMnemonicFeedwater frameMnemonicFeedwater;
     FrameMnemonicDeaerator frameMnemonicDeaerator;
 
@@ -78,7 +78,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelFeedwater1 = new com.hartrusion.rbmksim.gui.PanelFeedwater();
         panelRodSelector1 = new com.hartrusion.rbmksim.gui.PanelCoreControl();
         panelDeaerators1 = new com.hartrusion.rbmksim.gui.PanelDeaerators();
-        panelInternalLoad1 = new com.hartrusion.rbmksim.gui.PanelInternalLoad();
+        panelInternalLoad1 = new com.hartrusion.rbmksim.gui.PanelAuxCondenser();
         panelMakeup1 = new com.hartrusion.rbmksim.gui.PanelMakeup();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
@@ -186,7 +186,7 @@ public class ControlPanel extends javax.swing.JFrame
         });
         jMenuMnemonics.add(jMenuItem7);
 
-        jMenuItem4.setText("Internal Load");
+        jMenuItem4.setText("Auxiliary Condenser");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -357,7 +357,7 @@ public class ControlPanel extends javax.swing.JFrame
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if (frameMnemonicInternalLoad == null) {
-            frameMnemonicInternalLoad = new FrameMnemonicInternalLoad();
+            frameMnemonicInternalLoad = new FrameMnemonicAuxiliaryCondenser();
             controller.fireLastPropertyChangesTo(frameMnemonicInternalLoad);
             java.awt.EventQueue.invokeLater(() -> {
                 frameMnemonicInternalLoad.setVisible(true);
@@ -551,7 +551,7 @@ public class ControlPanel extends javax.swing.JFrame
     private com.hartrusion.rbmksim.gui.PanelBlowdown panelBlowdown1;
     private com.hartrusion.rbmksim.gui.PanelDeaerators panelDeaerators1;
     private com.hartrusion.rbmksim.gui.PanelFeedwater panelFeedwater1;
-    private com.hartrusion.rbmksim.gui.PanelInternalLoad panelInternalLoad1;
+    private com.hartrusion.rbmksim.gui.PanelAuxCondenser panelInternalLoad1;
     private com.hartrusion.rbmksim.gui.PanelMCP panelMCP1;
     private com.hartrusion.rbmksim.gui.PanelMakeup panelMakeup1;
     private com.hartrusion.rbmksim.gui.PanelCoreControl panelRodSelector1;

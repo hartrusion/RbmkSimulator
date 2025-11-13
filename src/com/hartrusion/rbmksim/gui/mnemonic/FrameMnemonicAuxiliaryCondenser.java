@@ -23,12 +23,12 @@ import com.hartrusion.mvc.UpdateReceiver;
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameMnemonicInternalLoad extends javax.swing.JFrame implements UpdateReceiver {
+public class FrameMnemonicAuxiliaryCondenser extends javax.swing.JFrame implements UpdateReceiver {
     
     /**
      * Creates new form FrameMnemonicInternalLoad
      */
-    public FrameMnemonicInternalLoad() {
+    public FrameMnemonicAuxiliaryCondenser() {
         initComponents();
     }
 
@@ -41,10 +41,10 @@ public class FrameMnemonicInternalLoad extends javax.swing.JFrame implements Upd
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelMnemonicInternalLoad1 = new com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicInternalLoad();
+        panelMnemonicInternalLoad1 = new com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicAuxiliaryCondenser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Internal Load");
+        setTitle("Aux Condenser");
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(panelMnemonicInternalLoad1);
@@ -53,7 +53,7 @@ public class FrameMnemonicInternalLoad extends javax.swing.JFrame implements Upd
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicInternalLoad panelMnemonicInternalLoad1;
+    private com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicAuxiliaryCondenser panelMnemonicInternalLoad1;
     // End of variables declaration//GEN-END:variables
 
     @Override

@@ -621,6 +621,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // Connect steam shutoff valves to drum 
         for (int idx = 0; idx < 2; idx++) {
             loopSteamDrum[idx].connectTo(mainSteamDrumNode[idx]);
+            loopSteamDrum[idx].setSteamOut(mainSteamDrumNode[idx]);
             mainSteamShutoffValve[idx].getValveElement().connectBetween(
                     mainSteamDrumNode[idx], mainSteam[idx]);
         }
@@ -852,8 +853,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             // RXmodel has a base area of 40, use this value here
             deaerator[idx].setBaseArea(40);
-            
-            
+
+            // Todo: Proper values for DA valves, just some rough estimates 
+            deaeratorSteamInRegValve[idx].initCharacteristic(200, -1.0);
+            deaeratorSteamFromMain[idx].initCharacteristic(200, -1.0);
+            deaeratorDrain[idx].initCharacteristic(50, -1.0);
         }
 
         // Feedwater
@@ -878,7 +882,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // Main Feedwater valves will have a pressure drop of those 1e6 Pa we
         // just defined previously at 388.88
         // R = U/I <> R = p/Q - 1e6/388.88 = 2711
-        for (int idx = 0; idx < 2; idx++) {            
+        for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 feedwaterShutoffValve[idx][jdx]
                         .initCharacteristic(500, -1.0);
@@ -886,25 +890,21 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .initCharacteristic(2200, 100);
             }
         }
-        
+
         // For startup will have an additional valve that will allow to have
         // up to 200 kg/s on full pressure drop as we do not have any pressure
         // from the steam on low temperatures. This has to work against max
         // pump pressure of 8e6 Pa.
         // 8e6 / 200 = 4e4 -> 180 kg/s reduce to 3e4
-        for (int idx = 0; idx < 2; idx++) {           
+        for (int idx = 0; idx < 2; idx++) {
             feedwaterStartupReductionValve[idx].initCharacteristic(3e4, 20);
         }
-        
+
         // Those from middle pump do not have much resistance, just a shutoff.
         for (int idx = 0; idx < 2; idx++) {
             feedwaterSparePumpInValve[idx].initCharacteristic(200, -1.0);
             feedwaterSparePumpOutValve[idx].initCharacteristic(200, -1.0);
         }
-        
-        
-        
-
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">

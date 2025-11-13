@@ -24,12 +24,12 @@ import java.beans.PropertyChangeEvent;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelInternalLoad extends AbstractPanelWidget {
+public class PanelAuxCondenser extends AbstractPanelWidget {
 
     /**
      * Creates new form PanelInternalLoad
      */
-    public PanelInternalLoad() {
+    public PanelAuxCondenser() {
         initComponents();
     }
 
@@ -186,11 +186,11 @@ public class PanelInternalLoad extends AbstractPanelWidget {
 
         jLabelFeed16.setFont(jLabelFeed16.getFont().deriveFont(jLabelFeed16.getFont().getStyle() | java.awt.Font.BOLD, jLabelFeed16.getFont().getSize()-2));
         jLabelFeed16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed16.setText("Load");
+        jLabelFeed16.setText("Condenser");
         jLabelFeed16.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelFeed16.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelFeed16.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 14, -1, 14));
+        add(jLabelFeed16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 14, 62, 14));
 
         jLabelFeed17.setFont(jLabelFeed17.getFont().deriveFont(jLabelFeed17.getFont().getStyle() | java.awt.Font.BOLD, jLabelFeed17.getFont().getSize()-2));
         jLabelFeed17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -210,11 +210,11 @@ public class PanelInternalLoad extends AbstractPanelWidget {
 
         jLabelFeed19.setFont(jLabelFeed19.getFont().deriveFont(jLabelFeed19.getFont().getStyle() | java.awt.Font.BOLD, jLabelFeed19.getFont().getSize()-2));
         jLabelFeed19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed19.setText("Startup");
+        jLabelFeed19.setText("Auxiliary");
         jLabelFeed19.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelFeed19.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelFeed19.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 50, 14));
+        add(jLabelFeed19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 58, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFeed12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12CloseActionPerformed
