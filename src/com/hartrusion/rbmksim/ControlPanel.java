@@ -22,6 +22,7 @@ import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.FrameCoreActivity;
+import com.hartrusion.rbmksim.gui.FrameDiagramDrums;
 import com.hartrusion.rbmksim.gui.FrameDiagramNeutronFlux;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
@@ -54,6 +55,7 @@ public class ControlPanel extends javax.swing.JFrame
     FrameMnemonicDeaerator frameMnemonicDeaerator;
 
     FrameDiagramNeutronFlux frameDiagramNeutronFlux;
+    FrameDiagramDrums frameDiagramDrums;
 
     FloatSeriesVault plotData;
 
@@ -95,6 +97,7 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
+        jMenuDrumSeparators = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Panel");
@@ -205,6 +208,14 @@ public class ControlPanel extends javax.swing.JFrame
             }
         });
         jMenuDiagrams.add(jMenuNeutronFlux);
+
+        jMenuDrumSeparators.setText("Drum Separators");
+        jMenuDrumSeparators.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuDrumSeparatorsActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuDrumSeparators);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -419,6 +430,22 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuDrumSeparatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDrumSeparatorsActionPerformed
+        if (frameDiagramDrums == null && plotData != null) {
+            frameDiagramDrums = new FrameDiagramDrums();
+            frameDiagramDrums.initPlots(plotData);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameDiagramDrums.setVisible(true);
+            });
+            frameDiagramDrums.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameDiagramDrums = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuDrumSeparatorsActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -470,6 +497,9 @@ public class ControlPanel extends javax.swing.JFrame
             plotData = (FloatSeriesVault) newValue;
             if (frameDiagramNeutronFlux != null) {
                 frameDiagramNeutronFlux.updatePlots();
+            }
+            if (frameDiagramDrums != null) {
+                frameDiagramDrums.updatePlots();
             }
         }
         panelRodSelector1.updateComponent(propertyName, newValue);
@@ -536,6 +566,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCoreMatrix;
     private javax.swing.JMenu jMenuDiagrams;
+    private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

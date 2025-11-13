@@ -221,6 +221,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private ParameterHandler outputValues;
 
     private FloatSeriesVault plotData;
+    private int plotUpdateCount;
 
     private double voiding = 0;
     private double coreTemp = 200;
@@ -1305,8 +1306,24 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     feedwaterPumpCollectorNodes[idx]
                             .getEffort() / 100000 - 1.0);
         }
-
         // </editor-fold>
+        
+        // Save values to plot manager
+        if (plotUpdateCount == 0) {
+        for (int idx = 0; idx < 2; idx++) {
+            // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
+             plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
+                    (float) (loopSteamDrum[idx].getStoredMass() * 2e-3 - 20));
+             plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
+                    (float) (loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0));
+             plotData.insertValue("Loop" + (idx + 1)
+                    + "#DrumTemperature",
+                    (float) (loopSteamDrum[idx].getTemperature() - 273.5));
+        }
+            plotUpdateCount = plotData.getCountDiv() - 1;
+        } else {
+            plotUpdateCount--;
+        }
     }
 
     @Override

@@ -16,12 +16,17 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.control.FloatSeriesVault;
+import com.hartrusion.plot.Line;
+import com.hartrusion.plot.MYAxes;
+import com.hartrusion.plot.SubPlot;
+
 /**
  *
  * @author Viktor Alexander Hartung
  */
 public class FrameDiagramDrums extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form FrameDiagramDrums
      */
@@ -41,36 +46,77 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
         figureJPane1 = new com.hartrusion.plot.FigureJPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Steam Drum Separators");
+        setMinimumSize(new java.awt.Dimension(700, 560));
+        setPreferredSize(new java.awt.Dimension(700, 560));
 
         figureJPane1.setYRulers(0);
-        figureJPane1.setSubplotLayout(new int[] {2, 3});
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(figureJPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(figureJPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        figureJPane1.setSubplotLayout(new int[] {2, 2});
+        figureJPane1.setSubplotPosition(new float[] {0.19f, 0.12f, 0.75f, 0.8f});
+        getContentPane().add(figureJPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void initSubPlots() {
-        figureJPane1.getSubPlot().getAxes(1).ylabel("Drum 1 Temperature (°C)");
-        figureJPane1.getSubPlot().getAxes(2).ylabel("Drum 2 Temperature (°C)");
-        figureJPane1.getSubPlot().getAxes(3).ylabel("Drum 1 Level (cm)");
-        figureJPane1.getSubPlot().getAxes(4).ylabel("Drum 2 Level (cm)");
+        figureJPane1.getSubPlot().getAxes(1).ylabel("Temperature (°C)");
+        figureJPane1.getSubPlot().getAxes(2).ylabel("Pressure (bar)");
+        figureJPane1.getSubPlot().getAxes(3).ylabel("Level (cm)");
+        figureJPane1.getSubPlot().getAxes(4).ylabel("Feed Flow (kg/s)");
+
+        Line l;
+        l = new Line();
+
+    }
+
+    public void initPlots(FloatSeriesVault plotData) {
+        Line l;
+        SubPlot subPlot = figureJPane1.getSubPlot();
+
+        subPlot.getAxes(1).setHold(true);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop1#DrumTemperature"));
+        subPlot.getAxes(1).addLine(l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop2#DrumTemperature"));
+        subPlot.getAxes(1).addLine(l);
+        subPlot.getAxes(1).ylabel("Temperature (°C)");
+        subPlot.getAxes(1).yLim(50, 300);
+        subPlot.getAxes(1).autoX();
+
+        subPlot.getAxes(2).setHold(true);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop1#DrumPressure"));
+        subPlot.getAxes(2).addLine(l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop2#DrumPressure"));
+        subPlot.getAxes(2).addLine(l);
+        subPlot.getAxes(2).ylabel("Pressure (bar)");
+        subPlot.getAxes(2).yLim(0, 80);
+        subPlot.getAxes(2).autoX();
+
+        subPlot.getAxes(3).setHold(true);
+//        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop1#DrumLevel"));
+        subPlot.getAxes(3).addLine(l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop2#DrumLevel"));
+        subPlot.getAxes(3).addLine(l);
+        subPlot.getAxes(3).ylabel("Level (cm)");
+        subPlot.getAxes(3).yLim(-20, 20);
+        subPlot.getAxes(3).autoX();
+
+    }
+
+    public void updatePlots() {
+        repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
