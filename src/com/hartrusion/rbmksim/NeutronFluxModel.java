@@ -225,10 +225,10 @@ public class NeutronFluxModel implements Runnable {
             yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
         }
 
-        yThermalPower1 = yNeutronFlux * (1 - P_DECAY) * 15.76 * (uSkew + 1)
-                + xDelayedThermalPower + 24;
-        yThermalPower2 = yNeutronFlux * (1 - P_DECAY) * 15.76 * (uSkew + 1)
-                + xDelayedThermalPower + 24;
+        yThermalPower1 = yNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
+                + xDelayedThermalPower;
+        yThermalPower2 = yNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
+                + xDelayedThermalPower;
         yThermalPower = yThermalPower1 + yThermalPower2;
     }
 

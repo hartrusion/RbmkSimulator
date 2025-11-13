@@ -1527,7 +1527,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
      * @param power in Megawatts
      */
     public void setThermalPower(int loop, double power) {
-        thermalPower[loop] = power;
+        // Add the 48 MW idle (24 per side) power here
+        thermalPower[loop] = power + 24;
     }
 
     /**
