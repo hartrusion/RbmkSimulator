@@ -115,6 +115,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionThermalPowerUnit = new javax.swing.JLabel();
         jLabelCaptionThermalPower1 = new javax.swing.JLabel();
         jLabelReadingThermalPower = new javax.swing.JLabel();
+        jToggleButtonRPS = new javax.swing.JToggleButton();
+        jLabelCaptionRPS = new javax.swing.JLabel();
         jLabelCaptionGlobalAuto = new javax.swing.JLabel();
         jToggleButtonGlobalAuto = new javax.swing.JToggleButton();
         jLabelCaptionGlobalReset = new javax.swing.JLabel();
@@ -892,6 +894,24 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingThermalPower.setOpaque(true);
         add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 64, 76, 26));
 
+        jToggleButtonRPS.setFont(jToggleButtonRPS.getFont().deriveFont(jToggleButtonRPS.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonRPS.setText("—");
+        jToggleButtonRPS.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonRPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonRPSActionPerformed(evt);
+            }
+        });
+        add(jToggleButtonRPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 112, 22, 20));
+
+        jLabelCaptionRPS.setFont(jLabelCaptionRPS.getFont().deriveFont(jLabelCaptionRPS.getFont().getSize()-2f));
+        jLabelCaptionRPS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionRPS.setText("RPS");
+        jLabelCaptionRPS.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionRPS.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionRPS.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionRPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 96, 40, 14));
+
         jLabelCaptionGlobalAuto.setFont(jLabelCaptionGlobalAuto.getFont().deriveFont(jLabelCaptionGlobalAuto.getFont().getSize()-2f));
         jLabelCaptionGlobalAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionGlobalAuto.setText("Auto");
@@ -1506,6 +1526,16 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 ControlCommand.SETPOINT_STOP));
     }//GEN-LAST:event_jButtonGradientPosMouseReleased
 
+    private void jToggleButtonRPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRPSActionPerformed
+        if (jToggleButtonRPS.isSelected()) {
+            jToggleButtonRPS.setText("|");
+            controller.userAction(new ActionCommand("RPS", true));
+        } else {
+            jToggleButtonRPS.setText("—");
+            controller.userAction(new ActionCommand("RPS", false));
+        }
+    }//GEN-LAST:event_jToggleButtonRPSActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugControlGradient;
@@ -1598,6 +1628,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionPump23;
     private javax.swing.JLabel jLabelCaptionPump24;
     private javax.swing.JLabel jLabelCaptionPump6;
+    private javax.swing.JLabel jLabelCaptionRPS;
     private javax.swing.JLabel jLabelCaptionThermalPower1;
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
@@ -1607,6 +1638,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelRodControl;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButtonGlobalAuto;
+    private javax.swing.JToggleButton jToggleButtonRPS;
     // End of variables declaration//GEN-END:variables
 
     @Override
