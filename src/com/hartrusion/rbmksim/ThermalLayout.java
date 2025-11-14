@@ -124,6 +124,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final GeneralNode[] fuelEvaporatorNode = new GeneralNode[2];
 
     // Blowdown and cooldown system
+    private final HeatVolumizedFlowResistance[] blowdownFromLoop
+            = new HeatVolumizedFlowResistance[2];
+    private final HeatNode[] blowdownFromLoopNode = new HeatNode[2];
     private final HeatValve[] blowdownValveFromLoop = new HeatValve[2];
     private final HeatNode blowdownInCollectorNode; // lower line
     private final HeatFluidPump[] blowdownCooldownPumps = new HeatFluidPump[2];
@@ -154,6 +157,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatValve blowdownValveDrain;
     private final HeatNode blowdownOutNode;
     private final HeatValve[] blowdownReturnValve = new HeatValve[2];
+    private final HeatNode[] blowdownReturnNode = new HeatNode[2];
+    private final HeatVolumizedFlowResistance[] blowdownReturn
+            = new HeatVolumizedFlowResistance[2];
 
     // Deaerators
     private final PhasedClosedSteamedReservoir[] deaerator
@@ -327,6 +333,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         for (int idx = 0; idx < 2; idx++) {
+            blowdownFromLoopNode[idx] = new HeatNode();
+            blowdownFromLoopNode[idx].setName(
+                    "Blowdown#FromloopNode" + (idx + 1));
+            blowdownFromLoop[idx] = new HeatVolumizedFlowResistance();
+            blowdownFromLoop[idx].setName("Blowdown#FromLoop" + (idx + 1));
             blowdownValveFromLoop[idx] = new HeatValve();
             blowdownValveFromLoop[idx].initName(
                     "Blowdown#ValveFromLoop" + (idx + 1));
@@ -397,7 +408,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         blowdownValveDrain.initName("Blowdown#ValveDrain");
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx] = new HeatValve();
-            blowdownReturnValve[idx].initName("Blowdown#ReturnValve" + (idx + 1));
+            blowdownReturnValve[idx].initName(
+                    "Blowdown#ReturnValve" + (idx + 1));
+            blowdownReturnNode[idx] = new HeatNode();
+            blowdownReturnNode[idx].setName("Blowdown#ReturnNode" + (idx + 1));
+            blowdownReturn[idx] = new HeatVolumizedFlowResistance();
+            blowdownReturn[idx].setName("Blowdown#Return" + (idx + 1));
         }
 
         for (int idx = 0; idx < 2; idx++) {
@@ -512,6 +528,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     }
 
     public void init() {
+        // <editor-fold defaultstate="collapsed" desc="Init listeners">
         // Attach controller to monitor elements. Those monitor elements are
         // part of assemblies and send events to the controller, like a valve
         // open state reached.
@@ -571,7 +588,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDAPressure[idx].initParameterHandler(outputValues);
             setpointDALevel[idx].initParameterHandler(outputValues);
         }
-
+        // </editor-fold>  
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
         // Define the primary loop from drum through mcps and reactor and back.
         makeupStorage.connectTo(makeupStorageDrainCollector);
@@ -627,12 +644,15 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     mainSteamDrumNode[idx], mainSteam[idx]);
         }
 
-        // Build the blowdown system: There's a trim valve connected to each
+        // Build the blowdown system: There's a connection to a large pipe
+        // that goes to a trim valve connected to each
         // distributor (thats the part that distributes coolant to fuel 
         // channels), connected to a common node.
         for (int idx = 0; idx < 2; idx++) {
+            blowdownFromLoop[idx].connectBetween(
+                    loopDistributor[idx], blowdownFromLoopNode[idx]);
             blowdownValveFromLoop[idx].getValveElement().connectBetween(
-                    loopDistributor[idx], blowdownInCollectorNode);
+                    blowdownFromLoopNode[idx], blowdownInCollectorNode);
         }
         // Passive flow without pumps
         blowdownValvePassiveFlow.getValveElement().connectBetween(
@@ -685,12 +705,14 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         blowdownCooldown.getSecondarySide().getNode(1));
         blowdownCoolantSink.connectTo(
                 blowdownCooldown.getSecondarySide().getNode(0));
-        // Connect blowdown out valves to the feedwater collector
+        // Connect blowdown out valves to the feedwater collector via pipes
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].getValveElement().connectTo(
                     blowdownOutNode);
             blowdownReturnValve[idx].getValveElement().connectTo(
-                    loopFeedwaterIn[idx]);
+                    blowdownReturnNode[idx]);
+            blowdownReturn[idx].connectBetween(
+                    blowdownReturnNode[idx], loopFeedwaterIn[idx]);            
         }
 
         // Deaerators
@@ -834,20 +856,26 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         // Blowdown System
         for (int idx = 0; idx < 2; idx++) {
+            // Two large pipes from and to reactor
+            blowdownFromLoop[idx].setResistanceParameter(2000);
+            blowdownFromLoop[idx].setInnerThermalMass(400);
+            blowdownReturn[idx].setResistanceParameter(2400);
+            blowdownReturn[idx].setInnerThermalMass(400);
+            // Valves connected to those
             blowdownValveFromLoop[idx].initCharacteristic(400, 20.0);
             blowdownReturnValve[idx].initCharacteristic(400, 20.0);
             blowdownCooldownPumps[idx].initCharacteristic(16e5, 12e5, 900);
         }
         blowdownValvePassiveFlow.initCharacteristic(3000, -1.0);
         blowdownValvePumpsToRegenerator.initCharacteristic(500, -1.0);
-        blowdownValvePumpsToCooler.initCharacteristic(500, -1.0);
+        blowdownValvePumpsToCooler.initCharacteristic(100, -1.0);
         blowdownValveRegeneratorToCooler.initCharacteristic(500, -1.0);
-        blowdownCooldownResistance.setResistanceParameter(2000);
-        blowdownValveTreatmentBypass.initCharacteristic(500, -1.0);
-        blowdownValveRegeneratedToDrums.initCharacteristic(500, -1.0);
+        blowdownCooldownResistance.setResistanceParameter(500); // war: 2000
+        blowdownValveTreatmentBypass.initCharacteristic(100, -1.0);
+        blowdownValveRegeneratedToDrums.initCharacteristic(100, -1.0);
         blowdownValveDrain.initCharacteristic(400, 20.0);
-        blowdownToRegeneratorFirstResistance.setResistanceParameter(1000);
-        blowdownToRegeneratorSecondResistance.setResistanceParameter(1000);
+        blowdownToRegeneratorFirstResistance.setResistanceParameter(500);
+        blowdownToRegeneratorSecondResistance.setResistanceParameter(500);
         blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
 
         // Temperature in Deaerators is supposed to be 165 °C / 8 barabs
@@ -930,6 +958,10 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     .setInitialTemperature(370); //also 314.63
         }
         for (int idx = 0; idx < 2; idx++) {
+            blowdownFromLoop[idx].getHeatHandler().setInitialTemperature(
+                    51.7 + 273.5);
+            blowdownReturn[idx].getHeatHandler().setInitialTemperature(
+                    38 + 273.5);
             blowdownReturnValve[idx].initOpening(80);
             blowdownValveFromLoop[idx].initOpening(95);
         }
@@ -951,7 +983,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaerator[idx].setInitialState(40000, 35 + 273.15);
         }
         // </editor-fold>
-
+        // <editor-fold defaultstate="collapsed" desc="Submit to runner">
         // Initialize solver and build model. This is only a small line of code,
         // but it triggers a huge step of building up all the network and
         // calculation of the thermal layout.
@@ -1018,6 +1050,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             runner.submit(setpointDAPressure[idx]);
             runner.submit(setpointDALevel[idx]);
         }
+        // </editor-fold>
 
         // Control Loop configuration
         for (int idx = 0; idx < 2; idx++) {
@@ -1249,7 +1282,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             outputValues.setParameterValue("Loop" + (idx + 1)
                     + "#BlowdownFlowToFeedwaterIn",
                     -loopFeedwaterIn[idx].getFlow( // negative = into node
-                            blowdownReturnValve[idx].getValveElement()));
+                            blowdownReturn[idx]));
 
             outputValues.setParameterValue("Feedwater" + (idx + 1) + "#Flow",
                     -loopFeedwaterIn[idx].getFlow(
