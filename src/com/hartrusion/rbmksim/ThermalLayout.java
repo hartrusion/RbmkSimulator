@@ -78,8 +78,12 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             = new PhasedPropertiesWater();
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
+    // Cold condensate storage
     private final HeatFluidTank makeupStorage;
     private final HeatNode makeupStorageDrainCollector;
+//    private final HeatNode makeupStorageOut;
+//    private final HeatFluidPumpRealSwitching[] makeupAuxiliaryPumps
+//            = new HeatFluidPumpRealSwitching[3];
 
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
@@ -179,7 +183,6 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final PhasedHeatFluidConverter[] deaeratorToDrainConverter
             = new PhasedHeatFluidConverter[2];
     private final HeatNode[] deaeratorDrainOutHeatNode = new HeatNode[2];
-
     private final HeatValve[] deaeratorDrain = new HeatValve[2];
 
     // Feedwater pumps system
@@ -206,6 +209,10 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatNode[][] feedwaterIntoFlowRegNode = new HeatNode[2][3];
     private final HeatValveControlled[][] feedwaterFlowRegulationValve
             = new HeatValveControlled[2][3];
+    
+    // Condensation
+    
+    
     // </editor-fold>
 
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];

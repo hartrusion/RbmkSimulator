@@ -155,6 +155,7 @@ public class ControlLoop extends javax.swing.JPanel
 
         jButtonDown.setBackground(new java.awt.Color(229, 229, 229));
         jButtonDown.setFont(jButtonDown.getFont().deriveFont(jButtonDown.getFont().getStyle() | java.awt.Font.BOLD, jButtonDown.getFont().getSize()-2));
+        jButtonDown.setForeground(new java.awt.Color(0, 0, 0));
         jButtonDown.setText("▼");
         jButtonDown.setToolTipText("");
         jButtonDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -172,6 +173,7 @@ public class ControlLoop extends javax.swing.JPanel
         add(jButtonDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
 
         jButtonAuto.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonAuto.setForeground(new java.awt.Color(0, 0, 0));
         jButtonAuto.setText("A");
         jButtonAuto.setToolTipText("");
         jButtonAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -186,6 +188,7 @@ public class ControlLoop extends javax.swing.JPanel
         add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
 
         jButtonSetpoint.setBackground(new java.awt.Color(204, 0, 0));
+        jButtonSetpoint.setForeground(new java.awt.Color(0, 0, 0));
         jButtonSetpoint.setText("S");
         jButtonSetpoint.setToolTipText("");
         jButtonSetpoint.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -200,6 +203,7 @@ public class ControlLoop extends javax.swing.JPanel
         add(jButtonSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 20, 20, 16));
 
         jButtonHand.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonHand.setForeground(new java.awt.Color(0, 0, 0));
         jButtonHand.setText("H");
         jButtonHand.setToolTipText("");
         jButtonHand.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -215,6 +219,7 @@ public class ControlLoop extends javax.swing.JPanel
 
         jButtonUp.setBackground(new java.awt.Color(229, 229, 229));
         jButtonUp.setFont(jButtonUp.getFont().deriveFont(jButtonUp.getFont().getStyle() | java.awt.Font.BOLD, jButtonUp.getFont().getSize()-2));
+        jButtonUp.setForeground(new java.awt.Color(0, 0, 0));
         jButtonUp.setText("▲");
         jButtonUp.setToolTipText("");
         jButtonUp.setMargin(new java.awt.Insets(0, 0, 0, 0));

@@ -93,6 +93,7 @@ public class SetpointControl extends javax.swing.JPanel
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonUpper.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonUpper.setForeground(new java.awt.Color(0, 0, 0));
         jButtonUpper.setText(">");
         jButtonUpper.setToolTipText("");
         jButtonUpper.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -110,6 +111,7 @@ public class SetpointControl extends javax.swing.JPanel
         add(jButtonUpper, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 2, 16, 18));
 
         jButtonLower.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonLower.setForeground(new java.awt.Color(0, 0, 0));
         jButtonLower.setText("<");
         jButtonLower.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonLower.setMaximumSize(new java.awt.Dimension(16, 18));

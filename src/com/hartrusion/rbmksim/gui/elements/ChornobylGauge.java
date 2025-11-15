@@ -110,6 +110,7 @@ public final class ChornobylGauge extends javax.swing.JPanel {
             tickLabels[idx].setText(numberFormat.format(tickValues[idx]));
             tickLabels[idx].setFont(tickLabels[idx].getFont().deriveFont(tickLabels[idx].getFont().getStyle() & ~java.awt.Font.BOLD, tickLabels[idx].getFont().getSize() - 3));
             tickLabels[idx].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            tickLabels[idx].setForeground(Color.BLACK);
             add(tickLabels[idx]);
         }
         // Update Tick coordinates
@@ -226,6 +227,7 @@ public final class ChornobylGauge extends javax.swing.JPanel {
         setLayout(null);
 
         jLabelUnit.setFont(jLabelUnit.getFont().deriveFont(jLabelUnit.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelUnit.getFont().getSize()-3));
+        jLabelUnit.setForeground(new java.awt.Color(0, 0, 0));
         jLabelUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelUnit.setText("cm");
         add(jLabelUnit);

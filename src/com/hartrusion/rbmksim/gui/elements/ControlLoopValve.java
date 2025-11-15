@@ -131,6 +131,7 @@ public class ControlLoopValve extends javax.swing.JPanel
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonUpper.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonUpper.setForeground(new java.awt.Color(0, 0, 0));
         jButtonUpper.setText(">");
         jButtonUpper.setToolTipText("");
         jButtonUpper.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -148,6 +149,7 @@ public class ControlLoopValve extends javax.swing.JPanel
         add(jButtonUpper, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 18, 20, 16));
 
         jButtonAuto.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonAuto.setForeground(new java.awt.Color(0, 0, 0));
         jButtonAuto.setText("Ꝋ");
         jButtonAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonAuto.setMaximumSize(new java.awt.Dimension(20, 16));
@@ -161,6 +163,7 @@ public class ControlLoopValve extends javax.swing.JPanel
         add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 18, 20, 16));
 
         jButtonManual.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonManual.setForeground(new java.awt.Color(0, 0, 0));
         jButtonManual.setText("н");
         jButtonManual.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonManual.setMaximumSize(new java.awt.Dimension(20, 16));
@@ -174,6 +177,7 @@ public class ControlLoopValve extends javax.swing.JPanel
         add(jButtonManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 18, 20, 16));
 
         jButtonLower.setBackground(new java.awt.Color(255, 255, 204));
+        jButtonLower.setForeground(new java.awt.Color(0, 0, 0));
         jButtonLower.setText("<");
         jButtonLower.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonLower.setMaximumSize(new java.awt.Dimension(20, 16));
@@ -191,6 +195,7 @@ public class ControlLoopValve extends javax.swing.JPanel
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 204));
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel1.getFont().getSize()-2));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("H");
         jLabel1.setOpaque(true);

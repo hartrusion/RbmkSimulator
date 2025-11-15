@@ -45,14 +45,18 @@ public class PanelMakeup extends AbstractPanelWidget {
         jButtonFeed12Close = new javax.swing.JButton();
         jLabelFeed12 = new javax.swing.JLabel();
         jButtonFeed12Open = new javax.swing.JButton();
-        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelCaptionPump11 = new javax.swing.JLabel();
         jLabelCaptionPump12 = new javax.swing.JLabel();
         jLabelDA1Level1 = new javax.swing.JLabel();
         jLabelDA1Level2 = new javax.swing.JLabel();
         chornobylGaugeLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        panelWidgetSmallPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        panelWidgetPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        jButtonFeed12Close1 = new javax.swing.JButton();
+        jLabelFeed13 = new javax.swing.JLabel();
+        jButtonFeed12Open1 = new javax.swing.JButton();
+        jLabelCaptionPump13 = new javax.swing.JLabel();
+        jLabelCaptionPump14 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(190, 174));
         setMinimumSize(new java.awt.Dimension(190, 174));
@@ -68,15 +72,15 @@ public class PanelMakeup extends AbstractPanelWidget {
                 jButtonFeed12CloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 150, 20, 20));
+        add(jButtonFeed12Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 138, 20, 20));
 
         jLabelFeed12.setFont(jLabelFeed12.getFont().deriveFont(jLabelFeed12.getFont().getSize()-2f));
         jLabelFeed12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed12.setText("Bypass");
+        jLabelFeed12.setText("Drain");
         jLabelFeed12.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelFeed12.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelFeed12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 136, 52, 14));
+        add(jLabelFeed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 124, 52, 14));
 
         jButtonFeed12Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed12Open.setText("O");
@@ -87,9 +91,7 @@ public class PanelMakeup extends AbstractPanelWidget {
                 jButtonFeed12OpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 150, 20, 20));
-        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 58, -1, -1));
-        add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 56, -1, -1));
+        add(jButtonFeed12Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 138, 20, 20));
 
         jLabelCaptionPump11.setFont(jLabelCaptionPump11.getFont().deriveFont(jLabelCaptionPump11.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump11.getFont().getSize()-2));
         jLabelCaptionPump11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -97,15 +99,15 @@ public class PanelMakeup extends AbstractPanelWidget {
         jLabelCaptionPump11.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump11.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump11, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 40, 64, 14));
+        add(jLabelCaptionPump11, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 38, 48, 14));
 
         jLabelCaptionPump12.setFont(jLabelCaptionPump12.getFont().deriveFont(jLabelCaptionPump12.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump12.getFont().getSize()-2));
         jLabelCaptionPump12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump12.setText("Pump 1");
+        jLabelCaptionPump12.setText("Water");
         jLabelCaptionPump12.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump12.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 64, 14));
+        add(jLabelCaptionPump12, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 54, 54, 14));
 
         jLabelDA1Level1.setFont(jLabelDA1Level1.getFont().deriveFont(jLabelDA1Level1.getFont().getSize()-2f));
         jLabelDA1Level1.setText("Cold Cnd.");
@@ -122,30 +124,90 @@ public class PanelMakeup extends AbstractPanelWidget {
         chornobylGaugeLevel.setChornobylUnitText("m");
         chornobylGaugeLevel.setChornobylValue(0.0F);
         add(chornobylGaugeLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
-        add(panelWidgetSmallPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 54, -1, -1));
-    }// </editor-fold>//GEN-END:initComponents
+        add(panelWidgetPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 56, -1, -1));
+        add(panelWidgetPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 56, -1, -1));
 
-    private void jButtonFeed12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12CloseActionPerformed
-        controller.userAction(new ActionCommand("Feedwater1#ShutoffValve2", false));
-    }//GEN-LAST:event_jButtonFeed12CloseActionPerformed
+        jButtonFeed12Close1.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonFeed12Close1.setText("C");
+        jButtonFeed12Close1.setToolTipText("");
+        jButtonFeed12Close1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonFeed12Close1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFeed12Close1ActionPerformed(evt);
+            }
+        });
+        add(jButtonFeed12Close1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 94, 20, 20));
+
+        jLabelFeed13.setFont(jLabelFeed13.getFont().deriveFont(jLabelFeed13.getFont().getSize()-2f));
+        jLabelFeed13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelFeed13.setText("Fill");
+        jLabelFeed13.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelFeed13.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelFeed13.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelFeed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 80, 52, 14));
+
+        jButtonFeed12Open1.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonFeed12Open1.setText("O");
+        jButtonFeed12Open1.setToolTipText("");
+        jButtonFeed12Open1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonFeed12Open1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFeed12Open1ActionPerformed(evt);
+            }
+        });
+        add(jButtonFeed12Open1, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 94, 20, 20));
+
+        jLabelCaptionPump13.setFont(jLabelCaptionPump13.getFont().deriveFont(jLabelCaptionPump13.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump13.getFont().getSize()-2));
+        jLabelCaptionPump13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump13.setText("Pump 1");
+        jLabelCaptionPump13.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump13.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump13.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump13, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 38, 54, 14));
+
+        jLabelCaptionPump14.setFont(jLabelCaptionPump14.getFont().deriveFont(jLabelCaptionPump14.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump14.getFont().getSize()-2));
+        jLabelCaptionPump14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump14.setText("Makeup");
+        jLabelCaptionPump14.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump14.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump14.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump14, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 38, 54, 14));
+    }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFeed12OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12OpenActionPerformed
         controller.userAction(new ActionCommand("Feedwater1#ShutoffValve2", true));
     }//GEN-LAST:event_jButtonFeed12OpenActionPerformed
 
+    private void jButtonFeed12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12CloseActionPerformed
+        controller.userAction(new ActionCommand("Feedwater1#ShutoffValve2", false));
+    }//GEN-LAST:event_jButtonFeed12CloseActionPerformed
+
+    private void jButtonFeed12Close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFeed12Close1ActionPerformed
+
+    private void jButtonFeed12Open1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFeed12Open1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLevel;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
     private javax.swing.JButton jButtonFeed12Close;
+    private javax.swing.JButton jButtonFeed12Close1;
     private javax.swing.JButton jButtonFeed12Open;
+    private javax.swing.JButton jButtonFeed12Open1;
     private javax.swing.JLabel jLabelCaptionPump11;
     private javax.swing.JLabel jLabelCaptionPump12;
+    private javax.swing.JLabel jLabelCaptionPump13;
+    private javax.swing.JLabel jLabelCaptionPump14;
     private javax.swing.JLabel jLabelDA1Level1;
     private javax.swing.JLabel jLabelDA1Level2;
     private javax.swing.JLabel jLabelFeed12;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump1;
+    private javax.swing.JLabel jLabelFeed13;
+    private javax.swing.JToggleButton jToggleButtonRPS;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump2;
     // End of variables declaration//GEN-END:variables
 
     @Override
