@@ -147,7 +147,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelMCP1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -160,15 +160,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelFeedwater1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelInternalLoad1" min="-2" max="-2" attributes="0"/>
-                          <Component id="panelMakeup1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="panelInternalLoad1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelDeaerators1" min="-2" pref="191" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -176,23 +173,17 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="panelRodSelector1" min="-2" pref="340" max="-2" attributes="0"/>
-                          <Component id="panelFeedwater1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="panelInternalLoad1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="panelMakeup1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="panelRodSelector1" min="-2" pref="340" max="-2" attributes="0"/>
+                      <Component id="panelFeedwater1" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="panelInternalLoad1" min="-2" max="-2" attributes="0"/>
                   <Component id="panelDeaerators1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelMCP1" pref="342" max="32767" attributes="0"/>
+                  <Component id="panelMCP1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelBlowdown1" min="-2" max="-2" attributes="0"/>
@@ -261,7 +252,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.PanelMakeup" name="panelMakeup1">
+    <Component class="com.hartrusion.rbmksim.gui.PanelCondensation" name="panelCondensation2">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -269,8 +260,6 @@
           </Border>
         </Property>
       </Properties>
-    </Component>
-    <Component class="com.hartrusion.rbmksim.gui.PanelCondensation" name="panelCondensation2">
     </Component>
   </SubComponents>
 </Form>
