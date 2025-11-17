@@ -326,6 +326,10 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="controlLoopCondLevel1">
+      <Properties>
+        <Property name="controlComponent" type="java.lang.String" value="AuxCond1#CondensateValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="AuxCond1#Level"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="46" y="96" width="-1" height="-1"/>
@@ -333,6 +337,10 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="controlLoopCondLevel2">
+      <Properties>
+        <Property name="controlComponent" type="java.lang.String" value="AuxCond2#CondensateValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="AuxCond2#Level"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="46" y="140" width="-1" height="-1"/>

@@ -178,7 +178,13 @@ public class PanelAuxCondenser extends AbstractPanelWidget {
         jLabelCaptionSteamIn.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSteamIn.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 226, 60, 14));
+
+        controlLoopCondLevel1.setControlComponent("AuxCond1#CondensateValve");
+        controlLoopCondLevel1.setFeedbackComponent("AuxCond1#Level");
         add(controlLoopCondLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 96, -1, -1));
+
+        controlLoopCondLevel2.setControlComponent("AuxCond2#CondensateValve");
+        controlLoopCondLevel2.setFeedbackComponent("AuxCond2#Level");
         add(controlLoopCondLevel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 140, -1, -1));
 
         chornobylGaugeCondTemperature.setChornobylMaximum(100.0F);

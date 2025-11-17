@@ -238,6 +238,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
     private final Setpoint[] setpointDALevel = new Setpoint[2];
+    private final Setpoint[] setpointAuxCondLevel = new Setpoint[2];
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
@@ -551,7 +552,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     "AuxCond" + (idx + 1) + "#CoolantSource");
             auxCondCoolantSourceNode[idx] = new HeatNode();
             auxCondCoolantSourceNode[idx].setName(
-                    "AuxCond" + (idx + 1) + "CoolantSourceNode");
+                    "AuxCond" + (idx + 1) + "#CoolantSourceNode");
             auxCondCoolantFlow[idx] = new HeatControlledFlowSource();
             auxCondCoolantFlow[idx].initName(
                     "AuxCond" + (idx + 1) + "#CoolantFlow");
@@ -575,7 +576,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         auxCondBypass.initName("AuxCond#Bypass");
         for (int idx = 0; idx < 2; idx++) {
             auxCondPumps[idx] = new HeatFluidPumpSimple();
-            auxCondPumps[idx].initName("AuxCond" + (idx + 1) + "CondPumps");
+            auxCondPumps[idx].initName("AuxCond" + (idx + 1) + "#CondPumps");
         }
         auxCondCollectorNode = new HeatNode();
         auxCondCollectorNode.setName("AuxCond#ConllectorNode");
@@ -597,6 +598,10 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDALevel[idx] = new Setpoint();
             setpointDALevel[idx].initName(
                     "Deaerator" + (idx + 1) + "#LevelSetpoint");
+            setpointAuxCondLevel[idx] = new Setpoint();
+            setpointAuxCondLevel[idx].initName(
+                    "AuxCond" + (idx + 1) + "#LevelSetpoint");
+
         }
     }
 
@@ -677,6 +682,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDrumLevel[idx].initParameterHandler(outputValues);
             setpointDAPressure[idx].initParameterHandler(outputValues);
             setpointDALevel[idx].initParameterHandler(outputValues);
+            setpointAuxCondLevel[idx].initParameterHandler(outputValues);
         }
         // </editor-fold>  
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
@@ -1188,6 +1194,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             runner.submit(setpointDrumLevel[idx]);
             runner.submit(setpointDAPressure[idx]);
             runner.submit(setpointDALevel[idx]);
+            runner.submit(setpointAuxCondLevel[idx]);
         }
         // </editor-fold>
 
@@ -1202,6 +1209,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDALevel[idx].setLowerLimit(50);
             setpointDALevel[idx].setUpperLimit(220);
             setpointDALevel[idx].setMaxRate(10.0);
+        }
+
+        for (int idx = 0; idx < 2; idx++) {
+            // Todo, use values that make sense after setting characteristics
+            setpointAuxCondLevel[idx].setLowerLimit(50);
+            setpointAuxCondLevel[idx].setUpperLimit(220);
+            setpointAuxCondLevel[idx].setMaxRate(10.0);
         }
 
         blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
@@ -1501,6 +1515,18 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         + "#DrumTemperature",
                         (float) (loopSteamDrum[idx].getTemperature() - 273.5));
             }
+            // Feedwater control loops
+            for (int idx = 0; idx < 2; idx++) {
+                plotData.insertValue("Loop" + (idx + 1) + "#DrumLevelSetpoint",
+                        (float) setpointDrumLevel[idx].getOutput());
+                plotData.insertValue("Feedwater" + (idx + 1) + "#DrumLevelSetpoint",
+                        (float) setpointDrumLevel[idx].getOutput());
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    plotData.insertValue("Feedwater" + (idx + 1) + "#FlowRegulationValve" + (jdx + 1),
+                            (float) feedwaterFlowRegulationValve[idx][jdx].getOpening());
+                }
+            }
+
             plotUpdateCount = plotData.getCountDiv() - 1;
         } else {
             plotUpdateCount--;
@@ -1689,6 +1715,38 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaeratorSteamFromMain[0].handleAction(ac);
             deaeratorSteamFromMain[1].handleAction(ac);
 
+        } else if (ac.getPropertyName().startsWith("AuxCond")) {
+            if (ac.getPropertyName().equals("AuxCond1#CoolantSource")) {
+                switch ((int) ac.getValue()) {
+                    case -1 ->
+                        auxCondCoolantFlow[0].setToMinFlow();
+                    case +1 ->
+                        auxCondCoolantFlow[0].setToMaxFlow();
+                    default ->
+                        auxCondCoolantFlow[0].setStopAtCurrentFlow();
+                }
+                return;
+            }
+            if (ac.getPropertyName().equals("AuxCond2#CoolantSource")) {
+                switch ((int) ac.getValue()) {
+                    case -1 ->
+                        auxCondCoolantFlow[1].setToMinFlow();
+                    case +1 ->
+                        auxCondCoolantFlow[1].setToMaxFlow();
+                    default ->
+                        auxCondCoolantFlow[1].setStopAtCurrentFlow();
+                }
+                return;
+            }
+            for (int idx = 0; idx < 2; idx++) {
+                auxCondSteamValve[idx].handleAction(ac);
+                auxCondCondensateValve[idx].handleAction(ac);
+                auxCondPumps[idx].handleAction(ac);
+                setpointAuxCondLevel[idx].handleAction(ac);
+            }
+            auxCondBypass.handleAction(ac);
+            auxCondValveToHotwell.handleAction(ac);
+            auxCondValveToDrain.handleAction(ac);
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {

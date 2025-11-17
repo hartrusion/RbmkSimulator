@@ -18,6 +18,8 @@ package com.hartrusion.rbmksim.gui.mnemonic;
 
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.ValveState;
+import com.hartrusion.modeling.assemblies.PumpState;
+import static com.hartrusion.modeling.assemblies.PumpState.*;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.mvc.UpdateReceiver;
 
@@ -233,7 +235,30 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
+        if (!evt.getPropertyName().startsWith("AuxCond")) {
+            return;
+        }
         switch (evt.getPropertyName()) {
+            case "AuxCond1#CondPumpsPump_State" -> {
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump1.setStatus(0);
+                    case READY -> pump1.setStatus(1);
+                    case STARTUP -> pump1.setStatus(2);
+                    case RUNNING -> pump1.setStatus(3);
+                }
+            }
+            case "AuxCond1#CondPumpsDischargeValve_Pos" ->
+                valvePump1Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond2#CondPumpsPump_State" -> {
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> pump2.setStatus(0);
+                    case READY -> pump2.setStatus(1);
+                    case STARTUP -> pump2.setStatus(2);
+                    case RUNNING -> pump2.setStatus(3);
+                }
+            }
+            case "AuxCond2#CondPumpsDischargeValve_Pos" ->
+                valvePump2Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "AuxCond1#CondensateValve_Pos" ->
                 valveCondDrain1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "AuxCond2#CondensateValve_Pos" ->
