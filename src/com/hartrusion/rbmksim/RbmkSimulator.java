@@ -43,7 +43,8 @@ public class RbmkSimulator {
     private final ExecutorService threadPool;
 
     RbmkSimulator() {
-        scheduler = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
+        scheduler = Executors.newSingleThreadScheduledExecutor(
+                new ThreadFactory() {
             private final ThreadFactory defaultThreadFactory
                     = Executors.defaultThreadFactory();
 
@@ -54,12 +55,12 @@ public class RbmkSimulator {
                 return t;
             }
         });
-        
+
         // Initialize Multithreading for SuperPosition solver
         int cores = Runtime.getRuntime().availableProcessors();
         threadPool = Executors.newFixedThreadPool(cores);
         SuperPosition.setThreadPool(threadPool);
-        
+
         model = new MainLoop();
     }
 
@@ -115,7 +116,7 @@ public class RbmkSimulator {
         java.awt.EventQueue.invokeLater(() -> {
             view.setVisible(true);
         });
-        
+
         // Call the model run-method once here in main thread as this generates
         // a lot of objects on the first run. Further calls will be faster
 //        model.run();
@@ -125,9 +126,8 @@ public class RbmkSimulator {
 //            System.getLogger(RbmkSimulator.class.getName()).log(
 //                    System.Logger.Level.ERROR, (String) null, ex);
 //        }
-
         // Start the 100 ms cyclic thread
-        scheduler.scheduleAtFixedRate(model, 100, 100, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(model, 200, 200, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -135,7 +135,7 @@ public class RbmkSimulator {
      */
     public static void main(String[] args) {
         SimpleLogOut.configureLoggingToStdOut();
-        
+
         RbmkSimulator app = new RbmkSimulator();
         app.run();
     }

@@ -482,6 +482,9 @@ public class ControlPanel extends javax.swing.JFrame
         if (frameMnemonicDeaerator != null) {
             frameMnemonicDeaerator.updateComponent(evt);
         }
+        if (frameMnemonicInternalLoad != null) {
+            frameMnemonicInternalLoad.updateComponent(evt);
+        }
     }
 
     @Override
@@ -533,6 +536,9 @@ public class ControlPanel extends javax.swing.JFrame
         }
         if (frameMnemonicDeaerator != null) {
             frameMnemonicDeaerator.updateComponent(propertyName, newValue);
+        }
+        if (frameMnemonicInternalLoad != null) {
+            frameMnemonicInternalLoad.updateComponent(propertyName, newValue);
         }
     }
 

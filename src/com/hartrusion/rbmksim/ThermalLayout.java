@@ -28,9 +28,10 @@ import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.assemblies.HeatControlledFlowSource;
 import com.hartrusion.modeling.assemblies.HeatExchanger;
 import com.hartrusion.modeling.assemblies.HeatFluidPump;
-import com.hartrusion.modeling.assemblies.HeatFluidPumpRealSwitching;
+import com.hartrusion.modeling.assemblies.HeatFluidPumpSimple;
 import com.hartrusion.modeling.assemblies.HeatValve;
 import com.hartrusion.modeling.assemblies.HeatValveControlled;
+import com.hartrusion.modeling.assemblies.PhasedCondenser;
 import com.hartrusion.modeling.assemblies.PhasedValve;
 import com.hartrusion.modeling.assemblies.PhasedValveControlled;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
@@ -99,8 +100,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatVolumizedFlowResistance[] loopDownflow
             = new HeatVolumizedFlowResistance[2];
     private final HeatNode[] loopCollector = new HeatNode[2];
-    private final HeatFluidPumpRealSwitching[][] loopAssembly
-            = new HeatFluidPumpRealSwitching[2][4];
+    private final HeatFluidPump[][] loopAssembly
+            = new HeatFluidPump[2][4];
     private final HeatNode[][] loopTrimNode = new HeatNode[2][4];
     private final HeatValve[][] loopTrimValve = new HeatValve[2][4];
     private final HeatValve[] loopBypass = new HeatValve[2];
@@ -187,13 +188,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
     // Feedwater pumps system
     // Two feedwater pumps per side
-    private final HeatFluidPumpRealSwitching[][] feedwaterPump
-            = new HeatFluidPumpRealSwitching[2][2];
+    private final HeatFluidPump[][] feedwaterPump
+            = new HeatFluidPump[2][2];
     // the spare pump can be used on both sides so it has some valves allowing 
     // to connect it to both sides.
     private final HeatValve[] feedwaterSparePumpInValve = new HeatValve[2];
     private final HeatNode feedwaterSparePumpIn;
-    private final HeatFluidPumpRealSwitching feedwaterPump3;
+    private final HeatFluidPump feedwaterPump3;
     private final HeatNode feedwaterSparePumpOut;
     private final HeatValve[] feedwaterSparePumpOutValve = new HeatValve[2];
     // Main feed pumps go to this nodes:
@@ -209,12 +210,31 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatNode[][] feedwaterIntoFlowRegNode = new HeatNode[2][3];
     private final HeatValveControlled[][] feedwaterFlowRegulationValve
             = new HeatValveControlled[2][3];
-    
-    // Condensation
-    
-    
-    // </editor-fold>
 
+    // Auxiliary Condensation
+    private final PhasedValve[] auxCondSteamValve = new PhasedValve[2];
+    private final PhasedCondenser[] auxCondensers = new PhasedCondenser[2];
+    // Coolant flow with simple flow source for now
+    private final HeatOrigin[] auxCondCoolantSource = new HeatOrigin[2];
+    private final HeatNode[] auxCondCoolantSourceNode = new HeatNode[2];
+    private final HeatControlledFlowSource[] auxCondCoolantFlow
+            = new HeatControlledFlowSource[2];
+    private final HeatOrigin[] auxCondCoolantSink = new HeatOrigin[2];
+    private final PhasedHeatFluidConverter[] auxCondOutConverter
+            = new PhasedHeatFluidConverter[2];
+    private final HeatNode[] auxCondCondenserOutNode = new HeatNode[2];
+    private final HeatValveControlled[] auxCondCondensateValve
+            = new HeatValveControlled[2];
+    private final HeatNode auxCondCondInNode;
+    private final HeatValve auxCondBypass;
+    private final HeatFluidPumpSimple[] auxCondPumps
+            = new HeatFluidPumpSimple[2];
+    private final HeatNode auxCondCollectorNode;
+    private final HeatValve auxCondValveToHotwell;
+    private final HeatValve auxCondValveToDrain;
+
+    // Condensation
+    // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
     private final Setpoint[] setpointDALevel = new Setpoint[2];
@@ -281,7 +301,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             loopCollector[idx] = new HeatNode();
             loopCollector[idx].setName("Loop" + (idx + 1) + "#Collector");
             for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx] = new HeatFluidPumpRealSwitching();
+                loopAssembly[idx][jdx] = new HeatFluidPump();
                 // Will be named something like Loop1#mcp3DischargeValve
                 loopAssembly[idx][jdx].initName("Loop" + (idx + 1)
                         + "#mcp" + (jdx + 1));
@@ -470,7 +490,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
-                feedwaterPump[idx][jdx] = new HeatFluidPumpRealSwitching();
+                feedwaterPump[idx][jdx] = new HeatFluidPump();
                 feedwaterPump[idx][jdx].initName(
                         "Feedwater" + (idx + 1) + "#Pump" + (jdx + 1));
             }
@@ -480,7 +500,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         feedwaterSparePumpIn = new HeatNode();
         feedwaterSparePumpIn.setName("Feedwater#SparePumpIn");
-        feedwaterPump3 = new HeatFluidPumpRealSwitching();
+        feedwaterPump3 = new HeatFluidPump();
         feedwaterPump3.initName("Feedwater#Pump3");
         feedwaterSparePumpOut = new HeatNode();
         feedwaterSparePumpOut.setName("Feedwater#SparePumpOut");
@@ -517,6 +537,52 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                                 + "#FlowRegulationValve" + (jdx + 1));
             }
         }
+
+        // Auxiliary Condensation
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondSteamValve[idx] = new PhasedValve();
+            auxCondSteamValve[idx].initName(
+                    "AuxCond" + (idx + 1) + "#SteamValve");
+            auxCondensers[idx] = new PhasedCondenser(phasedWater);
+            auxCondensers[idx].initGenerateNodes();
+            auxCondensers[idx].initName("AuxCond" + (idx + 1) + "#Condenser");
+            auxCondCoolantSource[idx] = new HeatOrigin();
+            auxCondCoolantSource[idx].setName(
+                    "AuxCond" + (idx + 1) + "#CoolantSource");
+            auxCondCoolantSourceNode[idx] = new HeatNode();
+            auxCondCoolantSourceNode[idx].setName(
+                    "AuxCond" + (idx + 1) + "CoolantSourceNode");
+            auxCondCoolantFlow[idx] = new HeatControlledFlowSource();
+            auxCondCoolantFlow[idx].initName(
+                    "AuxCond" + (idx + 1) + "#CoolantFlow");
+            auxCondCoolantSink[idx] = new HeatOrigin();
+            auxCondCoolantSink[idx].setName(
+                    "AuxCond" + (idx + 1) + "#CoolantSink");
+            auxCondOutConverter[idx]
+                    = new PhasedHeatFluidConverter(phasedWater);
+            auxCondOutConverter[idx].setName(
+                    "AuxCond" + (idx + 1) + "#CondOutConverter");
+            auxCondCondenserOutNode[idx] = new HeatNode();
+            auxCondCondenserOutNode[idx].setName(
+                    "AuxCond" + (idx + 1) + "#CondenserOutNode");
+            auxCondCondensateValve[idx] = new HeatValveControlled();
+            auxCondCondensateValve[idx].initName(
+                    "AuxCond" + (idx + 1) + "#CondensateValve");
+        }
+        auxCondCondInNode = new HeatNode();
+        auxCondCondInNode.setName("AuxCond#CondInNode");
+        auxCondBypass = new HeatValve();
+        auxCondBypass.initName("AuxCond#Bypass");
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondPumps[idx] = new HeatFluidPumpSimple();
+            auxCondPumps[idx].initName("AuxCond" + (idx + 1) + "CondPumps");
+        }
+        auxCondCollectorNode = new HeatNode();
+        auxCondCollectorNode.setName("AuxCond#ConllectorNode");
+        auxCondValveToHotwell = new HeatValve();
+        auxCondValveToHotwell.initName("AuxCond#ToHotwell");
+        auxCondValveToDrain = new HeatValve();
+        auxCondValveToDrain.initName("AuxCond#ToDrain");
 
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
@@ -588,6 +654,23 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         .initParameterHandler(outputValues);
             }
         }
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondSteamValve[idx].initSignalListener(controller);
+            auxCondSteamValve[idx].initParameterHandler(outputValues);
+            auxCondCoolantFlow[idx].initSignalListener(controller);
+            auxCondCondensateValve[idx].initController(new PIControl());
+            auxCondCondensateValve[idx].initSignalListener(controller);
+            auxCondCondensateValve[idx].initParameterHandler(outputValues);
+        }
+        auxCondBypass.initSignalListener(controller);
+        auxCondBypass.initParameterHandler(outputValues);
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondPumps[idx].initSignalListener(controller);
+        }
+        auxCondValveToHotwell.initSignalListener(controller);
+        auxCondValveToHotwell.initParameterHandler(outputValues);
+        auxCondValveToDrain.initSignalListener(controller);
+        auxCondValveToDrain.initParameterHandler(outputValues);
 
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
@@ -719,7 +802,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             blowdownReturnValve[idx].getValveElement().connectTo(
                     blowdownReturnNode[idx]);
             blowdownReturn[idx].connectBetween(
-                    blowdownReturnNode[idx], loopFeedwaterIn[idx]);            
+                    blowdownReturnNode[idx], loopFeedwaterIn[idx]);
         }
 
         // Deaerators
@@ -798,6 +881,44 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                                 loopFeedwaterIn[idx]);
             }
         }
+
+        // Auxiliary Condenser
+        for (int idx = 0; idx < 2; idx++) {
+            // Build coolant supply: source - flow source - heat exch - sink
+            auxCondCoolantSource[idx].connectToVia(
+                    auxCondCoolantFlow[idx].getFlowSource(),
+                    auxCondCoolantSourceNode[idx]);
+            auxCondCoolantFlow[idx].getFlowSource().connectTo(
+                    auxCondensers[idx].getHeatNode(
+                            PhasedCondenser.SECONDARY_IN));
+            auxCondCoolantSink[idx].connectTo(auxCondensers[idx].getHeatNode(
+                    PhasedCondenser.SECONDARY_OUT));
+            // Steam into condenser
+            auxCondSteamValve[idx].getValveElement().connectBetween(
+                    mainSteam[idx],
+                    auxCondensers[idx].getPhasedNode(
+                            PhasedCondenser.PRIMARY_IN));
+            // Condeser out: Convert to heat fluid domain and then into reg valv
+            auxCondOutConverter[idx].connectBetween(
+                    auxCondensers[idx].getPhasedNode(
+                            PhasedCondenser.PRIMARY_OUT),
+                    auxCondCondenserOutNode[idx]);
+            auxCondCondensateValve[idx].getValveElement().connectBetween(
+                    auxCondCondenserOutNode[idx], auxCondCondInNode);
+            // Also connect one of 2 pumps here, no separate loop for this.
+            auxCondPumps[idx].getPumpEffortSource().connectTo(
+                    auxCondCondInNode);
+            // Connect to collector node:
+            auxCondPumps[idx].getDischargeValve().connectTo(auxCondCollectorNode);
+        }
+        // Bypass parallel to those 2 pumps
+        auxCondBypass.getValveElement().connectTo(auxCondCondInNode);
+        auxCondBypass.getValveElement().connectTo(auxCondCollectorNode);
+        // Todo: Hotwell connection (no hotwell yet)
+        // Drain to cold condensate storage
+        auxCondValveToDrain.getValveElement().connectBetween(
+                auxCondCollectorNode, makeupStorageDrainCollector);
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set element properties">
         makeupStorage.setTimeConstant(100 / 9.81);
@@ -1047,6 +1168,17 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 runner.submit(feedwaterFlowRegulationValve[idx][jdx]);
             }
         }
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(auxCondSteamValve[idx]);
+            runner.submit(auxCondCoolantFlow[idx]);
+            runner.submit(auxCondCondensateValve[idx]);
+        }
+        runner.submit(auxCondBypass);
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(auxCondPumps[idx]);
+        }
+        runner.submit(auxCondValveToHotwell);
+        runner.submit(auxCondValveToDrain);
 
         // Add Solo control loops
         runner.submit(blowdownBalanceControlLoop);
@@ -1346,20 +1478,29 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     feedwaterPumpCollectorNodes[idx]
                             .getEffort() / 100000 - 1.0);
         }
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "AuxCond" + (idx + 1) + "#Level",
+                    auxCondensers[idx].getPrimarySideReservoir()
+                            .getFillHeight() * 100); // m to cm
+            outputValues.setParameterValue(
+                    "AuxCond" + (idx + 1) + "#SteamFlow",
+                    auxCondSteamValve[idx].getValveElement().getFlow());
+        }
         // </editor-fold>
-        
+
         // Save values to plot manager
         if (plotUpdateCount == 0) {
-        for (int idx = 0; idx < 2; idx++) {
-            // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
-             plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
-                    (float) (loopSteamDrum[idx].getStoredMass() * 2e-3 - 20));
-             plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
-                    (float) (loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0));
-             plotData.insertValue("Loop" + (idx + 1)
-                    + "#DrumTemperature",
-                    (float) (loopSteamDrum[idx].getTemperature() - 273.5));
-        }
+            for (int idx = 0; idx < 2; idx++) {
+                // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
+                plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
+                        (float) (loopSteamDrum[idx].getStoredMass() * 2e-3 - 20));
+                plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
+                        (float) (loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0));
+                plotData.insertValue("Loop" + (idx + 1)
+                        + "#DrumTemperature",
+                        (float) (loopSteamDrum[idx].getTemperature() - 273.5));
+            }
             plotUpdateCount = plotData.getCountDiv() - 1;
         } else {
             plotUpdateCount--;
