@@ -18,21 +18,64 @@ package com.hartrusion.rbmksim.gui;
 
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.plot.Line;
-import com.hartrusion.plot.MYAxes;
+import com.hartrusion.plot.YYAxes;
+import java.awt.Color;
 
 /**
  *
- * @author Viktor Alexander Hartung
+ * @author viktor
  */
-public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
-
+public class FrameDiagramLoopLevel extends javax.swing.JFrame {
+  
     /**
-     * Creates new form FrameDiagramNeutronFlux
+     * Creates new form FrameDiagramLoop1Level
      */
-    public FrameDiagramNeutronFlux() {
+    public FrameDiagramLoopLevel() {
         initComponents();
     }
 
+    public void initPlots(FloatSeriesVault plotData, int loop) {
+        YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
+        ax.setHold(true);
+        Line l;
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop" + loop + "#DrumLevel"));
+        ax.addLine(1, l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Loop" + loop + "#DrumLevelSetpoint"));
+        l.setLineColor(Color.BLACK);
+        ax.addLine(1, l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Feedwater" + loop + "#FlowRegulationValve1"));
+        l.setLineColor(new Color(0,128,0));
+        ax.addLine(2, l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Feedwater" + loop + "#FlowRegulationValve2"));
+        l.setLineColor(new Color(0,128,0));
+        ax.addLine(2, l);
+        l = new Line();
+        l.setDataSource(plotData.getTime(),
+                plotData.getSeries("Feedwater" + loop + "#FlowRegulationValve3"));
+        l.setLineColor(new Color(0,128,0));
+        ax.addLine(2, l);
+        
+        ax.yLim(1, -20, 20);
+        ax.yLim(2, 0, 100);
+        
+        ax.autoX();
+        
+        ax.ylabel(1, "Drum Level and Setpoint (cm)");
+        ax.ylabel(2, "Flow Valve Positions (%)");
+    }
+
+    public void updatePlots() {
+        repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,17 +88,16 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         figureJPane1 = new com.hartrusion.plot.FigureJPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Neutron Flux");
-        setBackground(new java.awt.Color(204, 204, 204));
+        setTitle("Loop 1 Level Control");
 
-        figureJPane1.setYRulers(3);
+        figureJPane1.setYRulers(2);
         figureJPane1.setLayout(new java.awt.FlowLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(figureJPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+            .addComponent(figureJPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,39 +107,7 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initPlots(FloatSeriesVault plotData) {
-        MYAxes ax = (MYAxes) figureJPane1.getLastAxes();
-        ax.setHold(true);
-        Line l;
-        l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Reactor#NeutronFlux"));
-        ax.addLine(1, l);
-        l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Reactor#NeutronFluxLog"));
-        ax.addLine(2, l);
-        l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Reactor#NeutronRate"));
-        ax.addLine(3, l);
-        
-        ax.yLim(1, 0, 100);
-        ax.yLim(2, -6, -1);
-        ax.yLim(3, -2, 2);
-        
-        ax.autoX();
-        
-        ax.ylabel(1, "Neutron Flux (%)");
-        ax.ylabel(2, "Neutron Flux Log");
-        ax.ylabel(3, "Neutron Rate (10%/s)");
-    }
-
-    public void updatePlots() {
-        repaint();
-    }
-
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.plot.FigureJPane figureJPane1;
     // End of variables declaration//GEN-END:variables

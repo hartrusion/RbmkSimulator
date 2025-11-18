@@ -1242,13 +1242,14 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             }
         }
 
+        // Drum level setpoint is in cm and getFillHeight retursn meters.
         for (int jdx = 0; jdx < 3; jdx++) {
             feedwaterFlowRegulationValve[0][jdx].getController()
                     .addInputProvider(new DoubleSupplier() {
                         @Override
                         public double getAsDouble() {
                             return setpointDrumLevel[0].getOutput()
-                                    - loopSteamDrum[0].getFillHeight();
+                                    - loopSteamDrum[0].getFillHeight() * 100 + 20;
                         }
                     });
             feedwaterFlowRegulationValve[1][jdx].getController()
@@ -1256,7 +1257,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         @Override
                         public double getAsDouble() {
                             return setpointDrumLevel[1].getOutput()
-                                    - loopSteamDrum[1].getFillHeight();
+                                    - loopSteamDrum[1].getFillHeight() * 100 + 20;
                         }
                     });
         }
@@ -1264,7 +1265,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(10);
+                        .getController()).setParameterK(3);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
                         .getController()).setParameterTN(5);
             }
@@ -1351,7 +1352,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumLevel",
-                    loopSteamDrum[idx].getStoredMass() * 2e-3 - 20);
+                    loopSteamDrum[idx].getFillHeight() * 100 - 20);
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumPressure",
                     loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0);
             outputValues.setParameterValue("Loop" + (idx + 1)
@@ -1508,7 +1509,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             for (int idx = 0; idx < 2; idx++) {
                 // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
-                        (float) (loopSteamDrum[idx].getStoredMass() * 2e-3 - 20));
+                        (float) (loopSteamDrum[idx].getFillHeight() * 100 - 20));
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
                         (float) (loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0));
                 plotData.insertValue("Loop" + (idx + 1)
@@ -1519,8 +1520,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             for (int idx = 0; idx < 2; idx++) {
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumLevelSetpoint",
                         (float) setpointDrumLevel[idx].getOutput());
-                plotData.insertValue("Feedwater" + (idx + 1) + "#DrumLevelSetpoint",
-                        (float) setpointDrumLevel[idx].getOutput());
+//                plotData.insertValue("Feedwater" + (idx + 1) + "#DrumLevelSetpoint",
+//                        (float) setpointDrumLevel[idx].getOutput());
                 for (int jdx = 0; jdx < 3; jdx++) {
                     plotData.insertValue("Feedwater" + (idx + 1) + "#FlowRegulationValve" + (jdx + 1),
                             (float) feedwaterFlowRegulationValve[idx][jdx].getOpening());

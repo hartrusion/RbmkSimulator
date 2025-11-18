@@ -23,6 +23,7 @@ import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.FrameCoreActivity;
 import com.hartrusion.rbmksim.gui.FrameDiagramDrums;
+import com.hartrusion.rbmksim.gui.FrameDiagramLoopLevel;
 import com.hartrusion.rbmksim.gui.FrameDiagramNeutronFlux;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
@@ -56,6 +57,8 @@ public class ControlPanel extends javax.swing.JFrame
 
     FrameDiagramNeutronFlux frameDiagramNeutronFlux;
     FrameDiagramDrums frameDiagramDrums;
+    FrameDiagramLoopLevel frameDiagramLoop1Level;
+    FrameDiagramLoopLevel frameDiagramLoop2Level;
 
     FloatSeriesVault plotData;
 
@@ -98,6 +101,8 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
         jMenuDrumSeparators = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Panel");
@@ -216,6 +221,22 @@ public class ControlPanel extends javax.swing.JFrame
             }
         });
         jMenuDiagrams.add(jMenuDrumSeparators);
+
+        jMenuItem8.setText("Loop 1 Level Control");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuItem8);
+
+        jMenuItem9.setText("Loop 2 Level Control");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuItem9);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -444,6 +465,38 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuDrumSeparatorsActionPerformed
 
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        if (frameDiagramLoop2Level == null && plotData != null) {
+            frameDiagramLoop2Level = new FrameDiagramLoopLevel();
+            frameDiagramLoop2Level.initPlots(plotData, 2);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameDiagramLoop2Level.setVisible(true);
+            });
+            frameDiagramLoop2Level.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameDiagramLoop2Level = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        if (frameDiagramLoop1Level == null && plotData != null) {
+            frameDiagramLoop1Level = new FrameDiagramLoopLevel();
+            frameDiagramLoop1Level.initPlots(plotData, 1);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameDiagramLoop1Level.setVisible(true);
+            });
+            frameDiagramLoop1Level.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameDiagramLoop1Level = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -500,6 +553,9 @@ public class ControlPanel extends javax.swing.JFrame
             }
             if (frameDiagramDrums != null) {
                 frameDiagramDrums.updatePlots();
+            }
+            if (frameDiagramLoop1Level != null) {
+                frameDiagramLoop1Level.updatePlots();
             }
         }
         panelRodSelector1.updateComponent(propertyName, newValue);
@@ -576,6 +632,8 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;

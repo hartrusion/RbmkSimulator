@@ -48,12 +48,13 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Steam Drum Separators");
-        setMinimumSize(new java.awt.Dimension(700, 560));
-        setPreferredSize(new java.awt.Dimension(700, 560));
+        setMinimumSize(new java.awt.Dimension(670, 360));
+        setPreferredSize(new java.awt.Dimension(670, 360));
 
         figureJPane1.setYRulers(0);
         figureJPane1.setSubplotLayout(new int[] {2, 2});
         figureJPane1.setSubplotPosition(new float[] {0.19f, 0.12f, 0.75f, 0.8f});
+        figureJPane1.setLayout(new java.awt.FlowLayout());
         getContentPane().add(figureJPane1, java.awt.BorderLayout.CENTER);
 
         pack();
