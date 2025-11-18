@@ -60,6 +60,8 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         pump1 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
         pump2 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
         jLabelReadingSteamValve2 = new javax.swing.JLabel();
+        jLabelReadingCoolantValve2 = new javax.swing.JLabel();
+        jLabelReadingCoolantValve1 = new javax.swing.JLabel();
         jLabelReadingCondensateValve1 = new javax.swing.JLabel();
         jLabelReadingCondensateValve2 = new javax.swing.JLabel();
         jLabelReadingValveToHotwell = new javax.swing.JLabel();
@@ -67,6 +69,8 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         jLabelReadingSteamValve1 = new javax.swing.JLabel();
         jLabelReadingSteamFlow1 = new javax.swing.JLabel();
         jLabelReadingSteamFlow2 = new javax.swing.JLabel();
+        jLabelReadingCondenser2Temperature = new javax.swing.JLabel();
+        jLabelReadingCondenser1Temperature = new javax.swing.JLabel();
         jLabelReadingCondenser1Level = new javax.swing.JLabel();
         jLabelReadingCondenser2Level = new javax.swing.JLabel();
         jLabelReadingCondensateTemperature = new javax.swing.JLabel();
@@ -119,6 +123,22 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         jLabelReadingSteamValve2.setText("___");
         jLabelReadingSteamValve2.setOpaque(true);
         add(jLabelReadingSteamValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 28, 24, -1));
+
+        jLabelReadingCoolantValve2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCoolantValve2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCoolantValve2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCoolantValve2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCoolantValve2.setText("___");
+        jLabelReadingCoolantValve2.setOpaque(true);
+        add(jLabelReadingCoolantValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 68, 24, -1));
+
+        jLabelReadingCoolantValve1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCoolantValve1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCoolantValve1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCoolantValve1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCoolantValve1.setText("___");
+        jLabelReadingCoolantValve1.setOpaque(true);
+        add(jLabelReadingCoolantValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 68, 24, -1));
 
         jLabelReadingCondensateValve1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondensateValve1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -176,21 +196,37 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         jLabelReadingSteamFlow2.setOpaque(true);
         add(jLabelReadingSteamFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 4, 56, 16));
 
+        jLabelReadingCondenser2Temperature.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondenser2Temperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondenser2Temperature.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondenser2Temperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondenser2Temperature.setText("____ °C");
+        jLabelReadingCondenser2Temperature.setOpaque(true);
+        add(jLabelReadingCondenser2Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 138, 56, 16));
+
+        jLabelReadingCondenser1Temperature.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondenser1Temperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondenser1Temperature.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondenser1Temperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondenser1Temperature.setText("____ °C");
+        jLabelReadingCondenser1Temperature.setOpaque(true);
+        add(jLabelReadingCondenser1Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 138, 56, 16));
+
         jLabelReadingCondenser1Level.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondenser1Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingCondenser1Level.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingCondenser1Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingCondenser1Level.setText("____ cm");
+        jLabelReadingCondenser1Level.setText("___");
         jLabelReadingCondenser1Level.setOpaque(true);
-        add(jLabelReadingCondenser1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 134, 56, 16));
+        add(jLabelReadingCondenser1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 72, 32, 16));
 
         jLabelReadingCondenser2Level.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondenser2Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingCondenser2Level.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingCondenser2Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingCondenser2Level.setText("____ cm");
+        jLabelReadingCondenser2Level.setText("___");
         jLabelReadingCondenser2Level.setOpaque(true);
-        add(jLabelReadingCondenser2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 134, 56, 16));
+        add(jLabelReadingCondenser2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 72, 32, 16));
 
         jLabelReadingCondensateTemperature.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondensateTemperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -198,7 +234,7 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         jLabelReadingCondensateTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondensateTemperature.setText("___ °C");
         jLabelReadingCondensateTemperature.setOpaque(true);
-        add(jLabelReadingCondensateTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 188, 56, 16));
+        add(jLabelReadingCondensateTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 214, 56, 16));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicAuxiliaryCondenser.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -211,7 +247,11 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingCondensateValve1;
     private javax.swing.JLabel jLabelReadingCondensateValve2;
     private javax.swing.JLabel jLabelReadingCondenser1Level;
+    private javax.swing.JLabel jLabelReadingCondenser1Temperature;
     private javax.swing.JLabel jLabelReadingCondenser2Level;
+    private javax.swing.JLabel jLabelReadingCondenser2Temperature;
+    private javax.swing.JLabel jLabelReadingCoolantValve1;
+    private javax.swing.JLabel jLabelReadingCoolantValve2;
     private javax.swing.JLabel jLabelReadingSteamFlow1;
     private javax.swing.JLabel jLabelReadingSteamFlow2;
     private javax.swing.JLabel jLabelReadingSteamValve1;
@@ -241,20 +281,28 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         switch (evt.getPropertyName()) {
             case "AuxCond1#CondPumpsPump_State" -> {
                 switch ((PumpState) evt.getNewValue()) {
-                    case OFFLINE -> pump1.setStatus(0);
-                    case READY -> pump1.setStatus(1);
-                    case STARTUP -> pump1.setStatus(2);
-                    case RUNNING -> pump1.setStatus(3);
+                    case OFFLINE ->
+                        pump1.setStatus(0);
+                    case READY ->
+                        pump1.setStatus(1);
+                    case STARTUP ->
+                        pump1.setStatus(2);
+                    case RUNNING ->
+                        pump1.setStatus(3);
                 }
             }
             case "AuxCond1#CondPumpsDischargeValve_Pos" ->
                 valvePump1Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "AuxCond2#CondPumpsPump_State" -> {
                 switch ((PumpState) evt.getNewValue()) {
-                    case OFFLINE -> pump2.setStatus(0);
-                    case READY -> pump2.setStatus(1);
-                    case STARTUP -> pump2.setStatus(2);
-                    case RUNNING -> pump2.setStatus(3);
+                    case OFFLINE ->
+                        pump2.setStatus(0);
+                    case READY ->
+                        pump2.setStatus(1);
+                    case STARTUP ->
+                        pump2.setStatus(2);
+                    case RUNNING ->
+                        pump2.setStatus(3);
                 }
             }
             case "AuxCond2#CondPumpsDischargeValve_Pos" ->
@@ -277,6 +325,8 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
                     valveCondDrain2.setControlIndicatorActive(false);
                 }
             }
+            case "AuxCond#Bypass_Pos" ->
+                valvePassiveFlow.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 
@@ -293,10 +343,16 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         switch (propertyName) {
             case "AuxCond1#Level" ->
                 jLabelReadingCondenser1Level.setText(
-                        String.format("%.1f", newValue) + " cm");
+                        String.format("%.1f", newValue));
             case "AuxCond2#Level" ->
                 jLabelReadingCondenser2Level.setText(
-                        String.format("%.1f", newValue) + " cm");
+                        String.format("%.1f", newValue));
+            case "AuxCond1#Temperature" ->
+                jLabelReadingCondenser1Temperature.setText(
+                        String.format("%.1f", newValue) + " °C");
+            case "AuxCond2#Temperature" ->
+                jLabelReadingCondenser2Temperature.setText(
+                        String.format("%.1f", newValue) + " °C");
             case "AuxCond1#SteamFlow" ->
                 jLabelReadingSteamFlow1.setText(
                         String.format("%.0f", newValue) + " kg/s");
@@ -320,6 +376,12 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
                         String.format("%.0f", newValue));
             case "AuxCond#ToDrain" ->
                 jLabelReadingValveToDrain.setText(
+                        String.format("%.0f", newValue));
+            case "AuxCond1#CoolantValve" ->
+                jLabelReadingCoolantValve1.setText(
+                        String.format("%.0f", newValue));
+            case "AuxCond2#CoolantValve" ->
+                jLabelReadingCoolantValve2.setText(
                         String.format("%.0f", newValue));
         }
     }

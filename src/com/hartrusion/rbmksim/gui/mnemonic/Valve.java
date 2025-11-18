@@ -176,8 +176,10 @@ public class Valve extends javax.swing.JComponent {
     @BeanProperty(preferred = true, visualUpdate = true, description
             = "Switches to the foreground color")
     public void setActive(boolean active) {
-        this.active = active;
-        repaint();
+        if (this.active != active) {
+            this.active = active;
+            repaint();
+        }
     }
 
     public boolean isControlIndicator() {

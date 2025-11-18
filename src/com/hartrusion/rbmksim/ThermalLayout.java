@@ -1069,6 +1069,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             feedwaterSparePumpOutValve[idx].initCharacteristic(200, -1.0);
         }
 
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondensers[idx].initCharacteristic(9.0, 10,
+                    500, 5000, 1.0, 5.0, 1e5);
+        }
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
@@ -1115,6 +1120,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx <= 1; idx++) {
             // try to have a fill level of 100 cm (normal level)
             deaerator[idx].setInitialState(40000, 35 + 273.15);
+        }
+        
+        // Todo: Something that makes more sense here.
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondensers[idx].initConditions(320, 320, 0.8);
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Submit to runner">
@@ -1499,8 +1509,17 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     auxCondensers[idx].getPrimarySideReservoir()
                             .getFillHeight() * 100); // m to cm
             outputValues.setParameterValue(
+                    "AuxCond" + (idx + 1) + "#Temperature",
+                    auxCondensers[idx].getPrimarySideReservoir()
+                            .getTemperature() - 273.5);
+            outputValues.setParameterValue(
                     "AuxCond" + (idx + 1) + "#SteamFlow",
                     auxCondSteamValve[idx].getValveElement().getFlow());
+            
+            outputValues.setParameterValue(
+                // Fake value to be 0..100 % at 0..400 kg/s
+                     "AuxCond" + (idx + 1) + "#CoolantValve",
+                auxCondCoolantFlow[idx].getFlowSource().getFlow() / 4.0);
         }
         // </editor-fold>
 
@@ -1748,6 +1767,26 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             auxCondBypass.handleAction(ac);
             auxCondValveToHotwell.handleAction(ac);
             auxCondValveToDrain.handleAction(ac);
+            if (ac.getPropertyName().equals("AuxCond1#CoolantValve")) {   
+                    switch ((int) ac.getValue()) {
+                        case -1 ->
+                            auxCondCoolantFlow[0].setToMinFlow();
+                        case +1 ->
+                            auxCondCoolantFlow[0].setToMaxFlow();
+                        default ->
+                            auxCondCoolantFlow[0].setStopAtCurrentFlow();
+                    }
+            }
+            if (ac.getPropertyName().equals("AuxCond2#CoolantValve")) {   
+                    switch ((int) ac.getValue()) {
+                        case -1 ->
+                            auxCondCoolantFlow[1].setToMinFlow();
+                        case +1 ->
+                            auxCondCoolantFlow[1].setToMaxFlow();
+                        default ->
+                            auxCondCoolantFlow[1].setStopAtCurrentFlow();
+                    }
+            }
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {

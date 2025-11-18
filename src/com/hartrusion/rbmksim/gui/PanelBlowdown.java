@@ -48,7 +48,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         integralSwitchDrain.registerActionReceiver(controller);
         integralSwitchReturn1.registerActionReceiver(controller);
         integralSwitchReturn2.registerActionReceiver(controller);
-
+        integralSwitchCoolant.registerActionReceiver(controller);
     }
 
     /**
@@ -90,8 +90,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionRegenToDrums2 = new javax.swing.JLabel();
         jButtonRegenToDrumsClose = new javax.swing.JButton();
         jButtonRegenToDrumsOpen = new javax.swing.JButton();
-        jButtonCoolantPos = new javax.swing.JButton();
-        jButtonCoolantNeg = new javax.swing.JButton();
         jLabelCaptionBlowdown = new javax.swing.JLabel();
         jLabelCaptionPassiveFlow2 = new javax.swing.JLabel();
         jButtonPassiveFlowOpen = new javax.swing.JButton();
@@ -99,7 +97,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPassiveFlow1 = new javax.swing.JLabel();
         jLabelCaptionBalanceControl1 = new javax.swing.JLabel();
         jLabelCaptionCoolant1 = new javax.swing.JLabel();
-        jLabelCaptionCoolant2 = new javax.swing.JLabel();
         jLabelCaptionDrain = new javax.swing.JLabel();
         integralSwitchBlowdownLoop1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchDrain = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
@@ -121,6 +118,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionOutClose1 = new javax.swing.JLabel();
         jToggleButtonBalanceControl1 = new javax.swing.JToggleButton();
         jLabelCaptionBalanceControl3 = new javax.swing.JLabel();
+        integralSwitchCoolant = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
 
         setMaximumSize(new java.awt.Dimension(200, 340));
         setMinimumSize(new java.awt.Dimension(200, 340));
@@ -388,38 +386,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonRegenToDrumsOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 96, 20, 20));
 
-        jButtonCoolantPos.setText(">");
-        jButtonCoolantPos.setToolTipText("");
-        jButtonCoolantPos.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonCoolantPos.setMaximumSize(new java.awt.Dimension(18, 22));
-        jButtonCoolantPos.setMinimumSize(new java.awt.Dimension(18, 22));
-        jButtonCoolantPos.setPreferredSize(new java.awt.Dimension(18, 22));
-        jButtonCoolantPos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButtonCoolantPosMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButtonCoolantPosMouseReleased(evt);
-            }
-        });
-        add(jButtonCoolantPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 256, 18, 22));
-
-        jButtonCoolantNeg.setText("<");
-        jButtonCoolantNeg.setToolTipText("");
-        jButtonCoolantNeg.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonCoolantNeg.setMaximumSize(new java.awt.Dimension(18, 22));
-        jButtonCoolantNeg.setMinimumSize(new java.awt.Dimension(18, 22));
-        jButtonCoolantNeg.setPreferredSize(new java.awt.Dimension(18, 22));
-        jButtonCoolantNeg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButtonCoolantNegMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButtonCoolantNegMouseReleased(evt);
-            }
-        });
-        add(jButtonCoolantNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 256, 18, 22));
-
         jLabelCaptionBlowdown.setFont(jLabelCaptionBlowdown.getFont().deriveFont(jLabelCaptionBlowdown.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBlowdown.getFont().getSize()-2));
         jLabelCaptionBlowdown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionBlowdown.setText("Blowdown");
@@ -480,15 +446,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionCoolant1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 226, 51, 14));
-
-        jLabelCaptionCoolant2.setFont(jLabelCaptionCoolant2.getFont().deriveFont(jLabelCaptionCoolant2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCoolant2.getFont().getSize()-2));
-        jLabelCaptionCoolant2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionCoolant2.setText("Flow");
-        jLabelCaptionCoolant2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionCoolant2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionCoolant2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 240, 51, 14));
+        add(jLabelCaptionCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 232, 51, 14));
 
         jLabelCaptionDrain.setFont(jLabelCaptionDrain.getFont().deriveFont(jLabelCaptionDrain.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain.getFont().getSize()-2));
         jLabelCaptionDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -502,7 +460,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         add(integralSwitchBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 308, -1, -1));
 
         integralSwitchDrain.setComponent("Blowdown#ValveDrain");
-        add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 198, -1, -1));
+        add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 194, -1, -1));
 
         integralSwitchBlowdownLoop2.setComponent("Blowdown#ValveFromLoop2");
         add(integralSwitchBlowdownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 308, -1, -1));
@@ -550,7 +508,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonCloseInputActionPerformed(evt);
             }
         });
-        add(jButtonCloseInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 258, 20, 20));
+        add(jButtonCloseInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 258, 20, 20));
 
         jLabelCaptionInClose.setFont(jLabelCaptionInClose.getFont().deriveFont(jLabelCaptionInClose.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionInClose.getFont().getSize()-2));
         jLabelCaptionInClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -558,7 +516,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionInClose.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionInClose.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionInClose.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionInClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 230, 48, 14));
+        add(jLabelCaptionInClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 230, 48, 14));
 
         jLabelCaptionOutClose.setFont(jLabelCaptionOutClose.getFont().deriveFont(jLabelCaptionOutClose.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionOutClose.getFont().getSize()-2));
         jLabelCaptionOutClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -593,7 +551,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionInClose1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionInClose1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionInClose1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionInClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 244, 48, 14));
+        add(jLabelCaptionInClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 244, 48, 14));
 
         jLabelCaptionOutClose1.setFont(jLabelCaptionOutClose1.getFont().deriveFont(jLabelCaptionOutClose1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionOutClose1.getFont().getSize()-2));
         jLabelCaptionOutClose1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -619,6 +577,9 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBalanceControl3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl3.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionBalanceControl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 188, 50, 16));
+
+        integralSwitchCoolant.setComponent("Blowdown#ValveCoolant");
+        add(integralSwitchCoolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 248, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPumpsToRegenOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPumpsToRegenOpenActionPerformed
@@ -672,22 +633,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         controller.userAction(new ActionCommand("Blowdown#ValveRegeneratedToDrums", true));
     }//GEN-LAST:event_jButtonRegenToDrumsOpenActionPerformed
 
-    private void jButtonCoolantPosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCoolantPosMousePressed
-        controller.userAction(new ActionCommand("Blowdown#ValveCoolant", (int) +1));
-    }//GEN-LAST:event_jButtonCoolantPosMousePressed
-
-    private void jButtonCoolantPosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCoolantPosMouseReleased
-        controller.userAction(new ActionCommand("Blowdown#ValveCoolant", (int) 0));
-    }//GEN-LAST:event_jButtonCoolantPosMouseReleased
-
-    private void jButtonCoolantNegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCoolantNegMousePressed
-        controller.userAction(new ActionCommand("Blowdown#ValveCoolant", (int) -1));
-    }//GEN-LAST:event_jButtonCoolantNegMousePressed
-
-    private void jButtonCoolantNegMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCoolantNegMouseReleased
-        controller.userAction(new ActionCommand("Blowdown#ValveCoolant", (int) 0));
-    }//GEN-LAST:event_jButtonCoolantNegMouseReleased
-
     private void jButtonPassiveFlowOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPassiveFlowOpenActionPerformed
         controller.userAction(new ActionCommand("Blowdown#ValvePassiveFlow", true));
     }//GEN-LAST:event_jButtonPassiveFlowOpenActionPerformed
@@ -717,13 +662,12 @@ public class PanelBlowdown extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Pressure;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchBlowdownLoop1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchBlowdownLoop2;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDrain;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchReturn1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchReturn2;
     private javax.swing.JButton jButtonCloseInput;
     private javax.swing.JButton jButtonCloseOutput;
-    private javax.swing.JButton jButtonCoolantNeg;
-    private javax.swing.JButton jButtonCoolantPos;
     private javax.swing.JButton jButtonPassiveFlowClose;
     private javax.swing.JButton jButtonPassiveFlowOpen;
     private javax.swing.JButton jButtonPumpsToCoolerClose;
@@ -747,7 +691,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionBlowdownLoop1;
     private javax.swing.JLabel jLabelCaptionBlowdownLoop2;
     private javax.swing.JLabel jLabelCaptionCoolant1;
-    private javax.swing.JLabel jLabelCaptionCoolant2;
     private javax.swing.JLabel jLabelCaptionDrain;
     private javax.swing.JLabel jLabelCaptionInClose;
     private javax.swing.JLabel jLabelCaptionInClose1;
