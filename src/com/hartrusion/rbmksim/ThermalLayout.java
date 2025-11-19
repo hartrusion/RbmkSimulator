@@ -1070,8 +1070,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
 
         for (int idx = 0; idx < 2; idx++) {
-            auxCondensers[idx].initCharacteristic(9.0, 10,
-                    500, 5000, 1.0, 5.0, 1e5);
+            auxCondensers[idx].initCharacteristic(9.0, 50,
+                    200, 5e4, 1.0, 5.0, 1e5);
         }
 
         // </editor-fold>
