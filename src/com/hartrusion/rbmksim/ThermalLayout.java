@@ -1018,7 +1018,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             deaerator[idx].setBaseArea(40);
 
             // Todo: Proper values for DA valves, just some rough estimates 
-            deaeratorSteamInRegValve[idx].initCharacteristic(200, -1.0);
+            deaeratorSteamInRegValve[idx].initCharacteristic(1000, -1.0);
             deaeratorSteamFromMain[idx].initCharacteristic(200, -1.0);
             deaeratorDrain[idx].initCharacteristic(50, -1.0);
         }
@@ -1048,9 +1048,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 feedwaterShutoffValve[idx][jdx]
-                        .initCharacteristic(500, -1.0);
+                        .initCharacteristic(400, -1.0);
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .initCharacteristic(2200, 100);
+                        .initCharacteristic(800, 100);
             }
         }
 
