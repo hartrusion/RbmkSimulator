@@ -127,7 +127,7 @@ public class RbmkSimulator {
 //                    System.Logger.Level.ERROR, (String) null, ex);
 //        }
         // Start the 100 ms cyclic thread
-        scheduler.scheduleAtFixedRate(model, 200, 200, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(model, 100, 100, TimeUnit.MILLISECONDS);
     }
 
     /**

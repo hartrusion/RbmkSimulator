@@ -233,7 +233,27 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatValve auxCondValveToHotwell;
     private final HeatValve auxCondValveToDrain;
 
+    // Steam Dump
+    private final PhasedValveControlled[] steamDump =
+            new PhasedValveControlled[2];
+
     // Condensation
+    private final PhasedCondenser hotwell;
+    private final PhasedHeatFluidConverter hotwellOutConverter;
+    private final HeatNode hotwellOutNode;
+    private final HeatFluidPump[] condensationPump = new HeatFluidPump[3];
+    private final HeatNode condensationPumpOut;
+    private final HeatVolumizedFlowResistance condensationEjectorDummy;
+    private final HeatNode condensationBoosterPumpIn;
+    private final HeatFluidPump[] condensationBoosterPump =
+            new HeatFluidPump[3];
+    private final HeatNode condensationBoosterPumpOut;
+    private final HeatValveControlled[] condensationValveToDA =
+            new HeatValveControlled[2];
+    private final HeatNode[] condensationValveOut = new HeatNode[2];
+    private final PhasedHeatFluidConverter[] condensationToDeaeratorConverter
+            = new PhasedHeatFluidConverter[2];
+
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
@@ -585,6 +605,51 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         auxCondValveToDrain = new HeatValve();
         auxCondValveToDrain.initName("AuxCond#ToDrain");
 
+        // Steam Dump
+        for (int idx = 0; idx < steamDump.length; idx++) {
+            steamDump[idx] = new PhasedValveControlled();
+            steamDump[idx].initName("SteamDump");
+        }
+
+        // Condensation
+        hotwell = new PhasedCondenser(phasedWater);
+        hotwell.initName("Hotwell");
+        hotwell.initGenerateNodes();
+        hotwellOutConverter = new PhasedHeatFluidConverter(phasedWater);
+        hotwellOutConverter.setName("HotwellOutConverter");
+        hotwellOutNode = new HeatNode();
+        hotwellOutNode.setName("HotwellOutNode");
+        for (int idx = 0; idx < 3; idx++) {
+            condensationPump[idx] = new HeatFluidPump();
+            condensationPump[idx].initName(
+                    "Condensation" + (idx + 1) + "Pump");
+        }
+        condensationPumpOut = new HeatNode();
+        condensationPumpOut.setName("CondensationPumpOut");
+        condensationEjectorDummy = new HeatVolumizedFlowResistance();
+        condensationEjectorDummy.setName("CondensationEjectorDummy");
+        condensationBoosterPumpIn = new HeatNode();
+        condensationBoosterPumpIn.setName("CondensationBoosterPumpIn");
+        for (int idx = 0; idx < 3; idx++) {
+            condensationBoosterPump[idx] = new HeatFluidPump();
+            condensationBoosterPump[idx].initName(
+                    "Condensation" + (idx + 1) + "BoosterPump");
+        }
+        condensationBoosterPumpOut = new HeatNode();
+        condensationBoosterPumpOut.setName("CondensationBoosterPumpOut");
+        for (int idx = 0; idx < 2; idx++) {
+            condensationValveToDA[idx] = new HeatValveControlled();
+            condensationValveToDA[idx].initName(
+                    "Condensation" + (idx + 1) + "ValveToDA");
+            condensationValveOut[idx] = new HeatNode();
+            condensationValveOut[idx].setName(
+                    "Condensation" + (idx + 1) + "ValveOut");
+            condensationToDeaeratorConverter[idx] =
+                    new PhasedHeatFluidConverter(phasedWater);
+            condensationToDeaeratorConverter[idx].setName(
+                    "Condensation" + (idx + 1) + "ToDeaeratorConverter");
+        }
+
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
 
@@ -924,6 +989,37 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
                 auxCondCollectorNode, makeupStorageDrainCollector);
+
+        // Steam Dump
+        for (int idx = 0; idx < 2; idx++) {
+            steamDump[idx].getValveElement().connectBetween(mainSteam[idx],
+                    hotwell.getPhasedNode(PhasedCondenser.PRIMARY_IN));
+        }
+
+        // Condensation: Hotwell to Deaerators
+        hotwellOutConverter.connectBetween(
+                hotwell.getPhasedNode(PhasedCondenser.PRIMARY_OUT),
+                hotwellOutNode);
+        for (int idx = 0; idx < condensationPump.length; idx++) {
+            condensationPump[idx].getSuctionValve().connectTo(hotwellOutNode);
+            condensationPump[idx].getDischargeValve().connectTo(
+                    condensationPumpOut);
+        }
+        condensationEjectorDummy.connectBetween(
+                condensationPumpOut,condensationBoosterPumpIn);
+        for (int idx = 0; idx < condensationBoosterPump.length; idx++) {
+            condensationBoosterPump[idx].getSuctionValve().connectTo(
+                    condensationBoosterPumpIn);
+            condensationBoosterPump[idx].getDischargeValve().connectTo(
+                    condensationBoosterPumpOut);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            condensationValveToDA[idx].getValveElement().connectBetween(
+                    condensationBoosterPumpOut,
+                    condensationValveOut[idx] );
+            condensationToDeaeratorConverter[idx].connectBetween(
+                    condensationValveOut[idx], deaeratorInNode[idx]);
+        }
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set element properties">
