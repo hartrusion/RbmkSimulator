@@ -212,7 +212,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             = new HeatValveControlled[2][3];
 
     // Auxiliary Condensation
-    private final PhasedValve[] auxCondSteamValve = new PhasedValve[2];
+    private final PhasedValveControlled[] auxCondSteamValve = new PhasedValveControlled[2];
     private final PhasedCondenser[] auxCondensers = new PhasedCondenser[2];
     // Coolant flow with simple flow source for now
     private final HeatOrigin[] auxCondCoolantSource = new HeatOrigin[2];
@@ -234,8 +234,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatValve auxCondValveToDrain;
 
     // Steam Dump
-    private final PhasedValveControlled[] steamDump =
-            new PhasedValveControlled[2];
+    private final PhasedValveControlled[] steamDump
+            = new PhasedValveControlled[2];
 
     // Condensation
     private final PhasedCondenser hotwell;
@@ -245,11 +245,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final HeatNode condensationPumpOut;
     private final HeatVolumizedFlowResistance condensationEjectorDummy;
     private final HeatNode condensationBoosterPumpIn;
-    private final HeatFluidPump[] condensationBoosterPump =
-            new HeatFluidPump[3];
+    private final HeatFluidPump[] condensationBoosterPump
+            = new HeatFluidPump[3];
     private final HeatNode condensationBoosterPumpOut;
-    private final HeatValveControlled[] condensationValveToDA =
-            new HeatValveControlled[2];
+    private final HeatValveControlled[] condensationValveToDA
+            = new HeatValveControlled[2];
     private final HeatNode[] condensationValveOut = new HeatNode[2];
     private final PhasedHeatFluidConverter[] condensationToDeaeratorConverter
             = new PhasedHeatFluidConverter[2];
@@ -562,7 +562,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
         // Auxiliary Condensation
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx] = new PhasedValve();
+            auxCondSteamValve[idx] = new PhasedValveControlled();
+            auxCondSteamValve[idx].initController(new PIControl());
             auxCondSteamValve[idx].initName(
                     "AuxCond" + (idx + 1) + "#SteamValve");
             auxCondensers[idx] = new PhasedCondenser(phasedWater);
@@ -645,8 +646,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             condensationValveOut[idx] = new HeatNode();
             condensationValveOut[idx].setName(
                     "Condensation" + (idx + 1) + "ValveOut");
-            condensationToDeaeratorConverter[idx] =
-                    new PhasedHeatFluidConverter(phasedWater);
+            condensationToDeaeratorConverter[idx]
+                    = new PhasedHeatFluidConverter(phasedWater);
             condensationToDeaeratorConverter[idx].setName(
                     "Condensation" + (idx + 1) + "ToDeaeratorConverter");
         }
@@ -1009,7 +1010,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                     condensationPumpOut);
         }
         condensationEjectorDummy.connectBetween(
-                condensationPumpOut,condensationBoosterPumpIn);
+                condensationPumpOut, condensationBoosterPumpIn);
         for (int idx = 0; idx < condensationBoosterPump.length; idx++) {
             condensationBoosterPump[idx].getSuctionValve().connectTo(
                     condensationBoosterPumpIn);
@@ -1019,7 +1020,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].getValveElement().connectBetween(
                     condensationBoosterPumpOut,
-                    condensationValveOut[idx] );
+                    condensationValveOut[idx]);
             condensationToDeaeratorConverter[idx].connectBetween(
                     condensationValveOut[idx], deaeratorInNode[idx]);
         }
@@ -1220,7 +1221,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             // try to have a fill level of 100 cm (normal level)
             deaerator[idx].setInitialState(40000, 35 + 273.15);
         }
-        
+
         // Todo: Something that makes more sense here.
         for (int idx = 0; idx < 2; idx++) {
             auxCondensers[idx].initConditions(320, 320, 0.8);
@@ -1327,7 +1328,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointAuxCondLevel[idx].setUpperLimit(220);
             setpointAuxCondLevel[idx].setMaxRate(10.0);
         }
-        
+
         // Pressure setpoint and controls are given in bar relative while the 
         // model itsel works on Pascal absolute. Sounds painful but is a real
         // world approach.
@@ -1417,6 +1418,29 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             ((PIControl) deaeratorSteamInRegValve[idx].getController())
                     .setParameterTN(20);
         }
+
+        // Aux Condensation Valves control main steam pressure if enabled.
+        auxCondSteamValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                // Loop setpoint is bar relative, provided value from loop is
+                // given in pascals as absolute value. Controllers will use bar.
+                return setpointDrumPressure.getOutput()
+                        - loopSteamDrum[0].getEffort() * 1e-5 + 1.0;
+            }
+        });
+        auxCondSteamValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                // Loop setpoint is bar relative, provided value from loop is
+                // given in pascals as absolute value. Controllers will use bar.
+                return setpointDrumPressure.getOutput()
+                        - loopSteamDrum[1].getEffort() * 1e-5 + 1.0;
+            }
+        });
+
     }
 
     @Override
@@ -1622,11 +1646,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             outputValues.setParameterValue(
                     "AuxCond" + (idx + 1) + "#SteamFlow",
                     auxCondSteamValve[idx].getValveElement().getFlow());
-            
+
             outputValues.setParameterValue(
-                // Fake value to be 0..100 % at 0..400 kg/s
-                     "AuxCond" + (idx + 1) + "#CoolantValve",
-                auxCondCoolantFlow[idx].getFlowSource().getFlow() / 4.0);
+                    // Fake value to be 0..100 % at 0..400 kg/s
+                    "AuxCond" + (idx + 1) + "#CoolantValve",
+                    auxCondCoolantFlow[idx].getFlowSource().getFlow() / 4.0);
         }
         // </editor-fold>
 
@@ -1877,25 +1901,25 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             auxCondBypass.handleAction(ac);
             auxCondValveToHotwell.handleAction(ac);
             auxCondValveToDrain.handleAction(ac);
-            if (ac.getPropertyName().equals("AuxCond1#CoolantValve")) {   
-                    switch ((int) ac.getValue()) {
-                        case -1 ->
-                            auxCondCoolantFlow[0].setToMinFlow();
-                        case +1 ->
-                            auxCondCoolantFlow[0].setToMaxFlow();
-                        default ->
-                            auxCondCoolantFlow[0].setStopAtCurrentFlow();
-                    }
+            if (ac.getPropertyName().equals("AuxCond1#CoolantValve")) {
+                switch ((int) ac.getValue()) {
+                    case -1 ->
+                        auxCondCoolantFlow[0].setToMinFlow();
+                    case +1 ->
+                        auxCondCoolantFlow[0].setToMaxFlow();
+                    default ->
+                        auxCondCoolantFlow[0].setStopAtCurrentFlow();
+                }
             }
-            if (ac.getPropertyName().equals("AuxCond2#CoolantValve")) {   
-                    switch ((int) ac.getValue()) {
-                        case -1 ->
-                            auxCondCoolantFlow[1].setToMinFlow();
-                        case +1 ->
-                            auxCondCoolantFlow[1].setToMaxFlow();
-                        default ->
-                            auxCondCoolantFlow[1].setStopAtCurrentFlow();
-                    }
+            if (ac.getPropertyName().equals("AuxCond2#CoolantValve")) {
+                switch ((int) ac.getValue()) {
+                    case -1 ->
+                        auxCondCoolantFlow[1].setToMinFlow();
+                    case +1 ->
+                        auxCondCoolantFlow[1].setToMaxFlow();
+                    default ->
+                        auxCondCoolantFlow[1].setStopAtCurrentFlow();
+                }
             }
         } else {
             // Main Steam shutoff valve commands from GUI
