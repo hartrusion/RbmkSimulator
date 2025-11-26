@@ -259,6 +259,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
     private final Setpoint[] setpointDALevel = new Setpoint[2];
     private final Setpoint[] setpointAuxCondLevel = new Setpoint[2];
+    private final Setpoint setpointDrumPressure;
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
@@ -666,8 +667,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointAuxCondLevel[idx] = new Setpoint();
             setpointAuxCondLevel[idx].initName(
                     "AuxCond" + (idx + 1) + "#LevelSetpoint");
-
         }
+        setpointDrumPressure = new Setpoint();
+        setpointDrumPressure.initName("LoopPressureSetpoint");
     }
 
     public void init() {
@@ -749,6 +751,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointDALevel[idx].initParameterHandler(outputValues);
             setpointAuxCondLevel[idx].initParameterHandler(outputValues);
         }
+        setpointDrumPressure.initParameterHandler(outputValues);
         // </editor-fold>  
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
         // Define the primary loop from drum through mcps and reactor and back.
@@ -1302,6 +1305,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             runner.submit(setpointDALevel[idx]);
             runner.submit(setpointAuxCondLevel[idx]);
         }
+        runner.submit(setpointDrumPressure);
         // </editor-fold>
 
         // Control Loop configuration
@@ -1323,6 +1327,13 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             setpointAuxCondLevel[idx].setUpperLimit(220);
             setpointAuxCondLevel[idx].setMaxRate(10.0);
         }
+        
+        // Pressure setpoint and controls are given in bar relative while the 
+        // model itsel works on Pascal absolute. Sounds painful but is a real
+        // world approach.
+        setpointDrumPressure.setLowerLimit(0.0);
+        setpointDrumPressure.setUpperLimit(70.0);
+        setpointDrumPressure.setMaxRate(5.0);
 
         blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
             @Override
@@ -1658,6 +1669,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
     public void handleAction(ActionCommand ac) {
         // <editor-fold defaultstate="collapsed" desc="Receive and process control commands from controller (GUI)">
         if (ac.getPropertyName().startsWith("Loop")) {
+            if (setpointDrumPressure.handleAction(ac)) {
+                return;
+            }
             // property name is smtn like this: Loop2#mcp3ValveDischarge
             if (ac.getPropertyName().substring(6, 9).equals("mcp")) {
                 int idx = Character.getNumericValue(
