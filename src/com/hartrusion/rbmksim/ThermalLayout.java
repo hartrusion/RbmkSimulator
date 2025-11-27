@@ -1033,6 +1033,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // to 200 for a little pressure loss.
         for (int idx = 0; idx < 2; idx++) {
             mainSteamShutoffValve[idx].initCharacteristic(200, -1.0);
+            mainSteamShutoffValve[idx].getIntegrator().setMaxRate(50);
         }
 
         // Main circulation pumps: 8000 m^3/h per pump nominal, is reduced down
@@ -1185,6 +1186,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             auxCondSteamValve[idx].initCharacteristic(1e5, 20);
             auxCondensers[idx].initCharacteristic(25, 200,
                     4000, 8.7e6, 4.0, 6.0, 1e5);
+            // No ambient pressure for condensation, always steam pressure.
+            auxCondensers[idx].getPrimarySideReservoir()
+                    .setAmbientPressure(0.0);
         }
 
         // </editor-fold>
@@ -1497,6 +1501,15 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         (loopEvaporator[idx].getTemperature()
                         - loopDownflow[idx].getHeatHandler().getTemperature())
                         * 1000); // its a coincidentce that this is 1000
+            }
+        }
+        
+        // Auto-open or close main steam valves according to steam pressure
+        for (int idx = 0; idx < 2; idx++) {
+            if (loopSteamDrum[idx].getEffort() >= 1.3e5) {
+                mainSteamShutoffValve[idx].operateOpenValve();
+            } else if (loopSteamDrum[idx].getEffort() < 1.1e5) {
+                mainSteamShutoffValve[idx].operateCloseValve();
             }
         }
 

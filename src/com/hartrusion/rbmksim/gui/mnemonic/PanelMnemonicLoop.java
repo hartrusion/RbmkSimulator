@@ -88,7 +88,6 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingFlowToDrum = new javax.swing.JLabel();
         jLabelReadingTempToDrum = new javax.swing.JLabel();
         jLabelReadingDrumPressure = new javax.swing.JLabel();
-        jLabelReadingSteamShuttoff = new javax.swing.JLabel();
         jLabelReadingTrim2 = new javax.swing.JLabel();
         jLabelReadingDrumTemp = new javax.swing.JLabel();
         jLabelReadingDrumLevel = new javax.swing.JLabel();
@@ -209,7 +208,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelSteamFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelSteamFlow.setText("____ kg/s");
         jLabelSteamFlow.setOpaque(true);
-        add(jLabelSteamFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 18, 56, 16));
+        add(jLabelSteamFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 26, 56, 16));
 
         jLabelFeedwaterFlow.setBackground(new java.awt.Color(77, 69, 27));
         jLabelFeedwaterFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -251,14 +250,6 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingDrumPressure.setText("___ bar");
         jLabelReadingDrumPressure.setOpaque(true);
         add(jLabelReadingDrumPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 70, 56, 16));
-
-        jLabelReadingSteamShuttoff.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingSteamShuttoff.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingSteamShuttoff.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingSteamShuttoff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingSteamShuttoff.setText("___");
-        jLabelReadingSteamShuttoff.setOpaque(true);
-        add(jLabelReadingSteamShuttoff, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 28, 24, -1));
 
         jLabelReadingTrim2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTrim2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -324,7 +315,6 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingFlowToDrum;
     private javax.swing.JLabel jLabelReadingMcpInPressure;
     private javax.swing.JLabel jLabelReadingMcpInTemp;
-    private javax.swing.JLabel jLabelReadingSteamShuttoff;
     private javax.swing.JLabel jLabelReadingTempToDrum;
     private javax.swing.JLabel jLabelReadingTrim1;
     private javax.swing.JLabel jLabelReadingTrim2;
@@ -541,8 +531,9 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         if (propertyName.length() == 23) {
             if (propertyName.substring(6, 23).equals("SteamShutoffValve")) {
                 if (Character.getNumericValue(propertyName.charAt(4)) == loop) {
-                    jLabelReadingSteamShuttoff.setText(
-                            String.format("%.0f", newValue));
+                    // jLabelReadingSteamShuttoff.setText(
+                    //        String.format("%.0f", newValue));
+                    // - this UI label was removed.
                     // use double value instead of events for this valve
                     valveMainSteam.setActive(newValue >= 1.0);
                     return;
