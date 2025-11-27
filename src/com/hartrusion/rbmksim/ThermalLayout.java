@@ -1169,9 +1169,22 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             feedwaterSparePumpOutValve[idx].initCharacteristic(200, -1.0);
         }
 
+        // Auxiliary condensers (БРУ–ТК) each can condense about 100 t/h 
+        // steam which is 28 kg/s. It is designed to be used when there is no
+        // vacuum so it will propably be operated in low pressure regions only.
+        // Set the valves to have 30 kg/s with 30 bar of pressure (3e6 Pa)
+        // so it will be R = 3e6 Pa / 30 kg/s = 1e5 Pa/kg*s for steam valve.
+        // 30 bar is roughly saturation temperature of 500 Kelvin. Lets assume 
+        // condensation tempearture of 310 Kelvin so this is 190 K temperature 
+        // 190 K * 4200 J/kg/K + 2100000 J/kg = 2898000 J/kg = 2.9e6 J/kg
+        // Assuming 30 kg/s per side that will be a total heat transfer of
+        // 2.9e6 * 30 * J/kg*kg/s = 8.7e7 J/s (= 87 MW). Assuming the temp
+        // diff between condensation and coolant will be 10 K or so we will
+        // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondensers[idx].initCharacteristic(9.0, 50,
-                    200, 5e4, 1.0, 5.0, 1e5);
+            auxCondSteamValve[idx].initCharacteristic(1e5, 20);
+            auxCondensers[idx].initCharacteristic(25, 200,
+                    4000, 8.7e6, 4.0, 6.0, 1e5);
         }
 
         // </editor-fold>
@@ -1180,21 +1193,21 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
         for (int idx = 0; idx <= 1; idx++) {
             // See notes above, try to init with 0 cm fill level
-            loopSteamDrum[idx].setInitialState(10000, 45 + 273.15);
+            loopSteamDrum[idx].setInitialState(10000, 90 + 273.15);
 
             loopEvaporator[idx].setInitialState(6.0, 1e5,
-                    273.5 + 45, 273.5 + 45);
+                    273.5 + 90, 273.5 + 90); // 45 - 90
         }
         for (int idx = 0; idx <= 1; idx++) {
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(370); // was 314.63
+                    .setInitialTemperature(400); // was 314.63, then 370
             loopAssembly[idx][1].setInitialCondition(true, true, true);
             for (int jdx = 0; jdx < 4; jdx++) {
                 // All trim valves open az 70 %
                 loopTrimValve[idx][jdx].initOpening(70);
             }
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(370); //also 314.63
+                    .setInitialTemperature(400); //also 314.63 or 370
         }
         for (int idx = 0; idx < 2; idx++) {
             blowdownFromLoop[idx].getHeatHandler().setInitialTemperature(
@@ -1426,8 +1439,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             public double getAsDouble() {
                 // Loop setpoint is bar relative, provided value from loop is
                 // given in pascals as absolute value. Controllers will use bar.
-                return setpointDrumPressure.getOutput()
-                        - loopSteamDrum[0].getEffort() * 1e-5 + 1.0;
+                return loopSteamDrum[0].getEffort() * 1e-5 + 1.0
+                        - setpointDrumPressure.getOutput();
             }
         });
         auxCondSteamValve[1].getController().addInputProvider(
@@ -1436,8 +1449,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             public double getAsDouble() {
                 // Loop setpoint is bar relative, provided value from loop is
                 // given in pascals as absolute value. Controllers will use bar.
-                return setpointDrumPressure.getOutput()
-                        - loopSteamDrum[1].getEffort() * 1e-5 + 1.0;
+                return loopSteamDrum[1].getEffort() * 1e-5 + 1.0
+                        - setpointDrumPressure.getOutput();
             }
         });
 

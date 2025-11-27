@@ -39,8 +39,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitch1.registerActionReceiver(controller);
         integralSwitchCoolant1.registerActionReceiver(controller);
         integralSwitchCoolant2.registerActionReceiver(controller);
-        integralSwitchSteam1.registerActionReceiver(controller);
-        integralSwitchSteam2.registerActionReceiver(controller);
+        integralSwitchLoop1.registerActionReceiver(controller);
+        integralSwitchLoop2.registerActionReceiver(controller);
         integralSwitchToDrain.registerActionReceiver(controller);
         panelCondensatePump1.registerActionReceiver(controller);
         panelCondensatePump2.registerActionReceiver(controller);
@@ -69,16 +69,12 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchToDrain = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchCoolant1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitchSteam2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitchSteam1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchCoolant2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelCaptionPump2 = new javax.swing.JLabel();
         jLabelCaptionCondensate = new javax.swing.JLabel();
         jLabelCaptionDrain = new javax.swing.JLabel();
         jLabelCaptionHotwell = new javax.swing.JLabel();
         jLabelCaptionBypass = new javax.swing.JLabel();
-        jLabelCaptionLoop1 = new javax.swing.JLabel();
-        jLabelCaptionLoop2 = new javax.swing.JLabel();
         jLabelCaptionSteamIn = new javax.swing.JLabel();
         controlLoopCondLevel1 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         controlLoopCondLevel2 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
@@ -99,6 +95,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         chornobylGaugeLoop1Pressure = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        integralSwitchLoop1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop();
+        integralSwitchLoop2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop();
 
         setMaximumSize(new java.awt.Dimension(190, 340));
         setMinimumSize(new java.awt.Dimension(190, 340));
@@ -106,10 +104,10 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCondensatePump2.setChornobylPrefix("AuxCond2#CondPumps");
-        add(panelCondensatePump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 204, -1, -1));
+        add(panelCondensatePump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 202, -1, -1));
 
         panelCondensatePump1.setChornobylPrefix("AuxCond1#CondPumps");
-        add(panelCondensatePump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 204, -1, -1));
+        add(panelCondensatePump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 202, -1, -1));
 
         jButtonBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonBypassClose.setText("C");
@@ -120,7 +118,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
                 jButtonBypassCloseActionPerformed(evt);
             }
         });
-        add(jButtonBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 262, 20, 20));
+        add(jButtonBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 20, 20));
 
         jButtonBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonBypassOpen.setText("O");
@@ -131,18 +129,12 @@ public class PanelAuxCondenser extends AbstractPanelWidget
                 jButtonBypassOpenActionPerformed(evt);
             }
         });
-        add(jButtonBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 262, 20, 20));
+        add(jButtonBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 270, 20, 20));
         add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 310, -1, -1));
         add(integralSwitchToDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         integralSwitchCoolant1.setComponent("AuxCond1#CoolantValve");
         add(integralSwitchCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 310, -1, -1));
-
-        integralSwitchSteam2.setComponent("AuxCond2#SteamValve");
-        add(integralSwitchSteam2, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 218, -1, -1));
-
-        integralSwitchSteam1.setComponent("AuxCond1#SteamValve");
-        add(integralSwitchSteam1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 188, -1, -1));
 
         integralSwitchCoolant2.setComponent("AuxCond2#CoolantValve");
         add(integralSwitchCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 310, -1, -1));
@@ -153,7 +145,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionPump2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 188, 64, 14));
+        add(jLabelCaptionPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 186, 64, 14));
 
         jLabelCaptionCondensate.setFont(jLabelCaptionCondensate.getFont().deriveFont(jLabelCaptionCondensate.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCondensate.getFont().getSize()-2));
         jLabelCaptionCondensate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -185,23 +177,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionBypass.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 248, 52, 14));
-
-        jLabelCaptionLoop1.setFont(jLabelCaptionLoop1.getFont().deriveFont(jLabelCaptionLoop1.getFont().getSize()-2f));
-        jLabelCaptionLoop1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionLoop1.setText("Loop 1");
-        jLabelCaptionLoop1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLoop1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLoop1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 296, 42, 14));
-
-        jLabelCaptionLoop2.setFont(jLabelCaptionLoop2.getFont().deriveFont(jLabelCaptionLoop2.getFont().getSize()-2f));
-        jLabelCaptionLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionLoop2.setText("Loop 2");
-        jLabelCaptionLoop2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLoop2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLoop2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 296, 42, 14));
+        add(jLabelCaptionBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 254, 52, 14));
 
         jLabelCaptionSteamIn.setFont(jLabelCaptionSteamIn.getFont().deriveFont(jLabelCaptionSteamIn.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSteamIn.getFont().getSize()-2));
         jLabelCaptionSteamIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -209,7 +185,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionSteamIn.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSteamIn.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSteamIn.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 176, 50, 14));
+        add(jLabelCaptionSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 172, 50, 14));
 
         controlLoopCondLevel1.setControlComponent("AuxCond1#CondensateValve");
         controlLoopCondLevel1.setFeedbackComponent("AuxCond1#Level");
@@ -232,7 +208,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionCond2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCond2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCond2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCond2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 226, 22, 14));
+        add(jLabelCaptionCond2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 228, 12, 14));
 
         jLabelCaptionGaugeNeutronRate2.setFont(jLabelCaptionGaugeNeutronRate2.getFont().deriveFont(jLabelCaptionGaugeNeutronRate2.getFont().getSize()-2f));
         jLabelCaptionGaugeNeutronRate2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -248,7 +224,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelFeed20.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelFeed20.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelFeed20.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 284, 54, 14));
+        add(jLabelFeed20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 294, 54, 14));
 
         jLabelCaptionPump13.setFont(jLabelCaptionPump13.getFont().deriveFont(jLabelCaptionPump13.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump13.getFont().getSize()-2));
         jLabelCaptionPump13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -256,7 +232,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionPump13.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump13.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump13.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 188, 64, 14));
+        add(jLabelCaptionPump13, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 186, 64, 14));
 
         jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
         jLabelDA1Press1.setText("Cond 1");
@@ -288,7 +264,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionGaugeNeutronRate4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGaugeNeutronRate4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGaugeNeutronRate4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGaugeNeutronRate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 196, 16, 14));
+        add(jLabelCaptionGaugeNeutronRate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 12, 14));
 
         chornobylGaugeLoop1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         chornobylGaugeLoop1Level.setChornobylMaximum(200.0F);
@@ -318,6 +294,12 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
         chornobylGaugeLoop1Pressure.setChornobylUnitText("kg/s");
         add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+
+        integralSwitchLoop1.setComponent("AuxCond2#SteamValve");
+        add(integralSwitchLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 222, -1, -1));
+
+        integralSwitchLoop2.setComponent("AuxCond1#SteamValve");
+        add(integralSwitchLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 188, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBypassCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBypassCloseActionPerformed
@@ -338,8 +320,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant2;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchSteam1;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchSteam2;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop integralSwitchLoop1;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop integralSwitchLoop2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToDrain;
     private javax.swing.JButton jButtonBypassClose;
     private javax.swing.JButton jButtonBypassOpen;
@@ -355,8 +337,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaptionGaugeNeutronRate3;
     private javax.swing.JLabel jLabelCaptionGaugeNeutronRate4;
     private javax.swing.JLabel jLabelCaptionHotwell;
-    private javax.swing.JLabel jLabelCaptionLoop1;
-    private javax.swing.JLabel jLabelCaptionLoop2;
     private javax.swing.JLabel jLabelCaptionPump13;
     private javax.swing.JLabel jLabelCaptionPump2;
     private javax.swing.JLabel jLabelCaptionSteamIn;
@@ -381,8 +361,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitch1.updateComponent(evt);
         integralSwitchCoolant1.updateComponent(evt);
         integralSwitchCoolant2.updateComponent(evt);
-        integralSwitchSteam1.updateComponent(evt);
-        integralSwitchSteam2.updateComponent(evt);
+        integralSwitchLoop1.updateComponent(evt);
+        integralSwitchLoop2.updateComponent(evt);
         integralSwitchToDrain.updateComponent(evt);
         switch (evt.getPropertyName()) {
             case "AuxCond#Bypass_Pos" ->
