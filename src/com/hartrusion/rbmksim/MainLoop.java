@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.alarm.AlarmManager;
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.modeling.solvers.SuperPosition;
@@ -38,6 +39,7 @@ public class MainLoop implements Runnable, ModelManipulation {
     ThermalLayout process = new ThermalLayout();
 
     ParameterHandler outputValues = new ParameterHandler();
+    AlarmManager alarms = new AlarmManager();
 
     long maxTime;
     long initialIterations = 0;
@@ -56,6 +58,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             
             process.registerParameterOutput(outputValues);
             process.registerController(controller);
+            process.registerAlarmManager(alarms);
             process.init();
             process.registerPlotDataVault(plotData);
             

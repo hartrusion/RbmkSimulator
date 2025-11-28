@@ -560,6 +560,9 @@ public class ControlPanel extends javax.swing.JFrame
             if (frameDiagramLoop1Level != null) {
                 frameDiagramLoop1Level.updatePlots();
             }
+            if (frameDiagramLoop2Level != null) {
+                frameDiagramLoop2Level.updatePlots();
+            }
         }
         panelRodSelector1.updateComponent(propertyName, newValue);
         panelMCP1.updateComponent(propertyName, newValue);

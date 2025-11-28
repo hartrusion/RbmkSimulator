@@ -16,6 +16,10 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.alarm.AlarmAction;
+import com.hartrusion.alarm.AlarmManager;
+import com.hartrusion.alarm.AlarmState;
+import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AbstractController;
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.FloatSeriesVault;
@@ -72,7 +76,7 @@ import java.util.function.DoubleSupplier;
  *
  * @author Viktor Alexander Hartung
  */
-public class ThermalLayout implements Runnable, ModelManipulation {
+public class ThermalLayout extends Subsystem implements Runnable {
 
     // private final If97Wrapper steamTable = new If97Wrapper();
     private final PhasedPropertiesWater phasedWater
@@ -263,19 +267,11 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
+    private final SerialRunner alarmUpdater = new SerialRunner();
 
     private final AbstractController blowdownBalanceControlLoop
             = new PControl();
 
-    private ModelListener controller;
-
-    /**
-     * Stores all output values as string value pair. Values from model will be
-     * written into this handler.
-     */
-    private ParameterHandler outputValues;
-
-    private FloatSeriesVault plotData;
     private int plotUpdateCount;
 
     private double voiding = 0;
@@ -1342,8 +1338,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         }
         runner.submit(setpointDrumPressure);
         // </editor-fold>
-
-        // Control Loop configuration
+        // <editor-fold defaultstate="collapsed" desc="Control Loops Configuration">
         for (int idx = 0; idx < 2; idx++) {
             setpointDrumLevel[idx].setLowerLimit(-10);
             setpointDrumLevel[idx].setUpperLimit(10);
@@ -1401,7 +1396,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         @Override
                         public double getAsDouble() {
                             return setpointDrumLevel[0].getOutput()
-                                    - (loopSteamDrum[1].getFillHeight()
+                                    - (loopSteamDrum[0].getFillHeight()
                                     - 1.15) * 100;
                         }
                     });
@@ -1476,7 +1471,42 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         - setpointDrumPressure.getOutput();
             }
         });
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
+        // Alarm monitors are defined here and stored in the alarmUpdater only,
+        // there is no need to have a class field for them.
+        ValueAlarmMonitor am;
 
+        // Steam Drum Separator 1 Level
+        am = new ValueAlarmMonitor();
+        am.setName("Drum1Level");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return (loopSteamDrum[0].getFillHeight() - 1.15) * 100;
+            }
+        });
+        am.enableAlarm(140.0, AlarmState.MAX2);
+        am.enableAlarm(100.0, AlarmState.MAX1);
+        am.enableAlarm(60.0, AlarmState.HIGH2);
+        am.enableAlarm(30.0, AlarmState.HIGH1);
+        am.enableAlarm(-20.0, AlarmState.LOW1);
+        am.enableAlarm(-40.0, AlarmState.LOW2);
+        am.enableAlarm(-60.0, AlarmState.MIN1);
+        am.enableAlarm(-80.0, AlarmState.MIN2);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                for (int jdx = 0; jdx < 4; jdx++) {
+                    loopAssembly[0][jdx].operateStopPump();
+                    loopAssembly[0][jdx].operateCloseDischargeValve();
+                }
+            }
+        });
+
+        am.setAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        // <//editor-fold>
     }
 
     @Override
@@ -1531,6 +1561,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 mainSteamShutoffValve[idx].operateCloseValve();
             }
         }
+
+        // Update Alarms
+        alarmUpdater.invokeAll();
 
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
         outputValues.setParameterValue("MakeupStorageLevel",
@@ -1998,18 +2031,5 @@ public class ThermalLayout implements Runnable, ModelManipulation {
 
     public double getCoreTemp() {
         return coreTemp;
-    }
-
-    @Override
-    public void registerController(ModelListener controller) {
-        this.controller = controller;
-    }
-
-    public void registerParameterOutput(ParameterHandler output) {
-        this.outputValues = output;
-    }
-
-    public void registerPlotDataVault(FloatSeriesVault plotData) {
-        this.plotData = plotData;
     }
 }

@@ -23,8 +23,6 @@ import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.mvc.ActionCommand;
-import com.hartrusion.mvc.ModelListener;
-import com.hartrusion.mvc.ModelManipulation;
 
 /**
  * Models everything that has to do something with the reactor.
@@ -37,22 +35,11 @@ import com.hartrusion.mvc.ModelManipulation;
  *
  * @author Viktor Alexander Hartung
  */
-public class ReactorCore implements Runnable, ModelManipulation {
-
-    private ModelListener controller;
+public class ReactorCore extends Subsystem implements Runnable {
 
     private final Setpoint setpointPowerGradient;
     private final Setpoint setpointNeutronFlux;
-
-    /**
-     * Stores all output values as string value pair. Values from model will be
-     * written into this handler.
-     */
-    private ParameterHandler outputValues;
-
-    private FloatSeriesVault plotData;
-    private int plotUpdateCount;
-
+    
     private final int[][] rodIndex = new int[23][23];
     private final int[][] fuelIndex = new int[23][23];
 
@@ -391,17 +378,9 @@ public class ReactorCore implements Runnable, ModelManipulation {
     }
 
     @Override
-    public void registerController(ModelListener controller) {
-        this.controller = controller;
-    }
-
     public void registerParameterOutput(ParameterHandler output) {
-        this.outputValues = output;
+        super.registerParameterOutput(output);
         setpointNeutronFlux.initParameterHandler(outputValues);
         setpointPowerGradient.initParameterHandler(outputValues);
-    }
-
-    public void registerPlotDataVault(FloatSeriesVault plotData) {
-        this.plotData = plotData;
     }
 }
