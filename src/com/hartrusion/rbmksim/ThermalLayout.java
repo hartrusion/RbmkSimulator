@@ -1063,13 +1063,30 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             loopChannelFlowResistance[idx].setResistanceParameter(293.1);
         }
 
-        // Steam Drum: Use behaviour of RXModel simulator here. Experiments show
+        // Steam Drum: to compare with RXmodel simulator: Experiments show
         // that there is approximately 1 ton or 1 m^3 water in ech drum per cm
         // level. -18 cm will trip the MCPs so we assume that -20 cm will be an 
         // empty drum. The RXModel uses 0 cm as nominal level, and we will just
         // do the same here.
+        // Real world values, gathered from some sources: around 30 m length,
+        // inner diameter 2.6 m, 2 such drums per side. A circle with 2.6 m 
+        // diameter has same area than a square with 2.3 m sides. So with 2 
+        // times 30 * 2.6 we'll have about 156 m² base area. We choose 40 for 
+        // way lower time constants (this is not intended to be real time sim)
+        // It will be definded here that 1.15 m fill height is normal and 2.3 m
+        // is flooded. 0 will be empty, which will terminate the simulation.
+        // So in cm, lower limit is -115 and upper is 230. but above 180 or so
+        // There will be massive problems with steam separation so let#s define:
+        // MAX2: 140
+        // MAX1: 100 close all feedwater valves and blowdown return
+        // HIGH2: 60
+        // HIGH1: 30
+        // LOW1: -20
+        // LOW2: -40
+        // MIN1: -60 shut off MPC
+        // MIN2: -80 close all blowdown valves
         for (int idx = 0; idx < 2; idx++) {
-            loopSteamDrum[idx].setBaseArea(100);
+            loopSteamDrum[idx].setBaseArea(40);
         }
 
         // Bypass valves: Not yet proper configured. Todo. Just randomly used
@@ -1197,7 +1214,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
         for (int idx = 0; idx <= 1; idx++) {
             // See notes above, try to init with 0 cm fill level
-            loopSteamDrum[idx].setInitialState(10000, 90 + 273.15);
+            loopSteamDrum[idx].setInitialState(40000, 90 + 273.15);
 
             loopEvaporator[idx].setInitialState(6.0, 1e5,
                     273.5 + 90, 273.5 + 90); // 45 - 90
@@ -1359,9 +1376,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                 // Try to keep differences between drum levels equal.
                 // Setpoint is cm, level is m
                 return (setpointDrumLevel[0].getOutput() * 0.5
-                        - loopSteamDrum[0].getFillHeight() * 100)
+                        - (loopSteamDrum[0].getFillHeight() - 1.15) * 100)
                         - (setpointDrumLevel[1].getOutput() * 0.5
-                        - loopSteamDrum[1].getFillHeight() * 100);
+                        - (loopSteamDrum[1].getFillHeight() - 1.15) * 100);
             }
         });
         ((PControl) blowdownBalanceControlLoop).setParameterK(20);
@@ -1384,7 +1401,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         @Override
                         public double getAsDouble() {
                             return setpointDrumLevel[0].getOutput()
-                                    - loopSteamDrum[0].getFillHeight() * 100 + 20;
+                                    - (loopSteamDrum[1].getFillHeight()
+                                    - 1.15) * 100;
                         }
                     });
             feedwaterFlowRegulationValve[1][jdx].getController()
@@ -1392,7 +1410,8 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         @Override
                         public double getAsDouble() {
                             return setpointDrumLevel[1].getOutput()
-                                    - loopSteamDrum[1].getFillHeight() * 100 + 20;
+                                    - (loopSteamDrum[1].getFillHeight()
+                                    - 1.15) * 100;
                         }
                     });
         }
@@ -1503,7 +1522,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
                         * 1000); // its a coincidentce that this is 1000
             }
         }
-        
+
         // Auto-open or close main steam valves according to steam pressure
         for (int idx = 0; idx < 2; idx++) {
             if (loopSteamDrum[idx].getEffort() >= 1.3e5) {
@@ -1519,7 +1538,7 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         for (int idx = 0; idx < 2; idx++) {
             // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumLevel",
-                    loopSteamDrum[idx].getFillHeight() * 100 - 20);
+                    (loopSteamDrum[idx].getFillHeight() - 1.15) * 100);
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumPressure",
                     loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0);
             outputValues.setParameterValue("Loop" + (idx + 1)
@@ -1683,9 +1702,9 @@ public class ThermalLayout implements Runnable, ModelManipulation {
         // Save values to plot manager
         if (plotUpdateCount == 0) {
             for (int idx = 0; idx < 2; idx++) {
-                // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
+                // use relative fill height in cm
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
-                        (float) (loopSteamDrum[idx].getFillHeight() * 100 - 20));
+                        (float) (loopSteamDrum[idx].getFillHeight() - 1.15) * 100);
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
                         (float) (loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0));
                 plotData.insertValue("Loop" + (idx + 1)
@@ -1696,8 +1715,6 @@ public class ThermalLayout implements Runnable, ModelManipulation {
             for (int idx = 0; idx < 2; idx++) {
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumLevelSetpoint",
                         (float) setpointDrumLevel[idx].getOutput());
-//                plotData.insertValue("Feedwater" + (idx + 1) + "#DrumLevelSetpoint",
-//                        (float) setpointDrumLevel[idx].getOutput());
                 for (int jdx = 0; jdx < 3; jdx++) {
                     plotData.insertValue("Feedwater" + (idx + 1) + "#FlowRegulationValve" + (jdx + 1),
                             (float) feedwaterFlowRegulationValve[idx][jdx].getOpening());
