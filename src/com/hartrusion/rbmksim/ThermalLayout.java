@@ -17,15 +17,12 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmAction;
-import com.hartrusion.alarm.AlarmManager;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AbstractController;
 import com.hartrusion.control.ControlCommand;
-import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
-import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
@@ -57,8 +54,6 @@ import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
-import com.hartrusion.mvc.ModelListener;
-import com.hartrusion.mvc.ModelManipulation;
 import java.util.function.DoubleSupplier;
 
 /**
@@ -1486,15 +1481,34 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return (loopSteamDrum[0].getFillHeight() - 1.15) * 100;
             }
         });
-        am.enableAlarm(140.0, AlarmState.MAX2);
-        am.enableAlarm(100.0, AlarmState.MAX1);
-        am.enableAlarm(60.0, AlarmState.HIGH2);
-        am.enableAlarm(30.0, AlarmState.HIGH1);
-        am.enableAlarm(-20.0, AlarmState.LOW1);
-        am.enableAlarm(-40.0, AlarmState.LOW2);
-        am.enableAlarm(-60.0, AlarmState.MIN1);
-        am.enableAlarm(-80.0, AlarmState.MIN2);
+        am.defineAlarm(140.0, AlarmState.MAX2);
+        am.defineAlarm(100.0, AlarmState.MAX1);
+        am.defineAlarm(60.0, AlarmState.HIGH2);
+        am.defineAlarm(30.0, AlarmState.HIGH1);
+        am.defineAlarm(-20.0, AlarmState.LOW1);
+        am.defineAlarm(-40.0, AlarmState.LOW2);
+        am.defineAlarm(-60.0, AlarmState.MIN1);
+        am.defineAlarm(-80.0, AlarmState.MIN2);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    feedwaterShutoffValve[0][jdx].operateCloseValve();
+                }
+            }
+        });
+
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                blowdownBalanceControlLoop.setManualMode(true);
+                blowdownReturnValve[0].operateCloseValve();
+                blowdownValveFromLoop[0].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
             @Override
             public void run() {
                 for (int jdx = 0; jdx < 4; jdx++) {
@@ -1504,9 +1518,58 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
 
-        am.setAlarmManager(alarmManager);
+        am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        // <//editor-fold>
+
+        // Steam Drum Separator 2 Level
+        am = new ValueAlarmMonitor();
+        am.setName("Drum2Level");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return (loopSteamDrum[1].getFillHeight() - 1.15) * 100;
+            }
+        });
+        am.defineAlarm(140.0, AlarmState.MAX2);
+        am.defineAlarm(100.0, AlarmState.MAX1);
+        am.defineAlarm(60.0, AlarmState.HIGH2);
+        am.defineAlarm(30.0, AlarmState.HIGH1);
+        am.defineAlarm(-20.0, AlarmState.LOW1);
+        am.defineAlarm(-40.0, AlarmState.LOW2);
+        am.defineAlarm(-60.0, AlarmState.MIN1);
+        am.defineAlarm(-80.0, AlarmState.MIN2);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    feedwaterShutoffValve[1][jdx].operateCloseValve();
+                }
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                blowdownBalanceControlLoop.setManualMode(true);
+                blowdownReturnValve[1].operateCloseValve();
+                blowdownValveFromLoop[1].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
+            @Override
+            public void run() {
+                for (int jdx = 0; jdx < 4; jdx++) {
+                    loopAssembly[1][jdx].operateStopPump();
+                    loopAssembly[1][jdx].operateCloseDischargeValve();
+                }
+            }
+        });
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        // </editor-fold>
     }
 
     @Override
