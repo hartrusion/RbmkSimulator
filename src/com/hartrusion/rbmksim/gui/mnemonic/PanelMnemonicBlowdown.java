@@ -63,6 +63,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         valveRegeneratorToCooler = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valvePumpsToRegenerator = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabelReadingValveFromLoop1 = new javax.swing.JLabel();
+        jLabelReadingCoolantValve = new javax.swing.JLabel();
         jLabelCoolerSecondaryOutTemp = new javax.swing.JLabel();
         jLabelCoolerSecondaryFlow = new javax.swing.JLabel();
         jLabelReadingPassiveFlow = new javax.swing.JLabel();
@@ -143,6 +144,14 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingValveFromLoop1.setText("___");
         jLabelReadingValveFromLoop1.setOpaque(true);
         add(jLabelReadingValveFromLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 406, 24, -1));
+
+        jLabelReadingCoolantValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCoolantValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCoolantValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCoolantValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCoolantValve.setText("___");
+        jLabelReadingCoolantValve.setOpaque(true);
+        add(jLabelReadingCoolantValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 160, 24, -1));
 
         jLabelCoolerSecondaryOutTemp.setBackground(new java.awt.Color(77, 69, 27));
         jLabelCoolerSecondaryOutTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -305,6 +314,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelCoolerSecondaryFlow;
     private javax.swing.JLabel jLabelCoolerSecondaryOutTemp;
+    private javax.swing.JLabel jLabelReadingCoolantValve;
     private javax.swing.JLabel jLabelReadingCoolerPrimaryFlow;
     private javax.swing.JLabel jLabelReadingCoolerPrimaryInTemp;
     private javax.swing.JLabel jLabelReadingCoolerPrimaryOutTemp;
@@ -509,6 +519,9 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                         String.format("%.0f", newValue));
             case "Blowdown#ReturnValve2" ->
                 jLabelReadingReturnValve2.setText(
+                        String.format("%.0f", newValue));
+            case "Blowdown#ValveCoolant" ->
+                jLabelReadingCoolantValve.setText(
                         String.format("%.0f", newValue));
 
         }
