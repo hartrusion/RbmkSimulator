@@ -28,7 +28,6 @@ import com.hartrusion.rbmksim.gui.FrameDiagramNeutronFlux;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
 import com.hartrusion.rbmksim.gui.FrameRodPositions;
-import com.hartrusion.rbmksim.gui.PanelAuxCondenser;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicDeaerator;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
@@ -507,6 +506,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelFeedwater1.registerActionReceiver(controller);
         panelDeaerators1.registerActionReceiver(controller);
         panelAuxCondenser1.registerActionReceiver(controller);
+        panelCondensation2.registerActionReceiver(controller);
     }
 
     @Override
@@ -523,6 +523,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelFeedwater1.updateComponent(evt);
         panelDeaerators1.updateComponent(evt);
         panelAuxCondenser1.updateComponent(evt);
+        panelCondensation2.updateComponent(evt);
         if (frameMnemonicBlowdown != null) {
             frameMnemonicBlowdown.updateComponent(evt);
         }
@@ -570,6 +571,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelFeedwater1.updateComponent(propertyName, newValue);
         panelDeaerators1.updateComponent(propertyName, newValue);
         panelAuxCondenser1.updateComponent(propertyName, newValue);
+        panelCondensation2.updateComponent(propertyName, newValue);
     }
 
     @Override
@@ -580,6 +582,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelRodSelector1.updateComponent(propertyName, newValue);
         panelDeaerators1.updateComponent(propertyName, newValue);
         panelAuxCondenser1.updateComponent(propertyName, newValue);
+        panelCondensation2.updateComponent(propertyName, newValue);
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }
@@ -614,6 +617,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelRodSelector1.updateComponent(propertyName, newValue);
         panelDeaerators1.updateComponent(propertyName, newValue);
         panelAuxCondenser1.updateComponent(propertyName, newValue);
+        panelCondensation2.updateComponent(propertyName, newValue);
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }

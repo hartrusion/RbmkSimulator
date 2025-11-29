@@ -380,7 +380,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     @Override
     public void registerParameterOutput(ParameterHandler output) {
         super.registerParameterOutput(output);
-        setpointNeutronFlux.initParameterHandler(outputValues);
-        setpointPowerGradient.initParameterHandler(outputValues);
+        setpointNeutronFlux.registerParameterHandler(outputValues);
+        setpointPowerGradient.registerParameterHandler(outputValues);
     }
 }

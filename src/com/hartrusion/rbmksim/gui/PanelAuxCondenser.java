@@ -36,7 +36,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         // of this Panel so they can send their actions to it directly.
         controlLoopCondLevel1.registerActionReceiver(controller);
         controlLoopCondLevel2.registerActionReceiver(controller);
-        integralSwitch1.registerActionReceiver(controller);
+        integralSwitchToHotwell.registerActionReceiver(controller);
         integralSwitchCoolant1.registerActionReceiver(controller);
         integralSwitchCoolant2.registerActionReceiver(controller);
         integralSwitchLoop1.registerActionReceiver(controller);
@@ -66,7 +66,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         panelCondensatePump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
         jButtonBypassClose = new javax.swing.JButton();
         jButtonBypassOpen = new javax.swing.JButton();
-        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitchToHotwell = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchToDrain = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchCoolant1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchCoolant2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
@@ -89,12 +89,12 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelDA1Press4 = new javax.swing.JLabel();
         jLabelCaptionGaugeNeutronRate3 = new javax.swing.JLabel();
         jLabelCaptionGaugeNeutronRate4 = new javax.swing.JLabel();
-        chornobylGaugeLoop1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFlow1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel5 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        chornobylGaugeLoop1Pressure = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFlow2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         integralSwitchLoop1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop();
         integralSwitchLoop2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop();
 
@@ -130,7 +130,11 @@ public class PanelAuxCondenser extends AbstractPanelWidget
             }
         });
         add(jButtonBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 270, 20, 20));
-        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 310, -1, -1));
+
+        integralSwitchToHotwell.setComponent("AuxCond#ToHotwell");
+        add(integralSwitchToHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 310, -1, -1));
+
+        integralSwitchToDrain.setComponent("AuxCond#ToDrain");
         add(integralSwitchToDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         integralSwitchCoolant1.setComponent("AuxCond1#CoolantValve");
@@ -189,10 +193,14 @@ public class PanelAuxCondenser extends AbstractPanelWidget
 
         controlLoopCondLevel1.setControlComponent("AuxCond1#CondensateValve");
         controlLoopCondLevel1.setFeedbackComponent("AuxCond1#Level");
+        controlLoopCondLevel1.setMaxValue(160.0);
+        controlLoopCondLevel1.setSetpointComponent("AuxCond1#LevelSetpoint");
         add(controlLoopCondLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 94, -1, -1));
 
         controlLoopCondLevel2.setControlComponent("AuxCond2#CondensateValve");
         controlLoopCondLevel2.setFeedbackComponent("AuxCond2#Level");
+        controlLoopCondLevel2.setMaxValue(160.0);
+        controlLoopCondLevel2.setSetpointComponent("AuxCond2#LevelSetpoint");
         add(controlLoopCondLevel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 134, -1, -1));
 
         chornobylGaugeCondTemperature.setChornobylMaximum(100.0F);
@@ -266,12 +274,12 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionGaugeNeutronRate4.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionGaugeNeutronRate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 12, 14));
 
-        chornobylGaugeLoop1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop1Level.setChornobylMaximum(200.0F);
-        chornobylGaugeLoop1Level.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop1Level.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
-        chornobylGaugeLoop1Level.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+        chornobylGaugeFlow1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeFlow1.setChornobylMaximum(200.0F);
+        chornobylGaugeFlow1.setChornobylMinimum(0.0F);
+        chornobylGaugeFlow1.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
+        chornobylGaugeFlow1.setChornobylUnitText("kg/s");
+        add(chornobylGaugeFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
         jLabel5.setText("Loop 1");
@@ -289,11 +297,11 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabel19.setText("Flow");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        chornobylGaugeLoop1Pressure.setChornobylMaximum(200.0F);
-        chornobylGaugeLoop1Pressure.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
-        chornobylGaugeLoop1Pressure.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+        chornobylGaugeFlow2.setChornobylMaximum(200.0F);
+        chornobylGaugeFlow2.setChornobylMinimum(0.0F);
+        chornobylGaugeFlow2.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
+        chornobylGaugeFlow2.setChornobylUnitText("kg/s");
+        add(chornobylGaugeFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
         integralSwitchLoop1.setComponent("AuxCond2#SteamValve");
         add(integralSwitchLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 222, -1, -1));
@@ -313,16 +321,16 @@ public class PanelAuxCondenser extends AbstractPanelWidget
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeCondTemperature;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Level;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Pressure;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFlow1;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFlow2;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopCondLevel1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopCondLevel2;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop integralSwitchLoop1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop integralSwitchLoop2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToDrain;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToHotwell;
     private javax.swing.JButton jButtonBypassClose;
     private javax.swing.JButton jButtonBypassOpen;
     private javax.swing.JLabel jLabel19;
@@ -358,7 +366,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         panelCondensatePump2.updateComponent(evt);
         controlLoopCondLevel1.updateComponent(evt);
         controlLoopCondLevel2.updateComponent(evt);
-        integralSwitch1.updateComponent(evt);
+        integralSwitchToHotwell.updateComponent(evt);
         integralSwitchCoolant1.updateComponent(evt);
         integralSwitchCoolant2.updateComponent(evt);
         integralSwitchLoop1.updateComponent(evt);
@@ -380,6 +388,16 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     public void updateComponent(String propertyName, double newValue) {
         controlLoopCondLevel1.updateComponent(propertyName, newValue);
         controlLoopCondLevel2.updateComponent(propertyName, newValue);
+        switch (propertyName) {
+            case "AuxCond1#SteamFlow" ->
+                chornobylGaugeFlow1.setChornobylValue((float) newValue);
+            case "AuxCond2#SteamFlow" ->
+                chornobylGaugeFlow2.setChornobylValue((float) newValue);
+            case "AuxCond#CondensateTemperature" ->
+                chornobylGaugeCondTemperature.setChornobylValue(
+                        (float) newValue);
+        }
+
     }
 
     @Override

@@ -1,14 +1,37 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Copyright (C) 2025 Viktor Alexander Hartung
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.ActionReceiver;
+import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
+import java.beans.PropertyChangeEvent;
+
 /**
  *
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
-public class PanelCondensation extends javax.swing.JPanel {
+public class PanelCondensation extends AbstractPanelWidget {
+    
+    @Override
+    public void registerActionReceiver(ActionReceiver controller) {
+        super.registerActionReceiver(controller);
+        panelWidgetMakeupPump1.registerActionReceiver(controller);
+        panelWidgetMakeupPump2.registerActionReceiver(controller);
+    }
 
     /**
      * Creates new form PanelCondensation
@@ -32,8 +55,8 @@ public class PanelCondensation extends javax.swing.JPanel {
         panelWidgetPump4 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPump5 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPump6 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        controlLoop1 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
-        controlLoop2 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        controlLoopHotwellFill = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        controlLoopHotwellDrain = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         jLabelDA1Press1 = new javax.swing.JLabel();
         jLabelDA1Press2 = new javax.swing.JLabel();
         jLabelDA1Press3 = new javax.swing.JLabel();
@@ -69,26 +92,26 @@ public class PanelCondensation extends javax.swing.JPanel {
         jLabelCaptionPump11 = new javax.swing.JLabel();
         jLabelCaptionPump12 = new javax.swing.JLabel();
         jLabelCaptionPump13 = new javax.swing.JLabel();
-        jButtonFeed12Close10 = new javax.swing.JButton();
-        jLabelFeed12 = new javax.swing.JLabel();
-        jButtonFeed12Open10 = new javax.swing.JButton();
+        jButtonColdCondensateDrainClose = new javax.swing.JButton();
+        jLabelColdCondensateDrain = new javax.swing.JLabel();
+        jButtonColdCondensateDrainOpen = new javax.swing.JButton();
         jLabelCaptionPump14 = new javax.swing.JLabel();
         jLabelDA1Level1 = new javax.swing.JLabel();
         jLabelDA1Level2 = new javax.swing.JLabel();
         chornobylGaugeLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        panelWidgetPump7 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPump8 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        jButtonFeed12Close11 = new javax.swing.JButton();
-        jLabelFeed18 = new javax.swing.JLabel();
-        jButtonFeed12Open11 = new javax.swing.JButton();
+        panelWidgetMakeupPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetMakeupPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        jButtonColdCondensateFillOpen = new javax.swing.JButton();
+        jLabelColdCondensateFill = new javax.swing.JLabel();
+        jButtonColdCondensateFillClose = new javax.swing.JButton();
         jLabelCaptionPump16 = new javax.swing.JLabel();
         jLabelCaptionPump17 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        chornobylGaugeLoop2Level1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeHotwellLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel25 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        chornobylGaugeLoop2Level2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeCondensateFlow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabelCaptionPump18 = new javax.swing.JLabel();
         jLabelCaptionPump19 = new javax.swing.JLabel();
         jLabelCaptionPump20 = new javax.swing.JLabel();
@@ -108,8 +131,8 @@ public class PanelCondensation extends javax.swing.JPanel {
         add(panelWidgetPump4, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 72, -1, -1));
         add(panelWidgetPump5, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 72, -1, -1));
         add(panelWidgetPump6, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
-        add(controlLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 46, -1, -1));
-        add(controlLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 90, -1, -1));
+        add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 46, -1, -1));
+        add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 90, -1, -1));
 
         jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
         jLabelDA1Press1.setText("Hotwell");
@@ -414,35 +437,35 @@ public class PanelCondensation extends javax.swing.JPanel {
         jLabelCaptionPump13.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPump13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 206, 64, 14));
 
-        jButtonFeed12Close10.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close10.setText("C");
-        jButtonFeed12Close10.setToolTipText("");
-        jButtonFeed12Close10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close10.addActionListener(new java.awt.event.ActionListener() {
+        jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonColdCondensateDrainClose.setText("C");
+        jButtonColdCondensateDrainClose.setToolTipText("");
+        jButtonColdCondensateDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateDrainClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close10ActionPerformed(evt);
+                jButtonColdCondensateDrainCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 20, 20));
+        add(jButtonColdCondensateDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 20, 20));
 
-        jLabelFeed12.setFont(jLabelFeed12.getFont().deriveFont(jLabelFeed12.getFont().getSize()-2f));
-        jLabelFeed12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed12.setText("Drain");
-        jLabelFeed12.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed12.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 96, 52, 14));
+        jLabelColdCondensateDrain.setFont(jLabelColdCondensateDrain.getFont().deriveFont(jLabelColdCondensateDrain.getFont().getSize()-2f));
+        jLabelColdCondensateDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelColdCondensateDrain.setText("Drain");
+        jLabelColdCondensateDrain.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateDrain.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateDrain.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelColdCondensateDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 96, 52, 14));
 
-        jButtonFeed12Open10.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open10.setText("O");
-        jButtonFeed12Open10.setToolTipText("");
-        jButtonFeed12Open10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open10.addActionListener(new java.awt.event.ActionListener() {
+        jButtonColdCondensateDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonColdCondensateDrainOpen.setText("O");
+        jButtonColdCondensateDrainOpen.setToolTipText("");
+        jButtonColdCondensateDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateDrainOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open10ActionPerformed(evt);
+                jButtonColdCondensateDrainOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open10, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 110, 20, 20));
+        add(jButtonColdCondensateDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 110, 20, 20));
 
         jLabelCaptionPump14.setFont(jLabelCaptionPump14.getFont().deriveFont(jLabelCaptionPump14.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump14.getFont().getSize()-2));
         jLabelCaptionPump14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -467,38 +490,42 @@ public class PanelCondensation extends javax.swing.JPanel {
         chornobylGaugeLevel.setChornobylUnitText("m");
         chornobylGaugeLevel.setChornobylValue(0.0F);
         add(chornobylGaugeLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
-        add(panelWidgetPump7, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 68, -1, -1));
-        add(panelWidgetPump8, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 68, -1, -1));
 
-        jButtonFeed12Close11.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close11.setText("C");
-        jButtonFeed12Close11.setToolTipText("");
-        jButtonFeed12Close11.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close11.addActionListener(new java.awt.event.ActionListener() {
+        panelWidgetMakeupPump2.setChornobylPrefix("MakeupStorage2#ToDAPumps");
+        add(panelWidgetMakeupPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 68, -1, -1));
+
+        panelWidgetMakeupPump1.setChornobylPrefix("MakeupStorage1#ToDAPumps");
+        add(panelWidgetMakeupPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 68, -1, -1));
+
+        jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonColdCondensateFillOpen.setText("C");
+        jButtonColdCondensateFillOpen.setToolTipText("");
+        jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateFillOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close11ActionPerformed(evt);
+                jButtonColdCondensateFillOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close11, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 74, 20, 20));
+        add(jButtonColdCondensateFillOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 74, 20, 20));
 
-        jLabelFeed18.setFont(jLabelFeed18.getFont().deriveFont(jLabelFeed18.getFont().getSize()-2f));
-        jLabelFeed18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed18.setText("Fill");
-        jLabelFeed18.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed18.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed18.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed18, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 60, 52, 14));
+        jLabelColdCondensateFill.setFont(jLabelColdCondensateFill.getFont().deriveFont(jLabelColdCondensateFill.getFont().getSize()-2f));
+        jLabelColdCondensateFill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelColdCondensateFill.setText("Fill");
+        jLabelColdCondensateFill.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateFill.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateFill.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelColdCondensateFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 60, 52, 14));
 
-        jButtonFeed12Open11.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open11.setText("O");
-        jButtonFeed12Open11.setToolTipText("");
-        jButtonFeed12Open11.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonColdCondensateFillClose.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonColdCondensateFillClose.setText("O");
+        jButtonColdCondensateFillClose.setToolTipText("");
+        jButtonColdCondensateFillClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateFillClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open11ActionPerformed(evt);
+                jButtonColdCondensateFillCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open11, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 74, 20, 20));
+        add(jButtonColdCondensateFillClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 74, 20, 20));
 
         jLabelCaptionPump16.setFont(jLabelCaptionPump16.getFont().deriveFont(jLabelCaptionPump16.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump16.getFont().getSize()-2));
         jLabelCaptionPump16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -524,12 +551,12 @@ public class PanelCondensation extends javax.swing.JPanel {
         jLabel18.setText("Level");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
 
-        chornobylGaugeLoop2Level1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop2Level1.setChornobylMaximum(1800.0F);
-        chornobylGaugeLoop2Level1.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop2Level1.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
-        chornobylGaugeLoop2Level1.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
+        chornobylGaugeHotwellLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeHotwellLevel.setChornobylMaximum(1800.0F);
+        chornobylGaugeHotwellLevel.setChornobylMinimum(0.0F);
+        chornobylGaugeHotwellLevel.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
+        chornobylGaugeHotwellLevel.setChornobylUnitText("kg/s");
+        add(chornobylGaugeHotwellLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
 
         jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getSize()-2f));
         jLabel25.setText("Cond.");
@@ -539,12 +566,12 @@ public class PanelCondensation extends javax.swing.JPanel {
         jLabel19.setText("Flow");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 52, 14));
 
-        chornobylGaugeLoop2Level2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop2Level2.setChornobylMaximum(4000.0F);
-        chornobylGaugeLoop2Level2.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop2Level2.setChornobylTicks(new float[] {0.0f, 2000.0f, 3500.0f});
-        chornobylGaugeLoop2Level2.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop2Level2, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
+        chornobylGaugeCondensateFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeCondensateFlow.setChornobylMaximum(4000.0F);
+        chornobylGaugeCondensateFlow.setChornobylMinimum(0.0F);
+        chornobylGaugeCondensateFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 3500.0f});
+        chornobylGaugeCondensateFlow.setChornobylUnitText("kg/s");
+        add(chornobylGaugeCondensateFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
 
         jLabelCaptionPump18.setFont(jLabelCaptionPump18.getFont().deriveFont(jLabelCaptionPump18.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump18.getFont().getSize()-2));
         jLabelCaptionPump18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -691,36 +718,38 @@ public class PanelCondensation extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonFeed12Open9ActionPerformed
 
-    private void jButtonFeed12Close10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close10ActionPerformed
+    private void jButtonColdCondensateDrainCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateDrainCloseActionPerformed
 
-    }//GEN-LAST:event_jButtonFeed12Close10ActionPerformed
+    }//GEN-LAST:event_jButtonColdCondensateDrainCloseActionPerformed
 
-    private void jButtonFeed12Open10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open10ActionPerformed
+    private void jButtonColdCondensateDrainOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateDrainOpenActionPerformed
 
-    }//GEN-LAST:event_jButtonFeed12Open10ActionPerformed
+    }//GEN-LAST:event_jButtonColdCondensateDrainOpenActionPerformed
 
-    private void jButtonFeed12Close11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close11ActionPerformed
+    private void jButtonColdCondensateFillOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateFillOpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close11ActionPerformed
+    }//GEN-LAST:event_jButtonColdCondensateFillOpenActionPerformed
 
-    private void jButtonFeed12Open11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open11ActionPerformed
+    private void jButtonColdCondensateFillCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateFillCloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open11ActionPerformed
+    }//GEN-LAST:event_jButtonColdCondensateFillCloseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeCondensateFlow;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeHotwellLevel;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLevel;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Level1;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Level2;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoop1;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoop2;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopHotwellDrain;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopHotwellFill;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch3;
+    private javax.swing.JButton jButtonColdCondensateDrainClose;
+    private javax.swing.JButton jButtonColdCondensateDrainOpen;
+    private javax.swing.JButton jButtonColdCondensateFillClose;
+    private javax.swing.JButton jButtonColdCondensateFillOpen;
     private javax.swing.JButton jButtonFeed12Close;
     private javax.swing.JButton jButtonFeed12Close1;
-    private javax.swing.JButton jButtonFeed12Close10;
-    private javax.swing.JButton jButtonFeed12Close11;
     private javax.swing.JButton jButtonFeed12Close2;
     private javax.swing.JButton jButtonFeed12Close3;
     private javax.swing.JButton jButtonFeed12Close4;
@@ -731,8 +760,6 @@ public class PanelCondensation extends javax.swing.JPanel {
     private javax.swing.JButton jButtonFeed12Close9;
     private javax.swing.JButton jButtonFeed12Open;
     private javax.swing.JButton jButtonFeed12Open1;
-    private javax.swing.JButton jButtonFeed12Open10;
-    private javax.swing.JButton jButtonFeed12Open11;
     private javax.swing.JButton jButtonFeed12Open2;
     private javax.swing.JButton jButtonFeed12Open3;
     private javax.swing.JButton jButtonFeed12Open4;
@@ -759,26 +786,50 @@ public class PanelCondensation extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelCaptionPump23;
     private javax.swing.JLabel jLabelCaptionPump24;
     private javax.swing.JLabel jLabelCaptionPump25;
+    private javax.swing.JLabel jLabelColdCondensateDrain;
+    private javax.swing.JLabel jLabelColdCondensateFill;
     private javax.swing.JLabel jLabelDA1Level1;
     private javax.swing.JLabel jLabelDA1Level2;
     private javax.swing.JLabel jLabelDA1Press1;
     private javax.swing.JLabel jLabelDA1Press2;
     private javax.swing.JLabel jLabelDA1Press3;
     private javax.swing.JLabel jLabelDA1Press4;
-    private javax.swing.JLabel jLabelFeed12;
     private javax.swing.JLabel jLabelFeed13;
     private javax.swing.JLabel jLabelFeed14;
     private javax.swing.JLabel jLabelFeed15;
     private javax.swing.JLabel jLabelFeed16;
     private javax.swing.JLabel jLabelFeed17;
-    private javax.swing.JLabel jLabelFeed18;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump3;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump4;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump5;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump6;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump7;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump8;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+        panelWidgetMakeupPump1.updateComponent(evt);
+        panelWidgetMakeupPump2.updateComponent(evt);
+    }
+
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        switch (propertyName) {
+            case "MakeupStorageLevel" ->
+                chornobylGaugeLevel.setChornobylValue((float) newValue);
+        }
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+
+    }
 }

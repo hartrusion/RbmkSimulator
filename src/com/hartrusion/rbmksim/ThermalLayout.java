@@ -81,9 +81,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
     // Cold condensate storage
     private final HeatFluidTank makeupStorage;
     private final HeatNode makeupStorageDrainCollector;
-//    private final HeatNode makeupStorageOut;
-//    private final HeatFluidPumpRealSwitching[] makeupAuxiliaryPumps
-//            = new HeatFluidPumpRealSwitching[3];
+    private final HeatNode makeupStorageOut;
+    private final HeatFluidPump[] makeupToDAPumps
+            = new HeatFluidPump[2];
 
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
@@ -281,7 +281,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         makeupStorage = new HeatFluidTank();
         makeupStorage.setName("MakeupStorage");
         makeupStorageDrainCollector = new HeatNode();
-        makeupStorageDrainCollector.setName("MakeupStorageDrainCollector");
+        makeupStorageDrainCollector.setName("MakeupStorage#DrainCollector");
+        makeupStorageOut = new HeatNode();
+        makeupStorageOut.setName("MakeupStorage#Out");
+        for (int idx = 0; idx < 2; idx++) {
+            makeupToDAPumps[idx] = new HeatFluidPump();
+            makeupToDAPumps[idx].initName("MakeupStorage" + (idx + 1)
+                    + "#ToDAPumps");
+        }
 
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDrumNode[idx] = new PhasedNode();
@@ -473,7 +480,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             deaeratorFeedwaterOutHeatNode[idx].setName(
                     "Deaerator" + (idx + 1) + "#FeedwaterOutHeatNode");
             deaeratorSteamInRegValve[idx] = new PhasedValveControlled();
-            deaeratorSteamInRegValve[idx].initController(new PIControl());
+            deaeratorSteamInRegValve[idx].registerController(new PIControl());
             deaeratorSteamInRegValve[idx].initName(
                     "Deaerator" + (idx + 1) + "#SteamInRegValve");
             deaeratorSteamInNode[idx] = new PhasedNode();
@@ -543,7 +550,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         = new HeatValveControlled();
                 // Name has to match the designator on the GUI element. like:
                 // Feedwater1#FlowRegulationValve3
-                feedwaterFlowRegulationValve[idx][jdx].initController(
+                feedwaterFlowRegulationValve[idx][jdx].registerController(
                         new PIControl());
                 feedwaterFlowRegulationValve[idx][jdx]
                         .initName("Feedwater" + (idx + 1)
@@ -554,7 +561,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Auxiliary Condensation
         for (int idx = 0; idx < 2; idx++) {
             auxCondSteamValve[idx] = new PhasedValveControlled();
-            auxCondSteamValve[idx].initController(new PIControl());
+            auxCondSteamValve[idx].registerController(new PIControl());
             auxCondSteamValve[idx].initName(
                     "AuxCond" + (idx + 1) + "#SteamValve");
             auxCondensers[idx] = new PhasedCondenser(phasedWater);
@@ -670,84 +677,96 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // part of assemblies and send events to the controller, like a valve
         // open state reached.
         for (int idx = 0; idx < 2; idx++) {
-            mainSteamShutoffValve[idx].initSignalListener(controller);
-            deaeratorSteamInRegValve[idx].initSignalListener(controller);
-            deaeratorSteamInRegValve[idx].initParameterHandler(outputValues);
-            deaeratorSteamFromMain[idx].initSignalListener(controller);
-            deaeratorSteamFromMain[idx].initParameterHandler(outputValues);
-            for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx].initSignalListener(controller);
-            }
-            loopBypass[idx].initSignalListener(controller);
-            blowdownValveFromLoop[idx].initSignalListener(controller);
-            blowdownValveFromLoop[idx].initParameterHandler(outputValues);
-            blowdownCooldownPumps[idx].initSignalListener(controller);
+            makeupToDAPumps[idx].registerSignalListener(controller);
         }
-        blowdownValvePassiveFlow.initSignalListener(controller);
-        blowdownValvePumpsToRegenerator.initSignalListener(controller);
-        blowdownValvePumpsToCooler.initSignalListener(controller);
-        blowdownValveRegeneratorToCooler.initSignalListener(controller);
-        blowdownValveTreatmentBypass.initSignalListener(controller);
-        blowdownValveRegeneratedToDrums.initSignalListener(controller);
-        blowdownValveDrain.initSignalListener(controller);
-        blowdownCoolantFlow.initSignalListener(controller);
+        
         for (int idx = 0; idx < 2; idx++) {
-            blowdownReturnValve[idx].initSignalListener(controller);
-            blowdownReturnValve[idx].initParameterHandler(outputValues);
+            mainSteamShutoffValve[idx].registerSignalListener(controller);
+            deaeratorSteamInRegValve[idx].registerSignalListener(controller);
+            deaeratorSteamInRegValve[idx].registerParameterHandler(outputValues);
+            deaeratorSteamFromMain[idx].registerSignalListener(controller);
+            deaeratorSteamFromMain[idx].registerParameterHandler(outputValues);
+            for (int jdx = 0; jdx < 4; jdx++) {
+                loopAssembly[idx][jdx].registerSignalListener(controller);
+            }
+            loopBypass[idx].registerSignalListener(controller);
+            blowdownValveFromLoop[idx].registerSignalListener(controller);
+            blowdownValveFromLoop[idx].registerParameterHandler(outputValues);
+            blowdownCooldownPumps[idx].registerSignalListener(controller);
+        }
+        blowdownValvePassiveFlow.registerSignalListener(controller);
+        blowdownValvePumpsToRegenerator.registerSignalListener(controller);
+        blowdownValvePumpsToCooler.registerSignalListener(controller);
+        blowdownValveRegeneratorToCooler.registerSignalListener(controller);
+        blowdownValveTreatmentBypass.registerSignalListener(controller);
+        blowdownValveRegeneratedToDrums.registerSignalListener(controller);
+        blowdownValveDrain.registerSignalListener(controller);
+        blowdownCoolantFlow.registerSignalListener(controller);
+        for (int idx = 0; idx < 2; idx++) {
+            blowdownReturnValve[idx].registerSignalListener(controller);
+            blowdownReturnValve[idx].registerParameterHandler(outputValues);
         }
         blowdownBalanceControlLoop.addPropertyChangeListener(controller);
         for (int idx = 0; idx < 2; idx++) {
-            deaeratorDrain[idx].initSignalListener(controller);
-            deaeratorDrain[idx].initParameterHandler(outputValues);
+            deaeratorDrain[idx].registerSignalListener(controller);
+            deaeratorDrain[idx].registerParameterHandler(outputValues);
         }
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
-                feedwaterPump[idx][jdx].initSignalListener(controller);
+                feedwaterPump[idx][jdx].registerSignalListener(controller);
             }
-            feedwaterSparePumpInValve[idx].initSignalListener(controller);
+            feedwaterSparePumpInValve[idx].registerSignalListener(controller);
         }
-        feedwaterPump3.initSignalListener(controller);
+        feedwaterPump3.registerSignalListener(controller);
         for (int idx = 0; idx < 2; idx++) {
-            feedwaterSparePumpOutValve[idx].initSignalListener(controller);
-            feedwaterStartupReductionValve[idx].initSignalListener(controller);
+            feedwaterSparePumpOutValve[idx].registerSignalListener(controller);
+            feedwaterStartupReductionValve[idx].registerSignalListener(controller);
             for (int jdx = 0; jdx < 3; jdx++) {
-                feedwaterShutoffValve[idx][jdx].initSignalListener(controller);
+                feedwaterShutoffValve[idx][jdx].registerSignalListener(controller);
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .initSignalListener(controller);
+                        .registerSignalListener(controller);
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .initParameterHandler(outputValues);
+                        .registerParameterHandler(outputValues);
             }
         }
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initSignalListener(controller);
-            auxCondSteamValve[idx].initParameterHandler(outputValues);
-            auxCondCoolantFlow[idx].initSignalListener(controller);
-            auxCondCondensateValve[idx].initController(new PIControl());
-            auxCondCondensateValve[idx].initSignalListener(controller);
-            auxCondCondensateValve[idx].initParameterHandler(outputValues);
+            auxCondSteamValve[idx].registerSignalListener(controller);
+            auxCondSteamValve[idx].registerParameterHandler(outputValues);
+            auxCondCoolantFlow[idx].registerSignalListener(controller);
+            auxCondCondensateValve[idx].registerController(new PIControl());
+            auxCondCondensateValve[idx].registerSignalListener(controller);
+            auxCondCondensateValve[idx].registerParameterHandler(outputValues);
         }
-        auxCondBypass.initSignalListener(controller);
-        auxCondBypass.initParameterHandler(outputValues);
+        auxCondBypass.registerSignalListener(controller);
+        auxCondBypass.registerParameterHandler(outputValues);
         for (int idx = 0; idx < 2; idx++) {
-            auxCondPumps[idx].initSignalListener(controller);
+            auxCondPumps[idx].registerSignalListener(controller);
         }
-        auxCondValveToHotwell.initSignalListener(controller);
-        auxCondValveToHotwell.initParameterHandler(outputValues);
-        auxCondValveToDrain.initSignalListener(controller);
-        auxCondValveToDrain.initParameterHandler(outputValues);
+        auxCondValveToHotwell.registerSignalListener(controller);
+        auxCondValveToHotwell.registerParameterHandler(outputValues);
+        auxCondValveToDrain.registerSignalListener(controller);
+        auxCondValveToDrain.registerParameterHandler(outputValues);
 
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
-            setpointDrumLevel[idx].initParameterHandler(outputValues);
-            setpointDAPressure[idx].initParameterHandler(outputValues);
-            setpointDALevel[idx].initParameterHandler(outputValues);
-            setpointAuxCondLevel[idx].initParameterHandler(outputValues);
+            setpointDrumLevel[idx].registerParameterHandler(outputValues);
+            setpointDAPressure[idx].registerParameterHandler(outputValues);
+            setpointDALevel[idx].registerParameterHandler(outputValues);
+            setpointAuxCondLevel[idx].registerParameterHandler(outputValues);
         }
-        setpointDrumPressure.initParameterHandler(outputValues);
+        setpointDrumPressure.registerParameterHandler(outputValues);
         // </editor-fold>  
         // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
-        // Define the primary loop from drum through mcps and reactor and back.
+        // Cold condensate storage
         makeupStorage.connectTo(makeupStorageDrainCollector);
+        makeupStorage.connectTo(makeupStorageOut);
+        for (int idx = 0; idx < 2; idx++) {
+            makeupToDAPumps[idx].getSuctionValve().connectTo(makeupStorageOut);
+            makeupToDAPumps[idx].getDischargeValve()
+                    .connectTo(condensationBoosterPumpOut);
+        }
+        
+        // Define the primary loop from drum through mcps and reactor and back.
         for (int idx = 0; idx < 2; idx++) {
             loopSteamDrum[idx].connectToVia(
                     loopFromDrumConverter[idx], loopNodeDrumWaterOut[idx]);
@@ -1181,8 +1200,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Auxiliary condensers (БРУ–ТК) each can condense about 100 t/h 
         // steam which is 28 kg/s. It is designed to be used when there is no
         // vacuum so it will propably be operated in low pressure regions only.
-        // Set the valves to have 30 kg/s with 30 bar of pressure (3e6 Pa)
-        // so it will be R = 3e6 Pa / 30 kg/s = 1e5 Pa/kg*s for steam valve.
+        // Set the valves to have 30 kg/s with 10 bar of pressure (1e6 Pa)
+        // so can will be R = 1e6 Pa / 30 kg/s = 3.3e4 Pa/kg*s for steam valve.
         // 30 bar is roughly saturation temperature of 500 Kelvin. Lets assume 
         // condensation tempearture of 310 Kelvin so this is 190 K temperature 
         // 190 K * 4200 J/kg/K + 2100000 J/kg = 2898000 J/kg = 2.9e6 J/kg
@@ -1191,7 +1210,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initCharacteristic(1e5, 20);
+            auxCondSteamValve[idx].initCharacteristic(2e4, 5);
             auxCondensers[idx].initCharacteristic(25, 200,
                     4000, 8.7e6, 4.0, 6.0, 1e5);
             // No ambient pressure for condensation, always steam pressure.
@@ -1205,21 +1224,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
         makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
         for (int idx = 0; idx <= 1; idx++) {
             // See notes above, try to init with 0 cm fill level
-            loopSteamDrum[idx].setInitialState(40000, 90 + 273.15);
+            loopSteamDrum[idx].setInitialState(40000, 45 + 273.15);
 
             loopEvaporator[idx].setInitialState(6.0, 1e5,
-                    273.5 + 90, 273.5 + 90); // 45 - 90
+                    273.5 + 45, 273.5 + 45); // 45 or 90
         }
         for (int idx = 0; idx <= 1; idx++) {
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(400); // was 314.63, then 370
+                    .setInitialTemperature(370); // was 314.63, then 370
             loopAssembly[idx][1].setInitialCondition(true, true, true);
             for (int jdx = 0; jdx < 4; jdx++) {
                 // All trim valves open az 70 %
                 loopTrimValve[idx][jdx].initOpening(70);
             }
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(400); //also 314.63 or 370
+                    .setInitialTemperature(370); //also 314.63 or 370
         }
         for (int idx = 0; idx < 2; idx++) {
             blowdownFromLoop[idx].getHeatHandler().setInitialTemperature(
@@ -1252,15 +1271,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondensers[idx].initConditions(320, 320, 0.8);
         }
         // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Submit to runner">
         // Initialize solver and build model. This is only a small line of code,
         // but it triggers a huge step of building up all the network and
         // calculation of the thermal layout.
         solver.addNetwork(blowdownOutNode);
-
+        // <editor-fold defaultstate="collapsed" desc="Submit to runner">
         // Add assemblies to runner instance, this way they get their run 
         // method called each cycle (this sets valve movements, fires events
         // and so on).
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(makeupToDAPumps[idx]);
+        }
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(mainSteamShutoffValve[idx]);
             for (int jdx = 0; jdx < 4; jdx++) {
@@ -1464,6 +1485,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // given in pascals as absolute value. Controllers will use bar.
                 return loopSteamDrum[1].getEffort() * 1e-5 + 1.0
                         - setpointDrumPressure.getOutput();
+            }
+        });
+
+        // Aux Condensation condensate level control
+        auxCondCondensateValve[0].getController().addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                // negative: open valve to decrease level.
+                return auxCondensers[0].getPrimarySideReservoir()
+                        .getFillHeight() * 100 // m to cm
+                        - setpointAuxCondLevel[0].getOutput();
             }
         });
         // </editor-fold>
@@ -1793,6 +1825,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "AuxCond" + (idx + 1) + "#CoolantValve",
                     auxCondCoolantFlow[idx].getFlowSource().getFlow() / 4.0);
         }
+            outputValues.setParameterValue("AuxCond#CondensateTemperature",
+                    auxCondCondInNode.getTemperature() - 273.5);
         // </editor-fold>
 
         // Save values to plot manager
