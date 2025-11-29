@@ -760,6 +760,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         integralSwitchDrain.updateComponent(evt);
         integralSwitchReturn1.updateComponent(evt);
         integralSwitchReturn2.updateComponent(evt);
+        integralSwitchCoolant.updateComponent(evt);
     }
 
     @Override
