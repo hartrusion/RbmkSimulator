@@ -72,6 +72,8 @@ import java.util.function.DoubleSupplier;
  * @author Viktor Alexander Hartung
  */
 public class ThermalLayout extends Subsystem implements Runnable {
+    // Reference to the used reactor core part
+    private ReactorCore core;
 
     // private final If97Wrapper steamTable = new If97Wrapper();
     private final PhasedPropertiesWater phasedWater
@@ -1187,7 +1189,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             feedwaterStartupReductionValve[idx]
                     .initCharacteristic(6000, 20);
             feedwaterFlowRegulationValve[idx][0]
-                    .initCharacteristic(800, 100);
+                    .initCharacteristic(800, 200);
         }
         // Full power valves
         for (int idx = 0; idx < 2; idx++) {
@@ -1413,15 +1415,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownBalanceControlLoop.setMaxOutput(20);
         blowdownBalanceControlLoop.setMinOutput(-20);
 
-        for (int idx = 0; idx < 2; idx++) {
-            for (int jdx = 0; jdx < 3; jdx++) {
-                ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(10);
-                ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(5);
-            }
-        }
-
         // Drum level setpoint is in cm and getFillHeight retursn meters.
         for (int jdx = 0; jdx < 3; jdx++) {
             feedwaterFlowRegulationValve[0][jdx].getController()
@@ -1443,13 +1436,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         }
                     });
         }
-
+        // Feedwater level control parameters
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(3);
+                        .getController()).setParameterK(20);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(5);
+                        .getController()).setParameterTN(20);
             }
         }
 
@@ -1543,6 +1536,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public void run() {
                 for (int jdx = 0; jdx < 3; jdx++) {
+                    core.triggerAutoShutdown();
                     feedwaterShutoffValve[0][jdx].operateCloseValve();
                 }
             }
@@ -1551,6 +1545,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
+                core.triggerAutoShutdown();
                 blowdownBalanceControlLoop.setManualMode(true);
                 blowdownReturnValve[0].operateCloseValve();
                 blowdownValveFromLoop[0].operateCloseValve();
@@ -1592,6 +1587,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public void run() {
                 for (int jdx = 0; jdx < 3; jdx++) {
+                    core.triggerAutoShutdown();
                     feedwaterShutoffValve[1][jdx].operateCloseValve();
                 }
             }
@@ -1600,6 +1596,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
+                core.triggerAutoShutdown();
                 blowdownBalanceControlLoop.setManualMode(true);
                 blowdownReturnValve[1].operateCloseValve();
                 blowdownValveFromLoop[1].operateCloseValve();
@@ -1623,6 +1620,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     @Override
     public void run() {
+        setThermalPower(0, core.getThermalPower(0));
+        setThermalPower(1, core.getThermalPower(1));
+        
+        
         // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
         // handleAction in this class here. So the first thing happening is
@@ -2117,7 +2118,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * @param loop 0 or 1
      * @param power in Megawatts
      */
-    public void setThermalPower(int loop, double power) {
+    private void setThermalPower(int loop, double power) {
         // Add the 48 MW idle (24 per side) power here
         thermalPower[loop] = power + 24;
     }
@@ -2133,5 +2134,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     public double getCoreTemp() {
         return coreTemp;
+    }
+    
+    public void registerReactor(ReactorCore core) {
+        this.core = core;
     }
 }

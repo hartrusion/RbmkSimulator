@@ -56,6 +56,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             core.registerPlotDataVault(plotData);
             core.registerParameterOutput(outputValues);
             
+            process.registerReactor(core);
             process.registerParameterOutput(outputValues);
             process.registerController(controller);
             process.registerAlarmManager(alarms);
@@ -83,11 +84,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             core.setVoiding(process.getVoiding());
             
             core.run();
-            
-            // Set thermal power from reactor to thermal layout model
-            process.setThermalPower(0, core.getThermalPower(0));
-            process.setThermalPower(1, core.getThermalPower(1));
-            
+             
             process.run();
 
             // Send all measurement data to the GUI by sending a reference.

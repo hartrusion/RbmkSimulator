@@ -19,7 +19,6 @@ package com.hartrusion.rbmksim;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
-import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.mvc.ActionCommand;
@@ -64,7 +63,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     private int rodSpeedIndex = 1;
 
     /**
-     * Positive reacitvity in 0..100 % which has same dimension as
+     * Positive reactivity in 0..100 % which has same dimension as
      * rodAbsorption.
      */
     private double reactivity;
@@ -74,6 +73,8 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private final NeutronFluxModel neutronFluxModel = new NeutronFluxModel();
     private final XenonModel xenonModel = new XenonModel();
+    
+    private boolean rpsActive = true;
 
     ReactorCore() {
         setpointPowerGradient = new Setpoint();
@@ -175,9 +176,11 @@ public class ReactorCore extends Subsystem implements Runnable {
         } else if (setpointPowerGradient.handleAction(ac)) {
             return;
         }
-
         if (!ac.getPropertyName().startsWith("Reactor#")) {
             return;
+        }
+        if (ac.getPropertyName().equals("Reactor#AZ5")) {
+            shutdown();
         }
         int identifier, x, y;
         boolean value;
@@ -382,5 +385,29 @@ public class ReactorCore extends Subsystem implements Runnable {
         super.registerParameterOutput(output);
         setpointNeutronFlux.registerParameterHandler(outputValues);
         setpointPowerGradient.registerParameterHandler(outputValues);
+    }
+    
+    /**
+     * Can be invoked by this or other 
+     */
+    public void triggerAutoShutdown() {
+        if (!rpsActive) {
+            return;
+        }
+        shutdown();
+    }
+    
+    /**
+     * AZ5 makes all rods move into the core immediately with maximum speed.
+     */
+    private void shutdown() {
+        rodSpeedIndex = rodSpeeds.length - 1;
+        for (ControlRod c : controlRods) {
+            if (c.getRodType() == ChannelType.SHORT_CONTROLROD) {
+                c.getSwi().setInputMin();
+            } else {
+                c.getSwi().setInputMax();
+            }
+        }
     }
 }
