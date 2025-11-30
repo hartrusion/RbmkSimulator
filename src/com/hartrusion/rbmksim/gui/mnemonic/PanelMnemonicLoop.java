@@ -75,6 +75,9 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         valveMainSteam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFeed0Gate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveStartupRed = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        jLabelReadingFeed0Pos = new javax.swing.JLabel();
+        jLabelReadingFeed1Pos = new javax.swing.JLabel();
+        jLabelReadingFeed2Pos = new javax.swing.JLabel();
         pump1 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
         pump2 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
         pump3 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
@@ -161,6 +164,30 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
 
         valveStartupRed.setVertical(true);
         add(valveStartupRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 294, -1, -1));
+
+        jLabelReadingFeed0Pos.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingFeed0Pos.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingFeed0Pos.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingFeed0Pos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFeed0Pos.setText("___");
+        jLabelReadingFeed0Pos.setOpaque(true);
+        add(jLabelReadingFeed0Pos, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 240, 24, -1));
+
+        jLabelReadingFeed1Pos.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingFeed1Pos.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingFeed1Pos.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingFeed1Pos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFeed1Pos.setText("___");
+        jLabelReadingFeed1Pos.setOpaque(true);
+        add(jLabelReadingFeed1Pos, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 240, 24, -1));
+
+        jLabelReadingFeed2Pos.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingFeed2Pos.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingFeed2Pos.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingFeed2Pos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFeed2Pos.setText("___");
+        jLabelReadingFeed2Pos.setOpaque(true);
+        add(jLabelReadingFeed2Pos, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 240, 24, -1));
 
         pump1.setOrientation(3);
         pump1.setPreferredSize(new java.awt.Dimension(36, 42));
@@ -312,6 +339,9 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingDrumLevel;
     private javax.swing.JLabel jLabelReadingDrumPressure;
     private javax.swing.JLabel jLabelReadingDrumTemp;
+    private javax.swing.JLabel jLabelReadingFeed0Pos;
+    private javax.swing.JLabel jLabelReadingFeed1Pos;
+    private javax.swing.JLabel jLabelReadingFeed2Pos;
     private javax.swing.JLabel jLabelReadingFlowToDrum;
     private javax.swing.JLabel jLabelReadingMcpInPressure;
     private javax.swing.JLabel jLabelReadingMcpInTemp;
@@ -505,10 +535,29 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     @Override
     public void updateComponent(String propertyName, double newValue) {
         if (propertyName.length() == 15) { // FeedwaterN#Flow
-            if (propertyName.substring(11).equals("Flow")) {
-                if (Character.getNumericValue(propertyName.charAt(9)) == loop) {
+            if (Character.getNumericValue(propertyName.charAt(9)) == loop) {
+                if (propertyName.substring(11).equals("Flow")) {
                     jLabelFeedwaterFlow.setText(
                             String.format("%.0f", newValue) + " kg/s");
+                    return;
+                }
+            }
+        }
+        if (propertyName.length() == 31) { // FeedwaterN#FlowRegulationValveM
+            if (Character.getNumericValue(propertyName.charAt(9)) == loop) {
+                if (propertyName.substring(11, 30).equals("FlowRegulationValve")) {
+                    switch(Character.getNumericValue(propertyName.charAt(30))) {
+                        case 1 ->
+                            jLabelReadingFeed0Pos.setText(
+                                    String.format("%.0f", newValue));
+                        case 2 ->
+                            jLabelReadingFeed1Pos.setText(
+                                    String.format("%.0f", newValue));
+                        case 3 ->
+                            jLabelReadingFeed2Pos.setText(
+                                    String.format("%.0f", newValue));
+                    }
+
                     return;
                 }
             }

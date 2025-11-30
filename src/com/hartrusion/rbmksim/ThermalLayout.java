@@ -679,7 +679,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             makeupToDAPumps[idx].registerSignalListener(controller);
         }
-        
+
         for (int idx = 0; idx < 2; idx++) {
             mainSteamShutoffValve[idx].registerSignalListener(controller);
             deaeratorSteamInRegValve[idx].registerSignalListener(controller);
@@ -767,7 +767,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             makeupToDAPumps[idx].getDischargeValve()
                     .connectTo(condensationBoosterPumpOut);
         }
-        
+
         // Define the primary loop from drum through mcps and reactor and back.
         for (int idx = 0; idx < 2; idx++) {
             loopSteamDrum[idx].connectToVia(
@@ -1159,7 +1159,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // there must be 777.775 kg/s Feedwater flow. Expected pressure in 
         // steam drum is 69 bar and 284 °C. All safety valves will open at 75.5
         // bar so there should be no need to have a pump that can press huge 
-        // amounts of water.
+        // amounts of water against closed valves
         // It is assumed that we need two pumps per side and two flow regulation
         // valves per side so it's all in use on full power. The real plant has
         // more valves on the feed side but the simulation core cannot calculate
@@ -1168,20 +1168,32 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // the piping in the model) of 10 bar if full opened
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
-                // Operating pressure is 69 + 10 - 8 = 71 bar = 7.1e6
+                // Operating pressure is 69 + 10 - 8 = 71 bar = 7.1e6 on 389 kgs
                 feedwaterPump[idx][jdx].initCharacteristic(8e6, 7.1e6, 388.8);
             }
         }
         feedwaterPump3.initCharacteristic(8e6, 6.6e6, 388.8);
-        // Main Feedwater valves will have a pressure drop of those 1e6 Pa we
-        // just defined previously at 388.88
-        // R = U/I <> R = p/Q - 1e6/388.88 = 2711
+        // Shutoff valves do not add a considerable amount of resistance.
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 feedwaterShutoffValve[idx][jdx]
-                        .initCharacteristic(400, -1.0);
+                        .initCharacteristic(500, -1.0);
+            }
+        }
+        // Startup valves
+        for (int idx = 0; idx < 2; idx++) {
+            // This thing reduces to 100 kg/s at no pressure on startupt so it
+            // has a huge pressure drop of about 6e5 -> 6e3
+            feedwaterStartupReductionValve[idx]
+                    .initCharacteristic(6000, 20);
+            feedwaterFlowRegulationValve[idx][0]
+                    .initCharacteristic(800, 100);
+        }
+        // Full power valves
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 1; jdx < 3; jdx++) {
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .initCharacteristic(800, 100);
+                        .initCharacteristic(800, 20);
             }
         }
 
@@ -1825,8 +1837,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "AuxCond" + (idx + 1) + "#SteamFlow",
                     auxCondSteamValve[idx].getValveElement().getFlow());
         }
-            outputValues.setParameterValue("AuxCond#CondensateTemperature",
-                    auxCondCondInNode.getTemperature() - 273.5);
+        outputValues.setParameterValue("AuxCond#CondensateTemperature",
+                auxCondCondInNode.getTemperature() - 273.5);
         // </editor-fold>
 
         // Save values to plot manager
