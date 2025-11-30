@@ -55,6 +55,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             core.init();
             core.registerPlotDataVault(plotData);
             core.registerParameterOutput(outputValues);
+            core.registerAlarmManager(alarms);
             
             process.registerReactor(core);
             process.registerParameterOutput(outputValues);

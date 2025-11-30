@@ -125,14 +125,14 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabel20 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        chornobylGaugeLoop1Pressure = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeLoop1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFeed1Temp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFeed1Flow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel24 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        chornobylGaugeLoop2Pressure1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeLoop2Level1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFeed2Temp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFeed2Flow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         setpointControl1 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         setpointControl2 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         jLabel9 = new javax.swing.JLabel();
@@ -549,18 +549,18 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabel19.setText("Temp");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        chornobylGaugeLoop1Pressure.setChornobylMaximum(200.0F);
-        chornobylGaugeLoop1Pressure.setChornobylMinimum(20.0F);
-        chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
-        chornobylGaugeLoop1Pressure.setChornobylUnitText("°C");
-        add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+        chornobylGaugeFeed1Temp.setChornobylMaximum(200.0F);
+        chornobylGaugeFeed1Temp.setChornobylMinimum(20.0F);
+        chornobylGaugeFeed1Temp.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
+        chornobylGaugeFeed1Temp.setChornobylUnitText("°C");
+        add(chornobylGaugeFeed1Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
-        chornobylGaugeLoop1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop1Level.setChornobylMaximum(1800.0F);
-        chornobylGaugeLoop1Level.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop1Level.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
-        chornobylGaugeLoop1Level.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+        chornobylGaugeFeed1Flow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeFeed1Flow.setChornobylMaximum(1800.0F);
+        chornobylGaugeFeed1Flow.setChornobylMinimum(0.0F);
+        chornobylGaugeFeed1Flow.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
+        chornobylGaugeFeed1Flow.setChornobylUnitText("kg/s");
+        add(chornobylGaugeFeed1Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getSize()-2f));
         jLabel24.setText("Feed 2");
@@ -578,18 +578,18 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabel17.setText("Temp");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 46, 52, 14));
 
-        chornobylGaugeLoop2Pressure1.setChornobylMaximum(200.0F);
-        chornobylGaugeLoop2Pressure1.setChornobylMinimum(20.0F);
-        chornobylGaugeLoop2Pressure1.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
-        chornobylGaugeLoop2Pressure1.setChornobylUnitText("°C");
-        add(chornobylGaugeLoop2Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
+        chornobylGaugeFeed2Temp.setChornobylMaximum(200.0F);
+        chornobylGaugeFeed2Temp.setChornobylMinimum(20.0F);
+        chornobylGaugeFeed2Temp.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
+        chornobylGaugeFeed2Temp.setChornobylUnitText("°C");
+        add(chornobylGaugeFeed2Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
 
-        chornobylGaugeLoop2Level1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop2Level1.setChornobylMaximum(1800.0F);
-        chornobylGaugeLoop2Level1.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop2Level1.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
-        chornobylGaugeLoop2Level1.setChornobylUnitText("kg/s");
-        add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
+        chornobylGaugeFeed2Flow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeFeed2Flow.setChornobylMaximum(1800.0F);
+        chornobylGaugeFeed2Flow.setChornobylMinimum(0.0F);
+        chornobylGaugeFeed2Flow.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
+        chornobylGaugeFeed2Flow.setChornobylUnitText("kg/s");
+        add(chornobylGaugeFeed2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
 
         setpointControl1.setComponent("Loop1#DrumLevelSetpoint");
         add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 210, -1, -1));
@@ -684,10 +684,10 @@ public class PanelFeedwater extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Level;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Pressure;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Level1;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop2Pressure1;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Flow;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Temp;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Flow;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchStartupReduction1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchStartupReduction2;
     private javax.swing.JButton jButton1to3Close;
@@ -818,6 +818,13 @@ public class PanelFeedwater extends AbstractPanelWidget
 
         setpointControl1.updateComponent(propertyName, newValue);
         setpointControl2.updateComponent(propertyName, newValue);
+
+        switch (propertyName) {
+            case "Feedwater1#Flow" ->
+                chornobylGaugeFeed1Flow.setChornobylValue((float) newValue);
+            case "Feedwater2#Flow" ->
+                chornobylGaugeFeed2Flow.setChornobylValue((float) newValue);
+        }
     }
 
     @Override
