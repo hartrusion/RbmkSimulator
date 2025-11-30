@@ -308,7 +308,7 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
                 jLabelReadingTemperature1.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
-            case "DA1#OutFlow" ->
+            case "Deaerator1#FeedFlow" ->
                 jLabelReadingFlow1.setText(
                         String.format("%.0f", newValue) + " kg/s");
             case "Feedwater2#Pressure" ->
@@ -319,7 +319,7 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
                 jLabelReadingTemperature2.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
-            case "DA2#OutFlow" ->
+            case "Deaerator2#FeedFlow" ->
                 jLabelReadingFlow2.setText(
                         String.format("%.0f", newValue) + " kg/s");
         }

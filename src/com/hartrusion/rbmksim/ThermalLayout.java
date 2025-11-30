@@ -1438,12 +1438,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         // Feedwater level control parameters
         for (int idx = 0; idx < 2; idx++) {
-            for (int jdx = 0; jdx < 3; jdx++) {
+            for (int jdx = 1; jdx < 3; jdx++) {
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
                         .getController()).setParameterK(20);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
                         .getController()).setParameterTN(20);
             }
+        }
+        for (int idx = 0; idx < 2; idx++) { // startup valves
+            ((PIControl) feedwaterFlowRegulationValve[idx][0]
+                    .getController()).setParameterK(20);
+            ((PIControl) feedwaterFlowRegulationValve[idx][0]
+                    .getController()).setParameterTN(5);
         }
 
         for (int idx = 0; idx < 2; idx++) {
@@ -1770,6 +1776,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -loopFeedwaterIn[idx].getFlow( // negative = into node
                             blowdownReturn[idx]));
 
+            // Feedwater: Sum of feed into steam drums
             outputValues.setParameterValue("Feedwater" + (idx + 1) + "#Flow",
                     -loopFeedwaterIn[idx].getFlow(
                             feedwaterFlowRegulationValve[idx][0].getValveElement())
@@ -1786,6 +1793,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
             outputValues.setParameterValue(
                     "Deaerator" + (idx + 1) + "#Temperature",
                     deaerator[idx].getTemperature() - 273.15);
+            
+            // Feedwater from Deaerators to the pumps (this value is displayed
+            // on the feedwater pumps mnemonics
+            outputValues.setParameterValue("Deaerator" + (idx + 1) + "#FeedFlow",
+                    deaeratorFeedwaterOutHeatNode[idx].getFlow(
+                        feedwaterPump[idx][0].getSuctionValve())
+                    + deaeratorFeedwaterOutHeatNode[idx].getFlow(
+                        feedwaterPump[idx][1].getSuctionValve())
+                    + deaeratorFeedwaterOutHeatNode[idx].getFlow(
+                        feedwaterSparePumpInValve[idx].getValveElement()));
         }
 
         // Blowdown and Cooldown system
