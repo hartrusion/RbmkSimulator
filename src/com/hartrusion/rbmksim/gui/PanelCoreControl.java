@@ -1487,52 +1487,52 @@ public class PanelCoreControl extends AbstractPanelWidget {
     }//GEN-LAST:event_jButtonReset1ActionPerformed
 
     private void jButtonSetpointNegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointNegMousePressed
-        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+        controller.userAction(new ActionCommand("Reactor#SetpointNeutronFlux",
                 ControlCommand.SETPOINT_DECREASE));
     }//GEN-LAST:event_jButtonSetpointNegMousePressed
 
     private void jButtonSetpointNegMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointNegMouseReleased
-        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+        controller.userAction(new ActionCommand("Reactor#SetpointNeutronFlux",
                 ControlCommand.SETPOINT_STOP));
     }//GEN-LAST:event_jButtonSetpointNegMouseReleased
 
     private void jButtonSetpointPosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointPosMousePressed
-        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+        controller.userAction(new ActionCommand("Reactor#SetpointNeutronFlux",
                 ControlCommand.SETPOINT_INCREASE));
     }//GEN-LAST:event_jButtonSetpointPosMousePressed
 
     private void jButtonSetpointPosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSetpointPosMouseReleased
-        controller.userAction(new ActionCommand("SetpointNeutronFlux",
+        controller.userAction(new ActionCommand("Reactor#SetpointNeutronFlux",
                 ControlCommand.SETPOINT_STOP));
     }//GEN-LAST:event_jButtonSetpointPosMouseReleased
 
     private void jButtonGradientNegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientNegMousePressed
-        controller.userAction(new ActionCommand("SetpointPowerGradient",
+        controller.userAction(new ActionCommand("Reactor#SetpointPowerGradient",
                 ControlCommand.SETPOINT_DECREASE));
     }//GEN-LAST:event_jButtonGradientNegMousePressed
 
     private void jButtonGradientNegMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientNegMouseReleased
-        controller.userAction(new ActionCommand("SetpointPowerGradient",
+        controller.userAction(new ActionCommand("Reactor#SetpointPowerGradient",
                 ControlCommand.SETPOINT_STOP));
     }//GEN-LAST:event_jButtonGradientNegMouseReleased
 
     private void jButtonGradientPosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientPosMousePressed
-        controller.userAction(new ActionCommand("SetpointPowerGradient",
+        controller.userAction(new ActionCommand("Reactor#SetpointPowerGradient",
                 ControlCommand.SETPOINT_INCREASE));
     }//GEN-LAST:event_jButtonGradientPosMousePressed
 
     private void jButtonGradientPosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGradientPosMouseReleased
-        controller.userAction(new ActionCommand("SetpointPowerGradient",
+        controller.userAction(new ActionCommand("Reactor#SetpointPowerGradient",
                 ControlCommand.SETPOINT_STOP));
     }//GEN-LAST:event_jButtonGradientPosMouseReleased
 
     private void jToggleButtonRPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRPSActionPerformed
         if (jToggleButtonRPS.isSelected()) {
             jToggleButtonRPS.setText("|");
-            controller.userAction(new ActionCommand("RPS", true));
+            controller.userAction(new ActionCommand("Reactor#RPS", true));
         } else {
             jToggleButtonRPS.setText("—");
-            controller.userAction(new ActionCommand("RPS", false));
+            controller.userAction(new ActionCommand("Reactor#RPS", false));
         }
     }//GEN-LAST:event_jToggleButtonRPSActionPerformed
 

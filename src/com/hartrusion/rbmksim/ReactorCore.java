@@ -16,12 +16,17 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.alarm.AlarmAction;
+import com.hartrusion.alarm.AlarmState;
+import com.hartrusion.alarm.ValueAlarmMonitor;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.mvc.ActionCommand;
+import java.util.function.DoubleSupplier;
 
 /**
  * Models everything that has to do something with the reactor.
@@ -74,14 +79,16 @@ public class ReactorCore extends Subsystem implements Runnable {
     private final NeutronFluxModel neutronFluxModel = new NeutronFluxModel();
     private final XenonModel xenonModel = new XenonModel();
     
+    private final SerialRunner alarmUpdater = new SerialRunner();
+    
     private boolean rpsActive = true;
 
     ReactorCore() {
         setpointPowerGradient = new Setpoint();
-        setpointPowerGradient.initName("SetpointPowerGradient");
+        setpointPowerGradient.initName("Reactor#SetpointPowerGradient");
 
         setpointNeutronFlux = new Setpoint();
-        setpointNeutronFlux.initName("SetpointNeutronFlux");
+        setpointNeutronFlux.initName("Reactor#SetpointNeutronFlux");
     }
 
     @Override
@@ -113,14 +120,37 @@ public class ReactorCore extends Subsystem implements Runnable {
                 totalPosition += rod.getSwi().getOutput();
             }
         }
+        // Total position is the total sum of control rod pull lengts. 
         avgRodPosition = totalPosition / (double) controlRods.size();
-        // Generate a 0..100 % value from rod absorption
+        // Generate a 0..100 % value from total rod absorption
         rodAbsorption = absorption / maxAbsorption * 100;
 
-        // This magic formula sets how the whole thing behaves
-        reactivity = 65.0 // generally present reactivity.
-                - xenonModel.getYXenon() / 200 * 60
-                - Math.min(15, coreTemp / 30)
+        /* This magic formula sets how the whole thing behaves. The reactivity
+        * is given in same unit and dimension as the rods absorption, the 
+        * difference is integrated by the neutron flux model to get the neutron
+        * flux. We use unit %N as percentage of neturon flux here.
+        * - With no negative reactivity effects, it is defined that we need 6 
+        *   manual rods out to have positive reactitvity. 
+        *   100 %N - 8 * 2.26 %N = 86.44 %N
+        *   This allows to pull 4 manual rods first and use the 4 auto rods at
+        *   half pull distance to smootly control the initial reaction.
+        * - One manual control rod gives about 2.26 %N of absorption.
+        * - If the accident sequence is simulated correctly, the xenon model
+        *   output value will jump up to about 175 %Xe on dropping to 40 %N 
+        *   and, if the power is then reduced to 5 %N, it will rise up to a 
+        *   value between 200 and 230 %Xe. This means that a xenon value of  
+        *   230 %Xe needs all rods out. This allows to stall the core with 
+        *   xenon poisoning.
+        *   1 / 230 %Xe * 80 %N = 0.348 %N/%Xe
+        * - coreTemp is given in °C and rises up to 570 °C in normal operation.
+        *   A negative temperature coefficient is wanted with 2 rods so we'll
+        *   have 2 * 2.26%N / 570 °C = 7.93e-3 %N/°C. However, it will be 
+        *   limited to a certain value to not prevent a meltdown too much.
+        
+        */
+        reactivity = 86.44 // generally present reactivity.
+                - xenonModel.getYXenon() * 0.348
+                - Math.min(700, coreTemp) * 7.93e-3
                 + voiding / 20 * 5;
 
         // pass reactivity to and get the neutron flux from state space model.
@@ -129,7 +159,9 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Pass neutron flux to xenon model and generate xenon poisoning value.
         xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
-
+        
+        alarmUpdater.invokeAll();
+        
         // Send the neutron values to the gui
         outputValues.setParameterValue("Reactor#NeutronFlux",
                 neutronFluxModel.getYNeutronFlux());
@@ -181,6 +213,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         if (ac.getPropertyName().equals("Reactor#AZ5")) {
             shutdown();
+            return;
+        }
+        if (ac.getPropertyName().equals("Reactor#RPS")) {
+            rpsActive = (boolean) ac.getValue();
         }
         int identifier, x, y;
         boolean value;
@@ -340,6 +376,29 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         setpointNeutronFlux.forceOutputValue(40.0);
         setpointNeutronFlux.setMaxRate(8);
+        
+        // Define alarms and consequences
+        ValueAlarmMonitor am;
+        am = new ValueAlarmMonitor();
+        am.setName("NeutronRate");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return neutronFluxModel.getYNeutronRate();
+            }
+        });
+        am.defineAlarm(2.0, AlarmState.MAX1);
+        am.defineAlarm(1.6, AlarmState.HIGH2);
+        am.defineAlarm(1.2, AlarmState.HIGH1);
+        am.defineAlarm(-1.2, AlarmState.LOW1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                triggerAutoShutdown();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
     } // </editor-fold>
 
     public ReactorElement getElement(int x, int y) {

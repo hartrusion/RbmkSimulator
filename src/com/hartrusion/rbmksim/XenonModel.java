@@ -23,13 +23,14 @@ package com.hartrusion.rbmksim;
 public class XenonModel implements Runnable {
 
     /**
-     * Stept time in Seconds
+     * Step time in Seconds
      */
     private double stepTime = 0.1;
 
     /**
-     * Time constant for iodine buildup. A realistic value would be 4 Hours but
-     * that would be ridiculously for a simulator.
+     * Time constant for iodine buildup. A realistic value would be 4 hours but
+     * that would be ridiculously for a simulator. 5 Minutes however seem to be
+     * more reasonable for a simulator.
      */
     private static final double T_IODINE = 300;
 

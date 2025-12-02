@@ -19,9 +19,9 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.control.SetpointIntegrator;
 
 /**
- * Describes and caluclates a control rod entity. Holds information about what
+ * Describes and calculates a control rod entity. Holds information about what
  * kind of rod it is and also manages the position setting with a setpoint
- * integrator to emulate the drives behaviour. An absorption can be retrieved
+ * integrator to emulate the drives behavior. An absorption can be retrieved
  * depending on the current rod position.
  *
  * @author Viktor Alexander Hartung
@@ -37,8 +37,8 @@ public class ControlRod extends ReactorElement implements Runnable {
     }
 
     /**
-     * Setpoint integrator whichs output represents rod position inside the core
-     * in meters where 0 is the upper end stop.
+     * Setpoint integrator which represents rod position inside the core in
+     * meters where 0 is the upper end stop with its output.
      */
     private final SetpointIntegrator swi = new SetpointIntegrator();
 
@@ -82,7 +82,7 @@ public class ControlRod extends ReactorElement implements Runnable {
      * defines the behaviour of the absorption in relation to the insertion
      * position.
      *
-     * @return
+     * @return Value between 0.0 and 1.0
      */
     public double getAbsorption() {
         return absorption;
@@ -93,7 +93,7 @@ public class ControlRod extends ReactorElement implements Runnable {
         if (rodType == ChannelType.SHORT_CONTROLROD) {
             // Short rods go the other way round and make a maximum of 0.6
             if (position <= 3.0) {
-                absorption = 0.6; // small rod is fully pulled up inside the core
+                absorption = 0.6; // small rod is fully pulled up inside core
                 return;
             }
             if (position >= 7.2) {
@@ -104,20 +104,42 @@ public class ControlRod extends ReactorElement implements Runnable {
             absorption = (0.0 - 0.6) / (7.2 - 3.0) * (position - 3.0) + 0.6;
             return;
         }
-        // All other control rods:
-        if (position <= 0.6) {
-            // dangerous area: this goes into wrong direction
-            // until we hit 0.6 meters. interpolate between 0/0.2 and 0.6/0
-            absorption = 0.2 - position * 0.333333;
+        if (rodType == ChannelType.MANUAL_CONTROLROD) {
+            // Manual control rods have a positive effect when they are fully
+            // inserted, it's not much but it is there. This is used to trigger 
+            // the accident.
+            if (position <= 0.6) {
+                // dangerous area: this goes into wrong direction
+                // until we hit 0.6 meters. interpolate between 0/0.2 and 0.6/0
+                absorption = 0.2 - position * 0.333333;
+                return;
+            }
+            if (position >= 7.3) {
+                absorption = 1.0; // full insert
+                return;
+            }
+            // interp 0.6/0 and 7.3/1
+            // y = (y2-y1) / (x2-x1) * (x-x1) + y1);
+            absorption = 1.0 / (7.3 - 0.6) * (position - 0.6);
             return;
         }
-        if (position >= 7.3) {
-            absorption = 1.0; // full insert
+        if (rodType == ChannelType.AUTOMATIC_CONTROLROD) {
+            // Those auto control rods do not have that effect, otherwise the
+            // controller might get stuck in a positive loop in output 
+            // mode, this would require the operator to do something that has 
+            // only reasons in the way how the model is build and this is not
+            // wanted.
+            if (position <= 0) {
+                absorption = 0.0; // fully withdrawn
+                return;
+            }
+            if (position >= 7.3) {
+                absorption = 1.0; // full insert
+                return;
+            }
+            absorption = 1.0 / 7.3 * position;
             return;
         }
-        // interp 0.6/0 and 7.3/1
-        // y = (y2-y1) / (x2-x1) * (x-x1) + y1);
-        absorption = 1.0 / (7.3 - 0.6) * (position - 0.6);
     }
 
     /**

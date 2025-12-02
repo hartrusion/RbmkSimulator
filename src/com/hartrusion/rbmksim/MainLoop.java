@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmManager;
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.control.SerialRunner;
 import com.hartrusion.modeling.solvers.SuperPosition;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
@@ -33,13 +34,13 @@ import java.util.logging.Logger;
  */
 public class MainLoop implements Runnable, ModelManipulation {
 
-    ModelListener controller;
+    private ModelListener controller;
 
-    ReactorCore core = new ReactorCore();
-    ThermalLayout process = new ThermalLayout();
+    private ReactorCore core = new ReactorCore();
+    private ThermalLayout process = new ThermalLayout();
 
-    ParameterHandler outputValues = new ParameterHandler();
-    AlarmManager alarms = new AlarmManager();
+    private ParameterHandler outputValues = new ParameterHandler();
+    private AlarmManager alarms = new AlarmManager();
 
     long maxTime;
     long initialIterations = 0;
@@ -52,10 +53,11 @@ public class MainLoop implements Runnable, ModelManipulation {
             plotData.initTime(751, 0.1F * (float) plotCountDiv);
             plotData.setCountDiv(plotCountDiv);
             
+            core.registerAlarmManager(alarms);
             core.init();
             core.registerPlotDataVault(plotData);
             core.registerParameterOutput(outputValues);
-            core.registerAlarmManager(alarms);
+            
             
             process.registerReactor(core);
             process.registerParameterOutput(outputValues);
@@ -63,7 +65,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             process.registerAlarmManager(alarms);
             process.init();
             process.registerPlotDataVault(plotData);
-            
+                        
         } catch (Exception e) {
             // Throw exception as error message popup
             ExceptionPopup.show(e);

@@ -30,7 +30,7 @@ public class XenonBuildup {
 
     public void run() {
         final double simulationTime = 60 * 60; // 1h
-        final double stepTime = 40;
+        final double stepTime = 5;
         int steps = (int) (simulationTime / stepTime);
 
         double neutronFlux;
@@ -43,7 +43,7 @@ public class XenonBuildup {
         xenonModel.setStepTime(stepTime);
 
         for (int idx = 0; idx < steps; idx++) {
-            xTime[idx] = (double) idx * stepTime / 60;
+            xTime[idx] = (double) idx * stepTime / 60; // Minutes
             if (xTime[idx] > 35) {
                 neutronFlux = 5;
             } else  if (xTime[idx] > 30) {
@@ -65,7 +65,7 @@ public class XenonBuildup {
         plot(xTime, yFlux);
         plot(xTime, yIodine);
         axis(0, 60, 0, 250);
-        xlabel("Time (Hours)");
+        xlabel("Time (Minutes)");
         ylabel("Percentage");
     }
 

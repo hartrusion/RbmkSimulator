@@ -28,6 +28,8 @@ package com.hartrusion.rbmksim;
  * <p>
  * The difference between the input reactivities is multiplied by K_REACTIVITY
  * and then 1 is added to get the K_eff value.
+ * <p>
+ * The speed of the integration is determined by K_REACTIVITY * K_INTEGRAL.
  *
  * @author Viktor Alexander Hartung
  */
@@ -56,13 +58,22 @@ public class NeutronFluxModel implements Runnable {
      * reaction (I made this up!) and there will be a rapid power decrease
      * happening. This is to allow a sudden power drop.
      */
-    private final double DECAY_FACTOR = 400;
+    private final double DECAY_FACTOR = 800;
+    
+    /**
+     * The difference between uReactivity and uAbsorberRods will be multiplied
+     * with this factor and 1.0 will be added, ultimately resulting in the 
+     * effective neutron multiplication factor K_eff.
+     */
+//  private final double K_REACTIVITY = 0.00010;
+    private final double K_REACTIVITY = 0.00018;
 
     /**
      * The return value of criticalityFunction will be multiplied by this,
      * defining the integration speed of the neutron flux.
      */
-    private final double K_INTEGRAL = 104.166666666667;
+//  private final double K_INTEGRAL = 104.1666667;
+    private final double K_INTEGRAL =  57.87;
 
     /**
      * Factor of rod movement derivative part which will be added to the
@@ -92,13 +103,6 @@ public class NeutronFluxModel implements Runnable {
     private final double T_DELAYED_REACTIVITY = 16.0;
 
     /**
-     * The difference between uReactivity and uAbsorberRods will be multiplied
-     * with this factor, ultimately resulting in the effective neutron
-     * multiplication factor K_eff.
-     */
-    private final double K_REACTIVITY = 0.0001;
-
-    /**
      * Fraction of thermal power that will be delayed as it occurs by delayed
      * decay instead of the uranium fission. This will be the part that is still
      * there and slowly decays after scram.
@@ -111,7 +115,7 @@ public class NeutronFluxModel implements Runnable {
     private final double T_DECAY = 100;
 
     /**
-     * Reacitivity removed by the absorber rods. Will get a kinky DT1 effect
+     * Reactivity removed by the absorber rods. Will get a kinky DT1 effect
      * added to mess up the control system.
      */
     private double uAbsorberRods;
@@ -133,7 +137,7 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * State space variable. This is the neutron flux, designed to be a
-     * percentage value between 0 and 100 %, with 100 % beeing 3200 MW thermal.
+     * percentage value between 0 and 100 %, with 100 % being 3200 MW thermal.
      */
     private double xNeutronFlux;
 
@@ -199,16 +203,20 @@ public class NeutronFluxModel implements Runnable {
         xNeutronFlux = Math.min(
                 Math.max( // There will be no negative neutron flux.
                         xNeutronFlux + dXNeutronFlux * stepTime, 0),
-                937.5); // Limit to 937.5 MW (833.3 percent of 3200 MW)
+                937.5); // Limit to 937.5 % (833.3 percent of 3200 MW)
         xDelayedCriticality += dXDelayedCriticality * stepTime;
         xDeltaRods += dXDeltaRods * stepTime;
         xFirstDelay += dXFirstDelay * stepTime;
         xDelayedThermalPower += dXDelayedThermalPower * stepTime;
 
         // Update Output variables
-        yK = xDelayedCriticality // hide the DT-part, just for fun.
+        yK = xDelayedCriticality
+                // Prompt part:
                 + (K_REACTIVITY * (uReactivity - uAbsorberRods) + 1.0)
-                * P_INSTANT;
+                * P_INSTANT
+                // DT1 lift part:
+                - Math.min(0, K_REACTIVITY * K_DIFF_RODS
+                        * (uAbsorberRods - xDeltaRods));
 
         yNeutronFlux = xNeutronFlux;
         if (yNeutronFlux > 0.0) {
@@ -279,6 +287,12 @@ public class NeutronFluxModel implements Runnable {
         return yK;
     }
 
+    /**
+     * Neutron Rate describes the change in the neutron flux (given in 0..100%)
+     * in 10%/s.
+     *
+     * @return Neutron rate in 10%/s.
+     */
     public double getYNeutronRate() {
         return yNeutronRate;
     }

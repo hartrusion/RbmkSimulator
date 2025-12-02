@@ -37,7 +37,7 @@ public class RodPositiveEffect {
         // It's fixed that the rods need 22 Seconds from top to bottom. 
         // Setting stepTime to 0.5 then will lead to 44 data points.
         final double stepTime = 0.5;
-        int steps = (int) (25.0 / stepTime);
+        int steps = (int) (23.0 / stepTime);
         xTime = new double[steps];
         yAbsorption = new double[steps];
 
@@ -48,13 +48,14 @@ public class RodPositiveEffect {
         // initial rod position is 7.3 m - set to 0.0 to insert
         rod.getSwi().setInputMin();
         for (int idx = 0; idx < steps; idx++) {
-            xTime[idx] = (double) idx * stepTime;
+            xTime[idx] = (double) rod.getSwi().getOutput();
             yAbsorption[idx] = rod.getAbsorption();
             rod.run();
         }
         
         plot(xTime, yAbsorption);
-
+        xlabel("Rod Position (m)");
+        ylabel("Absorption coefficient");
     }
 
     public static void main(String[] args) {

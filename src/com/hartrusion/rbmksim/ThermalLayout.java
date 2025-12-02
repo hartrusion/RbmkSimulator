@@ -1660,7 +1660,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Generate core temperature value (avg deg celsius value)
         coreTemp = (fuelThermalOut[0].getEffort()
-                + fuelThermalOut[0].getEffort()) / 2 - 273.5;
+                + fuelThermalOut[1].getEffort()) / 2 - 273.5;
 
         // Generate thermal lift for next cycle
         for (int idx = 0; idx < 2; idx++) {
