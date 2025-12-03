@@ -1621,6 +1621,129 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("DA1Level");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return deaerator[0].getFillHeight() * 100;
+            }
+        });
+        am.defineAlarm(220.0, AlarmState.MAX2);
+        am.defineAlarm(210.0, AlarmState.MAX1);
+        am.defineAlarm(180.0, AlarmState.HIGH2);
+        am.defineAlarm(160.0, AlarmState.HIGH1);
+        am.defineAlarm(60.0, AlarmState.LOW1);
+        am.defineAlarm(40.0, AlarmState.LOW2);
+        am.defineAlarm(20.0, AlarmState.MIN1);
+        am.defineAlarm(10.0, AlarmState.MIN2);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                deaeratorSteamFromMain[0].operateCloseValve();
+                deaeratorSteamFromMain[1].operateCloseValve();
+                deaeratorSteamInRegValve[0].getController().setManualMode(true);
+                deaeratorSteamInRegValve[0].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX2) {
+            @Override
+            public void run() {
+                condensationValveToDA[0].getController().setManualMode(true);
+                condensationValveToDA[0].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                deaeratorDrain[0].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
+            @Override
+            public void run() {
+                for (int jdx = 0; jdx < 2; jdx++) {
+                    feedwaterPump[0][jdx].operateStopPump();
+                    feedwaterPump[0][jdx].operateCloseSuctionValve();
+                }
+                // shut down feed pump 3 if it is currently open to this side.
+                if (feedwaterSparePumpInValve[0].getOpening() > 1.0) {
+                    feedwaterSparePumpInValve[0].operateCloseValve();
+                    feedwaterPump3.operateCloseSuctionValve();
+                    feedwaterPump3.operateStopPump();
+                }
+            }
+        });
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("DA2Level");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return deaerator[1].getFillHeight() * 100;
+            }
+        });
+        am.defineAlarm(220.0, AlarmState.MAX2);
+        am.defineAlarm(210.0, AlarmState.MAX1);
+        am.defineAlarm(180.0, AlarmState.HIGH2);
+        am.defineAlarm(160.0, AlarmState.HIGH1);
+        am.defineAlarm(60.0, AlarmState.LOW1);
+        am.defineAlarm(40.0, AlarmState.LOW2);
+        am.defineAlarm(20.0, AlarmState.MIN1);
+        am.defineAlarm(10.0, AlarmState.MIN2);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                deaeratorSteamFromMain[0].operateCloseValve();
+                deaeratorSteamFromMain[1].operateCloseValve();
+                deaeratorSteamInRegValve[1].getController().setManualMode(true);
+                deaeratorSteamInRegValve[1].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX2) {
+            @Override
+            public void run() {
+                condensationValveToDA[1].getController().setManualMode(true);
+                condensationValveToDA[1].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                deaeratorDrain[1].operateCloseValve();
+            }
+        });
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
+            @Override
+            public void run() {
+                for (int jdx = 0; jdx < 2; jdx++) {
+                    feedwaterPump[1][jdx].operateStopPump();
+                    feedwaterPump[1][jdx].operateCloseSuctionValve();
+                }
+                // shut down feed pump 3 if it is currently open to this side.
+                if (feedwaterSparePumpInValve[1].getOpening() > 1.0) {
+                    feedwaterSparePumpInValve[1].operateCloseValve();
+                    feedwaterPump3.operateCloseSuctionValve();
+                    feedwaterPump3.operateStopPump();
+                }
+            }
+        });
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
         // </editor-fold>
     }
 
