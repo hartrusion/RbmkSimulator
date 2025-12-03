@@ -159,6 +159,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Pass neutron flux to xenon model and generate xenon poisoning value.
         xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
+        xenonModel.run();
         
         alarmUpdater.invokeAll();
         
