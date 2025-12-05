@@ -16,7 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui.widgets;
 
-import com.hartrusion.modeling.assemblies.PumpState;
+import com.hartrusion.modeling.automated.PumpState;
 import com.hartrusion.mvc.ActionCommand;
 import java.beans.BeanProperty;
 import java.beans.PropertyChangeEvent;

@@ -18,8 +18,8 @@ package com.hartrusion.rbmksim.gui.mnemonic;
 
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.ValveState;
-import com.hartrusion.modeling.assemblies.PumpState;
-import static com.hartrusion.modeling.assemblies.PumpState.*;
+import com.hartrusion.modeling.automated.PumpState;
+import static com.hartrusion.modeling.automated.PumpState.*;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.mvc.UpdateReceiver;
 
