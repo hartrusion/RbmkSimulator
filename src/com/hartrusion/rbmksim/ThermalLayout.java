@@ -233,6 +233,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatFluidPumpSimple[] auxCondPumps
             = new HeatFluidPumpSimple[2];
     private final HeatNode auxCondCollectorNode;
+    private final HeatEffortSource auxCondHeightDifference;
+    private final HeatNode auxCondDistributorNode;
     private final HeatValve auxCondValveToHotwell;
     private final HeatValve auxCondValveToDrain;
 
@@ -604,6 +606,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         auxCondCollectorNode = new HeatNode();
         auxCondCollectorNode.setName("AuxCond#ConllectorNode");
+        auxCondHeightDifference = new HeatEffortSource();
+        auxCondHeightDifference.setName("AuxCond#HeightDifference");
+        auxCondDistributorNode = new HeatNode();
+        auxCondDistributorNode.setName("AuxCond#DistributorNode");
         auxCondValveToHotwell = new HeatValve();
         auxCondValveToHotwell.initName("AuxCond#ToHotwell");
         auxCondValveToDrain = new HeatValve();
@@ -1013,10 +1019,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Bypass parallel to those 2 pumps
         auxCondBypass.getValveElement().connectTo(auxCondCondInNode);
         auxCondBypass.getValveElement().connectTo(auxCondCollectorNode);
+        // height difference as pressure diff source
+        auxCondHeightDifference.connectBetween(auxCondCollectorNode, 
+                auxCondDistributorNode);
         // Todo: Hotwell connection (no hotwell yet)
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
-                auxCondCollectorNode, makeupStorageDrainCollector);
+                auxCondDistributorNode, makeupStorageDrainCollector);
 
         // Steam Dump
         for (int idx = 0; idx < 2; idx++) {
@@ -1238,8 +1247,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initCharacteristic(2e4, 5);
-            auxCondensers[idx].initCharacteristic(25, 200,
+            auxCondSteamValve[idx].initCharacteristic(3e3, 20); // see below
+            auxCondensers[idx].initCharacteristic(15, 200,
                     4000, 8.7e6, 4.0, 6.0, 1e5);
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
@@ -1247,7 +1256,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // we use flow source as valve for coolant flow
             auxCondCoolantValve[idx].initCharacteristic(600, 6);
         }
-
+        // Assume there would be about 15 meters height difference and apply
+        // this to the pressure source to allow passive flow. 
+        auxCondHeightDifference.setEffort(1.5e5);
+        // to need at least one pump for those total 56 kg/s, lets make the 
+        // valves in a way they only have about 20 kg/s only without a pump. So 
+        // that will be a total reistance of R = 1.5e5 Pa / 20 kg/s = 7500.
+        // we use 3000 on the auxCondSteamValve and 2500 on the valves to
+        // the hotwell or makeup storage, 2000 on the aux bypass valve.
+        auxCondBypass.initCharacteristic(2000, -1);
+        auxCondValveToDrain.initCharacteristic(2500, 20);
+        
+        
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
