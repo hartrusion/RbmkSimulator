@@ -25,12 +25,18 @@ import java.beans.PropertyChangeEvent;
  * @author Viktor Alexander Hartung
  */
 public class PanelCondensation extends AbstractPanelWidget {
-    
+
     @Override
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
         panelWidgetMakeupPump1.registerActionReceiver(controller);
         panelWidgetMakeupPump2.registerActionReceiver(controller);
+        panelWidgetPumpHotwell1.registerActionReceiver(controller);
+        panelWidgetPumpHotwell2.registerActionReceiver(controller);
+        panelWidgetPumpHotwell3.registerActionReceiver(controller);
+        panelWidgetPumpCondensate1.registerActionReceiver(controller);
+        panelWidgetPumpCondensate2.registerActionReceiver(controller);
+        panelWidgetPumpCondensate3.registerActionReceiver(controller);
     }
 
     /**
@@ -49,12 +55,12 @@ public class PanelCondensation extends AbstractPanelWidget {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelWidgetPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPump3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPump4 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPump5 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPump6 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpCondensate3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpCondensate2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpCondensate1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpHotwell3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpHotwell2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpHotwell1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         controlLoopHotwellFill = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         controlLoopHotwellDrain = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         jLabelDA1Press1 = new javax.swing.JLabel();
@@ -125,12 +131,24 @@ public class PanelCondensation extends AbstractPanelWidget {
         setMinimumSize(new java.awt.Dimension(580, 340));
         setPreferredSize(new java.awt.Dimension(580, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(panelWidgetPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 222, -1, -1));
-        add(panelWidgetPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 222, -1, -1));
-        add(panelWidgetPump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 222, -1, -1));
-        add(panelWidgetPump4, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 72, -1, -1));
-        add(panelWidgetPump5, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 72, -1, -1));
-        add(panelWidgetPump6, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
+
+        panelWidgetPumpCondensate3.setChornobylPrefix("Condensation3#CondensatePump");
+        add(panelWidgetPumpCondensate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 222, -1, -1));
+
+        panelWidgetPumpCondensate2.setChornobylPrefix("Condensation2#CondensatePump");
+        add(panelWidgetPumpCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 222, -1, -1));
+
+        panelWidgetPumpCondensate1.setChornobylPrefix("Condensation1#CondensatePump");
+        add(panelWidgetPumpCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 222, -1, -1));
+
+        panelWidgetPumpHotwell3.setChornobylPrefix("Condensation3#HotwellPump");
+        add(panelWidgetPumpHotwell3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 72, -1, -1));
+
+        panelWidgetPumpHotwell2.setChornobylPrefix("Condensation2#HotwellPump");
+        add(panelWidgetPumpHotwell2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 72, -1, -1));
+
+        panelWidgetPumpHotwell1.setChornobylPrefix("Condensation1#HotwellPump");
+        add(panelWidgetPumpHotwell1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
         add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 46, -1, -1));
         add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 90, -1, -1));
 
@@ -639,11 +657,11 @@ public class PanelCondensation extends AbstractPanelWidget {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFeed12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12CloseActionPerformed
-        
+
     }//GEN-LAST:event_jButtonFeed12CloseActionPerformed
 
     private void jButtonFeed12OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12OpenActionPerformed
-       
+
     }//GEN-LAST:event_jButtonFeed12OpenActionPerformed
 
     private void jButtonFeed12Close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close1ActionPerformed
@@ -801,18 +819,24 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelFeed17;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump2;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump1;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump2;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump3;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump4;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump5;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump6;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate3;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpHotwell1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpHotwell2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpHotwell3;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
         panelWidgetMakeupPump1.updateComponent(evt);
         panelWidgetMakeupPump2.updateComponent(evt);
+        panelWidgetPumpHotwell1.updateComponent(evt);
+        panelWidgetPumpHotwell2.updateComponent(evt);
+        panelWidgetPumpHotwell3.updateComponent(evt);
+        panelWidgetPumpCondensate1.updateComponent(evt);
+        panelWidgetPumpCondensate2.updateComponent(evt);
+        panelWidgetPumpCondensate3.updateComponent(evt);
     }
 
     @Override

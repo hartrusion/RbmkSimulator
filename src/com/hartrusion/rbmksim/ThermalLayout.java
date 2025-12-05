@@ -73,6 +73,7 @@ import java.util.function.DoubleSupplier;
  * @author Viktor Alexander Hartung
  */
 public class ThermalLayout extends Subsystem implements Runnable {
+
     // Reference to the used reactor core part
     private ReactorCore core;
 
@@ -243,11 +244,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedCondenser hotwell;
     private final PhasedHeatFluidConverter hotwellOutConverter;
     private final HeatNode hotwellOutNode;
-    private final HeatFluidPump[] condensationPump = new HeatFluidPump[3];
+    private final HeatFluidPump[] condensationHotwellPump = new HeatFluidPump[3];
     private final HeatNode condensationPumpOut;
     private final HeatVolumizedFlowResistance condensationEjectorDummy;
     private final HeatNode condensationBoosterPumpIn;
-    private final HeatFluidPump[] condensationBoosterPump
+    private final HeatFluidPump[] condensationCondensatePump
             = new HeatFluidPump[3];
     private final HeatNode condensationBoosterPumpOut;
     private final HeatValveControlled[] condensationValveToDA
@@ -619,38 +620,39 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwell.initName("Hotwell");
         hotwell.initGenerateNodes();
         hotwellOutConverter = new PhasedHeatFluidConverter(phasedWater);
-        hotwellOutConverter.setName("HotwellOutConverter");
+        hotwellOutConverter.setName("Hotwell#OutConverter");
         hotwellOutNode = new HeatNode();
-        hotwellOutNode.setName("HotwellOutNode");
+        hotwellOutNode.setName("Hotwell#OutNode");
         for (int idx = 0; idx < 3; idx++) {
-            condensationPump[idx] = new HeatFluidPump();
-            condensationPump[idx].initName(
-                    "Condensation" + (idx + 1) + "Pump");
+            condensationHotwellPump[idx] = new HeatFluidPump();
+            condensationHotwellPump[idx].initName(
+                    "Condensation" + (idx + 1) + "#HotwellPump");
         }
         condensationPumpOut = new HeatNode();
-        condensationPumpOut.setName("CondensationPumpOut");
+        condensationPumpOut.setName("Condensation#PumpOut");
         condensationEjectorDummy = new HeatVolumizedFlowResistance();
-        condensationEjectorDummy.setName("CondensationEjectorDummy");
+        condensationEjectorDummy.setName("Condensation#EjectorDummy");
         condensationBoosterPumpIn = new HeatNode();
-        condensationBoosterPumpIn.setName("CondensationBoosterPumpIn");
+        condensationBoosterPumpIn.setName("Condensation#BoosterPumpIn");
         for (int idx = 0; idx < 3; idx++) {
-            condensationBoosterPump[idx] = new HeatFluidPump();
-            condensationBoosterPump[idx].initName(
-                    "Condensation" + (idx + 1) + "BoosterPump");
+            condensationCondensatePump[idx] = new HeatFluidPump();
+            condensationCondensatePump[idx].initName(
+                    "Condensation" + (idx + 1) + "#CondensatePump");
         }
         condensationBoosterPumpOut = new HeatNode();
-        condensationBoosterPumpOut.setName("CondensationBoosterPumpOut");
+        condensationBoosterPumpOut.setName("Condensation#BoosterPumpOut");
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx] = new HeatValveControlled();
+            condensationValveToDA[idx].registerController(new PIControl());
             condensationValveToDA[idx].initName(
-                    "Condensation" + (idx + 1) + "ValveToDA");
+                    "Condensation" + (idx + 1) + "#ValveToDA");
             condensationValveOut[idx] = new HeatNode();
             condensationValveOut[idx].setName(
-                    "Condensation" + (idx + 1) + "ValveOut");
+                    "Condensation" + (idx + 1) + "#ValveOut");
             condensationToDeaeratorConverter[idx]
                     = new PhasedHeatFluidConverter(phasedWater);
             condensationToDeaeratorConverter[idx].setName(
-                    "Condensation" + (idx + 1) + "ToDeaeratorConverter");
+                    "Condensation" + (idx + 1) + "#ToDeaeratorConverter");
         }
 
         //</editor-fold>      
@@ -751,6 +753,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondValveToHotwell.registerParameterHandler(outputValues);
         auxCondValveToDrain.registerSignalListener(controller);
         auxCondValveToDrain.registerParameterHandler(outputValues);
+        for (int idx = 0; idx < 3; idx++) {
+            condensationHotwellPump[idx].registerSignalListener(controller);
+            condensationCondensatePump[idx].registerSignalListener(controller);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            condensationValveToDA[idx].registerParameterHandler(outputValues);
+            condensationValveToDA[idx].registerSignalListener(controller);
+        }
 
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
@@ -1018,17 +1028,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellOutConverter.connectBetween(
                 hotwell.getPhasedNode(PhasedCondenser.PRIMARY_OUT),
                 hotwellOutNode);
-        for (int idx = 0; idx < condensationPump.length; idx++) {
-            condensationPump[idx].getSuctionValve().connectTo(hotwellOutNode);
-            condensationPump[idx].getDischargeValve().connectTo(
+        for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
+            condensationHotwellPump[idx].getSuctionValve().connectTo(hotwellOutNode);
+            condensationHotwellPump[idx].getDischargeValve().connectTo(
                     condensationPumpOut);
         }
         condensationEjectorDummy.connectBetween(
                 condensationPumpOut, condensationBoosterPumpIn);
-        for (int idx = 0; idx < condensationBoosterPump.length; idx++) {
-            condensationBoosterPump[idx].getSuctionValve().connectTo(
+        for (int idx = 0; idx < condensationCondensatePump.length; idx++) {
+            condensationCondensatePump[idx].getSuctionValve().connectTo(
                     condensationBoosterPumpIn);
-            condensationBoosterPump[idx].getDischargeValve().connectTo(
+            condensationCondensatePump[idx].getDischargeValve().connectTo(
                     condensationBoosterPumpOut);
         }
         for (int idx = 0; idx < 2; idx++) {
@@ -1362,6 +1372,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.submit(auxCondValveToHotwell);
         runner.submit(auxCondValveToDrain);
 
+        for (int idx = 0; idx < 3; idx++) {
+            runner.submit(condensationHotwellPump[idx]);
+            runner.submit(condensationCondensatePump[idx]);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(condensationValveToDA[idx]);
+        }
+
         // Add Solo control loops
         runner.submit(blowdownBalanceControlLoop);
 
@@ -1622,7 +1640,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("DA1Level");
         am.addInputProvider(new DoubleSupplier() {
@@ -1763,7 +1781,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 }
             });
         }
-        
+
         // </editor-fold>
     }
 
@@ -1771,13 +1789,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public void run() {
         setThermalPower(0, core.getThermalPower(0));
         setThermalPower(1, core.getThermalPower(1));
-        
-        
+
         // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
         // handleAction in this class here. So the first thing happening is
         // all the commands from GUI will be processed.
-
         // Invoke all runnable assemblies, this will for example set the valve 
         // opening values or pump effort source values to the thermal layout 
         // model.
@@ -1936,16 +1952,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
             outputValues.setParameterValue(
                     "Deaerator" + (idx + 1) + "#Temperature",
                     deaerator[idx].getTemperature() - 273.15);
-            
+
             // Feedwater from Deaerators to the pumps (this value is displayed
             // on the feedwater pumps mnemonics
             outputValues.setParameterValue("Deaerator" + (idx + 1) + "#FeedFlow",
                     deaeratorFeedwaterOutHeatNode[idx].getFlow(
-                        feedwaterPump[idx][0].getSuctionValve())
+                            feedwaterPump[idx][0].getSuctionValve())
                     + deaeratorFeedwaterOutHeatNode[idx].getFlow(
-                        feedwaterPump[idx][1].getSuctionValve())
+                            feedwaterPump[idx][1].getSuctionValve())
                     + deaeratorFeedwaterOutHeatNode[idx].getFlow(
-                        feedwaterSparePumpInValve[idx].getValveElement()));
+                            feedwaterSparePumpInValve[idx].getValveElement()));
         }
 
         // Blowdown and Cooldown system
@@ -2260,6 +2276,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         auxCondCoolantValve[1].setStopAtCurrentFlow();
                 }
             }
+        } else if (ac.getPropertyName().startsWith("Condensation")) {
+            for (int idx = 0; idx < 3; idx++) {
+                condensationHotwellPump[idx].handleAction(ac);
+                condensationCondensatePump[idx].handleAction(ac);
+            }
+            for (int idx = 0; idx < 2; idx++) {
+                condensationValveToDA[idx].handleAction(ac);
+            }
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
@@ -2295,7 +2319,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public double getCoreTemp() {
         return coreTemp;
     }
-    
+
     public void registerReactor(ReactorCore core) {
         this.core = core;
     }

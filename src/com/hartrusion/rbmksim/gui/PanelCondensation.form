@@ -29,42 +29,60 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPump1">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate3">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Condensation3#CondensatePump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="518" y="222" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPump2">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate2">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Condensation2#CondensatePump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="458" y="222" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPump3">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate1">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Condensation1#CondensatePump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="398" y="222" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPump4">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpHotwell3">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Condensation3#HotwellPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="518" y="72" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPump5">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpHotwell2">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Condensation2#HotwellPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="458" y="72" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPump6">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpHotwell1">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Condensation1#HotwellPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="398" y="72" width="-1" height="-1"/>
