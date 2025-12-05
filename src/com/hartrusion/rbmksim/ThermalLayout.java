@@ -54,6 +54,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 /**
@@ -1744,6 +1745,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Safety">
+        for (int jdx = 0; jdx < 2; jdx++) {
+            feedwaterPump[0][jdx].addSafeOffProvider(new BooleanSupplier() {
+                @Override
+                public boolean getAsBoolean() { // samle level as MIN2 alarm
+                    return deaerator[0].getFillHeight() * 100 >= 10.0;
+                }
+            });
+        }
+        for (int jdx = 0; jdx < 2; jdx++) {
+            feedwaterPump[1][jdx].addSafeOffProvider(new BooleanSupplier() {
+                @Override
+                public boolean getAsBoolean() { // samle level as MIN2 alarm
+                    return deaerator[1].getFillHeight() * 100 >= 10.0;
+                }
+            });
+        }
+        
         // </editor-fold>
     }
 
