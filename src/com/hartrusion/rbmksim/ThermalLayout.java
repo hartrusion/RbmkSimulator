@@ -1577,16 +1577,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
 
-        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
-            @Override
-            public void run() {
-                for (int jdx = 0; jdx < 4; jdx++) {
-                    loopAssembly[0][jdx].operateStopPump();
-                    loopAssembly[0][jdx].operateCloseDischargeValve();
-                }
-            }
-        });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -1625,16 +1615,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownBalanceControlLoop.setManualMode(true);
                 blowdownReturnValve[1].operateCloseValve();
                 blowdownValveFromLoop[1].operateCloseValve();
-            }
-        });
-
-        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
-            @Override
-            public void run() {
-                for (int jdx = 0; jdx < 4; jdx++) {
-                    loopAssembly[1][jdx].operateStopPump();
-                    loopAssembly[1][jdx].operateCloseDischargeValve();
-                }
             }
         });
 
@@ -1744,32 +1724,82 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
 
-        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
-            @Override
-            public void run() {
-                for (int jdx = 0; jdx < 2; jdx++) {
-                    feedwaterPump[1][jdx].operateStopPump();
-                    feedwaterPump[1][jdx].operateCloseSuctionValve();
-                }
-                // shut down feed pump 3 if it is currently open to this side.
-                if (feedwaterSparePumpInValve[1].getOpening() > 1.0) {
-                    feedwaterSparePumpInValve[1].operateCloseValve();
-                    feedwaterPump3.operateCloseSuctionValve();
-                    feedwaterPump3.operateStopPump();
-                }
-            }
-        });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
+        am = new ValueAlarmMonitor();
+        am.setName("HotwellLevel");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return hotwell.getPrimarySideReservoir().getFillHeight() * 100;
+            }
+        });
+        am.defineAlarm(100.0, AlarmState.MAX1);
+        am.defineAlarm(80.0, AlarmState.HIGH1);
+        am.defineAlarm(10.0, AlarmState.LOW1);
+        am.defineAlarm(5.0, AlarmState.MIN1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Safety">
+        // Steam Drum Level must be above MIN2 for MCPs to run.
+        for (int jdx = 0; jdx < 4; jdx++) {
+            loopAssembly[0][jdx].addSafeOffProvider(new BooleanSupplier() {
+                @Override
+                public boolean getAsBoolean() {
+                    return !alarmManager.isAlarmActive(
+                            "Drum1Level", AlarmState.MIN2);
+                }
+            });
+        }
+        for (int jdx = 0; jdx < 4; jdx++) {
+            loopAssembly[1][jdx].addSafeOffProvider(new BooleanSupplier() {
+                @Override
+                public boolean getAsBoolean() {
+                    return !alarmManager.isAlarmActive(
+                            "Drum2Level", AlarmState.MIN2);
+                }
+            });
+        }
+        // Do not allow draining the Steam drum with the blowdown system
+        blowdownValveFromLoop[0].addSafeClosedProvider(new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                return !alarmManager.isAlarmActive(
+                        "Drum1Level", AlarmState.MIN1);
+            }
+        });
+        blowdownValveFromLoop[1].addSafeClosedProvider(new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                return !alarmManager.isAlarmActive(
+                        "Drum2Level", AlarmState.MIN1);
+            }
+        });
+        blowdownReturnValve[0].addSafeClosedProvider(new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                return !alarmManager.isAlarmActive(
+                        "Drum1Level", AlarmState.MIN2);
+            }
+        });
+        blowdownReturnValve[1].addSafeClosedProvider(new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                return !alarmManager.isAlarmActive(
+                        "Drum2Level", AlarmState.MIN2);
+            }
+        });
+
+        // Shut off feedwater pumps on low DA level
         for (int jdx = 0; jdx < 2; jdx++) {
             feedwaterPump[0][jdx].addSafeOffProvider(new BooleanSupplier() {
                 @Override
-                public boolean getAsBoolean() { // samle level as MIN2 alarm
-                    return deaerator[0].getFillHeight() * 100 >= 10.0;
+                public boolean getAsBoolean() {
+                    return !alarmManager.isAlarmActive(
+                            "DA1Level", AlarmState.MIN2);
                 }
             });
         }
@@ -1777,7 +1807,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             feedwaterPump[1][jdx].addSafeOffProvider(new BooleanSupplier() {
                 @Override
                 public boolean getAsBoolean() { // samle level as MIN2 alarm
-                    return deaerator[1].getFillHeight() * 100 >= 10.0;
+                    return !alarmManager.isAlarmActive(
+                            "DA2Level", AlarmState.MIN2);
                 }
             });
         }
