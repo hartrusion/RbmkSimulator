@@ -1097,12 +1097,12 @@
             <LineBorder/>
           </Border>
         </Property>
-        <Property name="chornobylMaximum" type="float" value="1800.0"/>
+        <Property name="chornobylMaximum" type="float" value="120.0"/>
         <Property name="chornobylMinimum" type="float" value="0.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[0.0, 500.0, 1000.0, 1600.0]"/>
+          <PropertyValue value="[0.0, 30.0, 60.0, 90.0, 120.0]"/>
         </Property>
-        <Property name="chornobylUnitText" type="java.lang.String" value="kg/s"/>
+        <Property name="chornobylValue" type="float" value="0.0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

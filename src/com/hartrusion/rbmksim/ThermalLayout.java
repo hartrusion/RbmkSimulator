@@ -1020,9 +1020,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondBypass.getValveElement().connectTo(auxCondCondInNode);
         auxCondBypass.getValveElement().connectTo(auxCondCollectorNode);
         // height difference as pressure diff source
-        auxCondHeightDifference.connectBetween(auxCondCollectorNode, 
+        auxCondHeightDifference.connectBetween(auxCondCollectorNode,
                 auxCondDistributorNode);
-        // Todo: Hotwell connection (no hotwell yet)
+        auxCondValveToHotwell.getValveElement().connectBetween(
+                auxCondDistributorNode, hotwellOutNode);
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
                 auxCondDistributorNode, makeupStorageDrainCollector);
@@ -1247,9 +1248,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initCharacteristic(3e3, 20); // see below
-            auxCondensers[idx].initCharacteristic(15, 200,
-                    4000, 8.7e6, 4.0, 6.0, 1e5);
+            auxCondSteamValve[idx].initCharacteristic(3.3e4, 20);
+            auxCondensers[idx].initCharacteristic(4, 50,
+                    4000, 8.7e6, 1.2, 3.0, 1e5);
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
@@ -1264,10 +1265,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // that will be a total reistance of R = 1.5e5 Pa / 20 kg/s = 7500.
         // we use 3000 on the auxCondSteamValve and 2500 on the valves to
         // the hotwell or makeup storage, 2000 on the aux bypass valve.
+        for (int idx = 0; idx < 2; idx++) {
+            auxCondCondensateValve[idx].initCharacteristic(3e3, 20);
+        }
         auxCondBypass.initCharacteristic(2000, -1);
         auxCondValveToDrain.initCharacteristic(2500, 20);
-        
-        
+        auxCondValveToHotwell.initCharacteristic(2500, 20);
+
+        // Todo: Get proper values, those are completely made up here
+        hotwell.initCharacteristic(60, 200, 8000, 1e7, 0.8, 5.0, 0);
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
@@ -1320,6 +1327,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             auxCondensers[idx].initConditions(320, 320, 0.8);
         }
+        hotwell.initConditions(280, 280, 0.2);
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
         // but it triggers a huge step of building up all the network and
@@ -1748,6 +1756,44 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
+        am.setName("AuxCond1Level");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return auxCondensers[0].getPrimarySideReservoir()
+                        .getFillHeight() * 100;
+            }
+        });
+        am.defineAlarm(500.0, AlarmState.MAX1);
+        am.defineAlarm(200.0, AlarmState.HIGH2);
+        am.defineAlarm(120.0, AlarmState.HIGH1);
+        am.defineAlarm(60.0, AlarmState.LOW1);
+        am.defineAlarm(40.0, AlarmState.LOW2);
+        am.defineAlarm(5.0, AlarmState.MIN1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("AuxCond2Level");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return auxCondensers[1].getPrimarySideReservoir()
+                        .getFillHeight() * 100;
+            }
+        });
+        am.defineAlarm(500.0, AlarmState.MAX1);
+        am.defineAlarm(200.0, AlarmState.HIGH2);
+        am.defineAlarm(120.0, AlarmState.HIGH1);
+        am.defineAlarm(60.0, AlarmState.LOW1);
+        am.defineAlarm(40.0, AlarmState.LOW2);
+        am.defineAlarm(5.0, AlarmState.MIN1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
         am.setName("HotwellLevel");
         am.addInputProvider(new DoubleSupplier() {
             @Override
@@ -1766,72 +1812,50 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Safety">
         // Steam Drum Level must be above MIN2 for MCPs to run.
         for (int jdx = 0; jdx < 4; jdx++) {
-            loopAssembly[0][jdx].addSafeOffProvider(new BooleanSupplier() {
-                @Override
-                public boolean getAsBoolean() {
-                    return !alarmManager.isAlarmActive(
-                            "Drum1Level", AlarmState.MIN2);
-                }
-            });
+            loopAssembly[0][jdx].addSafeOffProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "Drum1Level", AlarmState.MIN2));
         }
         for (int jdx = 0; jdx < 4; jdx++) {
-            loopAssembly[1][jdx].addSafeOffProvider(new BooleanSupplier() {
-                @Override
-                public boolean getAsBoolean() {
-                    return !alarmManager.isAlarmActive(
-                            "Drum2Level", AlarmState.MIN2);
-                }
-            });
+            loopAssembly[1][jdx].addSafeOffProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "Drum2Level", AlarmState.MIN2));
         }
         // Do not allow draining the Steam drum with the blowdown system
-        blowdownValveFromLoop[0].addSafeClosedProvider(new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                return !alarmManager.isAlarmActive(
-                        "Drum1Level", AlarmState.MIN1);
-            }
-        });
-        blowdownValveFromLoop[1].addSafeClosedProvider(new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                return !alarmManager.isAlarmActive(
-                        "Drum2Level", AlarmState.MIN1);
-            }
-        });
-        blowdownReturnValve[0].addSafeClosedProvider(new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                return !alarmManager.isAlarmActive(
-                        "Drum1Level", AlarmState.MIN2);
-            }
-        });
-        blowdownReturnValve[1].addSafeClosedProvider(new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                return !alarmManager.isAlarmActive(
-                        "Drum2Level", AlarmState.MIN2);
-            }
-        });
+        blowdownValveFromLoop[0].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "Drum1Level", AlarmState.MIN1));
+        blowdownValveFromLoop[1].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "Drum2Level", AlarmState.MIN1));
+        blowdownReturnValve[0].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "Drum1Level", AlarmState.MIN2));
+        blowdownReturnValve[1].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "Drum2Level", AlarmState.MIN2));
 
         // Shut off feedwater pumps on low DA level
         for (int jdx = 0; jdx < 2; jdx++) {
-            feedwaterPump[0][jdx].addSafeOffProvider(new BooleanSupplier() {
-                @Override
-                public boolean getAsBoolean() {
-                    return !alarmManager.isAlarmActive(
-                            "DA1Level", AlarmState.MIN2);
-                }
-            });
+            feedwaterPump[0][jdx].addSafeOffProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "DA1Level", AlarmState.MIN2));
         }
         for (int jdx = 0; jdx < 2; jdx++) {
-            feedwaterPump[1][jdx].addSafeOffProvider(new BooleanSupplier() {
-                @Override
-                public boolean getAsBoolean() { // samle level as MIN2 alarm
-                    return !alarmManager.isAlarmActive(
-                            "DA2Level", AlarmState.MIN2);
-                }
-            });
+            feedwaterPump[1][jdx].addSafeOffProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "DA2Level", AlarmState.MIN2) // samle level as MIN2 alarm
+            );
         }
+        // Close Aux Condensers Drain Valve on low level
+        auxCondCondensateValve[0].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "AuxCond1Level", AlarmState.MIN1)
+        );
+        auxCondCondensateValve[1].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "AuxCond2Level", AlarmState.MIN1)
+        );
 
         // </editor-fold>
     }
@@ -1895,7 +1919,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.invokeAll();
 
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
-        outputValues.setParameterValue("MakeupStorageLevel",
+        outputValues.setParameterValue("MakeupStorage#Level",
                 makeupStorage.getEffort() * 1.0224e-4); // Pa in meters
         for (int idx = 0; idx < 2; idx++) {
             // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
@@ -2067,6 +2091,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         outputValues.setParameterValue("AuxCond#CondensateTemperature",
                 auxCondCondInNode.getTemperature() - 273.5);
+
+        outputValues.setParameterValue("Hotwell#Level", // m to cm
+                hotwell.getPrimarySideReservoir().getFillHeight() * 100);
         // </editor-fold>
 
         // Save values to plot manager

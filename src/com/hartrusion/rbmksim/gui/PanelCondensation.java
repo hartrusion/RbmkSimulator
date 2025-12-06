@@ -570,10 +570,10 @@ public class PanelCondensation extends AbstractPanelWidget {
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
 
         chornobylGaugeHotwellLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeHotwellLevel.setChornobylMaximum(1800.0F);
+        chornobylGaugeHotwellLevel.setChornobylMaximum(120.0F);
         chornobylGaugeHotwellLevel.setChornobylMinimum(0.0F);
-        chornobylGaugeHotwellLevel.setChornobylTicks(new float[] {0.0f, 500.0f, 1000.0f, 1600.0f});
-        chornobylGaugeHotwellLevel.setChornobylUnitText("kg/s");
+        chornobylGaugeHotwellLevel.setChornobylTicks(new float[] {0.0f, 30.0f, 60.0f, 90.0f, 120.0f});
+        chornobylGaugeHotwellLevel.setChornobylValue(0.0F);
         add(chornobylGaugeHotwellLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
 
         jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getSize()-2f));
@@ -847,8 +847,10 @@ public class PanelCondensation extends AbstractPanelWidget {
     @Override
     public void updateComponent(String propertyName, double newValue) {
         switch (propertyName) {
-            case "MakeupStorageLevel" ->
+            case "MakeupStorage#Level" ->
                 chornobylGaugeLevel.setChornobylValue((float) newValue);
+            case "Hotwell#Level" ->
+                chornobylGaugeHotwellLevel.setChornobylValue((float) newValue);
         }
     }
 
