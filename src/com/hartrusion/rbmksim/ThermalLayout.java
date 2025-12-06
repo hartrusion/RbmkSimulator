@@ -54,7 +54,6 @@ import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 /**

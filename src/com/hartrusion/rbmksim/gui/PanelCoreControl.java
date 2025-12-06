@@ -87,7 +87,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionPump10 = new javax.swing.JLabel();
         jButtonSelectAllAutomatic = new javax.swing.JButton();
         jLabelCaptionPump18 = new javax.swing.JLabel();
-        jButtonSelectAllManual = new javax.swing.JButton();
+        jButtonSelectAllShort = new javax.swing.JButton();
         jLabelCaptionPump20 = new javax.swing.JLabel();
         jButtonClearSelection = new javax.swing.JButton();
         jLabelCaptionPump11 = new javax.swing.JLabel();
@@ -642,7 +642,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jLabelCaptionPump10.setFont(jLabelCaptionPump10.getFont().deriveFont(jLabelCaptionPump10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionPump10.getFont().getSize()-2));
         jLabelCaptionPump10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump10.setText("auto rods");
+        jLabelCaptionPump10.setText("auto");
         jLabelCaptionPump10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump10.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump10.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -662,23 +662,23 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jLabelCaptionPump18.setFont(jLabelCaptionPump18.getFont().deriveFont(jLabelCaptionPump18.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionPump18.getFont().getSize()-2));
         jLabelCaptionPump18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump18.setText("man rods");
+        jLabelCaptionPump18.setText("short");
         jLabelCaptionPump18.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump18.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump18.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPump18, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 160, 48, 14));
 
-        jButtonSelectAllManual.setFont(jButtonSelectAllManual.getFont().deriveFont(jButtonSelectAllManual.getFont().getSize()-2f));
-        jButtonSelectAllManual.setForeground(new java.awt.Color(0, 128, 0));
-        jButtonSelectAllManual.setText("●");
-        jButtonSelectAllManual.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSelectAllManual.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButtonSelectAllManual.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSelectAllShort.setFont(jButtonSelectAllShort.getFont().deriveFont(jButtonSelectAllShort.getFont().getSize()-2f));
+        jButtonSelectAllShort.setForeground(new java.awt.Color(128, 128, 0));
+        jButtonSelectAllShort.setText("●");
+        jButtonSelectAllShort.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSelectAllShort.setPreferredSize(new java.awt.Dimension(20, 20));
+        jButtonSelectAllShort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSelectAllManualActionPerformed(evt);
+                jButtonSelectAllShortActionPerformed(evt);
             }
         });
-        add(jButtonSelectAllManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 176, 20, 20));
+        add(jButtonSelectAllShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 176, 20, 20));
 
         jLabelCaptionPump20.setFont(jLabelCaptionPump20.getFont().deriveFont(jLabelCaptionPump20.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionPump20.getFont().getSize()-2));
         jLabelCaptionPump20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1411,10 +1411,10 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 Integer.valueOf(2234)));
     }//GEN-LAST:event_jButton2234ActionPerformed
 
-    private void jButtonSelectAllManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectAllManualActionPerformed
-        controller.userAction(new ActionCommand("Reactor#RodSelectAllManual",
+    private void jButtonSelectAllShortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectAllShortActionPerformed
+        controller.userAction(new ActionCommand("Reactor#RodSelectAllShort",
                 Boolean.valueOf(true)));
-    }//GEN-LAST:event_jButtonSelectAllManualActionPerformed
+    }//GEN-LAST:event_jButtonSelectAllShortActionPerformed
 
     private void jButtonSelectAllAutomaticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectAllAutomaticActionPerformed
         controller.userAction(new ActionCommand("Reactor#RodSelectAllAutomatic",
@@ -1600,7 +1600,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JButton jButtonRodSpeedPos;
     private javax.swing.JButton jButtonRodUp;
     private javax.swing.JButton jButtonSelectAllAutomatic;
-    private javax.swing.JButton jButtonSelectAllManual;
+    private javax.swing.JButton jButtonSelectAllShort;
     private javax.swing.JButton jButtonSetpointNeg;
     private javax.swing.JButton jButtonSetpointPos;
     private javax.swing.JButton jButtonStopRods;

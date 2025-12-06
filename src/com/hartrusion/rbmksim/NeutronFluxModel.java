@@ -30,6 +30,13 @@ package com.hartrusion.rbmksim;
  * and then 1 is added to get the K_eff value.
  * <p>
  * The speed of the integration is determined by K_REACTIVITY * K_INTEGRAL.
+ * <p>
+ * To trigger the accident, a sudden increase in reactivity has to kick k_Eff
+ * over 1 + beta. The manual rods positive part has to be selected in such a way
+ * that only inserting too much rods at once from the end will do the accident.
+ * The direct part going to the integrator as well as the differential part 
+ * must be enough to trigger it. This is found in calculateAbsorption in the
+ * control rods class.
  *
  * @author Viktor Alexander Hartung
  */
@@ -49,9 +56,10 @@ public class NeutronFluxModel implements Runnable {
     private double beta = 0.005;
 
     /**
-     * Speed multiplier for power rise as soon as kEff exceeds 1 + beta.
+     * Fixed rate as soon as kEff exceeds 1 + beta. Will be multiplied with
+     * K_INTEGRAL to get the integrator input.
      */
-    private final double PROMPT_EXCURSION_FACTOR = 9000;
+    private final double PROMPT_EXCURSION_RATE = 4.0;
 
     /**
      * Below 1 - beta, there are not enough neutrons to sustain any chain
@@ -59,26 +67,34 @@ public class NeutronFluxModel implements Runnable {
      * happening. This is to allow a sudden power drop.
      */
     private final double DECAY_FACTOR = 800;
-    
+
+    /**
+     * As we will have prompt neutron excursion on k = 1 + beta, there should be
+     * fast neutron decay on k = 1 - beta to have a faster scram effect. I made
+     * this up (as stated above) but to have the chain reaction collapse even
+     * faster, we use k = 1 - beta * f to make the scram button work better.
+     */
+    private final double NEGATIVE_BETA_FACTOR = 0.7;
+
     /**
      * The difference between uReactivity and uAbsorberRods will be multiplied
-     * with this factor and 1.0 will be added, ultimately resulting in the 
+     * with this factor and 1.0 will be added, ultimately resulting in the
      * effective neutron multiplication factor K_eff.
      */
-//  private final double K_REACTIVITY = 0.00010;
-    private final double K_REACTIVITY = 0.00018;
+    private final double K_REACTIVITY = 0.0005;
 
     /**
      * The return value of criticalityFunction will be multiplied by this,
-     * defining the integration speed of the neutron flux.
+     * defining the integration speed of the neutron flux. This is directly
+     * affecting how the neutronFluxRate value is calculated from K_eff.
      */
 //  private final double K_INTEGRAL = 104.1666667;
-    private final double K_INTEGRAL =  57.87;
+    private final double K_INTEGRAL = 57.87;
 
     /**
      * Factor of rod movement derivative part which will be added to the
      * effective neutron multiplication factor, just to add some weird behavior
-     * to the reactor controls. I made this up. 0.9 seems a funny value
+     * to the reactor controls. I made this up. 0.9 seems a funny value.
      */
     private final double K_DIFF_RODS = 0.9;
 
@@ -94,7 +110,7 @@ public class NeutronFluxModel implements Runnable {
      * confused with the beta value, this will affect the dynamics of the system
      * and the reaction to the input.
      */
-    private final double P_INSTANT = 0.8;
+    private final double P_INSTANT = 0.6;
 
     /**
      * Time constant for the reactivity part 1-P_INSTANT which will be available
@@ -115,6 +131,32 @@ public class NeutronFluxModel implements Runnable {
     private final double T_DECAY = 100;
 
     /**
+     * Below 1 % Neutron flux, the neutron rate used to calculate the flux by
+     * integration gets multiplied with this factor. At 5 %, the full flux rate
+     * is used, between 1% and 5 % it is going to be interpolated.
+     */
+    private final double STARTUP_FLUX_REDUCTION_FACTOR = 0.06;
+
+    private final double STARTUP_FLUX_REDUCTION_START = 0.5;
+    private final double STARTUP_FLUX_REDUCTION_END = 2.0;
+
+    private final double mRed, bRed; // coefficients for linear interpolation
+
+    /**
+     * Feedback of flux to reactivity until 8 % flux is reached. Flux value gets
+     * multiplied by this factor and subtracted from the value that will
+     * generate k_Eff.
+     */
+    private final double K_FLUXFEEDB_START = 0.00012;
+
+    private final double FLUXFEEDB_MAX = 8.0;
+
+    /**
+     * Marks the event of the prompt neutron excursion.
+     */
+    private boolean promptExcursion = false;
+
+    /**
      * Reactivity removed by the absorber rods. Will get a kinky DT1 effect
      * added to mess up the control system.
      */
@@ -129,8 +171,8 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * Modifies the heat production to one or the other side by just shifting it
-     * depending on the inserted rods. 0: Equal heat, 1: full output of
-     * undelayed heat on side 1, -1: everything on side 2. Should be a very low
+     * depending on the inserted rods. 0: Equal heat, 1: full output of non
+     * delayed heat on side 1, -1: everything on side 2. Should be a very low
      * value like -0.02 or so.
      */
     private double uSkew = 0.0;
@@ -174,6 +216,13 @@ public class NeutronFluxModel implements Runnable {
      */
     private double yNeutronFluxLog;
 
+    NeutronFluxModel() {
+        // Calculate coefficients from given coefficient
+        mRed = (1 - STARTUP_FLUX_REDUCTION_FACTOR)
+                / (STARTUP_FLUX_REDUCTION_END - STARTUP_FLUX_REDUCTION_START);
+        bRed = 1.0 - STARTUP_FLUX_REDUCTION_END * mRed;
+    }
+
     @Override
     public void run() {
         double dXNeutronFlux;
@@ -181,16 +230,38 @@ public class NeutronFluxModel implements Runnable {
         double dXDeltaRods;
         double dXFirstDelay;
         double dXDelayedThermalPower;
+        double reactivityDiff, kEff, neutronRate;
 
-        // Calculate state space variable derivatives
-        dXNeutronFlux = K_INTEGRAL * criticalityFunction(xDelayedCriticality
-                + (K_REACTIVITY * (uReactivity - uAbsorberRods) + 1 * P_INSTANT)
+        // Value around 1,0 with same units as k_Eff without any delay.
+        reactivityDiff = (uReactivity - uAbsorberRods) * K_REACTIVITY + 1.0
+                - Math.min(FLUXFEEDB_MAX, xNeutronFlux) * K_FLUXFEEDB_START;
+
+        // Calculate k_Eff
+        kEff = xDelayedCriticality
+                + reactivityDiff * P_INSTANT
                 - Math.min(0, // only rod out movement will cause a postiive DT1
                         K_REACTIVITY * K_DIFF_RODS
-                        * (uAbsorberRods - xDeltaRods)));
+                        * (uAbsorberRods - xDeltaRods));
 
-        dXDelayedCriticality = ((uReactivity - uAbsorberRods) * K_REACTIVITY
-                + 1.0) * (1 - P_INSTANT) / T_DELAYED_REACTIVITY
+        System.out.println("k = " + String.format("%.5f", kEff));
+
+        // Raw neutron rate without manipulating it out of k_Eff value
+        neutronRate = K_INTEGRAL * criticalityFunction(kEff);
+
+        // Manipulate the actually used neturon rate for startup, requiring to
+        // mess around with the reactor controls for a longer time.
+        if (xNeutronFlux < STARTUP_FLUX_REDUCTION_END && neutronRate >= 0.0) {
+            if (xNeutronFlux < STARTUP_FLUX_REDUCTION_START) {
+                dXNeutronFlux = STARTUP_FLUX_REDUCTION_FACTOR * neutronRate;
+            } else {
+                dXNeutronFlux = (mRed * xNeutronFlux + bRed) * neutronRate;
+            }
+        } else {
+            dXNeutronFlux = neutronRate;
+        }
+
+        dXDelayedCriticality = reactivityDiff
+                * (1 - P_INSTANT) / T_DELAYED_REACTIVITY
                 - xDelayedCriticality / T_DELAYED_REACTIVITY;
 
         dXDeltaRods = (uAbsorberRods - xDeltaRods) / T_DIFF_RODS;
@@ -212,15 +283,16 @@ public class NeutronFluxModel implements Runnable {
         // Update Output variables
         yK = xDelayedCriticality
                 // Prompt part:
-                + (K_REACTIVITY * (uReactivity - uAbsorberRods) + 1.0)
-                * P_INSTANT
+                + reactivityDiff * P_INSTANT
                 // DT1 lift part:
                 - Math.min(0, K_REACTIVITY * K_DIFF_RODS
                         * (uAbsorberRods - xDeltaRods));
 
         yNeutronFlux = xNeutronFlux;
+
+        // Use the unmanipulated neutron rate for output.
         if (yNeutronFlux > 0.0) {
-            yNeutronRate = dXNeutronFlux * 10;
+            yNeutronRate = neutronRate * 10;
         } else { // no negative rate if flux reached 0.0
             yNeutronRate = 0;
         }
@@ -251,14 +323,18 @@ public class NeutronFluxModel implements Runnable {
      * @return Value to be integrated, 0 at steady state.
      */
     private double criticalityFunction(double k) {
-        // y = m * (x - x0) + y0
-        if (k < (1 - beta)) {
+        if (promptExcursion) {
+            return PROMPT_EXCURSION_RATE;
+        } else if (k < (1 - beta * NEGATIVE_BETA_FACTOR)) {
             // chain reaction dies below this factor if too many prompt neutrons
             // are absorbed, but not as fast as the power surge.
-            return DECAY_FACTOR * (k - (1 - beta)) - beta;
+            // y = m * (x - x0) + y0
+            return DECAY_FACTOR * (k - (1 - beta * NEGATIVE_BETA_FACTOR))
+                    - beta * NEGATIVE_BETA_FACTOR;
         } else if (k > (1 + beta)) {
-            // Prompt neutron power excursion
-            return PROMPT_EXCURSION_FACTOR * (k - (1 + beta)) + beta;
+            // Prompt neutron power excursion. Unstoppable
+            promptExcursion = true;
+            return PROMPT_EXCURSION_RATE;
         } else {
             // Power regulation with delayed neutrons
             return k - 1;

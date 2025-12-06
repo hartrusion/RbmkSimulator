@@ -31,6 +31,7 @@ public class RodPositiveEffect {
 
     RodPositiveEffect() {
         rod = new ControlRod(1, 1, ChannelType.MANUAL_CONTROLROD);
+        rod.rodSpeedMax();
     }
 
     public void run() {

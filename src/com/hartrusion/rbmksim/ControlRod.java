@@ -32,6 +32,13 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     private final ChannelType rodType;
 
+    /**
+     * Available manual movement rod speeds which can be selected with the
+     * rodSpeedIndex variable.
+     */
+    private final double[] rodSpeeds = {0.1, 0.2, 0.3, 0.331};
+    private int rodSpeedIndex = 1;
+
     public ChannelType getRodType() {
         return rodType;
     }
@@ -66,7 +73,7 @@ public class ControlRod extends ReactorElement implements Runnable {
         } else {
             swi.forceOutputValue(7.4);
         }
-        swi.setMaxRate(7.3 / 22);
+        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
         swi.setLowerLimit(0.0);
         swi.setUpperLimit(8.1);
     }
@@ -79,7 +86,7 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     /**
      * Current absorption depending on the current position. This function
-     * defines the behaviour of the absorption in relation to the insertion
+     * defines the behavior of the absorption in relation to the insertion
      * position.
      *
      * @return Value between 0.0 and 1.0
@@ -108,19 +115,19 @@ public class ControlRod extends ReactorElement implements Runnable {
             // Manual control rods have a positive effect when they are fully
             // inserted, it's not much but it is there. This is used to trigger 
             // the accident.
-            if (position <= 0.6) {
-                // dangerous area: this goes into wrong direction
-                // until we hit 0.6 meters. interpolate between 0/0.2 and 0.6/0
-                absorption = 0.2 - position * 0.333333;
+            if (position <= 0.4) { // pos value here
+                // dangerous area: this goes into wrong direction when inserting
+                // until we hit pos meters. interpolate between 0/0.12 and pos/0
+                absorption = 0.12 - position * (0.12/0.4);
                 return;
             }
             if (position >= 7.3) {
                 absorption = 1.0; // full insert
                 return;
             }
-            // interp 0.6/0 and 7.3/1
+            // interp 0.4/0 and 7.3/1
             // y = (y2-y1) / (x2-x1) * (x-x1) + y1);
-            absorption = 1.0 / (7.3 - 0.6) * (position - 0.6);
+            absorption = 1.0 / (7.3 - 0.4) * (position - 0.4);
             return;
         }
         if (rodType == ChannelType.AUTOMATIC_CONTROLROD) {
@@ -169,5 +176,24 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     public void setAutomatic(boolean automatic) {
         this.automatic = automatic;
+    }
+
+    public void rodSpeedIncrease() {
+        if (rodSpeedIndex < rodSpeeds.length - 1) {
+            rodSpeedIndex++;
+        }
+        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+    }
+
+    public void rodSpeedDecrease() {
+        if (rodSpeedIndex > 1) {
+            rodSpeedIndex--;
+        }
+        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+    }
+    
+    public void rodSpeedMax() {
+        rodSpeedIndex = rodSpeeds.length - 1;
+        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
     }
 }
