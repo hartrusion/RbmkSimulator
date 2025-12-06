@@ -23,10 +23,10 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
-     showgrid="true"
-     inkscape:zoom="2.0000001"
-     inkscape:cx="319.99998"
-     inkscape:cy="168.74999"
+     showgrid="false"
+     inkscape:zoom="2"
+     inkscape:cx="481.5"
+     inkscape:cy="258.75"
      inkscape:window-width="1745"
      inkscape:window-height="911"
      inkscape:window-x="0"
@@ -46,7 +46,7 @@
        opacity="0.14901961"
        empspacing="4"
        enabled="true"
-       visible="true" />
+       visible="false" />
   </sodipodi:namedview>
   <defs
      id="defs1">
@@ -1144,7 +1144,12 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="m 129.11665,56.885412 -0.26458,2.910417 -1.5875,1.058333 -1.05833,2.645833"
+       d="M 124.88333,57.149994 H 130.175"
+       id="path36-9"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker26-6)"
+       d="m 128.85208,57.943744 -1e-5,1.852085 -1.5875,1.058333 -1.05833,2.645833"
        id="path37"
        sodipodi:nodetypes="cccc" />
     <path
@@ -2104,6 +2109,33 @@
          id="tspan7">to get some delay reaction.</tspan></text>
     <text
        xml:space="preserve"
+       style="font-size:1.41111px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:25.4;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       x="117.475"
+       y="67.73333"
+       id="text4-5"><tspan
+         x="117.475"
+         y="67.73333"
+         id="tspan11">If Keff exceeded 1+beta, this function </tspan><tspan
+         x="117.475"
+         y="68.932773"
+         id="tspan12">switches to a fixed, high value and the </tspan><tspan
+         x="117.475"
+         y="70.132213"
+         id="tspan13">integrator will run to its upper limit, </tspan><tspan
+         x="117.475"
+         y="71.331653"
+         id="tspan14">providing the prompt neutron </tspan><tspan
+         x="117.475"
+         y="72.531093"
+         id="tspan15">excursion experience. This will be </tspan><tspan
+         x="117.475"
+         y="73.730533"
+         id="tspan16">irreversible and marks the end of the </tspan><tspan
+         x="117.475"
+         y="74.929973"
+         id="tspan17">simulation.</tspan></text>
+    <text
+       xml:space="preserve"
        style="font-size:1.41111px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:42.3559;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
        x="160.84409"
        y="37.055775"
@@ -2111,36 +2143,36 @@
        transform="translate(-8.4578618,-5.5371947)"><tspan
          x="160.84409"
          y="37.055775"
-         id="tspan9">To make startup a little challenging and add some more </tspan><tspan
+         id="tspan18">To make startup a little challenging and add some more </tspan><tspan
          x="160.84409"
          y="38.255218"
-         id="tspan25">behavior to the simulation, neutron rate to neutron flux is </tspan><tspan
+         id="tspan19">behavior to the simulation, neutron rate to neutron flux is </tspan><tspan
          x="160.84409"
          y="39.454662"
-         id="tspan61">getting manipulated here by using the neutron flux itself to </tspan><tspan
+         id="tspan20">getting manipulated here by using the neutron flux itself to </tspan><tspan
          x="160.84409"
          y="40.654105"
-         id="tspan62">throttle the effective neutron rate. As yNeutronRate is gained </tspan><tspan
+         id="tspan21">throttle the effective neutron rate. As yNeutronRate is gained </tspan><tspan
          x="160.84409"
          y="41.853549"
-         id="tspan63">before the manipulation, it will not be visible to the operator.
+         id="tspan22">before the manipulation, it will not be visible to the operator.
 </tspan><tspan
          x="160.84409"
          y="43.052993"
-         id="tspan64">
+         id="tspan23">
 </tspan><tspan
          x="160.84409"
          y="44.252437"
-         id="tspan65">The manipulation does limit positive neutron rates at neutron </tspan><tspan
+         id="tspan24">The manipulation does limit positive neutron rates at neutron </tspan><tspan
          x="160.84409"
          y="45.451881"
-         id="tspan66">flux rates below 10 %. At and below 1 %, neutron rate is </tspan><tspan
+         id="tspan32">flux rates below 10 %. At and below 1 %, neutron rate is </tspan><tspan
          x="160.84409"
          y="46.651324"
-         id="tspan67">reduced to a fixed fraction (like 0.05), this is interpolated to be </tspan><tspan
+         id="tspan33">reduced to a fixed fraction (like 0.05), this is interpolated to be </tspan><tspan
          x="160.84409"
          y="47.850768"
-         id="tspan68">1.0 at 10 % neutron flux.</tspan></text>
+         id="tspan35">1.0 at 10 % neutron flux.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,0,0,0.26458332,-19.050007,0.05661875)"
@@ -2148,16 +2180,16 @@
        style="font-size:5.33333px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect7);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"><tspan
          x="408"
          y="307.786"
-         id="tspan69">P_INSTANT (0..1) part of </tspan><tspan
+         id="tspan36">P_INSTANT (0..1) part of </tspan><tspan
          x="408"
          y="312.31932"
-         id="tspan70">reactivity change that </tspan><tspan
+         id="tspan37">reactivity change that </tspan><tspan
          x="408"
          y="316.85265"
-         id="tspan71">immediately increases the </tspan><tspan
+         id="tspan38">immediately increases the </tspan><tspan
          x="408"
          y="321.38597"
-         id="tspan72">neutron flux</tspan></text>
+         id="tspan39">neutron flux</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,0,0,0.26458332,-61.383339,-27.460046)"
@@ -2165,19 +2197,19 @@
        style="font-size:5.33333px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect7-1);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"><tspan
          x="408"
          y="307.786"
-         id="tspan73">Make Value </tspan><tspan
+         id="tspan40">Make Value </tspan><tspan
          x="408"
          y="312.31932"
-         id="tspan74">around 1 in </tspan><tspan
+         id="tspan41">around 1 in </tspan><tspan
          x="408"
          y="316.85265"
-         id="tspan75">same units </tspan><tspan
+         id="tspan42">same units </tspan><tspan
          x="408"
          y="321.38597"
-         id="tspan76">like Keff </tspan><tspan
+         id="tspan43">like Keff </tspan><tspan
          x="408"
          y="325.9193"
-         id="tspan77">here.</tspan></text>
+         id="tspan44">here.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,0,0,0.26458332,-83.630906,-50.588147)"
@@ -2185,19 +2217,19 @@
        style="font-size:5.33333px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect7-1-11);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"><tspan
          x="408"
          y="307.786"
-         id="tspan78">Negative feedback of </tspan><tspan
+         id="tspan45">Negative feedback of </tspan><tspan
          x="408"
          y="312.31932"
-         id="tspan79">the flux here will </tspan><tspan
+         id="tspan46">the flux here will </tspan><tspan
          x="408"
          y="316.85265"
-         id="tspan80">require to do more </tspan><tspan
+         id="tspan47">require to do more </tspan><tspan
          x="408"
          y="321.38597"
-         id="tspan81">rod pulls during initial </tspan><tspan
+         id="tspan48">rod pulls during initial </tspan><tspan
          x="408"
          y="325.9193"
-         id="tspan82">power raise.</tspan></text>
+         id="tspan49">power raise.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,0,0,0.26458332,-41.275005,19.106616)"
@@ -2205,19 +2237,19 @@
        style="font-size:5.33333px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect7-1-1);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"><tspan
          x="408"
          y="307.786"
-         id="tspan83">T2 part for </tspan><tspan
+         id="tspan50">T2 part for </tspan><tspan
          x="408"
          y="312.31932"
-         id="tspan84">delayed heat </tspan><tspan
+         id="tspan51">delayed heat </tspan><tspan
          x="408"
          y="316.85265"
-         id="tspan85">which will still be </tspan><tspan
+         id="tspan52">which will still be </tspan><tspan
          x="408"
          y="321.38597"
-         id="tspan86">present even </tspan><tspan
+         id="tspan53">present even </tspan><tspan
          x="408"
          y="325.9193"
-         id="tspan87">after SCRAM</tspan></text>
+         id="tspan54">after SCRAM</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,0,0,0.26458332,1.0583364,7.4649523)"
@@ -2225,28 +2257,28 @@
        style="font-size:5.33333px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect8);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"><tspan
          x="252"
          y="107.786"
-         id="tspan88">This DT1-Behaviour will </tspan><tspan
+         id="tspan55">This DT1-Behaviour will </tspan><tspan
          x="252"
          y="112.31933"
-         id="tspan89">increase the reactivty </tspan><tspan
+         id="tspan56">increase the reactivty </tspan><tspan
          x="252"
          y="116.85266"
-         id="tspan90">when doing a rod pull with </tspan><tspan
+         id="tspan57">when doing a rod pull with </tspan><tspan
          x="252"
          y="121.386"
-         id="tspan91">the pull speed. This has no </tspan><tspan
+         id="tspan58">the pull speed. This has no </tspan><tspan
          x="252"
          y="125.91933"
-         id="tspan92">scientific background, I </tspan><tspan
+         id="tspan59">scientific background, I </tspan><tspan
          x="252"
          y="130.45266"
-         id="tspan93">completely made this up </tspan><tspan
+         id="tspan60">completely made this up </tspan><tspan
          x="252"
          y="134.986"
-         id="tspan94">to make the system more </tspan><tspan
+         id="tspan61">to make the system more </tspan><tspan
          x="252"
          y="139.51932"
-         id="tspan95">hard to control.</tspan></text>
+         id="tspan62">hard to control.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,0,0,0.26458332,-52.930774,47.836838)"
@@ -2254,19 +2286,19 @@
        style="font-size:5.33333px;line-height:0.85;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect8-7);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"><tspan
          x="252"
          y="107.786"
-         id="tspan96">The uReactivity input is set </tspan><tspan
+         id="tspan63">The uReactivity input is set </tspan><tspan
          x="252"
          y="112.31933"
-         id="tspan97">externally and consideres </tspan><tspan
+         id="tspan64">externally and consideres </tspan><tspan
          x="252"
          y="116.85266"
-         id="tspan98">core temperature from the </tspan><tspan
+         id="tspan65">core temperature from the </tspan><tspan
          x="252"
          y="121.386"
-         id="tspan99">thermal model as well as </tspan><tspan
+         id="tspan66">thermal model as well as </tspan><tspan
          x="252"
          y="125.91933"
-         id="tspan100">steam voiding.</tspan></text>
+         id="tspan67">steam voiding.</tspan></text>
     <rect
        style="fill:#e2e2e2;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        id="rect1-8-1-3"
