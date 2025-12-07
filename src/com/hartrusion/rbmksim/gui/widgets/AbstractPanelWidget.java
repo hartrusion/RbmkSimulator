@@ -24,9 +24,9 @@ import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
 
 /**
- * Base class for panels that are used with the MVC pattern with switches. 
- * Provides some color constants, methods to set those to the buttons and
- * an instance of an action receiver (usually the controller instance).
+ * Base class for panels that are used with the MVC pattern with switches.
+ * Provides some color constants, methods to set those to the buttons and an
+ * instance of an action receiver (usually the controller instance).
  *
  * @author Viktor Alexander Hartung
  */
@@ -45,13 +45,13 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     public void registerActionReceiver(ActionReceiver controller) {
         this.controller = controller;
     }
-    
+
     /**
-     * Updates a set of two buttons when receiving a property change event 
-     * that contains a ValveState. This gets created in ValveActuatorMonitor
-     * and this method can be called to process the event to display the new 
-     * valves state with an open and close button (red and green)
-     * 
+     * Updates a set of two buttons when receiving a property change event that
+     * contains a ValveState. This gets created in ValveActuatorMonitor and this
+     * method can be called to process the event to display the new valves state
+     * with an open and close button (red and green)
+     *
      * @param buttonClose Green Close-Button
      * @param buttonOpen Red Open-Button
      * @param newState Object that can be casted to ValveState
@@ -75,6 +75,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
             }
         }
     }
+
     /**
      * Used to set green buttons either to highlight or non-highlited state.
      *
@@ -135,16 +136,20 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     }
 
     /**
-     * Sets the text icon accordingly for a JToggleButton
+     * Sets the text icon accordingly for a JToggleButton and returns true or
+     * false, depending on what state the button has after pressing it.
      *
-     * @param evt
+     * @param evt button event provided at listener
+     * @return true, if button was activated with this press.
      */
-    protected void updateToggleButtonSwitchText(java.awt.event.ActionEvent evt) {
+    protected boolean toggleButtonChange(java.awt.event.ActionEvent evt) {
         JToggleButton jToggleButton = (JToggleButton) evt.getSource();
         if (jToggleButton.isSelected()) {
             jToggleButton.setText("|");
+            return true;
         } else {
             jToggleButton.setText("—");
+            return false;
         }
     }
 }
