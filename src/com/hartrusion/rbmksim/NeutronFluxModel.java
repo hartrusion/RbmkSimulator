@@ -245,8 +245,6 @@ public class NeutronFluxModel implements Runnable {
                         K_REACTIVITY * K_DIFF_RODS
                         * (uAbsorberRods - xDeltaRods));
 
-        System.out.println("k = " + String.format("%.5f", kEff));
-
         // Raw neutron rate without manipulating it out of k_Eff value
         neutronRate = K_INTEGRAL * criticalityFunction(kEff);
 
