@@ -19,8 +19,6 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmManager;
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
-import com.hartrusion.control.SerialRunner;
-import com.hartrusion.modeling.solvers.SuperPosition;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
@@ -29,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author Viktor Alexander Hartung
  */
 public class MainLoop implements Runnable, ModelManipulation {
@@ -52,20 +50,19 @@ public class MainLoop implements Runnable, ModelManipulation {
         try {
             plotData.initTime(751, 0.1F * (float) plotCountDiv);
             plotData.setCountDiv(plotCountDiv);
-            
+
             core.registerAlarmManager(alarms);
             core.init();
             core.registerPlotDataVault(plotData);
             core.registerParameterOutput(outputValues);
-            
-            
+
             process.registerReactor(core);
             process.registerParameterOutput(outputValues);
             process.registerController(controller);
             process.registerAlarmManager(alarms);
             process.init();
             process.registerPlotDataVault(plotData);
-                        
+
         } catch (Exception e) {
             // Throw exception as error message popup
             ExceptionPopup.show(e);
@@ -81,18 +78,18 @@ public class MainLoop implements Runnable, ModelManipulation {
         try {
             // Get all the values and GUI commands first.
             controller.fireActions();
-            
+
             // Feedback from process to reactor core model (previous cycle)
             core.setCoreTemp(process.getCoreTemp());
             core.setVoiding(process.getVoiding());
-            
+
             core.run();
-             
+
             process.run();
 
             // Send all measurement data to the GUI by sending a reference.
             controller.propertyChange("OutputValues", outputValues);
-            
+
             // Sent all timeseries data also
             controller.propertyChange("PlotData", plotData);
 
@@ -101,15 +98,13 @@ public class MainLoop implements Runnable, ModelManipulation {
             System.exit(0);
         }
 
-        
         stopTime = System.nanoTime();
         if (stopTime - startTime > maxTime) {
             if (initialIterations > 2) {
                 maxTime = stopTime - startTime;
-                System.getLogger(MainLoop.class.getName()).log(
-                        System.Logger.Level.INFO,
-                        "New max cyclic time: " + maxTime / 1000
-                        + " us");
+                Logger.getLogger(MainLoop.class.getName())
+                        .log(Level.INFO, "New max cyclic time: " 
+                                + maxTime / 1000  + " us");
             } else {
                 initialIterations++;
             }
@@ -123,10 +118,10 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     @Override // Called from controller upon fireActions here in run()
     public void handleAction(ActionCommand ac) {
-         Logger.getLogger(MainLoop.class.getName())
-                    .log(Level.INFO, "Received Action: " + ac.getPropertyName()
-                    + ", Value: " + ac.getValue());
-        
+        Logger.getLogger(MainLoop.class.getName())
+                .log(Level.INFO, "Received Action: " + ac.getPropertyName()
+                        + ", Value: " + ac.getValue());
+
         core.handleAction(ac);
         process.handleAction(ac);
     }
