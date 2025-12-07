@@ -220,6 +220,8 @@ public class ControlRod extends ReactorElement implements Runnable {
     }
 
     public void setAutomatic(boolean automatic) {
+        rodSpeedIndex = 2; // allow fast speed for auto
+        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
         this.automatic = automatic;
     }
 

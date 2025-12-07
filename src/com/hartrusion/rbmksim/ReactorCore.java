@@ -141,35 +141,45 @@ public class ReactorCore extends Subsystem implements Runnable {
         * is given in same unit and dimension as the rods absorption, the 
         * difference is integrated by the neutron flux model to get the neutron
         * flux. We use unit %N as percentage of neturon flux here.
-        * - With no negative reactivity effects, it is defined that we need 5 
-        *   manual rods out to have positive reactitvity. 
-        *   100 %N - 5 * 2.26 %N = 88.7 %N
+        * - The value of Absorption with all auto rods on 50 % and 4 man rods 
+        *   out is 81.73 %. Those will be starting conditions with 0 %Xe.
         *   This allows to pull 4 manual rods first and use the 4 auto rods at
         *   half pull distance to smootly control the initial reaction.
+        * - The value of Absorption with all auto rods on 2.4 (about 70 % out)
+        *   and 25 manual rods out (accident conditions) is 21.7 %
+        * - Short control rods absorp 6.78 % if they are fully withdrawn (note 
+        *   that they have an opposite direction!
         * - One manual control rod gives about 2.26 %N of absorption.
-        * - If the accident sequence is simulated correctly, the xenon model
-        *   output value will jump up to about 175 %Xe on dropping to 40 %N 
-        *   and, if the power is then reduced to 5 %N, it will rise up to a 
-        *   value between 200 and 230 %Xe. This means that a xenon value of  
-        *   230 %Xe needs all rods out. This allows to stall the core with 
-        *   xenon poisoning.
-        *   1 / 230 %Xe * 80 %N = 0.348 %N/%Xe
         * - coreTemp is given in °C and rises up to 570 °C in normal operation.
         *   A negative temperature coefficient is wanted with 2 rods so we'll
         *   have 2 * 2.26%N / 570 °C = 7.93e-3 %N/°C. However, it will be 
         *   limited to a certain value to not prevent a meltdown too much.
+        * - If the accident sequence is simulated correctly, the xenon model
+        *   output value will jump up to about 175 %Xe on dropping to 40 %N 
+        *   and, if the power is then reduced to 5 %N, it will rise up to a 
+        *   value between 200 and 240 %Xe. This means that a xenon value of  
+        *   240 %Xe will be used to completely eat all reactivity with all
+        *   rods out so the absorption would have to be 0 % (all rods out).
+        *   There is still 5.5 % reduction of reactivity by the temperature 
+        *   coefficient in this state. 
+        *   81.73 % - 5.5 % = 76.23 % reactivity remaining with hot core
+        *   1 / 240 %Xe * 76.23 %N = 0.3176 %N/%Xe
+        
         * - There is a total of 28 manual control rods.
         
+        
          */
-        reactivity = 70 // generally present reactivity.
-                - xenonModel.getYXenon() * 0.348
+        reactivity = 81.73 // generally present reactivity.
+                - xenonModel.getYXenon() * 0.3176 // 0..200 = 0..63.52
                 - Math.min(700, coreTemp) * 7.93e-3
                 + voiding / 20 * 5;
 
         // pass reactivity to and get the neutron flux from state space model.
         neutronFluxModel.setInputs(rodAbsorption, reactivity);
         neutronFluxModel.run();
-
+        
+        System.out.println("React = " + reactivity + "  , Absopt = " + rodAbsorption);
+                
         // Pass neutron flux to xenon model and generate xenon poisoning value.
         xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
         xenonModel.run();
@@ -217,6 +227,7 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     @Override
     public void handleAction(ActionCommand ac) {
+        ControlRod rod;
         if (setpointNeutronFlux.handleAction(ac)) {
             return;
         } else if (setpointPowerGradient.handleAction(ac)) {
@@ -239,7 +250,7 @@ public class ReactorCore extends Subsystem implements Runnable {
                 identifier = (int) ac.getValue();
                 x = identifier / 100;
                 y = identifier % 100;
-                ControlRod rod = (ControlRod) getElement(x, y);
+                rod = (ControlRod) getElement(x, y);
                 rod.setSelected(!rod.isSelected());
                 // Send current selection of this rod back to view.
                 String propertyName;
@@ -251,6 +262,20 @@ public class ReactorCore extends Subsystem implements Runnable {
                 controller.propertyChange(
                         new PropertyChangeEvent(this, propertyName,
                                 null, identifier));
+                break;
+            case "Reactor#RodAutoEnable": // Manual selection of single rod
+                identifier = (int) ac.getValue();
+                x = identifier / 100;
+                y = identifier % 100;
+                rod = (ControlRod) getElement(x, y);
+                rod.setAutomatic(true);
+                break;
+            case "Reactor#RodAutoDisable": // Manual selection of single rod
+                identifier = (int) ac.getValue();
+                x = identifier / 100;
+                y = identifier % 100;
+                rod = (ControlRod) getElement(x, y);
+                rod.setAutomatic(false);
                 break;
             case "Reactor#RodSelectAllManual": // not used anymore, bad idea
                 for (ControlRod cRod : controlRods) {
