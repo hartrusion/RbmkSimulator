@@ -30,6 +30,8 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     private double absorption;
 
+    private double displacerBoost;
+
     private final ChannelType rodType;
 
     /**
@@ -82,6 +84,7 @@ public class ControlRod extends ReactorElement implements Runnable {
     public void run() {
         swi.run();
         calculateAbsorption();
+        calculateDisplacerBoost();
     }
 
     /**
@@ -93,6 +96,17 @@ public class ControlRod extends ReactorElement implements Runnable {
      */
     public double getAbsorption() {
         return absorption;
+    }
+
+    /**
+     * The displacer boost is a value that is used to trigger the accident. It
+     * will be a spike between 0.75 and 1.25 with a value of 1.0 at 1.0. For
+     * positions below 0.75 and 1.25 it will return 0.0.
+     *
+     * @return Value between 0.0 and 1.0
+     */
+    public double getDisplacerBoost() {
+        return displacerBoost;
     }
 
     private void calculateAbsorption() {
@@ -113,12 +127,15 @@ public class ControlRod extends ReactorElement implements Runnable {
         }
         if (rodType == ChannelType.MANUAL_CONTROLROD) {
             // Manual control rods have a positive effect when they are fully
-            // inserted, it's not much but it is there. This is used to trigger 
-            // the accident.
+            // inserted, it's not much but it is there. Initially this was ued
+            // to try to trigger the accident but it would also make the reactor
+            // go propmt critical when the RPS triggers due to high neutron 
+            // rates. The accident trigger will be done elsewhere but the effect
+            // will stay here. This makes it generally visible.
             if (position <= 0.4) { // pos value here
                 // dangerous area: this goes into wrong direction when inserting
-                // until we hit pos meters. interpolate between 0/0.12 and pos/0
-                absorption = 0.12 - position * (0.12/0.4);
+                // until we hit pos meters. interpolate between 0/0.03 and pos/0
+                absorption = 0.03 - position * (0.03 / 0.4);
                 return;
             }
             if (position >= 7.3) {
@@ -146,6 +163,34 @@ public class ControlRod extends ReactorElement implements Runnable {
             }
             absorption = 1.0 / 7.3 * position;
             return;
+        }
+    }
+
+    /**
+     * Calculates a displacer boost value. This is further processed elsewhere
+     * and used to trigger the accident. According to dyatlovs statements, it
+     * took 3 seconds between pressing AZ-5 and the explosion, as it takes 22
+     * seconds for a manual rod to full insert the 7.3 meters, 3 seconds of 22
+     * will mean that there is about 1.0 meter of insertion at the time of the
+     * first explosion. To make it harder to trigger the explosion. only a
+     * narrow gap of 0,5 meters will be used.
+     */
+    private void calculateDisplacerBoost() {
+        if (rodType != ChannelType.MANUAL_CONTROLROD) {
+            displacerBoost = 0.0;
+            return;
+        }
+        double position = swi.getOutput();
+        if (position >= 1.25 || position <= 0.75) {
+            displacerBoost = 0.0;
+            return;
+        }
+        if (position == 1.0) {
+            displacerBoost = 1.0;
+        } else if (position > 1.0) {
+            displacerBoost = -4 * position + 5;
+        } else { // if (position < 1.0)
+            displacerBoost = 4 * position - 3;
         }
     }
 
@@ -191,7 +236,7 @@ public class ControlRod extends ReactorElement implements Runnable {
         }
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
     }
-    
+
     public void rodSpeedMax() {
         rodSpeedIndex = rodSpeeds.length - 1;
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);

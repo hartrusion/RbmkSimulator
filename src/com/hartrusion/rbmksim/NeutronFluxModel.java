@@ -32,11 +32,13 @@ package com.hartrusion.rbmksim;
  * The speed of the integration is determined by K_REACTIVITY * K_INTEGRAL.
  * <p>
  * To trigger the accident, a sudden increase in reactivity has to kick k_Eff
- * over 1 + beta. The manual rods positive part has to be selected in such a way
- * that only inserting too much rods at once from the end will do the accident.
- * The direct part going to the integrator as well as the differential part 
- * must be enough to trigger it. This is found in calculateAbsorption in the
- * control rods class.
+ * over 1 + beta. This is done by the control rods with a displacer effect.
+ * Straight path through the model is u * K_REACTIVITY * P_INSTANT but also the
+ * differential part of the rods will do its part. To get beta = 0.005 through
+ * the straight path, we can have 0.005 / K_REACTIVITY / P_INSTANT = u which
+ * results in 16.6 % - so a lack of 16.6% absorption will definitely trigger the
+ * prompt neutron excursion. As we have also that diff part, less will be enough
+ * ifs slope is sharp.
  *
  * @author Viktor Alexander Hartung
  */

@@ -101,6 +101,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         // Calculate total absorption and average rod position
         double absorption = 0.0;
         double totalPosition = 0.0;
+        double displacerBoost = 0.0;
         for (ControlRod rod : controlRods) {
             absorption += rod.getAbsorption();
             if (rod.getRodType() == ChannelType.SHORT_CONTROLROD) {
@@ -108,11 +109,33 @@ public class ReactorCore extends Subsystem implements Runnable {
             } else {
                 totalPosition += rod.getSwi().getOutput();
             }
+            // sum up all displacer boost values
+            displacerBoost += rod.getDisplacerBoost();
         }
         // Total position is the total sum of control rod pull lengts. 
         avgRodPosition = totalPosition / (double) controlRods.size();
-        // Generate a 0..100 % value from total rod absorption
+        
+        // Generate a 0..100 % value from total rod absorption first
         rodAbsorption = absorption / maxAbsorption * 100;
+        
+        // To trigger the accident, a displacer boost value is obtained from 
+        // the control rods. The accident is represented by having too many 
+        // manual control rods going from top to bottom at the same time,
+        // triggering a prompt neutron excursion by exactly this. As it was 
+        // stated in dyatlovs how it was book, the positive void coefficient 
+        // was there but the automatic regulators did take care of this and 
+        // before AZ-5 was pressed, nothing happend and everything was calm.
+        // We implement this by having the displacerBoost value from the rods
+        // but the effect of this will ony be used if more than 18 of the 28 
+        // manual rods are withdrawn. The effect will be visible with 18 rods 
+        // and be fully fatal at 25 rods. The boost is 1.0 max per rod, so we 
+        // hide a value of 18.0 and cap it. 7 rods then will then result in 16 %
+        // absorption decrease so it's 16/7=2.3 as a factor. This is not adding
+        // reactivity but removing the absorption as we have a DT1-part in the
+        // neturon flux model that will help to kick the prompt neutron 
+        // excursion that way. The factor 2.3 was modified afterwards to make 
+        // it more sure the excursion happens.
+        rodAbsorption -= Math.max(0.0, displacerBoost - 18.0) * 3.0;
 
         /* This magic formula sets how the whole thing behaves. The reactivity
         * is given in same unit and dimension as the rods absorption, the 
@@ -135,13 +158,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         *   A negative temperature coefficient is wanted with 2 rods so we'll
         *   have 2 * 2.26%N / 570 °C = 7.93e-3 %N/°C. However, it will be 
         *   limited to a certain value to not prevent a meltdown too much.
-        * - There is a total of 28 manual control rods. If 24 of them are 
-        *   pulled out and everything else is still in, ORM is 41.2 which is an
-        *   absorption of 58.8 reactivity by those rods.
-        *   14 Rods out: 39.54 %N max, 35.59 with rod effect.
+        * - There is a total of 28 manual control rods.
         
          */
-        reactivity = 88.7 // generally present reactivity.
+        reactivity = 70 // generally present reactivity.
                 - xenonModel.getYXenon() * 0.348
                 - Math.min(700, coreTemp) * 7.93e-3
                 + voiding / 20 * 5;

@@ -26,8 +26,9 @@ public class RodPositiveEffect {
 
     ControlRod rod;
 
-    private double[] xTime;
+    private double[] xPosition;
     private double[] yAbsorption;
+    private double[] yDisplacerBoost;
 
     RodPositiveEffect() {
         rod = new ControlRod(1, 1, ChannelType.MANUAL_CONTROLROD);
@@ -35,28 +36,30 @@ public class RodPositiveEffect {
     }
 
     public void run() {
-        // It's fixed that the rods need 22 Seconds from top to bottom. 
-        // Setting stepTime to 0.5 then will lead to 44 data points.
-        final double stepTime = 0.5;
-        int steps = (int) (23.0 / stepTime);
-        xTime = new double[steps];
+        final double stepSize = 0.1;
+        int steps = (int) (7.3 / stepSize) + 1;
+        xPosition = new double[steps];
+        yDisplacerBoost = new double[steps];
         yAbsorption = new double[steps];
 
-        rod.getSwi().setStepTime(stepTime);
-        
-        rod.run(); // updates output for first time
-        
         // initial rod position is 7.3 m - set to 0.0 to insert
         rod.getSwi().setInputMin();
         for (int idx = 0; idx < steps; idx++) {
-            xTime[idx] = (double) rod.getSwi().getOutput();
+            rod.getSwi().forceOutputValue(stepSize * (double) idx);
+            rod.run(); // updates output for first time
+            xPosition[idx] = (double) rod.getSwi().getOutput();
             yAbsorption[idx] = rod.getAbsorption();
-            rod.run();
+            yDisplacerBoost[idx] = rod.getDisplacerBoost();
         }
-        
-        plot(xTime, yAbsorption);
+
+        plot(xPosition, yAbsorption);
         xlabel("Rod Position (m)");
         ylabel("Absorption coefficient");
+        
+        figure();
+        plot(xPosition, yDisplacerBoost);
+        xlabel("Rod Position (m)");
+        ylabel("Displacer Boost Value");
     }
 
     public static void main(String[] args) {
