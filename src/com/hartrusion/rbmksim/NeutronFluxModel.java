@@ -299,8 +299,13 @@ public class NeutronFluxModel implements Runnable {
         // Limit the neutron flux log output, 1e-4 with fluxlog = -6 seemed
         // fine, the rxmodel used -5.28, lets go for -5.3 here.
         // it is 10^-5.3 * 100 % is 5.0118723e-4 %
-        if (xNeutronFlux < 5.0118723e-4) {
-            yNeutronFluxLog = -5.3;
+//        if (xNeutronFlux < 5.0118723e-4) {
+//            yNeutronFluxLog = -5.3;
+//        } else {
+        // use -6.0 as its the graphs bottom line
+        // 10^-6.0 * 100 % is 5.0118723e-4 %
+        if (xNeutronFlux < 1e-4) {
+            yNeutronFluxLog = -6;
         } else {
             yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
         }

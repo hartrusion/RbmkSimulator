@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
+import com.hartrusion.control.PIControl;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,10 @@ import com.hartrusion.control.ParameterHandler;
 import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.mvc.ActionCommand;
+import com.hartrusion.mvc.ModelListener;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Models everything that has to do something with the reactor.
@@ -41,8 +45,13 @@ import java.util.function.DoubleSupplier;
  */
 public class ReactorCore extends Subsystem implements Runnable {
 
+    private static final Logger LOGGER = Logger.getLogger(
+            ReactorCore.class.getName());
+
+    private final Setpoint setpointTargetNeutronFlux;
     private final Setpoint setpointPowerGradient;
     private final Setpoint setpointNeutronFlux;
+    private final PIControl globalControl;
 
     private final int[][] rodIndex = new int[23][23];
     private final int[][] fuelIndex = new int[23][23];
@@ -53,7 +62,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     /**
      * Each rod has the possibility to absorb between 0 and 1.0, short rods will
      * do a smaller value. This is the total sum of those factors for all
-     * control rods. This value is 100 % rodAbsorption. It can be calculated 
+     * control rods. This value is 100 % rodAbsorption. It can be calculated
      * that one rod with 1.0 makes 2.82 % rodAbsportion with this value.
      */
     private double maxAbsorption = 0.0; // should be inited to 35.40000
@@ -76,9 +85,32 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private final SerialRunner alarmUpdater = new SerialRunner();
 
+    private boolean rpsEnabled = true;
     private boolean rpsActive = false;
 
+    /**
+     * Global control is in a state where it is allowed to be turned on
+     */
+    private boolean globalControlReady = true;
+
+    /**
+     * Global control has active control over selected rods
+     */
+    private boolean globalControlActive = false;
+
+    /**
+     * setpointNeutronFlux is following towards the target value
+     */
+    private boolean globalControlTransient = false;
+
+    private int selectedAutoRods = 0;
+
     ReactorCore() {
+        globalControl = new PIControl();
+
+        setpointTargetNeutronFlux = new Setpoint();
+        setpointTargetNeutronFlux.initName("Reactor#TargetNeutronFlux");
+
         setpointPowerGradient = new Setpoint();
         setpointPowerGradient.initName("Reactor#SetpointPowerGradient");
 
@@ -88,10 +120,47 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     @Override
     public void run() {
+        setpointTargetNeutronFlux.run();
+
+        //if (globalControlActive && globalControlTransient) {
+        setpointNeutronFlux.setMaxRate(setpointPowerGradient.getOutput());
+        setpointNeutronFlux.setInput(setpointTargetNeutronFlux.getOutput());
+        //}
+
         setpointNeutronFlux.run();
         setpointPowerGradient.run();
-        
+
+        double avgPositionAutomatic = 0.0;
+        selectedAutoRods = 0;
         for (ControlRod rod : controlRods) {
+            // sum up avg positons for all rods which are in selected auto mode
+            if (rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
+                    && rod.isAutomatic()) {
+                avgPositionAutomatic += rod.getSwi().getOutput();
+                selectedAutoRods += 1;
+            }
+        }
+        if (selectedAutoRods >= 1) {
+            avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
+        } else {
+            avgPositionAutomatic = 7.4; // full inserted
+        }
+
+        globalControl.setFollowUp(avgPositionAutomatic);
+        globalControl.setManualMode(!globalControlActive);
+        globalControl.run();
+
+        // Write all controller outputs to the rods if they're in auto mode
+        // and finally call run for all rods to update their positions (this is
+        // the actual movement).
+        for (ControlRod rod : controlRods) {
+            // control of selected rods by the global control
+            if (globalControlActive
+                    && rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
+                    && rod.isAutomatic()) {
+                rod.getSwi().setInput(globalControl.getOutput());
+            }
+
             rod.run(); // update all rods
             // Send new position values to GUI
             String propName = "Reactor#RodPosition" + rod.getIdentifier();
@@ -114,10 +183,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         // Total position is the total sum of control rod pull lengts. 
         avgRodPosition = totalPosition / (double) controlRods.size();
-        
+
         // Generate a 0..100 % value from total rod absorption first
         rodAbsorption = absorption / maxAbsorption * 100;
-        
+
         // To trigger the accident, a displacer boost value is obtained from 
         // the control rods. The accident is represented by having too many 
         // manual control rods going from top to bottom at the same time,
@@ -164,22 +233,20 @@ public class ReactorCore extends Subsystem implements Runnable {
         *   coefficient in this state. 
         *   81.73 % - 5.5 % = 76.23 % reactivity remaining with hot core
         *   1 / 240 %Xe * 76.23 %N = 0.3176 %N/%Xe
-        
         * - There is a total of 28 manual control rods.
-        
-        
+        * - Steam voiding should be tackled by the automatic rods without bigger
+        *   issues. 5 * 2.2 % = 11 % roughly by auto rods, lets assume to have
+        *   15 % voiding meaning 11 %N so its *0.73
          */
         reactivity = 81.73 // generally present reactivity.
                 - xenonModel.getYXenon() * 0.3176 // 0..200 = 0..63.52
                 - Math.min(700, coreTemp) * 7.93e-3
-                + voiding / 20 * 5;
+                + voiding * 0.73;
 
         // pass reactivity to and get the neutron flux from state space model.
         neutronFluxModel.setInputs(rodAbsorption, reactivity);
         neutronFluxModel.run();
-        
-        System.out.println("React = " + reactivity + "  , Absopt = " + rodAbsorption);
-                
+
         // Pass neutron flux to xenon model and generate xenon poisoning value.
         xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
         xenonModel.run();
@@ -222,13 +289,13 @@ public class ReactorCore extends Subsystem implements Runnable {
     /**
      * Receive events from GUI. This receives rod selection commands and other
      * commands.
-     *
-     * @param evt
      */
     @Override
     public void handleAction(ActionCommand ac) {
         ControlRod rod;
-        if (setpointNeutronFlux.handleAction(ac)) {
+        if (setpointTargetNeutronFlux.handleAction(ac)) {
+            return;
+        } else if (setpointNeutronFlux.handleAction(ac)) {
             return;
         } else if (setpointPowerGradient.handleAction(ac)) {
             return;
@@ -238,10 +305,45 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         if (ac.getPropertyName().equals("Reactor#AZ5")) {
             shutdown();
+            LOGGER.log(Level.INFO, "Received AZ-5 Command");
             return;
         }
         if (ac.getPropertyName().equals("Reactor#RPS")) {
-            rpsActive = (boolean) ac.getValue();
+            rpsEnabled = (boolean) ac.getValue();
+            return;
+        }
+        if (ac.getPropertyName().equals("Reactor#RPSReset")) {
+            // allow reset only after rods are in and there's no neutron flux.
+            if (avgRodPosition >= 7.1
+                    && neutronFluxModel.getYNeutronFlux() <= 0.5) {
+                rpsActive = false;
+            }
+        }
+        if (ac.getPropertyName().equals("Reactor#GlobalControlStop")) {
+            if (globalControlActive && !globalControlReady) {
+                setpointNeutronFlux.setStop();
+                LOGGER.log(Level.INFO, "Global Control Ready / n. Active");
+                globalControlReady = true;
+                globalControlActive = false;
+            }
+
+            return;
+        }
+        if (ac.getPropertyName().equals("Reactor#GlobalControlEnable")) {
+            if (globalControlReady) {
+                globalControlReady = false;
+                globalControlActive = true;
+                LOGGER.log(Level.INFO, "Global Control n. Ready / Active");
+                return;
+            }
+        }
+        if (ac.getPropertyName().equals("Reactor#GlobalControlTrim")) {
+            if (globalControlReady) {
+                setpointNeutronFlux.forceOutputValue(
+                        neutronFluxModel.getYNeutronFlux());
+                LOGGER.log(Level.INFO, "Output trim sucessfull.");
+                return;
+            }
         }
         int identifier, x, y;
         boolean value;
@@ -284,7 +386,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                         cRod.setSelected(true);
                         // Sent selection of this rod to GUI:
                         controller.propertyChange(
-                                new PropertyChangeEvent(this, "Reactor#RodSelected",
+                                new PropertyChangeEvent(this,
+                                        "Reactor#RodSelected",
                                         null, cRod.getIdentifier()));
                     }
                 }
@@ -296,7 +399,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                         cRod.setSelected(true);
                         // Sent selection of this rod to GUI:
                         controller.propertyChange(
-                                new PropertyChangeEvent(this, "Reactor#RodSelected",
+                                new PropertyChangeEvent(this,
+                                        "Reactor#RodSelected",
                                         null, cRod.getIdentifier()));
                     }
                 }
@@ -308,7 +412,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                         cRod.setSelected(true);
                         // Sent selection of this rod to GUI:
                         controller.propertyChange(
-                                new PropertyChangeEvent(this, "Reactor#RodSelected",
+                                new PropertyChangeEvent(this,
+                                        "Reactor#RodSelected",
                                         null, cRod.getIdentifier()));
                     }
                 }
@@ -319,12 +424,17 @@ public class ReactorCore extends Subsystem implements Runnable {
                         cRod.setSelected(false);
                         // Sent selection of this rod to GUI:
                         controller.propertyChange(
-                                new PropertyChangeEvent(this, "Reactor#RodDeselected",
+                                new PropertyChangeEvent(this,
+                                        "Reactor#RodDeselected",
                                         null, cRod.getIdentifier()));
                     }
                 }
                 break;
             case "Reactor#IncreaseRodSpeed":
+                if (rpsActive) {
+                    LOGGER.log(Level.INFO, "Command refused due to RPS active");
+                    return;
+                }
                 for (ControlRod cRod : controlRods) {
                     if (cRod.isSelected()) {
                         cRod.rodSpeedIncrease();
@@ -332,6 +442,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 }
                 break;
             case "Reactor#DecreaseRodSpeed":
+                if (rpsActive) {
+                    LOGGER.log(Level.INFO, "Command refused due to RPS active");
+                    return;
+                }
                 for (ControlRod cRod : controlRods) {
                     if (cRod.isSelected()) {
                         cRod.rodSpeedDecrease();
@@ -339,6 +453,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 }
                 break;
             case "Reactor#RodStop":
+                if (rpsActive) {
+                    LOGGER.log(Level.INFO, "Command refused due to RPS active");
+                    return;
+                }
                 // This command stops all selected control rods 
                 for (ControlRod cRod : controlRods) {
                     if (cRod.isSelected()) {
@@ -347,6 +465,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 }
                 break;
             case "Reactor#RodManualUp":
+                if (rpsActive) {
+                    LOGGER.log(Level.INFO, "Command refused due to RPS active");
+                    return;
+                }
                 // this event passes the new switch state.
                 value = (boolean) ac.getValue();
                 // All selected rods (and only those) will either be 
@@ -362,6 +484,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 }
                 break;
             case "Reactor#RodManualDown":
+                if (rpsActive) {
+                    LOGGER.log(Level.INFO, "Command refused due to RPS active");
+                    return;
+                }
                 // this event passes the new switch state.
                 value = (boolean) ac.getValue();
                 // All selected rods (and only those) will either be 
@@ -379,8 +505,13 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="init() Method">
     public void init() {
+        globalControl.addInputProvider(()
+                -> -setpointNeutronFlux.getOutput()
+                + neutronFluxModel.getYNeutronFlux());
+        globalControl.setMaxOutput(7.4);
+        globalControl.setParameterK(2.0);
+        globalControl.setParameterTN(0.5);
 
         int idx, jdx;
 
@@ -428,9 +559,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         setpointPowerGradient.setUpperLimit(1.0);
         setpointPowerGradient.setMaxRate(0.2);
 
-        setpointNeutronFlux.forceOutputValue(40.0);
-        setpointNeutronFlux.setMaxRate(8);
-
         // Define alarms and consequences
         ValueAlarmMonitor am;
         am = new ValueAlarmMonitor();
@@ -453,7 +581,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-    } // </editor-fold>
+    }
 
     public ReactorElement getElement(int x, int y) {
         if (x < 20 || x > 42 || y < 20 || y > 42) {
@@ -493,33 +621,48 @@ public class ReactorCore extends Subsystem implements Runnable {
         };
     }
 
-    @Override
-    public void registerParameterOutput(ParameterHandler output) {
-        super.registerParameterOutput(output);
-        setpointNeutronFlux.registerParameterHandler(outputValues);
-        setpointPowerGradient.registerParameterHandler(outputValues);
-    }
-
     /**
-     * Can be invoked by this or other
+     * Can be invoked by this or externally, this is the RPS (reactor protection
+     * system) shutdown command that is supposed to turn off the reactor. It can
+     * be overridden however.
      */
     public void triggerAutoShutdown() {
-        if (!rpsActive) {
+        if (!rpsEnabled) {
             return;
         }
         shutdown();
+        rpsActive = true;
     }
 
     /**
-     * AZ5 makes all rods move into the core immediately with maximum speed.
+     * Shutdown makes all rods move into the core immediately with maximum speed
+     * (this is the AZ5 command).
      */
     private void shutdown() {
+        if (globalControlActive) {
+            LOGGER.log(Level.INFO, "Deactivated Global Control (Shutdown)");
+        }
+        globalControlActive = false;
         for (ControlRod c : controlRods) {
             if (c.getRodType() == ChannelType.SHORT_CONTROLROD) {
-                c.getSwi().setInputMin();
+                c.getSwi().setInputMin(); // those need to be pulled out
             } else {
                 c.getSwi().setInputMax();
             }
         }
+    }
+
+    @Override
+    public void registerController(ModelListener controller) {
+        super.registerController(controller);
+        globalControl.addPropertyChangeListener(controller);
+    }
+
+    @Override
+    public void registerParameterOutput(ParameterHandler output) {
+        super.registerParameterOutput(output);
+        setpointTargetNeutronFlux.registerParameterHandler(output);
+        setpointNeutronFlux.registerParameterHandler(output);
+        setpointPowerGradient.registerParameterHandler(output);
     }
 }
