@@ -262,12 +262,14 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYNeutronRate());
         outputValues.setParameterValue("Reactor#AvgRodPos",
                 avgRodPosition);
-        outputValues.setParameterValue("Reactor#RodAbsorption",
-                rodAbsorption);
+    //    outputValues.setParameterValue("Reactor#RodAbsorption",
+    //            rodAbsorption);
         outputValues.setParameterValue("Reactor#Xenon",
                 xenonModel.getYXenon());
         outputValues.setParameterValue("Reactor#ThermalPower",
                 neutronFluxModel.getYThermalPower());
+        outputValues.setParameterValue("Reactor#k",
+                neutronFluxModel.getYK());
 
         // Save values to plot manager
         if (plotUpdateCount == 0) {
@@ -506,12 +508,18 @@ public class ReactorCore extends Subsystem implements Runnable {
     }
 
     public void init() {
+        // Auto Control is limited between 4 and 110 % flux
+        setpointNeutronFlux.setLowerLimit(4.0);
+        setpointNeutronFlux.setUpperLimit(110.0);
+        setpointTargetNeutronFlux.setLowerLimit(4.0);
+        setpointTargetNeutronFlux.setUpperLimit(110.0);
+
         globalControl.addInputProvider(()
                 -> -setpointNeutronFlux.getOutput()
                 + neutronFluxModel.getYNeutronFlux());
         globalControl.setMaxOutput(7.4);
         globalControl.setParameterK(2.0);
-        globalControl.setParameterTN(0.5);
+        globalControl.setParameterTN(10);
 
         int idx, jdx;
 

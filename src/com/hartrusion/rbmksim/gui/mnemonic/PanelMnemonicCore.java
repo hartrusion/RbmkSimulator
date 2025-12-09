@@ -49,7 +49,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
     private void initComponents() {
 
         jLabelReadingFuelTemp2 = new javax.swing.JLabel();
-        jLabelReadingORM = new javax.swing.JLabel();
+        jLabelReadingK = new javax.swing.JLabel();
         jLabelReadingXenon = new javax.swing.JLabel();
         jLabelReadingVoid2 = new javax.swing.JLabel();
         jLabelReadingFuelTemp1 = new javax.swing.JLabel();
@@ -58,6 +58,10 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabelReadingNeutronFlux = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(228, 176));
@@ -70,15 +74,15 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingFuelTemp2.setText("000.0");
         jLabelReadingFuelTemp2.setToolTipText("");
         jLabelReadingFuelTemp2.setOpaque(true);
-        add(jLabelReadingFuelTemp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 102, 48, 16));
+        add(jLabelReadingFuelTemp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 106, 48, 16));
 
-        jLabelReadingORM.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingORM.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingORM.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingORM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingORM.setText("000.0");
-        jLabelReadingORM.setOpaque(true);
-        add(jLabelReadingORM, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 150, 48, 16));
+        jLabelReadingK.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingK.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingK.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingK.setText("1.0005");
+        jLabelReadingK.setOpaque(true);
+        add(jLabelReadingK, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 148, 56, 16));
 
         jLabelReadingXenon.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingXenon.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -86,7 +90,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingXenon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingXenon.setText("120.5");
         jLabelReadingXenon.setOpaque(true);
-        add(jLabelReadingXenon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 26, 48, 16));
+        add(jLabelReadingXenon, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 108, 48, 16));
 
         jLabelReadingVoid2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingVoid2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -95,7 +99,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingVoid2.setText("00.0");
         jLabelReadingVoid2.setToolTipText("");
         jLabelReadingVoid2.setOpaque(true);
-        add(jLabelReadingVoid2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 52, 48, 16));
+        add(jLabelReadingVoid2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 62, 48, 16));
 
         jLabelReadingFuelTemp1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingFuelTemp1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -104,7 +108,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingFuelTemp1.setText("000.0");
         jLabelReadingFuelTemp1.setToolTipText("");
         jLabelReadingFuelTemp1.setOpaque(true);
-        add(jLabelReadingFuelTemp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 102, 48, 16));
+        add(jLabelReadingFuelTemp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 106, 48, 16));
 
         jLabelReadingVoid1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingVoid1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -113,27 +117,50 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingVoid1.setText("00.0");
         jLabelReadingVoid1.setToolTipText("");
         jLabelReadingVoid1.setOpaque(true);
-        add(jLabelReadingVoid1, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 52, 48, 16));
+        add(jLabelReadingVoid1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 62, 48, 16));
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel3.getFont().getSize()-3));
         jLabel3.setForeground(new java.awt.Color(14, 222, 194));
         jLabel3.setText("% Void");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 54, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 44, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel5.getFont().getSize()-3));
         jLabel5.setForeground(new java.awt.Color(14, 222, 194));
         jLabel5.setText("Fuel Temp");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 104, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 90, -1, -1));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel7.getFont().getSize()-3));
         jLabel7.setForeground(new java.awt.Color(14, 222, 194));
-        jLabel7.setText("ORM");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 132, -1, -1));
+        jLabel7.setText("k =");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 130, -1, -1));
 
         jLabel9.setFont(jLabel9.getFont().deriveFont(jLabel9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel9.getFont().getSize()-3));
         jLabel9.setForeground(new java.awt.Color(14, 222, 194));
-        jLabel9.setText("Xenon (%)");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, -1, -1));
+        jLabel9.setText("Neutron Flux");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 10, -1, -1));
+
+        jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel6.getFont().getSize()-3));
+        jLabel6.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel6.setText("Fuel Temp");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 90, -1, -1));
+
+        jLabel4.setFont(jLabel4.getFont().deriveFont(jLabel4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel4.getFont().getSize()-3));
+        jLabel4.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel4.setText("% Void");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 46, -1, -1));
+
+        jLabel10.setFont(jLabel10.getFont().deriveFont(jLabel10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel10.getFont().getSize()-3));
+        jLabel10.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel10.setText("Xe (%)");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 88, -1, -1));
+
+        jLabelReadingNeutronFlux.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingNeutronFlux.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingNeutronFlux.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingNeutronFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingNeutronFlux.setText("120.5");
+        jLabelReadingNeutronFlux.setOpaque(true);
+        add(jLabelReadingNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 26, 48, 16));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCore.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -141,14 +168,18 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingFuelTemp1;
     private javax.swing.JLabel jLabelReadingFuelTemp2;
-    private javax.swing.JLabel jLabelReadingORM;
+    private javax.swing.JLabel jLabelReadingK;
+    private javax.swing.JLabel jLabelReadingNeutronFlux;
     private javax.swing.JLabel jLabelReadingVoid1;
     private javax.swing.JLabel jLabelReadingVoid2;
     private javax.swing.JLabel jLabelReadingXenon;
@@ -171,10 +202,10 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
                 jLabelReadingXenon.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1"));
-            case "Reactor#RodAbsorption" ->
-                jLabelReadingORM.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1"));
+            case "Reactor#k" ->
+                jLabelReadingK.setText(
+                        String.format("%.4f", newValue));
+                                //.replaceAll("(\\.\\d+?)0*$", "$1"));
             case "Core1#Temperature" ->
                 jLabelReadingFuelTemp1.setText(
                         String.format("%.1f", newValue)
@@ -191,6 +222,10 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
                 jLabelReadingVoid2.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1"));
+            case "Reactor#NeutronFlux" ->
+                jLabelReadingNeutronFlux.setText(
+                        String.format("%.1f", newValue)
+                                .replaceAll("(\\.\\d+?)0*$", "$1") + " %");
         }
     }
 
