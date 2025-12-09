@@ -177,7 +177,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabelReadingCondInValve">
+    <Component class="javax.swing.JLabel" name="jLabelReadingCondIn1Valve">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>

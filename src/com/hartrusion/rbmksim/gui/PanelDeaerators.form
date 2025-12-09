@@ -375,7 +375,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoopValve" name="controlLoopValveDA1Flow">
       <Properties>
-        <Property name="component" type="java.lang.String" value="Deaerator1#FlowValve"/>
+        <Property name="component" type="java.lang.String" value="Condensation1#ValveToDA"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -385,7 +385,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoopValve" name="controlLoopValveDA2Flow">
       <Properties>
-        <Property name="component" type="java.lang.String" value="Deaerator2#FlowValve"/>
+        <Property name="component" type="java.lang.String" value="Condensation2#ValveToDA"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

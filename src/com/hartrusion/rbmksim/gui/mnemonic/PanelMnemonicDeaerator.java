@@ -55,7 +55,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         valveVent1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveVent2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveTurbineTap = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        jLabelReadingCondInValve = new javax.swing.JLabel();
+        jLabelReadingCondIn1Valve = new javax.swing.JLabel();
         jLabelReadingSteamIn1Valve = new javax.swing.JLabel();
         jLabelReadingSteamFromMain1Valve = new javax.swing.JLabel();
         jLabelReadingSteamFromMain2Valve = new javax.swing.JLabel();
@@ -110,13 +110,13 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         valveTurbineTap.setVertical(true);
         add(valveTurbineTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 208, -1, -1));
 
-        jLabelReadingCondInValve.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingCondInValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingCondInValve.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingCondInValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingCondInValve.setText("___");
-        jLabelReadingCondInValve.setOpaque(true);
-        add(jLabelReadingCondInValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 96, 24, -1));
+        jLabelReadingCondIn1Valve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondIn1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCondIn1Valve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondIn1Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondIn1Valve.setText("___");
+        jLabelReadingCondIn1Valve.setOpaque(true);
+        add(jLabelReadingCondIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 96, 24, -1));
 
         jLabelReadingSteamIn1Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamIn1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -255,8 +255,8 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingCondFlow1;
     private javax.swing.JLabel jLabelReadingCondFlow2;
+    private javax.swing.JLabel jLabelReadingCondIn1Valve;
     private javax.swing.JLabel jLabelReadingCondIn2Valve;
-    private javax.swing.JLabel jLabelReadingCondInValve;
     private javax.swing.JLabel jLabelReadingDA1Level;
     private javax.swing.JLabel jLabelReadingDA1Pressure;
     private javax.swing.JLabel jLabelReadingDA1Temperature;
@@ -286,6 +286,24 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
+            case "Condensation1#ValveToDA_Pos" ->
+                valveCondIn1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Condensation2#ValveToDA_Pos" ->
+                valveCondIn2.setActive(evt.getNewValue() != ValveState.CLOSED);      
+            case "Condensation1#ValveToDAControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveCondIn1.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveCondIn1.setControlIndicatorActive(false);
+                }
+            }
+            case "Condensation2#ValveToDAControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveCondIn2.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveCondIn2.setControlIndicatorActive(false);
+                }
+            }
             case "Deaerator1#SteamInRegValve_Pos" ->
                 valveSteamIn1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Deaerator2#SteamInRegValve_Pos" ->
@@ -322,6 +340,26 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
+        if (propertyName.equals("Condensation1#ValveToDA")) {
+            jLabelReadingCondIn1Valve.setText(
+                    String.format("%.0f", newValue));
+            return;
+        }
+        if (propertyName.equals("Condensation2#ValveToDA")) {
+            jLabelReadingCondIn2Valve.setText(
+                    String.format("%.0f", newValue));
+            return;
+        }
+        if (propertyName.equals("Condensation1#FlowToDA")) {
+            jLabelReadingCondFlow1.setText(
+                    String.format("%.0f", newValue) + " kg/s");
+            return;
+        }
+        if (propertyName.equals("Condensation2#FlowToDA")) {
+            jLabelReadingCondFlow2.setText(
+                    String.format("%.0f", newValue) + " kg/s");
+            return;
+        }
         if (!propertyName.startsWith("Deaerator")) {
             return;
         }

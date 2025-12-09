@@ -209,10 +209,10 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDrain.setText("Drain");
         add(jLabelDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 64, 36, 14));
 
-        controlLoopValveDA1Flow.setComponent("Deaerator1#FlowValve");
+        controlLoopValveDA1Flow.setComponent("Condensation1#ValveToDA");
         add(controlLoopValveDA1Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 66, -1, -1));
 
-        controlLoopValveDA2Flow.setComponent("Deaerator2#FlowValve");
+        controlLoopValveDA2Flow.setComponent("Condensation2#ValveToDA");
         add(controlLoopValveDA2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 104, -1, -1));
         add(integralSwitchVent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 166, -1, -1));
         add(integralSwitchVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 166, -1, -1));
@@ -293,8 +293,6 @@ public class PanelDeaerators extends AbstractPanelWidget {
         loopControlDA2Pressure.updateComponent(evt);
         setpointControlDA1Level.updateComponent(evt);
         setpointControlDA2Level.updateComponent(evt);
-        setpointControlDA1Level.updateComponent(evt);
-        setpointControlDA2Level.updateComponent(evt);
         integralSwitchDrain1.updateComponent(evt);
         integralSwitchDrain2.updateComponent(evt);
         integralSwitchDromSDA2.updateComponent(evt);
@@ -321,6 +319,8 @@ public class PanelDeaerators extends AbstractPanelWidget {
         loopControlDA2Pressure.updateComponent(propertyName, newValue);
         setpointControlDA1Level.updateComponent(propertyName, newValue);
         setpointControlDA2Level.updateComponent(propertyName, newValue);
+        controlLoopValveDA1Flow.updateComponent(propertyName, newValue);
+        controlLoopValveDA2Flow.updateComponent(propertyName, newValue);
     }
 
     @Override

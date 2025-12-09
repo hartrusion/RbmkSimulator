@@ -2093,6 +2093,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         outputValues.setParameterValue("Hotwell#Level", // m to cm
                 hotwell.getPrimarySideReservoir().getFillHeight() * 100);
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "Condensation" + (idx + 1) + "#FlowToDA",
+                    condensationValveToDA[idx].getValveElement().getFlow());
+        }
         // </editor-fold>
 
         // Save values to plot manager
