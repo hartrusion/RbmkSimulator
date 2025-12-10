@@ -1274,6 +1274,23 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Todo: Get proper values, those are completely made up here
         hotwell.initCharacteristic(60, 200, 8000, 1e7, 0.8, 5.0, 0);
 
+        // Condensate pumps have 2 stages, we need 2 of 3 for full load.
+        // full condensation flow is 3111,11 kg/s, div by 2 is 1555.56 kg/s
+        // Todo: Proper values, those are just made up to have something.
+        for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
+            condensationHotwellPump[idx].initCharacteristic(10e5, 8e5, 1556);
+        }
+        // Dummy resistor: 6 bar diff on full flow -> 6e5 / 3111 = 192.8
+        condensationEjectorDummy.setResistanceParameter(192.8);
+        // same here
+        for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
+            condensationCondensatePump[idx].initCharacteristic(10e5, 6e5, 1556);
+        }
+        // same here, just some random value
+        for (int idx = 0; idx < 2; idx++) {
+            condensationValveToDA[idx].initCharacteristic(300, 20);
+        }
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
