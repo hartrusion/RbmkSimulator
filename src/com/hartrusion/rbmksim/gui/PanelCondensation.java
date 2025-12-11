@@ -37,6 +37,8 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetPumpCondensate1.registerActionReceiver(controller);
         panelWidgetPumpCondensate2.registerActionReceiver(controller);
         panelWidgetPumpCondensate3.registerActionReceiver(controller);
+        controlLoopHotwellFill.registerActionReceiver(controller);
+        controlLoopHotwellDrain.registerActionReceiver(controller);
     }
 
     /**
@@ -149,7 +151,15 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         panelWidgetPumpHotwell1.setChornobylPrefix("Condensation1#HotwellPump");
         add(panelWidgetPumpHotwell1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
+
+        controlLoopHotwellFill.setControlComponent("Hotwell#FillValve");
+        controlLoopHotwellFill.setFeedbackComponent("Hotwell#Level");
+        controlLoopHotwellFill.setSetpointComponent("Hotwell#LowerSetpoint");
         add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 46, -1, -1));
+
+        controlLoopHotwellDrain.setControlComponent("Hotwell#DrainValve");
+        controlLoopHotwellDrain.setFeedbackComponent("Hotwell#Level");
+        controlLoopHotwellDrain.setSetpointComponent("Hotwell#UpperSetpoint");
         add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 90, -1, -1));
 
         jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
@@ -509,10 +519,10 @@ public class PanelCondensation extends AbstractPanelWidget {
         chornobylGaugeLevel.setChornobylValue(0.0F);
         add(chornobylGaugeLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
-        panelWidgetMakeupPump2.setChornobylPrefix("MakeupStorage2#ToDAPumps");
+        panelWidgetMakeupPump2.setChornobylPrefix("Makeup2#Pumps");
         add(panelWidgetMakeupPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 68, -1, -1));
 
-        panelWidgetMakeupPump1.setChornobylPrefix("MakeupStorage1#ToDAPumps");
+        panelWidgetMakeupPump1.setChornobylPrefix("Makeup1#Pumps");
         add(panelWidgetMakeupPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 68, -1, -1));
 
         jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(0, 128, 0));
@@ -837,6 +847,8 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetPumpCondensate1.updateComponent(evt);
         panelWidgetPumpCondensate2.updateComponent(evt);
         panelWidgetPumpCondensate3.updateComponent(evt);
+        controlLoopHotwellFill.updateComponent(evt);
+        controlLoopHotwellDrain.updateComponent(evt);
     }
 
     @Override
@@ -852,6 +864,8 @@ public class PanelCondensation extends AbstractPanelWidget {
             case "Hotwell#Level" ->
                 chornobylGaugeHotwellLevel.setChornobylValue((float) newValue);
         }
+        controlLoopHotwellFill.updateComponent(propertyName, newValue);
+        controlLoopHotwellDrain.updateComponent(propertyName, newValue);
     }
 
     @Override

@@ -90,6 +90,11 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="controlLoopHotwellFill">
+      <Properties>
+        <Property name="controlComponent" type="java.lang.String" value="Hotwell#FillValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Hotwell#Level"/>
+        <Property name="setpointComponent" type="java.lang.String" value="Hotwell#LowerSetpoint"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="246" y="46" width="-1" height="-1"/>
@@ -97,6 +102,11 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="controlLoopHotwellDrain">
+      <Properties>
+        <Property name="controlComponent" type="java.lang.String" value="Hotwell#DrainValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Hotwell#Level"/>
+        <Property name="setpointComponent" type="java.lang.String" value="Hotwell#UpperSetpoint"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="246" y="90" width="-1" height="-1"/>
@@ -927,7 +937,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetMakeupPump2">
       <Properties>
-        <Property name="chornobylPrefix" type="java.lang.String" value="MakeupStorage2#ToDAPumps"/>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Makeup2#Pumps"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -937,7 +947,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetMakeupPump1">
       <Properties>
-        <Property name="chornobylPrefix" type="java.lang.String" value="MakeupStorage1#ToDAPumps"/>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Makeup1#Pumps"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
