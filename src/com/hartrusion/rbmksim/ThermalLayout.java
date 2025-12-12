@@ -1285,8 +1285,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Auxiliary condensers (БРУ–ТК) each can condense about 100 t/h 
         // steam which is 28 kg/s. It is designed to be used when there is no
         // vacuum so it will propably be operated in low pressure regions only.
-        // Set the valves to have 30 kg/s with 10 bar of pressure (1e6 Pa)
-        // so can will be R = 1e6 Pa / 30 kg/s = 3.3e4 Pa/kg*s for steam valve.
+        // Set the valves to have 30 kg/s with 5 bar of pressure (5e5 Pa)
+        // so can will be R = 5e5 Pa / 30 kg/s = 1.2e4 Pa/kg*s for steam valve.
         // 30 bar is roughly saturation temperature of 500 Kelvin. Lets assume 
         // condensation tempearture of 310 Kelvin so this is 190 K temperature 
         // 190 K * 4200 J/kg/K + 2100000 J/kg = 2898000 J/kg = 2.9e6 J/kg
@@ -1295,7 +1295,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initCharacteristic(3.3e4, 20);
+            auxCondSteamValve[idx].initCharacteristic(1.2e4, 20);
             auxCondensers[idx].initCharacteristic(4, 50,
                     4000, 8.7e6, 1.2, 3.0, 1e5);
             // No ambient pressure for condensation, always steam pressure.
@@ -1627,7 +1627,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
 
         // Aux Condensation condensate level control
-        auxCondCondensateValve[0].getController().addInputProvider(new DoubleSupplier() {
+        auxCondCondensateValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
             @Override
             public double getAsDouble() {
                 // negative: open valve to decrease level.
@@ -1636,6 +1637,23 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         - setpointAuxCondLevel[0].getOutput();
             }
         });
+        auxCondCondensateValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                // negative: open valve to decrease level.
+                return auxCondensers[1].getPrimarySideReservoir()
+                        .getFillHeight() * 100 // m to cm
+                        - setpointAuxCondLevel[1].getOutput();
+            }
+        });
+         for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) auxCondCondensateValve[idx].getController())
+                    .setParameterK(5.0);
+            ((PIControl) auxCondCondensateValve[idx].getController())
+                    .setParameterTN(4);
+        }
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,
@@ -2121,6 +2139,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     - loopFeedwaterIn[idx].getFlow(
                             feedwaterFlowRegulationValve[idx][2].getValveElement()));
 
+            outputValues.setParameterValue("Feedwater" + (idx + 1) + 
+                    "#StartupReductionValve",
+                    feedwaterStartupReductionValve[idx].getOpening());
+            
             outputValues.setParameterValue("Deaerator" + (idx + 1) + "#Level",
                     deaerator[idx].getFillHeight() * 100); // m to cm
             outputValues.setParameterValue(

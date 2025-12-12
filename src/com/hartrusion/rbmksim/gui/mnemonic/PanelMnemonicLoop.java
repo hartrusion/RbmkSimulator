@@ -75,6 +75,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         valveMainSteam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFeed0Gate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveStartupRed = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        jLabelReadingFeed0PosRedValve = new javax.swing.JLabel();
         jLabelReadingFeed0Pos = new javax.swing.JLabel();
         jLabelReadingFeed1Pos = new javax.swing.JLabel();
         jLabelReadingFeed2Pos = new javax.swing.JLabel();
@@ -164,6 +165,14 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
 
         valveStartupRed.setVertical(true);
         add(valveStartupRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 294, -1, -1));
+
+        jLabelReadingFeed0PosRedValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingFeed0PosRedValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingFeed0PosRedValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingFeed0PosRedValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFeed0PosRedValve.setText("___");
+        jLabelReadingFeed0PosRedValve.setOpaque(true);
+        add(jLabelReadingFeed0PosRedValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 24, -1));
 
         jLabelReadingFeed0Pos.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingFeed0Pos.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -340,6 +349,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingDrumPressure;
     private javax.swing.JLabel jLabelReadingDrumTemp;
     private javax.swing.JLabel jLabelReadingFeed0Pos;
+    private javax.swing.JLabel jLabelReadingFeed0PosRedValve;
     private javax.swing.JLabel jLabelReadingFeed1Pos;
     private javax.swing.JLabel jLabelReadingFeed2Pos;
     private javax.swing.JLabel jLabelReadingFlowToDrum;
@@ -546,7 +556,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         if (propertyName.length() == 31) { // FeedwaterN#FlowRegulationValveM
             if (Character.getNumericValue(propertyName.charAt(9)) == loop) {
                 if (propertyName.substring(11, 30).equals("FlowRegulationValve")) {
-                    switch(Character.getNumericValue(propertyName.charAt(30))) {
+                    switch (Character.getNumericValue(propertyName.charAt(30))) {
                         case 1 ->
                             jLabelReadingFeed0Pos.setText(
                                     String.format("%.0f", newValue));
@@ -559,6 +569,16 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                     }
 
                     return;
+                }
+            }
+        }
+        // FeedwaterN#FlowRegulationValveM
+        // FeedwaterN#StartupReductionValve
+        if (propertyName.length() == 32) { // FeedwaterN#StartupReductionValve
+            if (Character.getNumericValue(propertyName.charAt(9)) == loop) {
+                if (propertyName.substring(11, 32).equals("StartupReductionValve")) {
+                    jLabelReadingFeed0PosRedValve.setText(
+                            String.format("%.0f", newValue));
                 }
             }
         }
