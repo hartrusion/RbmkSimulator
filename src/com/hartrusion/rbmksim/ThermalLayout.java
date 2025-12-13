@@ -75,8 +75,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     // Reference to the used reactor core part
     private ReactorCore core;
-
-    // private final If97Wrapper steamTable = new If97Wrapper();
+    
     private final PhasedPropertiesWater phasedWater
             = new PhasedPropertiesWater();
 
@@ -140,9 +139,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatFluidPump[] blowdownCooldownPumps = new HeatFluidPump[2];
     private final HeatNode blowdownPumpCollectorNode; // line above pumps
     // Placed before the first input into regenerator above the valve from pumps
-    private final HeatVolumizedFlowResistance blowdownToRegeneratorFirstResistance;
+    private final HeatVolumizedFlowResistance 
+            blowdownToRegeneratorFirstResistance;
     // Placed after the water treatment towards the regenerator
-    private final HeatVolumizedFlowResistance blowdownToRegeneratorSecondResistance;
+    private final HeatVolumizedFlowResistance 
+            blowdownToRegeneratorSecondResistance;
     private final HeatNode blowdownRegeneratorInCollectorNode;
     private final HeatValve blowdownValvePassiveFlow;
     private final HeatValve blowdownValvePumpsToRegenerator;
@@ -215,7 +216,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new HeatValveControlled[2][3];
 
     // Auxiliary Condensation
-    private final PhasedValveControlled[] auxCondSteamValve = new PhasedValveControlled[2];
+    private final PhasedValveControlled[] auxCondSteamValve 
+            = new PhasedValveControlled[2];
     private final PhasedCondenser[] auxCondensers = new PhasedCondenser[2];
     // Coolant flow with simple flow source for now
     private final HeatOrigin[] auxCondCoolantSource = new HeatOrigin[2];
@@ -246,7 +248,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedCondenser hotwell;
     private final PhasedHeatFluidConverter hotwellOutConverter;
     private final HeatNode hotwellOutNode;
-    private final HeatFluidPump[] condensationHotwellPump = new HeatFluidPump[3];
+    private final HeatFluidPump[] condensationHotwellPump 
+            = new HeatFluidPump[3];
     private final HeatNode condensationPumpOut;
     private final HeatVolumizedFlowResistance condensationEjectorDummy;
     private final HeatNode condensationBoosterPumpIn;
@@ -264,6 +267,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatNode hotwellFillNode;
     private final HeatValveControlled hotwellFillValve;
     private final HeatValveControlled hotwellDrainValve;
+
+    // Main Coolant Loop for Condenser - for now, just a constant flow, 
+    // always on, no vacuum stuff for now.
+    private final HeatOrigin condenserCoolantSource;
+    private final HeatNode condenserCoolantSourceNode;
+    private final HeatControlledFlowSource condenserCoolant;
+    private final HeatOrigin condenserCoolantSink;
 
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
@@ -682,6 +692,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellDrainValve.registerController(new PIControl());
         hotwellDrainValve.initName("Hotwell#DrainValve");
 
+        condenserCoolantSource = new HeatOrigin();
+        condenserCoolantSource.setName("Condenser#CoolantSource");
+        condenserCoolantSourceNode = new HeatNode();
+        condenserCoolantSourceNode.setName("Condenser#CoolantSourceNode");
+        condenserCoolant = new HeatControlledFlowSource();
+        condenserCoolant.initName("Condenser#Coolant");
+        condenserCoolantSink = new HeatOrigin();
+        condenserCoolantSink.setName("Condenser#CoolantSource");
+
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
 
@@ -719,7 +738,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             mainSteamShutoffValve[idx].registerSignalListener(controller);
             deaeratorSteamInRegValve[idx].registerSignalListener(controller);
-            deaeratorSteamInRegValve[idx].registerParameterHandler(outputValues);
+            deaeratorSteamInRegValve[idx].registerParameterHandler(
+                    outputValues);
             deaeratorSteamFromMain[idx].registerSignalListener(controller);
             deaeratorSteamFromMain[idx].registerParameterHandler(outputValues);
             for (int jdx = 0; jdx < 4; jdx++) {
@@ -757,9 +777,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         feedwaterPump3.registerSignalListener(controller);
         for (int idx = 0; idx < 2; idx++) {
             feedwaterSparePumpOutValve[idx].registerSignalListener(controller);
-            feedwaterStartupReductionValve[idx].registerSignalListener(controller);
+            feedwaterStartupReductionValve[idx].registerSignalListener(
+                    controller);
             for (int jdx = 0; jdx < 3; jdx++) {
-                feedwaterShutoffValve[idx][jdx].registerSignalListener(controller);
+                feedwaterShutoffValve[idx][jdx].registerSignalListener(
+                        controller);
                 feedwaterFlowRegulationValve[idx][jdx]
                         .registerSignalListener(controller);
                 feedwaterFlowRegulationValve[idx][jdx]
@@ -808,7 +830,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellUpperLevel.registerParameterHandler(outputValues);
         setpointHotwellLowerLevel.registerParameterHandler(outputValues);
         // </editor-fold>  
-        // <editor-fold defaultstate="collapsed" desc="Describe dynamic model">
+        // <editor-fold defaultstate="collapsed" desc="Node-element connections">
         // Cold condensate storage
         makeupStorage.connectTo(makeupStorageDrainCollector);
         makeupStorage.connectTo(makeupStorageOut);
@@ -924,7 +946,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownRegenerator.getSecondarySide().getNode(1),
                 blowdownOutNode);
         // Add the drain back to makeup storage
-        blowdownValveDrain.getValveElement().connectBetween(blowdownTreatedOutNode, makeupStorageDrainCollector);
+        blowdownValveDrain.getValveElement().connectBetween(
+                blowdownTreatedOutNode, makeupStorageDrainCollector);
         // Secondary coolant flow, just a flow source for forcing the flow.
         blowdownCoolantSource.connectTo(blowdownCoolantSourceNode);
         blowdownValveCoolant.getFlowSource()
@@ -1022,7 +1045,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Auxiliary Condenser
         for (int idx = 0; idx < 2; idx++) {
             // Build coolant supply: source - flow source - heat exch - sink
-            auxCondCoolantSource[idx].connectToVia(auxCondCoolantValve[idx].getFlowSource(),
+            auxCondCoolantSource[idx].connectToVia(
+                    auxCondCoolantValve[idx].getFlowSource(),
                     auxCondCoolantSourceNode[idx]);
             auxCondCoolantValve[idx].getFlowSource().connectTo(
                     auxCondensers[idx].getHeatNode(
@@ -1045,7 +1069,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondPumps[idx].getPumpEffortSource().connectTo(
                     auxCondCondInNode);
             // Connect to collector node:
-            auxCondPumps[idx].getDischargeValve().connectTo(auxCondCollectorNode);
+            auxCondPumps[idx].getDischargeValve().connectTo(
+                    auxCondCollectorNode);
         }
         // Bypass parallel to those 2 pumps
         auxCondBypass.getValveElement().connectTo(auxCondCondInNode);
@@ -1070,7 +1095,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 hotwell.getPhasedNode(PhasedCondenser.PRIMARY_OUT),
                 hotwellOutNode);
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
-            condensationHotwellPump[idx].getSuctionValve().connectTo(hotwellOutNode);
+            condensationHotwellPump[idx].getSuctionValve().connectTo(
+                    hotwellOutNode);
             condensationHotwellPump[idx].getDischargeValve().connectTo(
                     condensationPumpOut);
         }
@@ -1106,8 +1132,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellDrainValve.getValveElement().connectBetween(
                 condensationPumpOut, makeupStorageDrainCollector);
 
+        // Coolant loop, so far just a constant flow source
+        condenserCoolantSource.connectTo(condenserCoolantSourceNode);
+        condenserCoolant.getFlowSource().connectBetween(
+                condenserCoolantSourceNode,
+                hotwell.getHeatNode(PhasedCondenser.SECONDARY_IN));
+        condenserCoolantSink.connectTo(
+                hotwell.getHeatNode(PhasedCondenser.SECONDARY_OUT));
+
         // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Set element properties">
+        // <editor-fold defaultstate="collapsed" desc="Element properties">
         makeupStorage.setTimeConstant(100 / 9.81);
         // The main steam shutoff valve can be seen more as a cheat to keep the
         // model stable, it will be operated automatically. Randomly setting it 
@@ -1135,7 +1169,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Assume a pressure of 2.5e6Pa if all valves are closed.
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx].initCharacteristic(2.5e6, 2.03e6, 1933.3);
+                loopAssembly[idx][jdx].initCharacteristic(
+                        2.5e6, 2.03e6, 1933.3);
                 loopTrimValve[idx][jdx].initCharacteristic(5.51724, 80.0);
             }
             loopDownflow[idx].setResistanceParameter(12.6);
@@ -1286,7 +1321,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // steam which is 28 kg/s. It is designed to be used when there is no
         // vacuum so it will propably be operated in low pressure regions only.
         // Set the valves to have 30 kg/s with 5 bar of pressure (5e5 Pa)
-        // so can will be R = 5e5 Pa / 30 kg/s = 1.2e4 Pa/kg*s for steam valve.
+        // so it will be R = 5e5 Pa / 30 kg/s = 1.2e4 Pa/kg*s for steam valve.
+        // Tbh, had to play around with those values for some time to get some
+        // proper behavior.
         // 30 bar is roughly saturation temperature of 500 Kelvin. Lets assume 
         // condensation tempearture of 310 Kelvin so this is 190 K temperature 
         // 190 K * 4200 J/kg/K + 2100000 J/kg = 2898000 J/kg = 2.9e6 J/kg
@@ -1295,7 +1332,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initCharacteristic(1.2e4, 20);
+            auxCondSteamValve[idx].initCharacteristic(1.8e4, 10);
             auxCondensers[idx].initCharacteristic(4, 50,
                     4000, 8.7e6, 1.2, 3.0, 1e5);
             // No ambient pressure for condensation, always steam pressure.
@@ -1647,7 +1684,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         - setpointAuxCondLevel[1].getOutput();
             }
         });
-         for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 2; idx++) {
             ((PIControl) auxCondCondensateValve[idx].getController())
                     .setParameterK(5.0);
             ((PIControl) auxCondCondensateValve[idx].getController())
@@ -1951,8 +1988,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int jdx = 0; jdx < 2; jdx++) {
             feedwaterPump[1][jdx].addSafeOffProvider(()
                     -> !alarmManager.isAlarmActive(
-                            "DA2Level", AlarmState.MIN2) // samle level as MIN2 alarm
-            );
+                            "DA2Level", AlarmState.MIN2));
         }
         // Close Aux Condensers Drain Valve on low level
         auxCondCondensateValve[0].addSafeClosedProvider(()
@@ -2133,16 +2169,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Feedwater: Sum of feed into steam drums
             outputValues.setParameterValue("Feedwater" + (idx + 1) + "#Flow",
                     -loopFeedwaterIn[idx].getFlow(
-                            feedwaterFlowRegulationValve[idx][0].getValveElement())
+                            feedwaterFlowRegulationValve[idx][0]
+                                    .getValveElement())
                     - loopFeedwaterIn[idx].getFlow(
-                            feedwaterFlowRegulationValve[idx][1].getValveElement())
+                            feedwaterFlowRegulationValve[idx][1]
+                                    .getValveElement())
                     - loopFeedwaterIn[idx].getFlow(
-                            feedwaterFlowRegulationValve[idx][2].getValveElement()));
+                            feedwaterFlowRegulationValve[idx][2]
+                                    .getValveElement()));
 
-            outputValues.setParameterValue("Feedwater" + (idx + 1) + 
-                    "#StartupReductionValve",
+            outputValues.setParameterValue("Feedwater" + (idx + 1)
+                    + "#StartupReductionValve",
                     feedwaterStartupReductionValve[idx].getOpening());
-            
+
             outputValues.setParameterValue("Deaerator" + (idx + 1) + "#Level",
                     deaerator[idx].getFillHeight() * 100); // m to cm
             outputValues.setParameterValue(
@@ -2154,7 +2193,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
             // Feedwater from Deaerators to the pumps (this value is displayed
             // on the feedwater pumps mnemonics
-            outputValues.setParameterValue("Deaerator" + (idx + 1) + "#FeedFlow",
+            outputValues.setParameterValue("Deaerator" + (idx + 1)
+                    + "#FeedFlow",
                     deaeratorFeedwaterOutHeatNode[idx].getFlow(
                             feedwaterPump[idx][0].getSuctionValve())
                     + deaeratorFeedwaterOutHeatNode[idx].getFlow(
@@ -2230,9 +2270,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
             for (int idx = 0; idx < 2; idx++) {
                 // use relative fill height in cm
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
-                        (float) (loopSteamDrum[idx].getFillHeight() - 1.15) * 100);
+                        (float) (loopSteamDrum[idx].getFillHeight()
+                        - 1.15) * 100);
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
-                        (float) (loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0));
+                        (float) (loopNodeDrumFromReactor[idx].getEffort()
+                        / 100000 - 1.0));
                 plotData.insertValue("Loop" + (idx + 1)
                         + "#DrumTemperature",
                         (float) (loopSteamDrum[idx].getTemperature() - 273.5));
@@ -2242,8 +2284,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 plotData.insertValue("Loop" + (idx + 1) + "#DrumLevelSetpoint",
                         (float) setpointDrumLevel[idx].getOutput());
                 for (int jdx = 0; jdx < 3; jdx++) {
-                    plotData.insertValue("Feedwater" + (idx + 1) + "#FlowRegulationValve" + (jdx + 1),
-                            (float) feedwaterFlowRegulationValve[idx][jdx].getOpening());
+                    plotData.insertValue("Feedwater" + (idx + 1)
+                            + "#FlowRegulationValve" + (jdx + 1),
+                            (float) feedwaterFlowRegulationValve[idx][jdx]
+                                    .getOpening());
                 }
             }
 
@@ -2366,7 +2410,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 case "Blowdown#Balance_ControlCommand":
                     if (ac.getValue().equals(ControlCommand.AUTOMATIC)) {
                         blowdownBalanceControlLoop.setManualMode(false);
-                    } else if (ac.getValue().equals(ControlCommand.MANUAL_OPERATION)) {
+                    } else if (ac.getValue().equals(
+                            ControlCommand.MANUAL_OPERATION)) {
                         blowdownBalanceControlLoop.setManualMode(true);
                     }
                     break;

@@ -275,10 +275,11 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         add(jLabelCaptionGaugeNeutronRate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 12, 14));
 
         chornobylGaugeFlow1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeFlow1.setChornobylMaximum(200.0F);
+        chornobylGaugeFlow1.setChornobylMaximum(25.0F);
         chornobylGaugeFlow1.setChornobylMinimum(0.0F);
-        chornobylGaugeFlow1.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
+        chornobylGaugeFlow1.setChornobylTicks(new float[] {0.0f, 5.0f, 10.0f, 15.0f, 20.0f});
         chornobylGaugeFlow1.setChornobylUnitText("kg/s");
+        chornobylGaugeFlow1.setChornobylValue(2.0F);
         add(chornobylGaugeFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
@@ -297,10 +298,11 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabel19.setText("Flow");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        chornobylGaugeFlow2.setChornobylMaximum(200.0F);
+        chornobylGaugeFlow2.setChornobylMaximum(25.0F);
         chornobylGaugeFlow2.setChornobylMinimum(0.0F);
-        chornobylGaugeFlow2.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f, 200.0f});
+        chornobylGaugeFlow2.setChornobylTicks(new float[] {0.0f, 5.0f, 10.0f, 15.0f, 20.0f});
         chornobylGaugeFlow2.setChornobylUnitText("kg/s");
+        chornobylGaugeFlow2.setChornobylValue(2.0F);
         add(chornobylGaugeFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
         integralSwitchLoop1.setComponent("AuxCond2#SteamValve");

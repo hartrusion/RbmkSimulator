@@ -538,12 +538,13 @@
             <LineBorder/>
           </Border>
         </Property>
-        <Property name="chornobylMaximum" type="float" value="200.0"/>
+        <Property name="chornobylMaximum" type="float" value="25.0"/>
         <Property name="chornobylMinimum" type="float" value="0.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[0.0, 50.0, 100.0, 150.0, 200.0]"/>
+          <PropertyValue value="[0.0, 5.0, 10.0, 15.0, 20.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="kg/s"/>
+        <Property name="chornobylValue" type="float" value="2.0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -613,12 +614,13 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFlow2">
       <Properties>
-        <Property name="chornobylMaximum" type="float" value="200.0"/>
+        <Property name="chornobylMaximum" type="float" value="25.0"/>
         <Property name="chornobylMinimum" type="float" value="0.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[0.0, 50.0, 100.0, 150.0, 200.0]"/>
+          <PropertyValue value="[0.0, 5.0, 10.0, 15.0, 20.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="kg/s"/>
+        <Property name="chornobylValue" type="float" value="2.0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
