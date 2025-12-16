@@ -45,7 +45,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveToDA">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveToHotwell">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="165" y="233" width="-1" height="-1"/>
@@ -56,7 +56,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveToHotwell">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveToDrain">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="165" y="273" width="-1" height="-1"/>

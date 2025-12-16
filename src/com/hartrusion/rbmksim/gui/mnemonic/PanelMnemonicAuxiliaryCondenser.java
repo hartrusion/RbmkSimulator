@@ -48,8 +48,8 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
 
         valveCoolant1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCoolant2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveToDA = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveToHotwell = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveToDrain = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valvePump2Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valvePump1Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFromMain1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -80,8 +80,8 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         add(valveCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 83, -1, -1));
         add(valveCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 83, -1, -1));
-        add(valveToDA, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 233, -1, -1));
-        add(valveToHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 273, -1, -1));
+        add(valveToHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 233, -1, -1));
+        add(valveToDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 273, -1, -1));
 
         valvePump2Discharge.setVertical(true);
         add(valvePump2Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 256, -1, -1));
@@ -269,7 +269,7 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valvePassiveFlow;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valvePump1Discharge;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valvePump2Discharge;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveToDA;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveToDrain;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveToHotwell;
     // End of variables declaration//GEN-END:variables
 
@@ -327,6 +327,14 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
             }
             case "AuxCond#Bypass_Pos" ->
                 valvePassiveFlow.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond1#SteamValve_Pos" ->
+                valveFromMain1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond2#SteamValve_Pos" ->
+                valveFromMain2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond#ToHotwell_Pos" ->
+                valveToHotwell.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond#ToDrain_Pos" ->
+                valveToDrain.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 
@@ -377,12 +385,16 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
             case "AuxCond#ToDrain" ->
                 jLabelReadingValveToDrain.setText(
                         String.format("%.0f", newValue));
-            case "AuxCond1#CoolantValve" ->
+            case "AuxCond1#CoolantValve" -> {
                 jLabelReadingCoolantValve1.setText(
                         String.format("%.0f", newValue));
-            case "AuxCond2#CoolantValve" ->
+                valveCoolant1.setActive(newValue >= 5);
+            }
+            case "AuxCond2#CoolantValve" -> {
                 jLabelReadingCoolantValve2.setText(
                         String.format("%.0f", newValue));
+                valveCoolant2.setActive(newValue >= 5);
+            }
         }
     }
 
