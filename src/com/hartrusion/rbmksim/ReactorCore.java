@@ -48,9 +48,30 @@ public class ReactorCore extends Subsystem implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(
             ReactorCore.class.getName());
 
+    /**
+     * Target neutron flux value to which the reactor should be driven to, this
+     * value is likely to be set only once and that's it. The gradient is more
+     * of a feedback to the user to have a speed for the input that is visible
+     * on the GUI.
+     */
     private final Setpoint setpointTargetNeutronFlux;
+
+    /**
+     * Gradient for the setpointNeutronFlux, the setpointNeutronFlux will run to
+     * the setpointTargetNeutronFlux with the gradient that is set here.
+     */
     private final Setpoint setpointPowerGradient;
+
+    /**
+     * Setpoint value for the control elements, this will ramp up to target and
+     * the controllers have this set as a setpoint value.
+     */
     private final Setpoint setpointNeutronFlux;
+
+    /**
+     * Control instance for moving the automatic control rods, this generates
+     * the insertion value for the selected automatic control rods.
+     */
     private final PIControl globalControl;
 
     private final int[][] rodIndex = new int[23][23];
@@ -77,8 +98,17 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private double reactivity;
 
+    /**
+     * Current voiding in the core as a percentage between 0 and 100 %, this is
+     * calculated by using the density in the evaporator elements.
+     */
     private double voiding = 0;
-    private double coreTemp = 200;
+
+    /**
+     * Core temperature in degrees celcius, used to generate the negative
+     * temperature coefficient.
+     */
+    private double coreTemp = 80;
 
     private final NeutronFluxModel neutronFluxModel = new NeutronFluxModel();
     private final XenonModel xenonModel = new XenonModel();
@@ -105,6 +135,9 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private int selectedAutoRods = 0;
 
+    private AlarmState autoRodsPositionAlarmState;
+    private AlarmState oldAutoRodsPositionAlarmState;
+
     ReactorCore() {
         globalControl = new PIControl();
 
@@ -130,6 +163,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         setpointNeutronFlux.run();
         setpointPowerGradient.run();
 
+        // Determine the average position of the automatic control rods and
+        // use this value to set follow up and alarm values
         double avgPositionAutomatic = 0.0;
         selectedAutoRods = 0;
         for (ControlRod rod : controlRods) {
@@ -140,10 +175,35 @@ public class ReactorCore extends Subsystem implements Runnable {
                 selectedAutoRods += 1;
             }
         }
+        // Generate average position and an alarm state value to make the 
+        // operator aware that the controller might not be able to work
         if (selectedAutoRods >= 1) {
             avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
+            if (avgPositionAutomatic < 0.5) {
+                autoRodsPositionAlarmState = AlarmState.MIN1;
+                // triggerAutoShutdown(); not sure if this is a RPS thing
+            } else if (avgPositionAutomatic < 0.9) {
+                autoRodsPositionAlarmState = AlarmState.LOW2;
+            } else if (avgPositionAutomatic < 1.5) {
+                autoRodsPositionAlarmState = AlarmState.LOW1;
+            } else if (avgPositionAutomatic >= 7.0) {
+                autoRodsPositionAlarmState = AlarmState.MAX1;
+                triggerAutoShutdown();
+            } else if (avgPositionAutomatic > 6.5) {
+                autoRodsPositionAlarmState = AlarmState.HIGH2;
+            } else if (avgPositionAutomatic > 5.9) {
+                autoRodsPositionAlarmState = AlarmState.HIGH1;
+            } else {
+                autoRodsPositionAlarmState = AlarmState.NONE;
+            }
         } else {
+            autoRodsPositionAlarmState = AlarmState.NONE;
             avgPositionAutomatic = 7.4; // full inserted
+        }
+        if (autoRodsPositionAlarmState != oldAutoRodsPositionAlarmState) {
+            oldAutoRodsPositionAlarmState = autoRodsPositionAlarmState;
+            alarmManager.fireAlarm("ReactorAutoRodsPosition",
+                    autoRodsPositionAlarmState, false);
         }
 
         globalControl.setFollowUp(avgPositionAutomatic);
@@ -262,8 +322,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYNeutronRate());
         outputValues.setParameterValue("Reactor#AvgRodPos",
                 avgRodPosition);
-    //    outputValues.setParameterValue("Reactor#RodAbsorption",
-    //            rodAbsorption);
+        //    outputValues.setParameterValue("Reactor#RodAbsorption",
+        //            rodAbsorption);
         outputValues.setParameterValue("Reactor#Xenon",
                 xenonModel.getYXenon());
         outputValues.setParameterValue("Reactor#ThermalPower",
@@ -514,9 +574,19 @@ public class ReactorCore extends Subsystem implements Runnable {
         setpointTargetNeutronFlux.setLowerLimit(4.0);
         setpointTargetNeutronFlux.setUpperLimit(110.0);
 
+        // Define controler input for automatic rods. e = -(setpoing - flux)
+        // is negative, inserting rods means positive output values, removing is
+        // negtive.
+        // Use a limitation for positive or negative neutron flux rate on the
+        // controller input value to prevent scram or shutoff.
         globalControl.addInputProvider(()
-                -> -setpointNeutronFlux.getOutput()
-                + neutronFluxModel.getYNeutronFlux());
+                -> - // Limit negative neutron rate
+                Math.max(-15 * (neutronFluxModel.getYNeutronRate() + 1.4),
+                // Limit positive neutron rate
+                Math.min(-15 * (neutronFluxModel.getYNeutronRate() - 1.4),
+                (setpointNeutronFlux.getOutput()
+                    - neutronFluxModel.getYNeutronFlux()))));
+
         globalControl.setMaxOutput(7.4);
         globalControl.setParameterK(2.0);
         globalControl.setParameterTN(10);
