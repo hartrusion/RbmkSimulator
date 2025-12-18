@@ -22,6 +22,7 @@ import javax.swing.JToggleButton;
 import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.rbmksim.gui.InteractiveComponent;
 
 /**
  * Base class for panels that are used with the MVC pattern with switches.
@@ -31,7 +32,7 @@ import com.hartrusion.mvc.UpdateReceiver;
  * @author Viktor Alexander Hartung
  */
 public abstract class AbstractPanelWidget extends javax.swing.JPanel
-        implements UpdateReceiver {
+        implements InteractiveComponent {
 
     protected static final Color GREEN = new Color(0, 128, 0);
     protected static final Color LIME = new Color(0, 255, 0);
@@ -42,6 +43,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
 
     protected ActionReceiver controller;
 
+    @Override
     public void registerActionReceiver(ActionReceiver controller) {
         this.controller = controller;
     }

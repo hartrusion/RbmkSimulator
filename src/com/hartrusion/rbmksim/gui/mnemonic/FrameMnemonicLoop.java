@@ -84,4 +84,8 @@ public class FrameMnemonicLoop extends javax.swing.JFrame implements UpdateRecei
         panelMnemonicLoop1.setLoop(loop);
         setTitle("Loop " + loop);
     }
+    
+    public int getLoop() {
+        return panelMnemonicLoop1.getLoop();
+    }
 }
