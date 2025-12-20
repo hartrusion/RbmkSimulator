@@ -16,6 +16,9 @@
  */
 package com.hartrusion.rbmksim.gui.mnemonic;
 
+import com.hartrusion.control.ControlCommand;
+import com.hartrusion.control.ValveState;
+import com.hartrusion.modeling.automated.PumpState;
 import com.hartrusion.mvc.UpdateReceiver;
 import java.beans.PropertyChangeEvent;
 
@@ -42,177 +45,452 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        valve1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve3 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve4 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve5 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve6 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve7 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve8 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve9 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve10 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve11 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve12 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve13 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve14 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve15 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        jLabelReadingCondensatePumpsPressure = new javax.swing.JLabel();
+        jLabelReadingHotwellLevel1 = new javax.swing.JLabel();
+        jLabelReadingHotwellLevel = new javax.swing.JLabel();
+        jLabelReadingSteamIn2Temp = new javax.swing.JLabel();
+        jLabelReadingSteamIn2Pressure = new javax.swing.JLabel();
+        jLabelReadingSteamIn2Flow = new javax.swing.JLabel();
+        jLabelReadingSteamIn1Temp = new javax.swing.JLabel();
+        jLabelReadingSteamIn1Pressure = new javax.swing.JLabel();
+        jLabelReadingSteamIn1Flow = new javax.swing.JLabel();
+        valveStartupReg1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveMain1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveMain2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveStartup1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveMainReg1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveStartup2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveStartupReg2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveMainReg2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveSuperheaterCondensateReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveSuperheaterCondensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveHighPressure = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveSuperHeaterIn = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveSuperHeaterInReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveLowPressure = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveBypassInjection2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve16 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve17 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve18 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve19 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve20 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve21 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve22 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        pump1 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
-        pump2 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
-        pump3 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
-        valve23 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve24 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve25 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        jLabel1 = new javax.swing.JLabel();
+        valveHotwellFill = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveHotwellDrain = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveCondensatePump1Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveCondensatePump2Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveCondensatePump3Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        pumpCondensate1 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
+        pumpCondensate2 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
+        pumpCondensate3 = new com.hartrusion.rbmksim.gui.mnemonic.Pump();
+        valveCondensatePump1Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveCondensatePump2Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveCondensatePump3Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        jLabelReadingHotwellFillFlow = new javax.swing.JLabel();
+        jLabelReadingHotwellDrainFlow = new javax.swing.JLabel();
+        jLabelReadingValve = new javax.swing.JLabel();
+        jLabelReadingValve1 = new javax.swing.JLabel();
+        jLabelReadingValve2 = new javax.swing.JLabel();
+        jLabelReadingValve3 = new javax.swing.JLabel();
+        jLabelReadingValve4 = new javax.swing.JLabel();
+        jLabelReadingValve5 = new javax.swing.JLabel();
+        jLabelReadingHotwellDrainValve = new javax.swing.JLabel();
+        jLabelReadingHotwellFillValve = new javax.swing.JLabel();
+        jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(652, 432));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        valve1.setControlIndicator(true);
-        valve1.setVertical(true);
-        add(valve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 164, -1, -1));
+        jLabelReadingCondensatePumpsPressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensatePumpsPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensatePumpsPressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensatePumpsPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensatePumpsPressure.setText("__._ bar");
+        jLabelReadingCondensatePumpsPressure.setOpaque(true);
+        add(jLabelReadingCondensatePumpsPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 414, 56, 16));
 
-        valve2.setVertical(true);
-        add(valve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 275, -1, -1));
+        jLabelReadingHotwellLevel1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellLevel1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingHotwellLevel1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellLevel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellLevel1.setText("_.__");
+        jLabelReadingHotwellLevel1.setOpaque(true);
+        add(jLabelReadingHotwellLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(548, 210, 38, 16));
 
-        valve3.setVertical(true);
-        add(valve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 275, -1, -1));
+        jLabelReadingHotwellLevel.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellLevel.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingHotwellLevel.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellLevel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellLevel.setText("___ cm");
+        jLabelReadingHotwellLevel.setOpaque(true);
+        add(jLabelReadingHotwellLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 238, 56, 16));
+        jLabelReadingHotwellLevel.getAccessibleContext().setAccessibleName("___ cm");
 
-        valve4.setVertical(true);
-        add(valve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 206, -1, -1));
+        jLabelReadingSteamIn2Temp.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamIn2Temp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamIn2Temp.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamIn2Temp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamIn2Temp.setText("___ °C");
+        jLabelReadingSteamIn2Temp.setOpaque(true);
+        add(jLabelReadingSteamIn2Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 372, 64, 16));
 
-        valve5.setVertical(true);
-        add(valve5, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 185, -1, -1));
+        jLabelReadingSteamIn2Pressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamIn2Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamIn2Pressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamIn2Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamIn2Pressure.setText("___ bar");
+        jLabelReadingSteamIn2Pressure.setOpaque(true);
+        add(jLabelReadingSteamIn2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 392, 64, 16));
 
-        valve6.setVertical(true);
-        add(valve6, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 206, -1, -1));
+        jLabelReadingSteamIn2Flow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamIn2Flow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamIn2Flow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamIn2Flow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamIn2Flow.setText("____ kg/s");
+        jLabelReadingSteamIn2Flow.setOpaque(true);
+        add(jLabelReadingSteamIn2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 412, 64, 16));
 
-        valve7.setControlIndicator(true);
-        valve7.setVertical(true);
-        add(valve7, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 164, -1, -1));
+        jLabelReadingSteamIn1Temp.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamIn1Temp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamIn1Temp.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamIn1Temp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamIn1Temp.setText("___ °C");
+        jLabelReadingSteamIn1Temp.setOpaque(true);
+        add(jLabelReadingSteamIn1Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 372, 64, 16));
 
-        valve8.setVertical(true);
-        add(valve8, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 185, -1, -1));
+        jLabelReadingSteamIn1Pressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamIn1Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamIn1Pressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamIn1Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamIn1Pressure.setText("___ bar");
+        jLabelReadingSteamIn1Pressure.setOpaque(true);
+        add(jLabelReadingSteamIn1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 392, 64, 16));
 
-        valve9.setControlIndicator(true);
-        valve9.setVertical(true);
-        add(valve9, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 123, -1, -1));
+        jLabelReadingSteamIn1Flow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamIn1Flow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamIn1Flow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamIn1Flow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamIn1Flow.setText("____ kg/s");
+        jLabelReadingSteamIn1Flow.setOpaque(true);
+        add(jLabelReadingSteamIn1Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 412, 64, 16));
 
-        valve10.setVertical(true);
-        add(valve10, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 81, -1, -1));
+        valveStartupReg1.setControlIndicator(true);
+        valveStartupReg1.setVertical(true);
+        add(valveStartupReg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 164, -1, -1));
 
-        valve11.setVertical(true);
-        add(valve11, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 32, -1, -1));
-        add(valve12, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 19, -1, -1));
+        valveMain1.setVertical(true);
+        add(valveMain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 275, -1, -1));
 
-        valve13.setControlIndicator(true);
-        add(valve13, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 19, -1, -1));
-        add(valve14, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 39, -1, -1));
+        valveMain2.setVertical(true);
+        add(valveMain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 275, -1, -1));
 
-        valve15.setControlIndicator(true);
-        add(valve15, new org.netbeans.lib.awtextra.AbsoluteConstraints(472, 161, -1, -1));
+        valveStartup1.setVertical(true);
+        add(valveStartup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 206, -1, -1));
+
+        valveMainReg1.setVertical(true);
+        add(valveMainReg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 185, -1, -1));
+
+        valveStartup2.setVertical(true);
+        add(valveStartup2, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 206, -1, -1));
+
+        valveStartupReg2.setControlIndicator(true);
+        valveStartupReg2.setVertical(true);
+        add(valveStartupReg2, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 164, -1, -1));
+
+        valveMainReg2.setVertical(true);
+        add(valveMainReg2, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 185, -1, -1));
+
+        valveSuperheaterCondensateReg.setControlIndicator(true);
+        valveSuperheaterCondensateReg.setVertical(true);
+        add(valveSuperheaterCondensateReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 123, -1, -1));
+
+        valveSuperheaterCondensate.setVertical(true);
+        add(valveSuperheaterCondensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 81, -1, -1));
+
+        valveHighPressure.setVertical(true);
+        add(valveHighPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 32, -1, -1));
+        add(valveSuperHeaterIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 19, -1, -1));
+
+        valveSuperHeaterInReg.setControlIndicator(true);
+        add(valveSuperHeaterInReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 19, -1, -1));
+        add(valveLowPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 39, -1, -1));
+
+        valveBypassInjection2.setControlIndicator(true);
+        add(valveBypassInjection2, new org.netbeans.lib.awtextra.AbsoluteConstraints(472, 161, -1, -1));
         add(valve16, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 199, -1, -1));
         add(valve17, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 199, -1, -1));
 
-        valve18.setControlIndicator(true);
-        add(valve18, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 319, -1, -1));
+        valveHotwellFill.setControlIndicator(true);
+        add(valveHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 319, -1, -1));
 
-        valve19.setControlIndicator(true);
-        add(valve19, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 377, -1, -1));
+        valveHotwellDrain.setControlIndicator(true);
+        add(valveHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 377, -1, -1));
 
-        valve20.setVertical(true);
-        add(valve20, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 288, -1, -1));
+        valveCondensatePump1Suction.setVertical(true);
+        add(valveCondensatePump1Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 288, -1, -1));
 
-        valve21.setVertical(true);
-        add(valve21, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 288, -1, -1));
+        valveCondensatePump2Suction.setVertical(true);
+        add(valveCondensatePump2Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 288, -1, -1));
 
-        valve22.setVertical(true);
-        add(valve22, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 288, -1, -1));
+        valveCondensatePump3Suction.setVertical(true);
+        add(valveCondensatePump3Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 288, -1, -1));
 
-        pump1.setOrientation(3);
-        pump1.setPreferredSize(new java.awt.Dimension(36, 41));
-        add(pump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(494, 331, -1, -1));
+        pumpCondensate1.setOrientation(3);
+        pumpCondensate1.setPreferredSize(new java.awt.Dimension(36, 41));
+        add(pumpCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(494, 331, -1, -1));
 
-        pump2.setOrientation(3);
-        pump2.setPreferredSize(new java.awt.Dimension(36, 41));
-        add(pump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 331, -1, -1));
+        pumpCondensate2.setOrientation(3);
+        pumpCondensate2.setPreferredSize(new java.awt.Dimension(36, 41));
+        add(pumpCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 331, -1, -1));
 
-        pump3.setOrientation(3);
-        pump3.setPreferredSize(new java.awt.Dimension(36, 41));
-        add(pump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(602, 331, -1, -1));
+        pumpCondensate3.setOrientation(3);
+        pumpCondensate3.setPreferredSize(new java.awt.Dimension(36, 41));
+        add(pumpCondensate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(602, 331, -1, -1));
 
-        valve23.setVertical(true);
-        add(valve23, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 374, -1, -1));
+        valveCondensatePump1Discharge.setVertical(true);
+        add(valveCondensatePump1Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 374, -1, -1));
 
-        valve24.setVertical(true);
-        add(valve24, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 374, -1, -1));
+        valveCondensatePump2Discharge.setVertical(true);
+        add(valveCondensatePump2Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 374, -1, -1));
 
-        valve25.setVertical(true);
-        add(valve25, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 374, -1, -1));
+        valveCondensatePump3Discharge.setVertical(true);
+        add(valveCondensatePump3Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 374, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabelReadingHotwellFillFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellFillFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingHotwellFillFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellFillFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellFillFlow.setText("____ kg/s");
+        jLabelReadingHotwellFillFlow.setOpaque(true);
+        add(jLabelReadingHotwellFillFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 320, 64, 16));
+
+        jLabelReadingHotwellDrainFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellDrainFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingHotwellDrainFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellDrainFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellDrainFlow.setText("____ kg/s");
+        jLabelReadingHotwellDrainFlow.setOpaque(true);
+        add(jLabelReadingHotwellDrainFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 378, 64, 16));
+
+        jLabelReadingValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValve.setText("___");
+        jLabelReadingValve.setOpaque(true);
+        add(jLabelReadingValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 168, 24, -1));
+
+        jLabelReadingValve1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValve1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValve1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValve1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValve1.setText("___");
+        jLabelReadingValve1.setOpaque(true);
+        add(jLabelReadingValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 168, 24, -1));
+
+        jLabelReadingValve2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValve2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValve2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValve2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValve2.setText("___");
+        jLabelReadingValve2.setOpaque(true);
+        add(jLabelReadingValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 166, 24, -1));
+
+        jLabelReadingValve3.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValve3.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValve3.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValve3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValve3.setText("___");
+        jLabelReadingValve3.setOpaque(true);
+        add(jLabelReadingValve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 166, 24, -1));
+
+        jLabelReadingValve4.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValve4.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValve4.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValve4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValve4.setText("___");
+        jLabelReadingValve4.setOpaque(true);
+        add(jLabelReadingValve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 40, 24, -1));
+
+        jLabelReadingValve5.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValve5.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValve5.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValve5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValve5.setText("___");
+        jLabelReadingValve5.setOpaque(true);
+        add(jLabelReadingValve5, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 122, 24, -1));
+
+        jLabelReadingHotwellDrainValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellDrainValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingHotwellDrainValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellDrainValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellDrainValve.setText("___");
+        jLabelReadingHotwellDrainValve.setOpaque(true);
+        add(jLabelReadingHotwellDrainValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 398, 24, -1));
+
+        jLabelReadingHotwellFillValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellFillValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingHotwellFillValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellFillValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellFillValve.setText("___");
+        jLabelReadingHotwellFillValve.setOpaque(true);
+        add(jLabelReadingHotwellFillValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 340, 24, -1));
+
+        jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
+        add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;
-    private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
-    private com.hartrusion.rbmksim.gui.mnemonic.Pump pump3;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve1;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve10;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve11;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve12;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve13;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve14;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve15;
+    private javax.swing.JLabel jLabelBackground;
+    private javax.swing.JLabel jLabelReadingCondensatePumpsPressure;
+    private javax.swing.JLabel jLabelReadingHotwellDrainFlow;
+    private javax.swing.JLabel jLabelReadingHotwellDrainValve;
+    private javax.swing.JLabel jLabelReadingHotwellFillFlow;
+    private javax.swing.JLabel jLabelReadingHotwellFillValve;
+    private javax.swing.JLabel jLabelReadingHotwellLevel;
+    private javax.swing.JLabel jLabelReadingHotwellLevel1;
+    private javax.swing.JLabel jLabelReadingSteamIn1Flow;
+    private javax.swing.JLabel jLabelReadingSteamIn1Pressure;
+    private javax.swing.JLabel jLabelReadingSteamIn1Temp;
+    private javax.swing.JLabel jLabelReadingSteamIn2Flow;
+    private javax.swing.JLabel jLabelReadingSteamIn2Pressure;
+    private javax.swing.JLabel jLabelReadingSteamIn2Temp;
+    private javax.swing.JLabel jLabelReadingValve;
+    private javax.swing.JLabel jLabelReadingValve1;
+    private javax.swing.JLabel jLabelReadingValve2;
+    private javax.swing.JLabel jLabelReadingValve3;
+    private javax.swing.JLabel jLabelReadingValve4;
+    private javax.swing.JLabel jLabelReadingValve5;
+    private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve16;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve17;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve18;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve19;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve2;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve20;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve21;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve22;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve23;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve24;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve25;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve3;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve4;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve5;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve6;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve7;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve8;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve9;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveBypassInjection2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Discharge;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Suction;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump2Discharge;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump2Suction;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump3Discharge;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump3Suction;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveHighPressure;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveHotwellDrain;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveHotwellFill;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveLowPressure;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMain1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMain2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMainReg1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMainReg2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartup1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartup2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupReg1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupReg2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSuperHeaterIn;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSuperHeaterInReg;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSuperheaterCondensate;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSuperheaterCondensateReg;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        
+        switch (evt.getPropertyName()) {
+            case "Hotwell#FillValve_Pos" ->
+                valveHotwellFill.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Hotwell#FillValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveHotwellFill.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveHotwellFill.setControlIndicatorActive(false);
+                }
+            }
+            case "Hotwell#DrainValve_Pos" ->
+                valveHotwellDrain.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Hotwell#DrainValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveHotwellDrain.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveHotwellDrain.setControlIndicatorActive(false);
+                }
+            }
+            case "Condensation1#HotwellPumpSuctionValve_Pos" ->
+                valveCondensatePump1Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Condensation1#HotwellPumpPump_State" -> {
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE ->
+                        pumpCondensate1.setStatus(0);
+                    case READY ->
+                        pumpCondensate1.setStatus(1);
+                    case STARTUP ->
+                        pumpCondensate1.setStatus(2);
+                    case RUNNING ->
+                        pumpCondensate1.setStatus(3);
+                }
+            }
+            case "Condensation1#HotwellPumpDischargeValve_Pos" ->
+                valveCondensatePump1Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Condensation2#HotwellPumpSuctionValve_Pos" ->
+                valveCondensatePump2Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Condensation2#HotwellPumpPump_State" -> {
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE ->
+                        pumpCondensate2.setStatus(0);
+                    case READY ->
+                        pumpCondensate2.setStatus(1);
+                    case STARTUP ->
+                        pumpCondensate2.setStatus(2);
+                    case RUNNING ->
+                        pumpCondensate2.setStatus(3);
+                }
+            }
+            case "Condensation2#HotwellPumpDischargeValve_Pos" ->
+                valveCondensatePump2Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Condensation3#HotwellPumpSuctionValve_Pos" ->
+                valveCondensatePump3Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Condensation3#HotwellPumpPump_State" -> {
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE ->
+                        pumpCondensate3.setStatus(0);
+                    case READY ->
+                        pumpCondensate3.setStatus(1);
+                    case STARTUP ->
+                        pumpCondensate3.setStatus(2);
+                    case RUNNING ->
+                        pumpCondensate3.setStatus(3);
+                }
+            }
+            case "Condensation3#HotwellPumpDischargeValve_Pos" ->
+                valveCondensatePump3Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        
+
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        
+        switch (propertyName) {
+            case "Hotwell#FillValve" ->
+                jLabelReadingHotwellFillValve.setText(
+                        String.format("%.0f", newValue));
+            case "Hotwell#FillFlow" ->
+                jLabelReadingHotwellFillFlow.setText(
+                        String.format("%.1f", newValue) + " kg/s");
+            case "Hotwell#DrainValve" ->
+                jLabelReadingHotwellDrainValve.setText(
+                        String.format("%.0f", newValue));
+            case "Hotwell#DrainFlow" ->
+                jLabelReadingHotwellDrainFlow.setText(
+                        String.format("%.1f", newValue) + " kg/s");
+            case "Condensation#HotwellPumpsPressure" ->
+                jLabelReadingCondensatePumpsPressure.setText(
+                        String.format("%.1f", newValue)
+                                .replaceAll("(\\.\\d+?)0*$", "$1") + " bar");
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        
+
     }
 }

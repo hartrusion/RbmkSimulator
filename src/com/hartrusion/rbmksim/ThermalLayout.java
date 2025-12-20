@@ -1379,8 +1379,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // Todo: Use some proper values here
-        hotwellFillValve.initCharacteristic(100, 20);
-        hotwellDrainValve.initCharacteristic(100, 20);
+        hotwellFillValve.initCharacteristic(50, 20);
+        hotwellDrainValve.initCharacteristic(2000, 20);
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
@@ -2263,6 +2263,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Condensation" + (idx + 1) + "#FlowToDA",
                     condensationValveToDA[idx].getValveElement().getFlow());
         }
+        outputValues.setParameterValue("Hotwell#FillFlow", 
+                hotwellFillValve.getValveElement().getFlow());
+        outputValues.setParameterValue("Hotwell#DrainFlow", 
+                hotwellDrainValve.getValveElement().getFlow());
+        outputValues.setParameterValue("Condensation#HotwellPumpsPressure", 
+                condensationPumpOut.getEffort() / 100000 - 1.0);
         // </editor-fold>
 
         // Save values to plot manager
