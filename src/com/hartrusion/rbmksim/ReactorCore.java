@@ -303,6 +303,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 - Math.min(700, coreTemp) * 7.93e-3
                 + voiding * 0.73;
 
+        // For testing the accident conditions and trigger, set reactivity to
+        // 28 instead of 81.73 and remove 25 manual rods (but NOT at the same
+        // time!). use auto rods for getting k=1 and press AZ5
+        
         // pass reactivity to and get the neutron flux from state space model.
         neutronFluxModel.setInputs(rodAbsorption, reactivity);
         neutronFluxModel.run();
@@ -722,6 +726,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         globalControlActive = false;
         for (ControlRod c : controlRods) {
+            c.rodSpeedMax();
             if (c.getRodType() == ChannelType.SHORT_CONTROLROD) {
                 c.getSwi().setInputMin(); // those need to be pulled out
             } else {
