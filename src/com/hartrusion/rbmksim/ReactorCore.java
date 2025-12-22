@@ -112,6 +112,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private final NeutronFluxModel neutronFluxModel = new NeutronFluxModel();
     private final XenonModel xenonModel = new XenonModel();
+    private final GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
 
     private final SerialRunner alarmUpdater = new SerialRunner();
 
@@ -262,7 +263,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         // absorption decrease so it's 16/7=2.3 as a factor. This is not adding
         // reactivity but removing the absorption as we have a DT1-part in the
         // neturon flux model that will help to kick the prompt neutron 
-        // excursion that way. The factor 2.3 was modified afterwards to make 
+        // excursion that way. The factor 3.0 was modified afterwards to make 
         // it more sure the excursion happens.
         rodAbsorption -= Math.max(0.0, displacerBoost - 18.0) * 3.0;
 
@@ -271,7 +272,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         * difference is integrated by the neutron flux model to get the neutron
         * flux. We use unit %N as percentage of neturon flux here.
         * - The value of Absorption with all auto rods on 50 % and 4 man rods 
-        *   out is 81.73 %. Those will be starting conditions with 0 %Xe.
+        *   out is 81.73 %. Those will be starting conditions for fresh start.
         *   This allows to pull 4 manual rods first and use the 4 auto rods at
         *   half pull distance to smootly control the initial reaction.
         * - The value of Absorption with all auto rods on 2.4 (about 70 % out)
@@ -283,23 +284,25 @@ public class ReactorCore extends Subsystem implements Runnable {
         *   A negative temperature coefficient is wanted with 2 rods so we'll
         *   have 2 * 2.26%N / 570 °C = 7.93e-3 %N/°C. However, it will be 
         *   limited to a certain value to not prevent a meltdown too much.
-        * - If the accident sequence is simulated correctly, the xenon model
-        *   output value will jump up to about 175 %Xe on dropping to 40 %N 
-        *   and, if the power is then reduced to 5 %N, it will rise up to a 
-        *   value between 200 and 240 %Xe. This means that a xenon value of  
-        *   240 %Xe will be used to completely eat all reactivity with all
-        *   rods out so the absorption would have to be 0 % (all rods out).
-        *   There is still 5.5 % reduction of reactivity by the temperature 
-        *   coefficient in this state. 
+        * - There is a 5.5 % reduction of reactivity by the temperature 
+        *   coefficient in thot reactor state
         *   81.73 % - 5.5 % = 76.23 % reactivity remaining with hot core
-        *   1 / 240 %Xe * 76.23 %N = 0.3176 %N/%Xe
+        * - On scheduled power drops (down to 50 % and down to almost 0) there
+        *   will be about 135 % Xenon peak value.
+        * - The graphite effect will go to 25 % and stay there on 50 % power. It
+        *   will ramp up to almost 100 % on shutdown or when trying to reach the
+        *   700 MW after a long period on 50 %.
+        * - Therefore, 135 %Xe and 100 %Gr should consume 75 % of reactivity to
+        *   make it possible to stall/choke the reactor, lets use those numbers
+        *   equally and have a 235 % value for 75 % reactivity. 75/235 = 0.319
         * - There is a total of 28 manual control rods.
         * - Steam voiding should be tackled by the automatic rods without bigger
         *   issues. 5 * 2.2 % = 11 % roughly by auto rods, lets assume to have
         *   15 % voiding meaning 11 %N so its *0.73
          */
         reactivity = 81.73 // generally present reactivity.
-                - xenonModel.getYXenon() * 0.3176 // 0..200 = 0..63.52
+                - xenonModel.getYXenon() * 0.319
+                - graphiteModel.getYGraphie() * 0.319
                 - Math.min(700, coreTemp) * 7.93e-3
                 + voiding * 0.73;
 
@@ -314,6 +317,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         // Pass neutron flux to xenon model and generate xenon poisoning value.
         xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
         xenonModel.run();
+        graphiteModel.setInputs(neutronFluxModel.getYNeutronFlux());
+        graphiteModel.run();
 
         alarmUpdater.invokeAll();
 

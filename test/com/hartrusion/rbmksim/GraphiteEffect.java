@@ -22,11 +22,11 @@ import static com.hartrusion.plot.VisualizeData.*;
  *
  * @author Viktor Alexander Hartung
  */
-public class XenonBuildup {
+public class GraphiteEffect {
 
-    XenonModel xenonModel = new XenonModel();
+    GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
 
-    private double[] xTime, uFlux, yIodine, yXenon;
+    private double[] xTime, uFlux, yGraphite;
 
     public void run() {
         final double simulationTime = 60 * 60; // 1h
@@ -37,22 +37,13 @@ public class XenonBuildup {
 
         uFlux = new double[steps];
         xTime = new double[steps];
-        yIodine = new double[steps];
-        yXenon = new double[steps];
+        yGraphite = new double[steps];
         
-        xenonModel.setStepTime(stepTime);
-        xenonModel.setInititalState(100, 100); // start at full power
+        graphiteModel.setStepTime(stepTime);
+        // Maybe we need initital state later
 
         for (int idx = 0; idx < steps; idx++) {
             xTime[idx] = (double) idx * stepTime / 60; // Minutes
-            // Double drop (extremely high value, set ylim to 250)
-//            if (xTime[idx] > 15) {
-//                neutronFlux = 5;
-//            } else  if (xTime[idx] > 10) {
-//                neutronFlux = 40;
-//            } else {
-//                neutronFlux = 100;
-//            }
             // Accident sequence
             if (xTime[idx] > 49) {
                 neutronFlux = 6.3; // 200 MW
@@ -72,18 +63,35 @@ public class XenonBuildup {
             } else {
                 neutronFlux = 100;
             }
+            // Planned, non-accidential seuqence withou
+//            if (xTime[idx] > 19) {
+//                neutronFlux = 6.3; // 200 MW
+//            } else if (xTime[idx] > 18) {
+//                // Raise to 6.3 % (200 MW) in 1 Minute
+//                neutronFlux = 5.4 * xTime[idx] - 96.3;
+//            } else if (xTime[idx] > 15) {
+//                neutronFlux = 0.9; // 30 MW
+//            } else if (xTime[idx] > 12) {
+//                // Ramp down to 0.9 % (30 MW) in 3 minutes
+//                neutronFlux = -16.3666666666667 * xTime[idx] + 246.4;
+//            } else if (xTime[idx] > 7) {
+//                neutronFlux = 50; // 1600 MW
+//            } else if (xTime[idx] > 5) {
+//                // Ramp down to 50 % (1600 MW) in 2 minutes
+//                neutronFlux = -25 * xTime[idx] + 225;
+//            } else {
+//                neutronFlux = 100;
+//            }
             uFlux[idx] = neutronFlux;
-            xenonModel.setInputs(neutronFlux);
-            xenonModel.run();
-            yIodine[idx] = xenonModel.getYIodine();
-            yXenon[idx] = xenonModel.getYXenon();
+            graphiteModel.setInputs(neutronFlux);
+            graphiteModel.run();
+            yGraphite[idx] = graphiteModel.getYGraphie();
         }
 
-        plot(xTime, yXenon);
+        plot(xTime, yGraphite);
         hold("on");
         plot(xTime, uFlux);
-        plot(xTime, yIodine);
-        axis(0, 60, 0, 150);
+        axis(0, 60, 0, 100);
         xlabel("Simulation Time (Minutes)");
         ylabel("Percentage");
     }
@@ -92,7 +100,7 @@ public class XenonBuildup {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        XenonBuildup app = new XenonBuildup();
+        GraphiteEffect app = new GraphiteEffect();
         app.run();
     }
 }
