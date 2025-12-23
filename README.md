@@ -51,7 +51,15 @@ Please make yourself familiar with the rather unusual
 [Contributing](./CONTRIBUTING.md) guidelines.
 
 Discussions about this particular project shall be discussed here on GitHub 
-only.
+only. No Z supporters wanted.
+
+## Licencing and usage
+I decided to publish this simulator with GPLv3 so this thing is free software. 
+As I've also put in lots of thoughts on how to represent the plant with the 
+GUI, I do want to keep the authorship and control over it. To make it possible 
+to share the developed technology, large parts of the code in other repositories 
+are published with MIT licence so you're free to reuse those parts for whatever 
+you like.
 
 ## Modeling engine
 The simulation is based on the PhxNetMod project which implements the theory of 
