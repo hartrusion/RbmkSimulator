@@ -180,19 +180,19 @@ public class ReactorCore extends Subsystem implements Runnable {
         // operator aware that the controller might not be able to work
         if (selectedAutoRods >= 1 && globalControlActive) {
             avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
-            if (avgPositionAutomatic < 0.5) {
-                autoRodsPositionAlarmState = AlarmState.MIN1;
-                // triggerAutoShutdown(); not sure if this is a RPS thing
-            } else if (avgPositionAutomatic < 0.9) {
+            if (avgPositionAutomatic < 0.4) {
                 autoRodsPositionAlarmState = AlarmState.LOW2;
-            } else if (avgPositionAutomatic < 1.5) {
+            } else if (avgPositionAutomatic < 1.0) {
                 autoRodsPositionAlarmState = AlarmState.LOW1;
-            } else if (avgPositionAutomatic >= 7.0) {
+            } else if (avgPositionAutomatic >= 7.2) {
                 autoRodsPositionAlarmState = AlarmState.MAX1;
+                // All active auto rods fully inserted: no more control
+                // possible, it should have been either deactivated or manual 
+                // rods shoudl have been used to compensate. now its too late.
                 triggerAutoShutdown();
-            } else if (avgPositionAutomatic > 6.5) {
+            } else if (avgPositionAutomatic > 6.8) {
                 autoRodsPositionAlarmState = AlarmState.HIGH2;
-            } else if (avgPositionAutomatic > 5.9) {
+            } else if (avgPositionAutomatic > 6.5) {
                 autoRodsPositionAlarmState = AlarmState.HIGH1;
             } else {
                 autoRodsPositionAlarmState = AlarmState.NONE;
@@ -210,10 +210,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControl.setFollowUp(avgPositionAutomatic);
         globalControl.setManualMode(!globalControlActive);
         globalControl.run();
-        
-        System.out.println("Rate: " + neutronFluxModel.getYNeutronRate() + ", Filtered Rate: "
-         + neutronFluxModel.getYNeutronRateFiltered());
-        
+
         // Write all controller outputs to the rods if they're in auto mode
         // and finally call run for all rods to update their positions (this is
         // the actual movement).
@@ -312,7 +309,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         // For testing the accident conditions and trigger, set reactivity to
         // 28 instead of 81.73 and remove 25 manual rods (but NOT at the same
         // time!). use auto rods for getting k=1 and press AZ5
-        
         // pass reactivity to and get the neutron flux from state space model.
         neutronFluxModel.setInputs(rodAbsorption, reactivity);
         neutronFluxModel.run();
@@ -595,11 +591,13 @@ public class ReactorCore extends Subsystem implements Runnable {
         // controller input value to prevent scram or shutoff.
         globalControl.addInputProvider(()
                 -> - // Limit negative neutron rate
-                Math.max(-16 * (neutronFluxModel.getYNeutronRateFiltered()+ 1.4),
-                // Limit positive neutron rate
-                Math.min(-16 * (neutronFluxModel.getYNeutronRateFiltered() - 1.4),
-                (setpointNeutronFlux.getOutput()
-                    - neutronFluxModel.getYNeutronFlux()))));
+                Math.max(-11 * (neutronFluxModel
+                        .getYNeutronRateFiltered() + 2.3),
+                        // Limit positive neutron rate
+                        Math.min(-11 * (neutronFluxModel
+                                .getYNeutronRateFiltered() - 2.4),
+                                (setpointNeutronFlux.getOutput()
+                                - neutronFluxModel.getYNeutronFlux()))));
 
         globalControl.setMaxOutput(7.4);
         globalControl.setParameterK(2.0);
@@ -661,10 +659,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 return neutronFluxModel.getYNeutronRate();
             }
         });
-        am.defineAlarm(2.0, AlarmState.MAX1);
-        am.defineAlarm(1.6, AlarmState.HIGH2);
-        am.defineAlarm(1.2, AlarmState.HIGH1);
-        am.defineAlarm(-1.2, AlarmState.LOW1);
+        am.defineAlarm(3.8, AlarmState.MAX1);
+        am.defineAlarm(3.0, AlarmState.HIGH2);
+        am.defineAlarm(2.6, AlarmState.HIGH1);
+        am.defineAlarm(-2.6, AlarmState.LOW1);
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {

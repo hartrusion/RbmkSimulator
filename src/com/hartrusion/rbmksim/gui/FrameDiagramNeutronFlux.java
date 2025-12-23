@@ -84,7 +84,7 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         
         ax.yLim(1, 0, 100);
         ax.yLim(2, -6, -1);
-        ax.yLim(3, -2, 2);
+        ax.yLim(3, -4, 4);
         
         ax.autoX();
         

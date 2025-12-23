@@ -98,10 +98,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonClearSelection = new javax.swing.JButton();
         jLabelCaptionAZ5 = new javax.swing.JLabel();
         jButtonAz5 = new javax.swing.JButton();
-        jLabelRodControl = new javax.swing.JLabel();
-        jButtonStopRods = new javax.swing.JButton();
-        jButtonRodUp = new javax.swing.JButton();
-        jButtonRodDown = new javax.swing.JButton();
         jLabelCaptionNeutronFlux1 = new javax.swing.JLabel();
         jLabelCaptionNeutronFlux2 = new javax.swing.JLabel();
         chornobylGaugeNeutronFlux = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
@@ -152,6 +148,26 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonDisplayG = new javax.swing.JButton();
         jLabelCaptionLocalControl = new javax.swing.JLabel();
         jLabelCaptionGradient = new javax.swing.JLabel();
+        setpointControlNeutronFlux = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
+        jLabelCaptionGlobalReset1 = new javax.swing.JLabel();
+        jButtonGlobalReset = new javax.swing.JButton();
+        jLabelCaptionGlobalControl = new javax.swing.JLabel();
+        jLabelCaptionRPS = new javax.swing.JLabel();
+        jButtonRPSReset = new javax.swing.JButton();
+        jLabelCaptionRPSReset = new javax.swing.JLabel();
+        jLabelCaptionAutomaticRods = new javax.swing.JLabel();
+        jLabelCaptionSelect = new javax.swing.JLabel();
+        jButtonGlobalStop = new javax.swing.JButton();
+        jLabelCaptionGlobalStop = new javax.swing.JLabel();
+        jLabelCaptionGlobalTrim1 = new javax.swing.JLabel();
+        jButtonGlobalTrim = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButtonStopRods = new javax.swing.JButton();
+        jButtonRodUp = new javax.swing.JButton();
+        jButtonRodDown = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabelRodControl = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jToggleButton3731 = new javax.swing.JToggleButton();
         jToggleButton3125 = new javax.swing.JToggleButton();
         jToggleButton3137 = new javax.swing.JToggleButton();
@@ -162,10 +178,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3137 = new javax.swing.JLabel();
         jLabelCaption3125 = new javax.swing.JLabel();
         jLabelCaption3731 = new javax.swing.JLabel();
-        setpointControlNeutronFlux = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
-        jLabelCaptionGlobalReset1 = new javax.swing.JLabel();
-        jButtonGlobalReset = new javax.swing.JButton();
-        jLabelCaptionGlobalControl = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jToggleButton3428 = new javax.swing.JToggleButton();
         jLabelCaption3428 = new javax.swing.JLabel();
         jToggleButton3434 = new javax.swing.JToggleButton();
@@ -174,15 +187,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption2828 = new javax.swing.JLabel();
         jToggleButton2834 = new javax.swing.JToggleButton();
         jLabelCaption2834 = new javax.swing.JLabel();
-        jLabelCaptionRPS = new javax.swing.JLabel();
-        jButtonRPSReset = new javax.swing.JButton();
-        jLabelCaptionRPSReset = new javax.swing.JLabel();
-        jLabelCaptionAutomaticRods = new javax.swing.JLabel();
-        jLabelCaptionSelect = new javax.swing.JLabel();
-        jButtonGlobalStop = new javax.swing.JButton();
-        jLabelCaptionGlobalStop = new javax.swing.JLabel();
-        jLabelCaptionGlobalTrim1 = new javax.swing.JLabel();
-        jButtonGlobalTrim = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(574, 340));
         setMinimumSize(new java.awt.Dimension(574, 340));
@@ -753,39 +757,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
         });
         add(jButtonAz5, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 102, 20, 20));
 
-        jLabelRodControl.setFont(jLabelRodControl.getFont().deriveFont(jLabelRodControl.getFont().getSize()-2f));
-        jLabelRodControl.setText("Rod Control");
-        add(jLabelRodControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 234, -1, -1));
-
-        jButtonStopRods.setFont(jButtonStopRods.getFont().deriveFont(jButtonStopRods.getFont().getSize()-2f));
-        jButtonStopRods.setText("●");
-        jButtonStopRods.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonStopRods.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButtonStopRods.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStopRodsActionPerformed(evt);
-            }
-        });
-        add(jButtonStopRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 282, 22, -1));
-
-        jButtonRodUp.setText("▲");
-        jButtonRodUp.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRodUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRodUpActionPerformed(evt);
-            }
-        });
-        add(jButtonRodUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 254, 22, 24));
-
-        jButtonRodDown.setText("▼");
-        jButtonRodDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRodDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRodDownActionPerformed(evt);
-            }
-        });
-        add(jButtonRodDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 306, 22, 24));
-
         jLabelCaptionNeutronFlux1.setFont(jLabelCaptionNeutronFlux1.getFont().deriveFont(jLabelCaptionNeutronFlux1.getFont().getSize()-2f));
         jLabelCaptionNeutronFlux1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelCaptionNeutronFlux1.setText("Neutron");
@@ -890,9 +861,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGaugeNeutronRate2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionGaugeNeutronRate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 52, 14));
 
-        chornobylGaugeNeutronRate.setChornobylMaximum(2.5F);
-        chornobylGaugeNeutronRate.setChornobylMinimum(-2.0F);
-        chornobylGaugeNeutronRate.setChornobylTicks(new float[] {-1.0f, 0.0f, 1.0f, 2.0f});
+        chornobylGaugeNeutronRate.setChornobylMaximum(5.0F);
+        chornobylGaugeNeutronRate.setChornobylMinimum(-4.0F);
+        chornobylGaugeNeutronRate.setChornobylTicks(new float[] {-2.0f, 0.0f, 2.0f, 4.0f});
         chornobylGaugeNeutronRate.setChornobylUnitText("10%/s");
         chornobylGaugeNeutronRate.setChornobylValue(0.0F);
         add(chornobylGaugeNeutronRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
@@ -953,7 +924,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalAuto.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalAuto.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalAuto.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 82, 40, 14));
+        add(jLabelCaptionGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 82, 40, 14));
 
         jToggleButtonGlobalAuto.setFont(jToggleButtonGlobalAuto.getFont().deriveFont(jToggleButtonGlobalAuto.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonGlobalAuto.setText("—");
@@ -963,7 +934,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jToggleButtonGlobalAutoActionPerformed(evt);
             }
         });
-        add(jToggleButtonGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 98, 22, 20));
+        add(jToggleButtonGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 98, 22, 20));
 
         jLabelCaptionGlobalEnable.setFont(jLabelCaptionGlobalEnable.getFont().deriveFont(jLabelCaptionGlobalEnable.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalEnable.getFont().getSize()-2));
         jLabelCaptionGlobalEnable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -971,7 +942,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalEnable.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalEnable.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalEnable.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 84, 40, 14));
+        add(jLabelCaptionGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 84, 40, 14));
 
         jButtonGlobalEnable.setFont(jButtonGlobalEnable.getFont().deriveFont(jButtonGlobalEnable.getFont().getSize()-2f));
         jButtonGlobalEnable.setText("●");
@@ -982,7 +953,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGlobalEnableActionPerformed(evt);
             }
         });
-        add(jButtonGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 98, 20, 20));
+        add(jButtonGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 98, 20, 20));
 
         jLabelCaptionRodSpeed.setFont(jLabelCaptionRodSpeed.getFont().deriveFont(jLabelCaptionRodSpeed.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRodSpeed.getFont().getSize()-2));
         jLabelCaptionRodSpeed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1070,7 +1041,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGradientPosMouseReleased(evt);
             }
         });
-        add(jButtonGradientPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 136, 18, 22));
+        add(jButtonGradientPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 136, 18, 22));
 
         jButtonGradientNeg.setFont(jButtonGradientNeg.getFont().deriveFont(jButtonGradientNeg.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonGradientNeg.setText("<");
@@ -1087,7 +1058,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGradientNegMouseReleased(evt);
             }
         });
-        add(jButtonGradientNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 136, 18, 22));
+        add(jButtonGradientNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 136, 18, 22));
 
         jLabelCaptionShortRods.setFont(jLabelCaptionShortRods.getFont().deriveFont(jLabelCaptionShortRods.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionShortRods.getFont().getSize()-2));
         jLabelCaptionShortRods.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1095,7 +1066,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionShortRods.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionShortRods.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionShortRods.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionShortRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 214, 110, 14));
+        add(jLabelCaptionShortRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 224, 110, 14));
 
         jToggleButtonLocalAuto.setFont(jToggleButtonLocalAuto.getFont().deriveFont(jToggleButtonLocalAuto.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonLocalAuto.setText("—");
@@ -1229,97 +1200,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGradient.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGradient.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGradient.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 122, 56, 14));
-
-        jToggleButton3731.setFont(jToggleButton3731.getFont().deriveFont(jToggleButton3731.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3731.setText("—");
-        jToggleButton3731.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton3731.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3731ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 98, 22, 20));
-
-        jToggleButton3125.setFont(jToggleButton3125.getFont().deriveFont(jToggleButton3125.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3125.setText("—");
-        jToggleButton3125.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton3125.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3125ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 138, 22, 20));
-
-        jToggleButton3137.setFont(jToggleButton3137.getFont().deriveFont(jToggleButton3137.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3137.setText("—");
-        jToggleButton3137.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton3137.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3137ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 22, 20));
-
-        jToggleButton3131.setFont(jToggleButton3131.getFont().deriveFont(jToggleButton3131.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3131.setText("—");
-        jToggleButton3131.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton3131.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3131ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 138, 22, 20));
-
-        jToggleButton2531.setFont(jToggleButton2531.getFont().deriveFont(jToggleButton2531.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton2531.setText("—");
-        jToggleButton2531.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton2531.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2531ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 178, 22, 20));
-
-        jLabelCaption2531.setFont(jLabelCaption2531.getFont().deriveFont(jLabelCaption2531.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2531.getFont().getSize()-2));
-        jLabelCaption2531.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption2531.setText("25-31");
-        jLabelCaption2531.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption2531.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption2531.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 164, 36, 14));
-
-        jLabelCaption3131.setFont(jLabelCaption3131.getFont().deriveFont(jLabelCaption3131.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3131.getFont().getSize()-2));
-        jLabelCaption3131.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption3131.setText("31-31");
-        jLabelCaption3131.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3131.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3131.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 124, 36, 14));
-
-        jLabelCaption3137.setFont(jLabelCaption3137.getFont().deriveFont(jLabelCaption3137.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3137.getFont().getSize()-2));
-        jLabelCaption3137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption3137.setText("31-37");
-        jLabelCaption3137.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3137.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3137.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 124, 36, 14));
-
-        jLabelCaption3125.setFont(jLabelCaption3125.getFont().deriveFont(jLabelCaption3125.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3125.getFont().getSize()-2));
-        jLabelCaption3125.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption3125.setText("31-25");
-        jLabelCaption3125.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3125.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3125.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 124, 36, 14));
-
-        jLabelCaption3731.setFont(jLabelCaption3731.getFont().deriveFont(jLabelCaption3731.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3731.getFont().getSize()-2));
-        jLabelCaption3731.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption3731.setText("37-31");
-        jLabelCaption3731.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3731.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3731.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 82, 36, 14));
+        add(jLabelCaptionGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 122, 56, 14));
 
         setpointControlNeutronFlux.setComponent("Reactor#TargetNeutronFlux");
         add(setpointControlNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 180, -1, -1));
@@ -1330,7 +1211,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalReset1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalReset1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalReset1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 124, 40, 14));
+        add(jLabelCaptionGlobalReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 124, 40, 14));
 
         jButtonGlobalReset.setFont(jButtonGlobalReset.getFont().deriveFont(jButtonGlobalReset.getFont().getSize()-2f));
         jButtonGlobalReset.setText("●");
@@ -1341,7 +1222,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGlobalResetActionPerformed(evt);
             }
         });
-        add(jButtonGlobalReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 138, 20, 20));
+        add(jButtonGlobalReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 138, 20, 20));
 
         jLabelCaptionGlobalControl.setFont(jLabelCaptionGlobalControl.getFont().deriveFont(jLabelCaptionGlobalControl.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGlobalControl.getFont().getSize()-2));
         jLabelCaptionGlobalControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1349,79 +1230,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalControl.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalControl.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalControl.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 66, 82, 14));
-
-        jToggleButton3428.setFont(jToggleButton3428.getFont().deriveFont(jToggleButton3428.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3428.setText("—");
-        jToggleButton3428.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton3428.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3428ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 242, 22, 20));
-
-        jLabelCaption3428.setFont(jLabelCaption3428.getFont().deriveFont(jLabelCaption3428.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3428.getFont().getSize()-2));
-        jLabelCaption3428.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption3428.setText("34-28");
-        jLabelCaption3428.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3428.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3428.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 228, 36, 14));
-
-        jToggleButton3434.setFont(jToggleButton3434.getFont().deriveFont(jToggleButton3434.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3434.setText("—");
-        jToggleButton3434.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton3434.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3434ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 242, 22, 20));
-
-        jLabelCaption3434.setFont(jLabelCaption3434.getFont().deriveFont(jLabelCaption3434.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3434.getFont().getSize()-2));
-        jLabelCaption3434.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption3434.setText("34-34");
-        jLabelCaption3434.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3434.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption3434.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 228, 36, 14));
-
-        jToggleButton2828.setFont(jToggleButton2828.getFont().deriveFont(jToggleButton2828.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton2828.setText("—");
-        jToggleButton2828.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton2828.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2828ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 282, 22, 20));
-
-        jLabelCaption2828.setFont(jLabelCaption2828.getFont().deriveFont(jLabelCaption2828.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2828.getFont().getSize()-2));
-        jLabelCaption2828.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption2828.setText("28-28");
-        jLabelCaption2828.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption2828.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption2828.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 268, 36, 14));
-
-        jToggleButton2834.setFont(jToggleButton2834.getFont().deriveFont(jToggleButton2834.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton2834.setText("—");
-        jToggleButton2834.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButton2834.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2834ActionPerformed(evt);
-            }
-        });
-        add(jToggleButton2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 282, 22, 20));
-
-        jLabelCaption2834.setFont(jLabelCaption2834.getFont().deriveFont(jLabelCaption2834.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2834.getFont().getSize()-2));
-        jLabelCaption2834.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption2834.setText("28-34");
-        jLabelCaption2834.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption2834.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption2834.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 268, 36, 14));
+        add(jLabelCaptionGlobalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 68, 82, 14));
 
         jLabelCaptionRPS.setFont(jLabelCaptionRPS.getFont().deriveFont(jLabelCaptionRPS.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionRPS.getFont().getSize()-2));
         jLabelCaptionRPS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1456,7 +1265,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionAutomaticRods.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAutomaticRods.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAutomaticRods.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAutomaticRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 66, 110, 14));
+        add(jLabelCaptionAutomaticRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 68, 110, 14));
 
         jLabelCaptionSelect.setFont(jLabelCaptionSelect.getFont().deriveFont(jLabelCaptionSelect.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSelect.getFont().getSize()-2));
         jLabelCaptionSelect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1475,7 +1284,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGlobalStopActionPerformed(evt);
             }
         });
-        add(jButtonGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 98, 20, 20));
+        add(jButtonGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 98, 20, 20));
 
         jLabelCaptionGlobalStop.setFont(jLabelCaptionGlobalStop.getFont().deriveFont(jLabelCaptionGlobalStop.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalStop.getFont().getSize()-2));
         jLabelCaptionGlobalStop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1483,7 +1292,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalStop.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalStop.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalStop.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 84, 40, 14));
+        add(jLabelCaptionGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 84, 40, 14));
 
         jLabelCaptionGlobalTrim1.setFont(jLabelCaptionGlobalTrim1.getFont().deriveFont(jLabelCaptionGlobalTrim1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalTrim1.getFont().getSize()-2));
         jLabelCaptionGlobalTrim1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1491,7 +1300,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalTrim1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalTrim1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalTrim1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 124, 40, 14));
+        add(jLabelCaptionGlobalTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 124, 40, 14));
 
         jButtonGlobalTrim.setFont(jButtonGlobalTrim.getFont().deriveFont(jButtonGlobalTrim.getFont().getSize()-2f));
         jButtonGlobalTrim.setText("●");
@@ -1502,7 +1311,219 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGlobalTrimActionPerformed(evt);
             }
         });
-        add(jButtonGlobalTrim, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 138, 20, 20));
+        add(jButtonGlobalTrim, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 138, 20, 20));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonStopRods.setFont(jButtonStopRods.getFont().deriveFont(jButtonStopRods.getFont().getSize()-2f));
+        jButtonStopRods.setText("●");
+        jButtonStopRods.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonStopRods.setPreferredSize(new java.awt.Dimension(20, 20));
+        jButtonStopRods.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStopRodsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonStopRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 38, 22, -1));
+
+        jButtonRodUp.setText("▲");
+        jButtonRodUp.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonRodUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRodUpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonRodUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, 22, 24));
+
+        jButtonRodDown.setText("▼");
+        jButtonRodDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonRodDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRodDownActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonRodDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 22, 24));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 234, 46, 98));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 390, -1, -1));
+
+        jLabelRodControl.setFont(jLabelRodControl.getFont().deriveFont(jLabelRodControl.getFont().getSize()-2f));
+        jLabelRodControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelRodControl.setText("Rod Control");
+        add(jLabelRodControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 216, 70, -1));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jToggleButton3731.setFont(jToggleButton3731.getFont().deriveFont(jToggleButton3731.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton3731.setText("—");
+        jToggleButton3731.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton3731.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3731ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 20, 22, -1));
+
+        jToggleButton3125.setFont(jToggleButton3125.getFont().deriveFont(jToggleButton3125.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton3125.setText("—");
+        jToggleButton3125.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton3125.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3125ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 58, 22, -1));
+
+        jToggleButton3137.setFont(jToggleButton3137.getFont().deriveFont(jToggleButton3137.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton3137.setText("—");
+        jToggleButton3137.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton3137.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3137ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 58, 22, -1));
+
+        jToggleButton3131.setFont(jToggleButton3131.getFont().deriveFont(jToggleButton3131.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton3131.setText("—");
+        jToggleButton3131.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton3131.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3131ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 58, 22, -1));
+
+        jToggleButton2531.setFont(jToggleButton2531.getFont().deriveFont(jToggleButton2531.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton2531.setText("—");
+        jToggleButton2531.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton2531.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2531ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jToggleButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 96, 22, -1));
+
+        jLabelCaption2531.setFont(jLabelCaption2531.getFont().deriveFont(jLabelCaption2531.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2531.getFont().getSize()-2));
+        jLabelCaption2531.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption2531.setText("25-31");
+        jLabelCaption2531.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2531.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2531.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel3.add(jLabelCaption2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 82, 36, -1));
+
+        jLabelCaption3131.setFont(jLabelCaption3131.getFont().deriveFont(jLabelCaption3131.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3131.getFont().getSize()-2));
+        jLabelCaption3131.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3131.setText("31-31");
+        jLabelCaption3131.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3131.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3131.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel3.add(jLabelCaption3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 44, 36, -1));
+
+        jLabelCaption3137.setFont(jLabelCaption3137.getFont().deriveFont(jLabelCaption3137.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3137.getFont().getSize()-2));
+        jLabelCaption3137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3137.setText("31-37");
+        jLabelCaption3137.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3137.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3137.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel3.add(jLabelCaption3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 44, 36, -1));
+
+        jLabelCaption3125.setFont(jLabelCaption3125.getFont().deriveFont(jLabelCaption3125.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3125.getFont().getSize()-2));
+        jLabelCaption3125.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3125.setText("31-25");
+        jLabelCaption3125.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3125.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3125.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel3.add(jLabelCaption3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 44, 36, -1));
+
+        jLabelCaption3731.setFont(jLabelCaption3731.getFont().deriveFont(jLabelCaption3731.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3731.getFont().getSize()-2));
+        jLabelCaption3731.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3731.setText("37-31");
+        jLabelCaption3731.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3731.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3731.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel3.add(jLabelCaption3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 4, 36, -1));
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 84, 116, 124));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jToggleButton3428.setFont(jToggleButton3428.getFont().deriveFont(jToggleButton3428.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton3428.setText("—");
+        jToggleButton3428.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton3428.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3428ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jToggleButton3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 20, 22, -1));
+
+        jLabelCaption3428.setFont(jLabelCaption3428.getFont().deriveFont(jLabelCaption3428.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3428.getFont().getSize()-2));
+        jLabelCaption3428.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3428.setText("34-28");
+        jLabelCaption3428.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3428.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3428.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel4.add(jLabelCaption3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 36, -1));
+
+        jToggleButton3434.setFont(jToggleButton3434.getFont().deriveFont(jToggleButton3434.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton3434.setText("—");
+        jToggleButton3434.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton3434.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3434ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jToggleButton3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 20, 22, -1));
+
+        jLabelCaption3434.setFont(jLabelCaption3434.getFont().deriveFont(jLabelCaption3434.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3434.getFont().getSize()-2));
+        jLabelCaption3434.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3434.setText("34-34");
+        jLabelCaption3434.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3434.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3434.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel4.add(jLabelCaption3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 6, 36, -1));
+
+        jToggleButton2828.setFont(jToggleButton2828.getFont().deriveFont(jToggleButton2828.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton2828.setText("—");
+        jToggleButton2828.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton2828.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2828ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jToggleButton2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 60, 22, -1));
+
+        jLabelCaption2828.setFont(jLabelCaption2828.getFont().deriveFont(jLabelCaption2828.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2828.getFont().getSize()-2));
+        jLabelCaption2828.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption2828.setText("28-28");
+        jLabelCaption2828.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2828.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2828.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel4.add(jLabelCaption2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 36, -1));
+
+        jToggleButton2834.setFont(jToggleButton2834.getFont().deriveFont(jToggleButton2834.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButton2834.setText("—");
+        jToggleButton2834.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButton2834.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2834ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jToggleButton2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 60, 22, -1));
+
+        jLabelCaption2834.setFont(jLabelCaption2834.getFont().deriveFont(jLabelCaption2834.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2834.getFont().getSize()-2));
+        jLabelCaption2834.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption2834.setText("28-34");
+        jLabelCaption2834.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2834.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2834.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel4.add(jLabelCaption2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 46, 36, -1));
+
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 242, 90, 90));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4028ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4028ActionPerformed
@@ -2024,6 +2045,10 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
     private javax.swing.JLabel jLabelReadingThermalPower;
     private javax.swing.JLabel jLabelRodControl;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JToggleButton jToggleButton2531;
     private javax.swing.JToggleButton jToggleButton2828;
     private javax.swing.JToggleButton jToggleButton2834;

@@ -89,9 +89,15 @@ public class NeutronFluxModel implements Runnable {
      * The return value of criticalityFunction will be multiplied by this,
      * defining the integration speed of the neutron flux. This is directly
      * affecting how the neutronFluxRate value is calculated from K_eff.
+     * <p>
+     * The K_INTEGRAL value multiplied with the beta value will indicate the
+     * neutron rate in %/s which will trigger prompt excursion. With an initial
+     * value of 57.9 this was 2.9 10%/s for prompt excursion, however, this 
+     * takes way too much time on simulator for ramping up power. To make it a 
+     * better experience, a value of 85 was chosen. This will do a prompt
+     * excursion with 4.25 10%/s. The lower values were taken from rxmodel but
      */
-//  private final double K_INTEGRAL = 104.1666667;
-    private final double K_INTEGRAL = 57.87;
+    private final double K_INTEGRAL = 85;
 
     /**
      * Factor of rod movement derivative part which will be added to the
