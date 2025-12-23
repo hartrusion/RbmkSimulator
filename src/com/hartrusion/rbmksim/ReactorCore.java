@@ -446,7 +446,9 @@ public class ReactorCore extends Subsystem implements Runnable {
             }
         }
         if (ac.getPropertyName().equals("Reactor#GlobalControlEnabled")) {
-            globalControlEnabled = (boolean) ac.getValue();
+            if (!rpsActive) {
+                globalControlEnabled = (boolean) ac.getValue();
+            }
             return;
         }
         if (ac.getPropertyName().equals("Reactor#GlobalControlAuto")) {
