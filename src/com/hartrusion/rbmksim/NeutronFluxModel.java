@@ -141,6 +141,12 @@ public class NeutronFluxModel implements Runnable {
 
     private final double STARTUP_FLUX_REDUCTION_START = 0.5;
     private final double STARTUP_FLUX_REDUCTION_END = 2.0;
+    
+    /**
+     * Time constant for filtering the neutron rate output, there is a need for
+     * a filtered output for the control feedback.
+     */
+    private final double T_RATEFILTER = 1.8;
 
     private final double mRed, bRed; // coefficients for linear interpolation
 
@@ -205,10 +211,12 @@ public class NeutronFluxModel implements Runnable {
      * State space variable. Helper for realizing the T2 function on decay heat.
      */
     private double xFirstDelay;
+    
+    private double xNeutronRateDelay;
 
     private double yNeutronFlux;
     private double yK;
-    private double yNeutronRate;
+    private double yNeutronRate, yNeutronRateFiltered;
     private double yThermalPower1, yThermalPower2; // In Megawatts
     private double yThermalPower;
 
@@ -232,7 +240,8 @@ public class NeutronFluxModel implements Runnable {
         double dXDeltaRods;
         double dXFirstDelay;
         double dXDelayedThermalPower;
-        double reactivityDiff, kEff, neutronRate;
+        double dXNeutronRateDelay;
+        double reactivityDiff, kEff, neutronRate, limitedNeutronRate;
 
         // Value around 1,0 with same units as k_Eff without any delay.
         reactivityDiff = (uReactivity - uAbsorberRods) * K_REACTIVITY + 1.0
@@ -247,7 +256,7 @@ public class NeutronFluxModel implements Runnable {
 
         // Raw neutron rate without manipulating it out of k_Eff value
         neutronRate = K_INTEGRAL * criticalityFunction(kEff);
-
+        
         // Manipulate the actually used neturon rate for startup, requiring to
         // mess around with the reactor controls for a longer time.
         if (xNeutronFlux < STARTUP_FLUX_REDUCTION_END && neutronRate >= 0.0) {
@@ -259,6 +268,13 @@ public class NeutronFluxModel implements Runnable {
         } else {
             dXNeutronFlux = neutronRate;
         }
+        
+        // generate a manipulated neutron rate for output 
+        if (xNeutronFlux > 0.0) {
+            limitedNeutronRate = neutronRate * 10;
+        } else { // no negative rate if flux reached 0.0
+            limitedNeutronRate = 0;
+        }
 
         dXDelayedCriticality = reactivityDiff
                 * (1 - P_INSTANT) / T_DELAYED_REACTIVITY
@@ -269,6 +285,8 @@ public class NeutronFluxModel implements Runnable {
         dXFirstDelay = (xNeutronFlux * P_DECAY * 15.76 - xFirstDelay) / T_DECAY;
 
         dXDelayedThermalPower = (xFirstDelay - xDelayedThermalPower) / T_DECAY;
+        
+        dXNeutronRateDelay = (limitedNeutronRate - xNeutronRateDelay) / T_RATEFILTER;
 
         // Forward Euler
         xNeutronFlux = Math.min(
@@ -279,6 +297,7 @@ public class NeutronFluxModel implements Runnable {
         xDeltaRods += dXDeltaRods * stepTime;
         xFirstDelay += dXFirstDelay * stepTime;
         xDelayedThermalPower += dXDelayedThermalPower * stepTime;
+        xNeutronRateDelay += dXNeutronRateDelay * stepTime;
 
         // Update Output variables
         yK = xDelayedCriticality
@@ -290,12 +309,9 @@ public class NeutronFluxModel implements Runnable {
 
         yNeutronFlux = xNeutronFlux;
 
-        // Use the unmanipulated neutron rate for output.
-        if (yNeutronFlux > 0.0) {
-            yNeutronRate = neutronRate * 10;
-        } else { // no negative rate if flux reached 0.0
-            yNeutronRate = 0;
-        }
+        yNeutronRate = limitedNeutronRate;
+        yNeutronRateFiltered = xNeutronRateDelay;
+        
         // Limit the neutron flux log output, 1e-4 with fluxlog = -6 seemed
         // fine, the rxmodel used -5.28, lets go for -5.3 here.
         // it is 10^-5.3 * 100 % is 5.0118723e-4 %
@@ -353,7 +369,7 @@ public class NeutronFluxModel implements Runnable {
      * @param uAbsorberRods Negative reactivity absorbed by absorber rods as a
      * value of 0..100%
      * @param uReactivity Positive reactivity present in the reactor, has to be
-     * calculated accodingly as fuel - xenon + voids.
+     * calculated accordingly as fuel - xenon + voids.
      */
     public void setInputs(double uAbsorberRods, double uReactivity) {
         this.uAbsorberRods = uAbsorberRods;
@@ -376,6 +392,10 @@ public class NeutronFluxModel implements Runnable {
      */
     public double getYNeutronRate() {
         return yNeutronRate;
+    }
+    
+    public double getYNeutronRateFiltered() {
+        return yNeutronRateFiltered;
     }
 
     public double getYNeutronFluxLog() {

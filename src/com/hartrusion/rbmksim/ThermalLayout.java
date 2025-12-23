@@ -2571,6 +2571,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Limit the thermal power to 10 Gigawatts per side, it will crash the
         // simulation anyway but that way it's not that fast.
         thermalPower[loop] = Math.min(power + 24, 1e4);
+        thermalPower[loop] = 0;
     }
 
     /**

@@ -105,7 +105,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     private double voiding = 0;
 
     /**
-     * Core temperature in degrees celcius, used to generate the negative
+     * Core temperature in degrees Celsius, used to generate the negative
      * temperature coefficient.
      */
     private double coreTemp = 80;
@@ -178,7 +178,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         // Generate average position and an alarm state value to make the 
         // operator aware that the controller might not be able to work
-        if (selectedAutoRods >= 1) {
+        if (selectedAutoRods >= 1 && globalControlActive) {
             avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
             if (avgPositionAutomatic < 0.5) {
                 autoRodsPositionAlarmState = AlarmState.MIN1;
@@ -210,7 +210,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControl.setFollowUp(avgPositionAutomatic);
         globalControl.setManualMode(!globalControlActive);
         globalControl.run();
-
+        
+        System.out.println("Rate: " + neutronFluxModel.getYNeutronRate() + ", Filtered Rate: "
+         + neutronFluxModel.getYNeutronRateFiltered());
+        
         // Write all controller outputs to the rods if they're in auto mode
         // and finally call run for all rods to update their positions (this is
         // the actual movement).
@@ -339,6 +342,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYThermalPower());
         outputValues.setParameterValue("Reactor#k",
                 neutronFluxModel.getYK());
+        outputValues.setParameterValue("Reactor#Graphite",
+                graphiteModel.getYGraphie());
 
         // Save values to plot manager
         if (plotUpdateCount == 0) {
@@ -590,9 +595,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         // controller input value to prevent scram or shutoff.
         globalControl.addInputProvider(()
                 -> - // Limit negative neutron rate
-                Math.max(-15 * (neutronFluxModel.getYNeutronRate() + 1.4),
+                Math.max(-16 * (neutronFluxModel.getYNeutronRateFiltered()+ 1.4),
                 // Limit positive neutron rate
-                Math.min(-15 * (neutronFluxModel.getYNeutronRate() - 1.4),
+                Math.min(-16 * (neutronFluxModel.getYNeutronRateFiltered() - 1.4),
                 (setpointNeutronFlux.getOutput()
                     - neutronFluxModel.getYNeutronFlux()))));
 

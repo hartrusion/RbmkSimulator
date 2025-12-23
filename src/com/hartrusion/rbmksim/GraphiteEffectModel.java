@@ -66,8 +66,8 @@ public class GraphiteEffectModel implements Runnable {
                 - xGraphite) / T_OUT;
 
         // Forward euler
-        xHidden = xHidden + dXHidden * stepTime;
-        xGraphite = xGraphite + dXGraphite * stepTime;
+        xHidden += dXHidden * stepTime;
+        xGraphite += dXGraphite * stepTime;
 
         // Update Output variables
     }

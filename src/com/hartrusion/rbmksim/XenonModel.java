@@ -75,8 +75,8 @@ public class XenonModel implements Runnable {
                 - xXenon135 / T_BURN * uNeutronFlux / 100; // weighted fast burn
 
         // Forward euler
-        xIodine135 = xIodine135 + dXIodine135 * stepTime;
-        xXenon135 = xXenon135 + dXXenon135 * stepTime;
+        xIodine135 += dXIodine135 * stepTime;
+        xXenon135 += dXXenon135 * stepTime;
 
         // Update Output variables
         yIodine = xIodine135;
