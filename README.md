@@ -5,6 +5,8 @@ detailed systems and a more accurate representation of the chernobyl plant.
 
 **This is work in progress. The development is still in a very early stage.**
 
+![Example](images/screenshot-preview.png)
+
 ## Focus
 Operating a power plant requires the operators to consider a large amount of 
 data describing the actual plant stage and operate the correct valves, pumps 
@@ -22,12 +24,16 @@ architectures and operating systems. And, if used properly, it is actually fast.
 * Simplified reactor with 5 automatic, 28 manual and 4 short control rods.
 * Automatic reactor power regulator that requires manual overrides from time to
 time.
-* Alarms that require your attention
+* Reactor with nasty features, has some surprises on low power levels and the
+accident can be triggered.
 * Mnemonic displays with additional measurement data on them.
+* Some line plots to monitor measurement time series
 
 Still, there is lots of work to do, so currently there is **no turbine** and 
 most coolant loops are connected to fixed cold water flow sources instead of 
-having a secondary and technical coolant water circuit.
+having a secondary and technical coolant water circuit. It is not possible to 
+operate the plant on full power as there is no turbine and no bypass at this
+stage.
 
 ## Usage
 To run the preview, download the jar-File on the releases section and run them 
