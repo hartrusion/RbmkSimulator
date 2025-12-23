@@ -90,6 +90,7 @@ public class ControlPanel extends javax.swing.JFrame
         panelRodSelector1 = new com.hartrusion.rbmksim.gui.PanelCoreControl();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuRodPositions = new javax.swing.JMenuItem();
         jMenuCoreMatrix = new javax.swing.JMenuItem();
@@ -120,6 +121,15 @@ public class ControlPanel extends javax.swing.JFrame
         getContentPane().add(panelRodSelector1);
 
         jMenuFile.setText("File");
+
+        jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItem1);
+
         jMenuBar1.add(jMenuFile);
 
         jMenuPanels.setText("Views");
@@ -515,6 +525,10 @@ public class ControlPanel extends javax.swing.JFrame
         initializeMnemonic(new FrameMnemonicTurbine());
     }//GEN-LAST:event_jMenuItemMnemonicTurbineActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -659,6 +673,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenu jMenuDiagrams;
     private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

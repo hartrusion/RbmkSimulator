@@ -138,6 +138,12 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private boolean globalControlTarget = false;
     private boolean oldGlobalControlTarget;
+    
+    /**
+     * Active while button is pressed.
+     */
+    private boolean globalControlOverride = false;
+    private boolean globalControlOverridePositive = false;
 
     private int selectedAutoRods = 0;
 
@@ -168,6 +174,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             globalControlTransient = false;
             globalControlActive = false;
             globalControlTarget = false;
+            globalControlOverride = false;
         } else {
             if (globalControlTarget) {
                 setpointNeutronFlux.setInput(
@@ -244,7 +251,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
 
         globalControl.setFollowUp(avgPositionAutomatic);
-        globalControl.setManualMode(!globalControlActive);
+        globalControl.setManualMode(
+                !globalControlActive || globalControlOverride);
         globalControl.run();
 
         // Write all controller outputs to the rods if they're in auto mode
@@ -255,7 +263,15 @@ public class ReactorCore extends Subsystem implements Runnable {
             if (globalControlActive
                     && rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
                     && rod.isAutomatic()) {
-                rod.getSwi().setInput(globalControl.getOutput());
+                if (globalControlOverride) {
+                    if (globalControlOverridePositive) {
+                        rod.getSwi().setInput(0);
+                    } else {
+                        rod.getSwi().setInput(7.4);
+                    }
+                } else {
+                    rod.getSwi().setInput(globalControl.getOutput());
+                }
             }
 
             rod.run(); // update all rods
@@ -458,6 +474,15 @@ public class ReactorCore extends Subsystem implements Runnable {
                 globalControlTarget = (boolean) ac.getValue();
                 LOGGER.log(Level.INFO, "Global Control Target: "
                         + globalControlTarget);
+            }
+            return;
+        }
+        if (ac.getPropertyName().equals("Reactor#AutoRodControl")) {
+            // do not accept enabling without enabled system, so its sure it 
+            // never starts with transient.
+            if (globalControlEnabled && globalControlActive) {
+                globalControlOverride = 0 != (int) ac.getValue();
+                globalControlOverridePositive = 1 == (int) ac.getValue();
             }
             return;
         }
@@ -775,11 +800,12 @@ public class ReactorCore extends Subsystem implements Runnable {
      * (this is the AZ5 command).
      */
     private void shutdown() {
-        if (globalControlActive) {
+        if (globalControlEnabled) {
             LOGGER.log(Level.INFO, "Deactivated Global Control (Shutdown)");
         }
-        globalControlActive = false;
+        globalControlEnabled = false;
         for (ControlRod c : controlRods) {
+            c.setAutomatic(false);
             c.rodSpeedMax();
             if (c.getRodType() == ChannelType.SHORT_CONTROLROD) {
                 c.getSwi().setInputMin(); // those need to be pulled out
