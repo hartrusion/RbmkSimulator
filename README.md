@@ -1,27 +1,44 @@
 # RBMK Simulator
-A simulator for the chernobyl RBMK reactor. This aims to be a successor to 
+A simulator app for the chornobyl RBMK recator. This aims to be a successor for 
 the famous RXMODEL simulator from about 30 years ago but with a lot more 
 detailed systems and a more accurate representation of the chernobyl plant.
 
-**This is work in progress.**
+**This is work in progress. The development is still in a very early stage.**
+
+## Focus
+Operating a power plant requires the operators to consider a large amount of 
+data describing the actual plant stage and operate the correct valves, pumps 
+or other elements. This simulator focuses on control loops, alarms and mainly 
+the thermal layout of the plant. To keep things simple, many systems are either 
+simplified or they are not present at all.
 
 Why Java? Java might be the worst choice for real time applications, but it
 provides very convenient ways of using object orientated programming and runs on
 a variety of computers, providing the same experience over different 
-architectures and operating systems.
+architectures and operating systems. And, if used properly, it is actually fast.
 
-## Modeling
-Focus of this project is to model the behaviour of all those pumps, valves, 
-control loops and heat exchangers and the thermal layout of the plant. For now, 
-the reactor is only a very simplified model that mimics a certain behaviour 
-but does not have scientific derivations of equations.
+## Features (and simplifications)
+* Two steam drum separators (instead of 4)
+* Simplified reactor with 5 automatic, 28 manual and 4 short control rods.
+* Automatic reactor power regulator that requires manual overrides from time to
+time.
+* Alarms that require your attention
+* Mnemonic displays with additional measurement data on them.
 
-The positive feedback loop that led to the accident is part of the simulator 
-model. 
+Still, there is lots of work to do, so currently there is **no turbine** and 
+most coolant loops are connected to fixed cold water flow sources instead of 
+having a secondary and technical coolant water circuit.
+
+## Usage
+To run the preview, download the jar-File on the releases section and run them 
+with any decent up to date java runtime. I suggest you to get a recent build of 
+OpenJDK for your operating system. If everything is installed properly, you 
+can just double click the jar file.
 
 ## Getting involved
 As this project is in a very early stage, lots of architecture and design 
-decisions have to be made and major refactorings do occur.
+decisions have to be made and major refactorings do occur. I do believe that 
+contributions might not be that useful in this early stage.
 
 Please make yourself familiar with the rather unusual
 [Code of Conduct](./CODE_OF_CONDUCT.md) first and read
@@ -34,5 +51,5 @@ only.
 The simulation is based on the PhxNetMod project which implements the theory of 
 having similar linear ordinary differential equations in electronics, mechanics, 
 hydraulics and thermal systems. The methods of network analysis can therefore 
-be applied to other domains. The PhxNetMod core is available as a separate 
-project.
+be applied to other domains. The PhxNetMod core, along with other dependencies,
+are available as separate projects.

@@ -4,7 +4,10 @@ This project is in a very early stage of development and lots of
 architecture and design decisions are non-final. There is still a lot of 
 refactoring and things might turn out not to work as desired.
 
-The best thing to do is **not** to contribute code in this early stage.
+Feedback on how things are presented on the GUI as well as discussions on 
+the scope of modeling is welcomed.
+
+However, best thing to do is **not** to contribute code in this early stage.
 
 1. There are no low-hanging fruits. A lot of things are not implemented as 
    there is no proper scalable architecture.
@@ -18,6 +21,9 @@ The best thing to do is **not** to contribute code in this early stage.
    serve as a description of what is actually going on or JavaDoc is used on 
    class fields.
 
-Please **do not create pull requests** as those are very likely to be denied 
-in that early stage without prior discussion. 
+Please try to keep the short line length limit. It allows to have two pages 
+of code next to each other on a 1080p screen.
+
+Please **do not create pull requests** without prior discussion as those are 
+very likely to be denied in that early stage . 
 
