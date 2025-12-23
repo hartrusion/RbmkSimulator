@@ -42,6 +42,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
         setpointControlNeutronFlux.registerActionReceiver(controller);
+        integralSwitch1.registerActionReceiver(controller);
     }
 
     /**
@@ -147,20 +148,15 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonDisplayF = new javax.swing.JButton();
         jButtonDisplayG = new javax.swing.JButton();
         jLabelCaptionLocalControl = new javax.swing.JLabel();
-        jLabelCaptionGradient = new javax.swing.JLabel();
         setpointControlNeutronFlux = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         jLabelCaptionGlobalReset1 = new javax.swing.JLabel();
-        jButtonGlobalReset = new javax.swing.JButton();
         jLabelCaptionGlobalControl = new javax.swing.JLabel();
         jLabelCaptionRPS = new javax.swing.JLabel();
         jButtonRPSReset = new javax.swing.JButton();
         jLabelCaptionRPSReset = new javax.swing.JLabel();
         jLabelCaptionAutomaticRods = new javax.swing.JLabel();
         jLabelCaptionSelect = new javax.swing.JLabel();
-        jButtonGlobalStop = new javax.swing.JButton();
         jLabelCaptionGlobalStop = new javax.swing.JLabel();
-        jLabelCaptionGlobalTrim1 = new javax.swing.JLabel();
-        jButtonGlobalTrim = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButtonStopRods = new javax.swing.JButton();
         jButtonRodUp = new javax.swing.JButton();
@@ -187,6 +183,10 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption2828 = new javax.swing.JLabel();
         jToggleButton2834 = new javax.swing.JToggleButton();
         jLabelCaption2834 = new javax.swing.JLabel();
+        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonGlobalAuto1 = new javax.swing.JToggleButton();
+        jToggleButtonGlobalAuto2 = new javax.swing.JToggleButton();
+        jLabelCaptionGlobalAuto1 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(574, 340));
         setMinimumSize(new java.awt.Dimension(574, 340));
@@ -685,19 +685,19 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelectAuto.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectAuto.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectAuto.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelectAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 92, 48, 14));
+        add(jLabelCaptionSelectAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 92, 48, 14));
 
         jButtonSelectAllAutomatic.setFont(jButtonSelectAllAutomatic.getFont().deriveFont(jButtonSelectAllAutomatic.getFont().getSize()-2f));
         jButtonSelectAllAutomatic.setForeground(new java.awt.Color(128, 0, 0));
         jButtonSelectAllAutomatic.setText("●");
+        jButtonSelectAllAutomatic.setToolTipText("Select all automatic control rods");
         jButtonSelectAllAutomatic.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSelectAllAutomatic.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonSelectAllAutomatic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSelectAllAutomaticActionPerformed(evt);
             }
         });
-        add(jButtonSelectAllAutomatic, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 108, 20, 20));
+        add(jButtonSelectAllAutomatic, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 108, 18, 18));
 
         jLabelCaptionSelectShort.setFont(jLabelCaptionSelectShort.getFont().deriveFont(jLabelCaptionSelectShort.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionSelectShort.getFont().getSize()-2));
         jLabelCaptionSelectShort.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -705,19 +705,19 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelectShort.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectShort.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectShort.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelectShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 128, 48, 14));
+        add(jLabelCaptionSelectShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 128, 48, 14));
 
         jButtonSelectAllShort.setFont(jButtonSelectAllShort.getFont().deriveFont(jButtonSelectAllShort.getFont().getSize()-2f));
         jButtonSelectAllShort.setForeground(new java.awt.Color(128, 128, 0));
         jButtonSelectAllShort.setText("●");
+        jButtonSelectAllShort.setToolTipText("Select all short control rods (inserted from below)");
         jButtonSelectAllShort.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSelectAllShort.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonSelectAllShort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSelectAllShortActionPerformed(evt);
             }
         });
-        add(jButtonSelectAllShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 144, 20, 20));
+        add(jButtonSelectAllShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 144, 18, 18));
 
         jLabelCaptionSelectNone.setFont(jLabelCaptionSelectNone.getFont().deriveFont(jLabelCaptionSelectNone.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionSelectNone.getFont().getSize()-2));
         jLabelCaptionSelectNone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -725,18 +725,18 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelectNone.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectNone.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectNone.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelectNone, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 166, 48, 14));
+        add(jLabelCaptionSelectNone, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 166, 48, 14));
 
         jButtonClearSelection.setFont(jButtonClearSelection.getFont().deriveFont(jButtonClearSelection.getFont().getSize()-2f));
         jButtonClearSelection.setText("●");
+        jButtonClearSelection.setToolTipText("Clear control rod selction");
         jButtonClearSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonClearSelection.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonClearSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClearSelectionActionPerformed(evt);
             }
         });
-        add(jButtonClearSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 180, 20, 20));
+        add(jButtonClearSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 180, 18, 18));
 
         jLabelCaptionAZ5.setFont(jLabelCaptionAZ5.getFont().deriveFont(jLabelCaptionAZ5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ5.getFont().getSize()-2));
         jLabelCaptionAZ5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -744,18 +744,17 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionAZ5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAZ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 88, 30, 14));
+        add(jLabelCaptionAZ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 84, 30, 14));
 
         jButtonAz5.setFont(jButtonAz5.getFont().deriveFont(jButtonAz5.getFont().getSize()-2f));
         jButtonAz5.setText("●");
         jButtonAz5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonAz5.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonAz5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAz5ActionPerformed(evt);
             }
         });
-        add(jButtonAz5, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 102, 20, 20));
+        add(jButtonAz5, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 98, 18, 18));
 
         jLabelCaptionNeutronFlux1.setFont(jLabelCaptionNeutronFlux1.getFont().deriveFont(jLabelCaptionNeutronFlux1.getFont().getSize()-2f));
         jLabelCaptionNeutronFlux1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -901,7 +900,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 34, 76, 26));
 
         jToggleButtonRPS.setFont(jToggleButtonRPS.getFont().deriveFont(jToggleButtonRPS.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButtonRPS.setText("—");
+        jToggleButtonRPS.setText("←");
         jToggleButtonRPS.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonRPS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -920,40 +919,41 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jLabelCaptionGlobalAuto.setFont(jLabelCaptionGlobalAuto.getFont().deriveFont(jLabelCaptionGlobalAuto.getFont().getSize()-2f));
         jLabelCaptionGlobalAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGlobalAuto.setText("Auto");
+        jLabelCaptionGlobalAuto.setText("Target");
         jLabelCaptionGlobalAuto.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalAuto.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalAuto.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 82, 40, 14));
+        add(jLabelCaptionGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 120, 40, 14));
 
         jToggleButtonGlobalAuto.setFont(jToggleButtonGlobalAuto.getFont().deriveFont(jToggleButtonGlobalAuto.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButtonGlobalAuto.setText("—");
+        jToggleButtonGlobalAuto.setText("←");
+        jToggleButtonGlobalAuto.setToolTipText("Enables or disables global control completely");
         jToggleButtonGlobalAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonGlobalAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonGlobalAutoActionPerformed(evt);
             }
         });
-        add(jToggleButtonGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 98, 22, 20));
+        add(jToggleButtonGlobalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 98, 22, 20));
 
         jLabelCaptionGlobalEnable.setFont(jLabelCaptionGlobalEnable.getFont().deriveFont(jLabelCaptionGlobalEnable.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalEnable.getFont().getSize()-2));
         jLabelCaptionGlobalEnable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGlobalEnable.setText("Enable");
+        jLabelCaptionGlobalEnable.setText("Auto");
         jLabelCaptionGlobalEnable.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalEnable.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalEnable.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 84, 40, 14));
+        add(jLabelCaptionGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 82, 40, 14));
 
         jButtonGlobalEnable.setFont(jButtonGlobalEnable.getFont().deriveFont(jButtonGlobalEnable.getFont().getSize()-2f));
         jButtonGlobalEnable.setText("●");
+        jButtonGlobalEnable.setToolTipText("Start auto control");
         jButtonGlobalEnable.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonGlobalEnable.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonGlobalEnable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGlobalEnableActionPerformed(evt);
             }
         });
-        add(jButtonGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 98, 20, 20));
+        add(jButtonGlobalEnable, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 98, 18, 18));
 
         jLabelCaptionRodSpeed.setFont(jLabelCaptionRodSpeed.getFont().deriveFont(jLabelCaptionRodSpeed.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRodSpeed.getFont().getSize()-2));
         jLabelCaptionRodSpeed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1001,14 +1001,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonStopAll.setFont(jButtonStopAll.getFont().deriveFont(jButtonStopAll.getFont().getSize()-2f));
         jButtonStopAll.setText("●");
+        jButtonStopAll.setToolTipText("All rods will stop in their current position.");
         jButtonStopAll.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonStopAll.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonStopAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonStopAllActionPerformed(evt);
             }
         });
-        add(jButtonStopAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 310, 20, 20));
+        add(jButtonStopAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 310, 18, 18));
 
         jLabelCaptionRodSelector.setFont(jLabelCaptionRodSelector.getFont().deriveFont(jLabelCaptionRodSelector.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionRodSelector.getFont().getSize()-2));
         jLabelCaptionRodSelector.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1024,11 +1024,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionTargetSetpoint.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTargetSetpoint.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTargetSetpoint.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionTargetSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 166, 106, 14));
+        add(jLabelCaptionTargetSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 106, 14));
 
         jButtonGradientPos.setFont(jButtonGradientPos.getFont().deriveFont(jButtonGradientPos.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonGradientPos.setText(">");
-        jButtonGradientPos.setToolTipText("");
+        jButtonGradientPos.setToolTipText("Modifies the setpoint gradient");
         jButtonGradientPos.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonGradientPos.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonGradientPos.setMinimumSize(new java.awt.Dimension(18, 22));
@@ -1041,11 +1041,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGradientPosMouseReleased(evt);
             }
         });
-        add(jButtonGradientPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 136, 18, 22));
+        add(jButtonGradientPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 134, 18, 22));
 
         jButtonGradientNeg.setFont(jButtonGradientNeg.getFont().deriveFont(jButtonGradientNeg.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonGradientNeg.setText("<");
-        jButtonGradientNeg.setToolTipText("");
+        jButtonGradientNeg.setToolTipText("Modifies the setpoint gradient");
         jButtonGradientNeg.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonGradientNeg.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonGradientNeg.setMinimumSize(new java.awt.Dimension(18, 22));
@@ -1058,7 +1058,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonGradientNegMouseReleased(evt);
             }
         });
-        add(jButtonGradientNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 136, 18, 22));
+        add(jButtonGradientNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 134, 18, 22));
 
         jLabelCaptionShortRods.setFont(jLabelCaptionShortRods.getFont().deriveFont(jLabelCaptionShortRods.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionShortRods.getFont().getSize()-2));
         jLabelCaptionShortRods.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1069,14 +1069,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jLabelCaptionShortRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 224, 110, 14));
 
         jToggleButtonLocalAuto.setFont(jToggleButtonLocalAuto.getFont().deriveFont(jToggleButtonLocalAuto.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButtonLocalAuto.setText("—");
+        jToggleButtonLocalAuto.setText("←");
         jToggleButtonLocalAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonLocalAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonLocalAutoActionPerformed(evt);
             }
         });
-        add(jToggleButtonLocalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 242, 22, 20));
+        add(jToggleButtonLocalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 254, 22, 20));
 
         jLabelCaptionLocalAuto.setFont(jLabelCaptionLocalAuto.getFont().deriveFont(jLabelCaptionLocalAuto.getFont().getSize()-2f));
         jLabelCaptionLocalAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1084,7 +1084,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionLocalAuto.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalAuto.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalAuto.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLocalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 226, 40, 14));
+        add(jLabelCaptionLocalAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 238, 40, 14));
 
         jButtonDisplayH.setFont(jButtonDisplayH.getFont().deriveFont(jButtonDisplayH.getFont().getSize()-2f));
         jButtonDisplayH.setText("H");
@@ -1103,7 +1103,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionLocalRest.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalRest.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalRest.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLocalRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 226, 40, 14));
+        add(jLabelCaptionLocalRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 238, 40, 14));
 
         jLabelCaptionCoreDisplay.setFont(jLabelCaptionCoreDisplay.getFont().deriveFont(jLabelCaptionCoreDisplay.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCoreDisplay.getFont().getSize()-2));
         jLabelCaptionCoreDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1116,8 +1116,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonLocalReset.setFont(jButtonLocalReset.getFont().deriveFont(jButtonLocalReset.getFont().getSize()-2f));
         jButtonLocalReset.setText("●");
         jButtonLocalReset.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonLocalReset.setPreferredSize(new java.awt.Dimension(20, 20));
-        add(jButtonLocalReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 242, 20, 20));
+        add(jButtonLocalReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 256, 18, 18));
 
         jButtonDisplayA.setFont(jButtonDisplayA.getFont().deriveFont(jButtonDisplayA.getFont().getSize()-2f));
         jButtonDisplayA.setText("A");
@@ -1192,37 +1191,18 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionLocalControl.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalControl.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalControl.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLocalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 212, 82, 14));
-
-        jLabelCaptionGradient.setFont(jLabelCaptionGradient.getFont().deriveFont(jLabelCaptionGradient.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGradient.getFont().getSize()-2));
-        jLabelCaptionGradient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGradient.setText("Gradient");
-        jLabelCaptionGradient.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGradient.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGradient.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 122, 56, 14));
+        add(jLabelCaptionLocalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 224, 82, 14));
 
         setpointControlNeutronFlux.setComponent("Reactor#TargetNeutronFlux");
-        add(setpointControlNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 180, -1, -1));
+        add(setpointControlNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 184, -1, -1));
 
         jLabelCaptionGlobalReset1.setFont(jLabelCaptionGlobalReset1.getFont().deriveFont(jLabelCaptionGlobalReset1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalReset1.getFont().getSize()-2));
         jLabelCaptionGlobalReset1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGlobalReset1.setText("Reset");
+        jLabelCaptionGlobalReset1.setText("Gradient");
         jLabelCaptionGlobalReset1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalReset1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalReset1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 124, 40, 14));
-
-        jButtonGlobalReset.setFont(jButtonGlobalReset.getFont().deriveFont(jButtonGlobalReset.getFont().getSize()-2f));
-        jButtonGlobalReset.setText("●");
-        jButtonGlobalReset.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonGlobalReset.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButtonGlobalReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGlobalResetActionPerformed(evt);
-            }
-        });
-        add(jButtonGlobalReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 138, 20, 20));
+        add(jLabelCaptionGlobalReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 120, 50, 14));
 
         jLabelCaptionGlobalControl.setFont(jLabelCaptionGlobalControl.getFont().deriveFont(jLabelCaptionGlobalControl.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGlobalControl.getFont().getSize()-2));
         jLabelCaptionGlobalControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1230,7 +1210,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalControl.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalControl.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalControl.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 68, 82, 14));
+        add(jLabelCaptionGlobalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 68, 108, 14));
 
         jLabelCaptionRPS.setFont(jLabelCaptionRPS.getFont().deriveFont(jLabelCaptionRPS.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionRPS.getFont().getSize()-2));
         jLabelCaptionRPS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1243,13 +1223,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonRPSReset.setFont(jButtonRPSReset.getFont().deriveFont(jButtonRPSReset.getFont().getSize()-2f));
         jButtonRPSReset.setText("●");
         jButtonRPSReset.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonRPSReset.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonRPSReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRPSResetActionPerformed(evt);
             }
         });
-        add(jButtonRPSReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 102, 20, 20));
+        add(jButtonRPSReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 104, 18, 18));
 
         jLabelCaptionRPSReset.setFont(jLabelCaptionRPSReset.getFont().deriveFont(jLabelCaptionRPSReset.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRPSReset.getFont().getSize()-2));
         jLabelCaptionRPSReset.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1265,7 +1244,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionAutomaticRods.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAutomaticRods.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAutomaticRods.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAutomaticRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 68, 110, 14));
+        add(jLabelCaptionAutomaticRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 68, 110, 14));
 
         jLabelCaptionSelect.setFont(jLabelCaptionSelect.getFont().deriveFont(jLabelCaptionSelect.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSelect.getFont().getSize()-2));
         jLabelCaptionSelect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1273,45 +1252,15 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelect.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelect.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelect.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 78, 48, 14));
-
-        jButtonGlobalStop.setFont(jButtonGlobalStop.getFont().deriveFont(jButtonGlobalStop.getFont().getSize()-2f));
-        jButtonGlobalStop.setText("●");
-        jButtonGlobalStop.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonGlobalStop.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButtonGlobalStop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGlobalStopActionPerformed(evt);
-            }
-        });
-        add(jButtonGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 98, 20, 20));
+        add(jLabelCaptionSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 78, 48, 14));
 
         jLabelCaptionGlobalStop.setFont(jLabelCaptionGlobalStop.getFont().deriveFont(jLabelCaptionGlobalStop.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalStop.getFont().getSize()-2));
         jLabelCaptionGlobalStop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGlobalStop.setText("Stop");
+        jLabelCaptionGlobalStop.setText("Transient");
         jLabelCaptionGlobalStop.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalStop.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionGlobalStop.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 84, 40, 14));
-
-        jLabelCaptionGlobalTrim1.setFont(jLabelCaptionGlobalTrim1.getFont().deriveFont(jLabelCaptionGlobalTrim1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalTrim1.getFont().getSize()-2));
-        jLabelCaptionGlobalTrim1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGlobalTrim1.setText("Trim");
-        jLabelCaptionGlobalTrim1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGlobalTrim1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGlobalTrim1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGlobalTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 124, 40, 14));
-
-        jButtonGlobalTrim.setFont(jButtonGlobalTrim.getFont().deriveFont(jButtonGlobalTrim.getFont().getSize()-2f));
-        jButtonGlobalTrim.setText("●");
-        jButtonGlobalTrim.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonGlobalTrim.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButtonGlobalTrim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGlobalTrimActionPerformed(evt);
-            }
-        });
-        add(jButtonGlobalTrim, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 138, 20, 20));
+        add(jLabelCaptionGlobalStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 82, 60, 14));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1357,7 +1306,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jToggleButton3731.setFont(jToggleButton3731.getFont().deriveFont(jToggleButton3731.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3731.setText("—");
+        jToggleButton3731.setText("←");
         jToggleButton3731.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3731.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1367,7 +1316,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel3.add(jToggleButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 20, 22, -1));
 
         jToggleButton3125.setFont(jToggleButton3125.getFont().deriveFont(jToggleButton3125.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3125.setText("—");
+        jToggleButton3125.setText("←");
         jToggleButton3125.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3125.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1377,7 +1326,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel3.add(jToggleButton3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 58, 22, -1));
 
         jToggleButton3137.setFont(jToggleButton3137.getFont().deriveFont(jToggleButton3137.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3137.setText("—");
+        jToggleButton3137.setText("←");
         jToggleButton3137.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3137.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1387,7 +1336,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel3.add(jToggleButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 58, 22, -1));
 
         jToggleButton3131.setFont(jToggleButton3131.getFont().deriveFont(jToggleButton3131.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3131.setText("—");
+        jToggleButton3131.setText("←");
         jToggleButton3131.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3131.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1397,7 +1346,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel3.add(jToggleButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 58, 22, -1));
 
         jToggleButton2531.setFont(jToggleButton2531.getFont().deriveFont(jToggleButton2531.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton2531.setText("—");
+        jToggleButton2531.setText("←");
         jToggleButton2531.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton2531.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1446,13 +1395,13 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3731.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel3.add(jLabelCaption3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 4, 36, -1));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 84, 116, 124));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 84, 116, 124));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jToggleButton3428.setFont(jToggleButton3428.getFont().deriveFont(jToggleButton3428.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3428.setText("—");
+        jToggleButton3428.setText("←");
         jToggleButton3428.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3428.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1470,7 +1419,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel4.add(jLabelCaption3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 36, -1));
 
         jToggleButton3434.setFont(jToggleButton3434.getFont().deriveFont(jToggleButton3434.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton3434.setText("—");
+        jToggleButton3434.setText("←");
         jToggleButton3434.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3434.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1488,7 +1437,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel4.add(jLabelCaption3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 6, 36, -1));
 
         jToggleButton2828.setFont(jToggleButton2828.getFont().deriveFont(jToggleButton2828.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton2828.setText("—");
+        jToggleButton2828.setText("←");
         jToggleButton2828.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton2828.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1506,7 +1455,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel4.add(jLabelCaption2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 36, -1));
 
         jToggleButton2834.setFont(jToggleButton2834.getFont().deriveFont(jToggleButton2834.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButton2834.setText("—");
+        jToggleButton2834.setText("←");
         jToggleButton2834.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton2834.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1524,6 +1473,40 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanel4.add(jLabelCaption2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 46, 36, -1));
 
         add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 242, 90, 90));
+
+        integralSwitch1.setComponent("Reactor#AutoRodControl");
+        integralSwitch1.setToolTipText("Overrides control output immediately");
+        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 130, -1, -1));
+
+        jToggleButtonGlobalAuto1.setFont(jToggleButtonGlobalAuto1.getFont().deriveFont(jToggleButtonGlobalAuto1.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonGlobalAuto1.setText("←");
+        jToggleButtonGlobalAuto1.setToolTipText("Disabling sets the active setpoint to the current value. Enable to set towards target.");
+        jToggleButtonGlobalAuto1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonGlobalAuto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonGlobalAuto1ActionPerformed(evt);
+            }
+        });
+        add(jToggleButtonGlobalAuto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 136, 22, 20));
+
+        jToggleButtonGlobalAuto2.setFont(jToggleButtonGlobalAuto2.getFont().deriveFont(jToggleButtonGlobalAuto2.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonGlobalAuto2.setText("←");
+        jToggleButtonGlobalAuto2.setToolTipText("Disabled: Hold current setpoint. Enabled: Ramp with gradient");
+        jToggleButtonGlobalAuto2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonGlobalAuto2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonGlobalAuto2ActionPerformed(evt);
+            }
+        });
+        add(jToggleButtonGlobalAuto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 98, 22, 20));
+
+        jLabelCaptionGlobalAuto1.setFont(jLabelCaptionGlobalAuto1.getFont().deriveFont(jLabelCaptionGlobalAuto1.getFont().getSize()-2f));
+        jLabelCaptionGlobalAuto1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionGlobalAuto1.setText("Enable");
+        jLabelCaptionGlobalAuto1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGlobalAuto1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGlobalAuto1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionGlobalAuto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 82, 40, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4028ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4028ActionPerformed
@@ -1743,7 +1726,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
     }//GEN-LAST:event_jButtonRodDownActionPerformed
 
     private void jToggleButtonGlobalAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonGlobalAutoActionPerformed
-        toggleButtonChange(evt);
+        if (toggleButtonChange(evt)) {
+            controller.userAction(new ActionCommand("Reactor#GlobalControlEnabled", true));
+        } else {
+            controller.userAction(new ActionCommand("Reactor#GlobalControlEnabled", false));
+        }
     }//GEN-LAST:event_jToggleButtonGlobalAutoActionPerformed
 
     private void jButtonRodSpeedNegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRodSpeedNegActionPerformed
@@ -1911,20 +1898,24 @@ public class PanelCoreControl extends AbstractPanelWidget {
     }//GEN-LAST:event_jButtonRPSResetActionPerformed
 
     private void jButtonGlobalEnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGlobalEnableActionPerformed
-        controller.userAction(new ActionCommand("Reactor#GlobalControlEnable", true));
+        controller.userAction(new ActionCommand("Reactor#GlobalControlAuto", null));
     }//GEN-LAST:event_jButtonGlobalEnableActionPerformed
 
-    private void jButtonGlobalResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGlobalResetActionPerformed
-        controller.userAction(new ActionCommand("Reactor#GlobalControlReset", true));
-    }//GEN-LAST:event_jButtonGlobalResetActionPerformed
+    private void jToggleButtonGlobalAuto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonGlobalAuto1ActionPerformed
+        if (toggleButtonChange(evt)) {
+            controller.userAction(new ActionCommand("Reactor#GlobalControlTarget", true));
+        } else {
+            controller.userAction(new ActionCommand("Reactor#GlobalControlTarget", false));
+        }
+    }//GEN-LAST:event_jToggleButtonGlobalAuto1ActionPerformed
 
-    private void jButtonGlobalStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGlobalStopActionPerformed
-        controller.userAction(new ActionCommand("Reactor#GlobalControlStop", true));
-    }//GEN-LAST:event_jButtonGlobalStopActionPerformed
-
-    private void jButtonGlobalTrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGlobalTrimActionPerformed
-        controller.userAction(new ActionCommand("Reactor#GlobalControlTrim", true));
-    }//GEN-LAST:event_jButtonGlobalTrimActionPerformed
+    private void jToggleButtonGlobalAuto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonGlobalAuto2ActionPerformed
+        if (toggleButtonChange(evt)) {
+            controller.userAction(new ActionCommand("Reactor#GlobalControlTransient", true));
+        } else {
+            controller.userAction(new ActionCommand("Reactor#GlobalControlTransient", false));
+        }
+    }//GEN-LAST:event_jToggleButtonGlobalAuto2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1933,6 +1924,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeNeutronFlux;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeNeutronRate;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeNeutronSetpoint;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private javax.swing.JButton jButton2228;
     private javax.swing.JButton jButton2231;
     private javax.swing.JButton jButton2234;
@@ -1981,9 +1973,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JButton jButtonDisplayG;
     private javax.swing.JButton jButtonDisplayH;
     private javax.swing.JButton jButtonGlobalEnable;
-    private javax.swing.JButton jButtonGlobalReset;
-    private javax.swing.JButton jButtonGlobalStop;
-    private javax.swing.JButton jButtonGlobalTrim;
     private javax.swing.JButton jButtonGradientNeg;
     private javax.swing.JButton jButtonGradientPos;
     private javax.swing.JButton jButtonLocalReset;
@@ -2015,12 +2004,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionGaugeNeutronRate1;
     private javax.swing.JLabel jLabelCaptionGaugeNeutronRate2;
     private javax.swing.JLabel jLabelCaptionGlobalAuto;
+    private javax.swing.JLabel jLabelCaptionGlobalAuto1;
     private javax.swing.JLabel jLabelCaptionGlobalControl;
     private javax.swing.JLabel jLabelCaptionGlobalEnable;
     private javax.swing.JLabel jLabelCaptionGlobalReset1;
     private javax.swing.JLabel jLabelCaptionGlobalStop;
-    private javax.swing.JLabel jLabelCaptionGlobalTrim1;
-    private javax.swing.JLabel jLabelCaptionGradient;
     private javax.swing.JLabel jLabelCaptionLocalAuto;
     private javax.swing.JLabel jLabelCaptionLocalControl;
     private javax.swing.JLabel jLabelCaptionLocalRest;
@@ -2059,6 +2047,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JToggleButton jToggleButton3434;
     private javax.swing.JToggleButton jToggleButton3731;
     private javax.swing.JToggleButton jToggleButtonGlobalAuto;
+    private javax.swing.JToggleButton jToggleButtonGlobalAuto1;
+    private javax.swing.JToggleButton jToggleButtonGlobalAuto2;
     private javax.swing.JToggleButton jToggleButtonLocalAuto;
     private javax.swing.JToggleButton jToggleButtonRPS;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlNeutronFlux;

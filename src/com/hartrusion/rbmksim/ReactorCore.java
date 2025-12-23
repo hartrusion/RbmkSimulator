@@ -119,10 +119,12 @@ public class ReactorCore extends Subsystem implements Runnable {
     private boolean rpsEnabled = true;
     private boolean rpsActive = false;
 
+    private boolean globalControlEnabled = false;
+
     /**
      * Global control is in a state where it is allowed to be turned on
      */
-    private boolean globalControlReady = true;
+    private boolean globalControlRodsAvailable = true;
 
     /**
      * Global control has active control over selected rods
@@ -133,6 +135,9 @@ public class ReactorCore extends Subsystem implements Runnable {
      * setpointNeutronFlux is following towards the target value
      */
     private boolean globalControlTransient = false;
+
+    private boolean globalControlTarget = false;
+    private boolean oldGlobalControlTarget;
 
     private int selectedAutoRods = 0;
 
@@ -156,10 +161,34 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void run() {
         setpointTargetNeutronFlux.run();
 
-        //if (globalControlActive && globalControlTransient) {
-        setpointNeutronFlux.setMaxRate(setpointPowerGradient.getOutput());
-        setpointNeutronFlux.setInput(setpointTargetNeutronFlux.getOutput());
-        //}
+        if (!globalControlEnabled) {
+            setpointNeutronFlux.forceOutputValue(0.0);
+            // Deactivate everything to force the oeprator to flip switches 
+            // after enabling
+            globalControlTransient = false;
+            globalControlActive = false;
+            globalControlTarget = false;
+        } else {
+            if (globalControlTarget) {
+                setpointNeutronFlux.setInput(
+                        setpointTargetNeutronFlux.getOutput());
+            } else if (!globalControlActive || oldGlobalControlTarget) {
+                // As long as control is off, set setpoint to current flux.
+                // Also in case of global control is switched no longer to 
+                // target, force the setpoint once to run back to the current
+                // value.
+                setpointNeutronFlux.forceOutputValue(
+                        neutronFluxModel.getYNeutronFlux());
+            }
+
+            // Transient switch: Stops the setpoint integrator.
+            if (globalControlTransient) {
+                setpointNeutronFlux.setMaxRate(
+                        setpointPowerGradient.getOutput());
+            } else {
+                setpointNeutronFlux.setMaxRate(0.0);
+            }
+        }
 
         setpointNeutronFlux.run();
         setpointPowerGradient.run();
@@ -176,10 +205,18 @@ public class ReactorCore extends Subsystem implements Runnable {
                 selectedAutoRods += 1;
             }
         }
+        if (selectedAutoRods >= 1) {
+            globalControlRodsAvailable = true;
+            avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
+        } else {
+            globalControlRodsAvailable = false;
+            avgPositionAutomatic = 7.4; // full inserted
+        }
+
         // Generate average position and an alarm state value to make the 
         // operator aware that the controller might not be able to work
-        if (selectedAutoRods >= 1 && globalControlActive) {
-            avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
+        if (selectedAutoRods >= 1 && globalControlActive
+                && neutronFluxModel.getYNeutronFlux() >= 0.01) {
             if (avgPositionAutomatic < 0.4) {
                 autoRodsPositionAlarmState = AlarmState.LOW2;
             } else if (avgPositionAutomatic < 1.0) {
@@ -199,7 +236,6 @@ public class ReactorCore extends Subsystem implements Runnable {
             }
         } else {
             autoRodsPositionAlarmState = AlarmState.NONE;
-            avgPositionAutomatic = 7.4; // full inserted
         }
         if (autoRodsPositionAlarmState != oldAutoRodsPositionAlarmState) {
             oldAutoRodsPositionAlarmState = autoRodsPositionAlarmState;
@@ -356,6 +392,8 @@ public class ReactorCore extends Subsystem implements Runnable {
             plotUpdateCount--;
         }
 
+        
+        oldGlobalControlTarget = globalControlTarget;
     }
 
     /**
@@ -391,31 +429,37 @@ public class ReactorCore extends Subsystem implements Runnable {
                 rpsActive = false;
             }
         }
-        if (ac.getPropertyName().equals("Reactor#GlobalControlStop")) {
-            if (globalControlActive && !globalControlReady) {
-                setpointNeutronFlux.setStop();
-                LOGGER.log(Level.INFO, "Global Control Ready / n. Active");
-                globalControlReady = true;
-                globalControlActive = false;
-            }
-
+        if (ac.getPropertyName().equals("Reactor#GlobalControlEnabled")) {
+            globalControlEnabled = (boolean) ac.getValue();
             return;
         }
-        if (ac.getPropertyName().equals("Reactor#GlobalControlEnable")) {
-            if (globalControlReady) {
-                globalControlReady = false;
+        if (ac.getPropertyName().equals("Reactor#GlobalControlAuto")) {
+            // Button press to start control operation
+            if (globalControlRodsAvailable && globalControlEnabled) {
                 globalControlActive = true;
-                LOGGER.log(Level.INFO, "Global Control n. Ready / Active");
-                return;
+                LOGGER.log(Level.INFO, "Global Control activated.");
             }
+            return;
         }
-        if (ac.getPropertyName().equals("Reactor#GlobalControlTrim")) {
-            if (globalControlReady) {
-                setpointNeutronFlux.forceOutputValue(
-                        neutronFluxModel.getYNeutronFlux());
-                LOGGER.log(Level.INFO, "Output trim sucessfull.");
-                return;
+        if (ac.getPropertyName().equals("Reactor#GlobalControlTransient")) {
+            // do not accept enabling without enabled system, so its sure it 
+            // never starts with transient.
+            if (globalControlEnabled) {
+                globalControlTransient = (boolean) ac.getValue();
+                LOGGER.log(Level.INFO, "Global Control Transient: "
+                        + globalControlTransient);
             }
+            return;
+        }
+        if (ac.getPropertyName().equals("Reactor#GlobalControlTarget")) {
+            // do not accept enabling without enabled system, so its sure it 
+            // never starts with transient.
+            if (globalControlEnabled) {
+                globalControlTarget = (boolean) ac.getValue();
+                LOGGER.log(Level.INFO, "Global Control Target: "
+                        + globalControlTarget);
+            }
+            return;
         }
         int identifier, x, y;
         boolean value;
@@ -579,10 +623,11 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     public void init() {
         // Auto Control is limited between 4 and 110 % flux
-        setpointNeutronFlux.setLowerLimit(4.0);
-        setpointNeutronFlux.setUpperLimit(110.0);
+        setpointNeutronFlux.setLowerLimit(0.0);
+        setpointNeutronFlux.setUpperLimit(120.0);
         setpointTargetNeutronFlux.setLowerLimit(4.0);
         setpointTargetNeutronFlux.setUpperLimit(110.0);
+        setpointTargetNeutronFlux.setMaxRate(2.0);
 
         // Define controler input for automatic rods. e = -(setpoing - flux)
         // is negative, inserting rods means positive output values, removing is
@@ -646,8 +691,9 @@ public class ReactorCore extends Subsystem implements Runnable {
             maxAbsorption += rod.getMaxAbsorption();
         }
 
-        setpointPowerGradient.setUpperLimit(1.0);
-        setpointPowerGradient.setMaxRate(0.2);
+        setpointPowerGradient.setUpperLimit(1.4);
+        setpointPowerGradient.setMaxRate(0.4);
+        setpointPowerGradient.forceOutputValue(0.3); // initial value
 
         // Define alarms and consequences
         ValueAlarmMonitor am;

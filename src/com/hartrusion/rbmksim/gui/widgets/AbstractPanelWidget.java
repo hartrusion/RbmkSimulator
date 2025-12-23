@@ -129,10 +129,10 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      */
     protected void setButtonSwitch(JToggleButton toggleButton, boolean val) {
         if (val) {
-            toggleButton.setText("—");
+            toggleButton.setText("←");
             toggleButton.setSelected(true);
         } else {
-            toggleButton.setText("|");
+            toggleButton.setText("↑");
             toggleButton.setSelected(false);
         }
     }
@@ -147,10 +147,10 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     protected boolean toggleButtonChange(java.awt.event.ActionEvent evt) {
         JToggleButton jToggleButton = (JToggleButton) evt.getSource();
         if (jToggleButton.isSelected()) {
-            jToggleButton.setText("|");
+            jToggleButton.setText("↑");
             return true;
         } else {
-            jToggleButton.setText("—");
+            jToggleButton.setText("←");
             return false;
         }
     }

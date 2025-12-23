@@ -103,8 +103,8 @@ public class ChornobylMetalTheme extends OceanTheme {
 
     @Override
     public void addCustomEntriesToTable(UIDefaults table) {
-        Color buttonReleased = new ColorUIResource(148, 148, 148);
-        Color buttonPressed = new ColorUIResource(110, 110, 110);
+        Color buttonReleased = new ColorUIResource(48, 48, 48);
+        Color buttonPressed = new ColorUIResource(64, 64, 64);
 
         // This gets called from getDefaults from the metal look and feel.
         // The ocean theme will add all of its special things here if we call
@@ -118,11 +118,14 @@ public class ChornobylMetalTheme extends OceanTheme {
         // Button: No gradient color, but a more darker gray as base color.
         table.remove("Button.gradient");
         table.put("Button.background", buttonReleased);
+        table.put("Button.select", buttonPressed);
+        table.put("Button.foreground", Color.WHITE);
 
         // Toggle Button, same color as normal button, select-state will be
-        // a bit more dark.
+        // a bit lighter
         table.remove("ToggleButton.gradient");
         table.put("ToggleButton.background", buttonReleased);
         table.put("ToggleButton.select", buttonPressed);
+        table.put("ToggleButton.foreground", Color.WHITE);
     }
 }
