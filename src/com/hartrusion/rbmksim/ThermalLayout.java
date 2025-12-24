@@ -75,7 +75,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     // Reference to the used reactor core part
     private ReactorCore core;
-    
+
     private final PhasedPropertiesWater phasedWater
             = new PhasedPropertiesWater();
 
@@ -139,11 +139,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatFluidPump[] blowdownCooldownPumps = new HeatFluidPump[2];
     private final HeatNode blowdownPumpCollectorNode; // line above pumps
     // Placed before the first input into regenerator above the valve from pumps
-    private final HeatVolumizedFlowResistance 
-            blowdownToRegeneratorFirstResistance;
+    private final HeatVolumizedFlowResistance blowdownToRegeneratorFirstResistance;
     // Placed after the water treatment towards the regenerator
-    private final HeatVolumizedFlowResistance 
-            blowdownToRegeneratorSecondResistance;
+    private final HeatVolumizedFlowResistance blowdownToRegeneratorSecondResistance;
     private final HeatNode blowdownRegeneratorInCollectorNode;
     private final HeatValve blowdownValvePassiveFlow;
     private final HeatValve blowdownValvePumpsToRegenerator;
@@ -216,7 +214,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new HeatValveControlled[2][3];
 
     // Auxiliary Condensation
-    private final PhasedValveControlled[] auxCondSteamValve 
+    private final PhasedValveControlled[] auxCondSteamValve
             = new PhasedValveControlled[2];
     private final PhasedCondenser[] auxCondensers = new PhasedCondenser[2];
     // Coolant flow with simple flow source for now
@@ -248,7 +246,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedCondenser hotwell;
     private final PhasedHeatFluidConverter hotwellOutConverter;
     private final HeatNode hotwellOutNode;
-    private final HeatFluidPump[] condensationHotwellPump 
+    private final HeatFluidPump[] condensationHotwellPump
             = new HeatFluidPump[3];
     private final HeatNode condensationPumpOut;
     private final HeatVolumizedFlowResistance condensationEjectorDummy;
@@ -296,6 +294,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double voiding = 0;
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{24e6, 24e6};
+
+    /**
+     * Setting this to true will disconnect the thermal loop simulation,
+     * allowing to operate the reactor without feedback from the thermal system.
+     * There will be no voiding and the temperature will be set estimated.
+     */
+    private boolean noReactorInput;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -2021,7 +2026,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setThermalPower(0, core.getThermalPower(0));
         setThermalPower(1, core.getThermalPower(1));
 
-        // Before this run method is invoked from the MainLoop, the controller
+            // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
         // handleAction in this class here. So the first thing happening is
         // all the commands from GUI will be processed.
@@ -2031,8 +2036,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.invokeAll();
 
         // Apply thermal power from fuel
-        for (int idx = 0; idx < 2; idx++) {
-            fuelThermalSource[idx].setFlow(thermalPower[idx] * 1e6);
+        if (!noReactorInput) { // for debugging and full reactor use
+            for (int idx = 0; idx < 2; idx++) {
+                fuelThermalSource[idx].setFlow(thermalPower[idx] * 1e6);
+            }
+        } else {
+            for (int idx = 0; idx < 2; idx++) {
+                fuelThermalSource[idx].setFlow(2.4e7); // just idle
+            }
         }
 
         // Write Control Outputs to model if necessary (some controllers are
@@ -2049,8 +2060,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         solver.doCalculation();
 
         // Generate core temperature value (avg deg celsius value)
-        coreTemp = (fuelThermalOut[0].getEffort()
-                + fuelThermalOut[1].getEffort()) / 2 - 273.5;
+        if (!noReactorInput) {
+            coreTemp = (fuelThermalOut[0].getEffort()
+                    + fuelThermalOut[1].getEffort()) / 2 - 273.5;
+        } else {
+            coreTemp = 0.324 * (thermalPower[0] + thermalPower[1]) / 2 + 50.9;
+        }
 
         // Generate thermal lift for next cycle
         for (int idx = 0; idx < 2; idx++) {
@@ -2263,11 +2278,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Condensation" + (idx + 1) + "#FlowToDA",
                     condensationValveToDA[idx].getValveElement().getFlow());
         }
-        outputValues.setParameterValue("Hotwell#FillFlow", 
+        outputValues.setParameterValue("Hotwell#FillFlow",
                 hotwellFillValve.getValveElement().getFlow());
-        outputValues.setParameterValue("Hotwell#DrainFlow", 
+        outputValues.setParameterValue("Hotwell#DrainFlow",
                 hotwellDrainValve.getValveElement().getFlow());
-        outputValues.setParameterValue("Condensation#HotwellPumpsPressure", 
+        outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
         // </editor-fold>
 
@@ -2556,6 +2571,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             setpointHotwellLowerLevel.handleAction(ac);
             makeupPumps[0].handleAction(ac);
             makeupPumps[1].handleAction(ac);
+            
+            if (ac.getPropertyName().equals("SetCoreOnly")) {
+                noReactorInput = true;
+            }
         }
         // </editor-fold>
     }

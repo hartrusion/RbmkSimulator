@@ -19,9 +19,11 @@ package com.hartrusion.rbmksim;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
+import com.hartrusion.rbmksim.gui.AboutDialog;
 import com.hartrusion.rbmksim.gui.ControlPanelCondensation;
 import com.hartrusion.rbmksim.gui.ControlPanelFeedwater;
 import com.hartrusion.rbmksim.gui.ControlPanelRecirculation;
@@ -87,10 +89,17 @@ public class ControlPanel extends javax.swing.JFrame
     private void initComponents() {
 
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         panelRodSelector1 = new com.hartrusion.rbmksim.gui.PanelCoreControl();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemSetCoreOnly = new javax.swing.JMenuItem();
+        jMenuItemExit = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuRodPositions = new javax.swing.JMenuItem();
         jMenuCoreMatrix = new javax.swing.JMenuItem();
@@ -112,8 +121,22 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuDrumSeparators = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuAbout = new javax.swing.JMenuItem();
 
         jMenuItem10.setText("jMenuItem10");
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenu1.setText("File");
+        jMenuBar2.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar2.add(jMenu2);
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reactor Control Panel");
@@ -122,13 +145,22 @@ public class ControlPanel extends javax.swing.JFrame
 
         jMenuFile.setText("File");
 
-        jMenuItem1.setText("Exit");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemSetCoreOnly.setText("Set core only mode");
+        jMenuItemSetCoreOnly.setToolTipText("Deactivates the connection between thermal systems and the core simulation.");
+        jMenuItemSetCoreOnly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemSetCoreOnlyActionPerformed(evt);
             }
         });
-        jMenuFile.add(jMenuItem1);
+        jMenuFile.add(jMenuItemSetCoreOnly);
+
+        jMenuItemExit.setText("Exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemExit);
 
         jMenuBar1.add(jMenuFile);
 
@@ -182,7 +214,7 @@ public class ControlPanel extends javax.swing.JFrame
 
         jMenuMnemonics.setText("Mnemonic Displays");
 
-        jMenuItemCore.setText("Core");
+        jMenuItemCore.setText("Core (Debug)");
         jMenuItemCore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCoreActionPerformed(evt);
@@ -283,6 +315,18 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuDiagrams.add(jMenuItem9);
 
         jMenuBar1.add(jMenuDiagrams);
+
+        jMenuHelp.setText("Help");
+
+        jMenuAbout.setText("About");
+        jMenuAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAboutActionPerformed(evt);
+            }
+        });
+        jMenuHelp.add(jMenuAbout);
+
+        jMenuBar1.add(jMenuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -525,9 +569,18 @@ public class ControlPanel extends javax.swing.JFrame
         initializeMnemonic(new FrameMnemonicTurbine());
     }//GEN-LAST:event_jMenuItemMnemonicTurbineActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    private void jMenuItemSetCoreOnlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSetCoreOnlyActionPerformed
+        controller.userAction(new ActionCommand("SetCoreOnly", null));
+    }//GEN-LAST:event_jMenuItemSetCoreOnlyActionPerformed
+
+    private void jMenuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAboutActionPerformed
+        AboutDialog dialog = new AboutDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuAboutActionPerformed
 
     @Override // Called on startup
     public void registerController(ViewerController controller) {
@@ -667,19 +720,27 @@ public class ControlPanel extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuControls;
     private javax.swing.JMenuItem jMenuCoreMatrix;
     private javax.swing.JMenu jMenuDiagrams;
     private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
     private javax.swing.JMenuItem jMenuItemCore;
+    private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemMnemonicAuxCondenser;
     private javax.swing.JMenuItem jMenuItemMnemonicDeaerators;
@@ -688,6 +749,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemMnemonicLoop2;
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
     private javax.swing.JMenuItem jMenuItemRecirculation;
+    private javax.swing.JMenuItem jMenuItemSetCoreOnly;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;
