@@ -145,6 +145,8 @@ public class ControlPanel extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reactor Control Panel");
+        setMaximumSize(new java.awt.Dimension(574, 340));
+        setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(panelRodSelector1);
 

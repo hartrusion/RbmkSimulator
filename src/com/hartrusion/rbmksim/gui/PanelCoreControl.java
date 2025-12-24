@@ -900,7 +900,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 34, 76, 26));
 
         jToggleButtonRPS.setFont(jToggleButtonRPS.getFont().deriveFont(jToggleButtonRPS.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButtonRPS.setText("←");
+        jToggleButtonRPS.setSelected(true);
+        jToggleButtonRPS.setText("↑");
         jToggleButtonRPS.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonRPS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
