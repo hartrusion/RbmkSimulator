@@ -187,7 +187,7 @@ public class ControlPanel extends javax.swing.JFrame
         });
         jMenuPanels.add(jMenuRodPositions);
 
-        jMenuCoreMatrix.setText("Core Matrix");
+        jMenuCoreMatrix.setText("Core Matrix (not implemented)");
         jMenuCoreMatrix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuCoreMatrixActionPerformed(evt);

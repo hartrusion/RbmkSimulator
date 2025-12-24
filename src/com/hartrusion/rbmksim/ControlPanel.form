@@ -89,7 +89,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuCoreMatrix">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Core Matrix"/>
+                <Property name="text" type="java.lang.String" value="Core Matrix (not implemented)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuCoreMatrixActionPerformed"/>

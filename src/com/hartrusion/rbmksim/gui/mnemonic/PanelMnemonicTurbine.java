@@ -486,6 +486,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                 jLabelReadingCondensatePumpsPressure.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1") + " bar");
+            case "Hotwell#Level" ->
+                jLabelReadingHotwellLevel.setText(
+                        String.format("%.1f", newValue) + " cm");
         }
     }
 
