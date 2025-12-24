@@ -35,6 +35,7 @@ import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
 import com.hartrusion.rbmksim.gui.FrameRodPositions;
 import com.hartrusion.rbmksim.gui.InteractiveComponent;
+import com.hartrusion.rbmksim.gui.InterimAlarmList;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicDeaerator;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
@@ -61,6 +62,9 @@ public class ControlPanel extends javax.swing.JFrame
     private FrameDiagramDrums frameDiagramDrums;
     private FrameDiagramLoopLevel frameDiagramLoop1Level;
     private FrameDiagramLoopLevel frameDiagramLoop2Level;
+
+    private InterimAlarmList frameAlarms;
+    private List alarmList;
 
     private FloatSeriesVault plotData;
 
@@ -101,6 +105,7 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuItemSetCoreOnly = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
+        jMenuAlarms = new javax.swing.JMenuItem();
         jMenuRodPositions = new javax.swing.JMenuItem();
         jMenuCoreMatrix = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
@@ -165,6 +170,14 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuBar1.add(jMenuFile);
 
         jMenuPanels.setText("Views");
+
+        jMenuAlarms.setText("Alarm List");
+        jMenuAlarms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAlarmsActionPerformed(evt);
+            }
+        });
+        jMenuPanels.add(jMenuAlarms);
 
         jMenuRodPositions.setText("Rod Positions");
         jMenuRodPositions.addActionListener(new java.awt.event.ActionListener() {
@@ -582,6 +595,22 @@ public class ControlPanel extends javax.swing.JFrame
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuAboutActionPerformed
 
+    private void jMenuAlarmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAlarmsActionPerformed
+        if (frameAlarms == null) {
+            frameAlarms = new InterimAlarmList();
+            frameAlarms.setAlarmList(alarmList);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameAlarms.setVisible(true);
+            });
+            frameAlarms.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameAlarms = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuAlarmsActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -626,6 +655,11 @@ public class ControlPanel extends javax.swing.JFrame
             }
             if (frameDiagramLoop2Level != null) {
                 frameDiagramLoop2Level.updatePlots();
+            }
+            
+            // use this event to update the alarm list also.
+            if (frameAlarms != null) {
+                frameAlarms.updateAlarmListModel();
             }
         }
         panelRodSelector1.updateComponent(propertyName, newValue);
@@ -718,11 +752,17 @@ public class ControlPanel extends javax.swing.JFrame
             }
         });
     }
+    
+    public void setAlarmList(List alarmList) {
+        // Todo: maybe there's a better way of organizing this.
+        this.alarmList = alarmList;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuAbout;
+    private javax.swing.JMenuItem jMenuAlarms;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuControls;

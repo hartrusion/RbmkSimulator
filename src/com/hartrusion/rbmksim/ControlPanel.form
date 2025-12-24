@@ -71,6 +71,14 @@
             <Property name="text" type="java.lang.String" value="Views"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuAlarms">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Alarm List"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuAlarmsActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuRodPositions">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rod Positions"/>

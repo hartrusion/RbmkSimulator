@@ -38,13 +38,13 @@ public class MainLoop implements Runnable, ModelManipulation {
     private ThermalLayout process = new ThermalLayout();
 
     private ParameterHandler outputValues = new ParameterHandler();
-    private AlarmManager alarms = new AlarmManager();
+    public AlarmManager alarms = new AlarmManager(); // temporary public
 
     long maxTime;
     long initialIterations = 0;
 
     FloatSeriesVault plotData = new FloatSeriesVault();
-    private final int plotCountDiv = 4; // each nth cycle the plots will be updated
+    private final int plotCountDiv = 4; // each nth cycle the plots will be upd.
 
     public void init() {
         try {

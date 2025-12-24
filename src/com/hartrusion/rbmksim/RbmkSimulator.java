@@ -37,7 +37,7 @@ import com.hartrusion.util.SimpleLogOut;
  */
 public class RbmkSimulator {
 
-    MainLoop model;
+    MainLoop mainLoop;
 
     private final ScheduledExecutorService scheduler;
     private final ExecutorService threadPool;
@@ -61,7 +61,7 @@ public class RbmkSimulator {
         threadPool = Executors.newFixedThreadPool(cores);
         SuperPosition.setThreadPool(threadPool);
 
-        model = new MainLoop();
+        mainLoop = new MainLoop();
     }
 
     private void run() {
@@ -93,14 +93,14 @@ public class RbmkSimulator {
         AwtUpdater updt = new AwtUpdater();
 
         // Connect model, view (gui) and controller
-        contr.registerModel(model);
+        contr.registerModel(mainLoop);
         contr.registerUpdater(updt);
         updt.registerView(view);
         view.registerController(contr);
-        model.registerController(contr);
+        mainLoop.registerController(contr);
 
         // Build and initialize the model
-        model.init();
+        mainLoop.init();
 
         // Make the created view terminate everything on close
         view.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -111,6 +111,9 @@ public class RbmkSimulator {
                 System.exit(0); // Terminate java vm
             }
         });
+        
+        // make the alarm list model of the alarm manager known to the GUI
+        view.setAlarmList(mainLoop.alarms.getAlarmList());
 
         // Start the GUI
         java.awt.EventQueue.invokeLater(() -> {
@@ -127,7 +130,7 @@ public class RbmkSimulator {
 //                    System.Logger.Level.ERROR, (String) null, ex);
 //        }
         // Start the 100 ms cyclic thread
-        scheduler.scheduleAtFixedRate(model, 100, 100, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(mainLoop, 100, 100, TimeUnit.MILLISECONDS);
     }
 
     /**
