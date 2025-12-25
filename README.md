@@ -5,19 +5,15 @@ detailed systems and a more accurate representation of the chernobyl plant.
 
 **This is work in progress. The development is still in a very early stage.**
 
-![Example](images/screenshot-preview.png)
+![Example](docs/images/screenshot-preview.png)
 
 ## Focus
 Operating a power plant requires the operators to consider a large amount of 
 data describing the actual plant stage and operate the correct valves, pumps 
 or other elements. This simulator focuses on control loops, alarms and mainly 
-the thermal layout of the plant. To keep things simple, many systems are either 
-simplified or they are not present at all.
-
-Why Java? Java might be the worst choice for real time applications, but it
-provides very convenient ways of using object orientated programming and runs on
-a variety of computers, providing the same experience over different 
-architectures and operating systems. And, if used properly, it is actually fast.
+the thermal layout of the plant to make you as an operator control all those
+systems. To keep things simple, many systems are either simplified or they are 
+not present at all.
 
 ## Features (and simplifications)
 * Two steam drum separators (instead of 4)
@@ -35,11 +31,21 @@ having a secondary and technical coolant water circuit. It is not possible to
 operate the plant on full power as there is no turbine and no bypass at this
 stage.
 
-## Usage
-To run the preview, download the jar-File on the releases section and run them 
-with any decent up to date java runtime. I suggest you to get a recent build of 
-OpenJDK for your operating system. If everything is installed properly, you 
-can just double click the jar file.
+## Installation and Usage
+**To simply run a release version of this software, head over to the "Releases"
+section here on Github and download it from there.**
+
+You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
+
+To build the simulator from source, you need some additional code that is 
+released on different repositories:
+* [PhxNetMod](https://github.com/hartrusion/PhxNetMod) Simulation Engine
+* [PhxNetModExt](https://github.com/hartrusion/PhxNetModExt) Extensions for 
+control loops
+* [Utils](https://github.com/hartrusion/utils) Some commonly used classes
+* [JMPLot](https://github.com/hartrusion/jmplot) A Matlab-like line plot library
+* [AbsoluteLayout](https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout)
+GUI Layout extension for Swing (this comes packed with NetBeans)
 
 ## Getting involved
 As this project is in a very early stage, lots of architecture and design 
