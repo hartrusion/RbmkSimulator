@@ -9,7 +9,7 @@
   <!-- Hauptklasse für das Manifest -->
   <property name="main.class"  value="com.hartrusion.rbmksim.RbmkSimulator"/>
 
-  <!-- Ausgabe-JAR-Namen -->
+  <!-- Ausgabe-JAR-Name -->
   <property name="jar.name.fat"  value="RbmkSimulator.jar"/>
 
   <target name="init">
@@ -38,14 +38,11 @@
       <fileset dir="${classes.dir}"/>
 
       <!-- Inhalte aller Abhängigkeits-JARs zusammenführen.
-           Exkludiere typische Signatur-Dateien im META-INF, um Probleme zu vermeiden. -->
-      <zipgroupfileset dir="${basedir}/lib" includes="**/*.jar">
-        <!-- zipgroupfileset unterstützt keine direkten excludes, daher nutzen wir zipfileset-Schleife weiter unten wenn nötig -->
-      </zipgroupfileset>
-
-      <!-- Falls nötig, entferne Signaturdateien und redundante MANIFEST-Einträge -->
-      <zipfileset src="" excludes="META-INF/*.SF META-INF/*.DSA META-INF/*.RSA META-INF/INDEX.LIST"/>
-
+           Exkludiere typische Signatur- und Manifest-Dateien, und schließe
+           ggf. eine gleichnamige Ziel-JAR in lib/ aus (um Selbst-Einbindung zu vermeiden). -->
+      <zipgroupfileset dir="${basedir}/lib"
+                        includes="**/*.jar"
+                        excludes="${jar.name.fat},META-INF/*.SF,META-INF/*.DSA,META-INF/*.RSA,META-INF/INDEX.LIST,META-INF/MANIFEST.MF"/>
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
