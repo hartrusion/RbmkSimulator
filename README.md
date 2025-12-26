@@ -8,11 +8,9 @@ detailed systems and a more accurate representation of the chernobyl plant.
 ![Example](docs/images/screenshot-preview.png)
 
 ## Installation and Usage
-To download the simulator, you need to grab the latest build from the _Java CI
-Workflow_ under the _Actions_ tab (or simply click 
-[here](https://github.com/hartrusion/RbmkSimulator/actions/workflows/ant.yml))
-from the latest workflow run, that is the top entry in the list. Download the
-"Package" under "Artifacts", this zip file contains a jar file.
+To download the simulator, you need to grab the latest release from the
+[Releases](https://github.com/hartrusion/RbmkSimulator/releases) section. 
+Download the file  "RbmkSimulator.jar" file from _github-ci-nightly_ there.
 
 <details>
   <summary>You also need Java installed (expand this for more info).</summary>
