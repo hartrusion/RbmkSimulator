@@ -6,14 +6,16 @@ name: Java CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 # Allow this workflow to delete older artifacts via the GITHUB_TOKEN
 permissions:
   actions: write
-  contents: read
+  contents: write
+
+env:
+  TARGET_REPO: ${{ github.repository }} # this repo
+  NIGHTLY_TAG: "github-ci-nightly"
 
 jobs:
   build:
@@ -114,6 +116,154 @@ jobs:
         with:
           name: Package
           path: build/jar/*.jar
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (shallow false needed only if we want git info locally)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download "Package" artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: Package
+          path: artifacts
+
+      - name: Show downloaded artifacts
+        run: |
+          echo "Artifacts content:"
+          ls -la artifacts || true
+          # If the artifact is a zip produced by upload step, it will be extracted; otherwise it will be the jar file(s).
+          find artifacts -maxdepth 2 -type f -print || true
+
+      - name: Delete existing release and tag if present
+        env:
+          API_URL: "https://api.github.com/repos/${{ env.TARGET_REPO }}"
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ env.NIGHTLY_TAG }}
+        run: |
+          set -euo pipefail
+          echo "Target repo: $API_URL"
+          release_resp=$(curl -sS -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" "$API_URL/releases/tags/$TAG" || true)
+          release_id=$(printf '%s' "$release_resp" | jq -r '.id // empty')
+
+          if [ -n "$release_id" ]; then
+            echo "Found existing release id=$release_id — deleting it..."
+            del_status=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" "$API_URL/releases/$release_id" || true)
+            if [ "$del_status" -ge 200 ] && [ "$del_status" -lt 300 ]; then
+              echo "Deleted release id=$release_id (status $del_status)."
+            else
+              echo "Failed deleting release id=$release_id (status $del_status) — continuing."
+            fi
+          else
+            echo "No existing release with tag $TAG."
+          fi
+
+          echo "Checking for existing tag ref refs/tags/$TAG ..."
+          ref_status=$(curl -sS -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" -o /dev/null -w "%{http_code}" "$API_URL/git/ref/tags/$TAG" || true)
+          if [ "$ref_status" -ge 200 ] && [ "$ref_status" -lt 300 ]; then
+            echo "Tag refs/tags/$TAG exists — deleting..."
+            del_ref_status=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" "$API_URL/git/refs/tags/$TAG" || true)
+            if [ "$del_ref_status" -ge 200 ] && [ "$del_ref_status" -lt 300 ]; then
+              echo "Deleted tag refs/tags/$TAG."
+            else
+              echo "Failed deleting tag refs/tags/$TAG (status $del_ref_status) — continuing."
+            fi
+          else
+            echo "No tag refs/tags/$TAG present (status $ref_status)."
+          fi
+
+      - name: Create tag on main branch
+        env:
+          API_URL: "https://api.github.com/repos/${{ env.TARGET_REPO }}"
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ env.NIGHTLY_TAG }}
+        run: |
+          set -euo pipefail
+          echo "Creating tag $TAG on ${API_URL} main branch..."
+          # Get commit SHA of main branch
+          sha_resp=$(curl -sS -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" "$API_URL/git/ref/heads/main")
+          commit_sha=$(printf '%s' "$sha_resp" | jq -r '.object.sha // empty')
+          if [ -z "$commit_sha" ]; then
+            echo "Failed to get commit SHA of main branch in ${API_URL}. Response:"
+            printf '%s\n' "$sha_resp"
+            exit 1
+          fi
+          echo "main branch SHA: $commit_sha"
+          create_resp=$(curl -sS -X POST -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" \
+            -d "{\"ref\":\"refs/tags/$TAG\",\"sha\":\"$commit_sha\"}" \
+            "$API_URL/git/refs")
+          tag_ref=$(printf '%s' "$create_resp" | jq -r '.ref // empty')
+          if [ -z "$tag_ref" ]; then
+            echo "Creating tag failed. Response:"
+            printf '%s\n' "$create_resp"
+            exit 1
+          fi
+          echo "Created tag: $tag_ref"
+
+      - name: Create release (github-ci-nightly)
+        id: create_release
+        env:
+          API_URL: "https://api.github.com/repos/${{ env.TARGET_REPO }}"
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ env.NIGHTLY_TAG }}
+        run: |
+          set -euo pipefail
+          echo "Creating release for tag $TAG..."
+          create_resp=$(curl -sS -X POST -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" \
+            -d "{\"tag_name\":\"$TAG\",\"name\":\"$TAG\",\"body\":\"Automated nightly build from ${GITHUB_REPOSITORY}@${GITHUB_SHA}\",\"draft\":false,\"prerelease\":false}" \
+            "$API_URL/releases")
+          upload_url=$(printf '%s' "$create_resp" | jq -r '.upload_url // empty')
+          release_id=$(printf '%s' "$create_resp" | jq -r '.id // empty')
+          if [ -z "$upload_url" ] || [ -z "$release_id" ]; then
+            echo "Failed to create release. Response:"
+            printf '%s\n' "$create_resp"
+            exit 1
+          fi
+          upload_url="${upload_url%\{*}"
+          echo "Created release id=$release_id, upload_url=$upload_url"
+          echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+          echo "release_id=$release_id" >> $GITHUB_OUTPUT
+
+      - name: Extract jar from downloaded Package artifact and upload as release asset
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
+        run: |
+          set -euo pipefail
+          echo "Looking for JAR to upload in artifacts/ ..."
+          # The download-artifact step places artifact contents under artifacts/
+          # find first file matching RbmkSimulator*.jar or any jar
+          jarfile=$(find artifacts -type f -name 'RbmkSimulator*.jar' | head -n1)
+          if [ -z "$jarfile" ]; then
+            jarfile=$(find artifacts -type f -name '*.jar' | head -n1)
+          fi
+          if [ -z "$jarfile" ]; then
+            echo "No jar file found in downloaded artifact (artifacts/). Aborting."
+            exit 1
+          fi
+          echo "Found jar: $jarfile"
+          filename=$(basename "$jarfile")
+          echo "Uploading asset: $filename to $UPLOAD_URL"
+          http_status=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: token $TOKEN" \
+            -H "Content-Type: application/java-archive" \
+            --data-binary @"$jarfile" \
+            "$UPLOAD_URL?name=$filename")
+          if [ "$http_status" -ge 200 ] && [ "$http_status" -lt 300 ]; then
+            echo "Upload successful (status $http_status)."
+          else
+            echo "Upload failed with status $http_status"
+            echo "Server response (for debugging):"
+            curl -sS -X POST -H "Authorization: token $TOKEN" -H "Content-Type: application/java-archive" --data-binary @"$jarfile" "$UPLOAD_URL?name=$filename" || true
+            exit 1
+          fi
+
+      - name: Clean tmp
+        run: rm -rf artifacts || true
 
   probe-artifacts:
     needs: build
