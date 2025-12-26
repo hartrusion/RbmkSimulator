@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RbmkSimulator" default="jar" basedir="..">
+  <property name="src.dir" value="src"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="jar.name" value="RbmkSimulator.jar"/>
+
+  <target name="init">
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${jar.dir}"/>
+    <mkdir dir="${lib.dir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true">
+      <classpath>
+        <fileset dir="${lib.dir}">
+          <include name="**/*.jar"/>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar.dir}/${jar.name}" basedir="${classes.dir}"/>
+    <echo message="Build finished: ${jar.dir}/${jar.name}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${jar.dir}"/>
+  </target>
+</project>
