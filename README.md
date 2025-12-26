@@ -1,6 +1,6 @@
 # RBMK Simulator
 A simulator app for the chornobyl RBMK recator. This aims to be a successor for 
-the famous RXMODEL simulator from about 30 years ago but with a lot more 
+the Simgenics rxmodel simulator from about 30 years ago but with a lot more 
 detailed systems and a more accurate representation of the chernobyl plant.
 
 **This is work in progress. The development is still in a very early stage.**
@@ -8,17 +8,19 @@ detailed systems and a more accurate representation of the chernobyl plant.
 ![Example](docs/images/screenshot-preview.png)
 
 ## Installation and Usage
-To download the simulator, you need to grab the latest build from the Java CI
-Workflow under Actions (or simply click 
-[here](https://github.com/hartrusion/RbmkSimulator/actions/workflows/ant.yml)).
-from the latest workflow run (that is the top entry in the list). Download the
+To download the simulator, you need to grab the latest build from the _Java CI
+Workflow_ under the _Actions_ tab (or simply click 
+[here](https://github.com/hartrusion/RbmkSimulator/actions/workflows/ant.yml))
+from the latest workflow run, that is the top entry in the list. Download the
 "Package" under "Artifacts", this zip file contains a jar file.
 
 You need a Java Runtime (at least v17.0.17) as this is ja Java application.
 
 To check if you already have java installed and configured on your system, 
 type
+
     java -version
+
 in Command Line or Terminal. It will return which version is installed or an
 error if there is no java available. In this case you have to download this
 by yourself.
@@ -30,6 +32,7 @@ should not have any issues getting a java runtime for your distribution.
 
 To run the Simulator, extract the file from Package.zip and run it in terminal 
 with
+
     java -jar RbmkSimulator.jar
 
 **Why is it so complicated? Can't you just provide a link?** Yes and no, I 
