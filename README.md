@@ -14,34 +14,41 @@ Workflow_ under the _Actions_ tab (or simply click
 from the latest workflow run, that is the top entry in the list. Download the
 "Package" under "Artifacts", this zip file contains a jar file.
 
-You need a Java Runtime (at least v17.0.17) as this is ja Java application.
+<details>
+  <summary>You also need Java installed (expand this for more info).</summary>
+  
+  You need a Java Runtime (at least v17.0.17) as this is ja Java application.
 
-To check if you already have java installed and configured on your system, 
-type
+  To check if you already have java installed and configured on your system, 
+  type
+  ```
+  java -version
+  ```
+  in Command Line or Terminal. It will return which version is installed or an
+  error if there is no java available. In this case you have to download this
+  by yourself.
 
-    java -version
-
-in Command Line or Terminal. It will return which version is installed or an
-error if there is no java available. In this case you have to download this
-by yourself.
-
-Any recent OpenJDK has a Runtime included, you can go for Eclipse Adoptium or
-the Microsoft Build of OpenJDK or any other of those. Just do not use the 
-Oracle/Sun Java JRE as this is the old Version 8. If you're a Linux user, you 
-should not have any issues getting a java runtime for your distribution.
+  Any recent OpenJDK has a Runtime included, you can go for Eclipse Adoptium or
+  the Microsoft Build of OpenJDK or any other of those. Just do not use the 
+  Oracle/Sun Java JRE as this is the old Version 8. If you're a Linux user, you 
+  should not have any issues getting a java runtime for your distribution.
+</details>
 
 To run the Simulator, extract the file from Package.zip and run it in terminal 
 with
 
     java -jar RbmkSimulator.jar
 
-**Why is it so complicated? Can't you just provide a link?** Yes and no, I 
-would have to provide a link each time I do an update and you would download 
-some executable file from a random dude on the web. The file you're getting 
-is the output of an automated system that generates a new file each time I
-do any code changes. The process with all source code and all scripts is 
-transparent so you can see exactly what steps are done to make the file you
-just downloaded.
+**Why is it so complicated? Can't you just provide a link to an exe file?**
+Yes and no, I would have to provide a link each time I do an update and you 
+would download some executable file from a random dude on the web. This is 
+something no sane person should do and most modern web browsers do not allow 
+this without lots of warnings anyways. A .exe file would also be designed 
+to run on Windows. What you're getting here instead is the output of an 
+automated system that generates a new file each time I do any code changes. 
+The process with all source code and all scripts is transparent so you can 
+see exactly what steps are done and which source code is used to make the 
+file you just downloaded.
 
 You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
 
