@@ -107,7 +107,7 @@ jobs:
           ls -la lib || true
 
       - name: Run Ant build
-        run: ant -buildfile .github/build.xml jar
+        run: ant -buildfile .github/build.xml fatjar
 
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
