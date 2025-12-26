@@ -80,6 +80,32 @@ jobs:
           echo "Contents of lib/:"
           ls -la lib || true
 
+      - name: Download AbsoluteLayout from Maven Central
+        run: |
+          set -euo pipefail
+          mkdir -p lib
+          METADATA_URL="https://repo1.maven.org/maven2/org/netbeans/external/AbsoluteLayout/maven-metadata.xml"
+          echo "Fetching maven-metadata.xml from $METADATA_URL"
+          meta=$(curl -sSL "$METADATA_URL") || (echo "Failed to fetch metadata" && exit 1)
+          # Try release, then latest, then fallback to last <version> entry
+          VERSION=$(printf '%s' "$meta" | sed -n 's:.*<release>\(.*\)</release>.*:\1:p' || true)
+          if [ -z "$VERSION" ]; then
+            VERSION=$(printf '%s' "$meta" | sed -n 's:.*<latest>\(.*\)</latest>.*:\1:p' || true)
+          fi
+          if [ -z "$VERSION" ]; then
+            VERSION=$(printf '%s' "$meta" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | tail -n1 || true)
+          fi
+          if [ -z "$VERSION" ]; then
+            echo "Could not detect AbsoluteLayout version from $METADATA_URL"
+            exit 1
+          fi
+          echo "Detected AbsoluteLayout version: $VERSION"
+          JAR_URL="https://repo1.maven.org/maven2/org/netbeans/external/AbsoluteLayout/${VERSION}/AbsoluteLayout-${VERSION}.jar"
+          echo "Downloading $JAR_URL -> lib/AbsoluteLayout-${VERSION}.jar"
+          curl -fSL -o "lib/AbsoluteLayout-${VERSION}.jar" "$JAR_URL"
+          echo "Downloaded lib/AbsoluteLayout-${VERSION}.jar"
+          ls -la lib || true
+
       - name: Run Ant build
         run: ant -buildfile .github/build.xml jar
 
