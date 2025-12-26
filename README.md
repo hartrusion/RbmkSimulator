@@ -7,6 +7,41 @@ detailed systems and a more accurate representation of the chernobyl plant.
 
 ![Example](docs/images/screenshot-preview.png)
 
+## Installation and Usage
+To download the simulator, you need to grab the latest build from the Java CI
+Workflow under Actions (or simply click 
+[here](https://github.com/hartrusion/RbmkSimulator/actions/workflows/ant.yml)).
+from the latest workflow run (that is the top entry in the list). Download the
+"Package" under "Artifacts", this zip file contains a jar file.
+
+You need a Java Runtime (at least v17.0.17) as this is ja Java application.
+
+To check if you already have java installed and configured on your system, 
+type
+    java -version
+in Command Line or Terminal. It will return which version is installed or an
+error if there is no java available. In this case you have to download this
+by yourself.
+
+Any recent OpenJDK has a Runtime included, you can go for Eclipse Adoptium or
+the Microsoft Build of OpenJDK or any other of those. Just do not use the 
+Oracle/Sun Java JRE as this is the old Version 8. If you're a Linux user, you 
+should not have any issues getting a java runtime for your distribution.
+
+To run the Simulator, extract the file from Package.zip and run it in terminal 
+with
+    java -jar RbmkSimulator.jar
+
+**Why is it so complicated? Can't you just provide a link?** Yes and no, I 
+would have to provide a link each time I do an update and you would download 
+some executable file from a random dude on the web. The file you're getting 
+is the output of an automated system that generates a new file each time I
+do any code changes. The process with all source code and all scripts is 
+transparent so you can see exactly what steps are done to make the file you
+just downloaded.
+
+You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
+
 ## Focus
 Operating a power plant requires the operators to consider a large amount of 
 data describing the actual plant stage and operate the correct valves, pumps 
@@ -31,14 +66,9 @@ having a secondary and technical coolant water circuit. It is not possible to
 operate the plant on full power as there is no turbine and no bypass at this
 stage.
 
-## Installation and Usage
-**To simply run a release version of this software, head over to the "Releases"
-section here on Github and download it from there.**
-
-You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
-
-To build the simulator from source, you need some additional code that is 
-released on different repositories:
+## Build from Source
+To build the simulator from source, you need the source code from this repo
+and some additional code that is released on different repositories:
 * [PhxNetMod](https://github.com/hartrusion/PhxNetMod) Simulation Engine
 * [PhxNetModExt](https://github.com/hartrusion/PhxNetModExt) Extensions for 
 control loops
@@ -46,6 +76,10 @@ control loops
 * [JMPLot](https://github.com/hartrusion/jmplot) A Matlab-like line plot library
 * [AbsoluteLayout](https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout)
 GUI Layout extension for Swing (this comes packed with NetBeans)
+
+The GUI is designed using NetBeans GUI builder, those classes can be used 
+with different IDEs but once edited outside of NetBeans, they propably won't
+work anymore.
 
 ## Getting involved
 As this project is in a very early stage, lots of architecture and design 
