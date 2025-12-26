@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="RbmkSimulator" default="jar" basedir="..">
-  <property name="src.dir" value="src"/>
-  <property name="lib.dir" value="lib"/>
-  <property name="build.dir" value="build"/>
+<project name="RbmkSimulator" default="fatjar" basedir="..">
+  <!-- Pfade und Einstellungen -->
+  <property name="src.dir"     value="src"/>
+  <property name="build.dir"   value="build"/>
   <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir"     value="${build.dir}/jar"/>
+
+  <!-- Hauptklasse für das Manifest -->
   <property name="main.class"  value="com.hartrusion.rbmksim.RbmkSimulator"/>
-  <property name="jar.dir" value="${build.dir}/jar"/>
-  <property name="jar.name" value="RbmkSimulator.jar"/>
+
+  <!-- Ausgabe-JAR-Namen -->
+  <property name="jar.name.fat"  value="RbmkSimulator.jar"/>
 
   <target name="init">
     <mkdir dir="${classes.dir}"/>
     <mkdir dir="${jar.dir}"/>
   </target>
 
-  <!-- classpath aus lib/*.jar -->
+  <!-- Klassen- und Bibliothekspfad für Kompilierung -->
   <path id="project.classpath">
     <fileset dir="${basedir}/lib" includes="**/*.jar"/>
   </path>
 
-  <!-- Erzeuge eine space-separierte Liste wie "lib/a.jar lib/b.jar" für das Manifest -->
-  <path id="lib.path">
-    <fileset dir="${basedir}/lib" includes="**/*.jar"/>
-  </path>
-
-  <pathconvert property="manifest.classpath" pathsep=" ">
-    <path refid="lib.path"/>
-    <!-- Mapper sorgt dafür, dass Einträge als "lib/<filename>.jar" erscheinen -->
-    <mapper type="glob" from="*" to="lib/*"/>
-  </pathconvert>
-
   <target name="compile" depends="init">
-    <echo>Compiling sources from ${src.dir} -> ${classes.dir}</echo>
+    <echo message="Compiling sources from ${src.dir} -> ${classes.dir}"/>
     <javac srcdir="${src.dir}" destdir="${classes.dir}"
            includeantruntime="false"
            classpathref="project.classpath"
            debug="true" />
   </target>
 
-  <target name="jar" depends="compile">
-    <echo>Creating JAR ${jar.dir}/${jar.name} with Main-Class=${main.class}</echo>
-    <jar destfile="${jar.dir}/${jar.name}" basedir="${classes.dir}">
+  <!-- Fat JAR (Uber-JAR): eigene Klassen + Inhalt aller lib/*.jar -->
+  <target name="fatjar" depends="compile">
+    <echo message="Creating fat JAR ${jar.dir}/${jar.name.fat} (includes lib/*.jar)"/>
+    <jar destfile="${jar.dir}/${jar.name.fat}">
+      <!-- eigene kompilierten Klassen -->
+      <fileset dir="${classes.dir}"/>
+
+      <!-- Inhalte aller Abhängigkeits-JARs zusammenführen.
+           Exkludiere typische Signatur-Dateien im META-INF, um Probleme zu vermeiden. -->
+      <zipgroupfileset dir="${basedir}/lib" includes="**/*.jar">
+        <!-- zipgroupfileset unterstützt keine direkten excludes, daher nutzen wir zipfileset-Schleife weiter unten wenn nötig -->
+      </zipgroupfileset>
+
+      <!-- Falls nötig, entferne Signaturdateien und redundante MANIFEST-Einträge -->
+      <zipfileset src="" excludes="META-INF/*.SF META-INF/*.DSA META-INF/*.RSA META-INF/INDEX.LIST"/>
+
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
-        <!-- Falls keine libs vorhanden sind, ist ${manifest.classpath} leer -->
-        <attribute name="Class-Path" value="${manifest.classpath}"/>
       </manifest>
     </jar>
-    <echo>JAR created: ${jar.dir}/${jar.name}</echo>
+
+    <echo message="Fat JAR created: ${jar.dir}/${jar.name.fat}"/>
+    <echo message="Size:"/>
+    <apply executable="ls" failonerror="false">
+      <arg line="-lh ${jar.dir}/${jar.name.fat}"/>
+    </apply>
   </target>
 
   <target name="clean">
-    <echo>Cleaning ${build.dir}</echo>
+    <echo message="Cleaning ${build.dir}"/>
     <delete dir="${build.dir}"/>
   </target>
 </project>
