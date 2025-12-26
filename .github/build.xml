@@ -30,27 +30,23 @@
            debug="true" />
   </target>
 
-  <!-- Haupt-Target: entscheidet, ob libs vorhanden sind -->
-  <target name="fatjar" depends="compile">
-    <echo message="Preparing fat JAR ${jar.dir}/${jar.name.fat} ..."/>
-
-    <!-- Prüfe, ob in ../lib JARs existieren (außer der Ziel-JAR) -->
+  <!-- Prüfe, ob libs vorhanden sind (außer der Ziel-JAR) -->
+  <target name="check-libs">
     <condition property="has.libs">
       <resourcecount when="greater" count="0">
         <fileset dir="${basedir}/lib" includes="**/*.jar" excludes="${jar.name.fat}"/>
       </resourcecount>
     </condition>
-
-    <echo message="has.libs=${has.libs}"/>
-
-    <!-- Wenn libs vorhanden sind, baue das Fat-JAR mit zipgroupfileset -->
-    <antcall target="fatjar-with-libs" if="has.libs"/>
-
-    <!-- Wenn keine libs vorhanden sind, baue ein normales JAR (nur eigene Klassen) -->
-    <antcall target="fatjar-no-libs" unless="has.libs"/>
+    <echo message="check-libs: has.libs=${has.libs}"/>
   </target>
 
-  <target name="fatjar-with-libs" depends="compile">
+  <!-- Haupt-Target: stellt sicher, dass check-libs und compile vorher ausgeführt werden.
+       fatjar hängt von beiden Varianten ab; nur eine Variante läuft wegen if/unless. -->
+  <target name="fatjar" depends="check-libs,compile,fatjar-with-libs,fatjar-no-libs">
+    <echo message="fatjar finished (see above for created artifact)"/>
+  </target>
+
+  <target name="fatjar-with-libs" if="has.libs" depends="compile">
     <echo message="Creating fat JAR (including lib/*.jar) ..."/>
     <jar destfile="${jar.dir}/${jar.name.fat}">
       <!-- eigene kompilierten Klassen -->
@@ -67,7 +63,7 @@
     <echo message="Fat JAR created: ${jar.dir}/${jar.name.fat}"/>
   </target>
 
-  <target name="fatjar-no-libs" depends="compile">
+  <target name="fatjar-no-libs" unless="has.libs" depends="compile">
     <echo message="No dependency JARs found in ${basedir}/lib — creating JAR with project classes only."/>
     <jar destfile="${jar.dir}/${jar.name.fat}">
       <fileset dir="${classes.dir}"/>
