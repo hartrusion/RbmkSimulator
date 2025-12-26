@@ -30,16 +30,33 @@
            debug="true" />
   </target>
 
-  <!-- Fat JAR (Uber-JAR): eigene Klassen + Inhalt aller lib/*.jar -->
+  <!-- Haupt-Target: entscheidet, ob libs vorhanden sind -->
   <target name="fatjar" depends="compile">
-    <echo message="Creating fat JAR ${jar.dir}/${jar.name.fat} (includes lib/*.jar)"/>
+    <echo message="Preparing fat JAR ${jar.dir}/${jar.name.fat} ..."/>
+
+    <!-- Prüfe, ob in ../lib JARs existieren (außer der Ziel-JAR) -->
+    <condition property="has.libs">
+      <resourcecount when="greater" count="0">
+        <fileset dir="${basedir}/lib" includes="**/*.jar" excludes="${jar.name.fat}"/>
+      </resourcecount>
+    </condition>
+
+    <echo message="has.libs=${has.libs}"/>
+
+    <!-- Wenn libs vorhanden sind, baue das Fat-JAR mit zipgroupfileset -->
+    <antcall target="fatjar-with-libs" if="has.libs"/>
+
+    <!-- Wenn keine libs vorhanden sind, baue ein normales JAR (nur eigene Klassen) -->
+    <antcall target="fatjar-no-libs" unless="has.libs"/>
+  </target>
+
+  <target name="fatjar-with-libs" depends="compile">
+    <echo message="Creating fat JAR (including lib/*.jar) ..."/>
     <jar destfile="${jar.dir}/${jar.name.fat}">
       <!-- eigene kompilierten Klassen -->
       <fileset dir="${classes.dir}"/>
-
       <!-- Inhalte aller Abhängigkeits-JARs zusammenführen.
-           Exkludiere typische Signatur- und Manifest-Dateien, und schließe
-           ggf. eine gleichnamige Ziel-JAR in lib/ aus (um Selbst-Einbindung zu vermeiden). -->
+           Exkludiere die Zieldatei, Manifest- und Signaturdateien, um Probleme zu vermeiden. -->
       <zipgroupfileset dir="${basedir}/lib"
                         includes="**/*.jar"
                         excludes="${jar.name.fat},META-INF/*.SF,META-INF/*.DSA,META-INF/*.RSA,META-INF/INDEX.LIST,META-INF/MANIFEST.MF"/>
@@ -47,12 +64,18 @@
         <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
     </jar>
-
     <echo message="Fat JAR created: ${jar.dir}/${jar.name.fat}"/>
-    <echo message="Size:"/>
-    <apply executable="ls" failonerror="false">
-      <arg line="-lh ${jar.dir}/${jar.name.fat}"/>
-    </apply>
+  </target>
+
+  <target name="fatjar-no-libs" depends="compile">
+    <echo message="No dependency JARs found in ${basedir}/lib — creating JAR with project classes only."/>
+    <jar destfile="${jar.dir}/${jar.name.fat}">
+      <fileset dir="${classes.dir}"/>
+      <manifest>
+        <attribute name="Main-Class" value="${main.class}"/>
+      </manifest>
+    </jar>
+    <echo message="JAR created: ${jar.dir}/${jar.name.fat}"/>
   </target>
 
   <target name="clean">
