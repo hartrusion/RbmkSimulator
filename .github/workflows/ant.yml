@@ -1,0 +1,147 @@
+# This workflow will build a Java project with Ant and upload the JAR artifact.
+# After a successful run it will delete older artifacts with the same artifact name,
+# so only the newest "Package" artifact remains.
+name: Java CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Allow this workflow to delete older artifacts via the GITHUB_TOKEN
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Komma-getrennte Liste von "owner/repo". Passe an deine Repositories an.
+    env:
+      REPOS: "hartrusion/utils,hartrusion/PhxNetMod,hartrusion/PhxNetModExt,hartrusion/JMPLot"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Prepare lib directory
+        run: mkdir -p lib
+
+      - name: Download jars from multiple repositories' latest artifact
+        env:
+          TOKEN: ${{ github.token }}
+          REPOS: ${{ env.REPOS }}
+        run: |
+          set -euo pipefail
+          echo "Repos to process: $REPOS"
+          IFS=',' read -r -a REPO_ARR <<< "$REPOS"
+          mkdir -p lib
+          for repo in "${REPO_ARR[@]}"; do
+            # Trim whitespace
+            repo=$(echo "$repo" | xargs)
+            [ -n "$repo" ] || continue
+            echo "==> Processing repository: $repo"
+            API="https://api.github.com/repos/${repo}/actions/artifacts?per_page=100"
+            # find first non-expired artifact id (latest returned by API order may vary)
+            ARTIFACT_ID=$(curl -s -H "Authorization: token ${TOKEN}" "$API" | jq -r '.artifacts[] | select(.expired==false) | .id' | head -n1)
+            if [ -z "$ARTIFACT_ID" ] || [ "$ARTIFACT_ID" = "null" ]; then
+              echo "  No artifact found in ${repo}, skipping."
+              continue
+            fi
+            echo "  Found artifact id: $ARTIFACT_ID"
+            safe_prefix="${repo//\//-}"
+            ZIP_FILE="${safe_prefix}.zip"
+            ZIP_URL="https://api.github.com/repos/${repo}/actions/artifacts/${ARTIFACT_ID}/zip"
+            echo "  Downloading $ZIP_URL -> $ZIP_FILE"
+            curl -L -s -H "Authorization: token ${TOKEN}" -o "$ZIP_FILE" "$ZIP_URL"
+            tmpdir=$(mktemp -d)
+            unzip -q "$ZIP_FILE" -d "$tmpdir" || (echo "  unzip failed or no files in $ZIP_FILE"; rm -rf "$tmpdir" "$ZIP_FILE"; continue)
+            found=false
+            # find jar files in extracted artifact and copy to lib without repo prefix
+            while IFS= read -r -d '' jar; do
+              found=true
+              bn=$(basename "$jar")
+              dest="lib/${bn}"
+              echo "    Copying $jar -> $dest"
+              cp -f "$jar" "$dest"
+            done < <(find "$tmpdir" -type f -name '*.jar' -print0)
+            if [ "$found" = false ]; then
+              echo "  No JAR files found inside $ZIP_FILE"
+            fi
+            rm -rf "$tmpdir" "$ZIP_FILE"
+          done
+          echo "Contents of lib/:"
+          ls -la lib || true
+
+      - name: Run Ant build
+        run: ant -buildfile .github/build.xml jar
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Package
+          path: build/jar/*.jar
+
+  probe-artifacts:
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      has_artifacts: ${{ steps.check.outputs.has_artifacts }}
+    steps:
+      - name: Check for artifacts named "Package"
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_URL: https://api.github.com/repos/${{ github.repository }}
+          ARTIFACT_NAME: Package
+        run: |
+          set -euo pipefail
+          resp=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_URL/actions/artifacts?per_page=100")
+          count=$(echo "$resp" | jq -r '.artifacts[] | select(.name == env.ARTIFACT_NAME) | .id' | wc -l)
+          if [ "$count" -gt 0 ]; then
+            echo "Found $count artifact(s) named '$ARTIFACT_NAME'."
+            echo "has_artifacts=true" >> $GITHUB_OUTPUT
+          else
+            echo "No artifacts named '$ARTIFACT_NAME' found."
+            echo "has_artifacts=false" >> $GITHUB_OUTPUT
+          fi
+          
+  cleanup:
+    needs: probe-artifacts
+    if: needs.probe-artifacts.outputs.has_artifacts == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete older 'Package' artifacts (keep only the newest)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_URL: https://api.github.com/repos/${{ github.repository }}
+          ARTIFACT_NAME: Package
+        run: |
+          set -euo pipefail
+          echo "Listing artifacts..."
+          resp=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_URL/actions/artifacts?per_page=100")
+          artifacts=$(echo "$resp" | jq -r '.artifacts[] | select(.name == env.ARTIFACT_NAME) | "\(.created_at) \(.id)"' | sort -r)
+          echo "Matched artifacts (newest first):"
+          echo "$artifacts"
+          ids_to_delete=$(echo "$artifacts" | tail -n +2 | awk '{print $2}')
+          if [ -z "$ids_to_delete" ]; then
+            echo "Only newest artifact exists — nothing to delete."
+            exit 0
+          fi
+          for id in $ids_to_delete; do
+            echo "Deleting artifact id=$id ..."
+            http_status=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE -H "Authorization: token $GITHUB_TOKEN" "$API_URL/actions/artifacts/$id")
+            if [ "$http_status" -ge 200 ] && [ "$http_status" -lt 300 ]; then
+              echo "Deleted artifact id=$id (status $http_status)"
+            else
+              echo "Failed to delete artifact id=$id (status $http_status)"
+              exit 1
+            fi
+          done
+          echo "Old artifacts removed."
