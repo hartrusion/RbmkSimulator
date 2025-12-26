@@ -22,7 +22,17 @@
     <fileset dir="${basedir}/lib" includes="**/*.jar"/>
   </path>
 
-  <target name="compile" depends="init">
+  <target name="copy-resources" depends="init">
+    <echo message="Copying non-Java resources from ${src.dir} -> ${classes.dir}"/>
+    <copy todir="${classes.dir}" overwrite="true">
+      <fileset dir="${src.dir}">
+        <!-- alle .java ausschließen, damit Paketstruktur erhalten bleibt -->
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile" depends="copy-resources">
     <echo message="Compiling sources from ${src.dir} -> ${classes.dir}"/>
     <javac srcdir="${src.dir}" destdir="${classes.dir}"
            includeantruntime="false"
