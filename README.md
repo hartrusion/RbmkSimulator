@@ -37,16 +37,7 @@ with
 
     java -jar RbmkSimulator.jar
 
-**Why is it so complicated? Can't you just provide a link to an exe file?**
-Yes and no, I would have to provide a link each time I do an update and you 
-would download some executable file from a random dude on the web. This is 
-something no sane person should do and most modern web browsers do not allow 
-this without lots of warnings anyways. A .exe file would also be designed 
-to run on Windows. What you're getting here instead is the output of an 
-automated system that generates a new file each time I do any code changes. 
-The process with all source code and all scripts is transparent so you can 
-see exactly what steps are done and which source code is used to make the 
-file you just downloaded.
+Running in Terminal allows you to see additional log output (which is not needed for operating the plant). 
 
 You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
 
