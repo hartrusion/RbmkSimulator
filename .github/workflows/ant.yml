@@ -20,9 +20,10 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Komma-getrennte Liste von "owner/repo". Passe an deine Repositories an.
+    # List of all my repositories where a github-ci-nightly as "owner/repo" where a release is expected.
     env:
       REPOS: "hartrusion/utils,hartrusion/PhxNetMod,hartrusion/PhxNetModExt,hartrusion/JMPLot"
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,49 +37,92 @@ jobs:
       - name: Prepare lib directory
         run: mkdir -p lib
 
-      - name: Download jars from multiple repositories' latest artifact
+      - name: Download jars from multiple repositories' github-ci-nightly release
         env:
           TOKEN: ${{ github.token }}
           REPOS: ${{ env.REPOS }}
+          TAG: ${{ env.NIGHTLY_TAG }}
         run: |
           set -euo pipefail
           echo "Repos to process: $REPOS"
           IFS=',' read -r -a REPO_ARR <<< "$REPOS"
           mkdir -p lib
+
           for repo in "${REPO_ARR[@]}"; do
-            # Trim whitespace
             repo=$(echo "$repo" | xargs)
             [ -n "$repo" ] || continue
             echo "==> Processing repository: $repo"
-            API="https://api.github.com/repos/${repo}/actions/artifacts?per_page=100"
-            # find first non-expired artifact id (latest returned by API order may vary)
-            ARTIFACT_ID=$(curl -s -H "Authorization: token ${TOKEN}" "$API" | jq -r '.artifacts[] | select(.expired==false) | .id' | head -n1)
-            if [ -z "$ARTIFACT_ID" ] || [ "$ARTIFACT_ID" = "null" ]; then
-              echo "  No artifact found in ${repo}, skipping."
+
+            # Get release by tag (github-ci-nightly)
+            API="https://api.github.com/repos/${repo}/releases/tags/${TAG}"
+            rel_json=$(curl -sS -H "Authorization: token ${TOKEN}" -H "Accept: application/vnd.github+json" "$API" || true)
+
+            rel_id=$(printf '%s' "$rel_json" | jq -r '.id // empty')
+            if [ -z "$rel_id" ]; then
+              echo "  No release with tag '${TAG}' found in ${repo}, skipping."
               continue
             fi
-            echo "  Found artifact id: $ARTIFACT_ID"
-            safe_prefix="${repo//\//-}"
-            ZIP_FILE="${safe_prefix}.zip"
-            ZIP_URL="https://api.github.com/repos/${repo}/actions/artifacts/${ARTIFACT_ID}/zip"
-            echo "  Downloading $ZIP_URL -> $ZIP_FILE"
-            curl -L -s -H "Authorization: token ${TOKEN}" -o "$ZIP_FILE" "$ZIP_URL"
-            tmpdir=$(mktemp -d)
-            unzip -q "$ZIP_FILE" -d "$tmpdir" || (echo "  unzip failed or no files in $ZIP_FILE"; rm -rf "$tmpdir" "$ZIP_FILE"; continue)
-            found=false
-            # find jar files in extracted artifact and copy to lib without repo prefix
-            while IFS= read -r -d '' jar; do
-              found=true
-              bn=$(basename "$jar")
-              dest="lib/${bn}"
-              echo "    Copying $jar -> $dest"
-              cp -f "$jar" "$dest"
-            done < <(find "$tmpdir" -type f -name '*.jar' -print0)
-            if [ "$found" = false ]; then
-              echo "  No JAR files found inside $ZIP_FILE"
+
+            # Collect browser_download_url for assets
+            mapfile -t urls < <(printf '%s' "$rel_json" | jq -r '.assets[]?.browser_download_url // empty')
+            if [ "${#urls[@]}" -eq 0 ]; then
+              echo "  Release '${TAG}' has no assets in ${repo}, skipping."
+              continue
             fi
-            rm -rf "$tmpdir" "$ZIP_FILE"
+
+            echo "  Found ${#urls[@]} asset(s)."
+            downloaded_any=false
+
+            for url in "${urls[@]}"; do
+              [ -n "$url" ] || continue
+              asset_name=$(basename "${url%%\?*}")
+
+              # Decide what to do based on file type:
+              # - *.jar  -> copy directly to lib/
+              # - *.zip  -> download, unzip, copy all jars from it into lib/
+              # - others -> ignore
+              case "$asset_name" in
+                *.jar)
+                  echo "    Downloading JAR asset: $asset_name"
+                  curl -fSL -H "Authorization: token ${TOKEN}" -o "lib/${asset_name}" "$url"
+                  downloaded_any=true
+                  ;;
+                *.zip)
+                  echo "    Downloading ZIP asset: $asset_name"
+                  tmpzip="$(mktemp -u)/${asset_name}"
+                  mkdir -p "$(dirname "$tmpzip")"
+                  curl -fSL -H "Authorization: token ${TOKEN}" -o "$tmpzip" "$url"
+                  tmpdir=$(mktemp -d)
+                  unzip -q "$tmpzip" -d "$tmpdir" || (echo "    unzip failed for $asset_name"; rm -rf "$tmpdir" "$tmpzip"; continue)
+
+                  found=false
+                  while IFS= read -r -d '' jar; do
+                    found=true
+                    bn=$(basename "$jar")
+                    dest="lib/${bn}"
+                    echo "      Copying $jar -> $dest"
+                    cp -f "$jar" "$dest"
+                  done < <(find "$tmpdir" -type f -name '*.jar' -print0)
+
+                  if [ "$found" = false ]; then
+                    echo "    No JAR files found inside ZIP asset $asset_name"
+                  else
+                    downloaded_any=true
+                  fi
+
+                  rm -rf "$tmpdir" "$tmpzip"
+                  ;;
+                *)
+                  echo "    Ignoring non-jar/non-zip asset: $asset_name"
+                  ;;
+              esac
+            done
+
+            if [ "$downloaded_any" = false ]; then
+              echo "  No usable JARs downloaded from release '${TAG}' in ${repo}."
+            fi
           done
+
           echo "Contents of lib/:"
           ls -la lib || true
 
