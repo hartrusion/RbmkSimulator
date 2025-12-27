@@ -45,6 +45,7 @@ public class FrameMnemonicDeaerator extends javax.swing.JFrame implements Update
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deaerators");
+        setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(panelMnemonicDeaerator1);
 

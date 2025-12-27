@@ -44,7 +44,7 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Chornobyl RBMK Simulator&#xa;&#xa;Version: 0.1-preview from 2025-12-24&#xa;Copyright (C) 2025 Viktor Alexander Hartung&#xa;&#xa;This is a preview version of the RBMK Simulator project. See https://github.com/hartrusion/RbmkSimulator for more infos on the project or report problems (which is not necessary at this early stage as it&apos;s propably full of issues and nonworking stuff).&#xa;&#xa;This program is free software and licensed under GPLv3."/>
+            <Property name="text" type="java.lang.String" value="Chornobyl RBMK Simulator&#xa;&#xa;Copyright (C) 2025 Viktor Alexander Hartung&#xa;&#xa;This is a preview or automated build version of the RBMK Simulator project. See https://github.com/hartrusion/RbmkSimulator for more infos on the project or report problems. You&apos;re welcome to report bugs or leave feedback there in the discussion section&#xa;&#xa;This program is free software and licensed under GPLv3."/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
         </Component>

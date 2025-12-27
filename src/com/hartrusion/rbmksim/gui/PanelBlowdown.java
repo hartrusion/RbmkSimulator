@@ -283,7 +283,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonTreatmentBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 96, 20, 20));
 
-        jToggleButtonBalanceControl.setText("—");
+        jToggleButtonBalanceControl.setText("←");
         jToggleButtonBalanceControl.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonBalanceControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -561,7 +561,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionOutClose1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionOutClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 126, 48, 14));
 
-        jToggleButtonBalanceControl1.setText("—");
+        jToggleButtonBalanceControl1.setText("←");
         jToggleButtonBalanceControl1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonBalanceControl1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,10 +616,10 @@ public class PanelBlowdown extends AbstractPanelWidget {
 
     private void jToggleButtonjToggleButtonBalanceControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonjToggleButtonBalanceControlActionPerformed
         if (jToggleButtonBalanceControl.isSelected()) {
-            jToggleButtonBalanceControl.setText("|");
+            jToggleButtonBalanceControl.setText("↑");
             controller.userAction(new ActionCommand("Blowdown#Balance_ControlCommand", ControlCommand.AUTOMATIC));
         } else {
-            jToggleButtonBalanceControl.setText("—");
+            jToggleButtonBalanceControl.setText("←");
             controller.userAction(new ActionCommand("Blowdown#Balance_ControlCommand", ControlCommand.MANUAL_OPERATION));
         }
 

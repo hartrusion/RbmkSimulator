@@ -84,9 +84,6 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
         jButtonDischargeClose.setText("C");
         jButtonDischargeClose.setToolTipText("");
         jButtonDischargeClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonDischargeClose.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonDischargeClose.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonDischargeClose.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDischargeClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDischargeCloseActionPerformed(evt);
@@ -98,9 +95,6 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
         jButtonDischargeOpen.setText("O");
         jButtonDischargeOpen.setToolTipText("");
         jButtonDischargeOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonDischargeOpen.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButtonDischargeOpen.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButtonDischargeOpen.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDischargeOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDischargeOpenActionPerformed(evt);
@@ -124,7 +118,7 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
         jLabelCaptionPump.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 34, 52, 14));
 
-        jToggleButtonPump.setText("—");
+        jToggleButtonPump.setText("←");
         jToggleButtonPump.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonPump.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,9 +138,9 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
 
     private void jToggleButtonPumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPumpActionPerformed
         if (jToggleButtonPump.isSelected()) {
-            jToggleButtonPump.setText("|");
+            jToggleButtonPump.setText("↑");
         } else {
-            jToggleButtonPump.setText("—");
+            jToggleButtonPump.setText("←");
         }
         controller.userAction(new ActionCommand(prefix + "Pump", jToggleButtonPump.isSelected()));
     }//GEN-LAST:event_jToggleButtonPumpActionPerformed
@@ -176,7 +170,7 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
                 // initial state that is on.
                 if (PumpState.RUNNING == (PumpState) evt.getNewValue()) {
                     jToggleButtonPump.setSelected(true);
-                    jToggleButtonPump.setText("|");
+                    jToggleButtonPump.setText("↑");
                 }
                 break;
 

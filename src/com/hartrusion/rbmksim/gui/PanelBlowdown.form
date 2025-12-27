@@ -411,7 +411,7 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonBalanceControl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x2014;"/>
+        <Property name="text" type="java.lang.String" value="&#x2190;"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1199,7 +1199,7 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonBalanceControl1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x2014;"/>
+        <Property name="text" type="java.lang.String" value="&#x2190;"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
