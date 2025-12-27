@@ -17,10 +17,12 @@ _github-ci-nightly_. It always points to the current development state and
 will be replaced automatically each time I change something.
 
 <details>
-  <summary>You need to run this .jar file with a Java Runtime (expand this 
-  section if you want to read more about this).</summary>
+  <summary>This is a Java application. Expand this section (just click here) 
+  if you want to read more about this and don't know what to do with 
+  a .jar file.</summary>
   
-  You need a Java Runtime (at least v17.0.17) as this is ja Java application.
+  You need a Java Runtime (at least v17.0.17) to run a .jar file. A jar file 
+  is an archive file that can contain something for java to run.
 
   To check if you already have java installed and configured on your system, 
   type
