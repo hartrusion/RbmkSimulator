@@ -6,6 +6,9 @@ name: Java CI
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '**/*.md' # ignore docs
+      - '**/*.yml' # ignore this
   workflow_dispatch:
 
 # Allow this workflow to delete older artifacts via the GITHUB_TOKEN
