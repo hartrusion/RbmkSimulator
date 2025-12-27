@@ -32,8 +32,7 @@ Download the file  "RbmkSimulator.jar" file from _github-ci-nightly_ there.
   should not have any issues getting a java runtime for your distribution.
 </details>
 
-To run the Simulator, extract the file from Package.zip and run it in terminal 
-with
+To run the Simulator, simply run the. jar with the Java Runtime. You could open a terminal and run
 
     java -jar RbmkSimulator.jar
 
