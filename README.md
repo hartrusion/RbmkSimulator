@@ -9,7 +9,7 @@ detailed systems and a more accurate representation of the chernobyl plant.
 
 ## Installation and Usage
 Download: 
-[RbmkSimulator.jar[(https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-nightly/RbmkSimulator.jar)
+[RbmkSimulator.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-nightly/RbmkSimulator.jar)
 
 This downloads the latest automated build (also found in 
 [Releases](https://github.com/hartrusion/RbmkSimulator/releases)) as
