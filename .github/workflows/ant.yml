@@ -9,6 +9,8 @@ on:
     paths-ignore:
       - '**/*.md' # ignore docs
       - '**/*.yml' # ignore this
+      - '**/*.png'
+      - '**/*.svg'
   workflow_dispatch:
 
 # Allow this workflow to delete older artifacts via the GITHUB_TOKEN
