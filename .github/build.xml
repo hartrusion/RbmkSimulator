@@ -10,7 +10,7 @@
   <property name="main.class"  value="com.hartrusion.rbmksim.RbmkSimulator"/>
 
   <!-- Ausgabe-JAR-Name -->
-  <property name="jar.name.fat"  value="RbmkSimulator.jar"/>
+  <property name="jar.name.fat"  value="RbmkSimulator-SNAPSHOT.jar"/>
 
   <target name="init">
     <mkdir dir="${classes.dir}"/>
