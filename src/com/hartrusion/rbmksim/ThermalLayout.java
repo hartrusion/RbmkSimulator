@@ -1696,6 +1696,39 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setParameterTN(4);
         }
 
+        // Hotwell level control
+        // Alarms: 5 min, 10 low2, 15 low1, 80 high1, 100: max1
+        // Suggested setpoints: Fill setpoint 35, drain setpoint 60 (20 mm diff)
+        setpointHotwellUpperLevel.forceOutputValue(60);
+        setpointHotwellLowerLevel.forceOutputValue(35);
+
+        // Same behavior for both controls (display is 0..100)
+        setpointHotwellUpperLevel.setMaxRate(8.0);
+        setpointHotwellUpperLevel.setLowerLimit(10);
+        setpointHotwellUpperLevel.setUpperLimit(90);
+        setpointHotwellLowerLevel.setMaxRate(8.0);
+        setpointHotwellLowerLevel.setLowerLimit(10);
+        setpointHotwellLowerLevel.setUpperLimit(90);
+
+        hotwellFillValve.getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return setpointHotwellLowerLevel.getOutput()
+                       - hotwell.getPrimarySideReservoir()
+                        .getFillHeight() * 100; // m to cm
+            }
+        });
+        hotwellDrainValve.getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                // negative: open valve to decrease level.
+                return hotwell.getPrimarySideReservoir()
+                        .getFillHeight() * 100 // m to cm
+                        - setpointHotwellLowerLevel.getOutput();
+            }
+        });
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,
@@ -2026,7 +2059,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setThermalPower(0, core.getThermalPower(0));
         setThermalPower(1, core.getThermalPower(1));
 
-            // Before this run method is invoked from the MainLoop, the controller
+        // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
         // handleAction in this class here. So the first thing happening is
         // all the commands from GUI will be processed.
@@ -2136,7 +2169,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Loop" + (idx + 1) + "#McpCooldown",
                     loopDistributor[idx].getTemperature()
                     - loopSteamDrum[idx].getTemperature());
-            
+
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#DownFlow",
                     loopDownflow[idx].getFlow());
@@ -2576,7 +2609,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             setpointHotwellLowerLevel.handleAction(ac);
             makeupPumps[0].handleAction(ac);
             makeupPumps[1].handleAction(ac);
-            
+
             if (ac.getPropertyName().equals("SetCoreOnly")) {
                 noReactorInput = true;
             }
