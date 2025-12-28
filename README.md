@@ -54,11 +54,13 @@ new file there from time to time.
   non programmer end users in the last years.
 </details>
 
-To run the Simulator, simply run the. jar with the Java Runtime. You could open a terminal and run
+To run the Simulator, simply run the. jar with the Java Runtime. You could 
+open a terminal and run
 
-    java -jar RbmkSimulator.jar
+    java -jar RbmkSimulator-SNAPSHOT.jar
 
-Running in Terminal allows you to see additional log output (which is not needed for operating the plant). 
+Running in Terminal allows you to see additional log output (which is not 
+needed for operating the plant).
 
 You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
 
