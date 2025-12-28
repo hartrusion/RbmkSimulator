@@ -1392,28 +1392,28 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Makeup storage has 2 meters fill level initially, quite low:
         makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
         for (int idx = 0; idx <= 1; idx++) {
-            // See notes above, try to init with 0 cm fill level
-            loopSteamDrum[idx].setInitialState(40000, 45 + 273.15);
+            // See notes above, try to init with 0 cm fill level. No, why?
+            loopSteamDrum[idx].setInitialState(40000, 36.6 + 273.15);
 
             loopEvaporator[idx].setInitialState(6.0, 1e5,
-                    273.5 + 45, 273.5 + 45); // 45 or 90
+                    273.5 + 34.6, 273.5 + 36.9);
         }
         for (int idx = 0; idx <= 1; idx++) {
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(370); // was 314.63, then 370
+                    .setInitialTemperature(36.6 + 273.16);
             loopAssembly[idx][1].setInitialCondition(true, true, true);
             for (int jdx = 0; jdx < 4; jdx++) {
                 // All trim valves open az 70 %
                 loopTrimValve[idx][jdx].initOpening(70);
             }
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(370); //also 314.63 or 370
+                    .setInitialTemperature(273.5 + 34.6);
         }
         for (int idx = 0; idx < 2; idx++) {
             blowdownFromLoop[idx].getHeatHandler().setInitialTemperature(
-                    51.7 + 273.5);
+                    36.6 + 273.5);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    38 + 273.5);
+                    26.1 + 273.5);
             blowdownReturnValve[idx].initOpening(80);
             blowdownValveFromLoop[idx].initOpening(95);
         }
@@ -1422,14 +1422,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownToRegeneratorSecondResistance.getHeatHandler()
                 .setInitialTemperature(298.15);
         blowdownCooldown.getPrimarySide().getHeatHandler()
-                .setInitialTemperature(304.93);
+                .setInitialTemperature(299.84);
         blowdownCooldown.getSecondarySide().getHeatHandler()
-                .setInitialTemperature(306.91);
-        // Blowdown/Cooldown system is active and cooling the reactor
-        blowdownCooldownPumps[1].setInitialCondition(true, true, true);
+                .setInitialTemperature(301.57);
+        // Blowdown/Cooldown one pump is ready
+        blowdownCooldownPumps[1].setInitialCondition(false, true, false);
+        // open bypass flow
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
-        blowdownValveCoolant.initFlow(800);
+        blowdownValvePumpsToRegenerator.initOpening(100);
+        blowdownValvePassiveFlow.initOpening(100);
+        blowdownValveCoolant.initFlow(400);
         for (int idx = 0; idx <= 1; idx++) {
             // try to have a fill level of 100 cm (normal level)
             deaerator[idx].setInitialState(40000, 35 + 273.15);
@@ -2624,10 +2627,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * @param power in Megawatts
      */
     private void setThermalPower(int loop, double power) {
-        // Add the 48 MW idle (24 per side) power here
+        // Add 5.6 MW idle (2.8 per side) power here
         // Limit the thermal power to 10 Gigawatts per side, it will crash the
         // simulation anyway but that way it's not that fast.
-        thermalPower[loop] = Math.min(power + 24, 1e4);
+        thermalPower[loop] = Math.min(power + 2.8, 1e4);
     }
 
     /**
