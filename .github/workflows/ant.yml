@@ -11,6 +11,7 @@ on:
       - '**/*.yml' # ignore this
       - '**/*.png'
       - '**/*.svg'
+      - '**/*.xml'
   workflow_dispatch:
 
 # Allow this workflow to delete older artifacts via the GITHUB_TOKEN
@@ -25,7 +26,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # List of all my repositories where a github-ci-nightly as "owner/repo" where a release is expected.
+    # List of all my repositories where a NIGHTLY_TAG as "owner/repo" where a release is expected.
     env:
       REPOS: "hartrusion/utils,hartrusion/PhxNetMod,hartrusion/PhxNetModExt,hartrusion/JMPLot"
       
@@ -253,7 +254,7 @@ jobs:
           fi
           echo "Created tag: $tag_ref"
 
-      - name: Create release (github-ci-nightly)
+      - name: Create release (github-ci-snapshot)
         id: create_release
         env:
           API_URL: "https://api.github.com/repos/${{ env.TARGET_REPO }}"
