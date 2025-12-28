@@ -12,11 +12,11 @@ not require high performance hardware.
 
 ## Installation and Usage
 Download: 
-[RbmkSimulator.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-nightly/RbmkSimulator.jar)
+[RbmkSimulator-SNAPSHOT.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-snapshot/RbmkSimulator-SNAPSHOT.jar)
 
 Using this link downloads the latest automated build (also found in 
 [Releases](https://github.com/hartrusion/RbmkSimulator/releases) as
-_github-ci-nightly_). It always points to the current development state and 
+_github-ci-snapshot_). It always points to the current development state and 
 will be replaced automatically each time I change something. You might find a 
 new file there from time to time.
 
