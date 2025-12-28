@@ -187,7 +187,7 @@ public class ControlLoop extends javax.swing.JPanel
         });
         add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
 
-        jButtonSetpoint.setBackground(new java.awt.Color(204, 0, 0));
+        jButtonSetpoint.setBackground(new java.awt.Color(128, 0, 0));
         jButtonSetpoint.setForeground(new java.awt.Color(0, 0, 0));
         jButtonSetpoint.setText("S");
         jButtonSetpoint.setToolTipText("");
