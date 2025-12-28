@@ -84,3 +84,30 @@ A pump is ready to be turned on when the outline glows. Its startup sequence is
 indicated by a slight glow, a running pump is indicated with a glowing inner 
 circle. Do not open the discharge valve before the pump is running.
 
+## Alarms
+Some values are attached to alarms which are triggered when above or below a 
+certain level. There are **four** alarm thresholds available (not all of them 
+need to be mapped to a vale) for each direction. The first two are considered 
+warning and there is no consequence if they are appearing. The second two alarm 
+thresholds are always connected to a certain event (valve operation, pump 
+shutdown, ...).
+
+For high values there is:
+
+* HIGH1 - warning only
+* HIGH2 - warning only
+* MAX1 - Triggers an event
+* MAX2 - Triggers an event
+
+For low values there is:
+
+* LOW1 - warning only
+* LOW2 - warning only
+* MIN1 - Triggers an event
+* MIN2 - Triggers an event
+
+Some elements also have a safety override implemented that prohibits opening or 
+closing valves or switching on certain pumps.
+
+This is not primarily done to ensure the plant's integrity, it is done because 
+the modeling engine does not allow certain states and would otherwise crash.
