@@ -43,6 +43,14 @@ new file there from time to time.
   If you're a Linux user, you should not have any issues getting a java runtime 
   for your distribution.
 
+  To run the Simulator, simply run the. jar with the Java Runtime. You could 
+  open a terminal and run
+  
+      java -jar RbmkSimulator-SNAPSHOT.jar
+  
+  Running in Terminal allows you to see additional log output (which is not 
+  needed for operating the plant).
+
   **Why this? Why not a simple .exe file?** It is not uncommon to need some kind 
   of Runtime to run a program, you might also know .NET or Visual Studio Runtime 
   which are needed for some programs also. Java is a bit different but has the 
@@ -53,14 +61,6 @@ new file there from time to time.
   popular programming languages. It gained some reputation with Minecraft at 
   non programmer end users in the last years.
 </details>
-
-To run the Simulator, simply run the. jar with the Java Runtime. You could 
-open a terminal and run
-
-    java -jar RbmkSimulator-SNAPSHOT.jar
-
-Running in Terminal allows you to see additional log output (which is not 
-needed for operating the plant).
 
 You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
 
