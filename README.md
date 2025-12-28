@@ -8,7 +8,7 @@ detailed systems and a more accurate representation of the chernobyl plant.
 The app aims to be usable in real time on average to low end computers. It does 
 not require high performance hardware.
 
-![Example](docs/images/screenshot-preview.png)
+![Example](docs/images/screenshot-preview2.png)
 
 ## Installation and Usage
 Download: 
