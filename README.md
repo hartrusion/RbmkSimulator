@@ -5,16 +5,20 @@ detailed systems and a more accurate representation of the chernobyl plant.
 
 **This is work in progress. The development is still in a very early stage.**
 
+The app aims to be usable in real time on average to low end computers. It does 
+not require high performance hardware.
+
 ![Example](docs/images/screenshot-preview.png)
 
 ## Installation and Usage
 Download: 
 [RbmkSimulator.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-nightly/RbmkSimulator.jar)
 
-This downloads the latest automated build (also found in 
-[Releases](https://github.com/hartrusion/RbmkSimulator/releases)) as
-_github-ci-nightly_. It always points to the current development state and 
-will be replaced automatically each time I change something.
+Using this link downloads the latest automated build (also found in 
+[Releases](https://github.com/hartrusion/RbmkSimulator/releases) as
+_github-ci-nightly_). It always points to the current development state and 
+will be replaced automatically each time I change something. You might find a 
+new file there from time to time.
 
 <details>
   <summary>This is a Java application. Expand this section (just click here) 
