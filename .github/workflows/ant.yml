@@ -20,7 +20,7 @@ permissions:
 
 env:
   TARGET_REPO: ${{ github.repository }} # this repo
-  NIGHTLY_TAG: "github-ci-nightly"
+  NIGHTLY_TAG: "github-ci-snapshot"
 
 jobs:
   build:
@@ -42,7 +42,7 @@ jobs:
       - name: Prepare lib directory
         run: mkdir -p lib
 
-      - name: Download jars from multiple repositories' github-ci-nightly release
+      - name: Download jars from multiple repositories SNAPSHOT releases
         env:
           TOKEN: ${{ github.token }}
           REPOS: ${{ env.REPOS }}
