@@ -54,6 +54,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelRegeneratedIn2 = new javax.swing.JLabel();
         valveMcpSuction1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMcpSuction2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMcpSuction3 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -101,10 +102,16 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelFeedwater = new javax.swing.JLabel();
         jLabelBlowdown = new javax.swing.JLabel();
         jLabelRegeneratedIn = new javax.swing.JLabel();
+        jLabelRegeneratedIn1 = new javax.swing.JLabel();
         jLabelSteamDrum = new javax.swing.JLabel();
         jLabelCoreOut1 = new javax.swing.JLabel();
         jLabelCoreOut = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
+
+        jLabelRegeneratedIn2.setFont(jLabelRegeneratedIn2.getFont().deriveFont(jLabelRegeneratedIn2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn2.getFont().getSize()-3));
+        jLabelRegeneratedIn2.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelRegeneratedIn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelRegeneratedIn2.setText("Regen.");
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -356,8 +363,14 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelRegeneratedIn.setFont(jLabelRegeneratedIn.getFont().deriveFont(jLabelRegeneratedIn.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn.getFont().getSize()-3));
         jLabelRegeneratedIn.setForeground(new java.awt.Color(14, 222, 194));
         jLabelRegeneratedIn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelRegeneratedIn.setText("Regen.");
-        add(jLabelRegeneratedIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 170, 44, -1));
+        jLabelRegeneratedIn.setText("Blowdown");
+        add(jLabelRegeneratedIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 162, 62, -1));
+
+        jLabelRegeneratedIn1.setFont(jLabelRegeneratedIn1.getFont().deriveFont(jLabelRegeneratedIn1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn1.getFont().getSize()-3));
+        jLabelRegeneratedIn1.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelRegeneratedIn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelRegeneratedIn1.setText("return");
+        add(jLabelRegeneratedIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 176, 44, -1));
 
         jLabelSteamDrum.setFont(jLabelSteamDrum.getFont().deriveFont(jLabelSteamDrum.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelSteamDrum.getFont().getSize()-3));
         jLabelSteamDrum.setForeground(new java.awt.Color(14, 222, 194));
@@ -407,6 +420,8 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingTrim3;
     private javax.swing.JLabel jLabelReadingTrim4;
     private javax.swing.JLabel jLabelRegeneratedIn;
+    private javax.swing.JLabel jLabelRegeneratedIn1;
+    private javax.swing.JLabel jLabelRegeneratedIn2;
     private javax.swing.JLabel jLabelSteamDrum;
     private javax.swing.JLabel jLabelSteamFlow;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;

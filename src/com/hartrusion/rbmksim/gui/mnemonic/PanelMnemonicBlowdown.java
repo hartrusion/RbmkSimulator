@@ -465,6 +465,12 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                     valveOut2.setControlIndicatorActive(false);
                 }
                 break;
+            case "Blowdown#ValveFromDrum1_Pos":
+                valveFromDrum1.setActive(evt.getNewValue() != ValveState.CLOSED);
+                break;
+            case "Blowdown#ValveFromDrum2_Pos":
+                valveFromDrum2.setActive(evt.getNewValue() != ValveState.CLOSED);
+                break;
         }
     }
 

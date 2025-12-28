@@ -95,9 +95,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedClosedSteamedReservoir[] loopSteamDrum
             = new PhasedClosedSteamedReservoir[2];
     private final PhasedNode[] loopNodeDrumWaterOut = new PhasedNode[2];
+    private final PhasedNode[] loopNodeDrumBlowdownOut = new PhasedNode[2];
     private final PhasedNode[] loopNodeDrumFromReactor = new PhasedNode[2];
     private final PhasedHeatFluidConverter[] loopFromDrumConverter
             = new PhasedHeatFluidConverter[2];
+    private final PhasedHeatFluidConverter[] loopFromDrumBlowdownConverter
+            = new PhasedHeatFluidConverter[2];
+    private final HeatNode[] loopNodeDrumBlowdownHeatOut = new HeatNode[2];
     private final HeatNode[] loopFeedwaterIn = new HeatNode[2];
     private final HeatVolumizedFlowResistance[] loopDownflow
             = new HeatVolumizedFlowResistance[2];
@@ -131,7 +135,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final GeneralNode[] fuelEvaporatorNode = new GeneralNode[2];
 
     // Blowdown and cooldown system
-    private final HeatVolumizedFlowResistance[] blowdownFromLoop
+    private final HeatValve[] blowdownValveFromDrum = new HeatValve[2];
+    private final HeatVolumizedFlowResistance[] blowdownPipeFromMcp
             = new HeatVolumizedFlowResistance[2];
     private final HeatNode[] blowdownFromLoopNode = new HeatNode[2];
     private final HeatValve[] blowdownValveFromLoop = new HeatValve[2];
@@ -338,6 +343,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopNodeDrumWaterOut[idx] = new PhasedNode();
             loopNodeDrumWaterOut[idx].setName("Loop" + (idx + 1)
                     + "#NodeDrumWaterOut");
+            loopNodeDrumBlowdownOut[idx] = new PhasedNode();
+            loopNodeDrumBlowdownOut[idx].setName("Loop" + (idx + 1)
+                    + "#NodeDrumBlowdownOut");
             loopNodeDrumFromReactor[idx] = new PhasedNode();
             loopNodeDrumFromReactor[idx].setName("Loop" + (idx + 1)
                     + "#NodeDrumFromReactor");
@@ -345,6 +353,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     = new PhasedHeatFluidConverter(phasedWater);
             loopFromDrumConverter[idx].setName("Loop" + (idx + 1)
                     + "#FromDrumConverter");
+            loopFromDrumBlowdownConverter[idx]
+                    = new PhasedHeatFluidConverter(phasedWater);
+            loopFromDrumBlowdownConverter[idx].setName("Loop" + (idx + 1)
+                    + "#FromDrumBlowdownConverter");
+            loopNodeDrumBlowdownHeatOut[idx] = new HeatNode();
+            loopNodeDrumBlowdownHeatOut[idx].setName("Loop" + (idx + 1)
+                    + "#NodeDrumBlowdownHeatOut");
             loopDownflow[idx] = new HeatVolumizedFlowResistance();
             loopDownflow[idx].setName("Loop" + (idx + 1) + "#Downdflow");
             loopFeedwaterIn[idx] = new HeatNode();
@@ -411,11 +426,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         for (int idx = 0; idx < 2; idx++) {
+            blowdownValveFromDrum[idx] = new HeatValve();
+            blowdownValveFromDrum[idx].initName(
+                    "Blowdown#ValveFromDrum" + (idx + 1));
             blowdownFromLoopNode[idx] = new HeatNode();
             blowdownFromLoopNode[idx].setName(
                     "Blowdown#FromloopNode" + (idx + 1));
-            blowdownFromLoop[idx] = new HeatVolumizedFlowResistance();
-            blowdownFromLoop[idx].setName("Blowdown#FromLoop" + (idx + 1));
+            blowdownPipeFromMcp[idx] = new HeatVolumizedFlowResistance();
+            blowdownPipeFromMcp[idx].setName(
+                    "Blowdown#PipeFromMcp" + (idx + 1));
             blowdownValveFromLoop[idx] = new HeatValve();
             blowdownValveFromLoop[idx].initName(
                     "Blowdown#ValveFromLoop" + (idx + 1));
@@ -751,6 +770,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopAssembly[idx][jdx].registerSignalListener(controller);
             }
             loopBypass[idx].registerSignalListener(controller);
+            blowdownValveFromDrum[idx].registerSignalListener(controller);
+            blowdownValveFromDrum[idx].registerParameterHandler(outputValues);
             blowdownValveFromLoop[idx].registerSignalListener(controller);
             blowdownValveFromLoop[idx].registerParameterHandler(outputValues);
             blowdownCooldownPumps[idx].registerSignalListener(controller);
@@ -847,6 +868,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Define the primary loop from drum through mcps and reactor and back.
         for (int idx = 0; idx < 2; idx++) {
+            // Steam Drum Blowdown (will be continued later at blowdown system)
+            loopSteamDrum[idx].connectToVia(
+                    loopFromDrumBlowdownConverter[idx],
+                    loopNodeDrumBlowdownOut[idx]);
+            loopFromDrumBlowdownConverter[idx].connectTo(
+                    loopNodeDrumBlowdownHeatOut[idx]);
+            // From steam drum through converter down to mcp suction header:
             loopSteamDrum[idx].connectToVia(
                     loopFromDrumConverter[idx], loopNodeDrumWaterOut[idx]);
             loopFromDrumConverter[idx].connectToVia(
@@ -898,12 +926,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     mainSteamDrumNode[idx], mainSteam[idx]);
         }
 
-        // Build the blowdown system: There's a connection to a large pipe
-        // that goes to a trim valve connected to each
-        // distributor (thats the part that distributes coolant to fuel 
-        // channels), connected to a common node.
+        // Build the blowdown system: 
+        // 1st: Each steam drum has a designated blowdown out.
+        // 2nd: a connection to a large pipe that goes to a trim valve 
+        // connected to each distributor (thats the part that distributes 
+        // coolant to fuel channels), connected to a common node.
         for (int idx = 0; idx < 2; idx++) {
-            blowdownFromLoop[idx].connectBetween(
+            blowdownValveFromDrum[idx].getValveElement().connectBetween(
+                    loopNodeDrumBlowdownHeatOut[idx], blowdownInCollectorNode);
+            
+            // From MCPs:
+            blowdownPipeFromMcp[idx].connectBetween(
                     loopDistributor[idx], blowdownFromLoopNode[idx]);
             blowdownValveFromLoop[idx].getValveElement().connectBetween(
                     blowdownFromLoopNode[idx], blowdownInCollectorNode);
@@ -1230,8 +1263,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Blowdown System
         for (int idx = 0; idx < 2; idx++) {
             // Two large pipes from and to reactor
-            blowdownFromLoop[idx].setResistanceParameter(2000);
-            blowdownFromLoop[idx].setInnerThermalMass(400);
+            blowdownPipeFromMcp[idx].setResistanceParameter(2000);
+            blowdownPipeFromMcp[idx].setInnerThermalMass(400);
             blowdownReturn[idx].setResistanceParameter(2400);
             blowdownReturn[idx].setInnerThermalMass(400);
             // Valves connected to those
@@ -1410,7 +1443,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setInitialTemperature(273.5 + 34.6);
         }
         for (int idx = 0; idx < 2; idx++) {
-            blowdownFromLoop[idx].getHeatHandler().setInitialTemperature(
+            blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
                     36.6 + 273.5);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
                     26.1 + 273.5);
@@ -1462,6 +1495,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 runner.submit(loopTrimValve[idx][jdx]);
             }
             runner.submit(loopBypass[idx]);
+            runner.submit(blowdownValveFromDrum[idx]);
             runner.submit(blowdownValveFromLoop[idx]);
             runner.submit(blowdownCooldownPumps[idx]);
         }
@@ -1772,6 +1806,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.triggerAutoShutdown();
                 blowdownBalanceControlLoop.setManualMode(true);
                 blowdownReturnValve[0].operateCloseValve();
+                blowdownValveFromDrum[1].operateCloseValve();
                 blowdownValveFromLoop[0].operateCloseValve();
             }
         });
@@ -1813,6 +1848,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.triggerAutoShutdown();
                 blowdownBalanceControlLoop.setManualMode(true);
                 blowdownReturnValve[1].operateCloseValve();
+                blowdownValveFromDrum[1].operateCloseValve();
                 blowdownValveFromLoop[1].operateCloseValve();
             }
         });
@@ -2007,6 +2043,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             "Drum2Level", AlarmState.MIN2));
         }
         // Do not allow draining the Steam drum with the blowdown system
+        blowdownValveFromDrum[0].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "Drum1Level", AlarmState.MIN1));
+        blowdownValveFromDrum[1].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "Drum2Level", AlarmState.MIN1));
         blowdownValveFromLoop[0].addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
                         "Drum1Level", AlarmState.MIN1));
@@ -2435,7 +2477,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 if (blowdownCooldownPumps[idx].handleAction(ac)) {
                     return;
                 }
-                if (blowdownValveFromLoop[idx].handleAction(ac)) {
+                if (blowdownValveFromDrum[idx].handleAction(ac)) {
                     return;
                 }
                 if (blowdownValveFromLoop[idx].handleAction(ac)) {
