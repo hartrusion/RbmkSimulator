@@ -89,7 +89,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelSteamFlow = new javax.swing.JLabel();
         jLabelFeedwaterFlow = new javax.swing.JLabel();
         jLabelBlowdownFlow = new javax.swing.JLabel();
-        jLabelReadingFlowToDrum = new javax.swing.JLabel();
+        jLabelReadingFlowDowncomer = new javax.swing.JLabel();
         jLabelReadingTempToDrum = new javax.swing.JLabel();
         jLabelReadingDrumPressure = new javax.swing.JLabel();
         jLabelReadingTrim2 = new javax.swing.JLabel();
@@ -98,6 +98,12 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim3 = new javax.swing.JLabel();
         jLabelReadingTrim4 = new javax.swing.JLabel();
         jLabelReadingTrim1 = new javax.swing.JLabel();
+        jLabelFeedwater = new javax.swing.JLabel();
+        jLabelBlowdown = new javax.swing.JLabel();
+        jLabelRegeneratedIn = new javax.swing.JLabel();
+        jLabelSteamDrum = new javax.swing.JLabel();
+        jLabelCoreOut1 = new javax.swing.JLabel();
+        jLabelCoreOut = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -220,7 +226,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelBlowdownTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBlowdownTemp.setText("___ °C");
         jLabelBlowdownTemp.setOpaque(true);
-        add(jLabelBlowdownTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 156, 56, 16));
+        add(jLabelBlowdownTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 156, 56, 16));
 
         jLabelReadingMcpInPressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingMcpInPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -260,16 +266,16 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelBlowdownFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBlowdownFlow.setText("____ kg/s");
         jLabelBlowdownFlow.setOpaque(true);
-        add(jLabelBlowdownFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 136, 56, 16));
+        add(jLabelBlowdownFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 136, 56, 16));
 
-        jLabelReadingFlowToDrum.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingFlowToDrum.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingFlowToDrum.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingFlowToDrum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingFlowToDrum.setText("____ kg/s");
-        jLabelReadingFlowToDrum.setToolTipText("");
-        jLabelReadingFlowToDrum.setOpaque(true);
-        add(jLabelReadingFlowToDrum, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 108, 56, 16));
+        jLabelReadingFlowDowncomer.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingFlowDowncomer.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingFlowDowncomer.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingFlowDowncomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFlowDowncomer.setText("____ kg/s");
+        jLabelReadingFlowDowncomer.setToolTipText("");
+        jLabelReadingFlowDowncomer.setOpaque(true);
+        add(jLabelReadingFlowDowncomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 56, 16));
 
         jLabelReadingTempToDrum.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTempToDrum.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -285,7 +291,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingDrumPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDrumPressure.setText("___ bar");
         jLabelReadingDrumPressure.setOpaque(true);
-        add(jLabelReadingDrumPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 70, 56, 16));
+        add(jLabelReadingDrumPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 74, 56, 16));
 
         jLabelReadingTrim2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTrim2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -293,7 +299,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingTrim2.setText("___");
         jLabelReadingTrim2.setOpaque(true);
-        add(jLabelReadingTrim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 548, 24, -1));
+        add(jLabelReadingTrim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 538, 24, -1));
 
         jLabelReadingDrumTemp.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDrumTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -301,7 +307,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingDrumTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDrumTemp.setText("___ °C");
         jLabelReadingDrumTemp.setOpaque(true);
-        add(jLabelReadingDrumTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 90, 56, 16));
+        add(jLabelReadingDrumTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 94, 56, 16));
 
         jLabelReadingDrumLevel.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDrumLevel.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -309,7 +315,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingDrumLevel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDrumLevel.setText("____ cm");
         jLabelReadingDrumLevel.setOpaque(true);
-        add(jLabelReadingDrumLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 50, 56, 16));
+        add(jLabelReadingDrumLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 54, 56, 16));
 
         jLabelReadingTrim3.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTrim3.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -317,7 +323,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingTrim3.setText("___");
         jLabelReadingTrim3.setOpaque(true);
-        add(jLabelReadingTrim3, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 548, 24, -1));
+        add(jLabelReadingTrim3, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 538, 24, -1));
 
         jLabelReadingTrim4.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTrim4.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -325,7 +331,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingTrim4.setText("___");
         jLabelReadingTrim4.setOpaque(true);
-        add(jLabelReadingTrim4, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 548, 24, -1));
+        add(jLabelReadingTrim4, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 538, 24, -1));
 
         jLabelReadingTrim1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTrim1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -333,7 +339,43 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingTrim1.setText("___");
         jLabelReadingTrim1.setOpaque(true);
-        add(jLabelReadingTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 548, 24, -1));
+        add(jLabelReadingTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 538, 24, -1));
+
+        jLabelFeedwater.setFont(jLabelFeedwater.getFont().deriveFont(jLabelFeedwater.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelFeedwater.getFont().getSize()-3));
+        jLabelFeedwater.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelFeedwater.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelFeedwater.setText("Feedwater");
+        add(jLabelFeedwater, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 68, -1));
+
+        jLabelBlowdown.setFont(jLabelBlowdown.getFont().deriveFont(jLabelBlowdown.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelBlowdown.getFont().getSize()-3));
+        jLabelBlowdown.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelBlowdown.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelBlowdown.setText("Blowdown");
+        add(jLabelBlowdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 144, 66, -1));
+
+        jLabelRegeneratedIn.setFont(jLabelRegeneratedIn.getFont().deriveFont(jLabelRegeneratedIn.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn.getFont().getSize()-3));
+        jLabelRegeneratedIn.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelRegeneratedIn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelRegeneratedIn.setText("Regen.");
+        add(jLabelRegeneratedIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 170, 44, -1));
+
+        jLabelSteamDrum.setFont(jLabelSteamDrum.getFont().deriveFont(jLabelSteamDrum.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelSteamDrum.getFont().getSize()-3));
+        jLabelSteamDrum.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelSteamDrum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSteamDrum.setText("Steam drum");
+        add(jLabelSteamDrum, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 36, 88, -1));
+
+        jLabelCoreOut1.setFont(jLabelCoreOut1.getFont().deriveFont(jLabelCoreOut1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCoreOut1.getFont().getSize()-3));
+        jLabelCoreOut1.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelCoreOut1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelCoreOut1.setText("Core in");
+        add(jLabelCoreOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 554, 52, -1));
+
+        jLabelCoreOut.setFont(jLabelCoreOut.getFont().deriveFont(jLabelCoreOut.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCoreOut.getFont().getSize()-3));
+        jLabelCoreOut.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelCoreOut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelCoreOut.setText("Core out");
+        add(jLabelCoreOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 62, -1));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicLoop.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -342,8 +384,12 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelBackground;
+    private javax.swing.JLabel jLabelBlowdown;
     private javax.swing.JLabel jLabelBlowdownFlow;
     private javax.swing.JLabel jLabelBlowdownTemp;
+    private javax.swing.JLabel jLabelCoreOut;
+    private javax.swing.JLabel jLabelCoreOut1;
+    private javax.swing.JLabel jLabelFeedwater;
     private javax.swing.JLabel jLabelFeedwaterFlow;
     private javax.swing.JLabel jLabelReadingDrumLevel;
     private javax.swing.JLabel jLabelReadingDrumPressure;
@@ -352,7 +398,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingFeed0PosRedValve;
     private javax.swing.JLabel jLabelReadingFeed1Pos;
     private javax.swing.JLabel jLabelReadingFeed2Pos;
-    private javax.swing.JLabel jLabelReadingFlowToDrum;
+    private javax.swing.JLabel jLabelReadingFlowDowncomer;
     private javax.swing.JLabel jLabelReadingMcpInPressure;
     private javax.swing.JLabel jLabelReadingMcpInTemp;
     private javax.swing.JLabel jLabelReadingTempToDrum;
@@ -360,6 +406,8 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingTrim2;
     private javax.swing.JLabel jLabelReadingTrim3;
     private javax.swing.JLabel jLabelReadingTrim4;
+    private javax.swing.JLabel jLabelRegeneratedIn;
+    private javax.swing.JLabel jLabelSteamDrum;
     private javax.swing.JLabel jLabelSteamFlow;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
@@ -663,8 +711,8 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                 jLabelReadingDrumLevel.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1") + " cm");
-            case "ReactorOutFlow" ->
-                jLabelReadingFlowToDrum.setText(
+            case "DownFlow" ->
+                jLabelReadingFlowDowncomer.setText(
                         String.format("%.0f", newValue) + " kg/s");
             case "ReactorOutTemperature" ->
                 jLabelReadingTempToDrum.setText(

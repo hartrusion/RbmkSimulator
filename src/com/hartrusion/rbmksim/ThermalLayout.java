@@ -2136,7 +2136,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Loop" + (idx + 1) + "#McpCooldown",
                     loopDistributor[idx].getTemperature()
                     - loopSteamDrum[idx].getTemperature());
+            
+            outputValues.setParameterValue(
+                    "Loop" + (idx + 1) + "#DownFlow",
+                    loopDownflow[idx].getFlow());
 
+            // This is some thing that should not be necessary anymore
             if (loopNodeDrumFromReactor[idx].flowUpdated(loopEvaporator[idx])) {
                 outputValues.setParameterValue(
                         "Loop" + (idx + 1) + "#ReactorOutFlow",

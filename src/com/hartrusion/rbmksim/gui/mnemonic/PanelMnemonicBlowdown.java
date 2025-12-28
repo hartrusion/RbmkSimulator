@@ -48,6 +48,8 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         valvePumpsToCooler = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valvePump1Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valvePump2Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFromDrum1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveFromDrum2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFromDistributor1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveFromDistributor2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCoolantIn = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -66,7 +68,6 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingCoolantValve = new javax.swing.JLabel();
         jLabelCoolerSecondaryOutTemp = new javax.swing.JLabel();
         jLabelCoolerSecondaryFlow = new javax.swing.JLabel();
-        jLabelReadingPassiveFlow = new javax.swing.JLabel();
         jLabelReadingCoolerPrimaryInTemp = new javax.swing.JLabel();
         jLabelReadingCoolerPrimaryFlow = new javax.swing.JLabel();
         jLabelReadingRegenPrimaryOutTemp = new javax.swing.JLabel();
@@ -74,15 +75,20 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingRegenSecondaryOutTemp = new javax.swing.JLabel();
         jLabelReadingTreatmentOutTemp = new javax.swing.JLabel();
         jLabelReadingCoolerPrimaryOutTemp = new javax.swing.JLabel();
-        jLabelReadingLoop1InletPressure = new javax.swing.JLabel();
-        jLabelReadingLoop2InletPressure = new javax.swing.JLabel();
-        jLabelReadingLoop2InletTemperature = new javax.swing.JLabel();
-        jLabelReadingLoop1InletTemperature = new javax.swing.JLabel();
         jLabelReadingValveFromLoop2 = new javax.swing.JLabel();
         jLabelReadingDrainValve = new javax.swing.JLabel();
         jLabelReadingDrainFlow = new javax.swing.JLabel();
         jLabelReadingReturnValve1 = new javax.swing.JLabel();
         jLabelReadingReturnValve2 = new javax.swing.JLabel();
+        jLabelToDrum1 = new javax.swing.JLabel();
+        jLabelToDrum2 = new javax.swing.JLabel();
+        jLabelToDrum3 = new javax.swing.JLabel();
+        jLabelToDrum4 = new javax.swing.JLabel();
+        jLabelToDrum5 = new javax.swing.JLabel();
+        jLabelToDrum6 = new javax.swing.JLabel();
+        jLabelToDrum7 = new javax.swing.JLabel();
+        jLabelToDrum8 = new javax.swing.JLabel();
+        jLabelToDrum9 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(324, 460));
@@ -92,19 +98,21 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
 
         valvePassiveFlow.setVertical(true);
         add(valvePassiveFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 348, -1, -1));
-        add(valvePumpsToCooler, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 276, -1, -1));
+        add(valvePumpsToCooler, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 265, -1, -1));
 
         valvePump1Discharge.setVertical(true);
-        add(valvePump1Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 305, -1, -1));
+        add(valvePump1Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 305, -1, -1));
 
         valvePump2Discharge.setVertical(true);
-        add(valvePump2Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 305, -1, -1));
+        add(valvePump2Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 305, -1, -1));
 
-        valveFromDistributor1.setVertical(true);
-        add(valveFromDistributor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 392, -1, -1));
+        valveFromDrum1.setVertical(true);
+        add(valveFromDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 322, -1, -1));
 
-        valveFromDistributor2.setVertical(true);
-        add(valveFromDistributor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 392, -1, -1));
+        valveFromDrum2.setVertical(true);
+        add(valveFromDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 322, -1, -1));
+        add(valveFromDistributor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 412, -1, -1));
+        add(valveFromDistributor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 412, -1, -1));
         add(valveCoolantIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 175, -1, -1));
         add(valveDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 69, -1, -1));
 
@@ -121,21 +129,21 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         add(valveOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 13, -1, -1));
 
         valvePump1Suction.setVertical(true);
-        add(valvePump1Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 408, -1, -1));
+        add(valvePump1Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 408, -1, -1));
 
         valvePump2Suction.setVertical(true);
-        add(valvePump2Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 408, -1, -1));
+        add(valvePump2Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 408, -1, -1));
 
         pump1.setOrientation(1);
         pump1.setPreferredSize(new java.awt.Dimension(36, 42));
-        add(pump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 364, -1, -1));
+        add(pump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 364, -1, -1));
 
         pump2.setOrientation(1);
         pump2.setFocusable(false);
         pump2.setPreferredSize(new java.awt.Dimension(36, 42));
-        add(pump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 364, -1, -1));
+        add(pump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 364, -1, -1));
         add(valveRegeneratorToCooler, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 233, -1, -1));
-        add(valvePumpsToRegenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 276, -1, -1));
+        add(valvePumpsToRegenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 265, -1, -1));
 
         jLabelReadingValveFromLoop1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingValveFromLoop1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -143,7 +151,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingValveFromLoop1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingValveFromLoop1.setText("___");
         jLabelReadingValveFromLoop1.setOpaque(true);
-        add(jLabelReadingValveFromLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 406, 24, -1));
+        add(jLabelReadingValveFromLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 396, 24, -1));
 
         jLabelReadingCoolantValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCoolantValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -168,14 +176,6 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelCoolerSecondaryFlow.setText("____ kg/s");
         jLabelCoolerSecondaryFlow.setOpaque(true);
         add(jLabelCoolerSecondaryFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 166, 56, 16));
-
-        jLabelReadingPassiveFlow.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingPassiveFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingPassiveFlow.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingPassiveFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingPassiveFlow.setText("____ kg/s");
-        jLabelReadingPassiveFlow.setOpaque(true);
-        add(jLabelReadingPassiveFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 314, 56, 16));
 
         jLabelReadingCoolerPrimaryInTemp.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCoolerPrimaryInTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -207,7 +207,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingInTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingInTemperature.setText("___ °C");
         jLabelReadingInTemperature.setOpaque(true);
-        add(jLabelReadingInTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 432, 56, 16));
+        add(jLabelReadingInTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 442, 56, 16));
 
         jLabelReadingRegenSecondaryOutTemp.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingRegenSecondaryOutTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -233,45 +233,13 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingCoolerPrimaryOutTemp.setOpaque(true);
         add(jLabelReadingCoolerPrimaryOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 142, 56, 16));
 
-        jLabelReadingLoop1InletPressure.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingLoop1InletPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingLoop1InletPressure.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingLoop1InletPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingLoop1InletPressure.setText("___ bar");
-        jLabelReadingLoop1InletPressure.setOpaque(true);
-        add(jLabelReadingLoop1InletPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 342, 56, 16));
-
-        jLabelReadingLoop2InletPressure.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingLoop2InletPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingLoop2InletPressure.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingLoop2InletPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingLoop2InletPressure.setText("___ bar");
-        jLabelReadingLoop2InletPressure.setOpaque(true);
-        add(jLabelReadingLoop2InletPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 342, 56, 16));
-
-        jLabelReadingLoop2InletTemperature.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingLoop2InletTemperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingLoop2InletTemperature.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingLoop2InletTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingLoop2InletTemperature.setText("___ °C");
-        jLabelReadingLoop2InletTemperature.setOpaque(true);
-        add(jLabelReadingLoop2InletTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 322, 56, 16));
-
-        jLabelReadingLoop1InletTemperature.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingLoop1InletTemperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingLoop1InletTemperature.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingLoop1InletTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingLoop1InletTemperature.setText("___ °C");
-        jLabelReadingLoop1InletTemperature.setOpaque(true);
-        add(jLabelReadingLoop1InletTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 322, 56, 16));
-
         jLabelReadingValveFromLoop2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingValveFromLoop2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         jLabelReadingValveFromLoop2.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingValveFromLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingValveFromLoop2.setText("___");
         jLabelReadingValveFromLoop2.setOpaque(true);
-        add(jLabelReadingValveFromLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 406, 24, -1));
+        add(jLabelReadingValveFromLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 396, 24, -1));
 
         jLabelReadingDrainValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDrainValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -305,6 +273,60 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelReadingReturnValve2.setOpaque(true);
         add(jLabelReadingReturnValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 34, 24, -1));
 
+        jLabelToDrum1.setFont(jLabelToDrum1.getFont().deriveFont(jLabelToDrum1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum1.getFont().getSize()-3));
+        jLabelToDrum1.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelToDrum1.setText("Steam drum 1");
+        add(jLabelToDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 2, 82, -1));
+
+        jLabelToDrum2.setFont(jLabelToDrum2.getFont().deriveFont(jLabelToDrum2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum2.getFont().getSize()-3));
+        jLabelToDrum2.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelToDrum2.setText("Steam drum 2");
+        add(jLabelToDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 2, 78, -1));
+
+        jLabelToDrum3.setFont(jLabelToDrum3.getFont().deriveFont(jLabelToDrum3.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum3.getFont().getSize()-3));
+        jLabelToDrum3.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelToDrum3.setText("Drum 1");
+        add(jLabelToDrum3, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 296, 50, -1));
+
+        jLabelToDrum4.setFont(jLabelToDrum4.getFont().deriveFont(jLabelToDrum4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum4.getFont().getSize()-3));
+        jLabelToDrum4.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelToDrum4.setText("Drum 2");
+        add(jLabelToDrum4, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 296, 48, -1));
+
+        jLabelToDrum5.setFont(jLabelToDrum5.getFont().deriveFont(jLabelToDrum5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum5.getFont().getSize()-3));
+        jLabelToDrum5.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelToDrum5.setText("MCP1");
+        add(jLabelToDrum5, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 414, 40, -1));
+
+        jLabelToDrum6.setFont(jLabelToDrum6.getFont().deriveFont(jLabelToDrum6.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum6.getFont().getSize()-3));
+        jLabelToDrum6.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelToDrum6.setText("MCP2");
+        add(jLabelToDrum6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 382, 38, -1));
+
+        jLabelToDrum7.setFont(jLabelToDrum7.getFont().deriveFont(jLabelToDrum7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum7.getFont().getSize()-3));
+        jLabelToDrum7.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelToDrum7.setText("Aftercooler");
+        add(jLabelToDrum7, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 202, 70, -1));
+
+        jLabelToDrum8.setFont(jLabelToDrum8.getFont().deriveFont(jLabelToDrum8.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum8.getFont().getSize()-3));
+        jLabelToDrum8.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelToDrum8.setText("Regenerator");
+        add(jLabelToDrum8, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 242, 78, -1));
+
+        jLabelToDrum9.setFont(jLabelToDrum9.getFont().deriveFont(jLabelToDrum9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelToDrum9.getFont().getSize()-3));
+        jLabelToDrum9.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelToDrum9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelToDrum9.setText("Drain");
+        add(jLabelToDrum9, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 110, 34, -1));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicBlowdown.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -321,11 +343,6 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
     private javax.swing.JLabel jLabelReadingDrainFlow;
     private javax.swing.JLabel jLabelReadingDrainValve;
     private javax.swing.JLabel jLabelReadingInTemperature;
-    private javax.swing.JLabel jLabelReadingLoop1InletPressure;
-    private javax.swing.JLabel jLabelReadingLoop1InletTemperature;
-    private javax.swing.JLabel jLabelReadingLoop2InletPressure;
-    private javax.swing.JLabel jLabelReadingLoop2InletTemperature;
-    private javax.swing.JLabel jLabelReadingPassiveFlow;
     private javax.swing.JLabel jLabelReadingRegenPrimaryOutTemp;
     private javax.swing.JLabel jLabelReadingRegenSecondaryOutTemp;
     private javax.swing.JLabel jLabelReadingReturnValve1;
@@ -333,12 +350,23 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
     private javax.swing.JLabel jLabelReadingTreatmentOutTemp;
     private javax.swing.JLabel jLabelReadingValveFromLoop1;
     private javax.swing.JLabel jLabelReadingValveFromLoop2;
+    private javax.swing.JLabel jLabelToDrum1;
+    private javax.swing.JLabel jLabelToDrum2;
+    private javax.swing.JLabel jLabelToDrum3;
+    private javax.swing.JLabel jLabelToDrum4;
+    private javax.swing.JLabel jLabelToDrum5;
+    private javax.swing.JLabel jLabelToDrum6;
+    private javax.swing.JLabel jLabelToDrum7;
+    private javax.swing.JLabel jLabelToDrum8;
+    private javax.swing.JLabel jLabelToDrum9;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCoolantIn;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveDrain;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFromDistributor1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFromDistributor2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFromDrum1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFromDrum2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveOut1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveOut2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valvePassiveFlow;
@@ -447,7 +475,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        if (propertyName.startsWith("Loop")) {
+    /*    if (propertyName.startsWith("Loop")) {
             switch (propertyName) {
                 case "Loop1#FuelInTemp" ->
                     jLabelReadingLoop1InletTemperature.setText(
@@ -464,7 +492,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                     jLabelReadingLoop2InletPressure.setText(
                             String.format("%.0f", newValue) + " bar");
             }
-        }
+        } */
         if (!propertyName.startsWith("Blowdown")) {
             return;
         }
@@ -473,9 +501,9 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
                 jLabelReadingInTemperature.setText(
                         String.format("%.1f", newValue)
                                 .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
-            case "Blowdown#PassiveFlow" ->
-                jLabelReadingPassiveFlow.setText(
-                        String.format("%.0f", newValue) + " kg/s");
+//            case "Blowdown#PassiveFlow" ->
+//                jLabelReadingPassiveFlow.setText(
+//                        String.format("%.0f", newValue) + " kg/s");
             case "Blowdown#RegeneratorPrimaryOutTemp" ->
                 jLabelReadingRegenPrimaryOutTemp.setText(
                         String.format("%.1f", newValue)
