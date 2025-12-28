@@ -8,14 +8,21 @@ detailed systems and a more accurate representation of the chernobyl plant.
 ![Example](docs/images/screenshot-preview.png)
 
 ## Installation and Usage
-To download the simulator, you need to grab the latest release from the
-[Releases](https://github.com/hartrusion/RbmkSimulator/releases) section. 
-Download the file  "RbmkSimulator.jar" file from _github-ci-nightly_ there.
+Download: 
+[RbmkSimulator.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-nightly/RbmkSimulator.jar)
+
+This downloads the latest automated build (also found in 
+[Releases](https://github.com/hartrusion/RbmkSimulator/releases)) as
+_github-ci-nightly_. It always points to the current development state and 
+will be replaced automatically each time I change something.
 
 <details>
-  <summary>You also need Java installed (expand this for more info).</summary>
+  <summary>This is a Java application. Expand this section (just click here) 
+  if you want to read more about this and don't know what to do with 
+  a .jar file.</summary>
   
-  You need a Java Runtime (at least v17.0.17) as this is ja Java application.
+  You need a Java Runtime (at least v17.0.17) to run a .jar file. A jar file 
+  is an archive file that can contain something for java to run.
 
   To check if you already have java installed and configured on your system, 
   type
@@ -28,8 +35,19 @@ Download the file  "RbmkSimulator.jar" file from _github-ci-nightly_ there.
 
   Any recent OpenJDK has a Runtime included, you can go for Eclipse Adoptium or
   the Microsoft Build of OpenJDK or any other of those. Just do not use the 
-  Oracle/Sun Java JRE as this is the old Version 8. If you're a Linux user, you 
-  should not have any issues getting a java runtime for your distribution.
+  Oracle/Sun Java JRE you will find at java.com as this is the old Version 8.
+  If you're a Linux user, you should not have any issues getting a java runtime 
+  for your distribution.
+
+  **Why this? Why not a simple .exe file?** It is not uncommon to need some kind 
+  of Runtime to run a program, you might also know .NET or Visual Studio Runtime 
+  which are needed for some programs also. Java is a bit different but has the 
+  huge advantage that it works on multiple plattforms with almost the same 
+  behavior. While it had a bad reputation for end users due to some security 
+  issues and a really bad installer behaviour (who the hell installs Toolbars),
+  it is nowadays used a lot for backend server side apps and one of the most 
+  popular programming languages. It gained some reputation with Minecraft at 
+  non programmer end users in the last years.
 </details>
 
 To run the Simulator, simply run the. jar with the Java Runtime. You could open a terminal and run
