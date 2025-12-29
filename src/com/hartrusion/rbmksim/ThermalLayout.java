@@ -241,6 +241,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatEffortSource auxCondHeightDifference;
     private final HeatNode auxCondDistributorNode;
     private final HeatValve auxCondValveToHotwell;
+    private final HeatNode auxCondValveToHotwellHeatNode;
+    private final PhasedHeatFluidConverter auxCondValveToHotwellConverter;
+    private final PhasedNode auxCondValveToHotwellPhasedNode;
     private final HeatValve auxCondValveToDrain;
 
     // Steam Dump
@@ -656,6 +659,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondDistributorNode.setName("AuxCond#DistributorNode");
         auxCondValveToHotwell = new HeatValve();
         auxCondValveToHotwell.initName("AuxCond#ToHotwell");
+        auxCondValveToHotwellHeatNode = new HeatNode();
+        auxCondValveToHotwellHeatNode.setName("AuxCond#ToHotwellHeatNode");
+        auxCondValveToHotwellConverter = new PhasedHeatFluidConverter(phasedWater);
+        auxCondValveToHotwellConverter.setName("AuxCond#ToHotwellConverter");
+        auxCondValveToHotwellPhasedNode = new PhasedNode();
+        auxCondValveToHotwellPhasedNode.setName("AuxCond#ToHotwellPhasedNode");
         auxCondValveToDrain = new HeatValve();
         auxCondValveToDrain.initName("AuxCond#ToDrain");
 
@@ -934,7 +943,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             blowdownValveFromDrum[idx].getValveElement().connectBetween(
                     loopNodeDrumBlowdownHeatOut[idx], blowdownInCollectorNode);
-            
+
             // From MCPs:
             blowdownPipeFromMcp[idx].connectBetween(
                     loopDistributor[idx], blowdownFromLoopNode[idx]);
@@ -1116,8 +1125,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // height difference as pressure diff source
         auxCondHeightDifference.connectBetween(auxCondCollectorNode,
                 auxCondDistributorNode);
+        // To hotwell: Connect to a converter for this purpose, this allows
+        // better network simplification and performance.
         auxCondValveToHotwell.getValveElement().connectBetween(
-                auxCondDistributorNode, hotwellOutNode);
+                auxCondDistributorNode, auxCondValveToHotwellHeatNode);
+        auxCondValveToHotwellConverter.connectBetween(
+                auxCondValveToHotwellHeatNode, auxCondValveToHotwellPhasedNode);
+        hotwell.getPrimarySideReservoir().connectTo(
+                auxCondValveToHotwellPhasedNode);
+
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
                 auxCondDistributorNode, makeupStorageDrainCollector);
@@ -1389,6 +1405,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // the hotwell or makeup storage, 2000 on the aux bypass valve.
         for (int idx = 0; idx < 2; idx++) {
             auxCondCondensateValve[idx].initCharacteristic(3e3, 20);
+            auxCondPumps[idx].initCharacteristic(5e5, 4e5, 60.0);
         }
         auxCondBypass.initCharacteristic(2000, -1);
         auxCondValveToDrain.initCharacteristic(2500, 20);
@@ -1752,8 +1769,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public double getAsDouble() {
                 return setpointHotwellLowerLevel.getOutput()
-                       - hotwell.getPrimarySideReservoir()
-                        .getFillHeight() * 100; // m to cm
+                        - hotwell.getPrimarySideReservoir()
+                                .getFillHeight() * 100; // m to cm
             }
         });
         hotwellDrainValve.getController().addInputProvider(
