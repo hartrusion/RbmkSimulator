@@ -99,13 +99,19 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim3 = new javax.swing.JLabel();
         jLabelReadingTrim4 = new javax.swing.JLabel();
         jLabelReadingTrim1 = new javax.swing.JLabel();
+        valveECCS = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveBlowdownOut = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveBlowdownFromDrum = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveBlowdownFromDistributor = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabelFeedwater = new javax.swing.JLabel();
-        jLabelBlowdown = new javax.swing.JLabel();
+        jLabelECCS = new javax.swing.JLabel();
+        jLabelRegeneratedIn3 = new javax.swing.JLabel();
         jLabelRegeneratedIn = new javax.swing.JLabel();
         jLabelRegeneratedIn1 = new javax.swing.JLabel();
         jLabelSteamDrum = new javax.swing.JLabel();
         jLabelCoreOut1 = new javax.swing.JLabel();
         jLabelCoreOut = new javax.swing.JLabel();
+        jLabelBlowdown1 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         jLabelRegeneratedIn2.setFont(jLabelRegeneratedIn2.getFont().deriveFont(jLabelRegeneratedIn2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn2.getFont().getSize()-3));
@@ -241,7 +247,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingMcpInPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingMcpInPressure.setText("___ bar");
         jLabelReadingMcpInPressure.setOpaque(true);
-        add(jLabelReadingMcpInPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 56, 16));
+        add(jLabelReadingMcpInPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 298, 56, 16));
 
         jLabelReadingMcpInTemp.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingMcpInTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -249,7 +255,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingMcpInTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingMcpInTemp.setText("___ °C");
         jLabelReadingMcpInTemp.setOpaque(true);
-        add(jLabelReadingMcpInTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 56, 16));
+        add(jLabelReadingMcpInTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 318, 56, 16));
 
         jLabelSteamFlow.setBackground(new java.awt.Color(77, 69, 27));
         jLabelSteamFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -282,7 +288,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingFlowDowncomer.setText("____ kg/s");
         jLabelReadingFlowDowncomer.setToolTipText("");
         jLabelReadingFlowDowncomer.setOpaque(true);
-        add(jLabelReadingFlowDowncomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 56, 16));
+        add(jLabelReadingFlowDowncomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 278, 56, 16));
 
         jLabelReadingTempToDrum.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTempToDrum.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -338,7 +344,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingTrim4.setText("___");
         jLabelReadingTrim4.setOpaque(true);
-        add(jLabelReadingTrim4, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 538, 24, -1));
+        add(jLabelReadingTrim4, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 524, 24, -1));
 
         jLabelReadingTrim1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTrim1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -348,29 +354,45 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingTrim1.setOpaque(true);
         add(jLabelReadingTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 538, 24, -1));
 
+        valveECCS.setControlIndicator(true);
+        add(valveECCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 596, -1, -1));
+
+        valveBlowdownOut.setControlIndicator(true);
+        add(valveBlowdownOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 167, -1, -1));
+
+        valveBlowdownFromDrum.setVertical(true);
+        add(valveBlowdownFromDrum, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 132, -1, -1));
+        add(valveBlowdownFromDistributor, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 596, -1, -1));
+
         jLabelFeedwater.setFont(jLabelFeedwater.getFont().deriveFont(jLabelFeedwater.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelFeedwater.getFont().getSize()-3));
         jLabelFeedwater.setForeground(new java.awt.Color(14, 222, 194));
         jLabelFeedwater.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelFeedwater.setText("Feedwater");
         add(jLabelFeedwater, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 68, -1));
 
-        jLabelBlowdown.setFont(jLabelBlowdown.getFont().deriveFont(jLabelBlowdown.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelBlowdown.getFont().getSize()-3));
-        jLabelBlowdown.setForeground(new java.awt.Color(14, 222, 194));
-        jLabelBlowdown.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelBlowdown.setText("Blowdown");
-        add(jLabelBlowdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 144, 66, -1));
+        jLabelECCS.setFont(jLabelECCS.getFont().deriveFont(jLabelECCS.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelECCS.getFont().getSize()-3));
+        jLabelECCS.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelECCS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelECCS.setText("ECCS");
+        add(jLabelECCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 598, 30, -1));
+
+        jLabelRegeneratedIn3.setFont(jLabelRegeneratedIn3.getFont().deriveFont(jLabelRegeneratedIn3.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn3.getFont().getSize()-3));
+        jLabelRegeneratedIn3.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelRegeneratedIn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelRegeneratedIn3.setText("Blowd.");
+        add(jLabelRegeneratedIn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 140, 48, -1));
 
         jLabelRegeneratedIn.setFont(jLabelRegeneratedIn.getFont().deriveFont(jLabelRegeneratedIn.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn.getFont().getSize()-3));
         jLabelRegeneratedIn.setForeground(new java.awt.Color(14, 222, 194));
         jLabelRegeneratedIn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelRegeneratedIn.setText("Blowdown");
-        add(jLabelRegeneratedIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 162, 62, -1));
+        add(jLabelRegeneratedIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 136, 62, -1));
 
         jLabelRegeneratedIn1.setFont(jLabelRegeneratedIn1.getFont().deriveFont(jLabelRegeneratedIn1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelRegeneratedIn1.getFont().getSize()-3));
         jLabelRegeneratedIn1.setForeground(new java.awt.Color(14, 222, 194));
         jLabelRegeneratedIn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelRegeneratedIn1.setText("return");
-        add(jLabelRegeneratedIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 176, 44, -1));
+        add(jLabelRegeneratedIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 150, 44, -1));
 
         jLabelSteamDrum.setFont(jLabelSteamDrum.getFont().deriveFont(jLabelSteamDrum.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelSteamDrum.getFont().getSize()-3));
         jLabelSteamDrum.setForeground(new java.awt.Color(14, 222, 194));
@@ -382,13 +404,19 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
         jLabelCoreOut1.setForeground(new java.awt.Color(14, 222, 194));
         jLabelCoreOut1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelCoreOut1.setText("Core in");
-        add(jLabelCoreOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 554, 52, -1));
+        add(jLabelCoreOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 544, 52, -1));
 
         jLabelCoreOut.setFont(jLabelCoreOut.getFont().deriveFont(jLabelCoreOut.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCoreOut.getFont().getSize()-3));
         jLabelCoreOut.setForeground(new java.awt.Color(14, 222, 194));
         jLabelCoreOut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelCoreOut.setText("Core out");
         add(jLabelCoreOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 62, -1));
+
+        jLabelBlowdown1.setFont(jLabelBlowdown1.getFont().deriveFont(jLabelBlowdown1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelBlowdown1.getFont().getSize()-3));
+        jLabelBlowdown1.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelBlowdown1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelBlowdown1.setText("Cooldown");
+        add(jLabelBlowdown1, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 598, 62, -1));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicLoop.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -397,11 +425,12 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelBackground;
-    private javax.swing.JLabel jLabelBlowdown;
+    private javax.swing.JLabel jLabelBlowdown1;
     private javax.swing.JLabel jLabelBlowdownFlow;
     private javax.swing.JLabel jLabelBlowdownTemp;
     private javax.swing.JLabel jLabelCoreOut;
     private javax.swing.JLabel jLabelCoreOut1;
+    private javax.swing.JLabel jLabelECCS;
     private javax.swing.JLabel jLabelFeedwater;
     private javax.swing.JLabel jLabelFeedwaterFlow;
     private javax.swing.JLabel jLabelReadingDrumLevel;
@@ -422,12 +451,17 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelRegeneratedIn;
     private javax.swing.JLabel jLabelRegeneratedIn1;
     private javax.swing.JLabel jLabelRegeneratedIn2;
+    private javax.swing.JLabel jLabelRegeneratedIn3;
     private javax.swing.JLabel jLabelSteamDrum;
     private javax.swing.JLabel jLabelSteamFlow;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump3;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump4;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveBlowdownFromDistributor;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveBlowdownFromDrum;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveBlowdownOut;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveECCS;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed0FlowReg;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed0Gate;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveFeed1FlowReg;
@@ -493,7 +527,50 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                     valveFeed2Gate.setActive(
                             evt.getNewValue() != ValveState.CLOSED);
             }
-
+            return;
+        }
+        if (evt.getPropertyName().startsWith("Blowdown")) {
+            // The blowdown system does not have the loop numbers after the
+            // # sign as it is just one system.
+            if (loop == 1) {
+                switch (evt.getPropertyName()) {
+                    case "Blowdown#ValveFromDrum1_Pos":
+                        valveBlowdownFromDrum.setActive(
+                                evt.getNewValue() != ValveState.CLOSED);
+                        break;
+                    case "Blowdown#ReturnValve1_Pos":
+                        valveBlowdownOut.setActive(
+                                evt.getNewValue() != ValveState.CLOSED);
+                        break;
+                    case "Blowdown#ValveFromLoop1_Pos":
+                        valveBlowdownFromDistributor.setActive(
+                                evt.getNewValue() != ValveState.CLOSED);
+                        break;
+                }
+            } else if (loop == 2) {
+                switch (evt.getPropertyName()) {
+                    case "Blowdown#ValveFromDrum2_Pos":
+                        valveBlowdownFromDrum.setActive(
+                                evt.getNewValue() != ValveState.CLOSED);
+                        break;
+                    case "Blowdown#ReturnValve2_Pos":
+                        valveBlowdownOut.setActive(
+                                evt.getNewValue() != ValveState.CLOSED);
+                        break;
+                    case "Blowdown#ValveFromLoop2_Pos":
+                        valveBlowdownFromDistributor.setActive(
+                                evt.getNewValue() != ValveState.CLOSED);
+                        break;
+                }
+            }
+            // The control algorithm goes on both valves at the same time
+            if (evt.getPropertyName().equals("Blowdown#BalanceControlControlState")) {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveBlowdownOut.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveBlowdownOut.setControlIndicatorActive(false);
+                }
+            }
             return;
         }
         if (!evt.getPropertyName().startsWith("Loop")) {
