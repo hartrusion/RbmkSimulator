@@ -104,16 +104,19 @@ with different IDEs but once edited outside of NetBeans, they propably won't
 work anymore.
 
 ## Getting involved
-As this project is in a very early stage, lots of architecture and design 
-decisions have to be made and major refactorings do occur. I do believe that 
-contributions might not be that useful in this early stage.
+As this project is in a very early stage, there are still a few architecture 
+and design decissions to be made so things might still change a lot. There 
+are lots of systems missing and not working.
 
 Please make yourself familiar with the rather unusual
-[Code of Conduct](./CODE_OF_CONDUCT.md) first and read
+[Code of Conduct](./CODE_OF_CONDUCT.md) first and read the
 [Contributing](./CONTRIBUTING.md) guidelines.
 
-Discussions about this particular project shall be discussed here on GitHub 
-only. No Z supporters wanted.
+I did not set up antything for contributing for now, but if you're a senior
+java dev and you have some suggestions, feel free to open a discussion or 
+issue.
+
+No Z supporters wanted.
 
 ## Licencing and usage
 I decided to publish this simulator with GPLv3 so this thing is free software. 
