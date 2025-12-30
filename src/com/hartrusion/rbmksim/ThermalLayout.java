@@ -1872,6 +1872,58 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("Loop1Flow");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return Math.abs(loopChannelFlowResistance[0].getFlow());
+            }
+        });
+        am.defineAlarm(65000.0, AlarmState.HIGH2);
+        am.defineAlarm(5800.0, AlarmState.HIGH1);
+        am.defineAlarm(4800.0, AlarmState.LOW1);
+        am.defineAlarm(3000.0, AlarmState.LOW2);
+        am.defineAlarm(2000.0, AlarmState.MIN1);
+        am.defineAlarm(50.0, AlarmState.MIN2);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+            }
+        });
+        // Todo: Min2 trigger eccs system operation
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("Loop2Flow");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return Math.abs(loopChannelFlowResistance[1].getFlow());
+            }
+        });
+        am.defineAlarm(65000.0, AlarmState.HIGH2);
+        am.defineAlarm(5800.0, AlarmState.HIGH1);
+        am.defineAlarm(4800.0, AlarmState.LOW1);
+        am.defineAlarm(3000.0, AlarmState.LOW2);
+        am.defineAlarm(2000.0, AlarmState.MIN1);
+        am.defineAlarm(50.0, AlarmState.MIN2);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+            }
+        });
+        // Todo: Min2 trigger eccs system operation
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
         am.setName("DA1Level");
