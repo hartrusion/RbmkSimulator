@@ -35,6 +35,7 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
     }
 
     public void initPlots(ValueHandler plotData, int loop) {
+        setTitle("Loop " + loop + " Level Control");
         YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
         Line l;
@@ -88,7 +89,7 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
         figureJPane1 = new com.hartrusion.plot.FigureJPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Loop 1 Level Control");
+        setTitle("Loop N Level Control");
 
         figureJPane1.setYRulers(2);
         figureJPane1.setLayout(new java.awt.FlowLayout());
