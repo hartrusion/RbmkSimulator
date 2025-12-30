@@ -39,7 +39,7 @@
         <Property name="YRulers" type="int" value="2"/>
       </Properties>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
     </Container>
   </SubComponents>
 </Form>

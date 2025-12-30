@@ -49,7 +49,7 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         setBackground(new java.awt.Color(204, 204, 204));
 
         figureJPane1.setYRulers(3);
-        figureJPane1.setLayout(new java.awt.FlowLayout());
+        figureJPane1.setLayout(new javax.swing.BoxLayout(figureJPane1, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

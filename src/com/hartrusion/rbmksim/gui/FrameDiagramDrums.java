@@ -54,7 +54,7 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
         figureJPane1.setYRulers(0);
         figureJPane1.setSubplotLayout(new int[] {2, 2});
         figureJPane1.setSubplotPosition(new float[] {0.19f, 0.12f, 0.75f, 0.8f});
-        figureJPane1.setLayout(new java.awt.FlowLayout());
+        figureJPane1.setLayout(new javax.swing.BoxLayout(figureJPane1, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(figureJPane1, java.awt.BorderLayout.CENTER);
 
         pack();

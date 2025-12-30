@@ -92,7 +92,7 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
         setTitle("Loop N Level Control");
 
         figureJPane1.setYRulers(2);
-        figureJPane1.setLayout(new java.awt.FlowLayout());
+        figureJPane1.setLayout(new javax.swing.BoxLayout(figureJPane1, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
