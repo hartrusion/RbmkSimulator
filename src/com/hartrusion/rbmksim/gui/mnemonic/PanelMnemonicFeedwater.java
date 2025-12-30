@@ -68,6 +68,10 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
         valve22Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve3out1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve3out2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(400, 208));
@@ -181,12 +185,38 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
         add(valve3out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 174, -1, -1));
         add(valve3out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 174, -1, -1));
 
+        jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel19.getFont().getSize()-3));
+        jLabel19.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel19.setText("DA 1");
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 40, -1));
+
+        jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel20.getFont().getSize()-3));
+        jLabel20.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel20.setText("DA 2");
+        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 2, 38, -1));
+
+        jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel21.getFont().getSize()-3));
+        jLabel21.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel21.setText("Drum 1");
+        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 154, 40, -1));
+
+        jLabel22.setFont(jLabel22.getFont().deriveFont(jLabel22.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel22.getFont().getSize()-3));
+        jLabel22.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel22.setText("Drum 2");
+        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 154, 38, -1));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicFeedwater.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingFlow1;
     private javax.swing.JLabel jLabelReadingFlow2;
