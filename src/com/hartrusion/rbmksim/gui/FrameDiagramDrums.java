@@ -16,10 +16,10 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.plot.Line;
 import com.hartrusion.plot.MYAxes;
 import com.hartrusion.plot.SubPlot;
+import com.hartrusion.values.ValueHandler;
 
 /**
  *
@@ -71,18 +71,18 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
     }
 
-    public void initPlots(FloatSeriesVault plotData) {
+    public void initPlots(ValueHandler plotData) {
         Line l;
         SubPlot subPlot = figureJPane1.getSubPlot();
 
         subPlot.getAxes(1).setHold(true);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop1#DrumTemperature"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop1#DrumTemperature", 5));
         subPlot.getAxes(1).addLine(l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop2#DrumTemperature"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop2#DrumTemperature", 5));
         subPlot.getAxes(1).addLine(l);
         subPlot.getAxes(1).ylabel("Temperature (°C)");
         subPlot.getAxes(1).yLim(50, 300);
@@ -90,12 +90,12 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
         subPlot.getAxes(2).setHold(true);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop1#DrumPressure"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop1#DrumPressure", 5));
         subPlot.getAxes(2).addLine(l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop2#DrumPressure"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop2#DrumPressure", 5));
         subPlot.getAxes(2).addLine(l);
         subPlot.getAxes(2).ylabel("Pressure (bar)");
         subPlot.getAxes(2).yLim(0, 80);
@@ -103,12 +103,12 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
         subPlot.getAxes(3).setHold(true);
 //        l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop1#DrumLevel"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop1#DrumLevel", 5));
         subPlot.getAxes(3).addLine(l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop2#DrumLevel"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop2#DrumLevel", 5));
         subPlot.getAxes(3).addLine(l);
         subPlot.getAxes(3).ylabel("Level (cm)");
         subPlot.getAxes(3).yLim(-20, 20);

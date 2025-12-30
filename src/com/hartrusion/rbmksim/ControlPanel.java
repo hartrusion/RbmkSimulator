@@ -17,8 +17,7 @@
 package com.hartrusion.rbmksim;
 
 import java.beans.PropertyChangeEvent;
-import com.hartrusion.control.FloatSeriesVault;
-import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
@@ -66,7 +65,7 @@ public class ControlPanel extends javax.swing.JFrame
     private InterimAlarmList frameAlarms;
     private List alarmList;
 
-    private FloatSeriesVault plotData;
+    private ValueHandler plotData;
 
     /**
      * Holds a list of all interactive components which are active on the screen
@@ -641,11 +640,9 @@ public class ControlPanel extends javax.swing.JFrame
     @Override
     public void updateComponent(String propertyName, Object newValue) {
         if (propertyName.equals("OutputValues")) {
-            ((ParameterHandler) newValue).fireAllToMvcView(this);
-            return;
-        }
-        if (propertyName.equals("PlotData")) {
-            plotData = (FloatSeriesVault) newValue;
+            ((ValueHandler) newValue).fireAllToMvcView(this);
+
+            plotData = (ValueHandler) newValue;
             if (frameDiagramNeutronFlux != null) {
                 frameDiagramNeutronFlux.updatePlots();
             }

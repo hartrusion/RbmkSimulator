@@ -17,8 +17,7 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmManager;
-import com.hartrusion.control.FloatSeriesVault;
-import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
 
@@ -36,10 +35,7 @@ public abstract class Subsystem implements ModelManipulation {
      * Stores all output values as string value pair. Values from model will be
      * written into this handler.
      */
-    protected ParameterHandler outputValues;
-
-    protected FloatSeriesVault plotData;
-    protected int plotUpdateCount;
+    protected ValueHandler outputValues;
     
     protected AlarmManager alarmManager;
     
@@ -48,12 +44,8 @@ public abstract class Subsystem implements ModelManipulation {
         this.controller = controller;
     }
 
-    public void registerParameterOutput(ParameterHandler output) {
+    public void registerParameterOutput(ValueHandler output) {
         this.outputValues = output;
-    }
-
-    public void registerPlotDataVault(FloatSeriesVault plotData) {
-        this.plotData = plotData;
     }
     
     public void registerAlarmManager(AlarmManager alarmManager) {

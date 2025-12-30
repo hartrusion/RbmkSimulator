@@ -23,7 +23,7 @@ import com.hartrusion.control.PIControl;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
-import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.values.ValueHandler;
 import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.mvc.ActionCommand;
@@ -392,22 +392,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYK());
         outputValues.setParameterValue("Reactor#Graphite",
                 graphiteModel.getYGraphie());
-
-        // Save values to plot manager
-        if (plotUpdateCount == 0) {
-            plotData.insertValue("Reactor#NeutronFlux",
-                    (float) neutronFluxModel.getYNeutronFlux());
-            plotData.insertValue("Reactor#NeutronFluxLog",
-                    (float) neutronFluxModel.getYNeutronFluxLog());
-            plotData.insertValue("Reactor#NeutronRate",
-                    (float) neutronFluxModel.getYNeutronRate());
-            plotData.insertValue("Reactor#Xenon",
-                    (float) xenonModel.getYXenon());
-            plotUpdateCount = plotData.getCountDiv() - 1;
-        } else {
-            plotUpdateCount--;
-        }
-
         
         oldGlobalControlTarget = globalControlTarget;
     }
@@ -824,7 +808,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     }
 
     @Override
-    public void registerParameterOutput(ParameterHandler output) {
+    public void registerParameterOutput(ValueHandler output) {
         super.registerParameterOutput(output);
         setpointTargetNeutronFlux.registerParameterHandler(output);
         setpointNeutronFlux.registerParameterHandler(output);

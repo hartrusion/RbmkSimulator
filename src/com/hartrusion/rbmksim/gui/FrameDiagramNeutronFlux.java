@@ -16,9 +16,9 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.plot.Line;
 import com.hartrusion.plot.MYAxes;
+import com.hartrusion.values.ValueHandler;
 
 /**
  *
@@ -65,21 +65,21 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initPlots(FloatSeriesVault plotData) {
+    public void initPlots(ValueHandler plotData) {
         MYAxes ax = (MYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
         Line l;
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Reactor#NeutronFlux"));
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 2));
         ax.addLine(1, l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Reactor#NeutronFluxLog"));
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Reactor#NeutronFluxLog", 2));
         ax.addLine(2, l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Reactor#NeutronRate"));
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Reactor#NeutronRate", 2));
         ax.addLine(3, l);
         
         ax.yLim(1, 0, 100);

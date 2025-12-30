@@ -16,9 +16,9 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.control.FloatSeriesVault;
 import com.hartrusion.plot.Line;
 import com.hartrusion.plot.YYAxes;
+import com.hartrusion.values.ValueHandler;
 import java.awt.Color;
 
 /**
@@ -34,32 +34,32 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void initPlots(FloatSeriesVault plotData, int loop) {
+    public void initPlots(ValueHandler plotData, int loop) {
         YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
         Line l;
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop" + loop + "#DrumLevel"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop" + loop + "#DrumLevel", 5));
         ax.addLine(1, l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Loop" + loop + "#DrumLevelSetpoint"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Loop" + loop + "#DrumLevelSetpoint", 5));
         l.setLineColor(Color.BLACK);
         ax.addLine(1, l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Feedwater" + loop + "#FlowRegulationValve1"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve1", 5));
         l.setLineColor(new Color(0,128,0));
         ax.addLine(2, l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Feedwater" + loop + "#FlowRegulationValve2"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve2", 5));
         l.setLineColor(new Color(0,128,0));
         ax.addLine(2, l);
         l = new Line();
-        l.setDataSource(plotData.getTime(),
-                plotData.getSeries("Feedwater" + loop + "#FlowRegulationValve3"));
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve3", 5));
         l.setLineColor(new Color(0,128,0));
         ax.addLine(2, l);
         

@@ -17,8 +17,7 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmManager;
-import com.hartrusion.control.FloatSeriesVault;
-import com.hartrusion.control.ParameterHandler;
+import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
@@ -37,23 +36,16 @@ public class MainLoop implements Runnable, ModelManipulation {
     private ReactorCore core = new ReactorCore();
     private ThermalLayout process = new ThermalLayout();
 
-    private ParameterHandler outputValues = new ParameterHandler();
+    private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
 
     long maxTime;
     long initialIterations = 0;
 
-    FloatSeriesVault plotData = new FloatSeriesVault();
-    private final int plotCountDiv = 4; // each nth cycle the plots will be upd.
-
     public void init() {
         try {
-            plotData.initTime(751, 0.1F * (float) plotCountDiv);
-            plotData.setCountDiv(plotCountDiv);
-
             core.registerAlarmManager(alarms);
             core.init();
-            core.registerPlotDataVault(plotData);
             core.registerParameterOutput(outputValues);
 
             process.registerReactor(core);
@@ -61,7 +53,6 @@ public class MainLoop implements Runnable, ModelManipulation {
             process.registerController(controller);
             process.registerAlarmManager(alarms);
             process.init();
-            process.registerPlotDataVault(plotData);
 
         } catch (Exception e) {
             // Throw exception as error message popup
@@ -89,9 +80,6 @@ public class MainLoop implements Runnable, ModelManipulation {
 
             // Send all measurement data to the GUI by sending a reference.
             controller.propertyChange("OutputValues", outputValues);
-
-            // Sent all timeseries data also
-            controller.propertyChange("PlotData", plotData);
 
         } catch (Exception e) {
             ExceptionPopup.show(e);

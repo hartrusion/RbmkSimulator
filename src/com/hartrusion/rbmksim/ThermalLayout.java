@@ -2385,37 +2385,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
         // </editor-fold>
-
-        // Save values to plot manager
-        if (plotUpdateCount == 0) {
-            for (int idx = 0; idx < 2; idx++) {
-                // use relative fill height in cm
-                plotData.insertValue("Loop" + (idx + 1) + "#DrumLevel",
-                        (float) (loopSteamDrum[idx].getFillHeight()
-                        - 1.15) * 100);
-                plotData.insertValue("Loop" + (idx + 1) + "#DrumPressure",
-                        (float) (loopNodeDrumFromReactor[idx].getEffort()
-                        / 100000 - 1.0));
-                plotData.insertValue("Loop" + (idx + 1)
-                        + "#DrumTemperature",
-                        (float) (loopSteamDrum[idx].getTemperature() - 273.5));
-            }
-            // Feedwater control loops
-            for (int idx = 0; idx < 2; idx++) {
-                plotData.insertValue("Loop" + (idx + 1) + "#DrumLevelSetpoint",
-                        (float) setpointDrumLevel[idx].getOutput());
-                for (int jdx = 0; jdx < 3; jdx++) {
-                    plotData.insertValue("Feedwater" + (idx + 1)
-                            + "#FlowRegulationValve" + (jdx + 1),
-                            (float) feedwaterFlowRegulationValve[idx][jdx]
-                                    .getOpening());
-                }
-            }
-
-            plotUpdateCount = plotData.getCountDiv() - 1;
-        } else {
-            plotUpdateCount--;
-        }
     }
 
     @Override
