@@ -138,7 +138,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private boolean globalControlTarget = false;
     private boolean oldGlobalControlTarget;
-    
+
     /**
      * Active while button is pressed.
      */
@@ -202,41 +202,42 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Determine the average position of the automatic control rods and
         // use this value to set follow up and alarm values
-        double avgPositionAutomatic = 0.0;
+        double avgPositionActiveAutomatic = 0.0;
         selectedAutoRods = 0;
         for (ControlRod rod : controlRods) {
             // sum up avg positons for all rods which are in selected auto mode
             if (rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
                     && rod.isAutomatic()) {
-                avgPositionAutomatic += rod.getSwi().getOutput();
+                avgPositionActiveAutomatic += rod.getSwi().getOutput();
                 selectedAutoRods += 1;
             }
         }
         if (selectedAutoRods >= 1) {
             globalControlRodsAvailable = true;
-            avgPositionAutomatic = avgPositionAutomatic / selectedAutoRods;
+            avgPositionActiveAutomatic
+                    = avgPositionActiveAutomatic / selectedAutoRods;
         } else {
             globalControlRodsAvailable = false;
-            avgPositionAutomatic = 7.4; // full inserted
+            avgPositionActiveAutomatic = Double.NaN; // no value available
         }
 
         // Generate average position and an alarm state value to make the 
         // operator aware that the controller might not be able to work
         if (selectedAutoRods >= 1 && globalControlActive
                 && neutronFluxModel.getYNeutronFlux() >= 0.01) {
-            if (avgPositionAutomatic < 0.4) {
+            if (avgPositionActiveAutomatic < 0.4) {
                 autoRodsPositionAlarmState = AlarmState.LOW2;
-            } else if (avgPositionAutomatic < 1.0) {
+            } else if (avgPositionActiveAutomatic < 1.0) {
                 autoRodsPositionAlarmState = AlarmState.LOW1;
-            } else if (avgPositionAutomatic >= 7.2) {
+            } else if (avgPositionActiveAutomatic >= 7.2) {
                 autoRodsPositionAlarmState = AlarmState.MAX1;
                 // All active auto rods fully inserted: no more control
                 // possible, it should have been either deactivated or manual 
                 // rods shoudl have been used to compensate. now its too late.
                 triggerAutoShutdown();
-            } else if (avgPositionAutomatic > 6.8) {
+            } else if (avgPositionActiveAutomatic > 6.8) {
                 autoRodsPositionAlarmState = AlarmState.HIGH2;
-            } else if (avgPositionAutomatic > 6.5) {
+            } else if (avgPositionActiveAutomatic > 6.5) {
                 autoRodsPositionAlarmState = AlarmState.HIGH1;
             } else {
                 autoRodsPositionAlarmState = AlarmState.NONE;
@@ -250,7 +251,7 @@ public class ReactorCore extends Subsystem implements Runnable {
                     autoRodsPositionAlarmState, false);
         }
 
-        globalControl.setFollowUp(avgPositionAutomatic);
+        globalControl.setFollowUp(avgPositionActiveAutomatic);
         globalControl.setManualMode(
                 !globalControlActive || globalControlOverride);
         globalControl.run();
@@ -393,6 +394,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         outputValues.setParameterValue("Reactor#Graphite",
                 graphiteModel.getYGraphie());
         
+        outputValues.setParameterValue("GlobalControl#AvgActiveAutoRodsPos",
+                avgPositionActiveAutomatic);
+
         oldGlobalControlTarget = globalControlTarget;
     }
 

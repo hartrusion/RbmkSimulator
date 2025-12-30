@@ -212,6 +212,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNeutronFluxActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuGlobalControl">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reactor Global Control"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuGlobalControlActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuDrumSeparators">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Drum Separators"/>

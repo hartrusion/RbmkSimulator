@@ -28,6 +28,7 @@ import com.hartrusion.rbmksim.gui.ControlPanelFeedwater;
 import com.hartrusion.rbmksim.gui.ControlPanelRecirculation;
 import com.hartrusion.rbmksim.gui.FrameCoreActivity;
 import com.hartrusion.rbmksim.gui.FrameDiagramDrums;
+import com.hartrusion.rbmksim.gui.FrameDiagramGlobalControl;
 import com.hartrusion.rbmksim.gui.FrameDiagramLoopLevel;
 import com.hartrusion.rbmksim.gui.FrameDiagramNeutronFlux;
 import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
@@ -61,6 +62,7 @@ public class ControlPanel extends javax.swing.JFrame
     private FrameDiagramDrums frameDiagramDrums;
     private FrameDiagramLoopLevel frameDiagramLoop1Level;
     private FrameDiagramLoopLevel frameDiagramLoop2Level;
+    private FrameDiagramGlobalControl frameDiagramGlobalControl;
 
     private InterimAlarmList frameAlarms;
     private List alarmList;
@@ -122,6 +124,7 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuItemMnemonicTurbine = new javax.swing.JMenuItem();
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
+        jMenuGlobalControl = new javax.swing.JMenuItem();
         jMenuDrumSeparators = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -303,6 +306,14 @@ public class ControlPanel extends javax.swing.JFrame
             }
         });
         jMenuDiagrams.add(jMenuNeutronFlux);
+
+        jMenuGlobalControl.setText("Reactor Global Control");
+        jMenuGlobalControl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuGlobalControlActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuGlobalControl);
 
         jMenuDrumSeparators.setText("Drum Separators");
         jMenuDrumSeparators.addActionListener(new java.awt.event.ActionListener() {
@@ -612,6 +623,22 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuAlarmsActionPerformed
 
+    private void jMenuGlobalControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGlobalControlActionPerformed
+        if (frameDiagramGlobalControl == null && plotData != null) {
+            frameDiagramGlobalControl = new FrameDiagramGlobalControl();
+            frameDiagramGlobalControl.initPlots(plotData);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameDiagramGlobalControl.setVisible(true);
+            });
+            frameDiagramGlobalControl.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameDiagramGlobalControl = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuGlobalControlActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -654,6 +681,9 @@ public class ControlPanel extends javax.swing.JFrame
             }
             if (frameDiagramLoop2Level != null) {
                 frameDiagramLoop2Level.updatePlots();
+            }
+            if (frameDiagramGlobalControl != null) {
+                frameDiagramGlobalControl.updatePlots();
             }
             
             // use this event to update the alarm list also.
@@ -769,6 +799,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenu jMenuDiagrams;
     private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
