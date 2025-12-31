@@ -22,25 +22,8 @@ import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
-import com.hartrusion.rbmksim.gui.AboutDialog;
-import com.hartrusion.rbmksim.gui.ControlPanelCondensation;
-import com.hartrusion.rbmksim.gui.ControlPanelFeedwater;
-import com.hartrusion.rbmksim.gui.ControlPanelRecirculation;
-import com.hartrusion.rbmksim.gui.FrameCoreActivity;
-import com.hartrusion.rbmksim.gui.FrameDiagramDrums;
-import com.hartrusion.rbmksim.gui.FrameDiagramGlobalControl;
-import com.hartrusion.rbmksim.gui.FrameDiagramLoopLevel;
-import com.hartrusion.rbmksim.gui.FrameDiagramNeutronFlux;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicBlowdown;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicLoop;
-import com.hartrusion.rbmksim.gui.FrameRodPositions;
-import com.hartrusion.rbmksim.gui.InteractiveComponent;
-import com.hartrusion.rbmksim.gui.InterimAlarmList;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicCore;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicDeaerator;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicFeedwater;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicAuxiliaryCondenser;
-import com.hartrusion.rbmksim.gui.mnemonic.FrameMnemonicTurbine;
+import com.hartrusion.rbmksim.gui.*;
+import com.hartrusion.rbmksim.gui.mnemonic.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -122,6 +105,7 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuItemMnemonicDeaerators = new javax.swing.JMenuItem();
         jMenuItemMnemonicAuxCondenser = new javax.swing.JMenuItem();
         jMenuItemMnemonicTurbine = new javax.swing.JMenuItem();
+        jMenuItemMnemonicCondensation = new javax.swing.JMenuItem();
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
         jMenuGlobalControl = new javax.swing.JMenuItem();
@@ -287,13 +271,21 @@ public class ControlPanel extends javax.swing.JFrame
         });
         jMenuMnemonics.add(jMenuItemMnemonicAuxCondenser);
 
-        jMenuItemMnemonicTurbine.setText("Turbine");
+        jMenuItemMnemonicTurbine.setText("Turbine & Hotwell");
         jMenuItemMnemonicTurbine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemMnemonicTurbineActionPerformed(evt);
             }
         });
         jMenuMnemonics.add(jMenuItemMnemonicTurbine);
+
+        jMenuItemMnemonicCondensation.setText("Condensation & Ejectors");
+        jMenuItemMnemonicCondensation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMnemonicCondensationActionPerformed(evt);
+            }
+        });
+        jMenuMnemonics.add(jMenuItemMnemonicCondensation);
 
         jMenuBar1.add(jMenuMnemonics);
 
@@ -639,6 +631,18 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuGlobalControlActionPerformed
 
+    private void jMenuItemMnemonicCondensationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicCondensationActionPerformed
+        // Check if there is already an active frame using the slected class
+        for (UpdateReceiver ur : mnemonics) {
+            if (ur.getClass().getSimpleName().equals(
+                    "FrameMnemonicCondensation")) {
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeMnemonic(new FrameMnemonicCondensation());
+    }//GEN-LAST:event_jMenuItemMnemonicCondensationActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -813,6 +817,7 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemMnemonicAuxCondenser;
+    private javax.swing.JMenuItem jMenuItemMnemonicCondensation;
     private javax.swing.JMenuItem jMenuItemMnemonicDeaerators;
     private javax.swing.JMenuItem jMenuItemMnemonicFeedwater;
     private javax.swing.JMenuItem jMenuItemMnemonicLoop1;

@@ -191,10 +191,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMnemonicTurbine">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Turbine"/>
+                <Property name="text" type="java.lang.String" value="Turbine &amp; Hotwell"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemMnemonicTurbineActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMnemonicCondensation">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Condensation &amp; Ejectors"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemMnemonicCondensationActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
