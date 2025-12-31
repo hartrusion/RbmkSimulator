@@ -1922,7 +1922,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.triggerAutoShutdown();
             }
         });
-        // Todo: Min2 trigger eccs system operation
+        // We need both alarms as the initial state can already be min2 and
+        // min1 would be skipped that way.
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+                // Todo: Min2 trigger eccs system operation?
+            }
+        });
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
@@ -1948,8 +1956,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.triggerAutoShutdown();
             }
         });
-        // Todo: Min2 trigger eccs system operation
-
+        // We need both alarms as the initial state can already be min2 and
+        // min1 would be skipped that way.
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+                // Todo: Min2 trigger eccs system operation
+            }
+        });
+        
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 

@@ -118,6 +118,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private boolean rpsEnabled = true;
     private boolean rpsActive = false;
+    private boolean oldRpsActive = false; // previous value
 
     private boolean globalControlEnabled = false;
 
@@ -374,6 +375,18 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         alarmUpdater.invokeAll();
 
+        // Send the RPS alarm message on change
+        if (rpsActive != oldRpsActive) {
+            oldRpsActive = rpsActive;
+            if (rpsActive) {
+                alarmManager.fireAlarm("ReactorProtection",
+                        AlarmState.ACTIVE, false);
+            } else {
+                alarmManager.fireAlarm("ReactorProtection",
+                        AlarmState.NONE, false);
+            }
+        }
+
         // Send the neutron values to the gui
         outputValues.setParameterValue("Reactor#NeutronFlux",
                 neutronFluxModel.getYNeutronFlux());
@@ -393,7 +406,7 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYK());
         outputValues.setParameterValue("Reactor#Graphite",
                 graphiteModel.getYGraphie());
-        
+
         outputValues.setParameterValue("GlobalControl#AvgActiveAutoRodsPos",
                 avgPositionActiveAutomatic);
 
@@ -424,12 +437,21 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         if (ac.getPropertyName().equals("Reactor#RPS")) {
             rpsEnabled = (boolean) ac.getValue();
+            if (!rpsEnabled) {
+                rpsActive = false; // skip the need for reset when turning off
+            } else {
+                // When switching on, check conditions if reactor can be
+                // started up, otherwise block immediately.
+                if (!checkRpsDisengage()) {
+                    rpsActive = true;
+                    shutdown();
+                }
+            }
             return;
         }
         if (ac.getPropertyName().equals("Reactor#RPSReset")) {
             // allow reset only after rods are in and there's no neutron flux.
-            if (avgRodPosition >= 7.1
-                    && neutronFluxModel.getYNeutronFlux() <= 0.5) {
+            if (checkRpsDisengage()) {
                 rpsActive = false;
             }
         }
@@ -798,11 +820,43 @@ public class ReactorCore extends Subsystem implements Runnable {
             c.setAutomatic(false);
             c.rodSpeedMax();
             if (c.getRodType() == ChannelType.SHORT_CONTROLROD) {
-                c.getSwi().setInputMin(); // those need to be pulled out
+                // Short control rods need to be pushed upwards into the core.
+                // As they do not have any effect in positions lower than 3.0
+                // meters, they will not be moved but stopped in their 
+                // current position. 
+                if (c.getSwi().getOutput() <= 2.8) {
+                    c.getSwi().setStop();
+                } else {
+                    c.getSwi().setInputMin(); // pull upwards
+                }
             } else {
-                c.getSwi().setInputMax();
+                c.getSwi().setInputMax(); // fully insert
             }
         }
+    }
+
+    /**
+     * Checks the plant state that it is in a state where it allows the RPS to
+     * be cleared. Note that the Alarm system is a trigger-event only, if an
+     * alarm does shut down the reactor, it does not prevent it to be
+     * reactivated immediately. Those checks have to be made separately here.
+     *
+     * @return true if everything is fine.
+     */
+    private boolean checkRpsDisengage() {
+        if (alarmManager.isAlarmActive("Loop1Flow", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Loop2Flow", AlarmState.MIN1)) {
+            return false;
+        }
+        if (avgRodPosition < 7.1) {
+            return false; // rods not fully inserted
+        }
+        if (neutronFluxModel.getYNeutronFlux() > 0.2) {
+            return false; // chain reaction still active
+        }
+        return true;
     }
 
     @Override
