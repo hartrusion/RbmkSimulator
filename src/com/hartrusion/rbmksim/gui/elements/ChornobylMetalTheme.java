@@ -127,5 +127,13 @@ public class ChornobylMetalTheme extends OceanTheme {
         table.put("ToggleButton.background", buttonReleased);
         table.put("ToggleButton.select", buttonPressed);
         table.put("ToggleButton.foreground", Color.WHITE);
+        
+        // JDesktopPane has a white background as default, use something a bit 
+        // darker than the panel backgrounds with even less blue parts
+        table.put("Desktop.background", new ColorUIResource(0xA5ABB5));
+        
+        // Frames inside JDesktopPane are JInternalFrames
+        // Remove the gradient from the selected frame
+        table.remove("InternalFrame.activeTitleGradient");
     }
 }

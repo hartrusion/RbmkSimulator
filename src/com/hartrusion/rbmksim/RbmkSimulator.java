@@ -86,7 +86,7 @@ public class RbmkSimulator {
         //</editor-fold>
 
         // Create control panel instance
-        ControlPanel view = new ControlPanel();
+        ControlRoom view = new ControlRoom();
 
         // Create a new controller instance with an AWT updater
         Controller contr = new Controller();

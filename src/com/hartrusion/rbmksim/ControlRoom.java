@@ -24,16 +24,25 @@ import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
+import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
+import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author Viktor Alexander Hartung
  */
-public class ControlPanel extends javax.swing.JFrame
+public class ControlRoom extends javax.swing.JFrame
         implements InteractiveView {
 
     private ViewerController controller;
@@ -53,17 +62,17 @@ public class ControlPanel extends javax.swing.JFrame
     private ValueHandler plotData;
 
     /**
-     * Holds a list of all interactive components which are active on the screen
-     * to update them.
+     * Holds a list of all interactive components which are active inside the
+     * desktop pane to update them.
      */
-    private final List<InteractiveComponent> components = new ArrayList<>();
+    private final List<ControlPanelFrame> controlPanels = new ArrayList<>();
 
     private final List<UpdateReceiver> mnemonics = new ArrayList<>();
 
     /**
      * Creates new form ControlPanel
      */
-    public ControlPanel() {
+    public ControlRoom() {
         initComponents();
     }
 
@@ -76,29 +85,26 @@ public class ControlPanel extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        panelRodSelector1 = new com.hartrusion.rbmksim.gui.PanelCoreControl();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemSetCoreOnly = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
+        jMenuControls = new javax.swing.JMenu();
+        jMenuItemCoreControl = new javax.swing.JMenuItem();
+        jMenuItemRecirculation = new javax.swing.JMenuItem();
+        jMenuItemBlowdown = new javax.swing.JMenuItem();
+        jMenuItemDeaerators = new javax.swing.JMenuItem();
+        jMenuItemFeedwater = new javax.swing.JMenuItem();
+        jMenuItemAuxCond = new javax.swing.JMenuItem();
+        jMenuItemCondensation = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuAlarms = new javax.swing.JMenuItem();
         jMenuRodPositions = new javax.swing.JMenuItem();
         jMenuCoreMatrix = new javax.swing.JMenuItem();
-        jMenuControls = new javax.swing.JMenu();
-        jMenuItemRecirculation = new javax.swing.JMenuItem();
-        jMenuItemFeedwater = new javax.swing.JMenuItem();
-        jMenuItemCondensation = new javax.swing.JMenuItem();
         jMenuMnemonics = new javax.swing.JMenu();
         jMenuItemCore = new javax.swing.JMenuItem();
-        jMenuItemBlowdown = new javax.swing.JMenuItem();
+        jMenuItemMnemonicBlowdown = new javax.swing.JMenuItem();
         jMenuItemMnemonicLoop1 = new javax.swing.JMenuItem();
         jMenuItemMnemonicLoop2 = new javax.swing.JMenuItem();
         jMenuItemMnemonicFeedwater = new javax.swing.JMenuItem();
@@ -115,26 +121,11 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
 
-        jMenuItem10.setText("jMenuItem10");
-
-        jMenuItem2.setText("jMenuItem2");
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jMenu1.setText("File");
-        jMenuBar2.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar2.add(jMenu2);
-
-        jMenuItem3.setText("jMenuItem3");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Reactor Control Panel");
-        setMaximumSize(new java.awt.Dimension(574, 340));
-        setResizable(false);
+        setTitle("Control Panel");
+        setPreferredSize(new java.awt.Dimension(640, 480));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(panelRodSelector1);
+        getContentPane().add(jDesktopPane1);
 
         jMenuFile.setText("File");
 
@@ -156,6 +147,66 @@ public class ControlPanel extends javax.swing.JFrame
         jMenuFile.add(jMenuItemExit);
 
         jMenuBar1.add(jMenuFile);
+
+        jMenuControls.setText("Control Panels");
+
+        jMenuItemCoreControl.setText("Reactor Controls");
+        jMenuItemCoreControl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCoreControlActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemCoreControl);
+
+        jMenuItemRecirculation.setText("Recirculation");
+        jMenuItemRecirculation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecirculationActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemRecirculation);
+
+        jMenuItemBlowdown.setText("Blowdown");
+        jMenuItemBlowdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBlowdownActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemBlowdown);
+
+        jMenuItemDeaerators.setText("Deaerators");
+        jMenuItemDeaerators.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDeaeratorsActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemDeaerators);
+
+        jMenuItemFeedwater.setText("Feedwater");
+        jMenuItemFeedwater.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFeedwaterActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemFeedwater);
+
+        jMenuItemAuxCond.setText("Auxiliary Condensers");
+        jMenuItemAuxCond.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAuxCondActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemAuxCond);
+
+        jMenuItemCondensation.setText("Condensation");
+        jMenuItemCondensation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCondensationActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemCondensation);
+
+        jMenuBar1.add(jMenuControls);
 
         jMenuPanels.setText("Views");
 
@@ -185,34 +236,6 @@ public class ControlPanel extends javax.swing.JFrame
 
         jMenuBar1.add(jMenuPanels);
 
-        jMenuControls.setText("Control Panels");
-
-        jMenuItemRecirculation.setText("Recirculation");
-        jMenuItemRecirculation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRecirculationActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemRecirculation);
-
-        jMenuItemFeedwater.setText("Feedwater");
-        jMenuItemFeedwater.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemFeedwaterActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemFeedwater);
-
-        jMenuItemCondensation.setText("Condensation");
-        jMenuItemCondensation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCondensationActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemCondensation);
-
-        jMenuBar1.add(jMenuControls);
-
         jMenuMnemonics.setText("Mnemonic Displays");
 
         jMenuItemCore.setText("Core (Debug)");
@@ -223,13 +246,13 @@ public class ControlPanel extends javax.swing.JFrame
         });
         jMenuMnemonics.add(jMenuItemCore);
 
-        jMenuItemBlowdown.setText("Blowdown & Aftercooler");
-        jMenuItemBlowdown.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemMnemonicBlowdown.setText("Blowdown & Aftercooler");
+        jMenuItemMnemonicBlowdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemBlowdownActionPerformed(evt);
+                jMenuItemMnemonicBlowdownActionPerformed(evt);
             }
         });
-        jMenuMnemonics.add(jMenuItemBlowdown);
+        jMenuMnemonics.add(jMenuItemMnemonicBlowdown);
 
         jMenuItemMnemonicLoop1.setText("Loop 1");
         jMenuItemMnemonicLoop1.addActionListener(new java.awt.event.ActionListener() {
@@ -380,7 +403,7 @@ public class ControlPanel extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuCoreMatrixActionPerformed
 
-    private void jMenuItemBlowdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBlowdownActionPerformed
+    private void jMenuItemMnemonicBlowdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicBlowdownActionPerformed
         // Check if there is already an active frame using the slected class
         for (UpdateReceiver ur : mnemonics) {
             if (ur.getClass().getSimpleName().equals(
@@ -390,7 +413,7 @@ public class ControlPanel extends javax.swing.JFrame
         }
         // if theres no active frame, generate it and make it known here.
         initializeMnemonic(new FrameMnemonicBlowdown());
-    }//GEN-LAST:event_jMenuItemBlowdownActionPerformed
+    }//GEN-LAST:event_jMenuItemMnemonicBlowdownActionPerformed
 
     private void jMenuItemMnemonicLoop1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicLoop1ActionPerformed
         // Check if there is already an active frame using the slected class
@@ -540,38 +563,37 @@ public class ControlPanel extends javax.swing.JFrame
 
     private void jMenuItemCondensationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCondensationActionPerformed
         // Check if there is already an active frame using the slected class
-        for (InteractiveComponent ic : components) {
-            if (ic.getClass().getSimpleName().equals(
-                    "ControlPanelCondensation")) {
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Condensation")) {
+                pf.toFront();
                 return;
             }
         }
         // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new ControlPanelCondensation());
+        initializeControlPanel(new PanelCondensation(), "Condensation");
     }//GEN-LAST:event_jMenuItemCondensationActionPerformed
 
     private void jMenuItemRecirculationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecirculationActionPerformed
         // Check if there is already an active frame using the slected class
-        for (InteractiveComponent ic : components) {
-            if (ic.getClass().getSimpleName().equals(
-                    "ControlPanelRecirculation")) {
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Recirculation")) {
+                pf.toFront();
                 return;
             }
         }
         // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new ControlPanelRecirculation());
+        initializeControlPanel(new PanelMCP(), "Recirculation");
     }//GEN-LAST:event_jMenuItemRecirculationActionPerformed
 
     private void jMenuItemFeedwaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFeedwaterActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (InteractiveComponent ic : components) {
-            if (ic.getClass().getSimpleName().equals(
-                    "ControlPanelFeedwater")) {
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Feedwater")) {
+                pf.toFront();
                 return;
             }
         }
         // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new ControlPanelFeedwater());
+        initializeControlPanel(new PanelFeedwater(), "Feedwater");
     }//GEN-LAST:event_jMenuItemFeedwaterActionPerformed
 
     private void jMenuItemMnemonicTurbineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicTurbineActionPerformed
@@ -643,28 +665,71 @@ public class ControlPanel extends javax.swing.JFrame
         initializeMnemonic(new FrameMnemonicCondensation());
     }//GEN-LAST:event_jMenuItemMnemonicCondensationActionPerformed
 
+    private void jMenuItemDeaeratorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDeaeratorsActionPerformed
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Deaerators")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelDeaerators(), "Deaerators");
+    }//GEN-LAST:event_jMenuItemDeaeratorsActionPerformed
+
+    private void jMenuItemAuxCondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuxCondActionPerformed
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Aux. Condensation")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelAuxCondenser(), "Aux. Condensation");
+    }//GEN-LAST:event_jMenuItemAuxCondActionPerformed
+
+    private void jMenuItemBlowdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBlowdownActionPerformed
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Blowdown")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelBlowdown(), "Blowdown");
+    }//GEN-LAST:event_jMenuItemBlowdownActionPerformed
+
+    private void jMenuItemCoreControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCoreControlActionPerformed
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Reactor Controls")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelCoreControl(), "Reactor Controls");
+    }//GEN-LAST:event_jMenuItemCoreControlActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
-        panelRodSelector1.registerActionReceiver(controller);
+        // Use this event to display at least the core controls
+        jMenuItemCoreControlActionPerformed(null);
     }
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
         // Put all events on the log output for easier monitoring
-        Logger.getLogger(ControlPanel.class.getName())
+        Logger.getLogger(ControlRoom.class.getName())
                 .log(Level.INFO, "Received PropertyChangeEvent "
                         + evt.getPropertyName() + ", value: "
                         + evt.getNewValue());
-
-        panelRodSelector1.updateComponent(evt);
 
         for (UpdateReceiver ur : mnemonics) {
             ur.updateComponent(evt);
         }
 
-        for (InteractiveComponent ic : components) {
-            ic.updateComponent(evt);
+        for (UpdateReceiver ur : controlPanels) {
+            ur.updateComponent(evt);
         }
     }
 
@@ -689,27 +754,24 @@ public class ControlPanel extends javax.swing.JFrame
             if (frameDiagramGlobalControl != null) {
                 frameDiagramGlobalControl.updatePlots();
             }
-            
+
             // use this event to update the alarm list also.
             if (frameAlarms != null) {
                 frameAlarms.updateAlarmListModel();
             }
         }
-        panelRodSelector1.updateComponent(propertyName, newValue);
 
         for (UpdateReceiver ur : mnemonics) {
             ur.updateComponent(propertyName, newValue);
         }
 
-        for (InteractiveComponent ic : components) {
-            ic.updateComponent(propertyName, newValue);
+        for (UpdateReceiver ur : controlPanels) {
+            ur.updateComponent(propertyName, newValue);
         }
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        panelRodSelector1.updateComponent(propertyName, newValue);
-
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }
@@ -718,14 +780,13 @@ public class ControlPanel extends javax.swing.JFrame
             ur.updateComponent(propertyName, newValue);
         }
 
-        for (InteractiveComponent ic : components) {
-            ic.updateComponent(propertyName, newValue);
+        for (UpdateReceiver ur : controlPanels) {
+            ur.updateComponent(propertyName, newValue);
         }
     }
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        panelRodSelector1.updateComponent(propertyName, newValue);
         if (frameRodPositions != null) {
             frameRodPositions.updateComponent(propertyName, newValue);
         }
@@ -734,8 +795,8 @@ public class ControlPanel extends javax.swing.JFrame
             ur.updateComponent(propertyName, newValue);
         }
 
-        for (InteractiveComponent ic : components) {
-            ic.updateComponent(propertyName, newValue);
+        for (UpdateReceiver ur : controlPanels) {
+            ur.updateComponent(propertyName, newValue);
         }
     }
 
@@ -763,41 +824,74 @@ public class ControlPanel extends javax.swing.JFrame
     }
 
     /**
-     * Makes some initializations to an additonal control panel frame object
+     * Makes some initializations to an additional control panel frame object
      * (makes the controller instance known) and add it to the list to have a
      * reference to the created instance.
      *
-     * @param object JFrame object that implements UpdateReceiver
+     * @param object An instance that is the panel
      */
-    private void initializeControlPanel(InteractiveComponent object) {
-        // cast to frame as the object is supposed to be an instace of frame.
-        javax.swing.JFrame frame = (javax.swing.JFrame) object;
-        object.registerActionReceiver(controller);
-        controller.fireLastPropertyChangesTo(object);
-        java.awt.EventQueue.invokeLater(() -> {
-            frame.setVisible(true);
-        });
-        components.add(object);
-        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+    private void initializeControlPanel(AbstractPanelWidget panel,
+            String title) {
+        // To make some tiling effect: Place it by a multiple of the title bar 
+        // height in x and y direction but without considering if other windows
+        // were moved by the user before, this means, we need to see what is 
+        // already active first.
+        int tilePos = 0;
+        JInternalFrame[] iFrames = jDesktopPane1.getAllFrames();
+        for (JInternalFrame f : iFrames) {
+            BasicInternalFrameUI ui = (BasicInternalFrameUI) f.getUI();
+            JComponent titleBar = ui.getNorthPane();
+            tilePos += titleBar.getHeight();
+        }
+        
+        // Generate a new JInteralFrame object (that will be the frame inside 
+        // the desktop pane)
+        ControlPanelFrame cpf = new ControlPanelFrame();
+        // Give the generated Panel object to that frame and make it initialize 
+        // itself
+        cpf.initPanel(panel, title, controller);
+
+        cpf.setVisible(true);
+        jDesktopPane1.add(cpf);
+        // The frame will automatically adjust its size due to its layout.
+
+        // Remove it from the list of windows when closing:
+        cpf.addInternalFrameListener(new InternalFrameAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                components.remove(object);
+            public void internalFrameClosed(InternalFrameEvent e) {
+                controlPanels.remove(cpf);
             }
-        });
+        }
+        );
+
+        // make a new bounds rectangle with previous width and height values
+        Rectangle newBounds = new Rectangle(tilePos, tilePos,
+                cpf.getBounds().width, cpf.getBounds().height);
+        cpf.setBounds(newBounds);
+
+        // Put it to front:
+        try {
+            cpf.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            // ignore
+        }
+        cpf.toFront();
+        // Add the frame to the list of active internal frames so the panel
+        // frame will receive updates
+        controlPanels.add(cpf);
+        controller.fireLastPropertyChangesTo(panel);
     }
-    
+
     public void setAlarmList(List alarmList) {
         // Todo: maybe there's a better way of organizing this.
         this.alarmList = alarmList;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuItem jMenuAlarms;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuControls;
     private javax.swing.JMenuItem jMenuCoreMatrix;
     private javax.swing.JMenu jMenuDiagrams;
@@ -805,18 +899,18 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
     private javax.swing.JMenuItem jMenuItemCore;
+    private javax.swing.JMenuItem jMenuItemCoreControl;
+    private javax.swing.JMenuItem jMenuItemDeaerators;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemMnemonicAuxCondenser;
+    private javax.swing.JMenuItem jMenuItemMnemonicBlowdown;
     private javax.swing.JMenuItem jMenuItemMnemonicCondensation;
     private javax.swing.JMenuItem jMenuItemMnemonicDeaerators;
     private javax.swing.JMenuItem jMenuItemMnemonicFeedwater;
@@ -829,6 +923,5 @@ public class ControlPanel extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;
     private javax.swing.JMenuItem jMenuRodPositions;
-    private com.hartrusion.rbmksim.gui.PanelCoreControl panelRodSelector1;
     // End of variables declaration//GEN-END:variables
 }
