@@ -1441,7 +1441,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
         makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
-        
+
         // Main circulation - common IC for both cases (there are 2 below...)
         for (int idx = 0; idx <= 1; idx++) { // 2 sides
             for (int jdx = 0; jdx < 4; jdx++) {
@@ -1461,7 +1461,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
         blowdownValveCoolant.initFlow(400);
-        
+
         // Variant 1: Forced Circ. with MPC and no Cooldown Pump:
         /* for (int idx = 0; idx <= 1; idx++) {
             loopSteamDrum[idx].setInitialState(40000, 36.6 + 273.15);
@@ -1486,7 +1486,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Use bypass valves (MPC will push it through):
         blowdownValvePassiveFlow.initOpening(100);
         blowdownValvePumpsToRegenerator.initOpening(100); */
-        
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
             loopSteamDrum[idx].setInitialState(40000, 42.9 + 273.15);
@@ -1509,7 +1508,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 .setInitialTemperature(301.57);
         // Blowdown/Cooldown one pump is in operation
         blowdownCooldownPumps[1].setInitialCondition(true, true, true);
-        
+
         // Deaerator
         for (int idx = 0; idx <= 1; idx++) {
             // try to have a fill level of 100 cm (normal level)
@@ -1698,12 +1697,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .getController()).setParameterTN(3.0);
         }
 
+        // Pressure Setpoints for Deaerator (the steam in will go for those 
+        // pressure setpoints)
         for (int idx = 0; idx < 2; idx++) {
             setpointDAPressure[idx].setLowerLimit(1.0);
             setpointDAPressure[idx].setUpperLimit(10.0);
             setpointDAPressure[idx].setMaxRate(1.0);
         }
 
+        // Steam into Deaerator
         deaeratorSteamInRegValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -1720,12 +1722,37 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         - deaerator[1].getEffort() * 1e-5 + 1.0; // as rel. bar
             }
         });
-
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) deaeratorSteamInRegValve[idx].getController())
                     .setParameterK(1.0);
             ((PIControl) deaeratorSteamInRegValve[idx].getController())
                     .setParameterTN(20);
+        }
+
+        // Condensate valves to Deaerator, this controls Deaerator levels
+        condensationValveToDA[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return setpointDALevel[0].getOutput()
+                        - deaerator[0].getFillHeight() * 100; // m to cm
+            }
+        }
+        );
+        condensationValveToDA[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return setpointDALevel[1].getOutput()
+                        - deaerator[1].getFillHeight() * 100; // m to cm
+            }
+        }
+        );
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) condensationValveToDA[idx].getController())
+                    .setParameterK(10); // todo, needs better parameters
+            ((PIControl) condensationValveToDA[idx].getController())
+                    .setParameterTN(5); // todo, needs better parameters
         }
 
         // Aux Condensation Valves control main steam pressure if enabled.
@@ -1900,7 +1927,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Loop1Flow");
         am.addInputProvider(new DoubleSupplier() {
@@ -1934,7 +1961,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Loop2Flow");
         am.addInputProvider(new DoubleSupplier() {
@@ -1965,7 +1992,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // Todo: Min2 trigger eccs system operation
             }
         });
-        
+
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
