@@ -2260,7 +2260,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         } else {
             for (int idx = 0; idx < 2; idx++) {
-                fuelThermalSource[idx].setFlow(2.4e7); // just idle
+                fuelThermalSource[idx].setFlow(0.0); // this will be noticed.
             }
         }
 
