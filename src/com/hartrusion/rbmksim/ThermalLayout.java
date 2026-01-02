@@ -1197,6 +1197,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Element properties">
         makeupStorage.setTimeConstant(100 / 9.81);
+
+        // Makup storage pumps: 4 bar on 200 kg/s
+        for (int idx = 0; idx < 2; idx++) {
+            makeupPumps[idx].initCharacteristic(5e5, 4e5, 200);
+        }
+
         // The main steam shutoff valve can be seen more as a cheat to keep the
         // model stable, it will be operated automatically. Randomly setting it 
         // to 200 for a little pressure loss.
@@ -1428,19 +1434,20 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationCondensatePump[idx].initCharacteristic(10e5, 6e5, 1556);
         }
-        // same here, just some random value
+        // 3 bar diff on full opening at 1555 kg/s
         for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].initCharacteristic(300, 20);
+            condensationValveToDA[idx].initCharacteristic(190, 60);
         }
 
-        // Todo: Use some proper values here
-        hotwellFillValve.initCharacteristic(50, 20);
+        // The makup storage pump makes 200 kg/s at 4.0 bars
+        hotwellFillValve.initCharacteristic(2000, 10);
         hotwellDrainValve.initCharacteristic(2000, 20);
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
-        makeupStorage.setInitialEffort(2.0 * 997 * 9.81); // p = h * rho * g
+        // ... but use 6.5 as long as there's no fill thing implemented:
+        makeupStorage.setInitialEffort(6.5 * 997 * 9.81); // p = h * rho * g
 
         // Main circulation - common IC for both cases (there are 2 below...)
         for (int idx = 0; idx <= 1; idx++) { // 2 sides
