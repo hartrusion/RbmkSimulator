@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * 
+ *
  * @author Viktor Alexander Hartung
  */
 public class MainLoop implements Runnable, ModelManipulation {
@@ -38,6 +38,8 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
+
+    private boolean pause;
 
     long maxTime;
     long initialIterations = 0;
@@ -70,16 +72,16 @@ public class MainLoop implements Runnable, ModelManipulation {
             // Get all the values and GUI commands first.
             controller.fireActions();
 
-            // Feedback from process to reactor core model (previous cycle)
-            core.setCoreTemp(process.getCoreTemp());
-            core.setVoiding(process.getVoiding());
+            if (!pause) {
+                // Feedback from process to reactor core model (previous cycle)
+                core.setCoreTemp(process.getCoreTemp());
+                core.setVoiding(process.getVoiding());
+                core.run();
+                process.run();
 
-            core.run();
-
-            process.run();
-
-            // Send all measurement data to the GUI by sending a reference.
-            controller.propertyChange("OutputValues", outputValues);
+                // Send all measurement data to the GUI by sending a reference.
+                controller.propertyChange("OutputValues", outputValues);
+            }
 
         } catch (Exception e) {
             ExceptionPopup.show(e);
@@ -91,8 +93,8 @@ public class MainLoop implements Runnable, ModelManipulation {
             if (initialIterations > 2) {
                 maxTime = stopTime - startTime;
                 Logger.getLogger(MainLoop.class.getName())
-                        .log(Level.INFO, "New max cyclic time: " 
-                                + maxTime / 1000  + " us");
+                        .log(Level.INFO, "New max cyclic time: "
+                                + maxTime / 1000 + " us");
             } else {
                 initialIterations++;
             }
@@ -109,6 +111,14 @@ public class MainLoop implements Runnable, ModelManipulation {
         Logger.getLogger(MainLoop.class.getName())
                 .log(Level.INFO, "Received Action: " + ac.getPropertyName()
                         + ", Value: " + ac.getValue());
+
+        if (ac.getPropertyName().equals("PauseSimulation")) {
+            pause = !pause;
+        }
+
+        if (pause) {
+            return; // irgnore commands during pause
+        }
 
         core.handleAction(ac);
         process.handleAction(ac);

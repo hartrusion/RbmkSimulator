@@ -9,14 +9,24 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPause">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pause Simulation"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPauseActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSetCoreOnly">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Set core only mode"/>
+                <Property name="text" type="java.lang.String" value="Toggle Core Only"/>
                 <Property name="toolTipText" type="java.lang.String" value="Deactivates the connection between thermal systems and the core simulation."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSetCoreOnlyActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExit">
               <Properties>

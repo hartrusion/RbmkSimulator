@@ -88,7 +88,9 @@ public class ControlRoom extends javax.swing.JFrame
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
+        jMenuItemPause = new javax.swing.JMenuItem();
         jMenuItemSetCoreOnly = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
@@ -129,7 +131,15 @@ public class ControlRoom extends javax.swing.JFrame
 
         jMenuFile.setText("File");
 
-        jMenuItemSetCoreOnly.setText("Set core only mode");
+        jMenuItemPause.setText("Pause Simulation");
+        jMenuItemPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPauseActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemPause);
+
+        jMenuItemSetCoreOnly.setText("Toggle Core Only");
         jMenuItemSetCoreOnly.setToolTipText("Deactivates the connection between thermal systems and the core simulation.");
         jMenuItemSetCoreOnly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +147,7 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuFile.add(jMenuItemSetCoreOnly);
+        jMenuFile.add(jSeparator1);
 
         jMenuItemExit.setText("Exit");
         jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
@@ -709,6 +720,10 @@ public class ControlRoom extends javax.swing.JFrame
         initializeControlPanel(new PanelCoreControl(), "Reactor Controls");
     }//GEN-LAST:event_jMenuItemCoreControlActionPerformed
 
+    private void jMenuItemPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPauseActionPerformed
+        controller.userAction(new ActionCommand("PauseSimulation", null));
+    }//GEN-LAST:event_jMenuItemPauseActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -917,11 +932,13 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemMnemonicLoop1;
     private javax.swing.JMenuItem jMenuItemMnemonicLoop2;
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
+    private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemSetCoreOnly;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;
     private javax.swing.JMenuItem jMenuRodPositions;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
