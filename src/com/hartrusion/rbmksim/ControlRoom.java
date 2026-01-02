@@ -85,7 +85,8 @@ public class ControlRoom extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jDesktopPane1 = new com.hartrusion.util.JDesktopPaneEnhanced();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemPause = new javax.swing.JMenuItem();
@@ -100,6 +101,8 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemFeedwater = new javax.swing.JMenuItem();
         jMenuItemAuxCond = new javax.swing.JMenuItem();
         jMenuItemCondensation = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemPresetFull = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuAlarms = new javax.swing.JMenuItem();
         jMenuRodPositions = new javax.swing.JMenuItem();
@@ -125,9 +128,12 @@ public class ControlRoom extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Panel");
-        setPreferredSize(new java.awt.Dimension(640, 480));
+        setMinimumSize(new java.awt.Dimension(640, 480));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(jDesktopPane1);
+
+        jScrollPane2.setViewportView(jDesktopPane1);
+
+        getContentPane().add(jScrollPane2);
 
         jMenuFile.setText("File");
 
@@ -216,6 +222,15 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuControls.add(jMenuItemCondensation);
+        jMenuControls.add(jSeparator2);
+
+        jMenuItemPresetFull.setText("Preset: View all panels");
+        jMenuItemPresetFull.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPresetFullActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemPresetFull);
 
         jMenuBar1.add(jMenuControls);
 
@@ -724,6 +739,42 @@ public class ControlRoom extends javax.swing.JFrame
         controller.userAction(new ActionCommand("PauseSimulation", null));
     }//GEN-LAST:event_jMenuItemPauseActionPerformed
 
+    private void jMenuItemPresetFullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetFullActionPerformed
+        // Presents a view with all of the controls placed to a defined grid.
+        // First, create all views if they are not yet open
+        jMenuItemCoreControlActionPerformed(null);
+        jMenuItemCondensationActionPerformed(null);
+        jMenuItemRecirculationActionPerformed(null);
+        jMenuItemFeedwaterActionPerformed(null);
+        jMenuItemDeaeratorsActionPerformed(null);
+        jMenuItemAuxCondActionPerformed(null);
+        jMenuItemBlowdownActionPerformed(null);
+        // Align them in a preset grid layout.
+        // 1st row:
+        jDesktopPane1.windowPlaceAtZero(
+                getControlPanelInstance("Reactor Controls"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Aux. Condensation"),
+                getControlPanelInstance("Reactor Controls"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Condensation"),
+                getControlPanelInstance("Aux. Condensation"));
+
+        // 2nd row:
+        jDesktopPane1.windowPlaceBelow(
+                getControlPanelInstance("Recirculation"),
+                getControlPanelInstance("Reactor Controls"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Blowdown"),
+                getControlPanelInstance("Recirculation"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Deaerators"),
+                getControlPanelInstance("Blowdown"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Feedwater"),
+                getControlPanelInstance("Deaerators"));
+    }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -847,25 +898,12 @@ public class ControlRoom extends javax.swing.JFrame
      */
     private void initializeControlPanel(AbstractPanelWidget panel,
             String title) {
-        // To make some tiling effect: Place it by a multiple of the title bar 
-        // height in x and y direction but without considering if other windows
-        // were moved by the user before, this means, we need to see what is 
-        // already active first.
-        int tilePos = 0;
-        JInternalFrame[] iFrames = jDesktopPane1.getAllFrames();
-        for (JInternalFrame f : iFrames) {
-            BasicInternalFrameUI ui = (BasicInternalFrameUI) f.getUI();
-            JComponent titleBar = ui.getNorthPane();
-            tilePos += titleBar.getHeight();
-        }
-        
         // Generate a new JInteralFrame object (that will be the frame inside 
         // the desktop pane)
         ControlPanelFrame cpf = new ControlPanelFrame();
         // Give the generated Panel object to that frame and make it initialize 
         // itself
         cpf.initPanel(panel, title, controller);
-
         cpf.setVisible(true);
         jDesktopPane1.add(cpf);
         // The frame will automatically adjust its size due to its layout.
@@ -878,11 +916,6 @@ public class ControlRoom extends javax.swing.JFrame
             }
         }
         );
-
-        // make a new bounds rectangle with previous width and height values
-        Rectangle newBounds = new Rectangle(tilePos, tilePos,
-                cpf.getBounds().width, cpf.getBounds().height);
-        cpf.setBounds(newBounds);
 
         // Put it to front:
         try {
@@ -897,13 +930,22 @@ public class ControlRoom extends javax.swing.JFrame
         controller.fireLastPropertyChangesTo(panel);
     }
 
+    private ControlPanelFrame getControlPanelInstance(String designator) {
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals(designator)) {
+                return pf;
+            }
+        }
+        return null;
+    }
+
     public void setAlarmList(List alarmList) {
         // Todo: maybe there's a better way of organizing this.
         this.alarmList = alarmList;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuItem jMenuAlarms;
     private javax.swing.JMenuBar jMenuBar1;
@@ -933,12 +975,15 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemMnemonicLoop2;
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
     private javax.swing.JMenuItem jMenuItemPause;
+    private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemSetCoreOnly;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;
     private javax.swing.JMenuItem jMenuRodPositions;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }
