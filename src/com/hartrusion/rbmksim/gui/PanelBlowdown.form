@@ -930,7 +930,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeLoop1Level">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFlow">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -1009,12 +1009,12 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeLoop1Pressure">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeTemperature">
       <Properties>
-        <Property name="chornobylMaximum" type="float" value="200.0"/>
+        <Property name="chornobylMaximum" type="float" value="150.0"/>
         <Property name="chornobylMinimum" type="float" value="20.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[50.0, 100.0, 150.0, 200.0]"/>
+          <PropertyValue value="[20.0, 50.0, 100.0, 150.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
       </Properties>

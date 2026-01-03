@@ -103,12 +103,12 @@ public class PanelBlowdown extends AbstractPanelWidget {
         integralSwitchBlowdownLoop2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchReturn1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchReturn2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        chornobylGaugeLoop1Level = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeFlow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel5 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        chornobylGaugeLoop1Pressure = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeTemperature = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jButtonCloseInput = new javax.swing.JButton();
         jLabelCaptionInClose = new javax.swing.JLabel();
         jButtonCloseOutput = new javax.swing.JButton();
@@ -477,11 +477,11 @@ public class PanelBlowdown extends AbstractPanelWidget {
         integralSwitchReturn2.setComponent("Blowdown#ReturnValve2");
         add(integralSwitchReturn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 96, -1, -1));
 
-        chornobylGaugeLoop1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeLoop1Level.setChornobylMaximum(800.0F);
-        chornobylGaugeLoop1Level.setChornobylMinimum(0.0F);
-        chornobylGaugeLoop1Level.setChornobylTicks(new float[] {0.0f, 200.0f, 400.0f, 600.0f});
-        add(chornobylGaugeLoop1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+        chornobylGaugeFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeFlow.setChornobylMaximum(800.0F);
+        chornobylGaugeFlow.setChornobylMinimum(0.0F);
+        chornobylGaugeFlow.setChornobylTicks(new float[] {0.0f, 200.0f, 400.0f, 600.0f});
+        add(chornobylGaugeFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
         jLabel5.setText("Treatment");
@@ -499,11 +499,11 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabel19.setText("Temp.");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        chornobylGaugeLoop1Pressure.setChornobylMaximum(200.0F);
-        chornobylGaugeLoop1Pressure.setChornobylMinimum(20.0F);
-        chornobylGaugeLoop1Pressure.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f, 200.0f});
-        chornobylGaugeLoop1Pressure.setChornobylUnitText("°C");
-        add(chornobylGaugeLoop1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+        chornobylGaugeTemperature.setChornobylMaximum(150.0F);
+        chornobylGaugeTemperature.setChornobylMinimum(20.0F);
+        chornobylGaugeTemperature.setChornobylTicks(new float[] {20.0f, 50.0f, 100.0f, 150.0f});
+        chornobylGaugeTemperature.setChornobylUnitText("°C");
+        add(chornobylGaugeTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
         jButtonCloseInput.setFont(jButtonCloseInput.getFont().deriveFont(jButtonCloseInput.getFont().getSize()-2f));
         jButtonCloseInput.setText("●");
@@ -740,8 +740,8 @@ public class PanelBlowdown extends AbstractPanelWidget {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Level;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLoop1Pressure;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFlow;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTemperature;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchBlowdownLoop1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchBlowdownLoop2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant;
@@ -819,37 +819,46 @@ public class PanelBlowdown extends AbstractPanelWidget {
         }
         switch (evt.getPropertyName()) {
             case "Blowdown#ValvePumpsToRegenerator_Pos":
-                setValveButtons(jButtonPumpsToRegenClose, 
+                setValveButtons(jButtonPumpsToRegenClose,
                         jButtonPumpsToRegenOpen, evt.getNewValue());
                 break;
             case "Blowdown#ValvePumpsToCooler_Pos":
-                setValveButtons(jButtonPumpsToCoolerClose, 
+                setValveButtons(jButtonPumpsToCoolerClose,
                         jButtonPumpsToCoolerOpen, evt.getNewValue());
                 break;
             case "Blowdown#ValveRegeneratorToCooler_Pos":
-                setValveButtons(jButtonRegenToCoolerClose, 
+                setValveButtons(jButtonRegenToCoolerClose,
                         jButtonRegenToCoolerOpen, evt.getNewValue());
                 break;
             case "Blowdown#ValvePassiveFlow_Pos":
-                setValveButtons(jButtonPassiveFlowClose, 
+                setValveButtons(jButtonPassiveFlowClose,
                         jButtonPassiveFlowOpen, evt.getNewValue());
                 break;
             case "Blowdown#ValveTreatmentBypass_Pos":
-                setValveButtons(jButtonTreatmentBypassClose, 
+                setValveButtons(jButtonTreatmentBypassClose,
                         jButtonTreatmentBypassOpen, evt.getNewValue());
                 break;
             case "Blowdown#ValveRegeneratedToDrums_Pos":
-                setValveButtons(jButtonRegenToDrumsClose, 
+                setValveButtons(jButtonRegenToDrumsClose,
                         jButtonRegenToDrumsOpen, evt.getNewValue());
                 break;
             case "Blowdown#ValveFromDrum1_Pos":
-                setValveButtons(jButtonDrumBlowdown1Close, 
+                setValveButtons(jButtonDrumBlowdown1Close,
                         jButtonDrumBlowdown1Open, evt.getNewValue());
                 break;
             case "Blowdown#ValveFromDrum2_Pos":
-                setValveButtons(jButtonDrumBlowdown2Close, 
+                setValveButtons(jButtonDrumBlowdown2Close,
                         jButtonDrumBlowdown2Open, evt.getNewValue());
                 break;
+            case "Blowdown#BalanceControlControlState":
+                // Set the initial position of the switch button, this will be
+                // received when opening the panel.
+                if (ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue()
+                        && !jToggleButtonBalanceControl.isSelected()) {
+                    jToggleButtonBalanceControl.setSelected(true);
+                    jToggleButtonBalanceControl.setText("↑");
+                }
         }
         integralSwitchBlowdownLoop1.updateComponent(evt);
         integralSwitchBlowdownLoop2.updateComponent(evt);
@@ -865,6 +874,15 @@ public class PanelBlowdown extends AbstractPanelWidget {
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
+        if (!propertyName.startsWith("Blowdown")) {
+            return;
+        }
+        switch (propertyName) {
+            case "Blowdown#SumFlowToDrums" ->
+                chornobylGaugeFlow.setChornobylValue((float) newValue);
+            case "Blowdown#ReturnTemp" ->
+                chornobylGaugeTemperature.setChornobylValue((float) newValue);
+        }
     }
 
     @Override

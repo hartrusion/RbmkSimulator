@@ -2486,6 +2486,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownValveDrain.getValveElement().getOpening());
         outputValues.setParameterValue("Blowdown#ValveDrainFlow",
                 blowdownValveDrain.getValveElement().getFlow());
+        outputValues.setParameterValue("Blowdown#SumFlowToDrums",
+                blowdownReturnValve[0].getValveElement().getFlow()
+                + blowdownReturnValve[1].getValveElement().getFlow());
+        outputValues.setParameterValue("Blowdown#ReturnTemp", 
+                blowdownOutNode.getTemperature() - 273.5);
         
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
