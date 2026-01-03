@@ -722,7 +722,7 @@ public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateRecei
                 }
             }
         }
-        if (propertyName.equals("Blowdown#CoolantOutTemp")) {
+        if (propertyName.equals("Blowdown#ReturnTemp")) {
             jLabelBlowdownTemp.setText(
                     String.format("%.1f", newValue)
                             .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
