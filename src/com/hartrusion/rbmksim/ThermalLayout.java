@@ -1664,8 +1664,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
         ((PControl) blowdownBalanceControlLoop).setParameterK(20);
-        blowdownBalanceControlLoop.setMaxOutput(20);
-        blowdownBalanceControlLoop.setMinOutput(-20);
+        blowdownBalanceControlLoop.setMaxOutput(60);
+        blowdownBalanceControlLoop.setMinOutput(-60);
 
         // Drum level setpoint is in cm and getFillHeight retursn meters.
         for (int jdx = 0; jdx < 3; jdx++) {
@@ -1837,7 +1837,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         ((PIControl) hotwellFillValve.getController()).setParameterK(2.0);
         ((PIControl) hotwellFillValve.getController()).setParameterTN(5.0);
-        
+
         hotwellDrainValve.getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -1850,7 +1850,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         // Let the controller run away to keep the valve shut.
         hotwellDrainValve.getController().setMinOutput(-5.0);
-        
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,
@@ -2280,10 +2280,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Write Control Outputs to model if necessary (some controllers are
         // already integrated into the elements)
         if (!blowdownBalanceControlLoop.isManualMode()) {
-            blowdownReturnValve[0].operateSetOpening(80
-                    + blowdownBalanceControlLoop.getOutput());
-            blowdownReturnValve[1].operateSetOpening(80
-                    - blowdownBalanceControlLoop.getOutput());
+            // Controller output closes one of the two valves depending on the
+            // sign of the control output
+            if (blowdownBalanceControlLoop.getOutput() > 0) {
+                blowdownReturnValve[0].operateSetOpening(100);
+                blowdownReturnValve[1].operateSetOpening(100
+                        - blowdownBalanceControlLoop.getOutput());
+
+            } else if (blowdownBalanceControlLoop.getOutput() < 0) {
+                blowdownReturnValve[0].operateSetOpening(100
+                        + blowdownBalanceControlLoop.getOutput());
+                blowdownReturnValve[1].operateSetOpening(100);
+            } else {
+                blowdownReturnValve[0].operateSetOpening(100);
+                blowdownReturnValve[1].operateSetOpening(100);
+            }
         }
 
         // Reset and solve (update) the whole thermal layout one cycle.
@@ -2489,9 +2500,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Blowdown#SumFlowToDrums",
                 blowdownReturnValve[0].getValveElement().getFlow()
                 + blowdownReturnValve[1].getValveElement().getFlow());
-        outputValues.setParameterValue("Blowdown#ReturnTemp", 
+        outputValues.setParameterValue("Blowdown#ReturnTemp",
                 blowdownOutNode.getTemperature() - 273.5);
-        
+
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Feedwater" + (idx + 1) + "#Temperature",
