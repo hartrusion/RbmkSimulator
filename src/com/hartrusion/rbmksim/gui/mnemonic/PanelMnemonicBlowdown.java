@@ -557,6 +557,13 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
             case "Blowdown#ValveCoolant" ->
                 jLabelReadingCoolantValve.setText(
                         String.format("%.0f", newValue));
+            case "Blowdown#ValveDrain" ->
+                jLabelReadingDrainValve.setText(
+                        String.format("%.0f", newValue));
+            case "Blowdown#ValveDrainFlow" -> {
+                jLabelReadingDrainFlow.setText(
+                        String.format("%.0f", newValue) + " kg/s");
+            }
 
         }
     }

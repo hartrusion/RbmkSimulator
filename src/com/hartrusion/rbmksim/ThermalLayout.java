@@ -1436,7 +1436,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         // 3 bar diff on full opening at 1555 kg/s
         for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].initCharacteristic(190, 150);
+            condensationValveToDA[idx].initCharacteristic(190, 90);
         }
 
         // The makup storage pump makes 200 kg/s at 4.0 bars
@@ -2482,6 +2482,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getNode(0)).getTemperature() - 273.5);
         outputValues.setParameterValue("Blowdown#CoolantOutFlow",
                 blowdownValveCoolant.getFlowSource().getFlow());
+        outputValues.setParameterValue("Blowdown#ValveDrain",
+                blowdownValveDrain.getValveElement().getOpening());
+        outputValues.setParameterValue("Blowdown#ValveDrainFlow",
+                blowdownValveDrain.getValveElement().getFlow());
+        
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Feedwater" + (idx + 1) + "#Temperature",
