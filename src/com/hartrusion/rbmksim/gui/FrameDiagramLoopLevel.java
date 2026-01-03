@@ -25,8 +25,11 @@ import java.awt.Color;
  *
  * @author viktor
  */
-public class FrameDiagramLoopLevel extends javax.swing.JFrame {
-  
+public class FrameDiagramLoopLevel extends javax.swing.JFrame 
+        implements DiagramFrame {
+    
+    int loop;
+
     /**
      * Creates new form FrameDiagramLoop1Level
      */
@@ -34,7 +37,9 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void initPlots(ValueHandler plotData, int loop) {
+    @Override
+    public void initPlots(ValueHandler plotData, int number) {
+        loop = number;
         setTitle("Loop " + loop + " Level Control");
         YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
@@ -51,32 +56,38 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
         l = new Line();
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve1", 5));
-        l.setLineColor(new Color(0,128,0));
+        l.setLineColor(new Color(0, 128, 0));
         ax.addLine(2, l);
         l = new Line();
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve2", 5));
-        l.setLineColor(new Color(0,128,0));
+        l.setLineColor(new Color(0, 128, 0));
         ax.addLine(2, l);
         l = new Line();
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve3", 5));
-        l.setLineColor(new Color(0,128,0));
+        l.setLineColor(new Color(0, 128, 0));
         ax.addLine(2, l);
-        
+
         ax.yLim(1, -20, 20);
         ax.yLim(2, 0, 100);
-        
+
         ax.autoX();
-        
+
         ax.ylabel(1, "Drum Level and Setpoint (cm)");
         ax.ylabel(2, "Flow Valve Positions (%)");
     }
 
+    @Override
     public void updatePlots() {
         repaint();
     }
     
+    @Override
+    public String getPlotName() {
+        return "Loop" + loop + "Level";
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,7 +119,7 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.plot.FigureJPane figureJPane1;
     // End of variables declaration//GEN-END:variables

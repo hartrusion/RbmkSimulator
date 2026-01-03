@@ -25,7 +25,8 @@ import java.awt.Color;
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameDiagramGlobalControl extends javax.swing.JFrame {
+public class FrameDiagramGlobalControl extends javax.swing.JFrame
+        implements DiagramFrame {
 
     /**
      * Creates new form FrameDiagramGlobalControl
@@ -33,12 +34,13 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame {
     public FrameDiagramGlobalControl() {
         initComponents();
     }
-    
-    public void initPlots(ValueHandler plotData) {
+
+    @Override
+    public void initPlots(ValueHandler plotData, int number) {
         YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
         Line l;
-        
+
         l = new Line();
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Reactor#TargetNeutronFlux", 5));
@@ -54,23 +56,29 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame {
                 plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 5));
         l.setLineColor(Color.BLUE);
         ax.addLine(1, l);
-        
+
         l = new Line();
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("GlobalControl#AvgActiveAutoRodsPos", 5));
         ax.addLine(2, l);
-        
+
         ax.yLim(1, 0, 100F);
         ax.yLim(2, 0, 7.3F);
-        
+
         ax.autoX();
-        
+
         ax.ylabel(1, "Neutron Flux (%)");
         ax.ylabel(2, "Avg. Auto Rods Position (m)");
     }
-    
+
+    @Override
     public void updatePlots() {
         repaint();
+    }
+
+    @Override
+    public String getPlotName() {
+        return "GlobalControl";
     }
 
     /**

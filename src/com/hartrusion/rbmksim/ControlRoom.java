@@ -478,7 +478,7 @@ public class ControlRoom extends javax.swing.JFrame
     private void jMenuNeutronFluxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNeutronFluxActionPerformed
         if (frameDiagramNeutronFlux == null && plotData != null) {
             frameDiagramNeutronFlux = new FrameDiagramNeutronFlux();
-            frameDiagramNeutronFlux.initPlots(plotData);
+            frameDiagramNeutronFlux.initPlots(plotData, 0);
             java.awt.EventQueue.invokeLater(() -> {
                 frameDiagramNeutronFlux.setVisible(true);
             });
@@ -542,7 +542,7 @@ public class ControlRoom extends javax.swing.JFrame
     private void jMenuDrumSeparatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDrumSeparatorsActionPerformed
         if (frameDiagramDrums == null && plotData != null) {
             frameDiagramDrums = new FrameDiagramDrums();
-            frameDiagramDrums.initPlots(plotData);
+            frameDiagramDrums.initPlots(plotData, 0);
             java.awt.EventQueue.invokeLater(() -> {
                 frameDiagramDrums.setVisible(true);
             });
@@ -666,7 +666,7 @@ public class ControlRoom extends javax.swing.JFrame
     private void jMenuGlobalControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGlobalControlActionPerformed
         if (frameDiagramGlobalControl == null && plotData != null) {
             frameDiagramGlobalControl = new FrameDiagramGlobalControl();
-            frameDiagramGlobalControl.initPlots(plotData);
+            frameDiagramGlobalControl.initPlots(plotData, 0);
             java.awt.EventQueue.invokeLater(() -> {
                 frameDiagramGlobalControl.setVisible(true);
             });

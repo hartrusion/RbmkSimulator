@@ -24,7 +24,8 @@ import com.hartrusion.values.ValueHandler;
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
+public class FrameDiagramNeutronFlux extends javax.swing.JFrame
+        implements DiagramFrame {
 
     /**
      * Creates new form FrameDiagramNeutronFlux
@@ -65,7 +66,8 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initPlots(ValueHandler plotData) {
+    @Override
+    public void initPlots(ValueHandler plotData, int number) {
         MYAxes ax = (MYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
         Line l;
@@ -81,20 +83,26 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame {
         l.setDataSource(plotData.getTime60(2),
                 plotData.getParameterDoubleSeries("Reactor#NeutronRate", 2));
         ax.addLine(3, l);
-        
+
         ax.yLim(1, 0, 100);
         ax.yLim(2, -6, -1);
         ax.yLim(3, -4, 4);
-        
+
         ax.autoX();
-        
+
         ax.ylabel(1, "Neutron Flux (%)");
         ax.ylabel(2, "Neutron Flux Log");
         ax.ylabel(3, "Neutron Rate (10%/s)");
     }
 
+    @Override
     public void updatePlots() {
         repaint();
+    }
+
+    @Override
+    public String getPlotName() {
+        return "DrumsOverview";
     }
 
 

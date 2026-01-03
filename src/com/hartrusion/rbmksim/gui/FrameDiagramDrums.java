@@ -25,7 +25,8 @@ import com.hartrusion.values.ValueHandler;
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameDiagramDrums extends javax.swing.JFrame {
+public class FrameDiagramDrums extends javax.swing.JFrame 
+        implements DiagramFrame {
 
     /**
      * Creates new form FrameDiagramDrums
@@ -71,7 +72,8 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
     }
 
-    public void initPlots(ValueHandler plotData) {
+    @Override
+    public void initPlots(ValueHandler plotData, int number) {
         Line l;
         SubPlot subPlot = figureJPane1.getSubPlot();
 
@@ -116,8 +118,14 @@ public class FrameDiagramDrums extends javax.swing.JFrame {
 
     }
 
+    @Override
     public void updatePlots() {
         repaint();
+    }
+    
+    @Override
+    public String getPlotName() {
+        return "DrumsOverview";
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
