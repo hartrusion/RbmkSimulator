@@ -104,7 +104,7 @@ public class FrameDiagramDrums extends javax.swing.JFrame
         subPlot.getAxes(2).autoX();
 
         subPlot.getAxes(3).setHold(true);
-//        l = new Line();
+        l = new Line();
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Loop1#DrumLevel", 5));
         subPlot.getAxes(3).addLine(l);
@@ -115,6 +115,19 @@ public class FrameDiagramDrums extends javax.swing.JFrame
         subPlot.getAxes(3).ylabel("Level (cm)");
         subPlot.getAxes(3).yLim(-20, 20);
         subPlot.getAxes(3).autoX();
+        
+        subPlot.getAxes(4).setHold(true);
+        l = new Line();
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Feedwater1#Flow", 5));
+        subPlot.getAxes(4).addLine(l);
+        l = new Line();
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Feedwater2#Flow", 5));
+        subPlot.getAxes(4).addLine(l);
+        subPlot.getAxes(4).ylabel("Feed flow (kg/s)");
+        subPlot.getAxes(4).yLim(0, 1600);
+        subPlot.getAxes(4).autoX();
 
     }
 
