@@ -1436,7 +1436,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         // 3 bar diff on full opening at 1555 kg/s
         for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].initCharacteristic(190, 60);
+            condensationValveToDA[idx].initCharacteristic(190, 150);
         }
 
         // The makup storage pump makes 200 kg/s at 4.0 bars
@@ -1694,14 +1694,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
                         .getController()).setParameterK(20);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(4.0);
+                        .getController()).setParameterTN(80.0);
             }
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
             ((PIControl) feedwaterFlowRegulationValve[idx][0]
                     .getController()).setParameterK(10.0);
             ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterTN(3.0);
+                    .getController()).setParameterTN(30.0);
         }
 
         // Pressure Setpoints for Deaerator (the steam in will go for those 
@@ -1759,7 +1759,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) condensationValveToDA[idx].getController())
                     .setParameterK(10); // todo, needs better parameters
             ((PIControl) condensationValveToDA[idx].getController())
-                    .setParameterTN(5); // todo, needs better parameters
+                    .setParameterTN(20); // todo, needs better parameters
         }
 
         // Aux Condensation Valves control main steam pressure if enabled.
@@ -1809,7 +1809,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) auxCondCondensateValve[idx].getController())
                     .setParameterK(5.0);
             ((PIControl) auxCondCondensateValve[idx].getController())
-                    .setParameterTN(4);
+                    .setParameterTN(20);
         }
 
         // Hotwell level control
@@ -1835,6 +1835,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                                 .getFillHeight() * 100; // m to cm
             }
         });
+        ((PIControl) hotwellFillValve.getController()).setParameterK(2.0);
+        ((PIControl) hotwellFillValve.getController()).setParameterTN(5.0);
+        
         hotwellDrainValve.getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -1845,6 +1848,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         - setpointHotwellLowerLevel.getOutput();
             }
         });
+        // Let the controller run away to keep the valve shut.
+        hotwellDrainValve.getController().setMinOutput(-5.0);
+        
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,

@@ -683,7 +683,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         globalControl.setMaxOutput(7.4);
         globalControl.setParameterK(2.0);
-        globalControl.setParameterTN(10);
+        globalControl.setParameterTN(20);
 
         int idx, jdx;
 
