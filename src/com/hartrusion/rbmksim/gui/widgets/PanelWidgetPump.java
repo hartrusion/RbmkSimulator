@@ -18,7 +18,6 @@ package com.hartrusion.rbmksim.gui.widgets;
 
 import com.hartrusion.modeling.automated.PumpState;
 import com.hartrusion.mvc.ActionCommand;
-import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.BeanProperty;
 import java.beans.PropertyChangeEvent;
 
@@ -75,8 +74,9 @@ public class PanelWidgetPump extends AbstractPanelWidget {
         jButtonSuctionClose = new javax.swing.JButton();
         jButtonSuctionOpen = new javax.swing.JButton();
         jLabelCaptionSuction = new javax.swing.JLabel();
-        jLabelCaptionPump = new javax.swing.JLabel();
         jToggleButtonPump = new javax.swing.JToggleButton();
+        lightBulbReady = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbInService = new com.hartrusion.rbmksim.gui.elements.LightBulb();
 
         setMinimumSize(new java.awt.Dimension(52, 109));
         setPreferredSize(new java.awt.Dimension(52, 109));
@@ -142,14 +142,6 @@ public class PanelWidgetPump extends AbstractPanelWidget {
         jLabelCaptionSuction.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSuction, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 37, 51, 14));
 
-        jLabelCaptionPump.setFont(jLabelCaptionPump.getFont().deriveFont(jLabelCaptionPump.getFont().getSize()-2f));
-        jLabelCaptionPump.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump.setText("Pump");
-        jLabelCaptionPump.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 73, 52, 14));
-
         jToggleButtonPump.setText("←");
         jToggleButtonPump.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonPump.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +149,13 @@ public class PanelWidgetPump extends AbstractPanelWidget {
                 jToggleButtonPumpActionPerformed(evt);
             }
         });
-        add(jToggleButtonPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 88, 22, 20));
+        add(jToggleButtonPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 86, 22, 20));
+
+        lightBulbReady.setForeground(new java.awt.Color(0, 255, 0));
+        add(lightBulbReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 77, -1, -1));
+
+        lightBulbInService.setForeground(new java.awt.Color(255, 0, 0));
+        add(lightBulbInService, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 77, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDischargeCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDischargeCloseActionPerformed
@@ -191,10 +189,11 @@ public class PanelWidgetPump extends AbstractPanelWidget {
     private javax.swing.JButton jButtonDischargeOpen;
     private javax.swing.JButton jButtonSuctionClose;
     private javax.swing.JButton jButtonSuctionOpen;
-    private javax.swing.JLabel jLabelCaptionPump;
     private javax.swing.JLabel jLabelCaptionSuction;
     private javax.swing.JLabel jLabelDischarge;
     private javax.swing.JToggleButton jToggleButtonPump;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -215,10 +214,31 @@ public class PanelWidgetPump extends AbstractPanelWidget {
             case "Pump_State":
                 // Write the pump state back to the button as we might have an
                 // initial state that is on.
-                if (PumpState.RUNNING == (PumpState) evt.getNewValue()) {
+                if (PumpState.RUNNING == (PumpState) evt.getNewValue()
+                        && !jToggleButtonPump.isSelected()) {
                     jToggleButtonPump.setSelected(true);
                     jToggleButtonPump.setText("↑");
                 }
+                // Switch the little lights on top of the switch
+                switch ((PumpState) evt.getNewValue()) {
+                    case OFFLINE -> {
+                        lightBulbReady.setActive(false);
+                        lightBulbInService.setActive(false);
+                    }
+                    case READY -> {
+                        lightBulbReady.setActive(true);
+                        lightBulbInService.setActive(false);
+                    }
+                    case STARTUP -> {
+                        lightBulbReady.setActive(true);
+                        lightBulbInService.setActive(true);
+                    }
+                    case RUNNING -> {
+                        lightBulbReady.setActive(false);
+                        lightBulbInService.setActive(true);
+                    }
+                }
+                
                 break;
 
         }
