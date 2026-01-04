@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.PIControl;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -116,7 +117,16 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private final SerialRunner alarmUpdater = new SerialRunner();
 
-    private boolean rpsEnabled = true;
+    /**
+     * Holds the state of the Reactor protection system, uses the ControlCommand
+     * which is used usually by control loops as a variable.
+     */
+    private ControlCommand rps = ControlCommand.AUTOMATIC;
+    private ControlCommand oldRps = null;
+
+    /**
+     * Active in terms of not allowing the reactor to go critical.
+     */
     private boolean rpsActive = false;
     private boolean oldRpsActive = false; // previous value
 
@@ -374,6 +384,13 @@ public class ReactorCore extends Subsystem implements Runnable {
         graphiteModel.run();
 
         alarmUpdater.invokeAll();
+        
+        // Send the RPS state to controller
+        if (rps != oldRps) {
+            controller.propertyChange(new PropertyChangeEvent(
+                this, "Reactor#RPSState", oldRps, rps));
+            oldRps = rps;
+        }
 
         // Send the RPS alarm message on change
         if (rpsActive != oldRpsActive) {
@@ -436,8 +453,13 @@ public class ReactorCore extends Subsystem implements Runnable {
             return;
         }
         if (ac.getPropertyName().equals("Reactor#RPS")) {
-            rpsEnabled = (boolean) ac.getValue();
-            if (!rpsEnabled) {
+            // translate boolean on/off into ControlCommand state
+            if ((boolean) ac.getValue()) {
+                rps = ControlCommand.AUTOMATIC;
+            } else {
+                rps = ControlCommand.MANUAL_OPERATION;
+            }
+            if (rps.equals(ControlCommand.MANUAL_OPERATION)) {
                 rpsActive = false; // skip the need for reset when turning off
             } else {
                 // When switching on, check conditions if reactor can be
@@ -800,7 +822,7 @@ public class ReactorCore extends Subsystem implements Runnable {
      * be overridden however.
      */
     public void triggerAutoShutdown() {
-        if (!rpsEnabled) {
+        if (rps.equals(ControlCommand.MANUAL_OPERATION)) {
             return;
         }
         shutdown();
