@@ -40,6 +40,11 @@ public class ControlRod extends ReactorElement implements Runnable {
      */
     private final double[] rodSpeeds = {0.1, 0.2, 0.3, 0.331};
     private int rodSpeedIndex = 1;
+    
+    /**
+     * Position will be sent as parameter with this name.
+     */
+    private String positionIdentifier;
 
     public ChannelType getRodType() {
         return rodType;
@@ -64,6 +69,8 @@ public class ControlRod extends ReactorElement implements Runnable {
     private boolean selected;
 
     private boolean automatic;
+    
+    private String positionParameter;
 
     public ControlRod(int x, int y, ChannelType rodType) {
         super(x, y);
@@ -78,6 +85,10 @@ public class ControlRod extends ReactorElement implements Runnable {
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
         swi.setLowerLimit(0.0);
         swi.setUpperLimit(8.1);
+        
+        // Generate a designator for the rod positions parameter. identifier 
+        // was written in super call of this constructor.
+        positionParameter = "Reactor#RodPosition" + identifier;
     }
 
     @Override
@@ -85,6 +96,9 @@ public class ControlRod extends ReactorElement implements Runnable {
         swi.run();
         calculateAbsorption();
         calculateDisplacerBoost();
+        
+        // Send the current position as parameter
+        outputValues.setParameterValue(positionParameter, swi.getOutput());
     }
 
     /**

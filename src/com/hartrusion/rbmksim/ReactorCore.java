@@ -287,9 +287,6 @@ public class ReactorCore extends Subsystem implements Runnable {
             }
 
             rod.run(); // update all rods
-            // Send new position values to GUI
-            String propName = "Reactor#RodPosition" + rod.getIdentifier();
-            outputValues.setParameterValue(propName, rod.getSwi().getOutput());
         }
 
         // Calculate total absorption and average rod position
@@ -893,5 +890,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         setpointTargetNeutronFlux.registerParameterHandler(output);
         setpointNeutronFlux.registerParameterHandler(output);
         setpointPowerGradient.registerParameterHandler(output);
+        for (ControlRod r : controlRods) {
+            r.registerValueHandler(output);
+        }
     }
 }

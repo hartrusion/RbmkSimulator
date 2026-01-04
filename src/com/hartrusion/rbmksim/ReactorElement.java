@@ -16,6 +16,10 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.values.ValueHandler;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 /**
  * Provides common properties of an element that is part of the reactor core.
  *
@@ -23,12 +27,29 @@ package com.hartrusion.rbmksim;
  */
 public abstract class ReactorElement {
 
+    /**
+     * Receives property changes from this reactor element.
+     */
+    protected final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    /**
+     * Instance that gets values written from this element.
+     */
+    protected ValueHandler outputValues;
+
     private int x;
     private int y;
+
+    /**
+     * Merged number that identifies the element, for element 21-34 it will be
+     * 2134.
+     */
+    protected int identifier;
 
     ReactorElement(int x, int y) {
         this.x = x;
         this.y = y;
+        identifier = 100 * x + y;
     }
 
     public int getX() {
@@ -38,13 +59,33 @@ public abstract class ReactorElement {
     public int getY() {
         return y;
     }
-    
+
     public int getIdentifier() {
-        return 100 * x + y;
+        return identifier;
     }
 
     @Override
     public String toString() {
         return "element_" + x + "-" + y;
+    }
+
+    /**
+     * Makes the signal listener instance known to this class.
+     *
+     * @param signalListener Instance that will receive the event changes from
+     * valves and pumps.
+     */
+    public void registerSignalListener(PropertyChangeListener signalListener) {
+        pcs.addPropertyChangeListener(signalListener);
+    }
+
+    /**
+     * Sets a ParameterHandler that will get the valve position on each run
+     * call.
+     *
+     * @param h reference to ParameterHandler
+     */
+    public void registerValueHandler(ValueHandler h) {
+        outputValues = h;
     }
 }
