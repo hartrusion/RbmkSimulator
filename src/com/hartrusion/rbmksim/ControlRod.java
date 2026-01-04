@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.SetpointIntegrator;
 
 /**
@@ -40,11 +41,6 @@ public class ControlRod extends ReactorElement implements Runnable {
      */
     private final double[] rodSpeeds = {0.1, 0.2, 0.3, 0.331};
     private int rodSpeedIndex = 1;
-    
-    /**
-     * Position will be sent as parameter with this name.
-     */
-    private String positionIdentifier;
 
     public ChannelType getRodType() {
         return rodType;
@@ -66,11 +62,25 @@ public class ControlRod extends ReactorElement implements Runnable {
         return swi;
     }
 
+    /**
+     * The rod is selected - this is more of a tag. Selections are done on the
+     * rod control panel but they are happening at the rods, not at the view
+     * level.
+     */
     private boolean selected;
 
-    private boolean automatic;
-    
-    private String positionParameter;
+    private ControlCommand automatic = ControlCommand.MANUAL_OPERATION;
+    private ControlCommand oldAutomatic = null;
+
+    /**
+     * Name of the parameter that is this rods position
+     */
+    private final String positionParameter;
+
+    /**
+     * Property Change Event description which describes the control state.
+     */
+    private final String controlStateProperty;
 
     public ControlRod(int x, int y, ChannelType rodType) {
         super(x, y);
@@ -85,10 +95,11 @@ public class ControlRod extends ReactorElement implements Runnable {
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
         swi.setLowerLimit(0.0);
         swi.setUpperLimit(8.1);
-        
+
         // Generate a designator for the rod positions parameter. identifier 
         // was written in super call of this constructor.
         positionParameter = "Reactor#RodPosition" + identifier;
+        controlStateProperty = "Reactor#RodControl" + identifier;
     }
 
     @Override
@@ -96,9 +107,16 @@ public class ControlRod extends ReactorElement implements Runnable {
         swi.run();
         calculateAbsorption();
         calculateDisplacerBoost();
-        
+
         // Send the current position as parameter
         outputValues.setParameterValue(positionParameter, swi.getOutput());
+
+        // Send the control state to registered listeners
+        if (automatic != oldAutomatic) {
+            pcs.firePropertyChange(controlStateProperty, 
+                    oldAutomatic, automatic);
+            oldAutomatic = automatic;
+        }
     }
 
     /**
@@ -230,13 +248,18 @@ public class ControlRod extends ReactorElement implements Runnable {
     }
 
     public boolean isAutomatic() {
-        return automatic;
+        return automatic.equals(ControlCommand.AUTOMATIC);
     }
 
     public void setAutomatic(boolean automatic) {
-        rodSpeedIndex = 2; // allow fast speed for auto
-        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
-        this.automatic = automatic;
+        if (automatic) {
+            this.automatic = ControlCommand.AUTOMATIC;
+            rodSpeedIndex = 2; // allow fast speed for auto
+            swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+        } else {
+            this.automatic = ControlCommand.MANUAL_OPERATION;
+        }
+
     }
 
     public void rodSpeedIncrease() {

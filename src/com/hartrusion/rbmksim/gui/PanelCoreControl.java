@@ -174,6 +174,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3137 = new javax.swing.JLabel();
         jLabelCaption3125 = new javax.swing.JLabel();
         jLabelCaption3731 = new javax.swing.JLabel();
+        lightBulb3731 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulb3125 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulb3131 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulb3137 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulb2531 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jPanel4 = new javax.swing.JPanel();
         jToggleButton3428 = new javax.swing.JToggleButton();
         jLabelCaption3428 = new javax.swing.JLabel();
@@ -1313,7 +1318,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jToggleButton3731ActionPerformed(evt);
             }
         });
-        jPanel3.add(jToggleButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 20, 22, -1));
+        jPanel3.add(jToggleButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 20, 22, -1));
 
         jToggleButton3125.setFont(jToggleButton3125.getFont().deriveFont(jToggleButton3125.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3125.setText("←");
@@ -1333,7 +1338,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jToggleButton3137ActionPerformed(evt);
             }
         });
-        jPanel3.add(jToggleButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 58, 22, -1));
+        jPanel3.add(jToggleButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 58, 22, -1));
 
         jToggleButton3131.setFont(jToggleButton3131.getFont().deriveFont(jToggleButton3131.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3131.setText("←");
@@ -1343,7 +1348,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jToggleButton3131ActionPerformed(evt);
             }
         });
-        jPanel3.add(jToggleButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 58, 22, -1));
+        jPanel3.add(jToggleButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 58, 22, -1));
 
         jToggleButton2531.setFont(jToggleButton2531.getFont().deriveFont(jToggleButton2531.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton2531.setText("←");
@@ -1353,7 +1358,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jToggleButton2531ActionPerformed(evt);
             }
         });
-        jPanel3.add(jToggleButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 96, 22, -1));
+        jPanel3.add(jToggleButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 96, 22, -1));
 
         jLabelCaption2531.setFont(jLabelCaption2531.getFont().deriveFont(jLabelCaption2531.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2531.getFont().getSize()-2));
         jLabelCaption2531.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1361,7 +1366,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption2531.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2531.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2531.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel3.add(jLabelCaption2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 82, 36, -1));
+        jPanel3.add(jLabelCaption2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 82, 36, -1));
 
         jLabelCaption3131.setFont(jLabelCaption3131.getFont().deriveFont(jLabelCaption3131.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3131.getFont().getSize()-2));
         jLabelCaption3131.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1369,7 +1374,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3131.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3131.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3131.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel3.add(jLabelCaption3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 44, 36, -1));
+        jPanel3.add(jLabelCaption3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 44, 36, -1));
 
         jLabelCaption3137.setFont(jLabelCaption3137.getFont().deriveFont(jLabelCaption3137.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3137.getFont().getSize()-2));
         jLabelCaption3137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1377,7 +1382,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3137.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3137.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3137.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel3.add(jLabelCaption3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 44, 36, -1));
+        jPanel3.add(jLabelCaption3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 44, 36, -1));
 
         jLabelCaption3125.setFont(jLabelCaption3125.getFont().deriveFont(jLabelCaption3125.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3125.getFont().getSize()-2));
         jLabelCaption3125.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1385,7 +1390,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3125.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3125.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3125.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel3.add(jLabelCaption3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 44, 36, -1));
+        jPanel3.add(jLabelCaption3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 44, 36, -1));
 
         jLabelCaption3731.setFont(jLabelCaption3731.getFont().deriveFont(jLabelCaption3731.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3731.getFont().getSize()-2));
         jLabelCaption3731.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1393,9 +1398,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3731.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3731.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3731.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel3.add(jLabelCaption3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 4, 36, -1));
+        jPanel3.add(jLabelCaption3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 4, 36, -1));
+        jPanel3.add(lightBulb3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 27, -1, -1));
+        jPanel3.add(lightBulb3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 65, -1, -1));
+        jPanel3.add(lightBulb3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 65, -1, -1));
+        jPanel3.add(lightBulb3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 65, -1, -1));
+        jPanel3.add(lightBulb2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 103, -1, -1));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 84, 116, 124));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 84, 126, 124));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2051,6 +2061,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JToggleButton jToggleButtonGlobalAuto2;
     private javax.swing.JToggleButton jToggleButtonLocalAuto;
     private javax.swing.JToggleButton jToggleButtonRPS;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulb2531;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulb3125;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulb3131;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulb3137;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulb3731;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlNeutronFlux;
     // End of variables declaration//GEN-END:variables
 
@@ -2101,12 +2116,39 @@ public class PanelCoreControl extends AbstractPanelWidget {
                         && !jToggleButtonRPS.isSelected()) {
                     jToggleButtonRPS.setSelected(true);
                     jToggleButtonRPS.setText("↑");
-                } /* else if (ControlCommand.MANUAL_OPERATION
+                }
+                /* else if (ControlCommand.MANUAL_OPERATION
                         == (ControlCommand) evt.getNewValue()
                         && jToggleButtonRPS.isSelected()) {
                     jToggleButtonRPS.setSelected(true);
                     jToggleButtonRPS.setText("←");
                 } */
+                break;
+            case "Reactor#RodControl3731":
+                lightBulb3731.setActive(
+                        ((ControlCommand) evt.getNewValue())
+                                .equals(ControlCommand.AUTOMATIC));
+                break;
+            case "Reactor#RodControl3125":
+                lightBulb3125.setActive(
+                        ((ControlCommand) evt.getNewValue())
+                                .equals(ControlCommand.AUTOMATIC));
+                break;
+            case "Reactor#RodControl3131":
+                lightBulb3131.setActive(
+                        ((ControlCommand) evt.getNewValue())
+                                .equals(ControlCommand.AUTOMATIC));
+                break;
+            case "Reactor#RodControl3137":
+                lightBulb3137.setActive(
+                        ((ControlCommand) evt.getNewValue())
+                                .equals(ControlCommand.AUTOMATIC));
+                break;
+            case "Reactor#RodControl2531":
+                lightBulb2531.setActive(
+                        ((ControlCommand) evt.getNewValue())
+                                .equals(ControlCommand.AUTOMATIC));
+                break;
         }
     }
 

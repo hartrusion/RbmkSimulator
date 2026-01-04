@@ -276,6 +276,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                     && rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
                     && rod.isAutomatic()) {
                 if (globalControlOverride) {
+                    // The press of the override button will move the rods
+                    // with current speed while this button is held down, the 
+                    // controller will be in followup mode and set to the 
+                    // position output.
                     if (globalControlOverridePositive) {
                         rod.getSwi().setInput(0);
                     } else {
@@ -284,8 +288,14 @@ public class ReactorCore extends Subsystem implements Runnable {
                 } else {
                     rod.getSwi().setInput(globalControl.getOutput());
                 }
+            } else if (!globalControlEnabled
+                    && rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
+                    && rod.isAutomatic()) {
+                // disable automatic mode selection for all rods when
+                // global control is disabled. This means the operator has to
+                // re-select them each time.
+                rod.setAutomatic(false);
             }
-
             rod.run(); // update all rods
         }
 
@@ -381,11 +391,11 @@ public class ReactorCore extends Subsystem implements Runnable {
         graphiteModel.run();
 
         alarmUpdater.invokeAll();
-        
+
         // Send the RPS state to controller
         if (rps != oldRps) {
             controller.propertyChange(new PropertyChangeEvent(
-                this, "Reactor#RPSState", oldRps, rps));
+                    this, "Reactor#RPSState", oldRps, rps));
             oldRps = rps;
         }
 
@@ -472,11 +482,16 @@ public class ReactorCore extends Subsystem implements Runnable {
             // allow reset only after rods are in and there's no neutron flux.
             if (checkRpsDisengage()) {
                 rpsActive = false;
+            } else {
+                LOGGER.log(Level.INFO, "Command refused, RPS still active.");
             }
         }
         if (ac.getPropertyName().equals("Reactor#GlobalControlEnabled")) {
             if (!rpsActive) {
                 globalControlEnabled = (boolean) ac.getValue();
+            } else if ((boolean) ac.getValue()) {
+                // rps is present and trying to switch on global control:
+                LOGGER.log(Level.INFO, "Command refused due to RPS active");
             }
             return;
         }
@@ -485,6 +500,9 @@ public class ReactorCore extends Subsystem implements Runnable {
             if (globalControlRodsAvailable && globalControlEnabled) {
                 globalControlActive = true;
                 LOGGER.log(Level.INFO, "Global Control activated.");
+            } else {
+                LOGGER.log(Level.INFO, "Command refused (not enabled or no"
+                        + " rods in auto mode).");
             }
             return;
         }
@@ -495,6 +513,9 @@ public class ReactorCore extends Subsystem implements Runnable {
                 globalControlTransient = (boolean) ac.getValue();
                 LOGGER.log(Level.INFO, "Global Control Transient: "
                         + globalControlTransient);
+            } else {
+                LOGGER.log(Level.INFO, "Command refused (Global Control not "
+                        + "enabled.");
             }
             return;
         }
@@ -505,6 +526,9 @@ public class ReactorCore extends Subsystem implements Runnable {
                 globalControlTarget = (boolean) ac.getValue();
                 LOGGER.log(Level.INFO, "Global Control Target: "
                         + globalControlTarget);
+            } else {
+                LOGGER.log(Level.INFO, "Command refused (Global Control not "
+                        + "enabled.");
             }
             return;
         }
@@ -537,14 +561,17 @@ public class ReactorCore extends Subsystem implements Runnable {
                         new PropertyChangeEvent(this, propertyName,
                                 null, identifier));
                 break;
-            case "Reactor#RodAutoEnable": // Manual selection of single rod
+            case "Reactor#RodAutoEnable": // Global control Auto selection
+                if (!globalControlEnabled) {
+                    break;
+                }
                 identifier = (int) ac.getValue();
                 x = identifier / 100;
                 y = identifier % 100;
                 rod = (ControlRod) getElement(x, y);
                 rod.setAutomatic(true);
                 break;
-            case "Reactor#RodAutoDisable": // Manual selection of single rod
+            case "Reactor#RodAutoDisable": // Global control Auto selection
                 identifier = (int) ac.getValue();
                 x = identifier / 100;
                 y = identifier % 100;
@@ -880,8 +907,13 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     @Override
     public void registerController(ModelListener controller) {
+        // Will be called after init() - note that it is the other way round in
+        // the ThermalLayout!
         super.registerController(controller);
         globalControl.addPropertyChangeListener(controller);
+        for (ControlRod r : controlRods) {
+            r.registerSignalListener(controller);
+        }
     }
 
     @Override

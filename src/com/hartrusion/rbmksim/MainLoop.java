@@ -49,6 +49,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             core.registerAlarmManager(alarms);
             core.init();
             core.registerParameterOutput(outputValues);
+            core.registerController(controller);
 
             process.registerReactor(core);
             process.registerParameterOutput(outputValues);
