@@ -99,21 +99,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButtonClearSelection = new javax.swing.JButton();
         jLabelCaptionAZ5 = new javax.swing.JLabel();
         jButtonAz5 = new javax.swing.JButton();
-        jLabelCaptionNeutronFlux1 = new javax.swing.JLabel();
-        jLabelCaptionNeutronFlux2 = new javax.swing.JLabel();
-        chornobylGaugeNeutronFlux = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelCaptionFlugLog1 = new javax.swing.JLabel();
-        jLabelCaptionFlugLog2 = new javax.swing.JLabel();
-        chornobylGaugeFluxLog = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelCaptionNeutronSetpoint1 = new javax.swing.JLabel();
-        jLabelCaptionNeutronSetpoint2 = new javax.swing.JLabel();
-        chornobylGaugeNeutronSetpoint = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabelCaptionControlGradient1 = new javax.swing.JLabel();
         jLabelCaptionControlGradient2 = new javax.swing.JLabel();
         chornobylGaugControlGradient = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelCaptionGaugeNeutronRate1 = new javax.swing.JLabel();
-        jLabelCaptionGaugeNeutronRate2 = new javax.swing.JLabel();
-        chornobylGaugeNeutronRate = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabelCaptionThermalPower2 = new javax.swing.JLabel();
         jLabelCaptionThermalPowerUnit = new javax.swing.JLabel();
         jLabelCaptionThermalPower1 = new javax.swing.JLabel();
@@ -195,6 +183,17 @@ public class PanelCoreControl extends AbstractPanelWidget {
         lightBulbGlobalTransient = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalTarget = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalActive = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelReadingFlux = new javax.swing.JLabel();
+        jLabelReadingKeff = new javax.swing.JLabel();
+        jLabelCaption4 = new javax.swing.JLabel();
+        jLabelReading1 = new javax.swing.JLabel();
+        jLabelCaption5 = new javax.swing.JLabel();
+        jLabelCaption6 = new javax.swing.JLabel();
+        jLabelReadingFluxLog = new javax.swing.JLabel();
+        jLabelCaption7 = new javax.swing.JLabel();
+        jLabelReadingRate = new javax.swing.JLabel();
+        jLabelCaption8 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(574, 340));
         setMinimumSize(new java.awt.Dimension(574, 340));
@@ -764,78 +763,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         });
         add(jButtonAz5, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 98, 18, 18));
 
-        jLabelCaptionNeutronFlux1.setFont(jLabelCaptionNeutronFlux1.getFont().deriveFont(jLabelCaptionNeutronFlux1.getFont().getSize()-2f));
-        jLabelCaptionNeutronFlux1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionNeutronFlux1.setText("Neutron");
-        jLabelCaptionNeutronFlux1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronFlux1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronFlux1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionNeutronFlux1, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
-
-        jLabelCaptionNeutronFlux2.setFont(jLabelCaptionNeutronFlux2.getFont().deriveFont(jLabelCaptionNeutronFlux2.getFont().getSize()-2f));
-        jLabelCaptionNeutronFlux2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionNeutronFlux2.setText("Flux");
-        jLabelCaptionNeutronFlux2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronFlux2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronFlux2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionNeutronFlux2, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
-
-        chornobylGaugeNeutronFlux.setChornobylTicks(new float[] {0.0f, 25.0f, 50.0f, 75.0f, 100.0f});
-        chornobylGaugeNeutronFlux.setChornobylUnitText("%N");
-        add(chornobylGaugeNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
-
-        jLabelCaptionFlugLog1.setFont(jLabelCaptionFlugLog1.getFont().deriveFont(jLabelCaptionFlugLog1.getFont().getSize()-2f));
-        jLabelCaptionFlugLog1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionFlugLog1.setText("Flux");
-        jLabelCaptionFlugLog1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionFlugLog1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionFlugLog1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionFlugLog1, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 34, 52, 14));
-
-        jLabelCaptionFlugLog2.setFont(jLabelCaptionFlugLog2.getFont().deriveFont(jLabelCaptionFlugLog2.getFont().getSize()-2f));
-        jLabelCaptionFlugLog2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionFlugLog2.setText("Log");
-        jLabelCaptionFlugLog2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionFlugLog2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionFlugLog2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionFlugLog2, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 46, 52, 14));
-
-        chornobylGaugeFluxLog.setChornobylMaximum(1.0F);
-        chornobylGaugeFluxLog.setChornobylMinimum(-6.5F);
-        chornobylGaugeFluxLog.setChornobylTicks(new float[] {-5.0f, -3.0f, -1.0f, 0.0f});
-        chornobylGaugeFluxLog.setChornobylUnitText("log");
-        chornobylGaugeFluxLog.setChornobylValue(-6.0F);
-        add(chornobylGaugeFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
-
-        jLabelCaptionNeutronSetpoint1.setFont(jLabelCaptionNeutronSetpoint1.getFont().deriveFont(jLabelCaptionNeutronSetpoint1.getFont().getSize()-2f));
-        jLabelCaptionNeutronSetpoint1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionNeutronSetpoint1.setText("Setpoint");
-        jLabelCaptionNeutronSetpoint1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronSetpoint1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronSetpoint1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionNeutronSetpoint1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
-
-        jLabelCaptionNeutronSetpoint2.setFont(jLabelCaptionNeutronSetpoint2.getFont().deriveFont(jLabelCaptionNeutronSetpoint2.getFont().getSize()-2f));
-        jLabelCaptionNeutronSetpoint2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionNeutronSetpoint2.setText("Neutron");
-        jLabelCaptionNeutronSetpoint2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronSetpoint2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionNeutronSetpoint2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionNeutronSetpoint2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
-
-        chornobylGaugeNeutronSetpoint.setChornobylMaximum(100.0F);
-        chornobylGaugeNeutronSetpoint.setChornobylMinimum(0.0F);
-        chornobylGaugeNeutronSetpoint.setChornobylTicks(new float[] {40.0f, 60.0f, 80.0f, 100.0f});
-        chornobylGaugeNeutronSetpoint.setChornobylUnitText("%N");
-        chornobylGaugeNeutronSetpoint.setChornobylValue(0.0F);
-        add(chornobylGaugeNeutronSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
-
         jLabelCaptionControlGradient1.setFont(jLabelCaptionControlGradient1.getFont().deriveFont(jLabelCaptionControlGradient1.getFont().getSize()-2f));
         jLabelCaptionControlGradient1.setText("Gradient");
         jLabelCaptionControlGradient1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionControlGradient1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionControlGradient1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionControlGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
+        add(jLabelCaptionControlGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
 
         jLabelCaptionControlGradient2.setFont(jLabelCaptionControlGradient2.getFont().deriveFont(jLabelCaptionControlGradient2.getFont().getSize()-2f));
         jLabelCaptionControlGradient2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -843,37 +776,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionControlGradient2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionControlGradient2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionControlGradient2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionControlGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 34, 52, 14));
+        add(jLabelCaptionControlGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
 
-        chornobylGaugControlGradient.setChornobylMaximum(1.0F);
-        chornobylGaugControlGradient.setChornobylMinimum(-0.1F);
-        chornobylGaugControlGradient.setChornobylTicks(new float[] {0.0f, 0.2f, 0.4f, 0.6f, 0.8f});
+        chornobylGaugControlGradient.setChornobylMaximum(0.4F);
+        chornobylGaugControlGradient.setChornobylMinimum(0.0F);
+        chornobylGaugControlGradient.setChornobylTicks(new float[] {0.0f, 0.1f, 0.2f, 0.3f, 0.4f});
         chornobylGaugControlGradient.setChornobylUnitText("%/s");
         chornobylGaugControlGradient.setChornobylValue(0.0F);
-        add(chornobylGaugControlGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
-
-        jLabelCaptionGaugeNeutronRate1.setFont(jLabelCaptionGaugeNeutronRate1.getFont().deriveFont(jLabelCaptionGaugeNeutronRate1.getFont().getSize()-2f));
-        jLabelCaptionGaugeNeutronRate1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionGaugeNeutronRate1.setText("Neutron");
-        jLabelCaptionGaugeNeutronRate1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGaugeNeutronRate1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGaugeNeutronRate1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGaugeNeutronRate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 4, 52, 14));
-
-        jLabelCaptionGaugeNeutronRate2.setFont(jLabelCaptionGaugeNeutronRate2.getFont().deriveFont(jLabelCaptionGaugeNeutronRate2.getFont().getSize()-2f));
-        jLabelCaptionGaugeNeutronRate2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionGaugeNeutronRate2.setText("Rate");
-        jLabelCaptionGaugeNeutronRate2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGaugeNeutronRate2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionGaugeNeutronRate2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionGaugeNeutronRate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 52, 14));
-
-        chornobylGaugeNeutronRate.setChornobylMaximum(5.0F);
-        chornobylGaugeNeutronRate.setChornobylMinimum(-4.0F);
-        chornobylGaugeNeutronRate.setChornobylTicks(new float[] {-2.0f, 0.0f, 2.0f, 4.0f});
-        chornobylGaugeNeutronRate.setChornobylUnitText("10%/s");
-        chornobylGaugeNeutronRate.setChornobylValue(0.0F);
-        add(chornobylGaugeNeutronRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
+        add(chornobylGaugControlGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabelCaptionThermalPower2.setFont(jLabelCaptionThermalPower2.getFont().deriveFont(jLabelCaptionThermalPower2.getFont().getSize()-2f));
         jLabelCaptionThermalPower2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -881,7 +791,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionThermalPower2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPower2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPower2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionThermalPower2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 46, 52, 14));
+        add(jLabelCaptionThermalPower2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
         jLabelCaptionThermalPowerUnit.setFont(jLabelCaptionThermalPowerUnit.getFont().deriveFont(jLabelCaptionThermalPowerUnit.getFont().getSize()-2f));
         jLabelCaptionThermalPowerUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -889,7 +799,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionThermalPowerUnit.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPowerUnit.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPowerUnit.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionThermalPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 40, 26, 14));
+        add(jLabelCaptionThermalPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 40, 26, 14));
 
         jLabelCaptionThermalPower1.setFont(jLabelCaptionThermalPower1.getFont().deriveFont(jLabelCaptionThermalPower1.getFont().getSize()-2f));
         jLabelCaptionThermalPower1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -897,7 +807,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionThermalPower1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPower1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPower1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionThermalPower1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 34, 52, 14));
+        add(jLabelCaptionThermalPower1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 34, 52, 14));
 
         jLabelReadingThermalPower.setBackground(new java.awt.Color(0, 0, 0));
         jLabelReadingThermalPower.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
@@ -905,7 +815,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingThermalPower.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingThermalPower.setText("32000");
         jLabelReadingThermalPower.setOpaque(true);
-        add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 34, 76, 26));
+        add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 34, 76, 26));
 
         jToggleButtonRPS.setFont(jToggleButtonRPS.getFont().deriveFont(jToggleButtonRPS.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonRPS.setText("←");
@@ -1523,6 +1433,116 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(lightBulbGlobalTransient, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 105, -1, -1));
         add(lightBulbGlobalTarget, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 143, -1, -1));
         add(lightBulbGlobalActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 104, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelReadingFlux.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelReadingFlux.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingFlux.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelReadingFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFlux.setText("___,_");
+        jLabelReadingFlux.setToolTipText("");
+        jLabelReadingFlux.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingFlux.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingFlux.setOpaque(true);
+        jLabelReadingFlux.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanel1.add(jLabelReadingFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 52, 18));
+
+        jLabelReadingKeff.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingKeff.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingKeff.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingKeff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingKeff.setText("_,___");
+        jLabelReadingKeff.setToolTipText("");
+        jLabelReadingKeff.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingKeff.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingKeff.setOpaque(true);
+        jLabelReadingKeff.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanel1.add(jLabelReadingKeff, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 6, 52, 18));
+
+        jLabelCaption4.setFont(jLabelCaption4.getFont().deriveFont(jLabelCaption4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption4.getFont().getSize()-3));
+        jLabelCaption4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaption4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaption4.setText("k_Eff");
+        jLabelCaption4.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption4.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption4.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 8, 32, 14));
+
+        jLabelReading1.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReading1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReading1.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReading1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReading1.setText("-_,____");
+        jLabelReading1.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReading1.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReading1.setOpaque(true);
+        jLabelReading1.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanel1.add(jLabelReading1, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 30, 64, 18));
+
+        jLabelCaption5.setFont(jLabelCaption5.getFont().deriveFont(jLabelCaption5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption5.getFont().getSize()-3));
+        jLabelCaption5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaption5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption5.setText("N. Flux (%)");
+        jLabelCaption5.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption5.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption5.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 32, 64, 14));
+
+        jLabelCaption6.setFont(jLabelCaption6.getFont().deriveFont(jLabelCaption6.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption6.getFont().getSize()-3));
+        jLabelCaption6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaption6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaption6.setText("Reactivity");
+        jLabelCaption6.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption6.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption6.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 32, 58, 14));
+
+        jLabelReadingFluxLog.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelReadingFluxLog.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingFluxLog.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelReadingFluxLog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingFluxLog.setText("-_,__");
+        jLabelReadingFluxLog.setToolTipText("");
+        jLabelReadingFluxLog.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingFluxLog.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingFluxLog.setOpaque(true);
+        jLabelReadingFluxLog.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanel1.add(jLabelReadingFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 12, 52, 18));
+
+        jLabelCaption7.setFont(jLabelCaption7.getFont().deriveFont(jLabelCaption7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption7.getFont().getSize()-3));
+        jLabelCaption7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaption7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption7.setText("Flux log");
+        jLabelCaption7.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption7.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption7.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaption7, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 32, 64, 14));
+
+        jLabelReadingRate.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelReadingRate.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingRate.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelReadingRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingRate.setText("-__,__");
+        jLabelReadingRate.setToolTipText("");
+        jLabelReadingRate.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingRate.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingRate.setOpaque(true);
+        jLabelReadingRate.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanel1.add(jLabelReadingRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 12, 52, 18));
+
+        jLabelCaption8.setFont(jLabelCaption8.getFont().deriveFont(jLabelCaption8.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption8.getFont().getSize()-3));
+        jLabelCaption8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaption8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption8.setText("Rate (10%/s)");
+        jLabelCaption8.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption8.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption8.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaption8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 32, 64, 14));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 6, 364, 54));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4028ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4028ActionPerformed
@@ -1936,10 +1956,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugControlGradient;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFluxLog;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeNeutronFlux;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeNeutronRate;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeNeutronSetpoint;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private javax.swing.JButton jButton2228;
     private javax.swing.JButton jButton2231;
@@ -2010,15 +2026,16 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaption3428;
     private javax.swing.JLabel jLabelCaption3434;
     private javax.swing.JLabel jLabelCaption3731;
+    private javax.swing.JLabel jLabelCaption4;
+    private javax.swing.JLabel jLabelCaption5;
+    private javax.swing.JLabel jLabelCaption6;
+    private javax.swing.JLabel jLabelCaption7;
+    private javax.swing.JLabel jLabelCaption8;
     private javax.swing.JLabel jLabelCaptionAZ5;
     private javax.swing.JLabel jLabelCaptionAutomaticRods;
     private javax.swing.JLabel jLabelCaptionControlGradient1;
     private javax.swing.JLabel jLabelCaptionControlGradient2;
     private javax.swing.JLabel jLabelCaptionCoreDisplay;
-    private javax.swing.JLabel jLabelCaptionFlugLog1;
-    private javax.swing.JLabel jLabelCaptionFlugLog2;
-    private javax.swing.JLabel jLabelCaptionGaugeNeutronRate1;
-    private javax.swing.JLabel jLabelCaptionGaugeNeutronRate2;
     private javax.swing.JLabel jLabelCaptionGlobalAuto;
     private javax.swing.JLabel jLabelCaptionGlobalAuto1;
     private javax.swing.JLabel jLabelCaptionGlobalControl;
@@ -2028,10 +2045,6 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionLocalAuto;
     private javax.swing.JLabel jLabelCaptionLocalControl;
     private javax.swing.JLabel jLabelCaptionLocalRest;
-    private javax.swing.JLabel jLabelCaptionNeutronFlux1;
-    private javax.swing.JLabel jLabelCaptionNeutronFlux2;
-    private javax.swing.JLabel jLabelCaptionNeutronSetpoint1;
-    private javax.swing.JLabel jLabelCaptionNeutronSetpoint2;
     private javax.swing.JLabel jLabelCaptionRPS;
     private javax.swing.JLabel jLabelCaptionRPSActive;
     private javax.swing.JLabel jLabelCaptionRPSReset;
@@ -2047,8 +2060,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionThermalPower1;
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
+    private javax.swing.JLabel jLabelReading1;
+    private javax.swing.JLabel jLabelReadingFlux;
+    private javax.swing.JLabel jLabelReadingFluxLog;
+    private javax.swing.JLabel jLabelReadingKeff;
+    private javax.swing.JLabel jLabelReadingRate;
     private javax.swing.JLabel jLabelReadingThermalPower;
     private javax.swing.JLabel jLabelRodControl;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelAutoRodSelection;
     private javax.swing.JPanel jPanelRodUpDownControls;
@@ -2176,7 +2195,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                                 .equals(ControlCommand.AUTOMATIC));
                 // Initialize the position of the switch button:
                 if (((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC)
+                        .equals(ControlCommand.AUTOMATIC)
                         && !jToggleButton3137.isSelected()) {
                     jToggleButton3137.setSelected(true);
                     jToggleButton3137.setText("↑");
@@ -2188,7 +2207,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                                 .equals(ControlCommand.AUTOMATIC));
                 // Initialize the position of the switch button:
                 if (((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC)
+                        .equals(ControlCommand.AUTOMATIC)
                         && !jToggleButton2531.isSelected()) {
                     jToggleButton2531.setSelected(true);
                     jToggleButton2531.setText("↑");
@@ -2197,8 +2216,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#GlobalControlEnabled":
                 lightBulbGlobalEnabled.setActive((boolean) evt.getNewValue());
                 // Initialize the position of the switch button:
-                if ((boolean) evt.getNewValue() && 
-                        !jToggleButtonGlobalEnable.isSelected()) {
+                if ((boolean) evt.getNewValue()
+                        && !jToggleButtonGlobalEnable.isSelected()) {
                     jToggleButtonGlobalEnable.setSelected(true);
                     jToggleButtonGlobalEnable.setText("↑");
                 }
@@ -2209,8 +2228,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#GlobalControlTransient":
                 lightBulbGlobalTransient.setActive((boolean) evt.getNewValue());
                 // Initialize the position of the switch button:
-                if ((boolean) evt.getNewValue() && 
-                        !jToggleButtonGlobalTransient.isSelected()) {
+                if ((boolean) evt.getNewValue()
+                        && !jToggleButtonGlobalTransient.isSelected()) {
                     jToggleButtonGlobalTransient.setSelected(true);
                     jToggleButtonGlobalTransient.setText("↑");
                 }
@@ -2218,8 +2237,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#GlobalControlTarget":
                 lightBulbGlobalTarget.setActive((boolean) evt.getNewValue());
                 // Initialize the position of the switch button:
-                if ((boolean) evt.getNewValue() && 
-                        !jToggleButtonGlobalTarget.isSelected()) {
+                if ((boolean) evt.getNewValue()
+                        && !jToggleButtonGlobalTarget.isSelected()) {
                     jToggleButtonGlobalTarget.setSelected(true);
                     jToggleButtonGlobalTarget.setText("↑");
                 }
@@ -2236,16 +2255,26 @@ public class PanelCoreControl extends AbstractPanelWidget {
     public void updateComponent(String propertyName, double newValue) {
         switch (propertyName) {
             case "Reactor#NeutronFlux" ->
-                chornobylGaugeNeutronFlux.setChornobylValue((float) newValue);
+                jLabelReadingFlux.setText(String.format("%5.1f", newValue));
             case "Reactor#NeutronFluxLog" ->
-                chornobylGaugeFluxLog.setChornobylValue((float) newValue);
+                jLabelReadingFluxLog.setText(String.format("%.2f", newValue));
+            case "Reactor#k" ->
+                jLabelReadingKeff.setText(
+                        String.format("%+.4f", newValue)
+                                .replaceFirst("^\\+", " "));
+            case "Reactor#Reactivity" ->
+                jLabelReading1.setText(
+                        String.format("%+.4f", newValue)
+                                .replaceFirst("^\\+", " "));
             case "Reactor#NeutronRate" ->
-                chornobylGaugeNeutronRate.setChornobylValue((float) newValue);
+                jLabelReadingRate.setText(
+                        String.format("%+.2f", newValue)
+                                .replaceFirst("^\\+", " "));
             case "Reactor#ThermalPower" ->
                 jLabelReadingThermalPower.setText(
                         String.format("%05d", Math.round(newValue)));
-            case "Reactor#SetpointNeutronFlux" ->
-                chornobylGaugeNeutronSetpoint.setChornobylValue((float) newValue);
+//            case "Reactor#SetpointNeutronFlux" ->
+//                chornobylGaugeNeutronSetpoint.setChornobylValue((float) newValue);
             case "Reactor#SetpointPowerGradient" ->
                 chornobylGaugControlGradient.setChornobylValue((float) newValue);
         }
