@@ -85,6 +85,8 @@ public class NeutronFluxModel implements Runnable {
      */
     private final double K_REACTIVITY = 0.0005;
 
+    private final double MIN_NEUTRON_FLUX = 0;
+
     /**
      * The return value of criticalityFunction will be multiplied by this,
      * defining the integration speed of the neutron flux. This is directly
@@ -139,31 +141,16 @@ public class NeutronFluxModel implements Runnable {
     private final double T_DECAY = 100;
 
     /**
-     * Below 1 % Neutron flux, the neutron rate used to calculate the flux by
-     * integration gets multiplied with this factor. At 5 %, the full flux rate
-     * is used, between 1% and 5 % it is going to be interpolated.
-     */
-    private final double STARTUP_FLUX_REDUCTION_FACTOR = 0.06;
-
-    private final double STARTUP_FLUX_REDUCTION_START = 0.5;
-    private final double STARTUP_FLUX_REDUCTION_END = 2.0;
-
-    /**
      * Time constant for filtering the neutron rate output, there is a need for
      * a filtered output for the control feedback.
      */
     private final double T_RATEFILTER = 1.8;
 
-    private final double mRed, bRed; // coefficients for linear interpolation
-
     /**
-     * Feedback of flux to reactivity until 8 % flux is reached. Flux value gets
-     * multiplied by this factor and subtracted from the value that will
-     * generate k_Eff.
+     * The positive feedback path of the neutron flux to its own grow rate. This
+     * number is "a" of 1-e^(-a*x).
      */
-    private final double K_FLUXFEEDB_START = 0.00012;
-
-    private final double FLUXFEEDB_MAX = 8.0;
+    private final double A_POSITIVE_FEEDBACK = 2.0;
 
     /**
      * Marks the event of the prompt neutron excursion.
@@ -200,7 +187,7 @@ public class NeutronFluxModel implements Runnable {
     /**
      * State space variable. Delayed part of the criticality.
      */
-    private double xDelayedCriticality = (1 - P_INSTANT);
+    private double xDelayedCriticality = 0.0;
 
     /**
      * State space variable. Helper for realizing the DT1 function.
@@ -233,13 +220,6 @@ public class NeutronFluxModel implements Runnable {
      */
     private double yNeutronFluxLog;
 
-    NeutronFluxModel() {
-        // Calculate coefficients from given coefficient
-        mRed = (1 - STARTUP_FLUX_REDUCTION_FACTOR)
-                / (STARTUP_FLUX_REDUCTION_END - STARTUP_FLUX_REDUCTION_START);
-        bRed = 1.0 - STARTUP_FLUX_REDUCTION_END * mRed;
-    }
-
     @Override
     public void run() {
         double dXNeutronFlux;
@@ -248,48 +228,36 @@ public class NeutronFluxModel implements Runnable {
         double dXFirstDelay;
         double dXDelayedThermalPower;
         double dXNeutronRateDelay;
-        double reactivityDiff, kEff, neutronRate, critFunctionResult,
-                limitedNeutronRate;
+        double reactivity, dynamisedReactivity, critFunctionResult,
+                posFeedbackMultiplier;
+        // Now, first, we will have some values valvulated from the current
+        // state variables and the inputs.
+        // The reactivity coefficient rho:
+        reactivity = (uReactivity - uAbsorberRods) * K_REACTIVITY;
 
-        // Value around 1,0 with same units as k_Eff without any delay.
-        reactivityDiff = (uReactivity - uAbsorberRods) * K_REACTIVITY + 1.0
-                - Math.min(FLUXFEEDB_MAX, xNeutronFlux) * K_FLUXFEEDB_START;
-
-        // Calculate k_Eff
-        // Delayed path:
-        kEff = xDelayedCriticality
+        // Input value of the criticality function which adds the prompt 
+        // excursion and also a fast neutron death. This is the third summizer
+        // on the svg schematic.
+        dynamisedReactivity = xDelayedCriticality
                 // prompt path:
-                + reactivityDiff * P_INSTANT
+                + reactivity * P_INSTANT
                 // DT1 rod lift part:
                 - Math.min(0, // only rod out movement will cause a postiive DT1
                         K_REACTIVITY * K_DIFF_RODS
                         * (uAbsorberRods - xDeltaRods));
 
-        // Raw neutron rate without manipulating it out of k_Eff value
-        critFunctionResult = criticalityFunction(kEff);
-        neutronRate = K_INTEGRAL * critFunctionResult;
+        // Apply the criticality rate 
+        critFunctionResult = criticalityFunction(dynamisedReactivity);
 
-        // Manipulate the actually used neturon rate for startup, requiring to
-        // mess around with the reactor controls for a longer time.
-        if (xNeutronFlux < STARTUP_FLUX_REDUCTION_END && neutronRate >= 0.0) {
-            if (xNeutronFlux < STARTUP_FLUX_REDUCTION_START) {
-                dXNeutronFlux = STARTUP_FLUX_REDUCTION_FACTOR * neutronRate;
-            } else {
-                dXNeutronFlux = (mRed * xNeutronFlux + bRed) * neutronRate;
-            }
-        } else {
-            dXNeutronFlux = neutronRate;
-        }
+        // This is the input on the multiplier block that is used to generate 
+        // the positive feedback behavior in the beginning
+        posFeedbackMultiplier = 1.0 - Math.exp(
+                -A_POSITIVE_FEEDBACK * xNeutronFlux);
 
-        // generate a manipulated neutron rate for output that does go less than
-        // 0 if there is no reaction with unit 10%/s
-        if (xNeutronFlux > 0.0) {
-            limitedNeutronRate = dXNeutronFlux * 10;
-        } else { // no negative rate if flux reached 0.0
-            limitedNeutronRate = 0;
-        }
+        // Generate the diff inputs for the integral blocks
+        dXNeutronFlux = K_INTEGRAL * posFeedbackMultiplier * critFunctionResult;
 
-        dXDelayedCriticality = reactivityDiff
+        dXDelayedCriticality = reactivity
                 * (1 - P_INSTANT) / T_DELAYED_REACTIVITY
                 - xDelayedCriticality / T_DELAYED_REACTIVITY;
 
@@ -299,12 +267,13 @@ public class NeutronFluxModel implements Runnable {
 
         dXDelayedThermalPower = (xFirstDelay - xDelayedThermalPower) / T_DECAY;
 
-        dXNeutronRateDelay = (limitedNeutronRate - xNeutronRateDelay) / T_RATEFILTER;
+        dXNeutronRateDelay = (dXNeutronFlux - xNeutronRateDelay) / T_RATEFILTER;
 
         // Forward Euler
-        xNeutronFlux = Math.min(
-                Math.max( // There will be no negative neutron flux.
-                        xNeutronFlux + dXNeutronFlux * stepTime, 0),
+        xNeutronFlux = Math.min(Math.max(
+                xNeutronFlux + dXNeutronFlux * stepTime,
+                // limit to log10flux 5.3 ; 10^-5.3 * 100 % is 5.0118723e-4 %
+                5.0118723e-4),
                 937.5); // Limit to 937.5 % (833.3 percent of 3200 MW)
         xDelayedCriticality += dXDelayedCriticality * stepTime;
         xDeltaRods += dXDeltaRods * stepTime;
@@ -313,27 +282,18 @@ public class NeutronFluxModel implements Runnable {
         xNeutronRateDelay += dXNeutronRateDelay * stepTime;
 
         // Update Output variables
-        yK = critFunctionResult + 1.0;
-        yReactivity = (critFunctionResult + 1) / critFunctionResult;
-                
+        yReactivity = reactivity;
+        yK = - 1 / (reactivity-1);
         yNeutronFlux = xNeutronFlux;
 
-        yNeutronRate = limitedNeutronRate;
-        yNeutronRateFiltered = xNeutronRateDelay;
+        // Neutron Rate is given in 10%/s
+        yNeutronRate = dXNeutronFlux * 10;
+        yNeutronRateFiltered = xNeutronRateDelay * 10;
 
         // Limit the neutron flux log output, 1e-4 with fluxlog = -6 seemed
         // fine, the rxmodel used -5.28, lets go for -5.3 here.
         // it is 10^-5.3 * 100 % is 5.0118723e-4 %
-//        if (xNeutronFlux < 5.0118723e-4) {
-//            yNeutronFluxLog = -5.3;
-//        } else {
-        // use -6.0 as its the graphs bottom line
-        // 10^-6.0 * 100 % is 5.0118723e-4 %
-        if (xNeutronFlux < 1e-4) {
-            yNeutronFluxLog = -6;
-        } else {
-            yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
-        }
+        yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
 
         yThermalPower1 = yNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
                 + xDelayedThermalPower;
@@ -343,31 +303,31 @@ public class NeutronFluxModel implements Runnable {
     }
 
     /**
-     * A function that manipulates k, which is the criticality, and returns the
-     * integrator input (yet without the time constant). If k exceeds 1 + beta,
-     * the return value will be multiplied with PROMPT_EXCURSION_FACTOR which
-     * will increase the integrator dramatically, usually ending the simulation
-     * and causing an accident.
+     * A function that manipulates the manipulated, dynamic rho value and
+     * returns the integrator input (yet without the time constant). If rho
+     * exceeds beta, the return value will be PROMPT_EXCURSION_RATE which will
+     * increase the integrator dramatically, usually ending the simulation and
+     * causing an accident. It is a hard switch that can't be stopped.
      *
-     * @param k Effective neutron multiplication factor, 1.0 for steady state.
+     * @param rho Effective neutron multiplication factor, 0.0 for steady state.
      * @return Value to be integrated, 0 at steady state.
      */
-    private double criticalityFunction(double k) {
+    private double criticalityFunction(double rho) {
         if (promptExcursion) {
             return PROMPT_EXCURSION_RATE;
-        } else if (k < (1 - beta * NEGATIVE_BETA_FACTOR)) {
+        } else if (rho < (-beta * NEGATIVE_BETA_FACTOR)) {
             // chain reaction dies below this factor if too many prompt neutrons
             // are absorbed, but not as fast as the power surge.
             // y = m * (x - x0) + y0
-            return DECAY_FACTOR * (k - (1 - beta * NEGATIVE_BETA_FACTOR))
+            return DECAY_FACTOR * (rho - (-beta * NEGATIVE_BETA_FACTOR))
                     - beta * NEGATIVE_BETA_FACTOR;
-        } else if (k > (1 + beta)) {
-            // Prompt neutron power excursion. Unstoppable
+        } else if (rho > beta) {
+            // Prompt neutron power excursion. Unstoppable.
             promptExcursion = true;
             return PROMPT_EXCURSION_RATE;
         } else {
-            // Power regulation with delayed neutrons
-            return k - 1;
+            // unmodified input value
+            return rho;
         }
     }
 
@@ -392,7 +352,7 @@ public class NeutronFluxModel implements Runnable {
     public double getYK() {
         return yK;
     }
-    
+
     public double getYReactivity() {
         return yReactivity;
     }

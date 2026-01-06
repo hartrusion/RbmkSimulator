@@ -458,6 +458,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYThermalPower());
         outputValues.setParameterValue("Reactor#k",
                 neutronFluxModel.getYK());
+        outputValues.setParameterValue("Reactor#Reactivity",
+                neutronFluxModel.getYReactivity());
         outputValues.setParameterValue("Reactor#Graphite",
                 graphiteModel.getYGraphie());
 
