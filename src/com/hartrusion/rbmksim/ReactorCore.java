@@ -131,6 +131,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     private boolean oldRpsActive = false; // previous value
 
     private boolean globalControlEnabled = false;
+    private boolean oldGlobalControlEnabled = true; // previous value
 
     /**
      * Global control is in a state where it is allowed to be turned on
@@ -141,11 +142,13 @@ public class ReactorCore extends Subsystem implements Runnable {
      * Global control has active control over selected rods
      */
     private boolean globalControlActive = false;
+    private boolean oldGlobelControlActive = true; // previous value
 
     /**
      * setpointNeutronFlux is following towards the target value
      */
     private boolean globalControlTransient = false;
+    private boolean oldGlobalControlTransient = true; // previous value
 
     private boolean globalControlTarget = false;
     private boolean oldGlobalControlTarget;
@@ -409,6 +412,33 @@ public class ReactorCore extends Subsystem implements Runnable {
                 alarmManager.fireAlarm("ReactorProtection",
                         AlarmState.NONE, false);
             }
+        }
+
+        // Make property change events that describe the current state of the
+        // global control
+        if (globalControlEnabled != oldGlobalControlEnabled) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#GlobalControlEnabled",
+                    oldGlobalControlEnabled, globalControlEnabled));
+            oldGlobalControlEnabled = globalControlEnabled;
+        }
+        if (globalControlActive != oldGlobelControlActive) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#GlobalControlActive",
+                    oldGlobelControlActive, globalControlActive));
+            oldGlobelControlActive = globalControlActive;
+        }
+        if (globalControlTransient != oldGlobalControlTransient) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#GlobalControlTransient",
+                    oldGlobalControlTransient, globalControlTransient));
+            oldGlobalControlTransient = globalControlTransient;
+        }
+        if (globalControlTarget != oldGlobalControlTarget) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#GlobalControlTarget",
+                    oldGlobalControlTarget, globalControlTarget));
+            oldGlobalControlTarget = globalControlTarget;
         }
 
         // Send the neutron values to the gui
