@@ -92,8 +92,8 @@ public class NeutronFluxModel implements Runnable {
      * <p>
      * The K_INTEGRAL value multiplied with the beta value will indicate the
      * neutron rate in %/s which will trigger prompt excursion. With an initial
-     * value of 57.9 this was 2.9 10%/s for prompt excursion, however, this 
-     * takes way too much time on simulator for ramping up power. To make it a 
+     * value of 57.9 this was 2.9 10%/s for prompt excursion, however, this
+     * takes way too much time on simulator for ramping up power. To make it a
      * better experience, a value of 85 was chosen. This will do a prompt
      * excursion with 4.25 10%/s. The lower values were taken from rxmodel but
      */
@@ -147,7 +147,7 @@ public class NeutronFluxModel implements Runnable {
 
     private final double STARTUP_FLUX_REDUCTION_START = 0.5;
     private final double STARTUP_FLUX_REDUCTION_END = 2.0;
-    
+
     /**
      * Time constant for filtering the neutron rate output, there is a need for
      * a filtered output for the control feedback.
@@ -217,11 +217,12 @@ public class NeutronFluxModel implements Runnable {
      * State space variable. Helper for realizing the T2 function on decay heat.
      */
     private double xFirstDelay;
-    
+
     private double xNeutronRateDelay;
 
     private double yNeutronFlux;
     private double yK;
+    private double yReactivity;
     private double yNeutronRate, yNeutronRateFiltered;
     private double yThermalPower1, yThermalPower2; // In Megawatts
     private double yThermalPower;
@@ -247,22 +248,27 @@ public class NeutronFluxModel implements Runnable {
         double dXFirstDelay;
         double dXDelayedThermalPower;
         double dXNeutronRateDelay;
-        double reactivityDiff, kEff, neutronRate, limitedNeutronRate;
+        double reactivityDiff, kEff, neutronRate, critFunctionResult,
+                limitedNeutronRate;
 
         // Value around 1,0 with same units as k_Eff without any delay.
         reactivityDiff = (uReactivity - uAbsorberRods) * K_REACTIVITY + 1.0
                 - Math.min(FLUXFEEDB_MAX, xNeutronFlux) * K_FLUXFEEDB_START;
 
         // Calculate k_Eff
+        // Delayed path:
         kEff = xDelayedCriticality
+                // prompt path:
                 + reactivityDiff * P_INSTANT
+                // DT1 rod lift part:
                 - Math.min(0, // only rod out movement will cause a postiive DT1
                         K_REACTIVITY * K_DIFF_RODS
                         * (uAbsorberRods - xDeltaRods));
 
         // Raw neutron rate without manipulating it out of k_Eff value
-        neutronRate = K_INTEGRAL * criticalityFunction(kEff);
-        
+        critFunctionResult = criticalityFunction(kEff);
+        neutronRate = K_INTEGRAL * critFunctionResult;
+
         // Manipulate the actually used neturon rate for startup, requiring to
         // mess around with the reactor controls for a longer time.
         if (xNeutronFlux < STARTUP_FLUX_REDUCTION_END && neutronRate >= 0.0) {
@@ -274,10 +280,11 @@ public class NeutronFluxModel implements Runnable {
         } else {
             dXNeutronFlux = neutronRate;
         }
-        
-        // generate a manipulated neutron rate for output 
+
+        // generate a manipulated neutron rate for output that does go less than
+        // 0 if there is no reaction with unit 10%/s
         if (xNeutronFlux > 0.0) {
-            limitedNeutronRate = neutronRate * 10;
+            limitedNeutronRate = dXNeutronFlux * 10;
         } else { // no negative rate if flux reached 0.0
             limitedNeutronRate = 0;
         }
@@ -291,7 +298,7 @@ public class NeutronFluxModel implements Runnable {
         dXFirstDelay = (xNeutronFlux * P_DECAY * 15.76 - xFirstDelay) / T_DECAY;
 
         dXDelayedThermalPower = (xFirstDelay - xDelayedThermalPower) / T_DECAY;
-        
+
         dXNeutronRateDelay = (limitedNeutronRate - xNeutronRateDelay) / T_RATEFILTER;
 
         // Forward Euler
@@ -306,18 +313,14 @@ public class NeutronFluxModel implements Runnable {
         xNeutronRateDelay += dXNeutronRateDelay * stepTime;
 
         // Update Output variables
-        yK = xDelayedCriticality
-                // Prompt part:
-                + reactivityDiff * P_INSTANT
-                // DT1 lift part:
-                - Math.min(0, K_REACTIVITY * K_DIFF_RODS
-                        * (uAbsorberRods - xDeltaRods));
-
+        yK = critFunctionResult + 1.0;
+        yReactivity = (critFunctionResult + 1) / critFunctionResult;
+                
         yNeutronFlux = xNeutronFlux;
 
         yNeutronRate = limitedNeutronRate;
         yNeutronRateFiltered = xNeutronRateDelay;
-        
+
         // Limit the neutron flux log output, 1e-4 with fluxlog = -6 seemed
         // fine, the rxmodel used -5.28, lets go for -5.3 here.
         // it is 10^-5.3 * 100 % is 5.0118723e-4 %
@@ -389,6 +392,10 @@ public class NeutronFluxModel implements Runnable {
     public double getYK() {
         return yK;
     }
+    
+    public double getYReactivity() {
+        return yReactivity;
+    }
 
     /**
      * Neutron Rate describes the change in the neutron flux (given in 0..100%)
@@ -399,7 +406,7 @@ public class NeutronFluxModel implements Runnable {
     public double getYNeutronRate() {
         return yNeutronRate;
     }
-    
+
     public double getYNeutronRateFiltered() {
         return yNeutronRateFiltered;
     }
