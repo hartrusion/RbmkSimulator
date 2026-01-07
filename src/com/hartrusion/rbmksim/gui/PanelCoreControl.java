@@ -183,17 +183,18 @@ public class PanelCoreControl extends AbstractPanelWidget {
         lightBulbGlobalTransient = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalTarget = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalActive = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelCoreInstrument = new javax.swing.JPanel();
+        jLabelReadingXe = new javax.swing.JLabel();
+        jLabelReadingReactivity = new javax.swing.JLabel();
         jLabelReadingFlux = new javax.swing.JLabel();
-        jLabelReadingKeff = new javax.swing.JLabel();
-        jLabelCaption4 = new javax.swing.JLabel();
-        jLabelReading1 = new javax.swing.JLabel();
-        jLabelCaption5 = new javax.swing.JLabel();
-        jLabelCaption6 = new javax.swing.JLabel();
-        jLabelReadingFluxLog = new javax.swing.JLabel();
-        jLabelCaption7 = new javax.swing.JLabel();
-        jLabelReadingRate = new javax.swing.JLabel();
-        jLabelCaption8 = new javax.swing.JLabel();
+        jLabelCaptionXe = new javax.swing.JLabel();
+        jLabelCaptionFlux = new javax.swing.JLabel();
+        jLabelCaptionReactivity = new javax.swing.JLabel();
+        jLabelCaptionFluxLog = new javax.swing.JLabel();
+        jLabelCaptionRate = new javax.swing.JLabel();
+        ammeterFluxLog = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        ammeterRate = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        lightBulbNeutronRate = new com.hartrusion.rbmksim.gui.elements.LightBulb();
 
         setMaximumSize(new java.awt.Dimension(574, 340));
         setMinimumSize(new java.awt.Dimension(574, 340));
@@ -988,6 +989,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButtonLocalAuto.setFont(jToggleButtonLocalAuto.getFont().deriveFont(jToggleButtonLocalAuto.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonLocalAuto.setText("←");
+        jToggleButtonLocalAuto.setEnabled(false);
         jToggleButtonLocalAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonLocalAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1006,6 +1008,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonDisplayH.setFont(jButtonDisplayH.getFont().deriveFont(jButtonDisplayH.getFont().getSize()-2f));
         jButtonDisplayH.setText("H");
+        jButtonDisplayH.setEnabled(false);
         jButtonDisplayH.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayH.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDisplayH.addActionListener(new java.awt.event.ActionListener() {
@@ -1033,23 +1036,27 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonLocalReset.setFont(jButtonLocalReset.getFont().deriveFont(jButtonLocalReset.getFont().getSize()-2f));
         jButtonLocalReset.setText("●");
+        jButtonLocalReset.setEnabled(false);
         jButtonLocalReset.setMargin(new java.awt.Insets(0, 0, 0, 0));
         add(jButtonLocalReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 256, 18, 18));
 
         jButtonDisplayA.setFont(jButtonDisplayA.getFont().deriveFont(jButtonDisplayA.getFont().getSize()-2f));
         jButtonDisplayA.setText("A");
+        jButtonDisplayA.setEnabled(false);
         jButtonDisplayA.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayA.setPreferredSize(new java.awt.Dimension(20, 20));
         add(jButtonDisplayA, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 298, 16, 16));
 
         jButtonDisplayB.setFont(jButtonDisplayB.getFont().deriveFont(jButtonDisplayB.getFont().getSize()-2f));
         jButtonDisplayB.setText("B");
+        jButtonDisplayB.setEnabled(false);
         jButtonDisplayB.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayB.setPreferredSize(new java.awt.Dimension(20, 20));
         add(jButtonDisplayB, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 298, 16, 16));
 
         jButtonDisplayC.setFont(jButtonDisplayC.getFont().deriveFont(jButtonDisplayC.getFont().getSize()-2f));
         jButtonDisplayC.setText("C");
+        jButtonDisplayC.setEnabled(false);
         jButtonDisplayC.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayC.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDisplayC.addActionListener(new java.awt.event.ActionListener() {
@@ -1061,6 +1068,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonDisplayD.setFont(jButtonDisplayD.getFont().deriveFont(jButtonDisplayD.getFont().getSize()-2f));
         jButtonDisplayD.setText("D");
+        jButtonDisplayD.setEnabled(false);
         jButtonDisplayD.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayD.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDisplayD.addActionListener(new java.awt.event.ActionListener() {
@@ -1072,6 +1080,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonDisplayE.setFont(jButtonDisplayE.getFont().deriveFont(jButtonDisplayE.getFont().getSize()-2f));
         jButtonDisplayE.setText("E");
+        jButtonDisplayE.setEnabled(false);
         jButtonDisplayE.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayE.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDisplayE.addActionListener(new java.awt.event.ActionListener() {
@@ -1083,6 +1092,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonDisplayF.setFont(jButtonDisplayF.getFont().deriveFont(jButtonDisplayF.getFont().getSize()-2f));
         jButtonDisplayF.setText("F");
+        jButtonDisplayF.setEnabled(false);
         jButtonDisplayF.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayF.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDisplayF.addActionListener(new java.awt.event.ActionListener() {
@@ -1094,6 +1104,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonDisplayG.setFont(jButtonDisplayG.getFont().deriveFont(jButtonDisplayG.getFont().getSize()-2f));
         jButtonDisplayG.setText("G");
+        jButtonDisplayG.setEnabled(false);
         jButtonDisplayG.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDisplayG.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonDisplayG.addActionListener(new java.awt.event.ActionListener() {
@@ -1324,6 +1335,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton3428.setFont(jToggleButton3428.getFont().deriveFont(jToggleButton3428.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3428.setText("←");
+        jToggleButton3428.setEnabled(false);
         jToggleButton3428.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3428.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1342,6 +1354,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton3434.setFont(jToggleButton3434.getFont().deriveFont(jToggleButton3434.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3434.setText("←");
+        jToggleButton3434.setEnabled(false);
         jToggleButton3434.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3434.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1360,6 +1373,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton2828.setFont(jToggleButton2828.getFont().deriveFont(jToggleButton2828.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton2828.setText("←");
+        jToggleButton2828.setEnabled(false);
         jToggleButton2828.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton2828.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1378,6 +1392,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton2834.setFont(jToggleButton2834.getFont().deriveFont(jToggleButton2834.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton2834.setText("←");
+        jToggleButton2834.setEnabled(false);
         jToggleButton2834.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton2834.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1434,115 +1449,102 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(lightBulbGlobalTarget, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 143, -1, -1));
         add(lightBulbGlobalActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 104, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelCoreInstrument.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelCoreInstrument.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCoreInstrument.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelReadingFlux.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelReadingXe.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingXe.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingXe.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingXe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingXe.setText("___");
+        jLabelReadingXe.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingXe.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingXe.setOpaque(true);
+        jLabelReadingXe.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanelCoreInstrument.add(jLabelReadingXe, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 32, 38, 18));
+
+        jLabelReadingReactivity.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingReactivity.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingReactivity.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingReactivity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingReactivity.setText("-_,____");
+        jLabelReadingReactivity.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingReactivity.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingReactivity.setOpaque(true);
+        jLabelReadingReactivity.setPreferredSize(new java.awt.Dimension(52, 18));
+        jPanelCoreInstrument.add(jLabelReadingReactivity, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 32, 64, 18));
+
+        jLabelReadingFlux.setBackground(new java.awt.Color(51, 51, 51));
         jLabelReadingFlux.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingFlux.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelReadingFlux.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingFlux.setText("___,_");
-        jLabelReadingFlux.setToolTipText("");
+        jLabelReadingFlux.setText("___,__");
         jLabelReadingFlux.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingFlux.setMinimumSize(new java.awt.Dimension(52, 18));
         jLabelReadingFlux.setOpaque(true);
         jLabelReadingFlux.setPreferredSize(new java.awt.Dimension(52, 18));
-        jPanel1.add(jLabelReadingFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 52, 18));
+        jPanelCoreInstrument.add(jLabelReadingFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 10, 64, 18));
 
-        jLabelReadingKeff.setBackground(new java.awt.Color(51, 51, 51));
-        jLabelReadingKeff.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingKeff.setForeground(new java.awt.Color(0, 255, 153));
-        jLabelReadingKeff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingKeff.setText("_,___");
-        jLabelReadingKeff.setToolTipText("");
-        jLabelReadingKeff.setMaximumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingKeff.setMinimumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingKeff.setOpaque(true);
-        jLabelReadingKeff.setPreferredSize(new java.awt.Dimension(52, 18));
-        jPanel1.add(jLabelReadingKeff, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 6, 52, 18));
+        jLabelCaptionXe.setFont(jLabelCaptionXe.getFont().deriveFont(jLabelCaptionXe.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionXe.getFont().getSize()-3));
+        jLabelCaptionXe.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaptionXe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionXe.setText("%Xe");
+        jLabelCaptionXe.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionXe.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionXe.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanelCoreInstrument.add(jLabelCaptionXe, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 14, 34, 14));
 
-        jLabelCaption4.setFont(jLabelCaption4.getFont().deriveFont(jLabelCaption4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption4.getFont().getSize()-3));
-        jLabelCaption4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCaption4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaption4.setText("k_Eff");
-        jLabelCaption4.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption4.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption4.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 8, 32, 14));
+        jLabelCaptionFlux.setFont(jLabelCaptionFlux.getFont().deriveFont(jLabelCaptionFlux.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionFlux.getFont().getSize()-3));
+        jLabelCaptionFlux.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaptionFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionFlux.setText("Neutron Flux (%)");
+        jLabelCaptionFlux.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionFlux.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionFlux.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanelCoreInstrument.add(jLabelCaptionFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 12, 82, 14));
 
-        jLabelReading1.setBackground(new java.awt.Color(51, 51, 51));
-        jLabelReading1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReading1.setForeground(new java.awt.Color(0, 255, 153));
-        jLabelReading1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReading1.setText("-_,____");
-        jLabelReading1.setMaximumSize(new java.awt.Dimension(52, 18));
-        jLabelReading1.setMinimumSize(new java.awt.Dimension(52, 18));
-        jLabelReading1.setOpaque(true);
-        jLabelReading1.setPreferredSize(new java.awt.Dimension(52, 18));
-        jPanel1.add(jLabelReading1, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 30, 64, 18));
+        jLabelCaptionReactivity.setFont(jLabelCaptionReactivity.getFont().deriveFont(jLabelCaptionReactivity.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionReactivity.getFont().getSize()-3));
+        jLabelCaptionReactivity.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaptionReactivity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelCaptionReactivity.setText("Reactivity");
+        jLabelCaptionReactivity.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionReactivity.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionReactivity.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanelCoreInstrument.add(jLabelCaptionReactivity, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 34, 66, 14));
 
-        jLabelCaption5.setFont(jLabelCaption5.getFont().deriveFont(jLabelCaption5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption5.getFont().getSize()-3));
-        jLabelCaption5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCaption5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption5.setText("N. Flux (%)");
-        jLabelCaption5.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption5.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption5.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 32, 64, 14));
+        jLabelCaptionFluxLog.setFont(jLabelCaptionFluxLog.getFont().deriveFont(jLabelCaptionFluxLog.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionFluxLog.getFont().getSize()-3));
+        jLabelCaptionFluxLog.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaptionFluxLog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionFluxLog.setText("Flux (log10)");
+        jLabelCaptionFluxLog.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionFluxLog.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionFluxLog.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanelCoreInstrument.add(jLabelCaptionFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 42, 64, 14));
 
-        jLabelCaption6.setFont(jLabelCaption6.getFont().deriveFont(jLabelCaption6.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption6.getFont().getSize()-3));
-        jLabelCaption6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCaption6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaption6.setText("Reactivity");
-        jLabelCaption6.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption6.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption6.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 32, 58, 14));
+        jLabelCaptionRate.setFont(jLabelCaptionRate.getFont().deriveFont(jLabelCaptionRate.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRate.getFont().getSize()-3));
+        jLabelCaptionRate.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCaptionRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionRate.setText("Neutron Rate");
+        jLabelCaptionRate.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionRate.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionRate.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanelCoreInstrument.add(jLabelCaptionRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 42, 74, 14));
 
-        jLabelReadingFluxLog.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelReadingFluxLog.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingFluxLog.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelReadingFluxLog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingFluxLog.setText("-_,__");
-        jLabelReadingFluxLog.setToolTipText("");
-        jLabelReadingFluxLog.setMaximumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingFluxLog.setMinimumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingFluxLog.setOpaque(true);
-        jLabelReadingFluxLog.setPreferredSize(new java.awt.Dimension(52, 18));
-        jPanel1.add(jLabelReadingFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 12, 52, 18));
+        ammeterFluxLog.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterFluxLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterFluxLog.setForeground(new java.awt.Color(0, 0, 0));
+        jPanelCoreInstrument.add(ammeterFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 62, 38));
 
-        jLabelCaption7.setFont(jLabelCaption7.getFont().deriveFont(jLabelCaption7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption7.getFont().getSize()-3));
-        jLabelCaption7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCaption7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption7.setText("Flux log");
-        jLabelCaption7.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption7.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption7.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaption7, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 32, 64, 14));
+        ammeterRate.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterRate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterRate.setForeground(new java.awt.Color(0, 0, 0));
+        jPanelCoreInstrument.add(ammeterRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 4, 62, 38));
 
-        jLabelReadingRate.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelReadingRate.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingRate.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelReadingRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingRate.setText("-__,__");
-        jLabelReadingRate.setToolTipText("");
-        jLabelReadingRate.setMaximumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingRate.setMinimumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingRate.setOpaque(true);
-        jLabelReadingRate.setPreferredSize(new java.awt.Dimension(52, 18));
-        jPanel1.add(jLabelReadingRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 12, 52, 18));
+        lightBulbNeutronRate.setForeground(new java.awt.Color(255, 0, 0));
+        jPanelCoreInstrument.add(lightBulbNeutronRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 32, -1, -1));
 
-        jLabelCaption8.setFont(jLabelCaption8.getFont().deriveFont(jLabelCaption8.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption8.getFont().getSize()-3));
-        jLabelCaption8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCaption8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption8.setText("Rate (10%/s)");
-        jLabelCaption8.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption8.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaption8.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaption8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 32, 64, 14));
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 6, 364, 54));
+        add(jPanelCoreInstrument, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 6, 364, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4028ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4028ActionPerformed
@@ -1955,6 +1957,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterFluxLog;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterRate;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugControlGradient;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private javax.swing.JButton jButton2228;
@@ -2026,16 +2030,13 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaption3428;
     private javax.swing.JLabel jLabelCaption3434;
     private javax.swing.JLabel jLabelCaption3731;
-    private javax.swing.JLabel jLabelCaption4;
-    private javax.swing.JLabel jLabelCaption5;
-    private javax.swing.JLabel jLabelCaption6;
-    private javax.swing.JLabel jLabelCaption7;
-    private javax.swing.JLabel jLabelCaption8;
     private javax.swing.JLabel jLabelCaptionAZ5;
     private javax.swing.JLabel jLabelCaptionAutomaticRods;
     private javax.swing.JLabel jLabelCaptionControlGradient1;
     private javax.swing.JLabel jLabelCaptionControlGradient2;
     private javax.swing.JLabel jLabelCaptionCoreDisplay;
+    private javax.swing.JLabel jLabelCaptionFlux;
+    private javax.swing.JLabel jLabelCaptionFluxLog;
     private javax.swing.JLabel jLabelCaptionGlobalAuto;
     private javax.swing.JLabel jLabelCaptionGlobalAuto1;
     private javax.swing.JLabel jLabelCaptionGlobalControl;
@@ -2048,6 +2049,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionRPS;
     private javax.swing.JLabel jLabelCaptionRPSActive;
     private javax.swing.JLabel jLabelCaptionRPSReset;
+    private javax.swing.JLabel jLabelCaptionRate;
+    private javax.swing.JLabel jLabelCaptionReactivity;
     private javax.swing.JLabel jLabelCaptionRodSelector;
     private javax.swing.JLabel jLabelCaptionRodSpeed;
     private javax.swing.JLabel jLabelCaptionSelect;
@@ -2060,16 +2063,15 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionThermalPower1;
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
-    private javax.swing.JLabel jLabelReading1;
+    private javax.swing.JLabel jLabelCaptionXe;
     private javax.swing.JLabel jLabelReadingFlux;
-    private javax.swing.JLabel jLabelReadingFluxLog;
-    private javax.swing.JLabel jLabelReadingKeff;
-    private javax.swing.JLabel jLabelReadingRate;
+    private javax.swing.JLabel jLabelReadingReactivity;
     private javax.swing.JLabel jLabelReadingThermalPower;
+    private javax.swing.JLabel jLabelReadingXe;
     private javax.swing.JLabel jLabelRodControl;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelAutoRodSelection;
+    private javax.swing.JPanel jPanelCoreInstrument;
     private javax.swing.JPanel jPanelRodUpDownControls;
     private javax.swing.JToggleButton jToggleButton2531;
     private javax.swing.JToggleButton jToggleButton2828;
@@ -2094,6 +2096,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalEnabled;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalTarget;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalTransient;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbNeutronRate;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlNeutronFlux;
     // End of variables declaration//GEN-END:variables
 
@@ -2255,26 +2258,24 @@ public class PanelCoreControl extends AbstractPanelWidget {
     public void updateComponent(String propertyName, double newValue) {
         switch (propertyName) {
             case "Reactor#NeutronFlux" ->
-                jLabelReadingFlux.setText(String.format("%5.1f", newValue));
+                jLabelReadingFlux.setText(String.format("%06.2f", newValue));
             case "Reactor#NeutronFluxLog" ->
-                jLabelReadingFluxLog.setText(String.format("%.2f", newValue));
-            case "Reactor#k" ->
-                jLabelReadingKeff.setText(
-                        String.format("%+.4f", newValue)
-                                .replaceFirst("^\\+", " "));
+                ammeterFluxLog.setChornobylValue(20 * newValue + 120); // -6..1
+            case "Reactor#Xenon" ->
+                jLabelReadingXe.setText(
+                        String.format("%03d", Math.round(newValue)));
             case "Reactor#Reactivity" ->
-                jLabelReading1.setText(
-                        String.format("%+.4f", newValue)
-                                .replaceFirst("^\\+", " "));
-            case "Reactor#NeutronRate" ->
-                jLabelReadingRate.setText(
-                        String.format("%+.2f", newValue)
-                                .replaceFirst("^\\+", " "));
+                jLabelReadingReactivity.setText(
+                        String.format("%+.5f", newValue));
+            //.replaceFirst("^\\+", " "));
+            case "Reactor#NeutronRate" -> {
+                 // -3..3
+                ammeterRate.setChornobylValue(16.6666667 * newValue + 50);
+                lightBulbNeutronRate.setActive(newValue >= 2.6);
+            }
             case "Reactor#ThermalPower" ->
                 jLabelReadingThermalPower.setText(
                         String.format("%05d", Math.round(newValue)));
-//            case "Reactor#SetpointNeutronFlux" ->
-//                chornobylGaugeNeutronSetpoint.setChornobylValue((float) newValue);
             case "Reactor#SetpointPowerGradient" ->
                 chornobylGaugControlGradient.setChornobylValue((float) newValue);
         }

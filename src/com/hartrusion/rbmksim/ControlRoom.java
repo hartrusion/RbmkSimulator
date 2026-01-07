@@ -94,6 +94,8 @@ public class ControlRoom extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
+        jMenuItemPresetFull = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
         jMenuItemBlowdown = new javax.swing.JMenuItem();
@@ -101,8 +103,6 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemFeedwater = new javax.swing.JMenuItem();
         jMenuItemAuxCond = new javax.swing.JMenuItem();
         jMenuItemCondensation = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemPresetFull = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuAlarms = new javax.swing.JMenuItem();
         jMenuRodPositions = new javax.swing.JMenuItem();
@@ -167,6 +167,15 @@ public class ControlRoom extends javax.swing.JFrame
 
         jMenuControls.setText("Control Panels");
 
+        jMenuItemPresetFull.setText("View all");
+        jMenuItemPresetFull.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPresetFullActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemPresetFull);
+        jMenuControls.add(jSeparator3);
+
         jMenuItemCoreControl.setText("Reactor Controls");
         jMenuItemCoreControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,15 +231,6 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuControls.add(jMenuItemCondensation);
-        jMenuControls.add(jSeparator2);
-
-        jMenuItemPresetFull.setText("Preset: View all panels");
-        jMenuItemPresetFull.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPresetFullActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemPresetFull);
 
         jMenuBar1.add(jMenuControls);
 
@@ -252,7 +252,7 @@ public class ControlRoom extends javax.swing.JFrame
         });
         jMenuPanels.add(jMenuRodPositions);
 
-        jMenuCoreMatrix.setText("Core Matrix (not implemented)");
+        jMenuCoreMatrix.setText("Core Matrix (not working)");
         jMenuCoreMatrix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuCoreMatrixActionPerformed(evt);
@@ -984,6 +984,6 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuRodPositions;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,6 +43,16 @@
             <Property name="text" type="java.lang.String" value="Control Panels"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetFull">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="View all"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetFullActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCoreControl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reactor Controls"/>
@@ -99,16 +109,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCondensationActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetFull">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Preset: View all panels"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetFullActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuPanels">
@@ -134,7 +134,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuCoreMatrix">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Core Matrix (not implemented)"/>
+                <Property name="text" type="java.lang.String" value="Core Matrix (not working)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuCoreMatrixActionPerformed"/>
