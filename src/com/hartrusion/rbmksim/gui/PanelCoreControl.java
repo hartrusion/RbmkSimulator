@@ -42,7 +42,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
         setpointControlNeutronFlux.registerActionReceiver(controller);
-        integralSwitch1.registerActionReceiver(controller);
+        integralSwitchGlobalOverride.registerActionReceiver(controller);
     }
 
     /**
@@ -175,7 +175,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption2828 = new javax.swing.JLabel();
         jToggleButton2834 = new javax.swing.JToggleButton();
         jLabelCaption2834 = new javax.swing.JLabel();
-        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitchGlobalOverride = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jToggleButtonGlobalTarget = new javax.swing.JToggleButton();
         jToggleButtonGlobalTransient = new javax.swing.JToggleButton();
         jLabelCaptionGlobalAuto1 = new javax.swing.JLabel();
@@ -1411,9 +1411,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 242, 90, 90));
 
-        integralSwitch1.setComponent("Reactor#AutoRodControl");
-        integralSwitch1.setToolTipText("Overrides control output immediately");
-        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 130, -1, -1));
+        integralSwitchGlobalOverride.setComponent("Reactor#AutoRodControl");
+        integralSwitchGlobalOverride.setToolTipText("Overrides control output immediately");
+        add(integralSwitchGlobalOverride, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 130, -1, -1));
 
         jToggleButtonGlobalTarget.setFont(jToggleButtonGlobalTarget.getFont().deriveFont(jToggleButtonGlobalTarget.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonGlobalTarget.setText("←");
@@ -1960,7 +1960,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterFluxLog;
     private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterRate;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugControlGradient;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchGlobalOverride;
     private javax.swing.JButton jButton2228;
     private javax.swing.JButton jButton2231;
     private javax.swing.JButton jButton2234;
@@ -2247,6 +2247,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 }
                 break;
         }
+        integralSwitchGlobalOverride.updateComponent(evt);
     }
 
     @Override

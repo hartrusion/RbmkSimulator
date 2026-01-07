@@ -27,6 +27,7 @@ import java.util.List;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
+import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import java.util.function.DoubleSupplier;
@@ -163,6 +164,13 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private AlarmState autoRodsPositionAlarmState;
     private AlarmState oldAutoRodsPositionAlarmState;
+    
+    /**
+     * Use ValveState enum to describe the auto rods position, that way the 
+     * lights from the switch widgets can be controlled.
+     */
+    private ValveState autoRodsPositionState;
+    private ValveState oldAutoRodsPositionState;
 
     ReactorCore() {
         globalControl = new PIControl();
@@ -256,13 +264,33 @@ public class ReactorCore extends Subsystem implements Runnable {
             } else {
                 autoRodsPositionAlarmState = AlarmState.NONE;
             }
-        } else {
+            } else {
             autoRodsPositionAlarmState = AlarmState.NONE;
         }
         if (autoRodsPositionAlarmState != oldAutoRodsPositionAlarmState) {
             oldAutoRodsPositionAlarmState = autoRodsPositionAlarmState;
             alarmManager.fireAlarm("ReactorAutoRodsPosition",
                     autoRodsPositionAlarmState, false);
+        }
+        
+        // Position lights on GUI:
+        if (selectedAutoRods >= 1 && globalControlEnabled) {
+            if (avgPositionActiveAutomatic < 1.4) {
+                autoRodsPositionState = ValveState.OPEN;
+            } else if (avgPositionActiveAutomatic > 6.0) {
+                autoRodsPositionState = ValveState.CLOSED;
+            } else {
+                autoRodsPositionState = ValveState.INTERMEDIATE;
+            }
+        } else {
+            autoRodsPositionState = ValveState.INTERMEDIATE;
+        }
+        // send a fake valve position enumeration for the indicator lights
+        if (oldAutoRodsPositionState != autoRodsPositionState) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#AutoRodControl_Pos",
+                    oldAutoRodsPositionState, autoRodsPositionState));
+            oldAutoRodsPositionState = autoRodsPositionState;
         }
 
         globalControl.setFollowUp(avgPositionActiveAutomatic);

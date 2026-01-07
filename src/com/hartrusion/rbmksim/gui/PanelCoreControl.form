@@ -3065,7 +3065,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitch1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchGlobalOverride">
       <Properties>
         <Property name="component" type="java.lang.String" value="Reactor#AutoRodControl"/>
         <Property name="toolTipText" type="java.lang.String" value="Overrides control output immediately"/>
