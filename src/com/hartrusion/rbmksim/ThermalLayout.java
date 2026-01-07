@@ -301,7 +301,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     private double voiding = 0;
     private double coreTemp = 200;
-    private final double[] thermalPower = new double[]{24e6, 24e6};
+    private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
 
     /**
      * Setting this to true will disconnect the thermal loop simulation,
