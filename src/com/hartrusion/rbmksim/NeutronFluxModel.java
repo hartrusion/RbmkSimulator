@@ -220,6 +220,23 @@ public class NeutronFluxModel implements Runnable {
      */
     private double yNeutronFluxLog;
 
+    /**
+     * Sets the model to a steady state for the given initial conditions
+     *
+     * @param uAbsorberRods Negative reactivity absorbed by absorber rods as a
+     * value of 0..100%
+     * @param uReactivity Positive reactivity present in the reactor, has to be
+     * calculated accordingly as fuel - xenon + voids.
+     */
+    public void setInitialConditions(double uAbsorberRods, double uReactivity,
+            double neutronFlux) {
+        // limits: see run method, its described there.
+        xNeutronFlux = Math.min(Math.max(neutronFlux, 5.0118723e-4), 937.5);
+        xDeltaRods = uAbsorberRods;
+        xDelayedCriticality = (uReactivity - uAbsorberRods) * K_REACTIVITY
+                * (1 - P_INSTANT);
+    }
+
     @Override
     public void run() {
         double dXNeutronFlux;
@@ -230,6 +247,7 @@ public class NeutronFluxModel implements Runnable {
         double dXNeutronRateDelay;
         double reactivity, dynamisedReactivity, critFunctionResult,
                 posFeedbackMultiplier;
+        boolean zeroPower = false;
         // Now, first, we will have some values valvulated from the current
         // state variables and the inputs.
         // The reactivity coefficient rho:
@@ -270,11 +288,19 @@ public class NeutronFluxModel implements Runnable {
         dXNeutronRateDelay = (dXNeutronFlux - xNeutronRateDelay) / T_RATEFILTER;
 
         // Forward Euler
-        xNeutronFlux = Math.min(Math.max(
-                xNeutronFlux + dXNeutronFlux * stepTime,
-                // limit to log10flux 5.3 ; 10^-5.3 * 100 % is 5.0118723e-4 %
-                5.0118723e-4),
-                937.5); // Limit to 937.5 % (833.3 percent of 3200 MW)
+        xNeutronFlux = xNeutronFlux + dXNeutronFlux * stepTime;
+        if (xNeutronFlux >= 937.5) {
+            // Limit to 937.5 % (833.3 percent of 3200 MW)
+            xNeutronFlux = 937.5;
+        } else if (xNeutronFlux <= 1e-4) {
+            // Limit the neutron flux. The lower limit is defined using the log
+            // value. RXModel had something like -5.28, we use -6.0 here as this
+            // is set as the low end of the plot view scale.
+            // 10^-5.3 * 100 % is 5.0118723e-4 %
+            // 10^-6 * 100 % = 1e-4 %
+            xNeutronFlux = 1e-4;
+            zeroPower = true;
+        }
         xDelayedCriticality += dXDelayedCriticality * stepTime;
         xDeltaRods += dXDeltaRods * stepTime;
         xFirstDelay += dXFirstDelay * stepTime;
@@ -283,16 +309,18 @@ public class NeutronFluxModel implements Runnable {
 
         // Update Output variables
         yReactivity = reactivity;
-        yK = - 1 / (reactivity-1);
+        yK = - 1 / (reactivity - 1);
         yNeutronFlux = xNeutronFlux;
 
         // Neutron Rate is given in 10%/s
-        yNeutronRate = dXNeutronFlux * 10;
-        yNeutronRateFiltered = xNeutronRateDelay * 10;
+        if (zeroPower) {
+            yNeutronRate = 0;
+            yNeutronRateFiltered = 0;
+        } else {
+            yNeutronRate = dXNeutronFlux * 10;
+            yNeutronRateFiltered = xNeutronRateDelay * 10;
+        }
 
-        // Limit the neutron flux log output, 1e-4 with fluxlog = -6 seemed
-        // fine, the rxmodel used -5.28, lets go for -5.3 here.
-        // it is 10^-5.3 * 100 % is 5.0118723e-4 %
         yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
 
         yThermalPower1 = yNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)

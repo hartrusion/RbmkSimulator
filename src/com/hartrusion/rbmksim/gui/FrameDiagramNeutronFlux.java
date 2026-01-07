@@ -49,7 +49,7 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame
         setTitle("Neutron Flux");
         setBackground(new java.awt.Color(204, 204, 204));
 
-        figureJPane1.setYRulers(3);
+        figureJPane1.setYRulers(4);
         figureJPane1.setLayout(new javax.swing.BoxLayout(figureJPane1, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,16 +83,23 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame
         l.setDataSource(plotData.getTime60(2),
                 plotData.getParameterDoubleSeries("Reactor#NeutronRate", 2));
         ax.addLine(3, l);
+        l = new Line();
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Reactor#Reactivity", 2));
+        ax.addLine(4, l);
+                l = new Line();
 
         ax.yLim(1, 0, 100);
         ax.yLim(2, -6, -1);
         ax.yLim(3, -4, 4);
+        ax.yLim(4, -0.005F, 0.005F);
 
         ax.autoX();
 
         ax.ylabel(1, "Neutron Flux (%)");
         ax.ylabel(2, "Neutron Flux Log");
         ax.ylabel(3, "Neutron Rate (10%/s)");
+        ax.ylabel(4, "Reactivity");
     }
 
     @Override
