@@ -24,23 +24,21 @@ import static com.hartrusion.plot.VisualizeData.*;
  */
 public class GraphiteEffect {
 
-    XenonModel xenonModel = new XenonModel();
-    GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
-
-    private double[] xTime, uFlux, yIodine, yXenon, yGraphite;
-
-    public void run() {
+    public void testDoubleDrop() {
+        XenonModel xenonModel = new XenonModel();
+        GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
+        
         final double simulationTime = 60 * 60; // 1h
         final double stepTime = 5;
         int steps = (int) (simulationTime / stepTime);
 
         double neutronFlux;
 
-        uFlux = new double[steps];
-        xTime = new double[steps];
-        yIodine = new double[steps];
-        yXenon = new double[steps];
-        yGraphite = new double[steps];
+        double[] uFlux = new double[steps];
+        double[] xTime = new double[steps];
+        double[] yIodine = new double[steps];
+        double[] yXenon = new double[steps];
+        double[] yGraphite = new double[steps];
         
         xenonModel.setStepTime(stepTime);
         xenonModel.setInititalState(100, 100); // start at full power
@@ -49,13 +47,57 @@ public class GraphiteEffect {
         for (int idx = 0; idx < steps; idx++) {
             xTime[idx] = (double) idx * stepTime / 60; // Minutes
             // Double drop (extremely high value, set ylim to 250)
-//            if (xTime[idx] > 15) {
-//                neutronFlux = 5;
-//            } else  if (xTime[idx] > 10) {
-//                neutronFlux = 40;
-//            } else {
-//                neutronFlux = 100;
-//            }
+            if (xTime[idx] > 15) {
+                neutronFlux = 5;
+            } else  if (xTime[idx] > 10) {
+                neutronFlux = 40;
+            } else {
+                neutronFlux = 100;
+            }
+
+            uFlux[idx] = neutronFlux;
+            xenonModel.setInputs(neutronFlux);
+            xenonModel.run();
+            graphiteModel.setInputs(neutronFlux);
+            graphiteModel.run();
+            yIodine[idx] = xenonModel.getYIodine();
+            yXenon[idx] = xenonModel.getYXenon();
+            yGraphite[idx] = graphiteModel.getYGraphie();
+        }
+
+        figure();
+        plot(xTime, yXenon);
+        hold("on");
+        plot(xTime, uFlux);
+        plot(xTime, yIodine);
+        plot(xTime, yGraphite);
+        axis(0, 60, 0, 150);
+        xlabel("Simulation Time (Minutes)");
+        ylabel("Percentage");
+    }
+    
+    public void testAccident() {
+        XenonModel xenonModel = new XenonModel();
+        GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
+        
+        final double simulationTime = 60 * 60; // 1h
+        final double stepTime = 5;
+        int steps = (int) (simulationTime / stepTime);
+
+        double neutronFlux;
+
+        double[] uFlux = new double[steps];
+        double[] xTime = new double[steps];
+        double[] yIodine = new double[steps];
+        double[] yXenon = new double[steps];
+        double[] yGraphite = new double[steps];
+        
+        xenonModel.setStepTime(stepTime);
+        xenonModel.setInititalState(100, 100); // start at full power
+        graphiteModel.setStepTime(stepTime);
+
+        for (int idx = 0; idx < steps; idx++) {
+            xTime[idx] = (double) idx * stepTime / 60; // Minutes
             // Accident sequence
             if (xTime[idx] > 49) {
                 neutronFlux = 6.3; // 200 MW
@@ -75,20 +117,110 @@ public class GraphiteEffect {
             } else {
                 neutronFlux = 100;
             }
+
+            uFlux[idx] = neutronFlux;
+            xenonModel.setInputs(neutronFlux);
+            xenonModel.run();
+            graphiteModel.setInputs(neutronFlux);
+            graphiteModel.run();
+            yIodine[idx] = xenonModel.getYIodine();
+            yXenon[idx] = xenonModel.getYXenon();
+            yGraphite[idx] = graphiteModel.getYGraphie();
+        }
+
+        figure();
+        plot(xTime, yXenon);
+        hold("on");
+        plot(xTime, uFlux);
+        plot(xTime, yIodine);
+        plot(xTime, yGraphite);
+        axis(0, 60, 0, 150);
+        xlabel("Simulation Time (Minutes)");
+        ylabel("Percentage");
+    }
+    
+    public void testPlannedTest() {
+        XenonModel xenonModel = new XenonModel();
+        GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
+        
+        final double simulationTime = 60 * 60; // 1h
+        final double stepTime = 5;
+        int steps = (int) (simulationTime / stepTime);
+
+        double neutronFlux;
+
+        double[] uFlux = new double[steps];
+        double[] xTime = new double[steps];
+        double[] yIodine = new double[steps];
+        double[] yXenon = new double[steps];
+        double[] yGraphite = new double[steps];
+        
+        xenonModel.setStepTime(stepTime);
+        xenonModel.setInititalState(100, 100); // start at full power
+        graphiteModel.setStepTime(stepTime);
+
+        for (int idx = 0; idx < steps; idx++) {
+            xTime[idx] = (double) idx * stepTime / 60; // Minutes
+            
             // Planned, non-accidential seuqence withou
-//            if (xTime[idx] > 15) {
-//                neutronFlux = 21.8; // 700 MW
-//            } else if (xTime[idx] > 12) {
-//                // Ramp down to 21.8 % (700 MW) in 3 minutes
-//                neutronFlux = -9.4 * xTime[idx] + 162.8;
-//            } else if (xTime[idx] > 7) {
-//                neutronFlux = 50; // 1600 MW
-//            } else if (xTime[idx] > 5) {
-//                // Ramp down to 50 % (1600 MW) in 2 minutes
-//                neutronFlux = -25 * xTime[idx] + 225;
-//            } else {
-//                neutronFlux = 100;
-//            }
+            if (xTime[idx] > 15) {
+                neutronFlux = 21.8; // 700 MW
+            } else if (xTime[idx] > 12) {
+                // Ramp down to 21.8 % (700 MW) in 3 minutes
+                neutronFlux = -9.4 * xTime[idx] + 162.8;
+            } else if (xTime[idx] > 7) {
+                neutronFlux = 50; // 1600 MW
+            } else if (xTime[idx] > 5) {
+                // Ramp down to 50 % (1600 MW) in 2 minutes
+                neutronFlux = -25 * xTime[idx] + 225;
+            } else {
+                neutronFlux = 100;
+            }
+
+            uFlux[idx] = neutronFlux;
+            xenonModel.setInputs(neutronFlux);
+            xenonModel.run();
+            graphiteModel.setInputs(neutronFlux);
+            graphiteModel.run();
+            yIodine[idx] = xenonModel.getYIodine();
+            yXenon[idx] = xenonModel.getYXenon();
+            yGraphite[idx] = graphiteModel.getYGraphie();
+        }
+
+        figure();
+        plot(xTime, yXenon);
+        hold("on");
+        plot(xTime, uFlux);
+        plot(xTime, yIodine);
+        plot(xTime, yGraphite);
+        axis(0, 60, 0, 150);
+        xlabel("Simulation Time (Minutes)");
+        ylabel("Percentage");
+    }
+    
+        public void testReducedLoad() {
+        XenonModel xenonModel = new XenonModel();
+        GraphiteEffectModel graphiteModel = new GraphiteEffectModel();
+        
+        final double simulationTime = 60 * 60; // 1h
+        final double stepTime = 5;
+        int steps = (int) (simulationTime / stepTime);
+
+        double neutronFlux;
+
+        double[] uFlux = new double[steps];
+        double[] xTime = new double[steps];
+        double[] yIodine = new double[steps];
+        double[] yXenon = new double[steps];
+        double[] yGraphite = new double[steps];
+        
+        xenonModel.setStepTime(stepTime);
+        xenonModel.setInititalState(100, 100); // start at full power
+        graphiteModel.setStepTime(stepTime);
+
+        for (int idx = 0; idx < steps; idx++) {
+            xTime[idx] = (double) idx * stepTime / 60; // Minutes
+            
             // Planned power drop
             if (xTime[idx] > 45) {
                 neutronFlux = 100; // 3200 MW
@@ -114,6 +246,7 @@ public class GraphiteEffect {
             yGraphite[idx] = graphiteModel.getYGraphie();
         }
 
+        figure();
         plot(xTime, yXenon);
         hold("on");
         plot(xTime, uFlux);
@@ -129,6 +262,9 @@ public class GraphiteEffect {
      */
     public static void main(String args[]) {
         GraphiteEffect app = new GraphiteEffect();
-        app.run();
+        app.testDoubleDrop();
+        app.testAccident();
+        app.testPlannedTest();
+        app.testReducedLoad();
     }
 }

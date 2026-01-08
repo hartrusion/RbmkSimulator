@@ -24,6 +24,9 @@ package com.hartrusion.rbmksim;
  * <p>
  * This thing here models a value that will eat up reactivity after having a
  * long time on 50 % power and further reducing power after that.
+ * <p>
+ * Having a power drop after 50 % power for some time will result in a spike of
+ * this 
  *
  * @author Viktor Alexander Hartung
  */
@@ -36,9 +39,10 @@ public class GraphiteEffectModel implements Runnable {
 
     /**
      * Time constant for the behavior of the whole effect in seconds. This is
-     * set to a higher value compared to the neutron flux
+     * set to a higher value compared to the neutron flux. A good rule of thumb
+     * is to have the double time than T_IODINE in the xenon model.
      */
-    private static final double T_GRAPHITE = 600;
+    private static final double T_GRAPHITE = 240;
 
     /**
      * The output value will get a T1 behavior with this time constant applied.
@@ -113,9 +117,9 @@ public class GraphiteEffectModel implements Runnable {
      * @return value between 0 and 1
      */
     private double feedbackWeighting(double flux) {
-        if (flux <= 1.0) {
+        if (flux <= 0.1) {
             return 1.0; // full decay
-        } else if (flux > 1.0 && flux <= 20) {
+        } else if (flux > 0.1 && flux <= 20) {
             return 0.0; // no decay
         } else if (flux > 20 && flux < 40) {
             return 0.05 * flux - 1;
