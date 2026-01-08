@@ -2283,17 +2283,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Controller output closes one of the two valves depending on the
             // sign of the control output
             if (blowdownBalanceControlLoop.getOutput() > 0) {
-                blowdownReturnValve[0].operateSetOpening(100);
-                blowdownReturnValve[1].operateSetOpening(100
+                blowdownReturnValve[0].operateSetOpening(80
+                        + blowdownBalanceControlLoop.getOutput() * 0.25);
+                blowdownReturnValve[1].operateSetOpening(80
                         - blowdownBalanceControlLoop.getOutput());
 
             } else if (blowdownBalanceControlLoop.getOutput() < 0) {
-                blowdownReturnValve[0].operateSetOpening(100
+                blowdownReturnValve[0].operateSetOpening(80
                         + blowdownBalanceControlLoop.getOutput());
-                blowdownReturnValve[1].operateSetOpening(100);
+                blowdownReturnValve[1].operateSetOpening(80
+                        - blowdownBalanceControlLoop.getOutput() * 0.25);
             } else {
-                blowdownReturnValve[0].operateSetOpening(100);
-                blowdownReturnValve[1].operateSetOpening(100);
+                blowdownReturnValve[0].operateSetOpening(80);
+                blowdownReturnValve[1].operateSetOpening(80);
             }
         }
 
