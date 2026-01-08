@@ -95,6 +95,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemPresetFull = new javax.swing.JMenuItem();
+        jMenuItemPresetNone = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -167,13 +168,21 @@ public class ControlRoom extends javax.swing.JFrame
 
         jMenuControls.setText("Control Panels");
 
-        jMenuItemPresetFull.setText("View all");
+        jMenuItemPresetFull.setText("View all (full panel)");
         jMenuItemPresetFull.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPresetFullActionPerformed(evt);
             }
         });
         jMenuControls.add(jMenuItemPresetFull);
+
+        jMenuItemPresetNone.setText("Close all");
+        jMenuItemPresetNone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPresetNoneActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemPresetNone);
         jMenuControls.add(jSeparator3);
 
         jMenuItemCoreControl.setText("Reactor Controls");
@@ -775,6 +784,17 @@ public class ControlRoom extends javax.swing.JFrame
                 getControlPanelInstance("Deaerators"));
     }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
 
+    private void jMenuItemPresetNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetNoneActionPerformed
+        for (JInternalFrame f : jDesktopPane1.getAllFrames()) {
+            f.setVisible(false);
+            f.dispose();
+            jDesktopPane1.remove(f);
+        }
+        jDesktopPane1.revalidate();
+        jDesktopPane1.repaint();
+        controlPanels.clear();
+    }//GEN-LAST:event_jMenuItemPresetNoneActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -976,6 +996,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
     private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemPresetFull;
+    private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemSetCoreOnly;
     private javax.swing.JMenu jMenuMnemonics;

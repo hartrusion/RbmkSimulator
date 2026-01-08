@@ -45,10 +45,18 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetFull">
               <Properties>
-                <Property name="text" type="java.lang.String" value="View all"/>
+                <Property name="text" type="java.lang.String" value="View all (full panel)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetFullActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetNone">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Close all"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetNoneActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
