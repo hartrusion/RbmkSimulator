@@ -2271,8 +2271,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
             //.replaceFirst("^\\+", " "));
             case "Reactor#NeutronRate" -> {
                  // -3..3
-                ammeterRate.setChornobylValue(16.6666667 * newValue + 50);
-                lightBulbNeutronRate.setActive(newValue >= 2.6);
+                ammeterRate.setChornobylValue(8.33333333 * newValue + 50);
+                lightBulbNeutronRate.setActive(newValue >= 4.5);
             }
             case "Reactor#ThermalPower" ->
                 jLabelReadingThermalPower.setText(

@@ -782,15 +782,15 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControl.addInputProvider(()
                 -> - // Limit negative neutron rate
                 Math.max(-11 * (neutronFluxModel
-                        .getYNeutronRateFiltered() + 2.3),
+                        .getYNeutronRateFiltered() + 3.8),
                         // Limit positive neutron rate
                         Math.min(-11 * (neutronFluxModel
-                                .getYNeutronRateFiltered() - 2.4),
+                                .getYNeutronRateFiltered() - 4.5),
                                 (setpointNeutronFlux.getOutput()
                                 - neutronFluxModel.getYNeutronFlux()))));
 
         globalControl.setMaxOutput(7.4);
-        globalControl.setParameterK(2.0);
+        globalControl.setParameterK(2.5);
         globalControl.setParameterTN(20);
 
         int idx, jdx;
@@ -850,10 +850,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 return neutronFluxModel.getYNeutronRate();
             }
         });
-        am.defineAlarm(3.8, AlarmState.MAX1);
-        am.defineAlarm(3.0, AlarmState.HIGH2);
-        am.defineAlarm(2.6, AlarmState.HIGH1);
-        am.defineAlarm(-2.6, AlarmState.LOW1);
+        am.defineAlarm(7.5, AlarmState.MAX1);
+        am.defineAlarm(7.0, AlarmState.HIGH2);
+        am.defineAlarm(6.0, AlarmState.HIGH1);
+        am.defineAlarm(-4.5, AlarmState.LOW1);
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {

@@ -32,7 +32,7 @@ public class XenonModel implements Runnable {
      * that would be ridiculously for a simulator. 5 Minutes however seem to be
      * more reasonable for a simulator, things are comfortable with 2 minutes.
      */
-    private static final double T_IODINE = 120;
+    private static final double T_IODINE = 180;
 
     // Iodine 136 half life: 6.6 Hours
     // Xenon 136 half life: 9.4 hours -> 9.4/6.6 = 1.384

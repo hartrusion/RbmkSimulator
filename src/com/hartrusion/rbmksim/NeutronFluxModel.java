@@ -68,7 +68,7 @@ public class NeutronFluxModel implements Runnable {
      * reaction (I made this up!) and there will be a rapid power decrease
      * happening. This is to allow a sudden power drop.
      */
-    private final double DECAY_FACTOR = 800;
+    private final double DECAY_FACTOR = 200;
 
     /**
      * As we will have prompt neutron excursion on k = 1 + beta, there should be
@@ -80,26 +80,19 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * The difference between uReactivity and uAbsorberRods will be multiplied
-     * with this factor and 1.0 will be added, ultimately resulting in the
-     * effective neutron multiplication factor K_eff.
+     * with this factor, ultimately resulting in the reactivity of the reactor.
      */
     private final double K_REACTIVITY = 0.0005;
-
-    private final double MIN_NEUTRON_FLUX = 0;
-
+    
     /**
      * The return value of criticalityFunction will be multiplied by this,
      * defining the integration speed of the neutron flux. This is directly
      * affecting how the neutronFluxRate value is calculated from K_eff.
      * <p>
      * The K_INTEGRAL value multiplied with the beta value will indicate the
-     * neutron rate in %/s which will trigger prompt excursion. With an initial
-     * value of 57.9 this was 2.9 10%/s for prompt excursion, however, this
-     * takes way too much time on simulator for ramping up power. To make it a
-     * better experience, a value of 85 was chosen. This will do a prompt
-     * excursion with 4.25 10%/s. The lower values were taken from rxmodel but
+     * neutron rate in %/s.
      */
-    private final double K_INTEGRAL = 85;
+    private final double K_INTEGRAL = 220;
 
     /**
      * Factor of rod movement derivative part which will be added to the
@@ -150,7 +143,7 @@ public class NeutronFluxModel implements Runnable {
      * The positive feedback path of the neutron flux to its own grow rate. This
      * number is "a" of 1-e^(-a*x).
      */
-    private final double A_POSITIVE_FEEDBACK = 2.0;
+    private final double A_POSITIVE_FEEDBACK = 0.4;
 
     /**
      * Marks the event of the prompt neutron excursion.
