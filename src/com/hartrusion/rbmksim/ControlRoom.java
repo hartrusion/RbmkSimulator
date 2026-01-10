@@ -90,7 +90,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemPause = new javax.swing.JMenuItem();
-        jMenuItemSetCoreOnly = new javax.swing.JMenuItem();
+        jCheckBoxMenuOnlyCore = new javax.swing.JCheckBoxMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
@@ -146,14 +146,13 @@ public class ControlRoom extends javax.swing.JFrame
         });
         jMenuFile.add(jMenuItemPause);
 
-        jMenuItemSetCoreOnly.setText("Toggle Core Only");
-        jMenuItemSetCoreOnly.setToolTipText("Deactivates the connection between thermal systems and the core simulation.");
-        jMenuItemSetCoreOnly.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBoxMenuOnlyCore.setText("Simulate reactor only");
+        jCheckBoxMenuOnlyCore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemSetCoreOnlyActionPerformed(evt);
+                jCheckBoxMenuOnlyCoreActionPerformed(evt);
             }
         });
-        jMenuFile.add(jMenuItemSetCoreOnly);
+        jMenuFile.add(jCheckBoxMenuOnlyCore);
         jMenuFile.add(jSeparator1);
 
         jMenuItemExit.setText("Exit");
@@ -647,10 +646,6 @@ public class ControlRoom extends javax.swing.JFrame
         System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
-    private void jMenuItemSetCoreOnlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSetCoreOnlyActionPerformed
-        controller.userAction(new ActionCommand("SetCoreOnly", null));
-    }//GEN-LAST:event_jMenuItemSetCoreOnlyActionPerformed
-
     private void jMenuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAboutActionPerformed
         AboutDialog dialog = new AboutDialog(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
@@ -794,6 +789,11 @@ public class ControlRoom extends javax.swing.JFrame
         jDesktopPane1.repaint();
         controlPanels.clear();
     }//GEN-LAST:event_jMenuItemPresetNoneActionPerformed
+
+    private void jCheckBoxMenuOnlyCoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuOnlyCoreActionPerformed
+        controller.userAction(new ActionCommand("SetCoreOnly", null));
+        jCheckBoxMenuOnlyCore.setEnabled(false);
+    }//GEN-LAST:event_jCheckBoxMenuOnlyCoreActionPerformed
 
     @Override // Called on startup
     public void registerController(ViewerController controller) {
@@ -965,6 +965,7 @@ public class ControlRoom extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuOnlyCore;
     private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuItem jMenuAlarms;
@@ -998,7 +999,6 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemRecirculation;
-    private javax.swing.JMenuItem jMenuItemSetCoreOnly;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;

@@ -17,13 +17,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPauseActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSetCoreOnly">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuOnlyCore">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Toggle Core Only"/>
-                <Property name="toolTipText" type="java.lang.String" value="Deactivates the connection between thermal systems and the core simulation."/>
+                <Property name="text" type="java.lang.String" value="Simulate reactor only"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSetCoreOnlyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuOnlyCoreActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
