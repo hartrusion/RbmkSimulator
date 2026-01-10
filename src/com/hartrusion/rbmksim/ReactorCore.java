@@ -164,9 +164,9 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private AlarmState autoRodsPositionAlarmState;
     private AlarmState oldAutoRodsPositionAlarmState;
-    
+
     /**
-     * Use ValveState enum to describe the auto rods position, that way the 
+     * Use ValveState enum to describe the auto rods position, that way the
      * lights from the switch widgets can be controlled.
      */
     private ValveState autoRodsPositionState;
@@ -264,7 +264,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             } else {
                 autoRodsPositionAlarmState = AlarmState.NONE;
             }
-            } else {
+        } else {
             autoRodsPositionAlarmState = AlarmState.NONE;
         }
         if (autoRodsPositionAlarmState != oldAutoRodsPositionAlarmState) {
@@ -272,7 +272,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             alarmManager.fireAlarm("ReactorAutoRodsPosition",
                     autoRodsPositionAlarmState, false);
         }
-        
+
         // Position lights on GUI:
         if (selectedAutoRods >= 1 && globalControlEnabled) {
             if (avgPositionActiveAutomatic < 1.4) {
@@ -327,7 +327,12 @@ public class ReactorCore extends Subsystem implements Runnable {
                 // re-select them each time.
                 rod.setAutomatic(false);
             }
-            rod.run(); // update all rods
+            // To stop the rods from working in case of propmt excursion, we 
+            // just stop running it so the values stay the same and no more 
+            // updates are sent. That way thes simply stop working.
+            if (neutronFluxModel.isReactorIntact()) {
+                rod.run(); // update all rods
+            }
         }
 
         // Calculate total absorption and average rod position
@@ -416,10 +421,13 @@ public class ReactorCore extends Subsystem implements Runnable {
         neutronFluxModel.run();
 
         // Pass neutron flux to xenon model and generate xenon poisoning value.
-        xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
-        xenonModel.run();
-        graphiteModel.setInputs(neutronFluxModel.getYNeutronFlux());
-        graphiteModel.run();
+        // but ony if the reactor is intact.
+        if (neutronFluxModel.isReactorIntact()) {
+            xenonModel.setInputs(neutronFluxModel.getYNeutronFlux());
+            xenonModel.run();
+            graphiteModel.setInputs(neutronFluxModel.getYNeutronFlux());
+            graphiteModel.run();
+        }
 
         alarmUpdater.invokeAll();
 
@@ -766,7 +774,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     public void init() {
         neutronFluxModel.setInitialConditions(100, 80.144, 0);
-        
+
         // Auto Control is limited between 4 and 110 % flux
         setpointNeutronFlux.setLowerLimit(0.0);
         setpointNeutronFlux.setUpperLimit(120.0);

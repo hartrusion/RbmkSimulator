@@ -58,10 +58,10 @@ public class NeutronFluxModel implements Runnable {
     private double beta = 0.005;
 
     /**
-     * Fixed rate as soon as kEff exceeds 1 + beta. Will be multiplied with
-     * K_INTEGRAL to get the integrator input.
+     * Fixed rate as soon as reactivity exceeds beta once. Will be multiplied
+     * with K_INTEGRAL to get the integrator input.
      */
-    private final double PROMPT_EXCURSION_RATE = 4.0;
+    private final double PROMPT_EXCURSION_RATE = 0.8;
 
     /**
      * Below 1 - beta, there are not enough neutrons to sustain any chain
@@ -83,7 +83,7 @@ public class NeutronFluxModel implements Runnable {
      * with this factor, ultimately resulting in the reactivity of the reactor.
      */
     private final double K_REACTIVITY = 0.0005;
-    
+
     /**
      * The return value of criticalityFunction will be multiplied by this,
      * defining the integration speed of the neutron flux. This is directly
@@ -260,10 +260,16 @@ public class NeutronFluxModel implements Runnable {
         // Apply the criticality rate 
         critFunctionResult = criticalityFunction(dynamisedReactivity);
 
-        // This is the input on the multiplier block that is used to generate 
-        // the positive feedback behavior in the beginning
-        posFeedbackMultiplier = 1.0 - Math.exp(
-                -A_POSITIVE_FEEDBACK * xNeutronFlux);
+        if (!promptExcursion) {
+            // This is the input on the multiplier block that is used to generate 
+            // the positive feedback behavior in the beginning
+            posFeedbackMultiplier = 1.0 - Math.exp(
+                    -A_POSITIVE_FEEDBACK * xNeutronFlux);
+        } else {
+            // Allow fast runaway even for very small neutron flux values
+            // immediately
+            posFeedbackMultiplier = 1.0;
+        }
 
         // Generate the diff inputs for the integral blocks
         dXNeutronFlux = K_INTEGRAL * posFeedbackMultiplier * critFunctionResult;
@@ -282,9 +288,11 @@ public class NeutronFluxModel implements Runnable {
 
         // Forward Euler
         xNeutronFlux = xNeutronFlux + dXNeutronFlux * stepTime;
-        if (xNeutronFlux >= 937.5) {
-            // Limit to 937.5 % (833.3 percent of 3200 MW)
-            xNeutronFlux = 937.5;
+        if (xNeutronFlux >= 1200) {
+            // Limit to 12 times the normal flux value.
+            // the megawatt-value will be limited elsewhere. This happens on
+            // prompt excursion and is irreversible anyway.
+            xNeutronFlux = 1200;
         } else if (xNeutronFlux <= 1e-4) {
             // Limit the neutron flux. The lower limit is defined using the log
             // value. RXModel had something like -5.28, we use -6.0 here as this
@@ -297,13 +305,21 @@ public class NeutronFluxModel implements Runnable {
         xDelayedCriticality += dXDelayedCriticality * stepTime;
         xDeltaRods += dXDeltaRods * stepTime;
         xFirstDelay += dXFirstDelay * stepTime;
-        xDelayedThermalPower += dXDelayedThermalPower * stepTime;
+        if (!promptExcursion) {
+            xDelayedThermalPower += dXDelayedThermalPower * stepTime;
+            // freeze this effect on explosion to stop vales from moving.
+        }
         xNeutronRateDelay += dXNeutronRateDelay * stepTime;
 
         // Update Output variables
-        yReactivity = reactivity;
-        yK = - 1 / (reactivity - 1);
-        yNeutronFlux = xNeutronFlux;
+        if (!promptExcursion) {
+            yReactivity = reactivity;
+            yK = - 1 / (reactivity - 1);
+            // Those values are freezed to their last value on prompt neutron
+            // excursion.
+        }
+
+        yNeutronFlux = Math.min(xNeutronFlux, 937.5); // put old limit here
 
         // Neutron Rate is given in 10%/s
         if (zeroPower) {
@@ -316,10 +332,13 @@ public class NeutronFluxModel implements Runnable {
 
         yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
 
-        yThermalPower1 = yNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
-                + xDelayedThermalPower;
-        yThermalPower2 = yNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
-                + xDelayedThermalPower;
+        // Limit the total thermal power output to 30.000 Megawatts
+        yThermalPower1 = Math.min(15000,
+                xNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
+                + xDelayedThermalPower);
+        yThermalPower2 = Math.min(15000,
+                xNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
+                + xDelayedThermalPower);
         yThermalPower = yThermalPower1 + yThermalPower2;
     }
 
@@ -396,14 +415,29 @@ public class NeutronFluxModel implements Runnable {
         return yNeutronFluxLog;
     }
 
+    /**
+     * Thermal power for loop 1, including the decay heat.
+     *
+     * @return Power in Megawatts.
+     */
     public double getYThermalPower1() {
         return yThermalPower1;
     }
 
+    /**
+     * Thermal power for loop 2, including the decay heat.
+     *
+     * @return Power in Megawatts.
+     */
     public double getYThermalPower2() {
         return yThermalPower2;
     }
 
+    /**
+     * Thermal power (sum), including the decay heat.
+     *
+     * @return Power in Megawatts.
+     */
     public double getYThermalPower() {
         return yThermalPower;
     }
@@ -414,5 +448,9 @@ public class NeutronFluxModel implements Runnable {
 
     public void setBeta(double beta) {
         this.beta = beta;
+    }
+    
+    public boolean isReactorIntact() {
+        return (xNeutronFlux < 500);
     }
 }
