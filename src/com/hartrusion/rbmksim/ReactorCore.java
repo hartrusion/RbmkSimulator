@@ -50,6 +50,8 @@ public class ReactorCore extends Subsystem implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(
             ReactorCore.class.getName());
 
+    private boolean coreOnlySimulation = false;
+
     /**
      * Target neutron flux value to which the reactor should be driven to, this
      * value is likely to be set only once and that's it. The gradient is more
@@ -529,6 +531,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         } else if (setpointPowerGradient.handleAction(ac)) {
             return;
         }
+        if (ac.getPropertyName().equals("SetCoreOnly")) {
+            coreOnlySimulation = true;
+        }
         if (!ac.getPropertyName().startsWith("Reactor#")) {
             return;
         }
@@ -862,7 +867,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
 
         setpointPowerGradient.setUpperLimit(1.4);
-        setpointPowerGradient.setMaxRate(0.4);
+        setpointPowerGradient.setMaxRate(0.1);
         setpointPowerGradient.forceOutputValue(0.3); // initial value
 
         // Define alarms and consequences
@@ -879,6 +884,26 @@ public class ReactorCore extends Subsystem implements Runnable {
         am.defineAlarm(7.0, AlarmState.HIGH2);
         am.defineAlarm(6.0, AlarmState.HIGH1);
         am.defineAlarm(-4.5, AlarmState.LOW1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                triggerAutoShutdown();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("Reactivity");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return neutronFluxModel.getYReactivity();
+            }
+        });
+        am.defineAlarm(0.0042, AlarmState.MAX1);
+        am.defineAlarm(0.0037, AlarmState.HIGH2);
+        am.defineAlarm(0.0031, AlarmState.HIGH1);
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
@@ -977,11 +1002,13 @@ public class ReactorCore extends Subsystem implements Runnable {
      * @return true if everything is fine.
      */
     private boolean checkRpsDisengage() {
-        if (alarmManager.isAlarmActive("Loop1Flow", AlarmState.MIN1)) {
-            return false;
-        }
-        if (alarmManager.isAlarmActive("Loop2Flow", AlarmState.MIN1)) {
-            return false;
+        if (!coreOnlySimulation) {
+            if (alarmManager.isAlarmActive("Loop1Flow", AlarmState.MIN1)) {
+                return false;
+            }
+            if (alarmManager.isAlarmActive("Loop2Flow", AlarmState.MIN1)) {
+                return false;
+            }
         }
         if (avgRodPosition < 7.1) {
             return false; // rods not fully inserted
@@ -1013,7 +1040,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             r.registerValueHandler(output);
         }
     }
-    
+
     public NeutronFluxModel getNeutronModel() {
         return neutronFluxModel;
     }
