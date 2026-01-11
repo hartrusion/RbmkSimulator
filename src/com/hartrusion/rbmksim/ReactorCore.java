@@ -834,19 +834,19 @@ public class ReactorCore extends Subsystem implements Runnable {
                         rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
                         controlRods.add(new ControlRod(
                                 idx, jdx, ChannelType.AUTOMATIC_CONTROLROD));
-                        controlRods.getLast().setAffectionRadius(4.5);
+                        controlRods.get(controlRods.size() - 1).setAffectionRadius(4.5);
                     }
                     case SHORT_CONTROLROD -> {
                         rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
                         controlRods.add(new ControlRod(
                                 idx, jdx, ChannelType.SHORT_CONTROLROD));
-                        controlRods.getLast().setAffectionRadius(8.2);
+                        controlRods.get(controlRods.size() - 1).setAffectionRadius(8.2);
                     }
                     case MANUAL_CONTROLROD -> {
                         rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
                         controlRods.add(new ControlRod(
                                 idx, jdx, ChannelType.MANUAL_CONTROLROD));
-                        controlRods.getLast().setAffectionRadius(3.8);
+                        controlRods.get(controlRods.size() - 1).setAffectionRadius(3.8);
                     }
                 }
             }
