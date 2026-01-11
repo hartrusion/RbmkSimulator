@@ -16,11 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
+import com.hartrusion.rbmksim.CoreIndicator;
 
 /**
  *
@@ -33,6 +29,10 @@ public class FrameCoreActivity extends javax.swing.JFrame {
      */
     public FrameCoreActivity() {
         initComponents();
+    }
+    
+    public void updateDisplay(CoreIndicator source) {
+        displayCoreBoolean2.updateDisplay(source);
     }
 
     /**
@@ -48,8 +48,9 @@ public class FrameCoreActivity extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Core Activity");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(displayCoreBoolean2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, -1, -1));
+        setResizable(false);
+        getContentPane().setLayout(new java.awt.FlowLayout());
+        getContentPane().add(displayCoreBoolean2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

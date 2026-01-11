@@ -18,6 +18,9 @@ package com.hartrusion.rbmksim;
 
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.SetpointIntegrator;
+import com.hartrusion.util.ArraysExt;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Describes and calculates a control rod entity. Holds information about what
@@ -41,6 +44,34 @@ public class ControlRod extends ReactorElement implements Runnable {
      */
     private final double[] rodSpeeds = {0.1, 0.2, 0.3, 0.331};
     private int rodSpeedIndex = 1;
+
+    /**
+     * Holds a list of all fuel elements that are driven by this control rod
+     */
+    private final List<FuelElement> affectedFuel = new ArrayList<>();
+
+    /**
+     * Holds the multiplier which is applied to affectedFuel.get(index).
+     */
+    private double[] affectedFuelMultiplier = new double[8];
+
+    /**
+     * Radius in number of rods which determines if a fuel element is affected
+     * by this rod and sets the strength of affection towards the element.
+     */
+    private double affectionRadius = 2.2;
+
+    private double maxAbsorption = 1.0;
+
+    /**
+     * Sets a radius in which other surrounding fuel elements will be affected
+     * by this control rod.
+     *
+     * @param affectionRadius value in rod numbers
+     */
+    public void setAffectionRadius(double affectionRadius) {
+        this.affectionRadius = affectionRadius;
+    }
 
     public ChannelType getRodType() {
         return rodType;
@@ -86,6 +117,12 @@ public class ControlRod extends ReactorElement implements Runnable {
         super(x, y);
         this.rodType = rodType;
 
+        if (rodType == ChannelType.SHORT_CONTROLROD) {
+            maxAbsorption = 0.6;
+        } else {
+            maxAbsorption = 1.0;
+        }
+
         // initialize fully inserted
         if (rodType == ChannelType.SHORT_CONTROLROD) {
             swi.forceOutputValue(2.5);
@@ -107,13 +144,14 @@ public class ControlRod extends ReactorElement implements Runnable {
         swi.run();
         calculateAbsorption();
         calculateDisplacerBoost();
+        distributeAffection();
 
         // Send the current position as parameter
         outputValues.setParameterValue(positionParameter, swi.getOutput());
 
         // Send the control state to registered listeners
         if (automatic != oldAutomatic) {
-            pcs.firePropertyChange(controlStateProperty, 
+            pcs.firePropertyChange(controlStateProperty,
                     oldAutomatic, automatic);
             oldAutomatic = automatic;
         }
@@ -146,15 +184,16 @@ public class ControlRod extends ReactorElement implements Runnable {
         if (rodType == ChannelType.SHORT_CONTROLROD) {
             // Short rods go the other way round and make a maximum of 0.6
             if (position <= 3.0) {
-                absorption = 0.6; // small rod is fully pulled up inside core
+                absorption = maxAbsorption; // small rod is fully pulled up inside core
                 return;
             }
             if (position >= 7.2) {
                 absorption = 0.0; // rod hanging below core, no more absorption
                 return;
-            } // interpolate between 3/0.6 and 7.2/0
+            } // interpolate between 3/maxAbsorption and 7.2/0
             // y = (y2-y1) / (x2-x1) * (x-x1) + y1);
-            absorption = (0.0 - 0.6) / (7.2 - 3.0) * (position - 3.0) + 0.6;
+            absorption = (0.0 - maxAbsorption) / (7.2 - 3.0)
+                    * (position - 3.0) + maxAbsorption;
             return;
         }
         if (rodType == ChannelType.MANUAL_CONTROLROD) {
@@ -227,16 +266,57 @@ public class ControlRod extends ReactorElement implements Runnable {
     }
 
     /**
+     * Distributes the current affection value from this control rod to all
+     * surounding fuel rods.
+     */
+    private void distributeAffection() {
+        FuelElement f;
+        double affection = (maxAbsorption - absorption) / maxAbsorption;
+        if (affection > 1e-18) {
+            for (int idx = 0; idx < affectedFuel.size(); idx++) {
+                affectedFuel.get(idx).addAffection(
+                        affection * affectedFuelMultiplier[idx]);
+            }
+        }
+    }
+
+    /**
+     * Initializes the affection from this control rod towards nearby fuel
+     * elements.
+     *
+     * @param fuelElements List of all FuelElements.
+     */
+    public void initAffection(List<FuelElement> fuelElements) {
+        double xDistSq, yDistSq; // distance to the element from this, squared
+        double distance;
+        for (FuelElement f : fuelElements) {
+            xDistSq = (double) ((f.getX() - getX()) * (f.getX() - getX()));
+            yDistSq = (double) ((f.getY() - getY()) * (f.getY() - getY()));
+            distance = Math.sqrt(xDistSq + yDistSq);
+            if (distance > affectionRadius) {
+                continue; // fuel rod is too far away from this control rod.
+            }
+            // Add that fuel rod to the affectedFuel list
+            affectedFuel.add(f);
+            affectedFuelMultiplier = ArraysExt.newArrayLength(
+                    affectedFuelMultiplier, affectedFuel.size());
+            // Calculate the affection value between 0..1 relative to the 
+            // distance.
+            affectedFuelMultiplier[affectedFuel.size() - 1]
+                    = (affectionRadius - distance) / affectionRadius;
+            // Sum up the value in the affected fuel rod.
+            f.addMaxAffection(affectedFuelMultiplier[affectedFuel.size() - 1]);
+        }
+    }
+
+    /**
      * The maximum possible absorption value for this control rod. Used to
      * determine the maximum absorption over all rods.
      *
      * @return value between 0..1
      */
     public double getMaxAbsorption() {
-        if (rodType == ChannelType.SHORT_CONTROLROD) {
-            return 0.6;
-        }
-        return 1.0;
+        return maxAbsorption;
     }
 
     public boolean isSelected() {
@@ -247,6 +327,12 @@ public class ControlRod extends ReactorElement implements Runnable {
         this.selected = selected;
     }
 
+    /**
+     * Get the state of the control mode which is used with this rod (this value
+     * is saved in the rods).
+     *
+     * @return true if rod is supposed to be in auto mode.
+     */
     public boolean isAutomatic() {
         return automatic.equals(ControlCommand.AUTOMATIC);
     }

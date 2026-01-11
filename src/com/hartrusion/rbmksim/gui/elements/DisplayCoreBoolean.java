@@ -17,13 +17,23 @@
 package com.hartrusion.rbmksim.gui.elements;
 
 import com.hartrusion.rbmksim.ChannelData;
-
+import com.hartrusion.rbmksim.CoreIndicator;
+import java.awt.Color;
 
 /**
  *
  * @author Viktor Alexander Hartung
  */
 public class DisplayCoreBoolean extends javax.swing.JPanel {
+
+    private static final Color FUEL_OFF = new Color(128, 128, 128);
+    private static final Color FUEL_ON = new Color(255, 255, 255);
+    private static final Color MANROD_OFF = new Color(128, 128, 0);
+    private static final Color MANROD_ON = new Color(255, 255, 0);
+    private static final Color AUTOROD_OFF = new Color(0, 0, 128);
+    private static final Color AUTOROD_ON = new Color(0, 0, 255);
+
+    private final boolean[][] highlight = new boolean[23][23];
 
     /**
      * Creates new form DisplayCoreBoolean
@@ -999,13 +1009,11 @@ public class DisplayCoreBoolean extends javax.swing.JPanel {
      * builder will result in an error. It is simply too large for one method
      * and a bad practice. However, I want to keep using the GUI builder with
      * previews and WYSIWYG possibilities.
-     *
      * <p>
      * error: code too large private void initComponents()
-     *
      * <p>
      * Therefore parts of the initialization, which can be organized way easier,
-     * were moved to this mehtod.
+     * were moved to this method.
      */
     private void initComponentsProperties() {
         javax.swing.JLabel jLabel;
@@ -1021,16 +1029,65 @@ public class DisplayCoreBoolean extends javax.swing.JPanel {
                 jLabel.setPreferredSize(new java.awt.Dimension(22, 22));
                 // Non-transparent background:
                 jLabel.setOpaque(true);
-                switch (ChannelData.getChannelType(idx, jdx)) {
-                    case FUEL:
-                        jLabel.setBackground(new java.awt.Color(128, 128, 128));
-                        break;
-                    case MANUAL_CONTROLROD:
-                        jLabel.setBackground(new java.awt.Color(128, 128, 0));
-                        break;
-                    case AUTOMATIC_CONTROLROD, SHORT_CONTROLROD:
-                        jLabel.setBackground(new java.awt.Color(0, 0, 128));
-                        break;
+                jLabel.setBackground(getLabelBackground(idx, jdx, false));
+            }
+        }
+    }
+
+    /**
+     * Returns a color depending on the type of ReactorElement and if it is
+     * active or not.
+     *
+     * @param idx coordinate 1
+     * @param jdx coordinate 2
+     * @param active should it be highlighted or not?
+     * @return java awt Color
+     */
+    private Color getLabelBackground(int idx, int jdx, boolean active) {
+        switch (ChannelData.getChannelType(idx, jdx)) {
+            case FUEL:
+                if (active) {
+                    return FUEL_ON;
+                } else {
+                    return FUEL_OFF;
+                }
+            case MANUAL_CONTROLROD:
+                if (active) {
+                    return MANROD_ON;
+                } else {
+                    return MANROD_OFF;
+                }
+            case AUTOMATIC_CONTROLROD, SHORT_CONTROLROD:
+                if (active) {
+                    return AUTOROD_ON;
+                } else {
+                    return AUTOROD_OFF;
+                }
+        }
+        return null;
+    }
+
+    /**
+     * Updates the Panel from data with the given CoreIndicator class. Calling
+     * this will get all data for all elements from the given CoreIndicator
+     * instance and update the display.
+     *
+     * @param source
+     */
+    public void updateDisplay(CoreIndicator source) {
+        int idx, jdx, kdx, ldx;
+        boolean toHighlight;
+        for (idx = ChannelData.MIN_NUMBER; idx <= ChannelData.MAX_NUMBER; idx++) {
+            for (jdx = ChannelData.MIN_NUMBER; jdx <= ChannelData.MAX_NUMBER; jdx++) {
+                // get array index for channel coordinate thingy
+                kdx = idx - ChannelData.MIN_NUMBER;
+                ldx = jdx - ChannelData.MIN_NUMBER;
+                toHighlight = source.isHighlited(idx, jdx);
+                // only switch colors if necessary
+                if (toHighlight != highlight[kdx][ldx]) {
+                    getLabel(idx, jdx).setBackground(
+                            getLabelBackground(idx, jdx, toHighlight));
+                    highlight[kdx][ldx] = toHighlight;
                 }
             }
         }

@@ -298,6 +298,12 @@ public class ReactorCore extends Subsystem implements Runnable {
                 !globalControlActive || globalControlOverride);
         globalControl.run();
 
+        // Do a run of the affection calculation, each rod will distribute its
+        // value to the surrounding fuel elemts when rod.run is called.
+        for (FuelElement f : fuelElements) {
+            f.prepareAffectionCalculation();
+        }
+
         // Write all controller outputs to the rods if they're in auto mode
         // and finally call run for all rods to update their positions (this is
         // the actual movement).
@@ -333,6 +339,10 @@ public class ReactorCore extends Subsystem implements Runnable {
             if (neutronFluxModel.isReactorIntact()) {
                 rod.run(); // update all rods
             }
+        }
+
+        for (FuelElement f : fuelElements) {
+            f.finalizeAffection();
         }
 
         // Calculate total absorption and average rod position
@@ -805,35 +815,38 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Initialize some fast access arrays so we dont need to search in
         // the arraylist if both indizies are given.
-        for (idx = 0; idx < 23; idx++) {
-            for (jdx = 0; jdx < 23; jdx++) {
+        for (idx = 0; idx < ChannelData.LENGTH; idx++) {
+            for (jdx = 0; jdx < ChannelData.LENGTH; jdx++) {
                 rodIndex[idx][jdx] = -1;
                 fuelIndex[idx][jdx] = -1;
             }
         }
 
         // Iterate over known core structure and create rods and fuel
-        for (idx = 20; idx <= 42; idx++) {
-            for (jdx = 20; jdx <= 42; jdx++) {
+        for (idx = ChannelData.MIN_NUMBER; idx <= ChannelData.MAX_NUMBER; idx++) {
+            for (jdx = ChannelData.MIN_NUMBER; jdx <= ChannelData.MAX_NUMBER; jdx++) {
                 switch (ChannelData.getChannelType(idx, jdx)) {
                     case FUEL -> {
-                        fuelIndex[idx - 20][jdx - 20] = fuelElements.size();
+                        fuelIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = fuelElements.size();
                         fuelElements.add(new FuelElement(idx, jdx));
                     }
                     case AUTOMATIC_CONTROLROD -> {
-                        rodIndex[idx - 20][jdx - 20] = controlRods.size();
+                        rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
                         controlRods.add(new ControlRod(
                                 idx, jdx, ChannelType.AUTOMATIC_CONTROLROD));
+                        controlRods.getLast().setAffectionRadius(4.5);
                     }
                     case SHORT_CONTROLROD -> {
-                        rodIndex[idx - 20][jdx - 20] = controlRods.size();
+                        rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
                         controlRods.add(new ControlRod(
                                 idx, jdx, ChannelType.SHORT_CONTROLROD));
+                        controlRods.getLast().setAffectionRadius(8.2);
                     }
                     case MANUAL_CONTROLROD -> {
-                        rodIndex[idx - 20][jdx - 20] = controlRods.size();
+                        rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
                         controlRods.add(new ControlRod(
                                 idx, jdx, ChannelType.MANUAL_CONTROLROD));
+                        controlRods.getLast().setAffectionRadius(3.8);
                     }
                 }
             }
@@ -842,6 +855,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         // Sum up to get the max possible absorption with all rods inserted.
         for (ControlRod rod : controlRods) {
             maxAbsorption += rod.getMaxAbsorption();
+        }
+
+        for (ControlRod rod : controlRods) {
+            rod.initAffection(fuelElements);
         }
 
         setpointPowerGradient.setUpperLimit(1.4);
@@ -995,5 +1012,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (ControlRod r : controlRods) {
             r.registerValueHandler(output);
         }
+    }
+    
+    public NeutronFluxModel getNeutronModel() {
+        return neutronFluxModel;
     }
 }

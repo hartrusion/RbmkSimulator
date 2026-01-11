@@ -38,6 +38,11 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
+    
+    /**
+     * An instance for the core indicator panel.
+     */
+    private final CoreIndicator indicator1 = new CoreIndicator();
 
     private boolean pause;
 
@@ -56,6 +61,8 @@ public class MainLoop implements Runnable, ModelManipulation {
             process.registerController(controller);
             process.registerAlarmManager(alarms);
             process.init();
+            
+            indicator1.setCore(core);
 
         } catch (Exception e) {
             // Throw exception as error message popup
@@ -79,9 +86,12 @@ public class MainLoop implements Runnable, ModelManipulation {
                 core.setVoiding(process.getVoiding());
                 core.run();
                 process.run();
+                indicator1.run();
 
                 // Send all measurement data to the GUI by sending a reference.
                 controller.propertyChange("OutputValues", outputValues);
+                // Send the core indicator to update the view
+                controller.propertyChange("CoreIndicator#1", indicator1);
             }
 
         } catch (Exception e) {

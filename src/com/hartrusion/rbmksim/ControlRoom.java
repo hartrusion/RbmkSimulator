@@ -25,18 +25,14 @@ import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -260,7 +256,7 @@ public class ControlRoom extends javax.swing.JFrame
         });
         jMenuPanels.add(jMenuRodPositions);
 
-        jMenuCoreMatrix.setText("Core Matrix (not working)");
+        jMenuCoreMatrix.setText("Core Matrix");
         jMenuCoreMatrix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuCoreMatrixActionPerformed(evt);
@@ -853,6 +849,10 @@ public class ControlRoom extends javax.swing.JFrame
 
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
+        }
+        
+        if (frameCoreActivity != null && propertyName.equals("CoreIndicator#1")) {
+            frameCoreActivity.updateDisplay((CoreIndicator) newValue);
         }
     }
 

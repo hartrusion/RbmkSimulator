@@ -24,15 +24,31 @@ package com.hartrusion.rbmksim;
 public final class ChannelData {
 
     /**
+     * Counting of rods starts with this number.
+     */
+    public static final int MIN_NUMBER = 20;
+
+    /**
+     * Counting of rods ends with this number.
+     */
+    public static final int MAX_NUMBER = 42;
+
+    /**
+     * Total number of elements possible in one direction
+     */
+    public static final int LENGTH = 23;
+
+    /**
      * Returns the type of channel for a given coordinate.
-     * 
+     *
      * @param idx first number, Y, from bottom to top. 20 to 42.
      * @param jdx second number, X, from left to right 20 to 42.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static ChannelType getChannelType(int idx, int jdx) {
-        if (idx < 20 || idx > 42 || jdx < 20 || jdx > 42) {
+        if (idx < MIN_NUMBER || idx > MAX_NUMBER
+                || jdx < MIN_NUMBER || jdx > MAX_NUMBER) {
             // Outside defined range:
             return ChannelType.VOID;
         }
