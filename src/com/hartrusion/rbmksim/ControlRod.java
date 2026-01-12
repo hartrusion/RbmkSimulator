@@ -131,7 +131,7 @@ public class ControlRod extends ReactorElement implements Runnable {
         }
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
         swi.setLowerLimit(0.0);
-        swi.setUpperLimit(8.1);
+        swi.setUpperLimit(7.4);
 
         // Generate a designator for the rod positions parameter. identifier 
         // was written in super call of this constructor.
