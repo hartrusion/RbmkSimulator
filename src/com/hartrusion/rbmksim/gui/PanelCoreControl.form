@@ -41,6 +41,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="40-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -71,6 +72,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="40-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -104,6 +106,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="40-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -137,6 +140,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -167,6 +171,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-25"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -197,6 +202,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -227,6 +233,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -257,6 +264,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="37-37"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -287,6 +295,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -317,6 +326,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-25"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -347,6 +357,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -377,6 +388,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -407,6 +419,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-37"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -437,6 +450,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-40"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -467,6 +481,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="34-22"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -497,6 +512,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-22"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -527,6 +543,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -557,6 +574,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-25"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -587,6 +605,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -617,6 +636,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -647,6 +667,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-37"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -677,6 +698,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="31-40"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -707,6 +729,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-22"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -737,6 +760,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -767,6 +791,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-25"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -797,6 +822,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -827,6 +853,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -857,6 +884,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-37"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -887,6 +915,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="28-40"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -917,6 +946,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -947,6 +977,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-25"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -977,6 +1008,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1007,6 +1039,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1037,6 +1070,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="25-37"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1067,6 +1101,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="22-28"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1097,6 +1132,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="22-31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1130,6 +1166,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="22-34"/>
+        <Property name="toolTipText" type="java.lang.String" value="Select control rods which you want to move with the rod control panel, stop all or rod speed buttons."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1308,6 +1345,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="AZ-5"/>
+        <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -1332,6 +1370,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
+        <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1514,6 +1553,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches off the RPS safety feature. This is very unsafe."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1536,6 +1576,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Active"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches off the RPS safety feature. This is very unsafe."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -1632,7 +1673,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control"/>
+        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1655,6 +1696,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Rod speed"/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed for the selected control rods."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -1679,7 +1721,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&lt;"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed for the selected control rods."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1710,7 +1752,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&gt;"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed for the selected control rods."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1742,6 +1784,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Stop all"/>
+        <Property name="toolTipText" type="java.lang.String" value="Stop all control rods at their current position."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -1766,7 +1809,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="All rods will stop in their current position."/>
+        <Property name="toolTipText" type="java.lang.String" value="Stop all control rods at their current position."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -2323,6 +2366,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="RPS"/>
+        <Property name="toolTipText" type="java.lang.String" value="Reactor Protection System"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -2347,6 +2391,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
+        <Property name="toolTipText" type="java.lang.String" value="Clears and resets an active reactor protection. Only works if the cause of the RPS activation is resolved."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -2369,6 +2414,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Reset"/>
+        <Property name="toolTipText" type="java.lang.String" value="Clears and resets an active reactor protection. Only works if the cause of the RPS activation is resolved."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -2486,6 +2532,7 @@
               </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x25cf;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Stop selected control rods"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2505,6 +2552,7 @@
         <Component class="javax.swing.JButton" name="jButtonRodUp">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x25b2;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Move selected control rods up"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2521,6 +2569,7 @@
         <Component class="javax.swing.JButton" name="jButtonRodDown">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x25bc;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Move selected control rods down"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2578,6 +2627,7 @@
               </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x2190;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2599,6 +2649,7 @@
               </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x2190;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2620,6 +2671,7 @@
               </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x2190;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2641,6 +2693,7 @@
               </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x2190;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2662,6 +2715,7 @@
               </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x2190;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -2684,6 +2738,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="25-31"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -2709,6 +2764,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="31-31"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -2734,6 +2790,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="31-37"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -2759,6 +2816,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="31-25"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -2784,6 +2842,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="37-31"/>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -2801,6 +2860,9 @@
           </Constraints>
         </Component>
         <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulb3731">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="72" y="27" width="-1" height="-1"/>
@@ -2812,6 +2874,9 @@
           </Layout>
         </Container>
         <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulb3125">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="34" y="65" width="-1" height="-1"/>
@@ -2823,6 +2888,9 @@
           </Layout>
         </Container>
         <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulb3131">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="72" y="65" width="-1" height="-1"/>
@@ -2834,6 +2902,9 @@
           </Layout>
         </Container>
         <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulb3137">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="110" y="65" width="-1" height="-1"/>
@@ -2845,6 +2916,9 @@
           </Layout>
         </Container>
         <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulb2531">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Activates the control of the corresponding automatic control rods by the global control"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="72" y="103" width="-1" height="-1"/>
@@ -3223,6 +3297,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="___"/>
+            <Property name="toolTipText" type="java.lang.String" value="Xenon percentage indicated as percentage from full load equilibrium"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 18]"/>
             </Property>
@@ -3253,6 +3328,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="-_,____"/>
+            <Property name="toolTipText" type="java.lang.String" value="Caclulated reactivity of the core"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 18]"/>
             </Property>
@@ -3283,6 +3359,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="___,__"/>
+            <Property name="toolTipText" type="java.lang.String" value="Neutron flux (0..100 %)"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 18]"/>
             </Property>
@@ -3312,6 +3389,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="%Xe"/>
+            <Property name="toolTipText" type="java.lang.String" value="Xenon percentage indicated as percentage from full load equilibrium"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -3340,6 +3418,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Neutron Flux (%)"/>
+            <Property name="toolTipText" type="java.lang.String" value="Neutron flux (0..100 %)"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -3368,6 +3447,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Reactivity"/>
+            <Property name="toolTipText" type="java.lang.String" value="Caclulated reactivity of the core"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -3396,6 +3476,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Flux (log10)"/>
+            <Property name="toolTipText" type="java.lang.String" value="Displays the log10(Neutron Flux/100%) to monitor very tiny amounts of neutron flux in the reactor. Use this gauge to see the intial rise of neutron flux when pulling rods."/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -3424,6 +3505,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Neutron Rate"/>
+            <Property name="toolTipText" type="java.lang.String" value="Neutron rate (change of Neutron Flux per second), this is the effective change of power"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[52, 14]"/>
             </Property>
@@ -3453,6 +3535,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Displays the log10(Neutron Flux/100%) to monitor very tiny amounts of neutron flux in the reactor. Use this gauge to see the intial rise of neutron flux when pulling rods."/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -3477,6 +3560,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Neutron rate (change of Neutron Flux per second), this is the effective change of power"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

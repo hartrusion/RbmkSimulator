@@ -205,6 +205,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton4028.setBackground(new java.awt.Color(0, 128, 0));
         jButton4028.setFont(jButton4028.getFont().deriveFont(jButton4028.getFont().getSize()-5f));
         jButton4028.setText("40-28");
+        jButton4028.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton4028.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4028.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton4028.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -218,6 +219,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton4031.setBackground(new java.awt.Color(0, 128, 0));
         jButton4031.setFont(jButton4031.getFont().deriveFont(jButton4031.getFont().getSize()-5f));
         jButton4031.setText("40-31");
+        jButton4031.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton4031.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4031.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton4031.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -232,6 +234,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton4034.setBackground(new java.awt.Color(0, 128, 0));
         jButton4034.setFont(jButton4034.getFont().deriveFont(jButton4034.getFont().getSize()-5f));
         jButton4034.setText("40-34");
+        jButton4034.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton4034.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4034.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton4034.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -246,6 +249,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3728.setBackground(new java.awt.Color(0, 128, 0));
         jButton3728.setFont(jButton3728.getFont().deriveFont(jButton3728.getFont().getSize()-5f));
         jButton3728.setText("37-28");
+        jButton3728.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3728.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3728.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3728.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -259,6 +263,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3725.setBackground(new java.awt.Color(0, 128, 0));
         jButton3725.setFont(jButton3725.getFont().deriveFont(jButton3725.getFont().getSize()-5f));
         jButton3725.setText("37-25");
+        jButton3725.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3725.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3725.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3725.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -272,6 +277,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3731.setBackground(new java.awt.Color(128, 0, 0));
         jButton3731.setFont(jButton3731.getFont().deriveFont(jButton3731.getFont().getSize()-5f));
         jButton3731.setText("37-31");
+        jButton3731.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3731.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3731.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3731.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -285,6 +291,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3734.setBackground(new java.awt.Color(0, 128, 0));
         jButton3734.setFont(jButton3734.getFont().deriveFont(jButton3734.getFont().getSize()-5f));
         jButton3734.setText("37-34");
+        jButton3734.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3734.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3734.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3734.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -298,6 +305,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3737.setBackground(new java.awt.Color(0, 128, 0));
         jButton3737.setFont(jButton3737.getFont().deriveFont(jButton3737.getFont().getSize()-5f));
         jButton3737.setText("37-37");
+        jButton3737.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3737.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3737.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3737.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -311,6 +319,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3428.setBackground(new java.awt.Color(128, 128, 0));
         jButton3428.setFont(jButton3428.getFont().deriveFont(jButton3428.getFont().getSize()-5f));
         jButton3428.setText("34-28");
+        jButton3428.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round.");
         jButton3428.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3428.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3428.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -324,6 +333,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3425.setBackground(new java.awt.Color(0, 128, 0));
         jButton3425.setFont(jButton3425.getFont().deriveFont(jButton3425.getFont().getSize()-5f));
         jButton3425.setText("34-25");
+        jButton3425.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3425.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3425.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3425.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -337,6 +347,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3431.setBackground(new java.awt.Color(0, 128, 0));
         jButton3431.setFont(jButton3431.getFont().deriveFont(jButton3431.getFont().getSize()-5f));
         jButton3431.setText("34-31");
+        jButton3431.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3431.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3431.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3431.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -350,6 +361,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3434.setBackground(new java.awt.Color(128, 128, 0));
         jButton3434.setFont(jButton3434.getFont().deriveFont(jButton3434.getFont().getSize()-5f));
         jButton3434.setText("34-34");
+        jButton3434.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round.");
         jButton3434.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3434.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3434.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -363,6 +375,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3437.setBackground(new java.awt.Color(0, 128, 0));
         jButton3437.setFont(jButton3437.getFont().deriveFont(jButton3437.getFont().getSize()-5f));
         jButton3437.setText("34-37");
+        jButton3437.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3437.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3437.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3437.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -376,6 +389,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3440.setBackground(new java.awt.Color(0, 128, 0));
         jButton3440.setFont(jButton3440.getFont().deriveFont(jButton3440.getFont().getSize()-5f));
         jButton3440.setText("34-40");
+        jButton3440.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3440.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3440.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3440.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -389,6 +403,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3422.setBackground(new java.awt.Color(0, 128, 0));
         jButton3422.setFont(jButton3422.getFont().deriveFont(jButton3422.getFont().getSize()-5f));
         jButton3422.setText("34-22");
+        jButton3422.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3422.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3422.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3422.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -402,6 +417,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3122.setBackground(new java.awt.Color(0, 128, 0));
         jButton3122.setFont(jButton3122.getFont().deriveFont(jButton3122.getFont().getSize()-5f));
         jButton3122.setText("31-22");
+        jButton3122.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3122.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3122.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3122.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -415,6 +431,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3128.setBackground(new java.awt.Color(0, 128, 0));
         jButton3128.setFont(jButton3128.getFont().deriveFont(jButton3128.getFont().getSize()-5f));
         jButton3128.setText("31-28");
+        jButton3128.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3128.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3128.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3128.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -428,6 +445,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3125.setBackground(new java.awt.Color(128, 0, 0));
         jButton3125.setFont(jButton3125.getFont().deriveFont(jButton3125.getFont().getSize()-5f));
         jButton3125.setText("31-25");
+        jButton3125.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3125.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3125.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3125.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -441,6 +459,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3131.setBackground(new java.awt.Color(128, 0, 0));
         jButton3131.setFont(jButton3131.getFont().deriveFont(jButton3131.getFont().getSize()-5f));
         jButton3131.setText("31-31");
+        jButton3131.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3131.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3131.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3131.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -454,6 +473,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3134.setBackground(new java.awt.Color(0, 128, 0));
         jButton3134.setFont(jButton3134.getFont().deriveFont(jButton3134.getFont().getSize()-5f));
         jButton3134.setText("31-34");
+        jButton3134.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3134.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3134.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3134.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -467,6 +487,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3137.setBackground(new java.awt.Color(128, 0, 0));
         jButton3137.setFont(jButton3137.getFont().deriveFont(jButton3137.getFont().getSize()-5f));
         jButton3137.setText("31-37");
+        jButton3137.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3137.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3137.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3137.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -480,6 +501,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton3140.setBackground(new java.awt.Color(0, 128, 0));
         jButton3140.setFont(jButton3140.getFont().deriveFont(jButton3140.getFont().getSize()-5f));
         jButton3140.setText("31-40");
+        jButton3140.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton3140.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3140.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton3140.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -493,6 +515,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2822.setBackground(new java.awt.Color(0, 128, 0));
         jButton2822.setFont(jButton2822.getFont().deriveFont(jButton2822.getFont().getSize()-5f));
         jButton2822.setText("28-22");
+        jButton2822.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2822.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2822.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2822.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -506,6 +529,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2828.setBackground(new java.awt.Color(128, 128, 0));
         jButton2828.setFont(jButton2828.getFont().deriveFont(jButton2828.getFont().getSize()-5f));
         jButton2828.setText("28-28");
+        jButton2828.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round.");
         jButton2828.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2828.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2828.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -519,6 +543,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2825.setBackground(new java.awt.Color(0, 128, 0));
         jButton2825.setFont(jButton2825.getFont().deriveFont(jButton2825.getFont().getSize()-5f));
         jButton2825.setText("28-25");
+        jButton2825.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2825.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2825.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2825.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -532,6 +557,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2831.setBackground(new java.awt.Color(0, 128, 0));
         jButton2831.setFont(jButton2831.getFont().deriveFont(jButton2831.getFont().getSize()-5f));
         jButton2831.setText("28-31");
+        jButton2831.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2831.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2831.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2831.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -545,6 +571,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2834.setBackground(new java.awt.Color(128, 128, 0));
         jButton2834.setFont(jButton2834.getFont().deriveFont(jButton2834.getFont().getSize()-5f));
         jButton2834.setText("28-34");
+        jButton2834.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons. Note: These short control rods are inserted from the bottom so you have to operate them the other way round.");
         jButton2834.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2834.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2834.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -558,6 +585,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2837.setBackground(new java.awt.Color(0, 128, 0));
         jButton2837.setFont(jButton2837.getFont().deriveFont(jButton2837.getFont().getSize()-5f));
         jButton2837.setText("28-37");
+        jButton2837.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2837.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2837.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2837.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -571,6 +599,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2840.setBackground(new java.awt.Color(0, 128, 0));
         jButton2840.setFont(jButton2840.getFont().deriveFont(jButton2840.getFont().getSize()-5f));
         jButton2840.setText("28-40");
+        jButton2840.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2840.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2840.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2840.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -584,6 +613,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2528.setBackground(new java.awt.Color(0, 128, 0));
         jButton2528.setFont(jButton2528.getFont().deriveFont(jButton2528.getFont().getSize()-5f));
         jButton2528.setText("25-28");
+        jButton2528.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2528.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2528.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2528.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -597,6 +627,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2525.setBackground(new java.awt.Color(0, 128, 0));
         jButton2525.setFont(jButton2525.getFont().deriveFont(jButton2525.getFont().getSize()-5f));
         jButton2525.setText("25-25");
+        jButton2525.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2525.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2525.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2525.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -610,6 +641,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2531.setBackground(new java.awt.Color(128, 0, 0));
         jButton2531.setFont(jButton2531.getFont().deriveFont(jButton2531.getFont().getSize()-5f));
         jButton2531.setText("25-31");
+        jButton2531.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2531.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2531.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2531.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -623,6 +655,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2534.setBackground(new java.awt.Color(0, 128, 0));
         jButton2534.setFont(jButton2534.getFont().deriveFont(jButton2534.getFont().getSize()-5f));
         jButton2534.setText("25-34");
+        jButton2534.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2534.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2534.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2534.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -636,6 +669,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2537.setBackground(new java.awt.Color(0, 128, 0));
         jButton2537.setFont(jButton2537.getFont().deriveFont(jButton2537.getFont().getSize()-5f));
         jButton2537.setText("25-37");
+        jButton2537.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2537.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2537.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2537.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -649,6 +683,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2228.setBackground(new java.awt.Color(0, 128, 0));
         jButton2228.setFont(jButton2228.getFont().deriveFont(jButton2228.getFont().getSize()-5f));
         jButton2228.setText("22-28");
+        jButton2228.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2228.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2228.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2228.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -662,6 +697,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2231.setBackground(new java.awt.Color(0, 128, 0));
         jButton2231.setFont(jButton2231.getFont().deriveFont(jButton2231.getFont().getSize()-5f));
         jButton2231.setText("22-31");
+        jButton2231.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2231.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2231.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2231.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -676,6 +712,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jButton2234.setBackground(new java.awt.Color(0, 128, 0));
         jButton2234.setFont(jButton2234.getFont().deriveFont(jButton2234.getFont().getSize()-5f));
         jButton2234.setText("22-34");
+        jButton2234.setToolTipText("Select control rods which you want to move with the rod control panel, stop all or rod speed buttons.");
         jButton2234.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2234.setMaximumSize(new java.awt.Dimension(26, 26));
         jButton2234.setMinimumSize(new java.awt.Dimension(26, 26));
@@ -749,6 +786,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionAZ5.setFont(jLabelCaptionAZ5.getFont().deriveFont(jLabelCaptionAZ5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ5.getFont().getSize()-2));
         jLabelCaptionAZ5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ5.setText("AZ-5");
+        jLabelCaptionAZ5.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ5.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -756,6 +794,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonAz5.setFont(jButtonAz5.getFont().deriveFont(jButtonAz5.getFont().getSize()-2f));
         jButtonAz5.setText("●");
+        jButtonAz5.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jButtonAz5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonAz5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -820,6 +859,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButtonRPS.setFont(jToggleButtonRPS.getFont().deriveFont(jToggleButtonRPS.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonRPS.setText("←");
+        jToggleButtonRPS.setToolTipText("Switches off the RPS safety feature. This is very unsafe.");
         jToggleButtonRPS.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonRPS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -831,6 +871,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRPSActive.setFont(jLabelCaptionRPSActive.getFont().deriveFont(jLabelCaptionRPSActive.getFont().getSize()-2f));
         jLabelCaptionRPSActive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionRPSActive.setText("Active");
+        jLabelCaptionRPSActive.setToolTipText("Switches off the RPS safety feature. This is very unsafe.");
         jLabelCaptionRPSActive.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSActive.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSActive.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -865,7 +906,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonGlobalAuto.setFont(jButtonGlobalAuto.getFont().deriveFont(jButtonGlobalAuto.getFont().getSize()-2f));
         jButtonGlobalAuto.setText("●");
-        jButtonGlobalAuto.setToolTipText("Start auto control");
+        jButtonGlobalAuto.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
         jButtonGlobalAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonGlobalAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -877,6 +918,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRodSpeed.setFont(jLabelCaptionRodSpeed.getFont().deriveFont(jLabelCaptionRodSpeed.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRodSpeed.getFont().getSize()-2));
         jLabelCaptionRodSpeed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionRodSpeed.setText("Rod speed");
+        jLabelCaptionRodSpeed.setToolTipText("Sets the speed for the selected control rods.");
         jLabelCaptionRodSpeed.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRodSpeed.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRodSpeed.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -884,7 +926,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonRodSpeedNeg.setFont(jButtonRodSpeedNeg.getFont().deriveFont(jButtonRodSpeedNeg.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonRodSpeedNeg.setText("<");
-        jButtonRodSpeedNeg.setToolTipText("");
+        jButtonRodSpeedNeg.setToolTipText("Sets the speed for the selected control rods.");
         jButtonRodSpeedNeg.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonRodSpeedNeg.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonRodSpeedNeg.setMinimumSize(new java.awt.Dimension(18, 22));
@@ -898,7 +940,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonRodSpeedPos.setFont(jButtonRodSpeedPos.getFont().deriveFont(jButtonRodSpeedPos.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonRodSpeedPos.setText(">");
-        jButtonRodSpeedPos.setToolTipText("");
+        jButtonRodSpeedPos.setToolTipText("Sets the speed for the selected control rods.");
         jButtonRodSpeedPos.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonRodSpeedPos.setMaximumSize(new java.awt.Dimension(18, 22));
         jButtonRodSpeedPos.setMinimumSize(new java.awt.Dimension(18, 22));
@@ -913,6 +955,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionStopAll.setFont(jLabelCaptionStopAll.getFont().deriveFont(jLabelCaptionStopAll.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionStopAll.getFont().getSize()-2));
         jLabelCaptionStopAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionStopAll.setText("Stop all");
+        jLabelCaptionStopAll.setToolTipText("Stop all control rods at their current position.");
         jLabelCaptionStopAll.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionStopAll.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionStopAll.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -920,7 +963,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonStopAll.setFont(jButtonStopAll.getFont().deriveFont(jButtonStopAll.getFont().getSize()-2f));
         jButtonStopAll.setText("●");
-        jButtonStopAll.setToolTipText("All rods will stop in their current position.");
+        jButtonStopAll.setToolTipText("Stop all control rods at their current position.");
         jButtonStopAll.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonStopAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1144,6 +1187,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRPS.setFont(jLabelCaptionRPS.getFont().deriveFont(jLabelCaptionRPS.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionRPS.getFont().getSize()-2));
         jLabelCaptionRPS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionRPS.setText("RPS");
+        jLabelCaptionRPS.setToolTipText("Reactor Protection System");
         jLabelCaptionRPS.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPS.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPS.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1151,6 +1195,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonRPSReset.setFont(jButtonRPSReset.getFont().deriveFont(jButtonRPSReset.getFont().getSize()-2f));
         jButtonRPSReset.setText("●");
+        jButtonRPSReset.setToolTipText("Clears and resets an active reactor protection. Only works if the cause of the RPS activation is resolved.");
         jButtonRPSReset.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonRPSReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1162,6 +1207,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRPSReset.setFont(jLabelCaptionRPSReset.getFont().deriveFont(jLabelCaptionRPSReset.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRPSReset.getFont().getSize()-2));
         jLabelCaptionRPSReset.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionRPSReset.setText("Reset");
+        jLabelCaptionRPSReset.setToolTipText("Clears and resets an active reactor protection. Only works if the cause of the RPS activation is resolved.");
         jLabelCaptionRPSReset.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSReset.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSReset.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1196,6 +1242,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jButtonStopRods.setFont(jButtonStopRods.getFont().deriveFont(jButtonStopRods.getFont().getSize()-2f));
         jButtonStopRods.setText("●");
+        jButtonStopRods.setToolTipText("Stop selected control rods");
         jButtonStopRods.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonStopRods.setPreferredSize(new java.awt.Dimension(20, 20));
         jButtonStopRods.addActionListener(new java.awt.event.ActionListener() {
@@ -1206,6 +1253,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanelRodUpDownControls.add(jButtonStopRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 38, 22, -1));
 
         jButtonRodUp.setText("▲");
+        jButtonRodUp.setToolTipText("Move selected control rods up");
         jButtonRodUp.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonRodUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1215,6 +1263,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanelRodUpDownControls.add(jButtonRodUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, 22, 24));
 
         jButtonRodDown.setText("▼");
+        jButtonRodDown.setToolTipText("Move selected control rods down");
         jButtonRodDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonRodDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1235,6 +1284,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton3731.setFont(jToggleButton3731.getFont().deriveFont(jToggleButton3731.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3731.setText("←");
+        jToggleButton3731.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jToggleButton3731.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3731.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1245,6 +1295,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton3125.setFont(jToggleButton3125.getFont().deriveFont(jToggleButton3125.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3125.setText("←");
+        jToggleButton3125.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jToggleButton3125.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3125.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1255,6 +1306,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton3137.setFont(jToggleButton3137.getFont().deriveFont(jToggleButton3137.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3137.setText("←");
+        jToggleButton3137.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jToggleButton3137.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3137.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1265,6 +1317,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton3131.setFont(jToggleButton3131.getFont().deriveFont(jToggleButton3131.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton3131.setText("←");
+        jToggleButton3131.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jToggleButton3131.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton3131.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1275,6 +1328,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButton2531.setFont(jToggleButton2531.getFont().deriveFont(jToggleButton2531.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButton2531.setText("←");
+        jToggleButton2531.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jToggleButton2531.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButton2531.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1286,6 +1340,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption2531.setFont(jLabelCaption2531.getFont().deriveFont(jLabelCaption2531.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2531.getFont().getSize()-2));
         jLabelCaption2531.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaption2531.setText("25-31");
+        jLabelCaption2531.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jLabelCaption2531.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2531.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2531.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1294,6 +1349,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3131.setFont(jLabelCaption3131.getFont().deriveFont(jLabelCaption3131.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3131.getFont().getSize()-2));
         jLabelCaption3131.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaption3131.setText("31-31");
+        jLabelCaption3131.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jLabelCaption3131.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3131.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3131.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1302,6 +1358,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3137.setFont(jLabelCaption3137.getFont().deriveFont(jLabelCaption3137.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3137.getFont().getSize()-2));
         jLabelCaption3137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaption3137.setText("31-37");
+        jLabelCaption3137.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jLabelCaption3137.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3137.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3137.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1310,6 +1367,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3125.setFont(jLabelCaption3125.getFont().deriveFont(jLabelCaption3125.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3125.getFont().getSize()-2));
         jLabelCaption3125.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaption3125.setText("31-25");
+        jLabelCaption3125.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jLabelCaption3125.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3125.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3125.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1318,14 +1376,25 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaption3731.setFont(jLabelCaption3731.getFont().deriveFont(jLabelCaption3731.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3731.getFont().getSize()-2));
         jLabelCaption3731.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaption3731.setText("37-31");
+        jLabelCaption3731.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jLabelCaption3731.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3731.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3731.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanelAutoRodSelection.add(jLabelCaption3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 4, 36, -1));
+
+        lightBulb3731.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jPanelAutoRodSelection.add(lightBulb3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 27, -1, -1));
+
+        lightBulb3125.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jPanelAutoRodSelection.add(lightBulb3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 65, -1, -1));
+
+        lightBulb3131.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jPanelAutoRodSelection.add(lightBulb3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 65, -1, -1));
+
+        lightBulb3137.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jPanelAutoRodSelection.add(lightBulb3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 65, -1, -1));
+
+        lightBulb2531.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jPanelAutoRodSelection.add(lightBulb2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 103, -1, -1));
 
         add(jPanelAutoRodSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 84, 126, 124));
@@ -1458,6 +1527,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingXe.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingXe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingXe.setText("___");
+        jLabelReadingXe.setToolTipText("Xenon percentage indicated as percentage from full load equilibrium");
         jLabelReadingXe.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingXe.setMinimumSize(new java.awt.Dimension(52, 18));
         jLabelReadingXe.setOpaque(true);
@@ -1469,6 +1539,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingReactivity.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingReactivity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingReactivity.setText("-_,____");
+        jLabelReadingReactivity.setToolTipText("Caclulated reactivity of the core");
         jLabelReadingReactivity.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingReactivity.setMinimumSize(new java.awt.Dimension(52, 18));
         jLabelReadingReactivity.setOpaque(true);
@@ -1480,6 +1551,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingFlux.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingFlux.setText("___,__");
+        jLabelReadingFlux.setToolTipText("Neutron flux (0..100 %)");
         jLabelReadingFlux.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingFlux.setMinimumSize(new java.awt.Dimension(52, 18));
         jLabelReadingFlux.setOpaque(true);
@@ -1490,6 +1562,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionXe.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCaptionXe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionXe.setText("%Xe");
+        jLabelCaptionXe.setToolTipText("Xenon percentage indicated as percentage from full load equilibrium");
         jLabelCaptionXe.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionXe.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionXe.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1499,6 +1572,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionFlux.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCaptionFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionFlux.setText("Neutron Flux (%)");
+        jLabelCaptionFlux.setToolTipText("Neutron flux (0..100 %)");
         jLabelCaptionFlux.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFlux.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFlux.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1508,6 +1582,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionReactivity.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCaptionReactivity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelCaptionReactivity.setText("Reactivity");
+        jLabelCaptionReactivity.setToolTipText("Caclulated reactivity of the core");
         jLabelCaptionReactivity.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReactivity.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReactivity.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1517,6 +1592,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionFluxLog.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCaptionFluxLog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionFluxLog.setText("Flux (log10)");
+        jLabelCaptionFluxLog.setToolTipText("Displays the log10(Neutron Flux/100%) to monitor very tiny amounts of neutron flux in the reactor. Use this gauge to see the intial rise of neutron flux when pulling rods.");
         jLabelCaptionFluxLog.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFluxLog.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFluxLog.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1526,6 +1602,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRate.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCaptionRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionRate.setText("Neutron Rate");
+        jLabelCaptionRate.setToolTipText("Neutron rate (change of Neutron Flux per second), this is the effective change of power");
         jLabelCaptionRate.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRate.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRate.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1534,11 +1611,13 @@ public class PanelCoreControl extends AbstractPanelWidget {
         ammeterFluxLog.setBackground(new java.awt.Color(255, 255, 255));
         ammeterFluxLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterFluxLog.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterFluxLog.setToolTipText("Displays the log10(Neutron Flux/100%) to monitor very tiny amounts of neutron flux in the reactor. Use this gauge to see the intial rise of neutron flux when pulling rods.");
         jPanelCoreInstrument.add(ammeterFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 62, 38));
 
         ammeterRate.setBackground(new java.awt.Color(255, 255, 255));
         ammeterRate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterRate.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterRate.setToolTipText("Neutron rate (change of Neutron Flux per second), this is the effective change of power");
         jPanelCoreInstrument.add(ammeterRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 4, 62, 38));
 
         lightBulbNeutronRate.setForeground(new java.awt.Color(255, 0, 0));
