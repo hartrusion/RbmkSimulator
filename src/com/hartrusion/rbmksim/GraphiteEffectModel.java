@@ -42,7 +42,7 @@ public class GraphiteEffectModel implements Runnable {
      * set to a higher value compared to the neutron flux. A good rule of thumb
      * is to have the double time than T_IODINE in the xenon model.
      */
-    private static final double T_GRAPHITE = 240;
+    private static final double T_GRAPHITE = 400;
 
     /**
      * The output value will get a T1 behavior with this time constant applied.
