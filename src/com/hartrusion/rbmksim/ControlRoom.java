@@ -52,7 +52,7 @@ public class ControlRoom extends javax.swing.JFrame
     private FrameDiagramLoopLevel frameDiagramLoop2Level;
     private FrameDiagramGlobalControl frameDiagramGlobalControl;
 
-    private InterimAlarmList frameAlarms;
+    private FrameAlarmTable frameAlarms;
     private List alarmList;
 
     private ValueHandler plotData;
@@ -649,8 +649,9 @@ public class ControlRoom extends javax.swing.JFrame
 
     private void jMenuAlarmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAlarmsActionPerformed
         if (frameAlarms == null) {
-            frameAlarms = new InterimAlarmList();
-            frameAlarms.setAlarmList(alarmList);
+            frameAlarms = new FrameAlarmTable();
+            frameAlarms.registerActionReceiver(controller);
+            // frameAlarms.setAlarmList(alarmList);
             java.awt.EventQueue.invokeLater(() -> {
                 frameAlarms.setVisible(true);
             });
@@ -839,7 +840,7 @@ public class ControlRoom extends javax.swing.JFrame
 
             // use this event to update the alarm list also.
             if (frameAlarms != null) {
-                frameAlarms.updateAlarmListModel();
+                frameAlarms.setAlarms(alarmList);
             }
         }
 

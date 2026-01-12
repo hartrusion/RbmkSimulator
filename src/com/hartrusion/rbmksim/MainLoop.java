@@ -126,6 +126,10 @@ public class MainLoop implements Runnable, ModelManipulation {
         if (ac.getPropertyName().equals("PauseSimulation")) {
             pause = !pause;
         }
+        
+        if (ac.getPropertyName().equals("AcknowledgeAlarms")) {
+            alarms.acknowledge();
+        }
 
         if (pause) {
             return; // irgnore commands during pause
