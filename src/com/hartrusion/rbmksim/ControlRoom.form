@@ -297,7 +297,7 @@
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Control Panel"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[640, 480]"/>
+      <Dimension value="[580, 400]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
