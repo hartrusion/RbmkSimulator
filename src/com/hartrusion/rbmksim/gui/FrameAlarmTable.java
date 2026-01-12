@@ -36,7 +36,9 @@ public class FrameAlarmTable extends javax.swing.JFrame {
         alarmTablePanel1 = new com.hartrusion.rbmksim.gui.AlarmTablePanel();
         jButtonAcknowledge = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alarms");
+        setMinimumSize(new java.awt.Dimension(200, 200));
         setPreferredSize(new java.awt.Dimension(250, 340));
 
         alarmTablePanel1.setPreferredSize(new java.awt.Dimension(250, 316));
