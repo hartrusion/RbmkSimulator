@@ -32,7 +32,7 @@ import java.beans.BeanProperty;
  *
  * @author Viktor Alexander Hartung
  */
-public class SelsynGauge extends javax.swing.JPanel {
+public class SelsynGauge extends javax.swing.JComponent {
 
     private static final float PI_HALF = 1.5707963267949F;
 

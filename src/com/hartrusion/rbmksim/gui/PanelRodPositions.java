@@ -85,6 +85,7 @@ public class PanelRodPositions extends javax.swing.JPanel implements UpdateRecei
         selsynGauge2231 = new com.hartrusion.rbmksim.gui.elements.SelsynGauge();
         selsynGauge2234 = new com.hartrusion.rbmksim.gui.elements.SelsynGauge();
 
+        setBackground(new java.awt.Color(83, 83, 94));
         setMaximumSize(new java.awt.Dimension(2000, 2000));
         setMinimumSize(new java.awt.Dimension(337, 337));
         setName(""); // NOI18N
