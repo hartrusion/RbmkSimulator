@@ -901,9 +901,9 @@ public class ReactorCore extends Subsystem implements Runnable {
                 return neutronFluxModel.getYReactivity();
             }
         });
-        am.defineAlarm(0.0042, AlarmState.MAX1);
-        am.defineAlarm(0.0037, AlarmState.HIGH2);
-        am.defineAlarm(0.0031, AlarmState.HIGH1);
+        am.defineAlarm(0.0034, AlarmState.MAX1);
+        am.defineAlarm(0.0026, AlarmState.HIGH2);
+        am.defineAlarm(0.0018, AlarmState.HIGH1);
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
