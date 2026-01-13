@@ -92,6 +92,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchToHotwell">
       <Properties>
         <Property name="component" type="java.lang.String" value="AuxCond#ToHotwell"/>
+        <Property name="toolTipText" type="java.lang.String" value="Condensate to Hotwell"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -102,6 +103,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchToDrain">
       <Properties>
         <Property name="component" type="java.lang.String" value="AuxCond#ToDrain"/>
+        <Property name="toolTipText" type="java.lang.String" value="Condensate to clean condensate container"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -112,6 +114,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchCoolant1">
       <Properties>
         <Property name="component" type="java.lang.String" value="AuxCond1#CoolantValve"/>
+        <Property name="toolTipText" type="java.lang.String" value="Condeser 1 Cooland Flow"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -122,6 +125,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchCoolant2">
       <Properties>
         <Property name="component" type="java.lang.String" value="AuxCond2#CoolantValve"/>
+        <Property name="toolTipText" type="java.lang.String" value="Condeser 2 Cooland Flow"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -628,23 +632,27 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop" name="integralSwitchLoop1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitch1">
       <Properties>
-        <Property name="component" type="java.lang.String" value="AuxCond2#SteamValve"/>
+        <Property name="component" type="java.lang.String" value="AuxCond1#SteamValve"/>
+        <Property name="controlledValve" type="boolean" value="true"/>
+        <Property name="toolTipText" type="java.lang.String" value="From main steam line 1 valve to auxiliary condenser 1"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="36" y="222" width="-1" height="-1"/>
+          <AbsoluteConstraints x="34" y="192" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop" name="integralSwitchLoop2">
+    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitch2">
       <Properties>
-        <Property name="component" type="java.lang.String" value="AuxCond1#SteamValve"/>
+        <Property name="component" type="java.lang.String" value="AuxCond2#SteamValve"/>
+        <Property name="controlledValve" type="boolean" value="true"/>
+        <Property name="toolTipText" type="java.lang.String" value="From main steam line 2 valve to auxiliary condenser 2"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="36" y="188" width="-1" height="-1"/>
+          <AbsoluteConstraints x="34" y="222" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

@@ -39,8 +39,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitchToHotwell.registerActionReceiver(controller);
         integralSwitchCoolant1.registerActionReceiver(controller);
         integralSwitchCoolant2.registerActionReceiver(controller);
-        integralSwitchLoop1.registerActionReceiver(controller);
-        integralSwitchLoop2.registerActionReceiver(controller);
+        integralSwitch1.registerActionReceiver(controller);
+        integralSwitch2.registerActionReceiver(controller);
         integralSwitchToDrain.registerActionReceiver(controller);
         panelCondensatePump1.registerActionReceiver(controller);
         panelCondensatePump2.registerActionReceiver(controller);
@@ -95,8 +95,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         chornobylGaugeFlow2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        integralSwitchLoop1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop();
-        integralSwitchLoop2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop();
+        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
 
         setMaximumSize(new java.awt.Dimension(190, 340));
         setMinimumSize(new java.awt.Dimension(190, 340));
@@ -132,15 +132,19 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         add(jButtonBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 270, 20, 20));
 
         integralSwitchToHotwell.setComponent("AuxCond#ToHotwell");
+        integralSwitchToHotwell.setToolTipText("Condensate to Hotwell");
         add(integralSwitchToHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 310, -1, -1));
 
         integralSwitchToDrain.setComponent("AuxCond#ToDrain");
+        integralSwitchToDrain.setToolTipText("Condensate to clean condensate container");
         add(integralSwitchToDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         integralSwitchCoolant1.setComponent("AuxCond1#CoolantValve");
+        integralSwitchCoolant1.setToolTipText("Condeser 1 Cooland Flow");
         add(integralSwitchCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 310, -1, -1));
 
         integralSwitchCoolant2.setComponent("AuxCond2#CoolantValve");
+        integralSwitchCoolant2.setToolTipText("Condeser 2 Cooland Flow");
         add(integralSwitchCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 310, -1, -1));
 
         jLabelCaptionPump2.setFont(jLabelCaptionPump2.getFont().deriveFont(jLabelCaptionPump2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump2.getFont().getSize()-2));
@@ -305,11 +309,15 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         chornobylGaugeFlow2.setChornobylValue(2.0F);
         add(chornobylGaugeFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
-        integralSwitchLoop1.setComponent("AuxCond2#SteamValve");
-        add(integralSwitchLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 222, -1, -1));
+        integralSwitch1.setComponent("AuxCond1#SteamValve");
+        integralSwitch1.setControlledValve(true);
+        integralSwitch1.setToolTipText("From main steam line 1 valve to auxiliary condenser 1");
+        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 192, -1, -1));
 
-        integralSwitchLoop2.setComponent("AuxCond1#SteamValve");
-        add(integralSwitchLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 188, -1, -1));
+        integralSwitch2.setComponent("AuxCond2#SteamValve");
+        integralSwitch2.setControlledValve(true);
+        integralSwitch2.setToolTipText("From main steam line 2 valve to auxiliary condenser 2");
+        add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 222, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBypassCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBypassCloseActionPerformed
@@ -327,10 +335,10 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFlow2;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopCondLevel1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopCondLevel2;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant2;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop integralSwitchLoop1;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitchLoop integralSwitchLoop2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToDrain;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToHotwell;
     private javax.swing.JButton jButtonBypassClose;
@@ -371,8 +379,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitchToHotwell.updateComponent(evt);
         integralSwitchCoolant1.updateComponent(evt);
         integralSwitchCoolant2.updateComponent(evt);
-        integralSwitchLoop1.updateComponent(evt);
-        integralSwitchLoop2.updateComponent(evt);
+        integralSwitch1.updateComponent(evt);
+        integralSwitch2.updateComponent(evt);
         integralSwitchToDrain.updateComponent(evt);
         switch (evt.getPropertyName()) {
             case "AuxCond#Bypass_Pos" ->

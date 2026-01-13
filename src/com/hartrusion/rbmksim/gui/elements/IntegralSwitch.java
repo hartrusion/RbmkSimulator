@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui.elements;
 
+import com.hartrusion.control.ControlCommand;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,21 +28,24 @@ import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
+import java.awt.Component;
 
 /**
  * A panel containing two switches mainly used for manually opening and closing
  * valves with valve stop when button is released. It is called integral as the
  * valves position will be the integral of the button state.
- *
  * <p>
  * Intended as a GUI component for HeatValve class, the Strings therefore must
  * match those which are defined in this class and the monitors events.
- * 
  * <p>
- * A valve has usually a ValveActuatorMonitor attached, this monitor will fire
- * a property change event that can be directed to this UpdateReceiver here.
- * The _Pos property will then be used to set the red and green lights on top of
- * the buttons.
+ * A valve has usually a ValveActuatorMonitor attached, this monitor will fire a
+ * property change event that can be directed to this UpdateReceiver here. The
+ * _Pos property will then be used to set the red and green lights on top of the
+ * buttons.
+ * <p>
+ * Can also be used to send ControlCommands, this way it can override an
+ * actively controlled valve, even if using a control loop widget would be
+ * preferred.
  *
  * @author Viktor Alexander Hartung
  */
@@ -60,8 +64,11 @@ public class IntegralSwitch extends javax.swing.JPanel
      * "Blowdown#ValveCoolant".
      */
     private String component = "null";
+    private String componentControlCommand = "null";
     private String componentPos = "null_Pos";
-    
+
+    private boolean useControlCommands = false;
+
     private boolean indicatorClosedActive;
     private boolean indicatorOpenActive;
 
@@ -75,11 +82,36 @@ public class IntegralSwitch extends javax.swing.JPanel
         String old = this.component;
         this.component = component;
         componentPos = component + "_Pos";
+        componentControlCommand = component + "ControlCommand";
         firePropertyChange("component", old, component);
     }
 
     public void registerActionReceiver(ActionReceiver controller) {
         this.controller = controller;
+    }
+
+    public boolean isControlledValve() {
+        return useControlCommands;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Uses ControlCommand instead of -1, 0 and 1")
+    public void setControlledValve(boolean useControlCommands) {
+        if (this.useControlCommands != useControlCommands) {
+            this.useControlCommands = useControlCommands;
+        }
+    }
+
+    @Override
+    public void setToolTipText(String text) {
+        super.setToolTipText(text);
+        // apply tooltip to buttons and everything of this group to have the
+        // same everywhere
+        for (Component c : getComponents()) {
+            if (c instanceof javax.swing.JComponent jc) {
+                jc.setToolTipText(text);
+            }
+        }
     }
 
     /**
@@ -133,19 +165,39 @@ public class IntegralSwitch extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPosMousePressed
-        controller.userAction(new ActionCommand(component, (int) +1));
+        if (useControlCommands) {
+            controller.userAction(new ActionCommand(componentControlCommand,
+                    ControlCommand.OUTPUT_INCREASE));
+        } else {
+            controller.userAction(new ActionCommand(component, (int) +1));
+        }
     }//GEN-LAST:event_jButtonPosMousePressed
 
     private void jButtonPosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPosMouseReleased
-        controller.userAction(new ActionCommand(component, (int) 0));
+        if (useControlCommands) {
+            controller.userAction(new ActionCommand(componentControlCommand,
+                    ControlCommand.OUTPUT_CONTINUE));
+        } else {
+            controller.userAction(new ActionCommand(component, (int) 0));
+        }
     }//GEN-LAST:event_jButtonPosMouseReleased
 
     private void jButtonNegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNegMousePressed
-        controller.userAction(new ActionCommand(component, (int) -1));
+        if (useControlCommands) {
+            controller.userAction(new ActionCommand(componentControlCommand,
+                    ControlCommand.OUTPUT_DECREASE));
+        } else {
+            controller.userAction(new ActionCommand(component, (int) -1));
+        }
     }//GEN-LAST:event_jButtonNegMousePressed
 
     private void jButtonNegMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNegMouseReleased
-        controller.userAction(new ActionCommand(component, (int) 0));
+        if (useControlCommands) {
+            controller.userAction(new ActionCommand(componentControlCommand,
+                    ControlCommand.OUTPUT_CONTINUE));
+        } else {
+            controller.userAction(new ActionCommand(component, (int) 0));
+        }
     }//GEN-LAST:event_jButtonNegMouseReleased
 
     @Override
@@ -158,7 +210,7 @@ public class IntegralSwitch extends javax.swing.JPanel
         Object prevHint = g2d.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // Left indicator - Draw background in set color
         Ellipse2D.Float circle;
         if (indicatorClosedActive) {
@@ -171,7 +223,7 @@ public class IntegralSwitch extends javax.swing.JPanel
         // Draw the outer ring using foreground color.
         g2d.setColor(getForeground());
         g2d.draw(circle);
-        
+
         // Richt indicator - Draw background in set color
         if (indicatorOpenActive) {
             g2d.setColor(RED);
