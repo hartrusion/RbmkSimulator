@@ -156,7 +156,7 @@ public class ControlLoop extends javax.swing.JPanel
         jButtonDown.setBackground(new java.awt.Color(229, 229, 229));
         jButtonDown.setFont(jButtonDown.getFont().deriveFont(jButtonDown.getFont().getStyle() | java.awt.Font.BOLD, jButtonDown.getFont().getSize()-2));
         jButtonDown.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonDown.setText("▼");
+        jButtonDown.setText("◀");
         jButtonDown.setToolTipText("");
         jButtonDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDown.setMaximumSize(new java.awt.Dimension(20, 16));
@@ -170,7 +170,7 @@ public class ControlLoop extends javax.swing.JPanel
                 jButtonDownMouseReleased(evt);
             }
         });
-        add(jButtonDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
+        add(jButtonDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 20, 20, 16));
 
         jButtonAuto.setBackground(new java.awt.Color(229, 229, 229));
         jButtonAuto.setForeground(new java.awt.Color(0, 0, 0));
@@ -185,9 +185,9 @@ public class ControlLoop extends javax.swing.JPanel
                 jButtonAutoActionPerformed(evt);
             }
         });
-        add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
+        add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 20, 16));
 
-        jButtonSetpoint.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonSetpoint.setBackground(new java.awt.Color(229, 229, 229));
         jButtonSetpoint.setForeground(new java.awt.Color(0, 0, 0));
         jButtonSetpoint.setText("S");
         jButtonSetpoint.setToolTipText("");
@@ -200,7 +200,7 @@ public class ControlLoop extends javax.swing.JPanel
                 jButtonSetpointActionPerformed(evt);
             }
         });
-        add(jButtonSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 20, 20, 16));
+        add(jButtonSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
 
         jButtonHand.setBackground(new java.awt.Color(229, 229, 229));
         jButtonHand.setForeground(new java.awt.Color(0, 0, 0));
@@ -215,12 +215,12 @@ public class ControlLoop extends javax.swing.JPanel
                 jButtonHandActionPerformed(evt);
             }
         });
-        add(jButtonHand, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 20, 20, 16));
+        add(jButtonHand, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
 
-        jButtonUp.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonUp.setBackground(new java.awt.Color(128, 0, 0));
         jButtonUp.setFont(jButtonUp.getFont().deriveFont(jButtonUp.getFont().getStyle() | java.awt.Font.BOLD, jButtonUp.getFont().getSize()-2));
         jButtonUp.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonUp.setText("▲");
+        jButtonUp.setText("▶");
         jButtonUp.setToolTipText("");
         jButtonUp.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonUp.setMaximumSize(new java.awt.Dimension(20, 16));
@@ -234,7 +234,7 @@ public class ControlLoop extends javax.swing.JPanel
                 jButtonUpMouseReleased(evt);
             }
         });
-        add(jButtonUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 20, 16));
+        add(jButtonUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 20, 20, 16));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutoActionPerformed
@@ -245,9 +245,9 @@ public class ControlLoop extends javax.swing.JPanel
     private void jButtonSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointActionPerformed
         setpointSelected = !setpointSelected;
         if (setpointSelected) {
-            jButtonSetpoint.setBackground(RED);
+            jButtonSetpoint.setBackground(Color.LIGHT_GRAY);
         } else {
-            jButtonSetpoint.setBackground(DARKRED);
+            jButtonSetpoint.setBackground(new Color(229,229,229));
         }
     }//GEN-LAST:event_jButtonSetpointActionPerformed
 
