@@ -34,7 +34,17 @@ similar power setpoint control structure, just way more comfortable to use.
 layout so nothing heats up and you can raise the neutron flux to 100 %. That 
 also means no voiding feedback from the thermal model
 
-## Valves
+## Controls usage
+
+There is a certain way on how the control panel is operated. I tried to mimic 
+the behavior of such control panels with the elements that are available on 
+modern computer programs. Some buttons and switches will not do anything if 
+some prerequesites are not met. Switches need to be turned again to their "on"
+position if something was shut down, things will never turn themselves back on.
+
+Some controls have tooltips with a description.
+
+### Valves
 
 Some valves can be opened or closed only, those are operated with green and red
 buttons. The button with the corresponding end position will light up as soon 
@@ -54,6 +64,7 @@ buttons and a red and green indicator above the switch. Their position has to
 be obtained from the mnemonics.
 
 ### Control Loop Widget
+
 Sometimes, multiple valves do the same thing and have the same setpoint value.
 In other cases, there might be a simple control loop with only one single valve 
 and a setpoint just for that one valve. Such control loops can be controlled 
@@ -69,7 +80,7 @@ down buttons do control the valve manually or do a manual override. If setpoint
 mode is active, the left controls are used to modify the setpoint instead of 
 the valve position.
 
-## Switching Pumps
+### Switching Pumps
 
 Centrifugal pumps have a valve on each side (suction and discharge). To turn on 
 a pump, the discharge valve has to be closed. This ensures no reverse flow could
@@ -84,7 +95,8 @@ A pump is ready to be turned on when the outline glows. Its startup sequence is
 indicated by a slight glow, a running pump is indicated with a glowing inner 
 circle. Do not open the discharge valve before the pump is running.
 
-## Alarms
+### Alarms
+
 Some values are attached to alarms which are triggered when above or below a 
 certain level. There are **four** alarm thresholds available (not all of them 
 need to be mapped to a vale) for each direction. The first two are considered 
@@ -111,3 +123,36 @@ closing valves or switching on certain pumps.
 
 This is not primarily done to ensure the plant's integrity, it is done because 
 the modeling engine does not allow certain states and would otherwise crash.
+
+## Startup 
+
+With the current projects state, it is possible to generte some steam and build
+up pressure using the following procedure:
+
+* Open all MCP suction valves
+* Close the recirculation bypass valves
+* Turn on the level balance control on Blowdown system
+* Switch on to MCPs on both sides each and open discharge valves afterwards.
+* Switch on Makeup pumps and howell fill regulation
+* Switch on one howell pump and condensate pump. Try filling some water into
+the deaerators and observe what happens, the hotwell level might fall very slow.
+* Set DA level setpoint to 100 and enable control on both flow valves
+* Turn on one feed pump per side, open startup valves and the redurction valves
+(lower left of feedwater panel), enable level control for steam drums.
+* Open Coolant valves for Aux Condensation
+* Reset RPS on Reactor
+* Pull out 4 manual (green) control rods
+* Open rod positions panel, core matrix and neutron flux diagram
+* Select all auto rods and pull them out until reactivity reaches 0,0015. Stop
+them in that position.
+* Wait for the neutrons to rise, you can see this on the flux log gauge first
+* Try keep the neutron rate inside a limit (look at the gauge). At some point,
+it will start to rise faster. Try to get a neutron flux of 4,0 %
+* Turn on global control (press enable, enable all switchen on auto rods,
+enable transient and target mode and push auto button). When the control is
+active, it should stabilize the neutron flux at the setpoint of 4.0 %.
+* Turn one one pump at aux condensation and open the condensate valve to
+hotwell. Enable both level controls.
+* If you have some steam pressure in steam drums, open the steam valve on
+aux condensation and it will condense there. It will be fed back into the
+reactor though condensation and feedwater path.
