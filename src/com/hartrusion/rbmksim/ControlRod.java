@@ -98,7 +98,8 @@ public class ControlRod extends ReactorElement implements Runnable {
      * rod control panel but they are happening at the rods, not at the view
      * level.
      */
-    private boolean selected;
+    private boolean selected = false;
+    private boolean oldSelected = true;
 
     private ControlCommand automatic = ControlCommand.MANUAL_OPERATION;
     private ControlCommand oldAutomatic = null;
@@ -112,6 +113,11 @@ public class ControlRod extends ReactorElement implements Runnable {
      * Property Change Event description which describes the control state.
      */
     private final String controlStateProperty;
+    
+    /**
+     * Property Change Event description which describes the selection state.
+     */
+    private final String selectedProperty;
 
     public ControlRod(int x, int y, ChannelType rodType) {
         super(x, y);
@@ -135,8 +141,9 @@ public class ControlRod extends ReactorElement implements Runnable {
 
         // Generate a designator for the rod positions parameter. identifier 
         // was written in super call of this constructor.
-        positionParameter = "Reactor#RodPosition" + identifier;
-        controlStateProperty = "Reactor#RodControl" + identifier;
+        positionParameter = "Reactor#RodPosition" + String.format("%04d", identifier);
+        controlStateProperty = "Reactor#RodControl" + String.format("%04d", identifier);
+        selectedProperty = "Reactor#RodSelection" + String.format("%04d", identifier);
     }
 
     @Override
@@ -154,6 +161,13 @@ public class ControlRod extends ReactorElement implements Runnable {
             pcs.firePropertyChange(controlStateProperty,
                     oldAutomatic, automatic);
             oldAutomatic = automatic;
+        }
+        
+        // Send the selection state to registered listeners
+        if (selected != oldSelected) {
+            pcs.firePropertyChange(selectedProperty,
+                    oldSelected, selected);
+            oldSelected = selected;
         }
     }
 

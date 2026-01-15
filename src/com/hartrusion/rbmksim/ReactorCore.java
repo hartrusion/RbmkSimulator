@@ -626,6 +626,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         int identifier, x, y;
         boolean value;
+        
         switch (ac.getPropertyName()) {
             case "Reactor#RodSelect": // Manual selection of single rod
                 identifier = (int) ac.getValue();
@@ -633,16 +634,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                 y = identifier % 100;
                 rod = (ControlRod) getElement(x, y);
                 rod.setSelected(!rod.isSelected());
-                // Send current selection of this rod back to view.
-                String propertyName;
-                if (rod.isSelected()) {
-                    propertyName = "Reactor#RodSelected";
-                } else {
-                    propertyName = "Reactor#RodDeselected";
-                }
-                controller.propertyChange(
-                        new PropertyChangeEvent(this, propertyName,
-                                null, identifier));
                 break;
             case "Reactor#RodAutoEnable": // Global control Auto selection
                 if (!globalControlEnabled) {
@@ -666,11 +657,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                     if (cRod.getRodType() == ChannelType.MANUAL_CONTROLROD
                             && !cRod.isSelected()) {
                         cRod.setSelected(true);
-                        // Sent selection of this rod to GUI:
-                        controller.propertyChange(
-                                new PropertyChangeEvent(this,
-                                        "Reactor#RodSelected",
-                                        null, cRod.getIdentifier()));
                     }
                 }
                 break;
@@ -679,11 +665,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                     if (cRod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
                             && !cRod.isSelected()) {
                         cRod.setSelected(true);
-                        // Sent selection of this rod to GUI:
-                        controller.propertyChange(
-                                new PropertyChangeEvent(this,
-                                        "Reactor#RodSelected",
-                                        null, cRod.getIdentifier()));
                     }
                 }
                 break;
@@ -692,11 +673,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                     if (cRod.getRodType() == ChannelType.SHORT_CONTROLROD
                             && !cRod.isSelected()) {
                         cRod.setSelected(true);
-                        // Sent selection of this rod to GUI:
-                        controller.propertyChange(
-                                new PropertyChangeEvent(this,
-                                        "Reactor#RodSelected",
-                                        null, cRod.getIdentifier()));
                     }
                 }
                 break;
@@ -704,11 +680,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                 for (ControlRod cRod : controlRods) {
                     if (cRod.isSelected()) {
                         cRod.setSelected(false);
-                        // Sent selection of this rod to GUI:
-                        controller.propertyChange(
-                                new PropertyChangeEvent(this,
-                                        "Reactor#RodDeselected",
-                                        null, cRod.getIdentifier()));
                     }
                 }
                 break;

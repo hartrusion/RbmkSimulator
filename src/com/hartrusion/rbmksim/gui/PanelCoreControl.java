@@ -2183,41 +2183,29 @@ public class PanelCoreControl extends AbstractPanelWidget {
     public void updateComponent(PropertyChangeEvent evt) {
         int identifier, x, y;
         ChannelType rodType;
+        
+        if (evt.getPropertyName().length() == 24) {
+            if (evt.getPropertyName().startsWith("Reactor#RodSelection")) {
+                x = Integer.parseInt(evt.getPropertyName().substring(20, 22));
+                y = Integer.parseInt(evt.getPropertyName().substring(22));
+                identifier = 100 * x + y;
+                rodType = ChannelData.getChannelType(x, y);
+                switch (rodType) {
+                    case MANUAL_CONTROLROD:
+                        setGreenButtonColor(getButton(identifier), (boolean) evt.getNewValue());
+                        break;
+                    case AUTOMATIC_CONTROLROD:
+                        setRedButtonColor(getButton(identifier), (boolean) evt.getNewValue());
+                        break;
+                    case SHORT_CONTROLROD:
+                        setYellowButtonColor(getButton(identifier), (boolean) evt.getNewValue());
+                        break;
+                }
+                return;
+            }
+        }
+        
         switch (evt.getPropertyName()) {
-            case "Reactor#RodSelected":
-                identifier = (int) evt.getNewValue();
-                x = identifier / 100;
-                y = identifier % 100;
-                rodType = ChannelData.getChannelType(x, y);
-                switch (rodType) {
-                    case MANUAL_CONTROLROD:
-                        setGreenButtonColor(getButton(identifier), true);
-                        break;
-                    case AUTOMATIC_CONTROLROD:
-                        setRedButtonColor(getButton(identifier), true);
-                        break;
-                    case SHORT_CONTROLROD:
-                        setYellowButtonColor(getButton(identifier), true);
-                        break;
-                }
-                break;
-            case "Reactor#RodDeselected":
-                identifier = (int) evt.getNewValue();
-                x = identifier / 100;
-                y = identifier % 100;
-                rodType = ChannelData.getChannelType(x, y);
-                switch (rodType) {
-                    case MANUAL_CONTROLROD:
-                        setGreenButtonColor(getButton(identifier), false);
-                        break;
-                    case AUTOMATIC_CONTROLROD:
-                        setRedButtonColor(getButton(identifier), false);
-                        break;
-                    case SHORT_CONTROLROD:
-                        setYellowButtonColor(getButton(identifier), false);
-                        break;
-                }
-                break;
             case "Reactor#RPSState":
                 // Set the initial position of the switch button, this will be
                 // received when opening the panel.
