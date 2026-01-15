@@ -26,6 +26,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.beans.BeanProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A circular gauge used for the control rod positions. I
@@ -58,7 +60,7 @@ public class SelsynGauge extends javax.swing.JComponent {
 
     private float size, outerRingRadius, outerTickRadius, majorTicksInnerRadius,
             minorTicksInnerRadius, innerCircleRadius, pointerWidth,
-            pointerLength, indicatorSize;
+            pointerLength, indicatorSize, halfSize;
 
     /**
      * currently displayed value
@@ -70,6 +72,11 @@ public class SelsynGauge extends javax.swing.JComponent {
     private boolean reverse;
 
     private float phiValue = 0;
+
+    private int oldWidth, oldHeight;
+
+    private final List<Shape> majorTickLines = new ArrayList<>();
+    private final List<Shape> minorTickLines = new ArrayList<>();
 
     /**
      * Creates new component SelsynGauge
@@ -123,7 +130,7 @@ public class SelsynGauge extends javax.swing.JComponent {
         firePropertyChange("chornobylShowIndicator", old, show);
         repaint();
     }
-    
+
     public boolean getChornobylReverse() {
         return reverse;
     }
@@ -159,17 +166,37 @@ public class SelsynGauge extends javax.swing.JComponent {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        size = Math.min(getWidth(), getHeight());
-        outerRingRadius = 0.45F * (float) size;
-        outerTickRadius = 0.4F * (float) size;
-        majorTicksInnerRadius = outerTickRadius * 0.8F;
-        minorTicksInnerRadius = outerTickRadius * 0.9F;
-        innerCircleRadius = 0.08F * (float) size;
-        pointerWidth = innerCircleRadius * 0.5F;
-        pointerLength = outerTickRadius * 1.05F;
-        indicatorSize = size * 0.14F;
-        float halfSize = size * 0.5F; // calculate only once
+        // Only do a calculation run on size change.
+        if (oldWidth != getWidth() || oldHeight != getHeight()) {
+            oldWidth = getWidth();
+            oldHeight = getHeight();
+            size = Math.min(oldWidth, oldHeight);
+            outerRingRadius = 0.45F * (float) size;
+            outerTickRadius = 0.4F * (float) size;
+            majorTicksInnerRadius = outerTickRadius * 0.8F;
+            minorTicksInnerRadius = outerTickRadius * 0.9F;
+            innerCircleRadius = 0.08F * (float) size;
+            pointerWidth = innerCircleRadius * 0.5F;
+            pointerLength = outerTickRadius * 1.05F;
+            indicatorSize = size * 0.14F;
+            halfSize = size * 0.5F;
 
+            // This calls sin and cosine a lot, so we will have this calculated
+            // only once and just draw the shapes stored in those lists
+            majorTickLines.clear();
+            for (int idx = 0; idx < majorTicks.length; idx++) {
+                majorTickLines.add(getLine(majorTicksInnerRadius, 
+                        outerTickRadius,
+                        getPhi((double) majorTicks[idx])));
+            }
+            minorTickLines.clear();
+            for (int idx = 0; idx < minorTicks.length; idx++) {
+                minorTickLines.add(getLine(minorTicksInnerRadius, 
+                        outerTickRadius,
+                        getPhi((double) minorTicks[idx])));
+            }
+        }
+        
         // Force the use of antialiasing to not look like 1997
         Object prevHint = g2d.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -187,14 +214,12 @@ public class SelsynGauge extends javax.swing.JComponent {
         g2d.draw(circle);
         // draw major tick lines
         g2d.setColor(Color.BLACK);
-        for (int idx = 0; idx < majorTicks.length; idx++) {
-            g2d.draw(getLine(majorTicksInnerRadius, outerTickRadius,
-                    getPhi((double) majorTicks[idx])));
+        for (Shape s : majorTickLines) {
+            g2d.draw(s);
         }
         // Draw minor tick lines
-        for (int idx = 0; idx < minorTicks.length; idx++) {
-            g2d.draw(getLine(minorTicksInnerRadius, outerTickRadius,
-                    getPhi((double) minorTicks[idx])));
+        for (Shape s : minorTickLines) {
+            g2d.draw(s);
         }
         // draw the inner cirle:
         circle = new Ellipse2D.Float(
