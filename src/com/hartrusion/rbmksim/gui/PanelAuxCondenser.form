@@ -564,7 +564,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Enables or disables global control completely"/>
+        <Property name="toolTipText" type="java.lang.String" value="Enables valve control by pressure regulator"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -586,7 +586,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Enables or disables global control completely"/>
+        <Property name="toolTipText" type="java.lang.String" value="Enables valve control by pressure regulator"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>

@@ -288,7 +288,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
 
         jTogglePressureControl1.setFont(jTogglePressureControl1.getFont().deriveFont(jTogglePressureControl1.getFont().getStyle() | java.awt.Font.BOLD));
         jTogglePressureControl1.setText("←");
-        jTogglePressureControl1.setToolTipText("Enables or disables global control completely");
+        jTogglePressureControl1.setToolTipText("Enables valve control by pressure regulator");
         jTogglePressureControl1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jTogglePressureControl1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,7 +299,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
 
         jToggleButtonGlobalEnable1.setFont(jToggleButtonGlobalEnable1.getFont().deriveFont(jToggleButtonGlobalEnable1.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonGlobalEnable1.setText("←");
-        jToggleButtonGlobalEnable1.setToolTipText("Enables or disables global control completely");
+        jToggleButtonGlobalEnable1.setToolTipText("Enables valve control by pressure regulator");
         jToggleButtonGlobalEnable1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonGlobalEnable1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,11 +326,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     }//GEN-LAST:event_jButtonBypassOpenActionPerformed
 
     private void jTogglePressureControl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTogglePressureControl1ActionPerformed
-        if (toggleButtonChange(evt)) {
-            controller.userAction(new ActionCommand("Reactor#GlobalControlEnabled", true));
-        } else {
-            controller.userAction(new ActionCommand("Reactor#GlobalControlEnabled", false));
-        }
+        
     }//GEN-LAST:event_jTogglePressureControl1ActionPerformed
 
     private void jToggleButtonGlobalEnable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonGlobalEnable1ActionPerformed
