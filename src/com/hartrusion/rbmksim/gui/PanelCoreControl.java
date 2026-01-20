@@ -183,6 +183,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         lightBulbGlobalTransient = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalTarget = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalActive = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbRPSLock = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jPanelCoreInstrument = new javax.swing.JPanel();
         jLabelReadingXe = new javax.swing.JLabel();
         jLabelReadingReactivity = new javax.swing.JLabel();
@@ -1518,6 +1519,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(lightBulbGlobalTarget, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 143, -1, -1));
         add(lightBulbGlobalActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 104, -1, -1));
 
+        lightBulbRPSLock.setForeground(new java.awt.Color(255, 0, 0));
+        add(lightBulbRPSLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 109, -1, -1));
+
         jPanelCoreInstrument.setBackground(new java.awt.Color(204, 204, 204));
         jPanelCoreInstrument.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCoreInstrument.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2176,6 +2180,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalTarget;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalTransient;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbNeutronRate;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbRPSLock;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlNeutronFlux;
     // End of variables declaration//GEN-END:variables
 
@@ -2206,6 +2211,10 @@ public class PanelCoreControl extends AbstractPanelWidget {
         }
         
         switch (evt.getPropertyName()) {
+            case "Reactor#ProtectionLock":
+                lightBulbRPSLock.setActive((boolean) evt.getNewValue());
+                break;
+            
             case "Reactor#RPSState":
                 // Set the initial position of the switch button, this will be
                 // received when opening the panel.

@@ -460,6 +460,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                 alarmManager.fireAlarm("ReactorProtection",
                         AlarmState.NONE, false);
             }
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#ProtectionLock", oldRpsActive, rpsActive));
         }
 
         // Make property change events that describe the current state of the
