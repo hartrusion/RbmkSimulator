@@ -28,6 +28,7 @@ import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.automated.HeatControlledFlowSource;
 import com.hartrusion.modeling.assemblies.HeatExchanger;
+import com.hartrusion.modeling.assemblies.HeatExchangerNoMass;
 import com.hartrusion.modeling.automated.HeatFluidPump;
 import com.hartrusion.modeling.automated.HeatFluidPumpSimple;
 import com.hartrusion.modeling.automated.HeatValve;
@@ -151,7 +152,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve blowdownValvePassiveFlow;
     private final HeatValve blowdownValvePumpsToRegenerator;
     private final HeatValve blowdownValvePumpsToCooler;
-    private final HeatExchanger blowdownRegenerator;
+    private final HeatExchangerNoMass blowdownRegenerator;
     private final HeatValve blowdownValveRegeneratorToCooler;
     private final HeatValve blowdownValveTreatmentBypass;
     private final HeatNode blowdownToCooldownNode;
@@ -472,7 +473,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 "Blowdown#ValvePumpsToRegenerator");
         blowdownValvePumpsToCooler = new HeatValve();
         blowdownValvePumpsToCooler.initName("Blowdown#ValvePumpsToCooler");
-        blowdownRegenerator = new HeatExchanger();
+        blowdownRegenerator = new HeatExchangerNoMass();
         blowdownRegenerator.initGenerateNodes();
         blowdownRegenerator.initName("Blowdown#Regenerator");
         blowdownValveRegeneratorToCooler = new HeatValve();
