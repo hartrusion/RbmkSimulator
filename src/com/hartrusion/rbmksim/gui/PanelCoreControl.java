@@ -30,6 +30,11 @@ import com.hartrusion.rbmksim.ChannelType;
  */
 @SuppressWarnings("UnnecessaryBoxing")
 public class PanelCoreControl extends AbstractPanelWidget {
+    
+    /**
+     * Used to switch the digit display of the setpoint only.
+     */
+    boolean globalControlEnabled;
 
     /**
      * Creates new form ControlPanelRodSelector
@@ -196,6 +201,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
         ammeterFluxLog = new com.hartrusion.rbmksim.gui.elements.Ammeter();
         ammeterRate = new com.hartrusion.rbmksim.gui.elements.Ammeter();
         lightBulbNeutronRate = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelReadingActiveSetpoint = new javax.swing.JLabel();
+        jLabelCaptionActiveSetpoint = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(574, 340));
         setMinimumSize(new java.awt.Dimension(574, 340));
@@ -987,7 +994,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionTargetSetpoint.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTargetSetpoint.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTargetSetpoint.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionTargetSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 106, 14));
+        add(jLabelCaptionTargetSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 166, 84, 14));
 
         jButtonGradientPos.setFont(jButtonGradientPos.getFont().deriveFont(jButtonGradientPos.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonGradientPos.setText(">");
@@ -1167,7 +1174,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jLabelCaptionLocalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 224, 82, 14));
 
         setpointControlNeutronFlux.setComponent("Reactor#TargetNeutronFlux");
-        add(setpointControlNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 184, -1, -1));
+        add(setpointControlNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 182, -1, -1));
 
         jLabelCaptionGlobalReset1.setFont(jLabelCaptionGlobalReset1.getFont().deriveFont(jLabelCaptionGlobalReset1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalReset1.getFont().getSize()-2));
         jLabelCaptionGlobalReset1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1628,6 +1635,27 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanelCoreInstrument.add(lightBulbNeutronRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 32, -1, -1));
 
         add(jPanelCoreInstrument, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 6, 364, 60));
+
+        jLabelReadingActiveSetpoint.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingActiveSetpoint.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingActiveSetpoint.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingActiveSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingActiveSetpoint.setText("___,_");
+        jLabelReadingActiveSetpoint.setToolTipText("Active setpoint which the global control is currently using");
+        jLabelReadingActiveSetpoint.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelReadingActiveSetpoint.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingActiveSetpoint.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingActiveSetpoint.setOpaque(true);
+        jLabelReadingActiveSetpoint.setPreferredSize(new java.awt.Dimension(52, 18));
+        add(jLabelReadingActiveSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 184, 48, 18));
+
+        jLabelCaptionActiveSetpoint.setFont(jLabelCaptionActiveSetpoint.getFont().deriveFont(jLabelCaptionActiveSetpoint.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionActiveSetpoint.getFont().getSize()-2));
+        jLabelCaptionActiveSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionActiveSetpoint.setText("Active");
+        jLabelCaptionActiveSetpoint.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionActiveSetpoint.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionActiveSetpoint.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionActiveSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 166, 50, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4028ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4028ActionPerformed
@@ -2114,6 +2142,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaption3434;
     private javax.swing.JLabel jLabelCaption3731;
     private javax.swing.JLabel jLabelCaptionAZ5;
+    private javax.swing.JLabel jLabelCaptionActiveSetpoint;
     private javax.swing.JLabel jLabelCaptionAutomaticRods;
     private javax.swing.JLabel jLabelCaptionControlGradient1;
     private javax.swing.JLabel jLabelCaptionControlGradient2;
@@ -2147,6 +2176,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
     private javax.swing.JLabel jLabelCaptionXe;
+    private javax.swing.JLabel jLabelReadingActiveSetpoint;
     private javax.swing.JLabel jLabelReadingFlux;
     private javax.swing.JLabel jLabelReadingReactivity;
     private javax.swing.JLabel jLabelReadingThermalPower;
@@ -2293,12 +2323,19 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 }
                 break;
             case "Reactor#GlobalControlEnabled":
-                lightBulbGlobalEnabled.setActive((boolean) evt.getNewValue());
+                globalControlEnabled = (boolean) evt.getNewValue();
+                lightBulbGlobalEnabled.setActive(globalControlEnabled);
+                
                 // Initialize the position of the switch button:
-                if ((boolean) evt.getNewValue()
+                if (globalControlEnabled
                         && !jToggleButtonGlobalEnable.isSelected()) {
                     jToggleButtonGlobalEnable.setSelected(true);
                     jToggleButtonGlobalEnable.setText("↑");
+                }
+                
+                // clear the setpoint display
+                if (!globalControlEnabled) {
+                    jLabelReadingActiveSetpoint.setText("---,-");
                 }
                 break;
             case "Reactor#GlobalControlActive":
@@ -2355,6 +2392,15 @@ public class PanelCoreControl extends AbstractPanelWidget {
                         String.format("%05d", Math.round(newValue)));
             case "Reactor#SetpointPowerGradient" ->
                 chornobylGaugControlGradient.setChornobylValue((float) newValue);
+            case "Reactor#SetpointNeutronFlux" -> {
+                if (globalControlEnabled) {
+                    jLabelReadingActiveSetpoint.setText(
+                            String.format("%05.1f", newValue));
+                } else {
+                    // might be unnecessary but its not known what comes first.
+                    jLabelReadingActiveSetpoint.setText("---,-");
+                }
+            }
         }
         setpointControlNeutronFlux.updateComponent(propertyName, newValue);
     }
