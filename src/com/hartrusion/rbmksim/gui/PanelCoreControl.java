@@ -222,7 +222,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton4028ActionPerformed(evt);
             }
         });
-        add(jButton4028, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 98, 26, 26));
+        add(jButton4028, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 100, 26, 26));
 
         jButton4031.setBackground(new java.awt.Color(0, 128, 0));
         jButton4031.setFont(jButton4031.getFont().deriveFont(jButton4031.getFont().getSize()-5f));
@@ -237,7 +237,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton4031ActionPerformed(evt);
             }
         });
-        add(jButton4031, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 98, -1, -1));
+        add(jButton4031, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 100, -1, -1));
 
         jButton4034.setBackground(new java.awt.Color(0, 128, 0));
         jButton4034.setFont(jButton4034.getFont().deriveFont(jButton4034.getFont().getSize()-5f));
@@ -252,7 +252,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton4034ActionPerformed(evt);
             }
         });
-        add(jButton4034, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 98, -1, -1));
+        add(jButton4034, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 100, -1, -1));
 
         jButton3728.setBackground(new java.awt.Color(0, 128, 0));
         jButton3728.setFont(jButton3728.getFont().deriveFont(jButton3728.getFont().getSize()-5f));
@@ -266,7 +266,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3728ActionPerformed(evt);
             }
         });
-        add(jButton3728, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 130, 26, 26));
+        add(jButton3728, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 132, 26, 26));
 
         jButton3725.setBackground(new java.awt.Color(0, 128, 0));
         jButton3725.setFont(jButton3725.getFont().deriveFont(jButton3725.getFont().getSize()-5f));
@@ -280,7 +280,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3725ActionPerformed(evt);
             }
         });
-        add(jButton3725, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 130, 26, 26));
+        add(jButton3725, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 132, 26, 26));
 
         jButton3731.setBackground(new java.awt.Color(128, 0, 0));
         jButton3731.setFont(jButton3731.getFont().deriveFont(jButton3731.getFont().getSize()-5f));
@@ -294,7 +294,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3731ActionPerformed(evt);
             }
         });
-        add(jButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 130, 26, 26));
+        add(jButton3731, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 132, 26, 26));
 
         jButton3734.setBackground(new java.awt.Color(0, 128, 0));
         jButton3734.setFont(jButton3734.getFont().deriveFont(jButton3734.getFont().getSize()-5f));
@@ -308,7 +308,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3734ActionPerformed(evt);
             }
         });
-        add(jButton3734, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 26, 26));
+        add(jButton3734, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 132, 26, 26));
 
         jButton3737.setBackground(new java.awt.Color(0, 128, 0));
         jButton3737.setFont(jButton3737.getFont().deriveFont(jButton3737.getFont().getSize()-5f));
@@ -322,7 +322,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3737ActionPerformed(evt);
             }
         });
-        add(jButton3737, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 130, 26, 26));
+        add(jButton3737, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 132, 26, 26));
 
         jButton3428.setBackground(new java.awt.Color(128, 128, 0));
         jButton3428.setFont(jButton3428.getFont().deriveFont(jButton3428.getFont().getSize()-5f));
@@ -336,7 +336,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3428ActionPerformed(evt);
             }
         });
-        add(jButton3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 162, 26, 26));
+        add(jButton3428, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 164, 26, 26));
 
         jButton3425.setBackground(new java.awt.Color(0, 128, 0));
         jButton3425.setFont(jButton3425.getFont().deriveFont(jButton3425.getFont().getSize()-5f));
@@ -350,7 +350,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3425ActionPerformed(evt);
             }
         });
-        add(jButton3425, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 162, 26, 26));
+        add(jButton3425, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 164, 26, 26));
 
         jButton3431.setBackground(new java.awt.Color(0, 128, 0));
         jButton3431.setFont(jButton3431.getFont().deriveFont(jButton3431.getFont().getSize()-5f));
@@ -364,7 +364,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3431ActionPerformed(evt);
             }
         });
-        add(jButton3431, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 162, 26, 26));
+        add(jButton3431, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 164, 26, 26));
 
         jButton3434.setBackground(new java.awt.Color(128, 128, 0));
         jButton3434.setFont(jButton3434.getFont().deriveFont(jButton3434.getFont().getSize()-5f));
@@ -378,7 +378,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3434ActionPerformed(evt);
             }
         });
-        add(jButton3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 162, 26, 26));
+        add(jButton3434, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 164, 26, 26));
 
         jButton3437.setBackground(new java.awt.Color(0, 128, 0));
         jButton3437.setFont(jButton3437.getFont().deriveFont(jButton3437.getFont().getSize()-5f));
@@ -392,7 +392,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3437ActionPerformed(evt);
             }
         });
-        add(jButton3437, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 162, 26, 26));
+        add(jButton3437, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 164, 26, 26));
 
         jButton3440.setBackground(new java.awt.Color(0, 128, 0));
         jButton3440.setFont(jButton3440.getFont().deriveFont(jButton3440.getFont().getSize()-5f));
@@ -406,7 +406,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3440ActionPerformed(evt);
             }
         });
-        add(jButton3440, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 162, 26, 26));
+        add(jButton3440, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 164, 26, 26));
 
         jButton3422.setBackground(new java.awt.Color(0, 128, 0));
         jButton3422.setFont(jButton3422.getFont().deriveFont(jButton3422.getFont().getSize()-5f));
@@ -420,7 +420,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3422ActionPerformed(evt);
             }
         });
-        add(jButton3422, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 162, 26, 26));
+        add(jButton3422, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 164, 26, 26));
 
         jButton3122.setBackground(new java.awt.Color(0, 128, 0));
         jButton3122.setFont(jButton3122.getFont().deriveFont(jButton3122.getFont().getSize()-5f));
@@ -434,7 +434,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3122ActionPerformed(evt);
             }
         });
-        add(jButton3122, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 194, 26, 26));
+        add(jButton3122, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 196, 26, 26));
 
         jButton3128.setBackground(new java.awt.Color(0, 128, 0));
         jButton3128.setFont(jButton3128.getFont().deriveFont(jButton3128.getFont().getSize()-5f));
@@ -448,7 +448,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3128ActionPerformed(evt);
             }
         });
-        add(jButton3128, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 194, 26, 26));
+        add(jButton3128, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 196, 26, 26));
 
         jButton3125.setBackground(new java.awt.Color(128, 0, 0));
         jButton3125.setFont(jButton3125.getFont().deriveFont(jButton3125.getFont().getSize()-5f));
@@ -462,7 +462,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3125ActionPerformed(evt);
             }
         });
-        add(jButton3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 194, 26, 26));
+        add(jButton3125, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 196, 26, 26));
 
         jButton3131.setBackground(new java.awt.Color(128, 0, 0));
         jButton3131.setFont(jButton3131.getFont().deriveFont(jButton3131.getFont().getSize()-5f));
@@ -476,7 +476,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3131ActionPerformed(evt);
             }
         });
-        add(jButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 194, 26, 26));
+        add(jButton3131, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 196, 26, 26));
 
         jButton3134.setBackground(new java.awt.Color(0, 128, 0));
         jButton3134.setFont(jButton3134.getFont().deriveFont(jButton3134.getFont().getSize()-5f));
@@ -490,7 +490,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3134ActionPerformed(evt);
             }
         });
-        add(jButton3134, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 194, 26, 26));
+        add(jButton3134, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 196, 26, 26));
 
         jButton3137.setBackground(new java.awt.Color(128, 0, 0));
         jButton3137.setFont(jButton3137.getFont().deriveFont(jButton3137.getFont().getSize()-5f));
@@ -504,7 +504,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3137ActionPerformed(evt);
             }
         });
-        add(jButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 194, 26, 26));
+        add(jButton3137, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 196, 26, 26));
 
         jButton3140.setBackground(new java.awt.Color(0, 128, 0));
         jButton3140.setFont(jButton3140.getFont().deriveFont(jButton3140.getFont().getSize()-5f));
@@ -518,7 +518,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton3140ActionPerformed(evt);
             }
         });
-        add(jButton3140, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 194, 26, 26));
+        add(jButton3140, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 196, 26, 26));
 
         jButton2822.setBackground(new java.awt.Color(0, 128, 0));
         jButton2822.setFont(jButton2822.getFont().deriveFont(jButton2822.getFont().getSize()-5f));
@@ -532,7 +532,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2822ActionPerformed(evt);
             }
         });
-        add(jButton2822, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 226, 26, 26));
+        add(jButton2822, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 228, 26, 26));
 
         jButton2828.setBackground(new java.awt.Color(128, 128, 0));
         jButton2828.setFont(jButton2828.getFont().deriveFont(jButton2828.getFont().getSize()-5f));
@@ -546,7 +546,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2828ActionPerformed(evt);
             }
         });
-        add(jButton2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 226, 26, 26));
+        add(jButton2828, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 228, 26, 26));
 
         jButton2825.setBackground(new java.awt.Color(0, 128, 0));
         jButton2825.setFont(jButton2825.getFont().deriveFont(jButton2825.getFont().getSize()-5f));
@@ -560,7 +560,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2825ActionPerformed(evt);
             }
         });
-        add(jButton2825, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 226, 26, 26));
+        add(jButton2825, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 228, 26, 26));
 
         jButton2831.setBackground(new java.awt.Color(0, 128, 0));
         jButton2831.setFont(jButton2831.getFont().deriveFont(jButton2831.getFont().getSize()-5f));
@@ -574,7 +574,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2831ActionPerformed(evt);
             }
         });
-        add(jButton2831, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 226, 26, 26));
+        add(jButton2831, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 228, 26, 26));
 
         jButton2834.setBackground(new java.awt.Color(128, 128, 0));
         jButton2834.setFont(jButton2834.getFont().deriveFont(jButton2834.getFont().getSize()-5f));
@@ -588,7 +588,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2834ActionPerformed(evt);
             }
         });
-        add(jButton2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 226, 26, 26));
+        add(jButton2834, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 228, 26, 26));
 
         jButton2837.setBackground(new java.awt.Color(0, 128, 0));
         jButton2837.setFont(jButton2837.getFont().deriveFont(jButton2837.getFont().getSize()-5f));
@@ -602,7 +602,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2837ActionPerformed(evt);
             }
         });
-        add(jButton2837, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 226, 26, 26));
+        add(jButton2837, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 228, 26, 26));
 
         jButton2840.setBackground(new java.awt.Color(0, 128, 0));
         jButton2840.setFont(jButton2840.getFont().deriveFont(jButton2840.getFont().getSize()-5f));
@@ -616,7 +616,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2840ActionPerformed(evt);
             }
         });
-        add(jButton2840, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 226, 26, 26));
+        add(jButton2840, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 228, 26, 26));
 
         jButton2528.setBackground(new java.awt.Color(0, 128, 0));
         jButton2528.setFont(jButton2528.getFont().deriveFont(jButton2528.getFont().getSize()-5f));
@@ -630,7 +630,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2528ActionPerformed(evt);
             }
         });
-        add(jButton2528, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 258, 26, 26));
+        add(jButton2528, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 260, 26, 26));
 
         jButton2525.setBackground(new java.awt.Color(0, 128, 0));
         jButton2525.setFont(jButton2525.getFont().deriveFont(jButton2525.getFont().getSize()-5f));
@@ -644,7 +644,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2525ActionPerformed(evt);
             }
         });
-        add(jButton2525, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 258, 26, 26));
+        add(jButton2525, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 26, 26));
 
         jButton2531.setBackground(new java.awt.Color(128, 0, 0));
         jButton2531.setFont(jButton2531.getFont().deriveFont(jButton2531.getFont().getSize()-5f));
@@ -658,7 +658,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2531ActionPerformed(evt);
             }
         });
-        add(jButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 258, 26, 26));
+        add(jButton2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 260, 26, 26));
 
         jButton2534.setBackground(new java.awt.Color(0, 128, 0));
         jButton2534.setFont(jButton2534.getFont().deriveFont(jButton2534.getFont().getSize()-5f));
@@ -672,7 +672,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2534ActionPerformed(evt);
             }
         });
-        add(jButton2534, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 258, 26, 26));
+        add(jButton2534, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 260, 26, 26));
 
         jButton2537.setBackground(new java.awt.Color(0, 128, 0));
         jButton2537.setFont(jButton2537.getFont().deriveFont(jButton2537.getFont().getSize()-5f));
@@ -686,7 +686,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2537ActionPerformed(evt);
             }
         });
-        add(jButton2537, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 258, 26, 26));
+        add(jButton2537, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 260, 26, 26));
 
         jButton2228.setBackground(new java.awt.Color(0, 128, 0));
         jButton2228.setFont(jButton2228.getFont().deriveFont(jButton2228.getFont().getSize()-5f));
@@ -700,7 +700,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2228ActionPerformed(evt);
             }
         });
-        add(jButton2228, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 290, 26, 26));
+        add(jButton2228, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 292, 26, 26));
 
         jButton2231.setBackground(new java.awt.Color(0, 128, 0));
         jButton2231.setFont(jButton2231.getFont().deriveFont(jButton2231.getFont().getSize()-5f));
@@ -715,7 +715,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2231ActionPerformed(evt);
             }
         });
-        add(jButton2231, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 290, -1, -1));
+        add(jButton2231, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 292, -1, -1));
 
         jButton2234.setBackground(new java.awt.Color(0, 128, 0));
         jButton2234.setFont(jButton2234.getFont().deriveFont(jButton2234.getFont().getSize()-5f));
@@ -730,7 +730,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButton2234ActionPerformed(evt);
             }
         });
-        add(jButton2234, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
+        add(jButton2234, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 292, -1, -1));
 
         jLabelCaptionSelectAuto.setFont(jLabelCaptionSelectAuto.getFont().deriveFont(jLabelCaptionSelectAuto.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionSelectAuto.getFont().getSize()-2));
         jLabelCaptionSelectAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -738,7 +738,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelectAuto.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectAuto.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectAuto.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelectAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 92, 48, 14));
+        add(jLabelCaptionSelectAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 94, 48, 14));
 
         jButtonSelectAllAutomatic.setFont(jButtonSelectAllAutomatic.getFont().deriveFont(jButtonSelectAllAutomatic.getFont().getSize()-2f));
         jButtonSelectAllAutomatic.setForeground(new java.awt.Color(128, 0, 0));
@@ -750,7 +750,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonSelectAllAutomaticActionPerformed(evt);
             }
         });
-        add(jButtonSelectAllAutomatic, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 108, 18, 18));
+        add(jButtonSelectAllAutomatic, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 110, 18, 18));
 
         jLabelCaptionSelectShort.setFont(jLabelCaptionSelectShort.getFont().deriveFont(jLabelCaptionSelectShort.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionSelectShort.getFont().getSize()-2));
         jLabelCaptionSelectShort.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -758,7 +758,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelectShort.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectShort.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectShort.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelectShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 128, 48, 14));
+        add(jLabelCaptionSelectShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 48, 14));
 
         jButtonSelectAllShort.setFont(jButtonSelectAllShort.getFont().deriveFont(jButtonSelectAllShort.getFont().getSize()-2f));
         jButtonSelectAllShort.setForeground(new java.awt.Color(128, 128, 0));
@@ -770,7 +770,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonSelectAllShortActionPerformed(evt);
             }
         });
-        add(jButtonSelectAllShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 144, 18, 18));
+        add(jButtonSelectAllShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 146, 18, 18));
 
         jLabelCaptionSelectNone.setFont(jLabelCaptionSelectNone.getFont().deriveFont(jLabelCaptionSelectNone.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionSelectNone.getFont().getSize()-2));
         jLabelCaptionSelectNone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -778,7 +778,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelectNone.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectNone.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelectNone.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelectNone, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 166, 48, 14));
+        add(jLabelCaptionSelectNone, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 168, 48, 14));
 
         jButtonClearSelection.setFont(jButtonClearSelection.getFont().deriveFont(jButtonClearSelection.getFont().getSize()-2f));
         jButtonClearSelection.setText("●");
@@ -789,7 +789,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonClearSelectionActionPerformed(evt);
             }
         });
-        add(jButtonClearSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 180, 18, 18));
+        add(jButtonClearSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 182, 18, 18));
 
         jLabelCaptionAZ5.setFont(jLabelCaptionAZ5.getFont().deriveFont(jLabelCaptionAZ5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ5.getFont().getSize()-2));
         jLabelCaptionAZ5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -798,7 +798,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionAZ5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAZ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 84, 30, 14));
+        add(jLabelCaptionAZ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 86, 30, 14));
 
         jButtonAz5.setFont(jButtonAz5.getFont().deriveFont(jButtonAz5.getFont().getSize()-2f));
         jButtonAz5.setText("●");
@@ -809,7 +809,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonAz5ActionPerformed(evt);
             }
         });
-        add(jButtonAz5, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 98, 18, 18));
+        add(jButtonAz5, new org.netbeans.lib.awtextra.AbsoluteConstraints(358, 100, 18, 18));
 
         jLabelCaptionControlGradient1.setFont(jLabelCaptionControlGradient1.getFont().deriveFont(jLabelCaptionControlGradient1.getFont().getSize()-2f));
         jLabelCaptionControlGradient1.setText("Gradient");
@@ -874,7 +874,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jToggleButtonRPSActionPerformed(evt);
             }
         });
-        add(jToggleButtonRPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 102, 22, 20));
+        add(jToggleButtonRPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 104, 22, 20));
 
         jLabelCaptionRPSActive.setFont(jLabelCaptionRPSActive.getFont().deriveFont(jLabelCaptionRPSActive.getFont().getSize()-2f));
         jLabelCaptionRPSActive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -883,7 +883,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRPSActive.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSActive.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSActive.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRPSActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 86, 40, 14));
+        add(jLabelCaptionRPSActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(496, 88, 40, 14));
 
         jLabelCaptionGlobalAuto.setFont(jLabelCaptionGlobalAuto.getFont().deriveFont(jLabelCaptionGlobalAuto.getFont().getSize()-2f));
         jLabelCaptionGlobalAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -930,7 +930,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRodSpeed.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRodSpeed.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRodSpeed.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRodSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 294, 56, 14));
+        add(jLabelCaptionRodSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(504, 294, 56, 14));
 
         jButtonRodSpeedNeg.setFont(jButtonRodSpeedNeg.getFont().deriveFont(jButtonRodSpeedNeg.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonRodSpeedNeg.setText("<");
@@ -944,7 +944,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonRodSpeedNegActionPerformed(evt);
             }
         });
-        add(jButtonRodSpeedNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, 18, 22));
+        add(jButtonRodSpeedNeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 310, 18, 22));
 
         jButtonRodSpeedPos.setFont(jButtonRodSpeedPos.getFont().deriveFont(jButtonRodSpeedPos.getFont().getStyle() | java.awt.Font.BOLD));
         jButtonRodSpeedPos.setText(">");
@@ -958,7 +958,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonRodSpeedPosActionPerformed(evt);
             }
         });
-        add(jButtonRodSpeedPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 310, 18, 22));
+        add(jButtonRodSpeedPos, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 310, 18, 22));
 
         jLabelCaptionStopAll.setFont(jLabelCaptionStopAll.getFont().deriveFont(jLabelCaptionStopAll.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionStopAll.getFont().getSize()-2));
         jLabelCaptionStopAll.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -967,7 +967,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionStopAll.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionStopAll.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionStopAll.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionStopAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(328, 294, 56, 14));
+        add(jLabelCaptionStopAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 296, 56, 14));
 
         jButtonStopAll.setFont(jButtonStopAll.getFont().deriveFont(jButtonStopAll.getFont().getSize()-2f));
         jButtonStopAll.setText("●");
@@ -978,7 +978,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonStopAllActionPerformed(evt);
             }
         });
-        add(jButtonStopAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 310, 18, 18));
+        add(jButtonStopAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 312, 18, 18));
 
         jLabelCaptionRodSelector.setFont(jLabelCaptionRodSelector.getFont().deriveFont(jLabelCaptionRodSelector.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionRodSelector.getFont().getSize()-2));
         jLabelCaptionRodSelector.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -986,7 +986,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRodSelector.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRodSelector.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRodSelector.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRodSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 74, 88, 14));
+        add(jLabelCaptionRodSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 76, 88, 14));
 
         jLabelCaptionTargetSetpoint.setFont(jLabelCaptionTargetSetpoint.getFont().deriveFont(jLabelCaptionTargetSetpoint.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionTargetSetpoint.getFont().getSize()-2));
         jLabelCaptionTargetSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1199,7 +1199,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRPS.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPS.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPS.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 72, 62, 14));
+        add(jLabelCaptionRPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(504, 74, 62, 14));
 
         jButtonRPSReset.setFont(jButtonRPSReset.getFont().deriveFont(jButtonRPSReset.getFont().getSize()-2f));
         jButtonRPSReset.setText("●");
@@ -1210,7 +1210,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 jButtonRPSResetActionPerformed(evt);
             }
         });
-        add(jButtonRPSReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 104, 18, 18));
+        add(jButtonRPSReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 106, 18, 18));
 
         jLabelCaptionRPSReset.setFont(jLabelCaptionRPSReset.getFont().deriveFont(jLabelCaptionRPSReset.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionRPSReset.getFont().getSize()-2));
         jLabelCaptionRPSReset.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1219,7 +1219,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRPSReset.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSReset.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRPSReset.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRPSReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 86, 40, 14));
+        add(jLabelCaptionRPSReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 88, 40, 14));
 
         jLabelCaptionAutomaticRods.setFont(jLabelCaptionAutomaticRods.getFont().deriveFont(jLabelCaptionAutomaticRods.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionAutomaticRods.getFont().getSize()-2));
         jLabelCaptionAutomaticRods.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1227,7 +1227,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionAutomaticRods.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAutomaticRods.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAutomaticRods.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAutomaticRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 68, 110, 14));
+        add(jLabelCaptionAutomaticRods, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 70, 110, 14));
 
         jLabelCaptionSelect.setFont(jLabelCaptionSelect.getFont().deriveFont(jLabelCaptionSelect.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSelect.getFont().getSize()-2));
         jLabelCaptionSelect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1235,7 +1235,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionSelect.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelect.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelect.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 78, 48, 14));
+        add(jLabelCaptionSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 48, 14));
 
         jLabelCaptionGlobalTransient.setFont(jLabelCaptionGlobalTransient.getFont().deriveFont(jLabelCaptionGlobalTransient.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionGlobalTransient.getFont().getSize()-2));
         jLabelCaptionGlobalTransient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1280,12 +1280,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
         });
         jPanelRodUpDownControls.add(jButtonRodDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 22, 24));
 
-        add(jPanelRodUpDownControls, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 234, 46, 98));
+        add(jPanelRodUpDownControls, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 236, 46, 98));
 
         jLabelRodControl.setFont(jLabelRodControl.getFont().deriveFont(jLabelRodControl.getFont().getSize()-2f));
         jLabelRodControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelRodControl.setText("Rod Control");
-        add(jLabelRodControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 216, 70, -1));
+        add(jLabelRodControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 218, 70, -1));
 
         jPanelAutoRodSelection.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelAutoRodSelection.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1405,7 +1405,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         lightBulb2531.setToolTipText("Activates the control of the corresponding automatic control rods by the global control");
         jPanelAutoRodSelection.add(lightBulb2531, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 103, -1, -1));
 
-        add(jPanelAutoRodSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 84, 126, 124));
+        add(jPanelAutoRodSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 86, 126, 124));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1527,7 +1527,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(lightBulbGlobalActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 104, -1, -1));
 
         lightBulbRPSLock.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbRPSLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 109, -1, -1));
+        add(lightBulbRPSLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 112, -1, -1));
 
         jPanelCoreInstrument.setBackground(new java.awt.Color(204, 204, 204));
         jPanelCoreInstrument.setBorder(javax.swing.BorderFactory.createEtchedBorder());
