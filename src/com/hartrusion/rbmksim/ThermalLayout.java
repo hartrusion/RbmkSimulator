@@ -248,7 +248,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve auxCondValveToDrain;
 
     // Steam Dump
-    private final PhasedValveControlled[] steamDump
+    private final PhasedValveControlled[] mainSteamDump
             = new PhasedValveControlled[2];
 
     // Condensation
@@ -297,8 +297,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     private final AbstractController blowdownBalanceControlLoop
             = new PControl();
-
-    private int plotUpdateCount;
 
     private double voiding = 0;
     private double coreTemp = 200;
@@ -670,9 +668,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondValveToDrain.initName("AuxCond#ToDrain");
 
         // Steam Dump
-        for (int idx = 0; idx < steamDump.length; idx++) {
-            steamDump[idx] = new PhasedValveControlled();
-            steamDump[idx].initName("SteamDump");
+        for (int idx = 0; idx < mainSteamDump.length; idx++) {
+            mainSteamDump[idx] = new PhasedValveControlled();
+            mainSteamDump[idx].registerController(new PIControl());
+            mainSteamDump[idx].initName(
+                    "Main" + (idx + 1) + "#SteamDump");
         }
 
         // Condensation
@@ -842,6 +842,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondValveToHotwell.registerParameterHandler(outputValues);
         auxCondValveToDrain.registerSignalListener(controller);
         auxCondValveToDrain.registerParameterHandler(outputValues);
+        for (int idx = 0; idx < mainSteamDump.length; idx++) {
+            mainSteamDump[idx].registerSignalListener(controller);
+            mainSteamDump[idx].registerParameterHandler(outputValues);
+        }
         for (int idx = 0; idx < 3; idx++) {
             condensationHotwellPump[idx].registerSignalListener(controller);
             condensationCondensatePump[idx].registerSignalListener(controller);
@@ -1141,7 +1145,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Steam Dump
         for (int idx = 0; idx < 2; idx++) {
-            steamDump[idx].getValveElement().connectBetween(mainSteam[idx],
+            mainSteamDump[idx].getValveElement().connectBetween(mainSteam[idx],
                     hotwell.getPhasedNode(PhasedCondenser.PRIMARY_IN));
         }
 
@@ -1417,6 +1421,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondBypass.initCharacteristic(2000, -1);
         auxCondValveToDrain.initCharacteristic(2500, 20);
         auxCondValveToHotwell.initCharacteristic(2500, 20);
+        
+        // The steam dump or turbine bypass will not be able to handle the full
+        // reactor load, only a bit more than 50 % of it roughly, but it needs
+        // to operate on lower pressures also. Lets just assume on a pressure of
+        // 50 bar we'll get those 400 kg/s of steam throuh the valve if it is 
+        // opened to 100 %: 5e6 Pa / 400 kg/s = 12500 Pa/kg*s
+        for (int idx = 0; idx < 2; idx++) {
+            mainSteamDump[idx].initCharacteristic(12500, -1.0);
+        }
 
         // Todo: Get proper values, those are completely made up here
         // There are 4 condensers with a total of 40480 m² surface, 10 Kelvin
@@ -1600,7 +1613,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         runner.submit(auxCondValveToHotwell);
         runner.submit(auxCondValveToDrain);
-
+        for (int idx = 0; idx < mainSteamDump.length; idx++) {
+            runner.submit(mainSteamDump[idx]);
+        }
         for (int idx = 0; idx < 3; idx++) {
             runner.submit(condensationHotwellPump[idx]);
             runner.submit(condensationCondensatePump[idx]);
@@ -2530,6 +2545,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         outputValues.setParameterValue("AuxCond#CondensateTemperature",
                 auxCondCondInNode.getTemperature() - 273.5);
+        
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "Main" + (idx + 1) + "#BypassFlow",
+                    mainSteamDump[idx].getValveElement().getFlow());
+        }
 
         outputValues.setParameterValue("Hotwell#Level", // m to cm
                 hotwell.getPrimarySideReservoir().getFillHeight() * 100);
@@ -2794,6 +2815,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 case "Main2#SteamShutoffValve" ->
                     mainSteamShutoffValve[1].handleAction(ac);
             }
+            mainSteamDump[0].handleAction(ac);
+            mainSteamDump[1].handleAction(ac);
             hotwellFillValve.handleAction(ac);
             hotwellDrainValve.handleAction(ac);
             setpointHotwellUpperLevel.handleAction(ac);

@@ -99,6 +99,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemDeaerators = new javax.swing.JMenuItem();
         jMenuItemFeedwater = new javax.swing.JMenuItem();
         jMenuItemAuxCond = new javax.swing.JMenuItem();
+        jMenuItemTurbineBypass = new javax.swing.JMenuItem();
         jMenuItemCondensation = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuAlarms = new javax.swing.JMenuItem();
@@ -228,6 +229,14 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuControls.add(jMenuItemAuxCond);
+
+        jMenuItemTurbineBypass.setText("Turbine Bypass");
+        jMenuItemTurbineBypass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTurbineBypassActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemTurbineBypass);
 
         jMenuItemCondensation.setText("Condensation");
         jMenuItemCondensation.addActionListener(new java.awt.event.ActionListener() {
@@ -751,6 +760,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemDeaeratorsActionPerformed(null);
         jMenuItemAuxCondActionPerformed(null);
         jMenuItemBlowdownActionPerformed(null);
+        jMenuItemTurbineBypassActionPerformed(null);
         // Align them in a preset grid layout.
         // 1st row:
         jDesktopPane1.windowPlaceAtZero(
@@ -761,6 +771,9 @@ public class ControlRoom extends javax.swing.JFrame
         jDesktopPane1.windowPlaceRightTo(
                 getControlPanelInstance("Condensation"),
                 getControlPanelInstance("Aux. Condensation"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Turbine Bypass"),
+                getControlPanelInstance("Condensation"));
 
         // 2nd row:
         jDesktopPane1.windowPlaceBelow(
@@ -792,6 +805,17 @@ public class ControlRoom extends javax.swing.JFrame
         controller.userAction(new ActionCommand("SetCoreOnly", null));
         jCheckBoxMenuOnlyCore.setEnabled(false);
     }//GEN-LAST:event_jCheckBoxMenuOnlyCoreActionPerformed
+
+    private void jMenuItemTurbineBypassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineBypassActionPerformed
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Turbine Bypass")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelBypassValve(), "Turbine Bypass");
+    }//GEN-LAST:event_jMenuItemTurbineBypassActionPerformed
 
     @Override // Called on startup
     public void registerController(ViewerController controller) {
@@ -1001,6 +1025,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemRecirculation;
+    private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;
