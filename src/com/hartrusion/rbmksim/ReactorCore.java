@@ -983,6 +983,12 @@ public class ReactorCore extends Subsystem implements Runnable {
             if (alarmManager.isAlarmActive("Loop2Flow", AlarmState.MIN1)) {
                 return false;
             }
+            if (alarmManager.isAlarmActive("Feed1Pressure", AlarmState.MIN1)) {
+                return false;
+            }
+            if (alarmManager.isAlarmActive("Feed2Pressure", AlarmState.MIN1)) {
+                return false;
+            }
         }
         if (avgRodPosition < 7.1) {
             return false; // rods not fully inserted

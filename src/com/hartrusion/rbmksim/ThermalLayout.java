@@ -1871,6 +1871,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,
         // there is no need to have a class field for them.
+        // NOTE that there's this alarm thing that triggers alarms and events.
+        // to prevent further actions, use either safety definitions here or
+        // use the checkRpsDisengage in the reactor core. Events are one-time
+        // only, so usually there is an alarm event AND some other place that
+        // prevents something because certain conditions (like alarm present)
+        // are met.
         ValueAlarmMonitor am;
 
         // Steam Drum Separator 1 Level
@@ -2132,6 +2138,48 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
+        am.setName("Feed1Pressure");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return feedwaterPumpCollectorNodes[0]
+                        .getEffort() * 1e-5; // Pa to bar
+            }
+        });
+        am.defineAlarm(70.0, AlarmState.LOW1);
+        am.defineAlarm(60.0, AlarmState.LOW2);
+        am.defineAlarm(50.0, AlarmState.MIN1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("Feed2Pressure");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return feedwaterPumpCollectorNodes[1]
+                        .getEffort() * 1e-5; // Pa to bar
+            }
+        });
+        am.defineAlarm(70.0, AlarmState.LOW1);
+        am.defineAlarm(60.0, AlarmState.LOW2);
+        am.defineAlarm(50.0, AlarmState.MIN1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
         am.setName("AuxCond1Level");
         am.addInputProvider(new DoubleSupplier() {
             @Override
@@ -2166,6 +2214,30 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(40.0, AlarmState.LOW2);
         am.defineAlarm(5.0, AlarmState.MIN1);
 
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("HotwellPumpPressure");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return condensationPumpOut.getEffort() * 1e-5; // Pa to bar
+            }
+        });
+        am.defineAlarm(5.0, AlarmState.LOW1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("CondensatePumpPressure");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return condensationBoosterPumpOut.getEffort() * 1e-5; // Pa-bar
+            }
+        });
+        am.defineAlarm(5.0, AlarmState.LOW1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
