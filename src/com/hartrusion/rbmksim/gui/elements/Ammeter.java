@@ -18,6 +18,8 @@ package com.hartrusion.rbmksim.gui.elements;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -27,16 +29,24 @@ import java.awt.geom.Line2D;
 import java.beans.BeanProperty;
 
 /**
+ * An ampere meter, used to display some value with a pointer that is fixed in
+ * the lower middle. Called ammeter (short for ampere meter) as those things are
+ * moving their pointer according to the current value but they can be used to
+ * display other values too.
  *
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
 public class Ammeter extends javax.swing.JComponent {
-    double value;
-    int width, height;
-    float centerY, centerX;
-    float pointerLength;
-    float arcX, arcY, arcD;
-    float lowerHeigt, lowerStart;
+
+    private double value;
+    private int width, height;
+    private float centerY, centerX;
+    private float pointerLength;
+    private float arcX, arcY, arcD;
+    private float lowerHeigt, lowerStart;
+
+    private String leftLabel = "0.0";
+    private String rightLabel = "100";
 
     /**
      * Creates new form Ammeter
@@ -44,7 +54,7 @@ public class Ammeter extends javax.swing.JComponent {
     public Ammeter() {
         initComponents();
     }
-    
+
     public double getChornobylValue() {
         return value;
     }
@@ -61,6 +71,36 @@ public class Ammeter extends javax.swing.JComponent {
         this.value = value;
         firePropertyChange("chornobylValue", old, value);
         repaint();
+    }
+
+    public String getLeftLabel() {
+        return leftLabel;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Text on the lower left")
+    public void setLeftLabel(String leftLabel) {
+        String old = this.leftLabel;
+        if (old != leftLabel) {
+            this.leftLabel = leftLabel;
+            firePropertyChange("leftLabel", old, leftLabel);
+            repaint();
+        }
+    }
+
+    public String getRightLabel() {
+        return rightLabel;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Text on the lower right")
+    public void setRightLabel(String rightLabel) {
+        String old = this.rightLabel;
+        if (old != rightLabel) {
+            this.rightLabel = rightLabel;
+            firePropertyChange("rightLabel", old, rightLabel);
+            repaint();
+        }
     }
 
     /**
@@ -89,29 +129,46 @@ public class Ammeter extends javax.swing.JComponent {
         Object prevHint = g2d.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // Draw background recticle
         g2d.setColor(getBackground());
         g2d.fillRect(0, 0, width, height);
-        
+
         // the line behind the moving pointer
         Arc2D.Float arc = new Arc2D.Float(arcX, arcY, arcD, arcD,
                 45.0F, 90.0F, Arc2D.OPEN);
         g2d.setStroke(new BasicStroke(2F));
         g2d.setColor(getForeground());
         g2d.draw(arc);
-        
+
         // Draw the Pointer line. Clip the lower part away
         Shape oldClip = g2d.getClip();
-        g2d.setClip(0,0,width, (int) lowerStart);
+        g2d.setClip(0, 0, width, (int) lowerStart);
         float phi = (float) (value * 0.01570796326795);
-        Line2D.Float line = new Line2D.Float(centerX, centerY, 
-                getXCoordinate(pointerLength, phi), 
+        Line2D.Float line = new Line2D.Float(centerX, centerY,
+                getXCoordinate(pointerLength, phi),
                 getYCoordinate(pointerLength, phi));
         g2d.setStroke(new BasicStroke(1F));
         g2d.draw(line);
         g2d.setClip(oldClip); // revert clip settings.
-        
+
+        // Text on the lower sides
+        Font oldFont = g.getFont();
+        g.setFont(oldFont.deriveFont(oldFont.getSize() - 4.0F)); // smaller
+        FontMetrics fm = g.getFontMetrics();
+        if (leftLabel != null) {
+            g.drawString(leftLabel,
+                    4,
+                    height - 4);
+        }
+        if (rightLabel != null) {
+            g.drawString(rightLabel,
+                    width - fm.stringWidth(rightLabel) - 4,
+                    height - 4);
+        }
+
+        // Reset the previous font value
+        g.setFont(oldFont);
         // Reset the antialiasing to its previous value
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, prevHint);
     }

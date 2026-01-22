@@ -3551,6 +3551,8 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
+            <Property name="leftLabel" type="java.lang.String" value="-6"/>
+            <Property name="rightLabel" type="java.lang.String" value="-1"/>
             <Property name="toolTipText" type="java.lang.String" value="Displays the log10(Neutron Flux/100%) to monitor very tiny amounts of neutron flux in the reactor. Use this gauge to see the intial rise of neutron flux when pulling rods."/>
           </Properties>
           <Constraints>
@@ -3576,6 +3578,8 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
+            <Property name="leftLabel" type="java.lang.String" value="-3"/>
+            <Property name="rightLabel" type="java.lang.String" value="+3"/>
             <Property name="toolTipText" type="java.lang.String" value="Neutron rate (change of Neutron Flux per second), this is the effective change of power"/>
           </Properties>
           <Constraints>

@@ -1622,12 +1622,16 @@ public class PanelCoreControl extends AbstractPanelWidget {
         ammeterFluxLog.setBackground(new java.awt.Color(255, 255, 255));
         ammeterFluxLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterFluxLog.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterFluxLog.setLeftLabel("-6");
+        ammeterFluxLog.setRightLabel("-1");
         ammeterFluxLog.setToolTipText("Displays the log10(Neutron Flux/100%) to monitor very tiny amounts of neutron flux in the reactor. Use this gauge to see the intial rise of neutron flux when pulling rods.");
         jPanelCoreInstrument.add(ammeterFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 62, 38));
 
         ammeterRate.setBackground(new java.awt.Color(255, 255, 255));
         ammeterRate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterRate.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterRate.setLeftLabel("-3");
+        ammeterRate.setRightLabel("+3");
         ammeterRate.setToolTipText("Neutron rate (change of Neutron Flux per second), this is the effective change of power");
         jPanelCoreInstrument.add(ammeterRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 4, 62, 38));
 
