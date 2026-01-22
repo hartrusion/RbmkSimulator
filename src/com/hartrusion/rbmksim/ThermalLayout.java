@@ -1421,7 +1421,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondBypass.initCharacteristic(2000, -1);
         auxCondValveToDrain.initCharacteristic(2500, 20);
         auxCondValveToHotwell.initCharacteristic(2500, 20);
-        
+
         // The steam dump or turbine bypass will not be able to handle the full
         // reactor load, only a bit more than 50 % of it roughly, but it needs
         // to operate on lower pressures also. Lets just assume on a pressure of
@@ -2242,6 +2242,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !alarmManager.isAlarmActive(
                             "DA2Level", AlarmState.MIN2));
         }
+        // Do not allow direct connections between hotwell with spare pump
+        feedwaterSparePumpInValve[0].addSafeClosedProvider(()
+                -> feedwaterSparePumpInValve[1].getOpening() <= 1.0);
+        feedwaterSparePumpInValve[1].addSafeClosedProvider(()
+                -> feedwaterSparePumpInValve[0].getOpening() <= 1.0);
+
         // Close Aux Condensers Drain Valve on low level
         auxCondCondensateValve[0].addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
@@ -2545,7 +2551,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         outputValues.setParameterValue("AuxCond#CondensateTemperature",
                 auxCondCondInNode.getTemperature() - 273.5);
-        
+
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Main" + (idx + 1) + "#BypassFlow",
