@@ -79,8 +79,9 @@ not present at all.
 time.
 * Reactor with nasty features, has some surprises on low power levels and the
 accident can be triggered.
+* Accident sequence (prompt neutron excursion) possible.
 * Mnemonic displays with additional measurement data on them.
-* Some line plots to monitor measurement time series
+* Some line plots to monitor measurement time series.
 
 Still, there is lots of work to do, so currently there is **no turbine** and 
 most coolant loops are connected to fixed cold water flow sources instead of 
@@ -121,10 +122,13 @@ No Z supporters wanted.
 ## Licencing and usage
 I decided to publish this simulator with GPLv3 so this thing is free software. 
 As I've also put in lots of thoughts on how to represent the plant with the 
-GUI, I do want to keep the authorship and control over it. To make it possible 
-to share the developed technology, large parts of the code in other repositories 
-are published with MIT licence so you're free to reuse those parts for whatever 
-you like.
+GUI, I do want to keep the authorship and control over it. You can use and 
+redistribute this software as you like, there are only some limitations if 
+you would like to modify and publish the software again.
+
+To make it possible to share the developed technology, large parts of the code 
+in other repositories are published with MIT licence so you're free to reuse 
+those parts for whatever you like without such limitations.
 
 ## Modeling engine
 The simulation is based on the PhxNetMod project which implements the theory of 
