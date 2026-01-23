@@ -92,6 +92,17 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingValve5 = new javax.swing.JLabel();
         jLabelReadingHotwellDrainValve = new javax.swing.JLabel();
         jLabelReadingHotwellFillValve = new javax.swing.JLabel();
+        valveStartupEjector2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveStartupEjector1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -122,7 +133,6 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHotwellLevel.setText("___ cm");
         jLabelReadingHotwellLevel.setOpaque(true);
         add(jLabelReadingHotwellLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 238, 56, 16));
-        jLabelReadingHotwellLevel.getAccessibleContext().setAccessibleName("___ cm");
 
         jLabelReadingSteamIn2Temp.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamIn2Temp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -177,10 +187,10 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         add(valveStartupReg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 164, -1, -1));
 
         valveMain1.setVertical(true);
-        add(valveMain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 275, -1, -1));
+        add(valveMain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 298, -1, -1));
 
         valveMain2.setVertical(true);
-        add(valveMain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 275, -1, -1));
+        add(valveMain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 298, -1, -1));
 
         valveStartup1.setVertical(true);
         add(valveStartup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 206, -1, -1));
@@ -219,7 +229,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         add(valve17, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 199, -1, -1));
 
         valveHotwellFill.setControlIndicator(true);
-        add(valveHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 319, -1, -1));
+        add(valveHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 306, -1, -1));
 
         valveHotwellDrain.setControlIndicator(true);
         add(valveHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 377, -1, -1));
@@ -260,7 +270,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHotwellFillFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingHotwellFillFlow.setText("____ kg/s");
         jLabelReadingHotwellFillFlow.setOpaque(true);
-        add(jLabelReadingHotwellFillFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 320, 64, 16));
+        add(jLabelReadingHotwellFillFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 286, 64, 16));
 
         jLabelReadingHotwellDrainFlow.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingHotwellDrainFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -268,7 +278,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHotwellDrainFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingHotwellDrainFlow.setText("____ kg/s");
         jLabelReadingHotwellDrainFlow.setOpaque(true);
-        add(jLabelReadingHotwellDrainFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 378, 64, 16));
+        add(jLabelReadingHotwellDrainFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 356, 64, 16));
 
         jLabelReadingValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -332,7 +342,67 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHotwellFillValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingHotwellFillValve.setText("___");
         jLabelReadingHotwellFillValve.setOpaque(true);
-        add(jLabelReadingHotwellFillValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 340, 24, -1));
+        add(jLabelReadingHotwellFillValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 328, 24, -1));
+
+        valveStartupEjector2.setVertical(true);
+        add(valveStartupEjector2, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 298, -1, -1));
+
+        valveStartupEjector1.setVertical(true);
+        add(valveStartupEjector1, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 298, -1, -1));
+
+        jLabel18.setFont(jLabel18.getFont().deriveFont(jLabel18.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel18.getFont().getSize()-3));
+        jLabel18.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel18.setText("Bypass");
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(602, 156, 46, -1));
+
+        jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel17.getFont().getSize()-3));
+        jLabel17.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Startup");
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 358, 52, -1));
+
+        jLabel16.setFont(jLabel16.getFont().deriveFont(jLabel16.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel16.getFont().getSize()-3));
+        jLabel16.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Ejectors");
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 372, 52, -1));
+
+        jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel19.getFont().getSize()-3));
+        jLabel19.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Drain");
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 380, 52, -1));
+
+        jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel20.getFont().getSize()-3));
+        jLabel20.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Superheater");
+        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 22, 66, -1));
+
+        jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel21.getFont().getSize()-3));
+        jLabel21.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("HP");
+        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 84, 52, -1));
+
+        jLabel22.setFont(jLabel22.getFont().deriveFont(jLabel22.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel22.getFont().getSize()-3));
+        jLabel22.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Loop 1");
+        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 342, 52, -1));
+
+        jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel23.getFont().getSize()-3));
+        jLabel23.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Loop 2");
+        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 344, 52, -1));
+
+        jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel24.getFont().getSize()-3));
+        jLabel24.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("Fill");
+        add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 306, 52, -1));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -340,6 +410,15 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingCondensatePumpsPressure;
     private javax.swing.JLabel jLabelReadingHotwellDrainFlow;
@@ -382,6 +461,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMainReg2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartup1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartup2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupEjector1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupEjector2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupReg1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartupReg2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSuperHeaterIn;
