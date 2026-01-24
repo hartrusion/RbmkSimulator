@@ -1718,6 +1718,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // try to have a fill level of 100 cm (normal level)
             deaerator[idx].setInitialState(40000, 35 + 273.15);
         }
+        for (int idx = 0; idx < 2; idx++) {
+            setpointDALevel[idx].forceOutputValue(100);
+        }
 
         // Todo: Something that makes more sense here.
         for (int idx = 0; idx < 2; idx++) {
