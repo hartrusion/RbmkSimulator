@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
@@ -72,34 +73,34 @@ public class PanelCondensation extends AbstractPanelWidget {
         integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitch3 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jLabelFeed13 = new javax.swing.JLabel();
+        jLabelEjectorSuction = new javax.swing.JLabel();
         jButtonFeed12Close = new javax.swing.JButton();
         jButtonFeed12Open = new javax.swing.JButton();
-        jButtonFeed12Close1 = new javax.swing.JButton();
-        jButtonFeed12Open1 = new javax.swing.JButton();
-        jButtonFeed12Open2 = new javax.swing.JButton();
-        jButtonFeed12Close2 = new javax.swing.JButton();
-        jLabelFeed15 = new javax.swing.JLabel();
-        jLabelFeed16 = new javax.swing.JLabel();
-        jButtonFeed12Open3 = new javax.swing.JButton();
-        jButtonFeed12Close3 = new javax.swing.JButton();
-        jButtonFeed12Close4 = new javax.swing.JButton();
-        jButtonFeed12Open4 = new javax.swing.JButton();
-        jButtonFeed12Open5 = new javax.swing.JButton();
-        jButtonFeed12Close5 = new javax.swing.JButton();
-        jButtonFeed12Open6 = new javax.swing.JButton();
-        jButtonFeed12Close6 = new javax.swing.JButton();
-        jButtonFeed12Open7 = new javax.swing.JButton();
-        jButtonFeed12Close7 = new javax.swing.JButton();
-        jButtonFeed12Open8 = new javax.swing.JButton();
-        jButtonFeed12Close8 = new javax.swing.JButton();
-        jLabelFeed17 = new javax.swing.JLabel();
-        jLabelFeed14 = new javax.swing.JLabel();
-        jButtonFeed12Close9 = new javax.swing.JButton();
-        jButtonFeed12Open9 = new javax.swing.JButton();
-        jLabelCaptionPump11 = new javax.swing.JLabel();
-        jLabelCaptionPump12 = new javax.swing.JLabel();
-        jLabelCaptionPump13 = new javax.swing.JLabel();
+        jButtonEjector1InClose = new javax.swing.JButton();
+        jButtonEjector1InOpen = new javax.swing.JButton();
+        jButtonEjector2InOpen = new javax.swing.JButton();
+        jButtonEjector2InClose = new javax.swing.JButton();
+        jLabelEjectorInlet = new javax.swing.JLabel();
+        jLabelEjectorSteam = new javax.swing.JLabel();
+        jButtonEjector3InOpen = new javax.swing.JButton();
+        jButtonEjector3InClose = new javax.swing.JButton();
+        jButtonEjector1OutClose = new javax.swing.JButton();
+        jButtonEjector1OutOpen = new javax.swing.JButton();
+        jButtonEjector2OutOpen = new javax.swing.JButton();
+        jButtonEjector2OutClose = new javax.swing.JButton();
+        jButtonEjector3OutOpen = new javax.swing.JButton();
+        jButtonEjector3OutClose = new javax.swing.JButton();
+        jButtonEjector2SuctionOpen = new javax.swing.JButton();
+        jButtonEjector2SuctionClose = new javax.swing.JButton();
+        jButtonEjector3SuctionOpen = new javax.swing.JButton();
+        jButtonEjector3SuctionClose = new javax.swing.JButton();
+        jLabelEjectorOutlet = new javax.swing.JLabel();
+        jLabelBypass = new javax.swing.JLabel();
+        jButtonEjectorBypassClose = new javax.swing.JButton();
+        jButtonEjectorBypassOpen = new javax.swing.JButton();
+        jLabelCaptionEjector3 = new javax.swing.JLabel();
+        jLabelCaptionEjector1 = new javax.swing.JLabel();
+        jLabelCaptionEjector2 = new javax.swing.JLabel();
         jButtonColdCondensateDrainClose = new javax.swing.JButton();
         jLabelColdCondensateDrain = new javax.swing.JLabel();
         jButtonColdCondensateDrainOpen = new javax.swing.JButton();
@@ -181,13 +182,13 @@ public class PanelCondensation extends AbstractPanelWidget {
         add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 252, -1, -1));
         add(integralSwitch3, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 252, -1, -1));
 
-        jLabelFeed13.setFont(jLabelFeed13.getFont().deriveFont(jLabelFeed13.getFont().getSize()-2f));
-        jLabelFeed13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelFeed13.setText("Suction");
-        jLabelFeed13.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed13.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed13.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 226, 40, 14));
+        jLabelEjectorSuction.setFont(jLabelEjectorSuction.getFont().deriveFont(jLabelEjectorSuction.getFont().getSize()-2f));
+        jLabelEjectorSuction.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelEjectorSuction.setText("Suction");
+        jLabelEjectorSuction.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorSuction.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorSuction.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelEjectorSuction, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 226, 40, 14));
 
         jButtonFeed12Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed12Close.setText("C");
@@ -211,259 +212,259 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonFeed12Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 224, 20, 20));
 
-        jButtonFeed12Close1.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close1.setText("C");
-        jButtonFeed12Close1.setToolTipText("");
-        jButtonFeed12Close1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector1InClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector1InClose.setText("C");
+        jButtonEjector1InClose.setToolTipText("");
+        jButtonEjector1InClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector1InClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close1ActionPerformed(evt);
+                jButtonEjector1InCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close1, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 284, 20, 20));
+        add(jButtonEjector1InClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 284, 20, 20));
 
-        jButtonFeed12Open1.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open1.setText("O");
-        jButtonFeed12Open1.setToolTipText("");
-        jButtonFeed12Open1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector1InOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector1InOpen.setText("O");
+        jButtonEjector1InOpen.setToolTipText("");
+        jButtonEjector1InOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector1InOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open1ActionPerformed(evt);
+                jButtonEjector1InOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 284, 20, 20));
+        add(jButtonEjector1InOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 284, 20, 20));
 
-        jButtonFeed12Open2.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open2.setText("O");
-        jButtonFeed12Open2.setToolTipText("");
-        jButtonFeed12Open2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector2InOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector2InOpen.setText("O");
+        jButtonEjector2InOpen.setToolTipText("");
+        jButtonEjector2InOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector2InOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open2ActionPerformed(evt);
+                jButtonEjector2InOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open2, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 284, 20, 20));
+        add(jButtonEjector2InOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 284, 20, 20));
 
-        jButtonFeed12Close2.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close2.setText("C");
-        jButtonFeed12Close2.setToolTipText("");
-        jButtonFeed12Close2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector2InClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector2InClose.setText("C");
+        jButtonEjector2InClose.setToolTipText("");
+        jButtonEjector2InClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector2InClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close2ActionPerformed(evt);
+                jButtonEjector2InCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close2, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 284, 20, 20));
+        add(jButtonEjector2InClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 284, 20, 20));
 
-        jLabelFeed15.setFont(jLabelFeed15.getFont().deriveFont(jLabelFeed15.getFont().getSize()-2f));
-        jLabelFeed15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelFeed15.setText("Inlet");
-        jLabelFeed15.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed15.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed15.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed15, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 286, 40, 14));
+        jLabelEjectorInlet.setFont(jLabelEjectorInlet.getFont().deriveFont(jLabelEjectorInlet.getFont().getSize()-2f));
+        jLabelEjectorInlet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelEjectorInlet.setText("Inlet");
+        jLabelEjectorInlet.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorInlet.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorInlet.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelEjectorInlet, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 286, 40, 14));
 
-        jLabelFeed16.setFont(jLabelFeed16.getFont().deriveFont(jLabelFeed16.getFont().getSize()-2f));
-        jLabelFeed16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelFeed16.setText("Steam");
-        jLabelFeed16.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed16.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed16.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed16, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 260, 40, 14));
+        jLabelEjectorSteam.setFont(jLabelEjectorSteam.getFont().deriveFont(jLabelEjectorSteam.getFont().getSize()-2f));
+        jLabelEjectorSteam.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelEjectorSteam.setText("Steam");
+        jLabelEjectorSteam.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorSteam.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorSteam.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelEjectorSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 260, 40, 14));
 
-        jButtonFeed12Open3.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open3.setText("O");
-        jButtonFeed12Open3.setToolTipText("");
-        jButtonFeed12Open3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector3InOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector3InOpen.setText("O");
+        jButtonEjector3InOpen.setToolTipText("");
+        jButtonEjector3InOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector3InOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open3ActionPerformed(evt);
+                jButtonEjector3InOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 284, 20, 20));
+        add(jButtonEjector3InOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 284, 20, 20));
 
-        jButtonFeed12Close3.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close3.setText("C");
-        jButtonFeed12Close3.setToolTipText("");
-        jButtonFeed12Close3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector3InClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector3InClose.setText("C");
+        jButtonEjector3InClose.setToolTipText("");
+        jButtonEjector3InClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector3InClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close3ActionPerformed(evt);
+                jButtonEjector3InCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close3, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 284, 20, 20));
+        add(jButtonEjector3InClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 284, 20, 20));
 
-        jButtonFeed12Close4.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close4.setText("C");
-        jButtonFeed12Close4.setToolTipText("");
-        jButtonFeed12Close4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector1OutClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector1OutClose.setText("C");
+        jButtonEjector1OutClose.setToolTipText("");
+        jButtonEjector1OutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector1OutClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close4ActionPerformed(evt);
+                jButtonEjector1OutCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close4, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 310, 20, 20));
+        add(jButtonEjector1OutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 310, 20, 20));
 
-        jButtonFeed12Open4.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open4.setText("O");
-        jButtonFeed12Open4.setToolTipText("");
-        jButtonFeed12Open4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector1OutOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector1OutOpen.setText("O");
+        jButtonEjector1OutOpen.setToolTipText("");
+        jButtonEjector1OutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector1OutOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open4ActionPerformed(evt);
+                jButtonEjector1OutOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open4, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 310, 20, 20));
+        add(jButtonEjector1OutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 310, 20, 20));
 
-        jButtonFeed12Open5.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open5.setText("O");
-        jButtonFeed12Open5.setToolTipText("");
-        jButtonFeed12Open5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector2OutOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector2OutOpen.setText("O");
+        jButtonEjector2OutOpen.setToolTipText("");
+        jButtonEjector2OutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector2OutOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open5ActionPerformed(evt);
+                jButtonEjector2OutOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open5, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 310, 20, 20));
+        add(jButtonEjector2OutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 310, 20, 20));
 
-        jButtonFeed12Close5.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close5.setText("C");
-        jButtonFeed12Close5.setToolTipText("");
-        jButtonFeed12Close5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector2OutClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector2OutClose.setText("C");
+        jButtonEjector2OutClose.setToolTipText("");
+        jButtonEjector2OutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector2OutClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close5ActionPerformed(evt);
+                jButtonEjector2OutCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close5, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 310, 20, 20));
+        add(jButtonEjector2OutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 310, 20, 20));
 
-        jButtonFeed12Open6.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open6.setText("O");
-        jButtonFeed12Open6.setToolTipText("");
-        jButtonFeed12Open6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector3OutOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector3OutOpen.setText("O");
+        jButtonEjector3OutOpen.setToolTipText("");
+        jButtonEjector3OutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector3OutOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open6ActionPerformed(evt);
+                jButtonEjector3OutOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 20, 20));
+        add(jButtonEjector3OutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 20, 20));
 
-        jButtonFeed12Close6.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close6.setText("C");
-        jButtonFeed12Close6.setToolTipText("");
-        jButtonFeed12Close6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector3OutClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector3OutClose.setText("C");
+        jButtonEjector3OutClose.setToolTipText("");
+        jButtonEjector3OutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector3OutClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close6ActionPerformed(evt);
+                jButtonEjector3OutCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close6, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 310, 20, 20));
+        add(jButtonEjector3OutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 310, 20, 20));
 
-        jButtonFeed12Open7.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open7.setText("O");
-        jButtonFeed12Open7.setToolTipText("");
-        jButtonFeed12Open7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector2SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector2SuctionOpen.setText("O");
+        jButtonEjector2SuctionOpen.setToolTipText("");
+        jButtonEjector2SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector2SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open7ActionPerformed(evt);
+                jButtonEjector2SuctionOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open7, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 224, 20, 20));
+        add(jButtonEjector2SuctionOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 224, 20, 20));
 
-        jButtonFeed12Close7.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close7.setText("C");
-        jButtonFeed12Close7.setToolTipText("");
-        jButtonFeed12Close7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector2SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector2SuctionClose.setText("C");
+        jButtonEjector2SuctionClose.setToolTipText("");
+        jButtonEjector2SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector2SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close7ActionPerformed(evt);
+                jButtonEjector2SuctionCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close7, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 224, 20, 20));
+        add(jButtonEjector2SuctionClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 224, 20, 20));
 
-        jButtonFeed12Open8.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open8.setText("O");
-        jButtonFeed12Open8.setToolTipText("");
-        jButtonFeed12Open8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open8.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector3SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector3SuctionOpen.setText("O");
+        jButtonEjector3SuctionOpen.setToolTipText("");
+        jButtonEjector3SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector3SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open8ActionPerformed(evt);
+                jButtonEjector3SuctionOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 224, 20, 20));
+        add(jButtonEjector3SuctionOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 224, 20, 20));
 
-        jButtonFeed12Close8.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close8.setText("C");
-        jButtonFeed12Close8.setToolTipText("");
-        jButtonFeed12Close8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close8.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector3SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector3SuctionClose.setText("C");
+        jButtonEjector3SuctionClose.setToolTipText("");
+        jButtonEjector3SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector3SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close8ActionPerformed(evt);
+                jButtonEjector3SuctionCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close8, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 224, 20, 20));
+        add(jButtonEjector3SuctionClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 224, 20, 20));
 
-        jLabelFeed17.setFont(jLabelFeed17.getFont().deriveFont(jLabelFeed17.getFont().getSize()-2f));
-        jLabelFeed17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelFeed17.setText("Outliet");
-        jLabelFeed17.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed17.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed17.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed17, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 312, 40, 14));
+        jLabelEjectorOutlet.setFont(jLabelEjectorOutlet.getFont().deriveFont(jLabelEjectorOutlet.getFont().getSize()-2f));
+        jLabelEjectorOutlet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelEjectorOutlet.setText("Outliet");
+        jLabelEjectorOutlet.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorOutlet.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelEjectorOutlet.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelEjectorOutlet, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 312, 40, 14));
 
-        jLabelFeed14.setFont(jLabelFeed14.getFont().deriveFont(jLabelFeed14.getFont().getSize()-2f));
-        jLabelFeed14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed14.setText("Bypass");
-        jLabelFeed14.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed14.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed14.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed14, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 164, 52, 14));
+        jLabelBypass.setFont(jLabelBypass.getFont().deriveFont(jLabelBypass.getFont().getSize()-2f));
+        jLabelBypass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBypass.setText("Bypass");
+        jLabelBypass.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelBypass.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelBypass.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 164, 52, 14));
 
-        jButtonFeed12Close9.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close9.setText("C");
-        jButtonFeed12Close9.setToolTipText("");
-        jButtonFeed12Close9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close9.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjectorBypassClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjectorBypassClose.setText("C");
+        jButtonEjectorBypassClose.setToolTipText("");
+        jButtonEjectorBypassClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjectorBypassClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Close9ActionPerformed(evt);
+                jButtonEjectorBypassCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close9, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 178, 20, 20));
+        add(jButtonEjectorBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 178, 20, 20));
 
-        jButtonFeed12Open9.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open9.setText("O");
-        jButtonFeed12Open9.setToolTipText("");
-        jButtonFeed12Open9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open9.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjectorBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjectorBypassOpen.setText("O");
+        jButtonEjectorBypassOpen.setToolTipText("");
+        jButtonEjectorBypassOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjectorBypassOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12Open9ActionPerformed(evt);
+                jButtonEjectorBypassOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 178, 20, 20));
+        add(jButtonEjectorBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 178, 20, 20));
 
-        jLabelCaptionPump11.setFont(jLabelCaptionPump11.getFont().deriveFont(jLabelCaptionPump11.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump11.getFont().getSize()-2));
-        jLabelCaptionPump11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump11.setText("Ejector 3");
-        jLabelCaptionPump11.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump11.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump11.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump11, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 206, 64, 14));
+        jLabelCaptionEjector3.setFont(jLabelCaptionEjector3.getFont().deriveFont(jLabelCaptionEjector3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionEjector3.getFont().getSize()-2));
+        jLabelCaptionEjector3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionEjector3.setText("Ejector 3");
+        jLabelCaptionEjector3.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionEjector3.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionEjector3.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionEjector3, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 206, 64, 14));
 
-        jLabelCaptionPump12.setFont(jLabelCaptionPump12.getFont().deriveFont(jLabelCaptionPump12.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump12.getFont().getSize()-2));
-        jLabelCaptionPump12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump12.setText("Ejector 1");
-        jLabelCaptionPump12.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump12.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump12, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 206, 64, 14));
+        jLabelCaptionEjector1.setFont(jLabelCaptionEjector1.getFont().deriveFont(jLabelCaptionEjector1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionEjector1.getFont().getSize()-2));
+        jLabelCaptionEjector1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionEjector1.setText("Ejector 1");
+        jLabelCaptionEjector1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionEjector1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionEjector1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionEjector1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 206, 64, 14));
 
-        jLabelCaptionPump13.setFont(jLabelCaptionPump13.getFont().deriveFont(jLabelCaptionPump13.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump13.getFont().getSize()-2));
-        jLabelCaptionPump13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump13.setText("Ejector2");
-        jLabelCaptionPump13.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump13.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump13.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 206, 64, 14));
+        jLabelCaptionEjector2.setFont(jLabelCaptionEjector2.getFont().deriveFont(jLabelCaptionEjector2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionEjector2.getFont().getSize()-2));
+        jLabelCaptionEjector2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionEjector2.setText("Ejector2");
+        jLabelCaptionEjector2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionEjector2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionEjector2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionEjector2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 206, 64, 14));
 
         jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonColdCondensateDrainClose.setText("C");
@@ -674,77 +675,77 @@ public class PanelCondensation extends AbstractPanelWidget {
 
     }//GEN-LAST:event_jButtonFeed12OpenActionPerformed
 
-    private void jButtonFeed12Close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close1ActionPerformed
+    private void jButtonEjector1InCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1InCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain1#FlowIn", false));
+    }//GEN-LAST:event_jButtonEjector1InCloseActionPerformed
 
-    private void jButtonFeed12Open1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open1ActionPerformed
+    private void jButtonEjector1InOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1InOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain1#FlowIn", true));
+    }//GEN-LAST:event_jButtonEjector1InOpenActionPerformed
 
-    private void jButtonFeed12Open2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open2ActionPerformed
+    private void jButtonEjector2InOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2InOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain2#FlowIn", true));
+    }//GEN-LAST:event_jButtonEjector2InOpenActionPerformed
 
-    private void jButtonFeed12Close2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close2ActionPerformed
+    private void jButtonEjector2InCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2InCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain2#FlowIn", false));
+    }//GEN-LAST:event_jButtonEjector2InCloseActionPerformed
 
-    private void jButtonFeed12Open3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open3ActionPerformed
+    private void jButtonEjector3InOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3InOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain3#FlowIn", true));
+    }//GEN-LAST:event_jButtonEjector3InOpenActionPerformed
 
-    private void jButtonFeed12Close3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close3ActionPerformed
+    private void jButtonEjector3InCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3InCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain3#FlowIn", false));
+    }//GEN-LAST:event_jButtonEjector3InCloseActionPerformed
 
-    private void jButtonFeed12Close4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close4ActionPerformed
+    private void jButtonEjector1OutCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1OutCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain1#FlowOut", false));
+    }//GEN-LAST:event_jButtonEjector1OutCloseActionPerformed
 
-    private void jButtonFeed12Open4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open4ActionPerformed
+    private void jButtonEjector1OutOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1OutOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain1#FlowOut", true));
+    }//GEN-LAST:event_jButtonEjector1OutOpenActionPerformed
 
-    private void jButtonFeed12Open5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open5ActionPerformed
+    private void jButtonEjector2OutOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2OutOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain2#FlowOut", true));
+    }//GEN-LAST:event_jButtonEjector2OutOpenActionPerformed
 
-    private void jButtonFeed12Close5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close5ActionPerformed
+    private void jButtonEjector2OutCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2OutCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain2#FlowOut", false));
+    }//GEN-LAST:event_jButtonEjector2OutCloseActionPerformed
 
-    private void jButtonFeed12Open6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open6ActionPerformed
+    private void jButtonEjector3OutOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3OutOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain3#FlowOut", true));
+    }//GEN-LAST:event_jButtonEjector3OutOpenActionPerformed
 
-    private void jButtonFeed12Close6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close6ActionPerformed
+    private void jButtonEjector3OutCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3OutCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain3#FlowOut", false));
+    }//GEN-LAST:event_jButtonEjector3OutCloseActionPerformed
 
-    private void jButtonFeed12Open7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open7ActionPerformed
+    private void jButtonEjector2SuctionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2SuctionOpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open7ActionPerformed
+    }//GEN-LAST:event_jButtonEjector2SuctionOpenActionPerformed
 
-    private void jButtonFeed12Close7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close7ActionPerformed
+    private void jButtonEjector2SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2SuctionCloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close7ActionPerformed
+    }//GEN-LAST:event_jButtonEjector2SuctionCloseActionPerformed
 
-    private void jButtonFeed12Open8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open8ActionPerformed
+    private void jButtonEjector3SuctionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3SuctionOpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open8ActionPerformed
+    }//GEN-LAST:event_jButtonEjector3SuctionOpenActionPerformed
 
-    private void jButtonFeed12Close8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close8ActionPerformed
+    private void jButtonEjector3SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3SuctionCloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close8ActionPerformed
+    }//GEN-LAST:event_jButtonEjector3SuctionCloseActionPerformed
 
-    private void jButtonFeed12Close9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Close9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Close9ActionPerformed
+    private void jButtonEjectorBypassCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjectorBypassCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain#Bypass", false));
+    }//GEN-LAST:event_jButtonEjectorBypassCloseActionPerformed
 
-    private void jButtonFeed12Open9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12Open9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed12Open9ActionPerformed
+    private void jButtonEjectorBypassOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjectorBypassOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain#Bypass", true));
+    }//GEN-LAST:event_jButtonEjectorBypassOpenActionPerformed
 
     private void jButtonColdCondensateDrainCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateDrainCloseActionPerformed
 
@@ -776,33 +777,34 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JButton jButtonColdCondensateDrainOpen;
     private javax.swing.JButton jButtonColdCondensateFillClose;
     private javax.swing.JButton jButtonColdCondensateFillOpen;
+    private javax.swing.JButton jButtonEjector1InClose;
+    private javax.swing.JButton jButtonEjector1InOpen;
+    private javax.swing.JButton jButtonEjector1OutClose;
+    private javax.swing.JButton jButtonEjector1OutOpen;
+    private javax.swing.JButton jButtonEjector2InClose;
+    private javax.swing.JButton jButtonEjector2InOpen;
+    private javax.swing.JButton jButtonEjector2OutClose;
+    private javax.swing.JButton jButtonEjector2OutOpen;
+    private javax.swing.JButton jButtonEjector2SuctionClose;
+    private javax.swing.JButton jButtonEjector2SuctionOpen;
+    private javax.swing.JButton jButtonEjector3InClose;
+    private javax.swing.JButton jButtonEjector3InOpen;
+    private javax.swing.JButton jButtonEjector3OutClose;
+    private javax.swing.JButton jButtonEjector3OutOpen;
+    private javax.swing.JButton jButtonEjector3SuctionClose;
+    private javax.swing.JButton jButtonEjector3SuctionOpen;
+    private javax.swing.JButton jButtonEjectorBypassClose;
+    private javax.swing.JButton jButtonEjectorBypassOpen;
     private javax.swing.JButton jButtonFeed12Close;
-    private javax.swing.JButton jButtonFeed12Close1;
-    private javax.swing.JButton jButtonFeed12Close2;
-    private javax.swing.JButton jButtonFeed12Close3;
-    private javax.swing.JButton jButtonFeed12Close4;
-    private javax.swing.JButton jButtonFeed12Close5;
-    private javax.swing.JButton jButtonFeed12Close6;
-    private javax.swing.JButton jButtonFeed12Close7;
-    private javax.swing.JButton jButtonFeed12Close8;
-    private javax.swing.JButton jButtonFeed12Close9;
     private javax.swing.JButton jButtonFeed12Open;
-    private javax.swing.JButton jButtonFeed12Open1;
-    private javax.swing.JButton jButtonFeed12Open2;
-    private javax.swing.JButton jButtonFeed12Open3;
-    private javax.swing.JButton jButtonFeed12Open4;
-    private javax.swing.JButton jButtonFeed12Open5;
-    private javax.swing.JButton jButtonFeed12Open6;
-    private javax.swing.JButton jButtonFeed12Open7;
-    private javax.swing.JButton jButtonFeed12Open8;
-    private javax.swing.JButton jButtonFeed12Open9;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabelCaptionPump11;
-    private javax.swing.JLabel jLabelCaptionPump12;
-    private javax.swing.JLabel jLabelCaptionPump13;
+    private javax.swing.JLabel jLabelBypass;
+    private javax.swing.JLabel jLabelCaptionEjector1;
+    private javax.swing.JLabel jLabelCaptionEjector2;
+    private javax.swing.JLabel jLabelCaptionEjector3;
     private javax.swing.JLabel jLabelCaptionPump14;
     private javax.swing.JLabel jLabelCaptionPump16;
     private javax.swing.JLabel jLabelCaptionPump17;
@@ -822,11 +824,10 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelDA1Press2;
     private javax.swing.JLabel jLabelDA1Press3;
     private javax.swing.JLabel jLabelDA1Press4;
-    private javax.swing.JLabel jLabelFeed13;
-    private javax.swing.JLabel jLabelFeed14;
-    private javax.swing.JLabel jLabelFeed15;
-    private javax.swing.JLabel jLabelFeed16;
-    private javax.swing.JLabel jLabelFeed17;
+    private javax.swing.JLabel jLabelEjectorInlet;
+    private javax.swing.JLabel jLabelEjectorOutlet;
+    private javax.swing.JLabel jLabelEjectorSteam;
+    private javax.swing.JLabel jLabelEjectorSuction;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate1;
@@ -849,6 +850,30 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetPumpCondensate3.updateComponent(evt);
         controlLoopHotwellFill.updateComponent(evt);
         controlLoopHotwellDrain.updateComponent(evt);
+
+        switch (evt.getPropertyName()) {
+            case "EjectorMain1#FlowIn_Pos" ->
+                setValveButtons(jButtonEjector1InClose,
+                        jButtonEjector1InOpen, evt.getNewValue());
+            case "EjectorMain1#FlowOut_Pos" ->
+                setValveButtons(jButtonEjector1OutClose,
+                        jButtonEjector1OutOpen, evt.getNewValue());
+            case "EjectorMain2#FlowIn_Pos" ->
+                setValveButtons(jButtonEjector2InClose,
+                        jButtonEjector2InOpen, evt.getNewValue());
+            case "EjectorMain2#FlowOut_Pos" ->
+                setValveButtons(jButtonEjector2OutClose,
+                        jButtonEjector2OutOpen, evt.getNewValue());
+            case "EjectorMain3#FlowIn_Pos" ->
+                setValveButtons(jButtonEjector3InClose,
+                        jButtonEjector3InOpen, evt.getNewValue());
+            case "EjectorMain3#FlowOut_Pos" ->
+                setValveButtons(jButtonEjector3OutClose,
+                        jButtonEjector3OutOpen, evt.getNewValue());
+            case "EjectorMain#Bypass_Pos" ->
+                setValveButtons(jButtonEjectorBypassClose,
+                        jButtonEjectorBypassOpen, evt.getNewValue());
+        }
     }
 
     @Override

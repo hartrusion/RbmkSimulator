@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[652, 228]"/>
@@ -44,7 +44,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve2">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector1In">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -58,7 +58,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve3">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector1Out">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -72,7 +72,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve4">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector1Steam">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -97,7 +97,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve6">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector1Condensate">
       <Properties>
         <Property name="controlIndicator" type="boolean" value="true"/>
       </Properties>
@@ -111,7 +111,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve7">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector2In">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -125,7 +125,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve8">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector2Out">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -139,7 +139,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve9">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector2Steam">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -164,7 +164,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve11">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector2Condensate">
       <Properties>
         <Property name="controlIndicator" type="boolean" value="true"/>
       </Properties>
@@ -178,7 +178,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve12">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector3In">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -192,7 +192,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve13">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector3Out">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -206,7 +206,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve14">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector3Steam">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
@@ -220,7 +220,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve15">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjector3Condensate">
       <Properties>
         <Property name="controlIndicator" type="boolean" value="true"/>
       </Properties>
@@ -380,10 +380,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valve17">
-      <Properties>
-        <Property name="active" type="boolean" value="true"/>
-      </Properties>
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveEjectorBypass">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="210" y="203" width="-1" height="-1"/>

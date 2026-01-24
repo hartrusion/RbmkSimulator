@@ -50,20 +50,20 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
     private void initComponents() {
 
         valve1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve3 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve4 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector1In = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector1Out = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector1Steam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve5 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve6 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve7 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve8 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve9 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector1Condensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector2In = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector2Out = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector2Steam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve10 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve11 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve12 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve13 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve14 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve15 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector2Condensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector3In = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector3Out = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector3Steam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector3Condensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve16 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump1Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump2Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -74,7 +74,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         valveCondensatePump1Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump2Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump3Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve17 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjectorBypass = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabelFromHotwell = new javax.swing.JLabel();
         jLabelToDA = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -88,43 +88,43 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         valve1.setVertical(true);
         add(valve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 17, -1, -1));
 
-        valve2.setVertical(true);
-        add(valve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 152, -1, -1));
+        valveEjector1In.setVertical(true);
+        add(valveEjector1In, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 152, -1, -1));
 
-        valve3.setVertical(true);
-        add(valve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 131, -1, -1));
+        valveEjector1Out.setVertical(true);
+        add(valveEjector1Out, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 131, -1, -1));
 
-        valve4.setVertical(true);
-        add(valve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 23, -1, -1));
+        valveEjector1Steam.setVertical(true);
+        add(valveEjector1Steam, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 23, -1, -1));
         add(valve5, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 71, -1, -1));
 
-        valve6.setControlIndicator(true);
-        add(valve6, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 111, -1, -1));
+        valveEjector1Condensate.setControlIndicator(true);
+        add(valveEjector1Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 111, -1, -1));
 
-        valve7.setVertical(true);
-        add(valve7, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 152, -1, -1));
+        valveEjector2In.setVertical(true);
+        add(valveEjector2In, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 152, -1, -1));
 
-        valve8.setVertical(true);
-        add(valve8, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 131, -1, -1));
+        valveEjector2Out.setVertical(true);
+        add(valveEjector2Out, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 131, -1, -1));
 
-        valve9.setVertical(true);
-        add(valve9, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 23, -1, -1));
+        valveEjector2Steam.setVertical(true);
+        add(valveEjector2Steam, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 23, -1, -1));
         add(valve10, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 71, -1, -1));
 
-        valve11.setControlIndicator(true);
-        add(valve11, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 111, -1, -1));
+        valveEjector2Condensate.setControlIndicator(true);
+        add(valveEjector2Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 111, -1, -1));
 
-        valve12.setVertical(true);
-        add(valve12, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 152, -1, -1));
+        valveEjector3In.setVertical(true);
+        add(valveEjector3In, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 152, -1, -1));
 
-        valve13.setVertical(true);
-        add(valve13, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 131, -1, -1));
+        valveEjector3Out.setVertical(true);
+        add(valveEjector3Out, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 131, -1, -1));
 
-        valve14.setVertical(true);
-        add(valve14, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 23, -1, -1));
+        valveEjector3Steam.setVertical(true);
+        add(valveEjector3Steam, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 23, -1, -1));
 
-        valve15.setControlIndicator(true);
-        add(valve15, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 111, -1, -1));
+        valveEjector3Condensate.setControlIndicator(true);
+        add(valveEjector3Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 111, -1, -1));
         add(valve16, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 71, -1, -1));
 
         valveCondensatePump1Suction.setVertical(true);
@@ -156,9 +156,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
 
         valveCondensatePump3Discharge.setVertical(true);
         add(valveCondensatePump3Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 168, -1, -1));
-
-        valve17.setActive(true);
-        add(valve17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 203, -1, -1));
+        add(valveEjectorBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 203, -1, -1));
 
         jLabelFromHotwell.setFont(jLabelFromHotwell.getFont().deriveFont(jLabelFromHotwell.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelFromHotwell.getFont().getSize()-3));
         jLabelFromHotwell.setForeground(new java.awt.Color(14, 222, 194));
@@ -186,27 +184,27 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve10;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve11;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve12;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve13;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve14;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve15;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve16;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve17;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve2;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve3;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve4;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve5;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve6;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve7;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve8;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve9;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Discharge;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump2Discharge;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump2Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump3Discharge;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump3Suction;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1Condensate;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1In;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1Out;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1Steam;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Condensate;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2In;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Out;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Steam;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Condensate;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3In;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Out;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Steam;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjectorBypass;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -260,6 +258,57 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
             }
             case "Condensation3#CondensatePumpDischargeValve_Pos" ->
                 valveCondensatePump3Discharge.setActive(evt.getNewValue() != ValveState.CLOSED);
+                
+            case "EjectorMain1#SteamValve_Pos" ->
+                valveEjector1Steam.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain1#CondensateValve_Pos" ->
+                valveEjector1Condensate.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain1#CondensateValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveEjector1Condensate.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveEjector1Condensate.setControlIndicatorActive(false);
+                }
+            }
+            case "EjectorMain1#FlowIn_Pos" ->
+                valveEjector1In.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain1#FlowOut_Pos" ->
+                valveEjector1Out.setActive(evt.getNewValue() != ValveState.CLOSED);
+                
+            case "EjectorMain2#SteamValve_Pos" ->
+                valveEjector2Steam.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain2#CondensateValve_Pos" ->
+                valveEjector2Condensate.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain2#CondensateValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveEjector2Condensate.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveEjector2Condensate.setControlIndicatorActive(false);
+                }
+            }
+            case "EjectorMain2#FlowIn_Pos" ->
+                valveEjector2In.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain2#FlowOut_Pos" ->
+                valveEjector2Out.setActive(evt.getNewValue() != ValveState.CLOSED);
+                
+            case "EjectorMain3#SteamValve_Pos" ->
+                valveEjector3Steam.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain3#CondensateValve_Pos" ->
+                valveEjector3Condensate.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain3#CondensateValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveEjector3Condensate.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveEjector3Condensate.setControlIndicatorActive(false);
+                }
+            }
+            case "EjectorMain3#FlowIn_Pos" ->
+                valveEjector3In.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain3#FlowOut_Pos" ->
+                valveEjector3Out.setActive(evt.getNewValue() != ValveState.CLOSED);
+                
+            case "EjectorMain#Bypass_Pos" ->
+                valveEjectorBypass.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 

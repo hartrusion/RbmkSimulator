@@ -21,6 +21,7 @@ import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AbstractController;
 import com.hartrusion.control.ControlCommand;
+import com.hartrusion.control.Integrator;
 import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
 import com.hartrusion.control.SerialRunner;
@@ -51,6 +52,7 @@ import com.hartrusion.modeling.heatfluid.HeatVolumizedFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
+import com.hartrusion.modeling.phasedfluid.PhasedOrigin;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
@@ -258,7 +260,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatFluidPump[] condensationHotwellPump
             = new HeatFluidPump[3];
     private final HeatNode condensationPumpOut;
-    private final HeatVolumizedFlowResistance condensationEjectorDummy;
+    // private final HeatVolumizedFlowResistance condensationEjectorDummy;
     private final HeatNode condensationBoosterPumpIn;
     private final HeatFluidPump[] condensationCondensatePump
             = new HeatFluidPump[3];
@@ -282,6 +284,40 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatControlledFlowSource condenserCoolant;
     private final HeatOrigin condenserCoolantSink;
 
+    // Ejectors (both startup and main)
+    private final PhasedOrigin ejectorDummyTurbineTap;
+    private final PhasedNode ejectorDummyTurbineNode;
+    private final PhasedValve[] ejectorStartup
+            = new PhasedValve[2];
+    private final PhasedValve[] ejectorMainSteamValve
+            = new PhasedValve[3];
+    private final PhasedCondenser[] ejectorMain = new PhasedCondenser[3];
+    private final PhasedHeatFluidConverter[] ejectorMainCondensate
+            = new PhasedHeatFluidConverter[3];
+    private final HeatNode[] ejectorMainCondensateOut = new HeatNode[3];
+    // to rause pressure a bit and allow flow without any pump:
+    private final HeatEffortSource[] ejectorLevel = new HeatEffortSource[3];
+    private final HeatNode[] ejectorMainCondensateUp = new HeatNode[3];
+    private final HeatValveControlled[] ejectorMainCondensateValve
+            = new HeatValveControlled[3];
+    private final HeatValve[] ejectorMainFlowIn = new HeatValve[3];
+    private final HeatSimpleFlowResistance[] ejectorMainFlowReistance
+            = new HeatSimpleFlowResistance[3];
+    private final HeatNode[] ejectorMainFlowReistanceNode = new HeatNode[3];
+    private final HeatValve[] ejectorMainFlowOut = new HeatValve[3];
+    private final HeatValve ejectorMainBypass;
+    private final HeatNode ejectorToHotwellHeatNode;
+    private final PhasedHeatFluidConverter ejectorToHotwellConverter;
+    private final PhasedNode ejectorToHotwellPhasedNode;
+
+    // Valves to turbine inlet
+    private final PhasedValveControlled[] turbineMainSteamValve
+            = new PhasedValveControlled[2];
+    private final PhasedValve[] turbineStartupShutoffValve = new PhasedValve[2];
+    private final PhasedNode[] turbineStartupValveNodes = new PhasedNode[2];
+    private final PhasedValveControlled[] turbineStartupSteamValve
+            = new PhasedValveControlled[2];
+
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
@@ -301,6 +337,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double voiding = 0;
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
+
+    /**
+     * Holds the vacuum value for the condenser. This is made up from the
+     * expected behavior and not actually modeled by any physical behavior.
+     */
+    private final Integrator condenserVacuum = new Integrator();
 
     /**
      * Setting this to true will disconnect the thermal loop simulation,
@@ -690,8 +732,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         condensationPumpOut = new HeatNode();
         condensationPumpOut.setName("Condensation#PumpOut");
-        condensationEjectorDummy = new HeatVolumizedFlowResistance();
-        condensationEjectorDummy.setName("Condensation#EjectorDummy");
+        // condensationEjectorDummy = new HeatVolumizedFlowResistance();
+        // condensationEjectorDummy.setName("Condensation#EjectorDummy");
         condensationBoosterPumpIn = new HeatNode();
         condensationBoosterPumpIn.setName("Condensation#BoosterPumpIn");
         for (int idx = 0; idx < 3; idx++) {
@@ -734,6 +776,78 @@ public class ThermalLayout extends Subsystem implements Runnable {
         condenserCoolant.initName("Condenser#Coolant");
         condenserCoolantSink = new HeatOrigin();
         condenserCoolantSink.setName("Condenser#CoolantSource");
+
+        // Ejectors (both startup and main)
+        ejectorDummyTurbineTap = new PhasedOrigin();
+        ejectorDummyTurbineTap.setName("EjectorDummyTurbineTap");
+        ejectorDummyTurbineNode = new PhasedNode();
+        ejectorDummyTurbineNode.setName("EjectorDummyTurbineTap");
+        for (int idx = 0; idx < 2; idx++) {
+            ejectorStartup[idx] = new PhasedValve();
+            ejectorStartup[idx].initName(
+                    "EjectorStartup" + (idx + 1));
+        }
+        for (int idx = 0; idx < 3; idx++) {
+            ejectorMainSteamValve[idx] = new PhasedValve();
+            ejectorMainSteamValve[idx].initName(
+                    "EjectorMain" + (idx + 1) + "#SteamValve");
+            ejectorMain[idx] = new PhasedCondenser(phasedWater);
+            ejectorMain[idx].initGenerateNodes();
+            ejectorMain[idx].initName("EjectorMain" + (idx + 1));
+            ejectorMainCondensate[idx]
+                    = new PhasedHeatFluidConverter(phasedWater);
+            ejectorMainCondensate[idx].setName(
+                    "EjectorMain" + (idx + 1) + "#Condensate");
+            ejectorMainCondensateOut[idx] = new HeatNode();
+            ejectorMainCondensateOut[idx].setName(
+                    "EjectorMain" + (idx + 1) + "#CondensateOut");
+            ejectorLevel[idx] = new HeatEffortSource();
+            ejectorLevel[idx].setName("EjectorMain" + (idx + 1) + "#Level");
+            ejectorMainCondensateUp[idx] = new HeatNode();
+            ejectorMainCondensateUp[idx].setName(
+                    "EjectorMain" + (idx + 1) + "#CondensateUp");
+            ejectorMainCondensateValve[idx] = new HeatValveControlled();
+            ejectorMainCondensateValve[idx].registerController(new PIControl());
+            ejectorMainCondensateValve[idx].initName("EjectorMain"
+                    + (idx + 1) + "#CondensateValve");
+            ejectorMainFlowIn[idx] = new HeatValve();
+            ejectorMainFlowIn[idx].initName(
+                    "EjectorMain" + (idx + 1) + "#FlowIn");
+            ejectorMainFlowReistance[idx] = new HeatSimpleFlowResistance();
+            ejectorMainFlowReistance[idx].setName(
+                    "EjectorMain" + (idx + 1) + "#FlowResistance");
+            ejectorMainFlowReistanceNode[idx] = new HeatNode();
+            ejectorMainFlowReistanceNode[idx].setName(
+                    "EjectorMain" + (idx + 1) + "#FlowResistanceNode");
+            ejectorMainFlowOut[idx] = new HeatValve();
+            ejectorMainFlowOut[idx].initName(
+                    "EjectorMain" + (idx + 1) + "#FlowOut");
+        }
+        ejectorMainBypass = new HeatValve();
+        ejectorMainBypass.initName("EjectorMain#Bypass");
+        ejectorToHotwellHeatNode = new HeatNode();
+        ejectorToHotwellHeatNode.setName("Ejector#ToHotwellHeatNode");
+        ejectorToHotwellConverter = new PhasedHeatFluidConverter(phasedWater);
+        ejectorToHotwellConverter.setName("Ejector#ToHotwellConverter");
+        ejectorToHotwellPhasedNode = new PhasedNode();
+        ejectorToHotwellPhasedNode.setName("Ejector#ToHotwellPhasedNode");
+
+        // Valves to turbine inlet - so far just the objects exist but they
+        // do nothing yet.
+        for (int idx = 0; idx < 2; idx++) {
+            turbineMainSteamValve[idx] = new PhasedValveControlled();
+            turbineMainSteamValve[idx].initName(
+                    "Turbine" + (idx + 1) + "#SteamValve");
+            turbineStartupShutoffValve[idx] = new PhasedValve();
+            turbineStartupShutoffValve[idx].initName(
+                    "Turbine" + (idx + 1) + "#SteamValve");
+            turbineStartupValveNodes[idx] = new PhasedNode();
+            turbineStartupValveNodes[idx].setName(
+                    "Turbine" + (idx + 1) + "#SteamValve");
+            turbineStartupSteamValve[idx] = new PhasedValveControlled();
+            turbineStartupSteamValve[idx].initName(
+                    "Turbine" + (idx + 1) + "#SteamValve");
+        }
 
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
@@ -858,6 +972,22 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellFillValve.registerSignalListener(controller);
         hotwellDrainValve.registerParameterHandler(outputValues);
         hotwellDrainValve.registerSignalListener(controller);
+        for (int idx = 0; idx < 2; idx++) {
+            ejectorStartup[idx].registerParameterHandler(outputValues);
+            ejectorStartup[idx].registerSignalListener(controller);
+        }
+        for (int idx = 0; idx < 3; idx++) {
+            ejectorMainSteamValve[idx].registerParameterHandler(outputValues);
+            ejectorMainSteamValve[idx].registerSignalListener(controller);
+            ejectorMainCondensateValve[idx].registerParameterHandler(outputValues);
+            ejectorMainCondensateValve[idx].registerSignalListener(controller);
+            ejectorMainFlowIn[idx].registerParameterHandler(outputValues);
+            ejectorMainFlowIn[idx].registerSignalListener(controller);
+            ejectorMainFlowOut[idx].registerParameterHandler(outputValues);
+            ejectorMainFlowOut[idx].registerSignalListener(controller);
+        }
+        ejectorMainBypass.registerParameterHandler(outputValues);
+        ejectorMainBypass.registerSignalListener(controller);
 
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
@@ -1159,8 +1289,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationHotwellPump[idx].getDischargeValve().connectTo(
                     condensationPumpOut);
         }
-        condensationEjectorDummy.connectBetween(
-                condensationPumpOut, condensationBoosterPumpIn);
+        //condensationEjectorDummy.connectBetween(
+        //        condensationPumpOut, condensationBoosterPumpIn);
+        // The main ejectors are here between those pumps, but that is handled
+        // a bit later in code.
         for (int idx = 0; idx < condensationCondensatePump.length; idx++) {
             condensationCondensatePump[idx].getSuctionValve().connectTo(
                     condensationBoosterPumpIn);
@@ -1198,6 +1330,52 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 hotwell.getHeatNode(PhasedCondenser.SECONDARY_IN));
         condenserCoolantSink.connectTo(
                 hotwell.getHeatNode(PhasedCondenser.SECONDARY_OUT));
+
+        // Startup ejector is modeled as a simple valve to hotwell, exactly 
+        // like the main steam bypass.
+        for (int idx = 0; idx < 2; idx++) {
+            ejectorStartup[idx].getValveElement().connectBetween(mainSteam[idx],
+                    hotwell.getPhasedNode(PhasedCondenser.PRIMARY_IN));
+        }
+
+        // Main ejectors: The condensate will be pumped through the secondary 
+        // side, this will warm it up a bit. It is already converted to heat
+        // fluid domain. The primary sides are connected to a turbine tap.
+        ejectorDummyTurbineTap.connectTo(ejectorDummyTurbineNode);
+        for (int idx = 0; idx < 3; idx++) {
+            ejectorMainSteamValve[idx].getValveElement().connectBetween(
+                    ejectorDummyTurbineNode,
+                    ejectorMain[idx].getPhasedNode(PhasedCondenser.PRIMARY_IN));
+            ejectorMainCondensate[idx].connectBetween(
+                    ejectorMain[idx].getPhasedNode(PhasedCondenser.PRIMARY_OUT),
+                    ejectorMainCondensateOut[idx]);
+            // add an effort source after condensate out to increase pressure
+            // towards hotwell. Lets just assume its on a higher position
+            // in the building so the flow works even if everything is cooled 
+            // down.
+            ejectorLevel[idx].connectBetween(
+                    ejectorMainCondensateOut[idx],
+                    ejectorMainCondensateUp[idx]);
+            ejectorMainCondensateValve[idx].getValveElement().connectBetween(
+                    ejectorMainCondensateUp[idx], ejectorToHotwellHeatNode);
+            // Coolant loop is connected between condensate pumps:
+            ejectorMainFlowIn[idx].getValveElement().connectBetween(
+                    condensationPumpOut,
+                    ejectorMain[idx].getHeatNode(PhasedCondenser.SECONDARY_IN));
+            ejectorMainFlowReistance[idx].connectBetween(
+                    ejectorMain[idx].getHeatNode(PhasedCondenser.SECONDARY_OUT),
+                    ejectorMainFlowReistanceNode[idx]);
+            ejectorMainFlowOut[idx].getValveElement().connectBetween(
+                    ejectorMainFlowReistanceNode[idx],
+                    condensationBoosterPumpIn);
+        }
+        ejectorMainBypass.getValveElement().connectBetween(
+                condensationPumpOut, condensationBoosterPumpIn);
+        // use a separate converter back to hotwell for a separate flow path.
+        ejectorToHotwellConverter.connectBetween(
+                ejectorToHotwellHeatNode, ejectorToHotwellPhasedNode);
+        hotwell.getPrimarySideReservoir().connectTo(
+                ejectorToHotwellPhasedNode);
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Element properties">
@@ -1442,8 +1620,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationHotwellPump[idx].initCharacteristic(10e5, 8e5, 1556);
         }
-        // Dummy resistor: 6 bar diff on full flow -> 6e5 / 3111 = 192.8
-        condensationEjectorDummy.setResistanceParameter(192.8);
         // same here
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationCondensatePump[idx].initCharacteristic(10e5, 6e5, 1556);
@@ -1456,6 +1632,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // The makup storage pump makes 200 kg/s at 4.0 bars
         hotwellFillValve.initCharacteristic(2000, 10);
         hotwellDrainValve.initCharacteristic(2000, 20);
+
+        // Main Ejectors
+        for (int idx = 0; idx < 3; idx++) {
+            // Dummy resistor: 6 bar diff on half flow -> 6e5 / 1500
+            ejectorMainFlowReistance[idx].setResistanceParameter(95);
+        }
+        ejectorMainBypass.initCharacteristic(200, -1);
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
@@ -1625,6 +1808,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         runner.submit(hotwellFillValve);
         runner.submit(hotwellDrainValve);
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(ejectorStartup[idx]);
+        }
+        for (int idx = 0; idx < 3; idx++) {
+            runner.submit(ejectorMainSteamValve[idx]);
+            runner.submit(ejectorMainCondensateValve[idx]);
+            runner.submit(ejectorMainFlowIn[idx]);
+            runner.submit(ejectorMainFlowOut[idx]);
+        }
+        runner.submit(ejectorMainBypass);
 
         // Add Solo control loops
         runner.submit(blowdownBalanceControlLoop);
@@ -2157,7 +2350,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Feed2Pressure");
         am.addInputProvider(new DoubleSupplier() {
@@ -2424,6 +2617,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         }
 
+        // Condenser Vacuum: There is no specific model for that, it is assumed
+        // that certain effects do either make the vacuum go down or up. The
+        // sum (or difference) of those effects will be integrated, providing a
+        // value for the condensers vacuum.
+        // Todo: Remember to have some initital condition value for this!
+        // Make a -100 to 100 % value for integral input to describe the speed
+        // of integration.
+        // condenserVacuum.setInput(
+        //        hotwell.getPrimaryInFlow() / 1400 * 10); // Exp. : 1400 kg/s
         // Update Alarms
         alarmUpdater.invokeAll();
 
@@ -2885,6 +3087,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
             for (int idx = 0; idx < 2; idx++) {
                 condensationValveToDA[idx].handleAction(ac);
             }
+        } else if (ac.getPropertyName().startsWith("Ejector")) {
+            for (int idx = 0; idx < 2; idx++) {
+                ejectorStartup[idx].handleAction(ac);
+            }
+            // Todo: More valves here, there are only those so far which do work
+            for (int idx = 0; idx < 3; idx++) {
+                ejectorMainSteamValve[idx].handleAction(ac);
+                // ejectorMainCondensateValve[idx].handleAction(ac);
+                ejectorMainFlowIn[idx].handleAction(ac);
+                ejectorMainFlowOut[idx].handleAction(ac);
+            }
+            ejectorMainBypass.handleAction(ac);
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {
