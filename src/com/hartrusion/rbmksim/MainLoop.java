@@ -95,8 +95,9 @@ public class MainLoop implements Runnable, ModelManipulation {
             }
 
         } catch (Exception e) {
+            pause = true;
             ExceptionPopup.show(e);
-            System.exit(0);
+            // System.exit(0);
         }
 
         stopTime = System.nanoTime();
