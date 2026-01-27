@@ -34,7 +34,7 @@ import com.hartrusion.modeling.automated.HeatFluidPump;
 import com.hartrusion.modeling.automated.HeatFluidPumpSimple;
 import com.hartrusion.modeling.automated.HeatValve;
 import com.hartrusion.modeling.automated.HeatValveControlled;
-import com.hartrusion.modeling.assemblies.PhasedCondenser;
+import com.hartrusion.modeling.assemblies.PhasedCondenserNoMass;
 import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.automated.PhasedValveControlled;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
@@ -224,7 +224,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     // Auxiliary Condensation
     private final PhasedValveControlled[] auxCondSteamValve
             = new PhasedValveControlled[2];
-    private final PhasedCondenser[] auxCondensers = new PhasedCondenser[2];
+    private final PhasedCondenserNoMass[] auxCondensers = new PhasedCondenserNoMass[2];
     // Coolant flow with simple flow source for now
     private final HeatOrigin[] auxCondCoolantSource = new HeatOrigin[2];
     private final HeatNode[] auxCondCoolantSourceNode = new HeatNode[2];
@@ -254,7 +254,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedValveControlled[2];
 
     // Condensation
-    private final PhasedCondenser hotwell;
+    private final PhasedCondenserNoMass hotwell;
     private final PhasedHeatFluidConverter hotwellOutConverter;
     private final HeatNode hotwellOutNode;
     private final HeatFluidPump[] condensationHotwellPump
@@ -291,7 +291,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedValve[2];
     private final PhasedValve[] ejectorMainSteamValve
             = new PhasedValve[3];
-    private final PhasedCondenser[] ejectorMain = new PhasedCondenser[3];
+    private final PhasedCondenserNoMass[] ejectorMain = new PhasedCondenserNoMass[3];
     private final PhasedHeatFluidConverter[] ejectorMainCondensate
             = new PhasedHeatFluidConverter[3];
     private final HeatNode[] ejectorMainCondensateOut = new HeatNode[3];
@@ -658,7 +658,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondSteamValve[idx].registerController(new PIControl());
             auxCondSteamValve[idx].initName(
                     "AuxCond" + (idx + 1) + "#SteamValve");
-            auxCondensers[idx] = new PhasedCondenser(phasedWater);
+            auxCondensers[idx] = new PhasedCondenserNoMass(phasedWater);
             auxCondensers[idx].initGenerateNodes();
             auxCondensers[idx].initName("AuxCond" + (idx + 1) + "#Condenser");
             auxCondCoolantSource[idx] = new HeatOrigin();
@@ -718,7 +718,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // Condensation
-        hotwell = new PhasedCondenser(phasedWater);
+        hotwell = new PhasedCondenserNoMass(phasedWater);
         hotwell.initName("Hotwell");
         hotwell.initGenerateNodes();
         hotwellOutConverter = new PhasedHeatFluidConverter(phasedWater);
@@ -791,7 +791,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainSteamValve[idx] = new PhasedValve();
             ejectorMainSteamValve[idx].initName(
                     "EjectorMain" + (idx + 1) + "#SteamValve");
-            ejectorMain[idx] = new PhasedCondenser(phasedWater);
+            ejectorMain[idx] = new PhasedCondenserNoMass(phasedWater);
             ejectorMain[idx].initGenerateNodes();
             ejectorMain[idx].initName("EjectorMain" + (idx + 1));
             ejectorMainCondensate[idx]
@@ -1232,18 +1232,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     auxCondCoolantSourceNode[idx]);
             auxCondCoolantValve[idx].getFlowSource().connectTo(
                     auxCondensers[idx].getHeatNode(
-                            PhasedCondenser.SECONDARY_IN));
+                            PhasedCondenserNoMass.SECONDARY_IN));
             auxCondCoolantSink[idx].connectTo(auxCondensers[idx].getHeatNode(
-                    PhasedCondenser.SECONDARY_OUT));
+                    PhasedCondenserNoMass.SECONDARY_OUT));
             // Steam into condenser
             auxCondSteamValve[idx].getValveElement().connectBetween(
                     mainSteam[idx],
                     auxCondensers[idx].getPhasedNode(
-                            PhasedCondenser.PRIMARY_IN));
+                            PhasedCondenserNoMass.PRIMARY_IN));
             // Condeser out: Convert to heat fluid domain and then into reg valv
             auxCondOutConverter[idx].connectBetween(
                     auxCondensers[idx].getPhasedNode(
-                            PhasedCondenser.PRIMARY_OUT),
+                            PhasedCondenserNoMass.PRIMARY_OUT),
                     auxCondCondenserOutNode[idx]);
             auxCondCondensateValve[idx].getValveElement().connectBetween(
                     auxCondCondenserOutNode[idx], auxCondCondInNode);
@@ -1276,12 +1276,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Steam Dump
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDump[idx].getValveElement().connectBetween(mainSteam[idx],
-                    hotwell.getPhasedNode(PhasedCondenser.PRIMARY_IN));
+                    hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
         }
 
         // Condensation: Hotwell to Deaerators
         hotwellOutConverter.connectBetween(
-                hotwell.getPhasedNode(PhasedCondenser.PRIMARY_OUT),
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 hotwellOutNode);
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationHotwellPump[idx].getSuctionValve().connectTo(
@@ -1311,7 +1311,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // converter elements so the transfer subnets can be set up as separate
         // networks by the solver.
         hotwellFillValveConverter.connectBetween(
-                hotwell.getPhasedNode(PhasedCondenser.PRIMARY_OUT),
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 hotwellFillNode);
 
         // Fill valve is connected to makup pumps out
@@ -1327,15 +1327,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         condenserCoolantSource.connectTo(condenserCoolantSourceNode);
         condenserCoolant.getFlowSource().connectBetween(
                 condenserCoolantSourceNode,
-                hotwell.getHeatNode(PhasedCondenser.SECONDARY_IN));
+                hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
         condenserCoolantSink.connectTo(
-                hotwell.getHeatNode(PhasedCondenser.SECONDARY_OUT));
+                hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT));
 
         // Startup ejector is modeled as a simple valve to hotwell, exactly 
         // like the main steam bypass.
         for (int idx = 0; idx < 2; idx++) {
             ejectorStartup[idx].getValveElement().connectBetween(mainSteam[idx],
-                    hotwell.getPhasedNode(PhasedCondenser.PRIMARY_IN));
+                    hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
         }
 
         // Main ejectors: The condensate will be pumped through the secondary 
@@ -1345,9 +1345,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 3; idx++) {
             ejectorMainSteamValve[idx].getValveElement().connectBetween(
                     ejectorDummyTurbineNode,
-                    ejectorMain[idx].getPhasedNode(PhasedCondenser.PRIMARY_IN));
+                    ejectorMain[idx].getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
             ejectorMainCondensate[idx].connectBetween(
-                    ejectorMain[idx].getPhasedNode(PhasedCondenser.PRIMARY_OUT),
+                    ejectorMain[idx].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                     ejectorMainCondensateOut[idx]);
             // add an effort source after condensate out to increase pressure
             // towards hotwell. Lets just assume its on a higher position
@@ -1361,9 +1361,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Coolant loop is connected between condensate pumps:
             ejectorMainFlowIn[idx].getValveElement().connectBetween(
                     condensationPumpOut,
-                    ejectorMain[idx].getHeatNode(PhasedCondenser.SECONDARY_IN));
+                    ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
             ejectorMainFlowReistance[idx].connectBetween(
-                    ejectorMain[idx].getHeatNode(PhasedCondenser.SECONDARY_OUT),
+                    ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
                     ejectorMainFlowReistanceNode[idx]);
             ejectorMainFlowOut[idx].getValveElement().connectBetween(
                     ejectorMainFlowReistanceNode[idx],
@@ -1576,13 +1576,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
             auxCondSteamValve[idx].initCharacteristic(1.8e4, 10);
-            auxCondensers[idx].initCharacteristic(4, 50,
-                    4000, 8.7e6, 1.2, 3.0, 1e5);
+            auxCondensers[idx].initCharacteristic(4.0, 500, 5e5, 1e5, 4.0);
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
             // we use flow source as valve for coolant flow
-            auxCondCoolantValve[idx].initCharacteristic(600, 6);
+            auxCondCoolantValve[idx].initCharacteristic(200, 6);
         }
         // Assume there would be about 15 meters height difference and apply
         // this to the pressure source to allow passive flow. 
@@ -1612,7 +1611,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Todo: Get proper values, those are completely made up here
         // There are 4 condensers with a total of 40480 m² surface, 10 Kelvin
         // coolant temperature rise and about 224500 kg/s coolant water flow. 
-        hotwell.initCharacteristic(60, 200, 8000, 1e7, 0.8, 5.0, 0);
+        hotwell.initCharacteristic(60, 5000, 1e5, 0.0, 4.0);
 
         // Condensate pumps have 2 stages, we need 2 of 3 for full load.
         // full condensation flow is 3111,11 kg/s, div by 2 is 1555.56 kg/s
@@ -2414,6 +2413,66 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
+        am.setName("AuxCond1Temp");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return auxCondensers[0]
+                        .getPrimarySideReservoir().getTemperature() - 273.15;
+            }
+        });
+        am.defineAlarm(90.0, AlarmState.MAX1);
+        am.defineAlarm(65.0, AlarmState.HIGH2);
+        am.defineAlarm(55.0, AlarmState.HIGH1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("AuxCond2Temp");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return auxCondensers[1]
+                        .getPrimarySideReservoir().getTemperature() - 273.15;
+            }
+        });
+        am.defineAlarm(90.0, AlarmState.MAX1);
+        am.defineAlarm(65.0, AlarmState.HIGH2);
+        am.defineAlarm(55.0, AlarmState.HIGH1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("AuxCond1SteamFlow");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return auxCondSteamValve[0].getValveElement().getFlow();
+                
+            }
+        });
+        am.defineAlarm(30.0, AlarmState.HIGH1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("AuxCond2SteamFlow");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return auxCondSteamValve[1].getValveElement().getFlow();
+                
+            }
+        });
+        am.defineAlarm(30.0, AlarmState.HIGH1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
         am.setName("HotwellPumpPressure");
         am.addInputProvider(new DoubleSupplier() {
             @Override
@@ -2525,6 +2584,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 -> !alarmManager.isAlarmActive(
                         "AuxCond2Level", AlarmState.MIN1)
         );
+
+        // close aux condenser steam valves on high level or high temperature
+        auxCondCondensateValve[0].addSafeOpenProvider(()
+                -> !(alarmManager.isAlarmActive(
+                        "AuxCond1Level", AlarmState.MAX2)
+                || alarmManager.isAlarmActive(
+                        "AuxCond1Temp", AlarmState.MAX1))
+        );
+        auxCondCondensateValve[1].addSafeOpenProvider(()
+                -> !(alarmManager.isAlarmActive(
+                        "AuxCond2Level", AlarmState.MAX2)
+                || alarmManager.isAlarmActive(
+                        "AuxCond2Temp", AlarmState.MAX1))
+        );
+        
 
         // Hotwell
         hotwellDrainValve.addSafeClosedProvider(()
@@ -2837,6 +2911,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         outputValues.setParameterValue("Hotwell#Level", // m to cm
                 hotwell.getPrimarySideReservoir().getFillHeight() * 100);
+        outputValues.setParameterValue("Hotwell#Pressure", // m to cm
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_INNER)
+                        .getEffort() / 100000); // bar absolute
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Condensation" + (idx + 1) + "#FlowToDA",

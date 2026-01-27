@@ -46,7 +46,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private void initComponents() {
 
         jLabelReadingCondensatePumpsPressure = new javax.swing.JLabel();
-        jLabelReadingHotwellLevel1 = new javax.swing.JLabel();
+        jLabelReadingHotwellPressure = new javax.swing.JLabel();
         jLabelReadingHotwellLevel = new javax.swing.JLabel();
         jLabelReadingSteamIn2Temp = new javax.swing.JLabel();
         jLabelReadingSteamIn2Pressure = new javax.swing.JLabel();
@@ -118,13 +118,13 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingCondensatePumpsPressure.setOpaque(true);
         add(jLabelReadingCondensatePumpsPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 414, 56, 16));
 
-        jLabelReadingHotwellLevel1.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingHotwellLevel1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingHotwellLevel1.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingHotwellLevel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingHotwellLevel1.setText("_.__");
-        jLabelReadingHotwellLevel1.setOpaque(true);
-        add(jLabelReadingHotwellLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(548, 210, 38, 16));
+        jLabelReadingHotwellPressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingHotwellPressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellPressure.setText("_.__");
+        jLabelReadingHotwellPressure.setOpaque(true);
+        add(jLabelReadingHotwellPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(548, 210, 38, 16));
 
         jLabelReadingHotwellLevel.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingHotwellLevel.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -426,7 +426,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingHotwellFillFlow;
     private javax.swing.JLabel jLabelReadingHotwellFillValve;
     private javax.swing.JLabel jLabelReadingHotwellLevel;
-    private javax.swing.JLabel jLabelReadingHotwellLevel1;
+    private javax.swing.JLabel jLabelReadingHotwellPressure;
     private javax.swing.JLabel jLabelReadingSteamIn1Flow;
     private javax.swing.JLabel jLabelReadingSteamIn1Pressure;
     private javax.swing.JLabel jLabelReadingSteamIn1Temp;
@@ -570,6 +570,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Hotwell#Level" ->
                 jLabelReadingHotwellLevel.setText(
                         String.format("%.1f", newValue) + " cm");
+            case "Hotwell#Pressure" ->
+                jLabelReadingHotwellPressure.setText(
+                        String.format("%.3f", newValue));
         }
     }
 
