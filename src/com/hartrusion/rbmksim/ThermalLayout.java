@@ -1581,6 +1581,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondensers[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
             // we use flow source as valve for coolant flow
+            auxCondCoolantSource[idx].setOriginTemperature(273.15 + 21.1);
             auxCondCoolantValve[idx].initCharacteristic(200, 6);
         }
         // Assume there would be about 15 meters height difference and apply
@@ -1631,6 +1632,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // The makup storage pump makes 200 kg/s at 4.0 bars
         hotwellFillValve.initCharacteristic(2000, 10);
         hotwellDrainValve.initCharacteristic(2000, 20);
+        
+        // Condenser Coolant
+        condenserCoolantSource.setOriginTemperature(273.15 + 22.5);
+        condenserCoolant.initCharacteristic(44000, 5.0);
 
         // Main Ejectors
         for (int idx = 0; idx < 3; idx++) {
@@ -1726,6 +1731,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondensers[idx].initConditions(320, 320, 0.8);
         }
         hotwell.initConditions(280, 280, 0.2);
+        
+        // start with full hotwell cooling
+        condenserCoolant.initFlow(44000);
+        
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
         // but it triggers a huge step of building up all the network and
@@ -2923,6 +2932,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 hotwellFillValve.getValveElement().getFlow());
         outputValues.setParameterValue("Hotwell#DrainFlow",
                 hotwellDrainValve.getValveElement().getFlow());
+        outputValues.setParameterValue("CircCoolant#CondensorOutTemp",
+                hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT)
+                        .getTemperature() - 273.15);
         outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
         // </editor-fold>

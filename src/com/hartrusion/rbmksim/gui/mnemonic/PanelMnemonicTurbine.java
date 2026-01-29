@@ -45,6 +45,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelReadingCoolantOutTemp = new javax.swing.JLabel();
         jLabelReadingCondensatePumpsPressure = new javax.swing.JLabel();
         jLabelReadingHotwellPressure = new javax.swing.JLabel();
         jLabelReadingHotwellLevel = new javax.swing.JLabel();
@@ -84,8 +85,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         valveCondensatePump3Discharge = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabelReadingHotwellFillFlow = new javax.swing.JLabel();
         jLabelReadingHotwellDrainFlow = new javax.swing.JLabel();
-        jLabelReadingValve = new javax.swing.JLabel();
-        jLabelReadingValve1 = new javax.swing.JLabel();
+        jLabelReadingBypass1 = new javax.swing.JLabel();
+        jLabelReadingBypass2 = new javax.swing.JLabel();
         jLabelReadingValve2 = new javax.swing.JLabel();
         jLabelReadingValve3 = new javax.swing.JLabel();
         jLabelReadingValve4 = new javax.swing.JLabel();
@@ -109,6 +110,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(652, 432));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelReadingCoolantOutTemp.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCoolantOutTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCoolantOutTemp.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCoolantOutTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCoolantOutTemp.setText("___ °C");
+        jLabelReadingCoolantOutTemp.setOpaque(true);
+        add(jLabelReadingCoolantOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 220, 64, 16));
 
         jLabelReadingCondensatePumpsPressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondensatePumpsPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -280,21 +289,21 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHotwellDrainFlow.setOpaque(true);
         add(jLabelReadingHotwellDrainFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 356, 64, 16));
 
-        jLabelReadingValve.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingValve.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingValve.setText("___");
-        jLabelReadingValve.setOpaque(true);
-        add(jLabelReadingValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 168, 24, -1));
+        jLabelReadingBypass1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingBypass1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingBypass1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingBypass1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingBypass1.setText("___");
+        jLabelReadingBypass1.setOpaque(true);
+        add(jLabelReadingBypass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 168, 24, -1));
 
-        jLabelReadingValve1.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingValve1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingValve1.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingValve1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingValve1.setText("___");
-        jLabelReadingValve1.setOpaque(true);
-        add(jLabelReadingValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 168, 24, -1));
+        jLabelReadingBypass2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingBypass2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingBypass2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingBypass2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingBypass2.setText("___");
+        jLabelReadingBypass2.setOpaque(true);
+        add(jLabelReadingBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 168, 24, -1));
 
         jLabelReadingValve2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingValve2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -420,7 +429,10 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabelBackground;
+    private javax.swing.JLabel jLabelReadingBypass1;
+    private javax.swing.JLabel jLabelReadingBypass2;
     private javax.swing.JLabel jLabelReadingCondensatePumpsPressure;
+    private javax.swing.JLabel jLabelReadingCoolantOutTemp;
     private javax.swing.JLabel jLabelReadingHotwellDrainFlow;
     private javax.swing.JLabel jLabelReadingHotwellDrainValve;
     private javax.swing.JLabel jLabelReadingHotwellFillFlow;
@@ -433,8 +445,6 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingSteamIn2Flow;
     private javax.swing.JLabel jLabelReadingSteamIn2Pressure;
     private javax.swing.JLabel jLabelReadingSteamIn2Temp;
-    private javax.swing.JLabel jLabelReadingValve;
-    private javax.swing.JLabel jLabelReadingValve1;
     private javax.swing.JLabel jLabelReadingValve2;
     private javax.swing.JLabel jLabelReadingValve3;
     private javax.swing.JLabel jLabelReadingValve4;
@@ -573,6 +583,15 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Hotwell#Pressure" ->
                 jLabelReadingHotwellPressure.setText(
                         String.format("%.3f", newValue));
+            case "Main1#SteamDump" ->
+                jLabelReadingBypass1.setText(
+                        String.format("%.0f", newValue));
+            case "Main2#SteamDump" ->
+                jLabelReadingBypass2.setText(
+                        String.format("%.0f", newValue));
+            case "CircCoolant#CondensorOutTemp" ->
+                jLabelReadingCoolantOutTemp.setText(
+                        String.format("%.2f", newValue) + " °C");
         }
     }
 
