@@ -1,11 +1,20 @@
 # Operation Manual
 
-The simulation starts with the reactor control panel. Additional control panels 
-and the mnemonic display views can be opened in the menu. Those windows can be 
-arranged as needed.
+The simulation starts with a control panel showing the reactor controls. 
+Additional control panels can be added via the _Control Panels_ menu there.
+Those will be displayed inside the Control Panel window.
+
+Mnemonic displays are opened as separate windows, those can be opened from the
+menu also. 
 
 **Please note that those widgets on the panels do look like the controls from 
 the real control panel but their functionality is made up by my imagination.**
+Do no use this simulator as a reference for the original plant.
+
+_Views_ allows you to open additional windows showing the control rod positions 
+and a core status view, for example.
+
+Please arrange windows as you need them.
 
 ## Reactor operation
 
@@ -18,28 +27,31 @@ which rods should be used by the global control.
 
 ![Image](images/screenshot-preview-controls.png)
 
-The global control has a target setpoint and a setpoint for the rod control 
-loop (upper left gauge). That loop setpoint ramps up to the target setpoint 
-when the target and transient switches are on and the ramp can be set with the 
-gradient switches. That allows to pause the transient. To start global control,
-it needs to be enabled, rods need to be selected and then that "auto" button 
-needs to be pressed to start controlling them. On the lower right with the two 
-light bulbs (which do not work) is a manual override that will temporarily 
-move all auto rods when pressed.
+The global control has a **target setpoint** and an **active setpoint** for the 
+rod control loop. That loop setpoint ramps up to the target setpoint when the 
+target and transient switches are on and the ramp can be set with the gradient 
+switches. That allows to pause the transient.
 
-I have no idea if it worked like this but the power plant i worked in had a 
-similar power setpoint control structure, just way more comfortable to use.
+Global control will move the selected auto rods (red) trying to keep the active 
+setpoint value. You need to get the reactor in a state where this works, it is 
+your job to pull out enough manual rods (green) or push them back in to keep 
+the auto rods in operating range.
 
-"File" - "Set core only mode" will disconnect the reactor model from the thermal
+Pay attention to both the red and the green lights on top of the override 
+switch, those do indicate that the automatic rods are reaching the top or lower 
+position (an alarm will also be fired in such cases).
+
+_File_ - _Set core only mode_ will disconnect the reactor model from the thermal
 layout so nothing heats up and you can raise the neutron flux to 100 %. That 
-also means no voiding feedback from the thermal model
+also means no voiding feedback from the thermal model. Use this to get yourself 
+familiar with the rod controls.
 
 ## Controls usage
 
 There is a certain way on how the control panel is operated. I tried to mimic 
 the behavior of such control panels with the elements that are available on 
 modern computer programs. Some buttons and switches will not do anything if 
-some prerequesites are not met. Switches need to be turned again to their "on"
+some prerequisites are not met. Switches need to be turned again to their "on"
 position if something was shut down, things will never turn themselves back on.
 
 Some controls have tooltips with a description.
@@ -75,9 +87,9 @@ by a control loop widget.
 The upper gauge shows the current value (green) and the setpoint value (red)
 with the same scale. The lower gauge shows the current valve position, or any 
 other output elements value. The A and H buttons toggle between auto and manual 
-mode. Pressing the red "S" button will toggle setpoint mode. The left up and 
-down buttons do control the valve manually or do a manual override. If setpoint 
-mode is active, the left controls are used to modify the setpoint instead of 
+mode. Pressing the red "S" button will toggle setpoint mode. The up and down 
+buttons do control the valve manually or do a manual override. If setpoint 
+mode is active, those buttons are used to modify the setpoint instead of 
 the valve position.
 
 ### Switching Pumps
@@ -126,7 +138,7 @@ the modeling engine does not allow certain states and would otherwise crash.
 
 ## Startup 
 
-With the current projects state, it is possible to generte some steam and build
+With the current projects state, it is possible to generate some steam and build
 up pressure using the following procedure:
 
 * Open all MCP suction valves. This will make each MCP ready to be switched on, 
@@ -159,12 +171,12 @@ should now see the steam drum getting filled up.
 * Select all auto rods and pull them out until reactivity reaches 0,0015. Stop
 them in that position before a max reactivity alarm pops up.
 * Wait for the neutrons to rise, you can see this on the flux log gauge first
-* Try keep the neutron rate inside a limit (look at the gauge). At some point,
-it will start to rise faster. Try to get a neutron flux of 4,0 %
-* Turn on global control (press enable, enable all switchen on auto rods,
+* Try to keep the neutron rate inside a limit (look at the gauge). At some 
+* point, it will start to rise faster. Try to get a neutron flux of 4,0 %.
+* Turn on global control (press enable, enable all switches on auto rods,
 enable transient and target mode and push auto button). When the control is
 active, it should stabilize the neutron flux at the setpoint of 4.0 %.
-* Turn one one pump at aux condensation and open the condensate valve to
+* Turn on one pump at aux condensation and open the condensate valve to
 hotwell. Enable both level controls.
 * If you have some steam pressure in steam drums, open the steam valve on
 aux condensation and it will condense there. It will be fed back into the
