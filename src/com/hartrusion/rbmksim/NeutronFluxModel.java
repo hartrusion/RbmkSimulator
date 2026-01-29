@@ -26,11 +26,6 @@ package com.hartrusion.rbmksim;
  * system controlled by reactivities and some non-linear effects. Features a
  * prompt neutron excursion.
  * <p>
- * The difference between the input reactivities is multiplied by K_REACTIVITY
- * and then 1 is added to get the K_eff value.
- * <p>
- * The speed of the integration is determined by K_REACTIVITY * K_INTEGRAL.
- * <p>
  * To trigger the accident, a sudden increase in reactivity has to kick k_Eff
  * over 1 + beta. This is done by the control rods with a displacer effect.
  * Straight path through the model is u * K_REACTIVITY * P_INSTANT but also the
@@ -92,7 +87,7 @@ public class NeutronFluxModel implements Runnable {
      * The K_INTEGRAL value multiplied with the beta value will indicate the
      * neutron rate in %/s.
      */
-    private final double K_INTEGRAL = 220;
+    private final double K_INTEGRAL = 480;
 
     /**
      * Factor of rod movement derivative part which will be added to the

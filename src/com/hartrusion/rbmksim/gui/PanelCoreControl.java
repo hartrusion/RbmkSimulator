@@ -826,9 +826,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionControlGradient2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionControlGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
 
-        chornobylGaugControlGradient.setChornobylMaximum(0.4F);
+        chornobylGaugControlGradient.setChornobylMaximum(0.35F);
         chornobylGaugControlGradient.setChornobylMinimum(0.0F);
-        chornobylGaugControlGradient.setChornobylTicks(new float[] {0.0f, 0.1f, 0.2f, 0.3f, 0.4f});
+        chornobylGaugControlGradient.setChornobylTicks(new float[] {0.0f, 0.1f, 0.2f, 0.3f});
         chornobylGaugControlGradient.setChornobylUnitText("%/s");
         chornobylGaugControlGradient.setChornobylValue(0.0F);
         add(chornobylGaugControlGradient, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
@@ -861,7 +861,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingThermalPower.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jLabelReadingThermalPower.setForeground(new java.awt.Color(255, 153, 0));
         jLabelReadingThermalPower.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingThermalPower.setText("32000");
+        jLabelReadingThermalPower.setText("_____");
         jLabelReadingThermalPower.setOpaque(true);
         add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 34, 76, 26));
 
@@ -1630,8 +1630,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
         ammeterRate.setBackground(new java.awt.Color(255, 255, 255));
         ammeterRate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterRate.setForeground(new java.awt.Color(0, 0, 0));
-        ammeterRate.setLeftLabel("-3");
-        ammeterRate.setRightLabel("+3");
+        ammeterRate.setLeftLabel("-2.5");
+        ammeterRate.setRightLabel("+2.5");
         ammeterRate.setToolTipText("Neutron rate (change of Neutron Flux per second), this is the effective change of power");
         jPanelCoreInstrument.add(ammeterRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 4, 62, 38));
 
@@ -2387,9 +2387,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
                         String.format("%+.5f", newValue));
             //.replaceFirst("^\\+", " "));
             case "Reactor#NeutronRate" -> {
-                 // -3..3
-                ammeterRate.setChornobylValue(8.33333333 * newValue + 50);
-                lightBulbNeutronRate.setActive(newValue >= 4.5);
+                 // -2.5..2.5
+                ammeterRate.setChornobylValue(20 * newValue + 50);
+                lightBulbNeutronRate.setActive(newValue >= 2.2);
             }
             case "Reactor#ThermalPower" ->
                 jLabelReadingThermalPower.setText(

@@ -840,9 +840,9 @@ public class ReactorCore extends Subsystem implements Runnable {
             rod.initAffection(fuelElements);
         }
 
-        setpointPowerGradient.setUpperLimit(1.4);
+        setpointPowerGradient.setUpperLimit(0.35);
         setpointPowerGradient.setMaxRate(0.1);
-        setpointPowerGradient.forceOutputValue(0.3); // initial value
+        setpointPowerGradient.forceOutputValue(0.2); // initial value
 
         // Define alarms and consequences
         ValueAlarmMonitor am;
@@ -854,10 +854,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 return neutronFluxModel.getYNeutronRate();
             }
         });
-        am.defineAlarm(7.5, AlarmState.MAX1);
-        am.defineAlarm(7.0, AlarmState.HIGH2);
-        am.defineAlarm(6.0, AlarmState.HIGH1);
-        am.defineAlarm(-4.5, AlarmState.LOW1);
+        am.defineAlarm(5.5, AlarmState.MAX1);
+        am.defineAlarm(4.0, AlarmState.HIGH2);
+        am.defineAlarm(2.5, AlarmState.HIGH1);
+        am.defineAlarm(-2.5, AlarmState.LOW1);
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
