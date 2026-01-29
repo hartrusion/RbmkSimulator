@@ -129,22 +129,35 @@ the modeling engine does not allow certain states and would otherwise crash.
 With the current projects state, it is possible to generte some steam and build
 up pressure using the following procedure:
 
-* Open all MCP suction valves
-* Close the recirculation bypass valves
-* Turn on the level balance control on Blowdown system
-* Switch on to MCPs on both sides each and open discharge valves afterwards.
-* Switch on Makeup pumps and howell fill regulation
-* Switch on one howell pump and condensate pump. Try filling some water into
-the deaerators and observe what happens, the hotwell level might fall very slow.
-* Set DA level setpoint to 100 and enable control on both flow valves
-* Turn on one feed pump per side, open startup valves and the redurction valves
-(lower left of feedwater panel), enable level control for steam drums.
-* Open Coolant valves for Aux Condensation
-* Reset RPS on Reactor
+* Open all MCP suction valves. This will make each MCP ready to be switched on, 
+the green light above the switch will indicate that.
+* Close the recirculation bypass valves. Note that there is now still flow 
+through the core as we still have the blowdown/cooldown system sucking in the
+water from the MCP pressure header.
+* Turn on the level balance control on Blowdown/cooldown system. This will 
+compensate level imbalances by controlling the return valves automatically.
+* Switch on two MCPs on both sides each and open discharge valves afterwards.
+* Switch on Makeup pumps and hotwell fill regulation.
+* Switch on one condensate pump and one booster pump. Open the bypass at the 
+main ejectors to have a path from hotwell to deaerators. 
+* Try filling some water in the deaerators by manually opening one of the 
+condensate flow valves to the DAs a little bit.
+* Switch both DA flow valves to automatic.
+* Turn on one feed pump per side to have pressure on the feed valves to the
+steam drums.
+* Open the startup valves for both sides and the reduction valves. Those are on 
+the lower left of the control panel. We need small valves and an additional 
+reduction valve as there is no pressure inside the steam drum but full pressure 
+from the feed pumps.
+* The regulator valves are controlling the steam drum level. Press the icon on 
+the 4-button-valve to switch the two startup valves to automatic mode. You 
+should now see the steam drum getting filled up.
+* Open Coolant valves for Aux Condensation.
+* Reset RPS on Reactor - the red light should disappear.
 * Pull out 4 manual (green) control rods
 * Open rod positions panel, core matrix and neutron flux diagram
 * Select all auto rods and pull them out until reactivity reaches 0,0015. Stop
-them in that position.
+them in that position before a max reactivity alarm pops up.
 * Wait for the neutrons to rise, you can see this on the flux log gauge first
 * Try keep the neutron rate inside a limit (look at the gauge). At some point,
 it will start to rise faster. Try to get a neutron flux of 4,0 %
