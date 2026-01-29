@@ -32,12 +32,12 @@ public class PanelCondensation extends AbstractPanelWidget {
         super.registerActionReceiver(controller);
         panelWidgetMakeupPump1.registerActionReceiver(controller);
         panelWidgetMakeupPump2.registerActionReceiver(controller);
-        panelWidgetPumpHotwell1.registerActionReceiver(controller);
-        panelWidgetPumpHotwell2.registerActionReceiver(controller);
-        panelWidgetPumpHotwell3.registerActionReceiver(controller);
         panelWidgetPumpCondensate1.registerActionReceiver(controller);
         panelWidgetPumpCondensate2.registerActionReceiver(controller);
         panelWidgetPumpCondensate3.registerActionReceiver(controller);
+        panelWidgetPumpBoost1.registerActionReceiver(controller);
+        panelWidgetPumpBoost2.registerActionReceiver(controller);
+        panelWidgetPumpBoost3.registerActionReceiver(controller);
         controlLoopHotwellFill.registerActionReceiver(controller);
         controlLoopHotwellDrain.registerActionReceiver(controller);
     }
@@ -58,18 +58,18 @@ public class PanelCondensation extends AbstractPanelWidget {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelWidgetPumpBoost3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpBoost2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetPumpBoost1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPumpCondensate3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPumpCondensate2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetPumpCondensate1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPumpHotwell3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPumpHotwell2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetPumpHotwell1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         controlLoopHotwellFill = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         controlLoopHotwellDrain = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
-        jLabelDA1Press1 = new javax.swing.JLabel();
-        jLabelDA1Press2 = new javax.swing.JLabel();
-        jLabelDA1Press3 = new javax.swing.JLabel();
-        jLabelDA1Press4 = new javax.swing.JLabel();
+        jLabelHotwellDrain1 = new javax.swing.JLabel();
+        jLabelHotwellDrain2 = new javax.swing.JLabel();
+        jLabelHotwellFill2 = new javax.swing.JLabel();
+        jLabelHotwellFill1 = new javax.swing.JLabel();
         integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitch3 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
@@ -135,23 +135,23 @@ public class PanelCondensation extends AbstractPanelWidget {
         setPreferredSize(new java.awt.Dimension(580, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelWidgetPumpCondensate3.setChornobylPrefix("Condensation3#CondensatePump");
-        add(panelWidgetPumpCondensate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 222, -1, -1));
+        panelWidgetPumpBoost3.setChornobylPrefix("Condensation3#CondensatePump");
+        add(panelWidgetPumpBoost3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 222, -1, -1));
 
-        panelWidgetPumpCondensate2.setChornobylPrefix("Condensation2#CondensatePump");
-        add(panelWidgetPumpCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 222, -1, -1));
+        panelWidgetPumpBoost2.setChornobylPrefix("Condensation2#CondensatePump");
+        add(panelWidgetPumpBoost2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 222, -1, -1));
 
-        panelWidgetPumpCondensate1.setChornobylPrefix("Condensation1#CondensatePump");
-        add(panelWidgetPumpCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 222, -1, -1));
+        panelWidgetPumpBoost1.setChornobylPrefix("Condensation1#CondensatePump");
+        add(panelWidgetPumpBoost1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 222, -1, -1));
 
-        panelWidgetPumpHotwell3.setChornobylPrefix("Condensation3#HotwellPump");
-        add(panelWidgetPumpHotwell3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 72, -1, -1));
+        panelWidgetPumpCondensate3.setChornobylPrefix("Condensation3#HotwellPump");
+        add(panelWidgetPumpCondensate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 72, -1, -1));
 
-        panelWidgetPumpHotwell2.setChornobylPrefix("Condensation2#HotwellPump");
-        add(panelWidgetPumpHotwell2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 72, -1, -1));
+        panelWidgetPumpCondensate2.setChornobylPrefix("Condensation2#HotwellPump");
+        add(panelWidgetPumpCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 72, -1, -1));
 
-        panelWidgetPumpHotwell1.setChornobylPrefix("Condensation1#HotwellPump");
-        add(panelWidgetPumpHotwell1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
+        panelWidgetPumpCondensate1.setChornobylPrefix("Condensation1#HotwellPump");
+        add(panelWidgetPumpCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
 
         controlLoopHotwellFill.setControlComponent("Hotwell#FillValve");
         controlLoopHotwellFill.setFeedbackComponent("Hotwell#Level");
@@ -163,21 +163,21 @@ public class PanelCondensation extends AbstractPanelWidget {
         controlLoopHotwellDrain.setSetpointComponent("Hotwell#UpperSetpoint");
         add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 90, -1, -1));
 
-        jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
-        jLabelDA1Press1.setText("Hotwell");
-        add(jLabelDA1Press1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 96, 50, 14));
+        jLabelHotwellDrain1.setFont(jLabelHotwellDrain1.getFont().deriveFont(jLabelHotwellDrain1.getFont().getSize()-2f));
+        jLabelHotwellDrain1.setText("Hotwell");
+        add(jLabelHotwellDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 96, 50, 14));
 
-        jLabelDA1Press2.setFont(jLabelDA1Press2.getFont().deriveFont(jLabelDA1Press2.getFont().getSize()-2f));
-        jLabelDA1Press2.setText("Drain");
-        add(jLabelDA1Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 110, 50, 14));
+        jLabelHotwellDrain2.setFont(jLabelHotwellDrain2.getFont().deriveFont(jLabelHotwellDrain2.getFont().getSize()-2f));
+        jLabelHotwellDrain2.setText("Drain");
+        add(jLabelHotwellDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 110, 50, 14));
 
-        jLabelDA1Press3.setFont(jLabelDA1Press3.getFont().deriveFont(jLabelDA1Press3.getFont().getSize()-2f));
-        jLabelDA1Press3.setText("Fill");
-        add(jLabelDA1Press3, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 68, 50, 14));
+        jLabelHotwellFill2.setFont(jLabelHotwellFill2.getFont().deriveFont(jLabelHotwellFill2.getFont().getSize()-2f));
+        jLabelHotwellFill2.setText("Fill");
+        add(jLabelHotwellFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 68, 50, 14));
 
-        jLabelDA1Press4.setFont(jLabelDA1Press4.getFont().deriveFont(jLabelDA1Press4.getFont().getSize()-2f));
-        jLabelDA1Press4.setText("Hotwell");
-        add(jLabelDA1Press4, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 54, 50, 14));
+        jLabelHotwellFill1.setFont(jLabelHotwellFill1.getFont().deriveFont(jLabelHotwellFill1.getFont().getSize()-2f));
+        jLabelHotwellFill1.setText("Hotwell");
+        add(jLabelHotwellFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 54, 50, 14));
         add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 252, -1, -1));
         add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 252, -1, -1));
         add(integralSwitch3, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 252, -1, -1));
@@ -628,7 +628,7 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         jLabelCaptionPump21.setFont(jLabelCaptionPump21.getFont().deriveFont(jLabelCaptionPump21.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump21.getFont().getSize()-2));
         jLabelCaptionPump21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump21.setText("Condensate Pumps");
+        jLabelCaptionPump21.setText("Booster Pumps");
         jLabelCaptionPump21.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump21.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump21.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -660,7 +660,7 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         jLabelCaptionPump25.setFont(jLabelCaptionPump25.getFont().deriveFont(jLabelCaptionPump25.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump25.getFont().getSize()-2));
         jLabelCaptionPump25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump25.setText("Hotwell Pumps");
+        jLabelCaptionPump25.setText("Condensate Pumps");
         jLabelCaptionPump25.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump25.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump25.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -820,34 +820,34 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelColdCondensateFill;
     private javax.swing.JLabel jLabelDA1Level1;
     private javax.swing.JLabel jLabelDA1Level2;
-    private javax.swing.JLabel jLabelDA1Press1;
-    private javax.swing.JLabel jLabelDA1Press2;
-    private javax.swing.JLabel jLabelDA1Press3;
-    private javax.swing.JLabel jLabelDA1Press4;
     private javax.swing.JLabel jLabelEjectorInlet;
     private javax.swing.JLabel jLabelEjectorOutlet;
     private javax.swing.JLabel jLabelEjectorSteam;
     private javax.swing.JLabel jLabelEjectorSuction;
+    private javax.swing.JLabel jLabelHotwellDrain1;
+    private javax.swing.JLabel jLabelHotwellDrain2;
+    private javax.swing.JLabel jLabelHotwellFill1;
+    private javax.swing.JLabel jLabelHotwellFill2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpBoost1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpBoost2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpBoost3;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCondensate3;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpHotwell1;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpHotwell2;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpHotwell3;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
         panelWidgetMakeupPump1.updateComponent(evt);
         panelWidgetMakeupPump2.updateComponent(evt);
-        panelWidgetPumpHotwell1.updateComponent(evt);
-        panelWidgetPumpHotwell2.updateComponent(evt);
-        panelWidgetPumpHotwell3.updateComponent(evt);
         panelWidgetPumpCondensate1.updateComponent(evt);
         panelWidgetPumpCondensate2.updateComponent(evt);
         panelWidgetPumpCondensate3.updateComponent(evt);
+        panelWidgetPumpBoost1.updateComponent(evt);
+        panelWidgetPumpBoost2.updateComponent(evt);
+        panelWidgetPumpBoost3.updateComponent(evt);
         controlLoopHotwellFill.updateComponent(evt);
         controlLoopHotwellDrain.updateComponent(evt);
 

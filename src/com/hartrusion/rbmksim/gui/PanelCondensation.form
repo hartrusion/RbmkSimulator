@@ -29,7 +29,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate3">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpBoost3">
       <Properties>
         <Property name="chornobylPrefix" type="java.lang.String" value="Condensation3#CondensatePump"/>
       </Properties>
@@ -39,7 +39,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate2">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpBoost2">
       <Properties>
         <Property name="chornobylPrefix" type="java.lang.String" value="Condensation2#CondensatePump"/>
       </Properties>
@@ -49,7 +49,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate1">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpBoost1">
       <Properties>
         <Property name="chornobylPrefix" type="java.lang.String" value="Condensation1#CondensatePump"/>
       </Properties>
@@ -59,7 +59,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpHotwell3">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate3">
       <Properties>
         <Property name="chornobylPrefix" type="java.lang.String" value="Condensation3#HotwellPump"/>
       </Properties>
@@ -69,7 +69,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpHotwell2">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate2">
       <Properties>
         <Property name="chornobylPrefix" type="java.lang.String" value="Condensation2#HotwellPump"/>
       </Properties>
@@ -79,7 +79,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpHotwell1">
+    <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCondensate1">
       <Properties>
         <Property name="chornobylPrefix" type="java.lang.String" value="Condensation1#HotwellPump"/>
       </Properties>
@@ -113,11 +113,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDA1Press1">
+    <Component class="javax.swing.JLabel" name="jLabelHotwellDrain1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jLabelDA1Press1" property="font" relativeSize="true" size="-2"/>
+            <Font component="jLabelHotwellDrain1" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="Hotwell"/>
@@ -128,11 +128,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDA1Press2">
+    <Component class="javax.swing.JLabel" name="jLabelHotwellDrain2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jLabelDA1Press2" property="font" relativeSize="true" size="-2"/>
+            <Font component="jLabelHotwellDrain2" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="Drain"/>
@@ -143,11 +143,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDA1Press3">
+    <Component class="javax.swing.JLabel" name="jLabelHotwellFill2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jLabelDA1Press3" property="font" relativeSize="true" size="-2"/>
+            <Font component="jLabelHotwellFill2" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="Fill"/>
@@ -158,11 +158,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDA1Press4">
+    <Component class="javax.swing.JLabel" name="jLabelHotwellFill1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jLabelDA1Press4" property="font" relativeSize="true" size="-2"/>
+            <Font component="jLabelHotwellFill1" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="Hotwell"/>
@@ -1253,7 +1253,7 @@
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Condensate Pumps"/>
+        <Property name="text" type="java.lang.String" value="Booster Pumps"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -1353,7 +1353,7 @@
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Hotwell Pumps"/>
+        <Property name="text" type="java.lang.String" value="Condensate Pumps"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
