@@ -104,6 +104,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        jLabelReadingHotwellTemperature = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -413,6 +414,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabel24.setText("Fill");
         add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 306, 52, -1));
 
+        jLabelReadingHotwellTemperature.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingHotwellTemperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingHotwellTemperature.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingHotwellTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingHotwellTemperature.setText("__._ °C");
+        jLabelReadingHotwellTemperature.setOpaque(true);
+        add(jLabelReadingHotwellTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 238, 56, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -439,6 +448,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingHotwellFillValve;
     private javax.swing.JLabel jLabelReadingHotwellLevel;
     private javax.swing.JLabel jLabelReadingHotwellPressure;
+    private javax.swing.JLabel jLabelReadingHotwellTemperature;
     private javax.swing.JLabel jLabelReadingSteamIn1Flow;
     private javax.swing.JLabel jLabelReadingSteamIn1Pressure;
     private javax.swing.JLabel jLabelReadingSteamIn1Temp;
@@ -583,6 +593,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Hotwell#Pressure" ->
                 jLabelReadingHotwellPressure.setText(
                         String.format("%.3f", newValue));
+            case "Hotwell#Temperature" ->
+                jLabelReadingHotwellTemperature.setText(
+                        String.format("%.2f", newValue) + " °C");
             case "Main1#SteamDump" ->
                 jLabelReadingBypass1.setText(
                         String.format("%.0f", newValue));

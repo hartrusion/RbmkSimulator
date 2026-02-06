@@ -155,6 +155,8 @@ public class PanelDeaerators extends AbstractPanelWidget {
         jLabelDA2Press2.setFont(jLabelDA2Press2.getFont().deriveFont(jLabelDA2Press2.getFont().getSize()-2f));
         jLabelDA2Press2.setText("Press.");
         add(jLabelDA2Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 260, 36, 14));
+
+        integralSwitchFromTDA1.setComponent("Turbine2#LowPressureTapValve");
         add(integralSwitchFromTDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 304, -1, -1));
 
         integralSwitchFromSDA1.setComponent("Deaerator1#SteamFromMain");

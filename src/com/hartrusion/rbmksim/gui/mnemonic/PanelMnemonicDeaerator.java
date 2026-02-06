@@ -116,7 +116,6 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         add(valveVent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 11, -1, -1));
         add(valveVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 11, -1, -1));
 
-        valveTurbineTap.setControlIndicator(true);
         valveTurbineTap.setVertical(true);
         add(valveTurbineTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 208, -1, -1));
 
@@ -365,7 +364,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
             case "Condensation1#ValveToDA_Pos" ->
                 valveCondIn1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Condensation2#ValveToDA_Pos" ->
-                valveCondIn2.setActive(evt.getNewValue() != ValveState.CLOSED);      
+                valveCondIn2.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Condensation1#ValveToDAControlState" -> {
                 if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
                     valveCondIn1.setControlIndicatorActive(true);
@@ -406,6 +405,8 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
                 valveDrain1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Deaerator2#Drain_Pos" ->
                 valveDrain2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine2#LowPressureTapValve_Pos" ->
+                valveTurbineTap.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 
@@ -434,6 +435,11 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         if (propertyName.equals("Condensation2#FlowToDA")) {
             jLabelReadingCondFlow2.setText(
                     String.format("%.0f", newValue) + " kg/s");
+            return;
+        }
+        if (propertyName.equals("Turbine2#LowPressureTapValve")) {
+            jLabelReadingTurbineTapValve.setText(
+                    String.format("%.0f", newValue));
             return;
         }
         if (!propertyName.startsWith("Deaerator")) {
@@ -476,7 +482,6 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
             case "Deaerator2#Drain" ->
                 jLabelReadingDrain2Valve.setText(
                         String.format("%.0f", newValue));
-
         }
     }
 

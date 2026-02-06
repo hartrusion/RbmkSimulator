@@ -101,6 +101,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemAuxCond = new javax.swing.JMenuItem();
         jMenuItemTurbineBypass = new javax.swing.JMenuItem();
         jMenuItemCondensation = new javax.swing.JMenuItem();
+        jMenuItemPreheaters = new javax.swing.JMenuItem();
         jMenuPanels = new javax.swing.JMenu();
         jMenuAlarms = new javax.swing.JMenuItem();
         jMenuRodPositions = new javax.swing.JMenuItem();
@@ -115,6 +116,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemMnemonicAuxCondenser = new javax.swing.JMenuItem();
         jMenuItemMnemonicTurbine = new javax.swing.JMenuItem();
         jMenuItemMnemonicCondensation = new javax.swing.JMenuItem();
+        jMenuItemMnemonicPreheaters = new javax.swing.JMenuItem();
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
         jMenuGlobalControl = new javax.swing.JMenuItem();
@@ -246,6 +248,14 @@ public class ControlRoom extends javax.swing.JFrame
         });
         jMenuControls.add(jMenuItemCondensation);
 
+        jMenuItemPreheaters.setText("Preheater");
+        jMenuItemPreheaters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPreheatersActionPerformed(evt);
+            }
+        });
+        jMenuControls.add(jMenuItemPreheaters);
+
         jMenuBar1.add(jMenuControls);
 
         jMenuPanels.setText("Views");
@@ -349,6 +359,14 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuMnemonics.add(jMenuItemMnemonicCondensation);
+
+        jMenuItemMnemonicPreheaters.setText("Preheaters");
+        jMenuItemMnemonicPreheaters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMnemonicPreheatersActionPerformed(evt);
+            }
+        });
+        jMenuMnemonics.add(jMenuItemMnemonicPreheaters);
 
         jMenuBar1.add(jMenuMnemonics);
 
@@ -761,6 +779,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemAuxCondActionPerformed(null);
         jMenuItemBlowdownActionPerformed(null);
         jMenuItemTurbineBypassActionPerformed(null);
+        jMenuItemPreheatersActionPerformed(null);
         // Align them in a preset grid layout.
         // 1st row:
         jDesktopPane1.windowPlaceAtZero(
@@ -774,6 +793,9 @@ public class ControlRoom extends javax.swing.JFrame
         jDesktopPane1.windowPlaceRightTo(
                 getControlPanelInstance("Turbine Bypass"),
                 getControlPanelInstance("Condensation"));
+        jDesktopPane1.windowPlaceBelow(
+                getControlPanelInstance("Preheaters"),
+                getControlPanelInstance("Turbine Bypass"));
 
         // 2nd row:
         jDesktopPane1.windowPlaceBelow(
@@ -816,6 +838,29 @@ public class ControlRoom extends javax.swing.JFrame
         // if theres no active frame, generate it and make it known here.
         initializeControlPanel(new PanelBypassValve(), "Turbine Bypass");
     }//GEN-LAST:event_jMenuItemTurbineBypassActionPerformed
+
+    private void jMenuItemPreheatersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPreheatersActionPerformed
+        for (ControlPanelFrame pf : controlPanels) {
+            if (pf.getPanelName().equals("Preheaters")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelPreheaters(), "Preheaters");
+    }//GEN-LAST:event_jMenuItemPreheatersActionPerformed
+
+    private void jMenuItemMnemonicPreheatersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicPreheatersActionPerformed
+        // Check if there is already an active frame using the slected class
+        for (UpdateReceiver ur : mnemonics) {
+            if (ur.getClass().getSimpleName().equals(
+                    "FrameMnemonicPreheaters")) {
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeMnemonic(new FrameMnemonicPreheaters());
+    }//GEN-LAST:event_jMenuItemMnemonicPreheatersActionPerformed
 
     @Override // Called on startup
     public void registerController(ViewerController controller) {
@@ -1020,8 +1065,10 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemMnemonicFeedwater;
     private javax.swing.JMenuItem jMenuItemMnemonicLoop1;
     private javax.swing.JMenuItem jMenuItemMnemonicLoop2;
+    private javax.swing.JMenuItem jMenuItemMnemonicPreheaters;
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
     private javax.swing.JMenuItem jMenuItemPause;
+    private javax.swing.JMenuItem jMenuItemPreheaters;
     private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemRecirculation;

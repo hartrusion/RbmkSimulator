@@ -35,6 +35,7 @@ import com.hartrusion.modeling.automated.HeatFluidPumpSimple;
 import com.hartrusion.modeling.automated.HeatValve;
 import com.hartrusion.modeling.automated.HeatValveControlled;
 import com.hartrusion.modeling.assemblies.PhasedCondenserNoMass;
+import com.hartrusion.modeling.assemblies.PhasedSuperheater;
 import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.automated.PhasedValveControlled;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
@@ -51,6 +52,7 @@ import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
 import com.hartrusion.modeling.heatfluid.HeatVolumizedFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
+import com.hartrusion.modeling.phasedfluid.PhasedLimitedPhaseSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.modeling.phasedfluid.PhasedOrigin;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
@@ -264,7 +266,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatNode condensationBoosterPumpIn;
     private final HeatFluidPump[] condensationCondensatePump
             = new HeatFluidPump[3];
-    private final HeatNode condensationBoosterPumpOut;
     private final HeatValveControlled[] condensationValveToDA
             = new HeatValveControlled[2];
     private final HeatNode[] condensationValveOut = new HeatNode[2];
@@ -285,8 +286,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatOrigin condenserCoolantSink;
 
     // Ejectors (both startup and main)
-    private final PhasedOrigin ejectorDummyTurbineTap;
-    private final PhasedNode ejectorDummyTurbineNode;
+    private final PhasedNode ejectorTurbineTapNode;
     private final PhasedValve[] ejectorStartup
             = new PhasedValve[2];
     private final PhasedValve[] ejectorMainSteamValve
@@ -310,6 +310,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedHeatFluidConverter ejectorToHotwellConverter;
     private final PhasedNode ejectorToHotwellPhasedNode;
 
+    private final PhasedCondenserNoMass[] preheater
+            = new PhasedCondenserNoMass[3];
+    private final HeatSimpleFlowResistance[] preheaterPiping
+            = new HeatSimpleFlowResistance[2];
+    private final PhasedValveControlled[] preheaterCondensateValve
+            = new PhasedValveControlled[3];
+
     // Valves to turbine inlet
     private final PhasedValveControlled[] turbineMainSteamValve
             = new PhasedValveControlled[2];
@@ -317,6 +324,27 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedNode[] turbineStartupValveNodes = new PhasedNode[2];
     private final PhasedValveControlled[] turbineStartupSteamValve
             = new PhasedValveControlled[2];
+    private final PhasedNode turbineSteamIn;
+    private final PhasedNode turbineHighPressureIn;
+    private final PhasedLimitedPhaseSimpleFlowResistance turbineHighPressure;
+    private final PhasedValve turbineHighPressureInValve;
+    private final PhasedValve turbineSuperHeaterPriShutValve;
+    private final PhasedValveControlled turbineSuperHeaterPriControlValve;
+    private final PhasedSuperheater turbineSuperHeater;
+    private final PhasedValve turbineSuperHeaterCondensateShutoffValve;
+    private final PhasedNode turbineSuperHeaterCondensateValvesMidNode;
+    private final PhasedValveControlled turbineSuperHeaterCondensateValve;
+    private final PhasedValve turbineLowPressureValve;
+    private final PhasedNode turbineLowPressureIn;
+    private final PhasedLimitedPhaseSimpleFlowResistance[] turbineLowPressureStage
+            = new PhasedLimitedPhaseSimpleFlowResistance[6];
+    private final PhasedNode[] turbineLowPressureStageOut
+            = new PhasedNode[5];
+    private final PhasedLimitedPhaseSimpleFlowResistance[] turbineLowPressureTap
+            = new PhasedLimitedPhaseSimpleFlowResistance[5];
+    private final PhasedNode[] turbineLowPressureTapOut
+            = new PhasedNode[5];
+    private final PhasedValve[] turbineLowPressureTapValve = new PhasedValve[5];
 
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
@@ -741,8 +769,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationCondensatePump[idx].initName(
                     "Condensation" + (idx + 1) + "#CondensatePump");
         }
-        condensationBoosterPumpOut = new HeatNode();
-        condensationBoosterPumpOut.setName("Condensation#BoosterPumpOut");
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx] = new HeatValveControlled();
             condensationValveToDA[idx].registerController(new PIControl());
@@ -778,10 +804,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         condenserCoolantSink.setName("Condenser#CoolantSource");
 
         // Ejectors (both startup and main)
-        ejectorDummyTurbineTap = new PhasedOrigin();
-        ejectorDummyTurbineTap.setName("EjectorDummyTurbineTap");
-        ejectorDummyTurbineNode = new PhasedNode();
-        ejectorDummyTurbineNode.setName("EjectorDummyTurbineTap");
+        ejectorTurbineTapNode = new PhasedNode();
+        ejectorTurbineTapNode.setName("EjectorDummyTurbineTap");
         for (int idx = 0; idx < 2; idx++) {
             ejectorStartup[idx] = new PhasedValve();
             ejectorStartup[idx].initName(
@@ -832,21 +856,94 @@ public class ThermalLayout extends Subsystem implements Runnable {
         ejectorToHotwellPhasedNode = new PhasedNode();
         ejectorToHotwellPhasedNode.setName("Ejector#ToHotwellPhasedNode");
 
-        // Valves to turbine inlet - so far just the objects exist but they
-        // do nothing yet.
+        for (int idx = 0; idx < 3; idx++) {
+            preheater[idx] = new PhasedCondenserNoMass(phasedWater);
+            preheater[idx].initGenerateNodes();
+            preheater[idx].initName(
+                    "Preheater" + (idx + 1));
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            preheaterPiping[idx] = new HeatSimpleFlowResistance();
+            preheaterPiping[idx].setName("Preheater"
+                    + (idx + 1) + "#Piping");
+        }
+        for (int idx = 0; idx < 3; idx++) {
+            preheaterCondensateValve[idx]
+                    = new PhasedValveControlled();
+            preheaterCondensateValve[idx]
+                    .registerController(new PIControl());
+            preheaterCondensateValve[idx].initName(
+                    "Preheater" + (idx + 1) + "#CondensateValve");
+        }
+
+        // Valves to turbine inlet
         for (int idx = 0; idx < 2; idx++) {
             turbineMainSteamValve[idx] = new PhasedValveControlled();
+            turbineMainSteamValve[idx].registerController(new PIControl());
             turbineMainSteamValve[idx].initName(
-                    "Turbine" + (idx + 1) + "#SteamValve");
+                    "Turbine" + (idx + 1) + "#MainSteamValveN");
             turbineStartupShutoffValve[idx] = new PhasedValve();
             turbineStartupShutoffValve[idx].initName(
-                    "Turbine" + (idx + 1) + "#SteamValve");
+                    "Turbine" + (idx + 1) + "#StartupShutoffValve");
             turbineStartupValveNodes[idx] = new PhasedNode();
             turbineStartupValveNodes[idx].setName(
-                    "Turbine" + (idx + 1) + "#SteamValve");
+                    "Turbine" + (idx + 1) + "#StartupValveNode");
             turbineStartupSteamValve[idx] = new PhasedValveControlled();
+            turbineStartupSteamValve[idx].registerController(new PIControl());
             turbineStartupSteamValve[idx].initName(
-                    "Turbine" + (idx + 1) + "#SteamValve");
+                    "Turbine" + (idx + 1) + "#StartupSteamValve");
+        }
+        turbineSteamIn = new PhasedNode();
+        turbineSteamIn.setName("Turbine#HighPressureIn");
+        turbineHighPressureIn = new PhasedNode();
+        turbineHighPressureIn.setName("Turbine#HighPressureIn");
+        turbineHighPressure = new PhasedLimitedPhaseSimpleFlowResistance(phasedWater);
+        turbineHighPressure.setName("Turbine#HighPressure");
+        turbineHighPressureInValve = new PhasedValve();
+        turbineHighPressureInValve.initName("Turbine#HighPressureInvalve");
+        turbineSuperHeaterPriShutValve = new PhasedValve();
+        turbineSuperHeaterPriShutValve.initName("Turbine#SuperHeaterPriShutValve");
+        turbineSuperHeaterPriControlValve = new PhasedValveControlled();
+        turbineSuperHeaterPriControlValve.registerController(new PIControl());
+        turbineSuperHeaterPriControlValve.initName("Turbine#SuperHeaterPriControlValve");
+        turbineSuperHeater = new PhasedSuperheater(phasedWater);
+        turbineSuperHeater.initGenerateNodes();
+        turbineSuperHeater.initName("Turbine#Superheater");
+        turbineSuperHeaterCondensateShutoffValve = new PhasedValve();
+        turbineSuperHeaterCondensateShutoffValve.initName(
+                "Turbine#SuperHeaterCondensateShutoffValve");
+        turbineSuperHeaterCondensateValvesMidNode = new PhasedNode();
+        turbineSuperHeaterCondensateValvesMidNode.setName(
+                "Turbine#SuperHeaterCondensateValvesMidNode");
+        turbineSuperHeaterCondensateValve = new PhasedValveControlled();
+        turbineSuperHeaterCondensateValve.registerController(new PIControl());
+        turbineSuperHeaterCondensateValve.initName(
+                "Turbine#SuperHeaterCondensateValve");
+        turbineLowPressureValve = new PhasedValve();
+        turbineLowPressureValve.initName("Turbine#LowPressureValve");
+        turbineLowPressureIn = new PhasedNode();
+        turbineLowPressureIn.setName("Turbine#LowPressureIn");
+        for (int idx = 0; idx < 6; idx++) {
+            turbineLowPressureStage[idx]
+                    = new PhasedLimitedPhaseSimpleFlowResistance(phasedWater);
+            turbineLowPressureStage[idx].setName(
+                    "Turbine" + (idx + 1) + "#LowPressureStage");
+
+        }
+        for (int idx = 0; idx < 5; idx++) {
+            turbineLowPressureStageOut[idx] = new PhasedNode();
+            turbineLowPressureStageOut[idx].setName(
+                    "Turbine" + (idx + 1) + "#LowPressureStageOut");
+            turbineLowPressureTap[idx]
+                    = new PhasedLimitedPhaseSimpleFlowResistance(phasedWater);
+            turbineLowPressureTap[idx].setName(
+                    "Turbine" + (idx + 1) + "#LowPressureTap");
+            turbineLowPressureTapOut[idx] = new PhasedNode();
+            turbineLowPressureTapOut[idx].setName(
+                    "Turbine" + (idx + 1) + "#LowPressureTapOut");
+            turbineLowPressureTapValve[idx] = new PhasedValve();
+            turbineLowPressureTapValve[idx].initName(
+                    "Turbine" + (idx + 1) + "#LowPressureTapValve");
         }
 
         //</editor-fold>      
@@ -988,6 +1085,36 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         ejectorMainBypass.registerParameterHandler(outputValues);
         ejectorMainBypass.registerSignalListener(controller);
+
+        for (int idx = 0; idx < 3; idx++) {
+            preheaterCondensateValve[idx].registerParameterHandler(outputValues);
+            preheaterCondensateValve[idx].registerSignalListener(controller);
+        }
+
+        for (int idx = 0; idx < 2; idx++) {
+            turbineMainSteamValve[idx].registerParameterHandler(outputValues);
+            turbineMainSteamValve[idx].registerSignalListener(controller);
+            turbineStartupShutoffValve[idx].registerParameterHandler(outputValues);
+            turbineStartupShutoffValve[idx].registerSignalListener(controller);
+            turbineStartupSteamValve[idx].registerParameterHandler(outputValues);
+            turbineStartupSteamValve[idx].registerSignalListener(controller);
+        }
+        turbineHighPressureInValve.registerParameterHandler(outputValues);
+        turbineHighPressureInValve.registerSignalListener(controller);
+        turbineLowPressureValve.registerParameterHandler(outputValues);
+        turbineLowPressureValve.registerSignalListener(controller);
+        turbineSuperHeaterPriShutValve.registerParameterHandler(outputValues);
+        turbineSuperHeaterPriShutValve.registerSignalListener(controller);
+        turbineSuperHeaterPriControlValve.registerParameterHandler(outputValues);
+        turbineSuperHeaterPriControlValve.registerSignalListener(controller);
+        turbineSuperHeaterCondensateShutoffValve.registerParameterHandler(outputValues);
+        turbineSuperHeaterCondensateShutoffValve.registerSignalListener(controller);
+        turbineSuperHeaterCondensateValve.registerParameterHandler(outputValues);
+        turbineSuperHeaterCondensateValve.registerSignalListener(controller);
+        for (int idx = 0; idx < 5; idx++) {
+            turbineLowPressureTapValve[idx].registerParameterHandler(outputValues);
+            turbineLowPressureTapValve[idx].registerSignalListener(controller);
+        }
 
         // Attach Signal Listeners or Handlers to Control elements
         for (int idx = 0; idx < 2; idx++) {
@@ -1289,19 +1416,36 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationHotwellPump[idx].getDischargeValve().connectTo(
                     condensationPumpOut);
         }
-        //condensationEjectorDummy.connectBetween(
-        //        condensationPumpOut, condensationBoosterPumpIn);
+
         // The main ejectors are here between those pumps, but that is handled
         // a bit later in code.
         for (int idx = 0; idx < condensationCondensatePump.length; idx++) {
             condensationCondensatePump[idx].getSuctionValve().connectTo(
                     condensationBoosterPumpIn);
             condensationCondensatePump[idx].getDischargeValve().connectTo(
-                    condensationBoosterPumpOut);
+                    preheater[0].getHeatNode(
+                            PhasedCondenserNoMass.SECONDARY_IN));
         }
+
+        // Condensate gets pumped through secondary side of low pressure 
+        // preheater and heated up there. Connect the preheaters with a 
+        // resistance element inbetween them.
+        preheaterPiping[0].connectBetween(
+                preheater[0].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_OUT),
+                preheater[1].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_IN));
+        preheaterPiping[1].connectBetween(
+                preheater[1].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_OUT),
+                preheater[2].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_IN));
+
+        // Valve to deaerator
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].getValveElement().connectBetween(
-                    condensationBoosterPumpOut,
+                    preheater[2].getHeatNode(
+                            PhasedCondenserNoMass.SECONDARY_OUT),
                     condensationValveOut[idx]);
             condensationToDeaeratorConverter[idx].connectBetween(
                     condensationValveOut[idx], deaeratorInNode[idx]);
@@ -1341,10 +1485,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Main ejectors: The condensate will be pumped through the secondary 
         // side, this will warm it up a bit. It is already converted to heat
         // fluid domain. The primary sides are connected to a turbine tap.
-        ejectorDummyTurbineTap.connectTo(ejectorDummyTurbineNode);
         for (int idx = 0; idx < 3; idx++) {
             ejectorMainSteamValve[idx].getValveElement().connectBetween(
-                    ejectorDummyTurbineNode,
+                    ejectorTurbineTapNode,
                     ejectorMain[idx].getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
             ejectorMainCondensate[idx].connectBetween(
                     ejectorMain[idx].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
@@ -1376,6 +1519,94 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ejectorToHotwellHeatNode, ejectorToHotwellPhasedNode);
         hotwell.getPrimarySideReservoir().connectTo(
                 ejectorToHotwellPhasedNode);
+
+        // Low pressure preheaters condensate flow: This is pressure based and
+        // the preheater will just push the condensate to the previous one
+        preheaterCondensateValve[2].getValveElement().connectBetween(
+                preheater[2].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
+                preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
+        preheaterCondensateValve[1].getValveElement().connectBetween(
+                preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
+                preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
+        preheaterCondensateValve[0].getValveElement().connectBetween(
+                preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
+
+        // Turbine
+        // Turbine valves from steam drums to common collector node
+        for (int idx = 0; idx < 2; idx++) {
+            // Main steam valve:
+            turbineMainSteamValve[idx].getValveElement().connectBetween(
+                    mainSteam[idx], turbineSteamIn);
+            // Startup path:
+            turbineStartupShutoffValve[idx].getValveElement().connectBetween(
+                    mainSteam[idx], turbineStartupValveNodes[idx]);
+            turbineStartupSteamValve[idx].getValveElement().connectBetween(
+                    turbineStartupValveNodes[idx], turbineSteamIn);
+        }
+        turbineHighPressureInValve.getValveElement().connectBetween(
+                turbineSteamIn, turbineHighPressureIn);
+        // High pressure ends in the secondary loop of the superheater
+        turbineHighPressure.connectBetween(turbineHighPressureIn,
+                turbineSuperHeater.getPhasedNode(PhasedSuperheater.SECONDARY_IN)
+        );
+        // Superheater goes to a shutoff valve - this is quite non realistic 
+        // but why not.
+        turbineLowPressureValve.getValveElement().connectBetween(
+                turbineSuperHeater.getPhasedNode(PhasedSuperheater.SECONDARY_OUT),
+                turbineLowPressureIn);
+        // Superheater primary side
+        turbineSuperHeaterPriShutValve.getValveElement()
+                .connectBetween(turbineSteamIn,
+                        turbineSuperHeaterCondensateValvesMidNode);
+        turbineSuperHeaterPriControlValve.getValveElement()
+                .connectBetween(turbineSuperHeaterCondensateValvesMidNode,
+                        turbineSuperHeater.getPhasedNode(
+                                PhasedSuperheater.PRIMARY_IN));
+        turbineSuperHeaterCondensateShutoffValve.getValveElement()
+                .connectBetween(turbineSuperHeater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT),
+                        turbineSuperHeaterCondensateValvesMidNode);
+        turbineSuperHeaterCondensateValve.getValveElement()
+                .connectBetween( // Condensate to hotwell / condenser:
+                        turbineSuperHeaterCondensateValvesMidNode,
+                        hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+
+        // Turbine Low pressure path
+        turbineLowPressureStage[0].connectTo(turbineLowPressureIn); // 1st stage
+        for (int idx = 0; idx < 6; idx++) {
+            if (idx >= 1) {
+                turbineLowPressureStage[idx].connectTo(
+                        turbineLowPressureStageOut[idx - 1]);
+            }
+            if (idx <= 4) {
+                turbineLowPressureStage[idx].connectTo(
+                        turbineLowPressureStageOut[idx]);
+            }
+        }
+        // Last stage into condenser:
+        turbineLowPressureStage[5].connectTo(
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+        // connect turbine taps, also represented as resistors. Each ends on a
+        // node that will be connected to other components later.
+        for (int idx = 0; idx < 5; idx++) {
+            turbineLowPressureTap[idx].connectBetween(
+                    turbineLowPressureStageOut[idx],
+                    turbineLowPressureTapOut[idx]);
+            turbineLowPressureTapValve[idx].getValveElement().connectTo(
+                    turbineLowPressureTapOut[idx]);
+        }
+        // Connect the out sides of the turbine tap valves:
+        turbineLowPressureTapValve[0].getValveElement().connectTo(
+                preheater[2].getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+        turbineLowPressureTapValve[1].getValveElement().connectTo(
+                deaeratorSteamMiddle);
+        turbineLowPressureTapValve[2].getValveElement().connectTo(
+                preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+        turbineLowPressureTapValve[3].getValveElement().connectTo(
+                ejectorTurbineTapNode);
+        turbineLowPressureTapValve[4].getValveElement().connectTo(
+                preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Element properties">
@@ -1625,14 +1856,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationCondensatePump[idx].initCharacteristic(10e5, 6e5, 1556);
         }
         // 3 bar diff on full opening at 1555 kg/s
+        // this was 800, reduced to 400 and added 400 on preheater piping.
         for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].initCharacteristic(800, -1);
+            condensationValveToDA[idx].initCharacteristic(400, -1);
         }
+        // Todo: make some proper resistance values on the preheaters
+        preheaterPiping[0].setResistanceParameter(200);
+        preheaterPiping[1].setResistanceParameter(200);
 
         // The makup storage pump makes 200 kg/s at 4.0 bars
         hotwellFillValve.initCharacteristic(2000, 10);
         hotwellDrainValve.initCharacteristic(2000, 20);
-        
+
         // Condenser Coolant
         condenserCoolantSource.setOriginTemperature(273.15 + 22.5);
         condenserCoolant.initCharacteristic(44000, 5.0);
@@ -1730,11 +1965,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             auxCondensers[idx].initConditions(320, 320, 0.8);
         }
-        hotwell.initConditions(280, 280, 0.2);
-        
+        hotwell.initConditions(273.15 + 22.5, 273.15 + 22.5, 0.2);
+
         // start with full hotwell cooling
         condenserCoolant.initFlow(44000);
-        
+
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
         // but it triggers a huge step of building up all the network and
@@ -1829,6 +2064,23 @@ public class ThermalLayout extends Subsystem implements Runnable {
             runner.submit(ejectorMainFlowOut[idx]);
         }
         runner.submit(ejectorMainBypass);
+        for (int idx = 0; idx < 3; idx++) {
+            runner.submit(preheaterCondensateValve[idx]);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(turbineMainSteamValve[idx]);
+            runner.submit(turbineStartupShutoffValve[idx]);
+            runner.submit(turbineStartupSteamValve[idx]);
+        }
+        runner.submit(turbineHighPressureInValve);
+        runner.submit(turbineLowPressureValve);
+        runner.submit(turbineSuperHeaterPriShutValve);
+        runner.submit(turbineSuperHeaterPriControlValve);
+        runner.submit(turbineSuperHeaterCondensateShutoffValve);
+        runner.submit(turbineSuperHeaterCondensateValve);
+        for (int idx = 0; idx < 5; idx++) {
+            runner.submit(turbineLowPressureTapValve[idx]);
+        }
 
         // Add Solo control loops
         runner.submit(blowdownBalanceControlLoop);
@@ -2452,28 +2704,28 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("AuxCond1SteamFlow");
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
                 return auxCondSteamValve[0].getValveElement().getFlow();
-                
+
             }
         });
         am.defineAlarm(30.0, AlarmState.HIGH1);
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("AuxCond2SteamFlow");
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
                 return auxCondSteamValve[1].getValveElement().getFlow();
-                
+
             }
         });
         am.defineAlarm(30.0, AlarmState.HIGH1);
@@ -2498,7 +2750,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return condensationBoosterPumpOut.getEffort() * 1e-5; // Pa-bar
+                return preheater[0].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_IN)
+                        .getEffort() * 1e-5; // Pa-bar
             }
         });
         am.defineAlarm(5.0, AlarmState.LOW1);
@@ -2607,7 +2861,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 || alarmManager.isAlarmActive(
                         "AuxCond2Temp", AlarmState.MAX1))
         );
-        
 
         // Hotwell
         hotwellDrainValve.addSafeClosedProvider(()
@@ -2923,6 +3176,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Hotwell#Pressure", // m to cm
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_INNER)
                         .getEffort() / 100000); // bar absolute
+        outputValues.setParameterValue("Hotwell#Temperature",
+                hotwell.getPrimarySideReservoir().getTemperature() - 273.15);
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Condensation" + (idx + 1) + "#FlowToDA",
@@ -2937,6 +3192,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getTemperature() - 273.15);
         outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
+        
+        for (int idx = 0; idx < 3; idx++) {
+            outputValues.setParameterValue(
+                    "Preheater" + (idx + 1) + "#Level",
+                    preheater[idx].getPrimarySideReservoir()
+                            .getFillHeight() * 100 );
+            outputValues.setParameterValue(
+                    "Preheater" + (idx + 1) + "#Temperature",
+                    preheater[idx].getPrimarySideReservoir()
+                            .getTemperature() - 273.15 );
+        }
         // </editor-fold>
     }
 
@@ -3208,6 +3474,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
             makeupPumps[0].handleAction(ac);
             makeupPumps[1].handleAction(ac);
 
+            preheaterCondensateValve[0].handleAction(ac);
+            preheaterCondensateValve[1].handleAction(ac);
+            preheaterCondensateValve[2].handleAction(ac);
+
+            for (int idx = 0; idx < 2; idx++) {
+                turbineMainSteamValve[idx].handleAction(ac);
+                turbineStartupShutoffValve[idx].handleAction(ac);
+                turbineStartupSteamValve[idx].handleAction(ac);
+            }
+            turbineHighPressureInValve.handleAction(ac);
+            turbineSuperHeaterPriShutValve.handleAction(ac);
+            turbineSuperHeaterCondensateShutoffValve.handleAction(ac);
+            turbineSuperHeaterCondensateValve.handleAction(ac);
+            turbineLowPressureValve.handleAction(ac);
+            for (int idx = 0; idx < 5; idx++) {
+                turbineLowPressureTapValve[idx].handleAction(ac);
+            }
+            
             if (ac.getPropertyName().equals("SetCoreOnly")) {
                 noReactorInput = true;
             }

@@ -50,25 +50,18 @@ public class MainLoop implements Runnable, ModelManipulation {
     long initialIterations = 0;
 
     public void init() {
-        try {
-            core.registerAlarmManager(alarms);
-            core.init();
-            core.registerParameterOutput(outputValues);
-            core.registerController(controller);
+        core.registerAlarmManager(alarms);
+        core.init();
+        core.registerParameterOutput(outputValues);
+        core.registerController(controller);
 
-            process.registerReactor(core);
-            process.registerParameterOutput(outputValues);
-            process.registerController(controller);
-            process.registerAlarmManager(alarms);
-            process.init();
-            
-            indicator1.setCore(core);
+        process.registerReactor(core);
+        process.registerParameterOutput(outputValues);
+        process.registerController(controller);
+        process.registerAlarmManager(alarms);
+        process.init();
 
-        } catch (Exception e) {
-            // Throw exception as error message popup
-            ExceptionPopup.show(e);
-            System.exit(0);
-        }
+        indicator1.setCore(core);
     }
 
     @Override
