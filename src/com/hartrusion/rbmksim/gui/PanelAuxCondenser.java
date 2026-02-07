@@ -295,7 +295,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
                 jTogglePressureControl1ActionPerformed(evt);
             }
         });
-        add(jTogglePressureControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, 22, 20));
+        add(jTogglePressureControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, 20, 20));
 
         jToggleButtonGlobalEnable1.setFont(jToggleButtonGlobalEnable1.getFont().deriveFont(jToggleButtonGlobalEnable1.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonGlobalEnable1.setText("←");
@@ -306,7 +306,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
                 jToggleButtonGlobalEnable1ActionPerformed(evt);
             }
         });
-        add(jToggleButtonGlobalEnable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 206, 22, 20));
+        add(jToggleButtonGlobalEnable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 206, 20, 20));
 
         jLabelCaptionSteamIn1.setFont(jLabelCaptionSteamIn1.getFont().deriveFont(jLabelCaptionSteamIn1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSteamIn1.getFont().getSize()-2));
         jLabelCaptionSteamIn1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

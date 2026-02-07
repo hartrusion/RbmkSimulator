@@ -296,7 +296,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jToggleButtonjToggleButtonBalanceControlActionPerformed(evt);
             }
         });
-        add(jToggleButtonBalanceControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 40, 22, 20));
+        add(jToggleButtonBalanceControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 40, 20, 20));
 
         jLabelCaptionBlowdownLoop2.setFont(jLabelCaptionBlowdownLoop2.getFont().deriveFont(jLabelCaptionBlowdownLoop2.getFont().getSize()-2f));
         jLabelCaptionBlowdownLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -558,7 +558,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jToggleButtonAutoDrainActionPerformed(evt);
             }
         });
-        add(jToggleButtonAutoDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 188, 22, 20));
+        add(jToggleButtonAutoDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 188, 20, 20));
 
         jLabelCaptionBalanceControl3.setFont(jLabelCaptionBalanceControl3.getFont().deriveFont(jLabelCaptionBalanceControl3.getFont().getSize()-2f));
         jLabelCaptionBalanceControl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

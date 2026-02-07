@@ -185,10 +185,10 @@ public class PanelWidgetTrimmablePump extends AbstractPanelWidget {
                 jToggleButtonPumpActionPerformed(evt);
             }
         });
-        add(jToggleButtonPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 126, 22, 20));
+        add(jToggleButtonPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 126, 20, 20));
 
         lightBulbReady.setForeground(new java.awt.Color(0, 255, 0));
-        add(lightBulbReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 117, -1, -1));
+        add(lightBulbReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 117, -1, -1));
 
         lightBulbInService.setForeground(new java.awt.Color(255, 0, 0));
         add(lightBulbInService, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 117, -1, -1));
