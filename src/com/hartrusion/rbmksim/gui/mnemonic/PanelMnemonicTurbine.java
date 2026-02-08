@@ -113,6 +113,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingReheaterLevel = new javax.swing.JLabel();
         jLabelReadingHPOutTemp = new javax.swing.JLabel();
         jLabelReadingReheaterFlow = new javax.swing.JLabel();
+        jLabelReadingReheaterCondTemp = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -338,7 +339,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingValve4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingValve4.setText("___");
         jLabelReadingValve4.setOpaque(true);
-        add(jLabelReadingValve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 40, 24, -1));
+        add(jLabelReadingValve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 2, 24, -1));
 
         jLabelReadingValveReheaterCondensate.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingValveReheaterCondensate.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -468,9 +469,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingLPInTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingLPInTemp.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingLPInTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingLPInTemp.setText("___ °C");
+        jLabelReadingLPInTemp.setText("___,_ °C");
         jLabelReadingLPInTemp.setOpaque(true);
-        add(jLabelReadingLPInTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 24, 64, 16));
+        add(jLabelReadingLPInTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 24, 58, 16));
 
         jLabelReadingReheaterLevel.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingReheaterLevel.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -487,7 +488,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHPOutTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingHPOutTemp.setText("___._ °C");
         jLabelReadingHPOutTemp.setOpaque(true);
-        add(jLabelReadingHPOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 68, 64, 16));
+        add(jLabelReadingHPOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 40, 58, 16));
 
         jLabelReadingReheaterFlow.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingReheaterFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -496,6 +497,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingReheaterFlow.setText("___ kg/s");
         jLabelReadingReheaterFlow.setOpaque(true);
         add(jLabelReadingReheaterFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 6, 56, 16));
+
+        jLabelReadingReheaterCondTemp.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingReheaterCondTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingReheaterCondTemp.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingReheaterCondTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingReheaterCondTemp.setText("___,_ °C");
+        jLabelReadingReheaterCondTemp.setOpaque(true);
+        add(jLabelReadingReheaterCondTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 84, 58, 16));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -526,6 +535,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingHotwellPressure;
     private javax.swing.JLabel jLabelReadingHotwellTemperature;
     private javax.swing.JLabel jLabelReadingLPInTemp;
+    private javax.swing.JLabel jLabelReadingReheaterCondTemp;
     private javax.swing.JLabel jLabelReadingReheaterFlow;
     private javax.swing.JLabel jLabelReadingReheaterLevel;
     private javax.swing.JLabel jLabelReadingSteamIn1Flow;
@@ -803,9 +813,18 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Turbine#ReheaterLevel" ->
                 jLabelReadingReheaterLevel.setText(
                         String.format("%3.0f", newValue) + " cm");
+            case "Turbine#ReheaterCondTemp" ->
+                jLabelReadingReheaterCondTemp.setText(
+                        String.format("%5.1f", newValue) + " °C");
             case "Turbine#HPOutTemp" ->
                 jLabelReadingHPOutTemp.setText(
                         String.format("%4.1f", newValue) + " °C");
+            case "Turbine#LPInTemp" ->
+                jLabelReadingLPInTemp.setText(
+                        String.format("%4.1f", newValue) + " °C");
+            case "Turbine#ReheaterSteamInFlow" ->
+                jLabelReadingReheaterFlow.setText(
+                        String.format("%3.0f", newValue) + " kg/s");
 
         }
     }

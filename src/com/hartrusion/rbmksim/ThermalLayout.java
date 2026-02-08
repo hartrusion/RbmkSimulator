@@ -3274,9 +3274,29 @@ public class ThermalLayout extends Subsystem implements Runnable {
                                     .getEffort()
                     ) - 273.15);
         }
+        if (!turbineReheater.getPhasedNode(
+                PhasedSuperheater.SECONDARY_OUT)
+                .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
+            outputValues.setParameterValue("Turbine#LPInTemp",
+                    phasedWater.getTemperature(
+                            turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.SECONDARY_OUT)
+                                    .getHeatEnergy(
+                                            turbineLowPressureTripValve
+                                                    .getValveElement()),
+                            turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.SECONDARY_OUT)
+                                    .getEffort()
+                    ) - 273.15);
+        }
         outputValues.setParameterValue("Turbine#ReheaterLevel",
                 turbineReheater.getPrimarySideReservoir()
                         .getFillHeight() * 100); // m to cm
+        outputValues.setParameterValue("Turbine#ReheaterCondTemp",
+                turbineReheater.getPrimarySideReservoir()
+                        .getTemperature() - 273.15); // K to °C
+        outputValues.setParameterValue("Turbine#ReheaterSteamInFlow",
+                turbineReheater.getPrimarySideCondenser().getFlow());
 
         // </editor-fold>
     }
