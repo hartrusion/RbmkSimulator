@@ -812,6 +812,9 @@
           </Constraints>
         </Component>
         <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoopValve" name="controlLoopValveSteamIn">
+          <Properties>
+            <Property name="component" type="java.lang.String" value="Turbine#ReheaterPriControlValve"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="108" y="10" width="-1" height="-1"/>
@@ -885,9 +888,10 @@
         </Component>
         <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="controlLoopHotwellDrain">
           <Properties>
-            <Property name="controlComponent" type="java.lang.String" value="Hotwell#DrainValve"/>
-            <Property name="feedbackComponent" type="java.lang.String" value="Hotwell#Level"/>
-            <Property name="setpointComponent" type="java.lang.String" value="Hotwell#UpperSetpoint"/>
+            <Property name="controlComponent" type="java.lang.String" value="Turbine#ReheaterCondensateValve"/>
+            <Property name="feedbackComponent" type="java.lang.String" value="unknown"/>
+            <Property name="setpointComponent" type="java.lang.String" value="unknown"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

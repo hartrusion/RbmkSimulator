@@ -39,12 +39,12 @@
           <Color blue="a6" green="ff" red="e7" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="___ &#xb0;C"/>
+        <Property name="text" type="java.lang.String" value="__,_ &#xb0;C"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="244" y="220" width="64" height="16"/>
+          <AbsoluteConstraints x="252" y="220" width="56" height="16"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -123,7 +123,7 @@
           <Color blue="a6" green="ff" red="e7" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="___ &#xb0;C"/>
+        <Property name="text" type="java.lang.String" value="___,_ &#xb0;C"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -144,7 +144,7 @@
           <Color blue="a6" green="ff" red="e7" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="___ bar"/>
+        <Property name="text" type="java.lang.String" value="__,_ bar"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -186,7 +186,7 @@
           <Color blue="a6" green="ff" red="e7" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="___ &#xb0;C"/>
+        <Property name="text" type="java.lang.String" value="___,_ &#xb0;C"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -207,7 +207,7 @@
           <Color blue="a6" green="ff" red="e7" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="___ bar"/>
+        <Property name="text" type="java.lang.String" value="__,_ bar"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -1202,7 +1202,7 @@
           <Color blue="a6" green="ff" red="e7" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="___ &#xb0;C"/>
+        <Property name="text" type="java.lang.String" value="___._ &#xb0;C"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>

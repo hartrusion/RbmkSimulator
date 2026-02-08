@@ -3536,6 +3536,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
             turbineHighPressureTripValve.handleAction(ac);
             turbineReheaterPriShutValve.handleAction(ac);
+            turbineReheaterPriControlValve.handleAction(ac);
             turbineReheaterCondensateShutoffValve.handleAction(ac);
             turbineReheaterCondensateValve.handleAction(ac);
             turbineLowPressureTripValve.handleAction(ac);

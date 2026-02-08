@@ -124,9 +124,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingCoolantOutTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingCoolantOutTemp.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingCoolantOutTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingCoolantOutTemp.setText("___ °C");
+        jLabelReadingCoolantOutTemp.setText("__,_ °C");
         jLabelReadingCoolantOutTemp.setOpaque(true);
-        add(jLabelReadingCoolantOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 220, 64, 16));
+        add(jLabelReadingCoolantOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 220, 56, 16));
 
         jLabelReadingCondensatePumpsPressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondensatePumpsPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -156,7 +156,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingSteamIn2Temp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingSteamIn2Temp.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingSteamIn2Temp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingSteamIn2Temp.setText("___ °C");
+        jLabelReadingSteamIn2Temp.setText("___,_ °C");
         jLabelReadingSteamIn2Temp.setOpaque(true);
         add(jLabelReadingSteamIn2Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 372, 64, 16));
 
@@ -164,7 +164,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingSteamIn2Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingSteamIn2Pressure.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingSteamIn2Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingSteamIn2Pressure.setText("___ bar");
+        jLabelReadingSteamIn2Pressure.setText("__,_ bar");
         jLabelReadingSteamIn2Pressure.setOpaque(true);
         add(jLabelReadingSteamIn2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 392, 64, 16));
 
@@ -180,7 +180,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingSteamIn1Temp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingSteamIn1Temp.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingSteamIn1Temp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingSteamIn1Temp.setText("___ °C");
+        jLabelReadingSteamIn1Temp.setText("___,_ °C");
         jLabelReadingSteamIn1Temp.setOpaque(true);
         add(jLabelReadingSteamIn1Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 372, 64, 16));
 
@@ -188,7 +188,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingSteamIn1Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingSteamIn1Pressure.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingSteamIn1Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingSteamIn1Pressure.setText("___ bar");
+        jLabelReadingSteamIn1Pressure.setText("__,_ bar");
         jLabelReadingSteamIn1Pressure.setOpaque(true);
         add(jLabelReadingSteamIn1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 392, 64, 16));
 
@@ -485,7 +485,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHPOutTemp.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabelReadingHPOutTemp.setForeground(new java.awt.Color(231, 255, 166));
         jLabelReadingHPOutTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingHPOutTemp.setText("___ °C");
+        jLabelReadingHPOutTemp.setText("___._ °C");
         jLabelReadingHPOutTemp.setOpaque(true);
         add(jLabelReadingHPOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 68, 64, 16));
 
@@ -688,11 +688,11 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                 valveMain1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Main2#SteamShutoffValve_Pos" ->
                 valveMain2.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#HighPressureTripValve" ->
+            case "Turbine#HighPressureTripValve_Pos" ->
                 valveHighPressure.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#LowPressureTripValve" ->
+            case "Turbine#LowPressureTripValve_Pos" ->
                 valveLowPressure.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#ReheaterPriShutValve" ->
+            case "Turbine#ReheaterPriShutValve_Pos" ->
                 valveReheaterIn.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine#ReheaterPriControlValve_Pos" ->
                 valveReheaterInReg.setActive(evt.getNewValue() != ValveState.CLOSED);
@@ -703,15 +703,15 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                     valveReheaterInReg.setControlIndicatorActive(false);
                 }
             }
-            case "Turbine#ReheaterCondensateShutoffValve" ->
-                valveReheaterIn.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine#ReheaterCondensateShutoffValve_Pos" ->
+                valveReheaterCondensate.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine#ReheaterCondensateValve_Pos" ->
-                valveReheaterInReg.setActive(evt.getNewValue() != ValveState.CLOSED);
+                valveReheaterCondensateReg.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine#ReheaterCondensateValveControlState" -> {
                 if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
-                    valveReheaterInReg.setControlIndicatorActive(true);
+                    valveReheaterCondensateReg.setControlIndicatorActive(true);
                 } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
-                    valveReheaterInReg.setControlIndicatorActive(false);
+                    valveReheaterCondensateReg.setControlIndicatorActive(false);
                 }
             }
         }
@@ -727,42 +727,37 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         switch (propertyName) {
             case "Loop1#DrumTemperature" ->
                 jLabelReadingSteamIn1Temp.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
+                        String.format("%5.1f", newValue) + " °C");
             case "Loop1#DrumPressure" ->
                 jLabelReadingSteamIn1Pressure.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " bar");
+                        String.format("%4.1f", newValue) + " bar");
             case "Turbine1#MainSteamFlow" ->
                 jLabelReadingSteamIn1Flow.setText(
-                        String.format("%.0f", newValue) + " kg/s");
+                        String.format("%4.0f", newValue) + " kg/s");
             case "Loop2#DrumTemperature" ->
                 jLabelReadingSteamIn2Temp.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
+                        String.format("%5.1f", newValue) + " °C");
             case "Loop2#DrumPressure" ->
                 jLabelReadingSteamIn2Pressure.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " bar");
+                        String.format("%4.1f", newValue) + " bar");
             case "Turbine2#MainSteamFlow" ->
                 jLabelReadingSteamIn2Flow.setText(
-                        String.format("%.0f", newValue) + " kg/s");
+                        String.format("%4.0f", newValue) + " kg/s");
             case "Hotwell#FillValve" ->
                 jLabelReadingHotwellFillValve.setText(
                         String.format("%.0f", newValue));
             case "Hotwell#FillFlow" ->
                 jLabelReadingHotwellFillFlow.setText(
-                        String.format("%.1f", newValue) + " kg/s");
+                        String.format("%3.0f", newValue) + " kg/s");
             case "Hotwell#DrainValve" ->
                 jLabelReadingHotwellDrainValve.setText(
                         String.format("%.0f", newValue));
             case "Hotwell#DrainFlow" ->
                 jLabelReadingHotwellDrainFlow.setText(
-                        String.format("%.1f", newValue) + " kg/s");
+                        String.format("%3.0f", newValue) + " kg/s");
             case "Condensation#HotwellPumpsPressure" ->
                 jLabelReadingCondensatePumpsPressure.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " bar");
+                        String.format("%.1f", newValue) + " bar");
             case "Hotwell#Level" ->
                 jLabelReadingHotwellLevel.setText(
                         String.format("%.1f", newValue) + " cm");
@@ -771,16 +766,16 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                         String.format("%.3f", newValue));
             case "Hotwell#Temperature" ->
                 jLabelReadingHotwellTemperature.setText(
-                        String.format("%.2f", newValue) + " °C");
+                        String.format("%3.1f", newValue) + " °C");
             case "Main1#SteamDump" ->
                 jLabelReadingBypass1.setText(
-                        String.format("%.0f", newValue));
+                        String.format("%3.0f", newValue));
             case "Main2#SteamDump" ->
                 jLabelReadingBypass2.setText(
-                        String.format("%.0f", newValue));
+                        String.format("%3.0f", newValue));
             case "CircCoolant#CondensorOutTemp" ->
                 jLabelReadingCoolantOutTemp.setText(
-                        String.format("%.2f", newValue) + " °C");
+                        String.format("%3.1f", newValue) + " °C");
             case "Turbine1#MainSteamValve" ->
                 jLabelReadingValve6.setText(
                         String.format("%3.0f", newValue));

@@ -456,6 +456,8 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelTempSetpoint.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelTempSetpoint.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel2.add(jLabelTempSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 88, -1));
+
+        controlLoopValveSteamIn.setComponent("Turbine#ReheaterPriControlValve");
         jPanel2.add(controlLoopValveSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 10, -1, -1));
 
         jLabelCaptionSuperheaterShutoff.setFont(jLabelCaptionSuperheaterShutoff.getFont().deriveFont(jLabelCaptionSuperheaterShutoff.getFont().getSize()-2f));
@@ -488,9 +490,10 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         jPanel2.add(jButtonSuperheaterShutoffOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 24, 20, 20));
 
-        controlLoopHotwellDrain.setControlComponent("Hotwell#DrainValve");
-        controlLoopHotwellDrain.setFeedbackComponent("Hotwell#Level");
-        controlLoopHotwellDrain.setSetpointComponent("Hotwell#UpperSetpoint");
+        controlLoopHotwellDrain.setControlComponent("Turbine#ReheaterCondensateValve");
+        controlLoopHotwellDrain.setFeedbackComponent("unknown");
+        controlLoopHotwellDrain.setSetpointComponent("unknown");
+        controlLoopHotwellDrain.setToolTipText("");
         jPanel2.add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 52, -1, -1));
 
         jLabelCaptionsuperheaterCond2.setFont(jLabelCaptionsuperheaterCond2.getFont().deriveFont(jLabelCaptionsuperheaterCond2.getFont().getSize()-2f));
@@ -1006,35 +1009,35 @@ public class PanelTurbine extends AbstractPanelWidget
     }//GEN-LAST:event_jButtonSpeedGradient3ActionPerformed
 
     private void jButtonHPShutCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHPShutCloseActionPerformed
-        controller.userAction(new ActionCommand("Blowdown#ValveRegeneratorToCooler", false));
+        controller.userAction(new ActionCommand("Turbine#HighPressureTripValve", false));
     }//GEN-LAST:event_jButtonHPShutCloseActionPerformed
 
     private void jButtonHPShutOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHPShutOpenActionPerformed
-        controller.userAction(new ActionCommand("Blowdown#ValveRegeneratorToCooler", true));
+        controller.userAction(new ActionCommand("Turbine#HighPressureTripValve", true));
     }//GEN-LAST:event_jButtonHPShutOpenActionPerformed
 
     private void jButtonLPShutCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLPShutCloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#LowPressureTripValve", false));
     }//GEN-LAST:event_jButtonLPShutCloseActionPerformed
 
     private void jButtenLPShutOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtenLPShutOpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#LowPressureTripValve", true));
     }//GEN-LAST:event_jButtenLPShutOpenActionPerformed
 
     private void jButtonSuperheaterCondShutoffCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuperheaterCondShutoffCloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#ReheaterCondensateShutoffValve", false));
     }//GEN-LAST:event_jButtonSuperheaterCondShutoffCloseActionPerformed
 
     private void jButtonSuperheaterCondShutoffOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuperheaterCondShutoffOpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#ReheaterCondensateShutoffValve", true));
     }//GEN-LAST:event_jButtonSuperheaterCondShutoffOpenActionPerformed
 
     private void jButtonSuperheaterShutoffCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuperheaterShutoffCloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#ReheaterPriShutValve", false));
     }//GEN-LAST:event_jButtonSuperheaterShutoffCloseActionPerformed
 
     private void jButtonSuperheaterShutoffOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuperheaterShutoffOpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#ReheaterPriShutValve", true));
     }//GEN-LAST:event_jButtonSuperheaterShutoffOpenActionPerformed
 
     private void jButtonProtectionRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProtectionRestActionPerformed
