@@ -789,6 +789,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemBlowdownActionPerformed(null);
         jMenuItemTurbineBypassActionPerformed(null);
         jMenuItemPreheatersActionPerformed(null);
+        jMenuItem1ActionPerformed(null);
         // Align them in a preset grid layout.
         // 1st row:
         jDesktopPane1.windowPlaceAtZero(
@@ -797,13 +798,16 @@ public class ControlRoom extends javax.swing.JFrame
                 getControlPanelInstance("Aux. Condensation"),
                 getControlPanelInstance("Reactor Controls"));
         jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Condensation"),
+                getControlPanelInstance("Turbine"),
                 getControlPanelInstance("Aux. Condensation"));
         jDesktopPane1.windowPlaceRightTo(
                 getControlPanelInstance("Turbine Bypass"),
-                getControlPanelInstance("Condensation"));
+                getControlPanelInstance("Turbine"));
         jDesktopPane1.windowPlaceBelow(
                 getControlPanelInstance("Preheaters"),
+                getControlPanelInstance("Turbine Bypass"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Deaerators"),
                 getControlPanelInstance("Turbine Bypass"));
 
         // 2nd row:
@@ -814,11 +818,11 @@ public class ControlRoom extends javax.swing.JFrame
                 getControlPanelInstance("Blowdown"),
                 getControlPanelInstance("Recirculation"));
         jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Deaerators"),
+                getControlPanelInstance("Condensation"),
                 getControlPanelInstance("Blowdown"));
         jDesktopPane1.windowPlaceRightTo(
                 getControlPanelInstance("Feedwater"),
-                getControlPanelInstance("Deaerators"));
+                getControlPanelInstance("Condensation"));
     }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
 
     private void jMenuItemPresetNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetNoneActionPerformed
