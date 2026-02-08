@@ -327,14 +327,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedNode turbineSteamIn;
     private final PhasedNode turbineHighPressureIn;
     private final PhasedLimitedPhaseSimpleFlowResistance turbineHighPressure;
-    private final PhasedValve turbineHighPressureInValve;
+    private final PhasedValve turbineHighPressureTripValve;
     private final PhasedValve turbineReheaterPriShutValve;
     private final PhasedValveControlled turbineReheaterPriControlValve;
     private final PhasedSuperheater turbineReheater;
     private final PhasedValve turbineReheaterCondensateShutoffValve;
     private final PhasedNode turbineReheaterCondensateValvesMidNode;
     private final PhasedValveControlled turbineReheaterCondensateValve;
-    private final PhasedValve turbineLowPressureValve;
+    private final PhasedValve turbineLowPressureTripValve;
     private final PhasedNode turbineLowPressureIn;
     private final PhasedLimitedPhaseSimpleFlowResistance[] turbineLowPressureStage
             = new PhasedLimitedPhaseSimpleFlowResistance[6];
@@ -899,8 +899,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineHighPressureIn.setName("Turbine#HighPressureIn");
         turbineHighPressure = new PhasedLimitedPhaseSimpleFlowResistance(phasedWater);
         turbineHighPressure.setName("Turbine#HighPressure");
-        turbineHighPressureInValve = new PhasedValve();
-        turbineHighPressureInValve.initName("Turbine#HighPressureInvalve");
+        turbineHighPressureTripValve = new PhasedValve();
+        turbineHighPressureTripValve.initName("Turbine#HighPressureTripValve");
         turbineReheaterPriShutValve = new PhasedValve();
         turbineReheaterPriShutValve.initName("Turbine#ReheaterPriShutValve");
         turbineReheaterPriControlValve = new PhasedValveControlled();
@@ -919,8 +919,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterCondensateValve.registerController(new PIControl());
         turbineReheaterCondensateValve.initName(
                 "Turbine#ReheaterCondensateValve");
-        turbineLowPressureValve = new PhasedValve();
-        turbineLowPressureValve.initName("Turbine#LowPressureValve");
+        turbineLowPressureTripValve = new PhasedValve();
+        turbineLowPressureTripValve.initName("Turbine#LowPressureTripValve");
         turbineLowPressureIn = new PhasedNode();
         turbineLowPressureIn.setName("Turbine#LowPressureIn");
         for (int idx = 0; idx < 6; idx++) {
@@ -1099,10 +1099,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineStartupSteamValve[idx].registerParameterHandler(outputValues);
             turbineStartupSteamValve[idx].registerSignalListener(controller);
         }
-        turbineHighPressureInValve.registerParameterHandler(outputValues);
-        turbineHighPressureInValve.registerSignalListener(controller);
-        turbineLowPressureValve.registerParameterHandler(outputValues);
-        turbineLowPressureValve.registerSignalListener(controller);
+        turbineHighPressureTripValve.registerParameterHandler(outputValues);
+        turbineHighPressureTripValve.registerSignalListener(controller);
+        turbineLowPressureTripValve.registerParameterHandler(outputValues);
+        turbineLowPressureTripValve.registerSignalListener(controller);
         turbineReheaterPriShutValve.registerParameterHandler(outputValues);
         turbineReheaterPriShutValve.registerSignalListener(controller);
         turbineReheaterPriControlValve.registerParameterHandler(outputValues);
@@ -1544,7 +1544,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineStartupSteamValve[idx].getValveElement().connectBetween(
                     turbineStartupValveNodes[idx], turbineSteamIn);
         }
-        turbineHighPressureInValve.getValveElement().connectBetween(
+        turbineHighPressureTripValve.getValveElement().connectBetween(
                 turbineSteamIn, turbineHighPressureIn);
         // High pressure ends in the secondary loop of the superheater
         turbineHighPressure.connectBetween(turbineHighPressureIn,
@@ -1552,7 +1552,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         );
         // Superheater goes to a shutoff valve - this is quite non realistic 
         // but why not.
-        turbineLowPressureValve.getValveElement().connectBetween(
+        turbineLowPressureTripValve.getValveElement().connectBetween(
                 turbineReheater.getPhasedNode(PhasedSuperheater.SECONDARY_OUT),
                 turbineLowPressureIn);
         // Superheater primary side
@@ -1878,7 +1878,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainFlowReistance[idx].setResistanceParameter(95);
         }
         ejectorMainBypass.initCharacteristic(200, -1);
-        
+
         // Turbine: fresh steam from drums is 1555 kg/s with 4_440_030 J/kg
         // as we have 69 bars with 284 °C with X=1.0 from drums.
         // After HD turbine: x=0.85 3.5 bar 137 °C - 3_507_630 J/kg
@@ -1890,11 +1890,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // m1 + m2 = 1555 it is m1=1183 and m2=372 kg/s flows.
         // Therefore resistance of HD: (69e5 Pa-3.5e5 Pe) / 1183 kg/s
         // is R_HD = 5536.7 Pa/kg*s 
-
         turbineHighPressure.setResistanceParameter(5537);
         turbineHighPressure.setOutVaporFraction(0.85);
 
-                // ND turbine part: 3.5 bar to almost 0 at condensation with 
+        // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
         // The turbine will need a minimum pressure of 10 bars 
         turbineLowPressureStage[0].setResistanceParameter(60);
@@ -1903,9 +1902,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[3].setResistanceParameter(60);
         turbineLowPressureStage[4].setResistanceParameter(60);
         turbineLowPressureStage[5].setResistanceParameter(60);
-        
+
         turbineReheater.initCharacteristic(25, 500, 5e2, 0.0);
-        
+
         // Resistance to Reheater in: (69e5 Pa-4.4e5 Pe) / 372 kg/s
         // both valves full open will have sum R of 17365 Pa/kg*s 
         // Reistance of Reheater condensate: 4.4 e6 Pa / 372 kg/s
@@ -1916,7 +1915,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
 //        turbineReheaterPriControlValve.initCharacteristic(9000, -1);
 //        turbineReheaterCondensateShutoffValve.initCharacteristic(500, -1);
 //        turbineReheaterCondensateValve.initCharacteristic(500, -1);
-        
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
@@ -2110,8 +2108,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             runner.submit(turbineStartupShutoffValve[idx]);
             runner.submit(turbineStartupSteamValve[idx]);
         }
-        runner.submit(turbineHighPressureInValve);
-        runner.submit(turbineLowPressureValve);
+        runner.submit(turbineHighPressureTripValve);
+        runner.submit(turbineLowPressureTripValve);
         runner.submit(turbineReheaterPriShutValve);
         runner.submit(turbineReheaterPriControlValve);
         runner.submit(turbineReheaterCondensateShutoffValve);
@@ -3230,16 +3228,31 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getTemperature() - 273.15);
         outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
-        
+
         for (int idx = 0; idx < 3; idx++) {
             outputValues.setParameterValue(
                     "Preheater" + (idx + 1) + "#Level",
                     preheater[idx].getPrimarySideReservoir()
-                            .getFillHeight() * 100 );
+                            .getFillHeight() * 100);
             outputValues.setParameterValue(
                     "Preheater" + (idx + 1) + "#Temperature",
                     preheater[idx].getPrimarySideReservoir()
-                            .getTemperature() - 273.15 );
+                            .getTemperature() - 273.15);
+        }
+
+        // Flow to turbine and startup ejectors, this is displayed as main flow
+        // to turbine system on turbine panel. Includes the steam dump valves.
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "Turbine" + (idx + 1) + "#MainSteamFlow",
+                    mainSteam[idx].getFlow(
+                            turbineMainSteamValve[idx].getValveElement())
+                    + mainSteam[idx].getFlow(
+                            turbineStartupShutoffValve[idx].getValveElement())
+                    + mainSteam[idx].getFlow(
+                            mainSteamDump[idx].getValveElement())       
+                    + mainSteam[idx].getFlow(
+                            ejectorStartup[idx].getValveElement()));
         }
         // </editor-fold>
     }
@@ -3521,15 +3534,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineStartupShutoffValve[idx].handleAction(ac);
                 turbineStartupSteamValve[idx].handleAction(ac);
             }
-            turbineHighPressureInValve.handleAction(ac);
+            turbineHighPressureTripValve.handleAction(ac);
             turbineReheaterPriShutValve.handleAction(ac);
             turbineReheaterCondensateShutoffValve.handleAction(ac);
             turbineReheaterCondensateValve.handleAction(ac);
-            turbineLowPressureValve.handleAction(ac);
+            turbineLowPressureTripValve.handleAction(ac);
             for (int idx = 0; idx < 5; idx++) {
                 turbineLowPressureTapValve[idx].handleAction(ac);
             }
-            
+
             if (ac.getPropertyName().equals("SetCoreOnly")) {
                 noReactorInput = true;
             }
