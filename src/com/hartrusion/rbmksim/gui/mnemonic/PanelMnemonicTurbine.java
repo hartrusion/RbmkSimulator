@@ -800,6 +800,13 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Turbine#ReheaterCondensateValve" ->
                 jLabelReadingValveReheaterCondensate.setText(
                         String.format("%3.0f", newValue));
+            case "Turbine#ReheaterLevel" ->
+                jLabelReadingReheaterLevel.setText(
+                        String.format("%3.0f", newValue) + " cm");
+            case "Turbine#HPOutTemp" ->
+                jLabelReadingHPOutTemp.setText(
+                        String.format("%4.1f", newValue) + " °C");
+
         }
     }
 

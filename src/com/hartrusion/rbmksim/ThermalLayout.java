@@ -54,7 +54,6 @@ import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedLimitedPhaseSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
-import com.hartrusion.modeling.phasedfluid.PhasedOrigin;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
@@ -2006,6 +2005,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // start with full hotwell cooling
         condenserCoolant.initFlow(44000);
 
+        // Turbine: Reheater
+        turbineReheater.initConditions(273.15 + 22.5,
+                (273.15 + 22.5) * phasedWater.getSpecificHeatCapacity(),
+                0.5, 0.0);
+
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
         // but it triggers a huge step of building up all the network and
@@ -3250,10 +3254,30 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     + mainSteam[idx].getFlow(
                             turbineStartupShutoffValve[idx].getValveElement())
                     + mainSteam[idx].getFlow(
-                            mainSteamDump[idx].getValveElement())       
+                            mainSteamDump[idx].getValveElement())
                     + mainSteam[idx].getFlow(
                             ejectorStartup[idx].getValveElement()));
         }
+        // HP out temperature: Only available if there is some heat energy
+        // as the node does not store anything.
+        if (!turbineReheater.getPhasedNode(
+                PhasedSuperheater.SECONDARY_IN)
+                .noHeatEnergy(turbineHighPressure)) {
+            outputValues.setParameterValue("Turbine#HPOutTemp",
+                    phasedWater.getTemperature(
+                            turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.SECONDARY_IN)
+                                    .getHeatEnergy(
+                                            turbineHighPressure),
+                            turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.SECONDARY_IN)
+                                    .getEffort()
+                    ) - 273.15);
+        }
+        outputValues.setParameterValue("Turbine#ReheaterLevel",
+                turbineReheater.getPrimarySideReservoir()
+                        .getFillHeight() * 100); // m to cm
+
         // </editor-fold>
     }
 

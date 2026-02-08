@@ -1211,6 +1211,24 @@ public class PanelTurbine extends AbstractPanelWidget
         setpointControlTemperature.updateComponent(evt);
         integralSwitch1.updateComponent(evt);
         integralSwitch2.updateComponent(evt);
+        switch (evt.getPropertyName()) {
+            case "Turbine#ReheaterPriShutValve_Pos":
+                setValveButtons(jButtonSuperheaterShutoffClose,
+                        jButtonSuperheaterShutoffOpen, evt.getNewValue());
+                break;
+            case "Turbine#ReheaterCondensateShutoffValve_Pos":
+                setValveButtons(jButtonSuperheaterCondShutoffClose,
+                        jButtonSuperheaterCondShutoffOpen, evt.getNewValue());
+                break;
+            case "Turbine#HighPressureTripValve_Pos":
+                setValveButtons(jButtonHPShutClose,
+                        jButtonHPShutOpen, evt.getNewValue());
+                break;
+            case "Turbine#LowPressureTripValve_Pos":
+                setValveButtons(jButtonLPShutClose,
+                        jButtenLPShutOpen, evt.getNewValue());
+                break;
+        }
     }
 
     @Override
