@@ -114,6 +114,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingHPOutTemp = new javax.swing.JLabel();
         jLabelReadingReheaterFlow = new javax.swing.JLabel();
         jLabelReadingReheaterCondTemp = new javax.swing.JLabel();
+        jLabelReadingLowPressureFlow = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -506,6 +507,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingReheaterCondTemp.setOpaque(true);
         add(jLabelReadingReheaterCondTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 84, 58, 16));
 
+        jLabelReadingLowPressureFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingLowPressureFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingLowPressureFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingLowPressureFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingLowPressureFlow.setText("____ kg/s");
+        jLabelReadingLowPressureFlow.setOpaque(true);
+        add(jLabelReadingLowPressureFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(394, 24, 64, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -535,6 +544,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingHotwellPressure;
     private javax.swing.JLabel jLabelReadingHotwellTemperature;
     private javax.swing.JLabel jLabelReadingLPInTemp;
+    private javax.swing.JLabel jLabelReadingLowPressureFlow;
     private javax.swing.JLabel jLabelReadingReheaterCondTemp;
     private javax.swing.JLabel jLabelReadingReheaterFlow;
     private javax.swing.JLabel jLabelReadingReheaterLevel;
@@ -824,6 +834,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                         String.format("%4.1f", newValue) + " °C");
             case "Turbine#ReheaterSteamInFlow" ->
                 jLabelReadingReheaterFlow.setText(
+                        String.format("%3.0f", newValue) + " kg/s");
+            case "Turbine#LowPressureFlow" ->
+                jLabelReadingLowPressureFlow.setText(
                         String.format("%3.0f", newValue) + " kg/s");
 
         }
