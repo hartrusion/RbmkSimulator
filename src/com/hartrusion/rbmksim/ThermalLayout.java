@@ -328,6 +328,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedLimitedPhaseSimpleFlowResistance turbineHighPressure;
     private final PhasedValve turbineHighPressureTripValve;
     private final PhasedValve turbineReheaterPriShutValve;
+    private final PhasedNode turbineReheaterPriValvesMidNode;
     private final PhasedValveControlled turbineReheaterPriControlValve;
     private final PhasedSuperheater turbineReheater;
     private final PhasedValve turbineReheaterCondensateShutoffValve;
@@ -377,6 +378,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * There will be no voiding and the temperature will be set estimated.
      */
     private boolean noReactorInput;
+    
+    /**
+     * Poor mans debugging: This temperature is added everywhere to be able to
+     * start the simulation with pressurized reactor. Set to 100 for example.
+     */
+    private double debugAddInitTemp = 0.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -902,6 +909,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineHighPressureTripValve.initName("Turbine#HighPressureTripValve");
         turbineReheaterPriShutValve = new PhasedValve();
         turbineReheaterPriShutValve.initName("Turbine#ReheaterPriShutValve");
+        turbineReheaterPriValvesMidNode = new PhasedNode();
+        turbineReheaterPriValvesMidNode.setName(
+                "Turbine#ReheaterPriValvesMidNode");
         turbineReheaterPriControlValve = new PhasedValveControlled();
         turbineReheaterPriControlValve.registerController(new PIControl());
         turbineReheaterPriControlValve.initName("Turbine#ReheaterPriControlValve");
@@ -1557,9 +1567,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Superheater primary side
         turbineReheaterPriShutValve.getValveElement()
                 .connectBetween(turbineSteamIn,
-                        turbineReheaterCondensateValvesMidNode);
+                        turbineReheaterPriValvesMidNode);
         turbineReheaterPriControlValve.getValveElement()
-                .connectBetween(turbineReheaterCondensateValvesMidNode,
+                .connectBetween(turbineReheaterPriValvesMidNode,
                         turbineReheater.getPhasedNode(
                                 PhasedSuperheater.PRIMARY_IN));
         turbineReheaterCondensateShutoffValve.getValveElement()
@@ -1902,7 +1912,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[4].setResistanceParameter(60);
         turbineLowPressureStage[5].setResistanceParameter(60);
 
-        turbineReheater.initCharacteristic(25, 500, 5e2, 0.0);
+        turbineReheater.initCharacteristic(0.5, 500, 5e2, 0.0);
 
         // Resistance to Reheater in: (69e5 Pa-4.4e5 Pe) / 372 kg/s
         // both valves full open will have sum R of 17365 Pa/kg*s 
@@ -1932,9 +1942,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             blowdownValveFromLoop[idx].initOpening(95);
         }
         blowdownToRegeneratorFirstResistance.getHeatHandler()
-                .setInitialTemperature(298.15);
+                .setInitialTemperature(298.15 + debugAddInitTemp);
         blowdownToRegeneratorSecondResistance.getHeatHandler()
-                .setInitialTemperature(298.15);
+                .setInitialTemperature(298.15 + debugAddInitTemp);
 
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
@@ -1966,24 +1976,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValvePumpsToRegenerator.initOpening(100); */
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
-            loopSteamDrum[idx].setInitialState(40000, 42.9 + 273.15);
+            loopSteamDrum[idx].setInitialState(40000, 42.9 + 273.15 + debugAddInitTemp);
             loopEvaporator[idx].setInitialState(6.0, 1e5,
-                    273.5 + 29.4, 273.5 + 46.3);
+                    273.5 + 29.4 + debugAddInitTemp, 273.5 + 46.3 + debugAddInitTemp);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(273.16 + 29.44);
+                    .setInitialTemperature(273.16 + 29.44 + debugAddInitTemp);
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(273.5 + 29.44);
+                    .setInitialTemperature(273.5 + 29.44 + debugAddInitTemp);
 
             blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
-                    29.44 + 273.5);
+                    29.44 + 273.5 + debugAddInitTemp);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    26.27 + 273.5);
+                    26.27 + 273.5 + debugAddInitTemp);
         }
         blowdownCooldown.getPrimarySide().getHeatHandler()
-                .setInitialTemperature(299.84);
+                .setInitialTemperature(299.84 + debugAddInitTemp);
         blowdownCooldown.getSecondarySide().getHeatHandler()
-                .setInitialTemperature(301.57);
+                .setInitialTemperature(301.57 + debugAddInitTemp);
         // Blowdown/Cooldown one pump is in operation
         blowdownCooldownPumps[1].setInitialCondition(true, true, true);
 
@@ -3260,34 +3270,42 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         // HP out temperature: Only available if there is some heat energy
         // as the node does not store anything.
-        if (!turbineReheater.getPhasedNode(
+        if (turbineReheater.getPhasedNode(
                 PhasedSuperheater.SECONDARY_IN)
-                .noHeatEnergy(turbineHighPressure)) {
-            outputValues.setParameterValue("Turbine#HPOutTemp",
-                    phasedWater.getTemperature(
-                            turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.SECONDARY_IN)
-                                    .getHeatEnergy(
-                                            turbineHighPressure),
-                            turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.SECONDARY_IN)
-                                    .getEffort()
-                    ) - 273.15);
+                .heatEnergyUpdated(turbineHighPressure)) {
+            if (!turbineReheater.getPhasedNode(
+                    PhasedSuperheater.SECONDARY_IN)
+                    .noHeatEnergy(turbineHighPressure)) {
+                outputValues.setParameterValue("Turbine#HPOutTemp",
+                        phasedWater.getTemperature(
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_IN)
+                                        .getHeatEnergy(
+                                                turbineHighPressure),
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_IN)
+                                        .getEffort()
+                        ) - 273.15);
+            }
         }
-        if (!turbineReheater.getPhasedNode(
-                PhasedSuperheater.SECONDARY_OUT)
-                .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
-            outputValues.setParameterValue("Turbine#LPInTemp",
-                    phasedWater.getTemperature(
-                            turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.SECONDARY_OUT)
-                                    .getHeatEnergy(
-                                            turbineLowPressureTripValve
-                                                    .getValveElement()),
-                            turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.SECONDARY_OUT)
-                                    .getEffort()
-                    ) - 273.15);
+        if (turbineReheater.getPhasedNode(
+                PhasedSuperheater.SECONDARY_OUT).heatEnergyUpdated(
+                        turbineLowPressureTripValve.getValveElement())) {
+            if (!turbineReheater.getPhasedNode(
+                    PhasedSuperheater.SECONDARY_OUT)
+                    .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
+                outputValues.setParameterValue("Turbine#LPInTemp",
+                        phasedWater.getTemperature(
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getHeatEnergy(
+                                                turbineLowPressureTripValve
+                                                        .getValveElement()),
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getEffort()
+                        ) - 273.15);
+            }
         }
         outputValues.setParameterValue("Turbine#ReheaterLevel",
                 turbineReheater.getPrimarySideReservoir()
@@ -3297,6 +3315,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getTemperature() - 273.15); // K to °C
         outputValues.setParameterValue("Turbine#ReheaterSteamInFlow",
                 turbineReheater.getPrimarySideCondenser().getFlow());
+        outputValues.setParameterValue("Turbine#LowPressureFlow",
+                turbineLowPressureStage[0].getFlow());
 
         // </editor-fold>
     }
