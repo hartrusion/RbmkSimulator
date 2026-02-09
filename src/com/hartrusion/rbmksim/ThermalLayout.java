@@ -56,6 +56,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedLimitedPhaseSimpleFlowResistanc
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
+import com.hartrusion.modeling.phasedfluid.PhasedThermalExchanger;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import java.util.function.DoubleSupplier;
@@ -79,6 +80,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     // Reference to the used reactor core part
     private ReactorCore core;
+
+    // Reference to the turbine class that holds the network elements and 
+    // controls for the turbine that are not part of the steam flow.
+    private Turbine turbine;
 
     private final PhasedPropertiesWater phasedWater
             = new PhasedPropertiesWater();
@@ -325,7 +330,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedValveControlled[2];
     private final PhasedNode turbineSteamIn;
     private final PhasedNode turbineHighPressureIn;
+    private final PhasedThermalExchanger turbineHighPressureInMass;
+    private final PhasedNode turbineHighPressureMidIn;
     private final PhasedLimitedPhaseSimpleFlowResistance turbineHighPressure;
+    private final PhasedNode turbineHighPressureMidOut;
+    private final PhasedThermalExchanger turbineHighPressureOutMass;
     private final PhasedValve turbineHighPressureTripValve;
     private final PhasedValve turbineReheaterPriShutValve;
     private final PhasedNode turbineReheaterPriValvesMidNode;
@@ -336,6 +345,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedValveControlled turbineReheaterCondensateValve;
     private final PhasedValve turbineLowPressureTripValve;
     private final PhasedNode turbineLowPressureIn;
+    private final PhasedThermalExchanger turbineLowPressureInMass;
+    private final PhasedNode turbineLowPressureMidIn;
     private final PhasedLimitedPhaseSimpleFlowResistance[] turbineLowPressureStage
             = new PhasedLimitedPhaseSimpleFlowResistance[6];
     private final PhasedNode[] turbineLowPressureStageOut
@@ -345,6 +356,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedNode[] turbineLowPressureTapOut
             = new PhasedNode[5];
     private final PhasedValve[] turbineLowPressureTapValve = new PhasedValve[5];
+    private final PhasedNode turbineLowPressureMidOut;
+    private final PhasedThermalExchanger turbineLowPressureOutMass;
 
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
@@ -366,6 +379,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
 
+    private double turbineShaftPower = 0.0;
+
     /**
      * Holds the vacuum value for the condenser. This is made up from the
      * expected behavior and not actually modeled by any physical behavior.
@@ -378,10 +393,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * There will be no voiding and the temperature will be set estimated.
      */
     private boolean noReactorInput;
-    
+
     /**
      * Poor mans debugging: This temperature is added everywhere to be able to
-     * start the simulation with pressurized reactor. Set to 100 for example.
+     * start the simulation with pressurized reactor. Set to 150 for example
+     * to have some steam inside the core to test the turbine.
      */
     private double debugAddInitTemp = 0.0;
 
@@ -903,8 +919,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineSteamIn.setName("Turbine#HighPressureIn");
         turbineHighPressureIn = new PhasedNode();
         turbineHighPressureIn.setName("Turbine#HighPressureIn");
+        turbineHighPressureInMass = new PhasedThermalExchanger(phasedWater);
+        turbineHighPressureInMass.setName("Turbine#HighPressureInMass");
+        turbineHighPressureMidIn = new PhasedNode();
+        turbineHighPressureMidIn.setName("Turbine#HighPressureMidIn");
         turbineHighPressure = new PhasedLimitedPhaseSimpleFlowResistance(phasedWater);
         turbineHighPressure.setName("Turbine#HighPressure");
+        turbineHighPressureMidOut = new PhasedNode();
+        turbineHighPressureMidOut.setName("Turbine#HighPressureMidOut");
+        turbineHighPressureOutMass = new PhasedThermalExchanger(phasedWater);
+        turbineHighPressureOutMass.setName("Turbine#HighPressureOutMass");
         turbineHighPressureTripValve = new PhasedValve();
         turbineHighPressureTripValve.initName("Turbine#HighPressureTripValve");
         turbineReheaterPriShutValve = new PhasedValve();
@@ -932,12 +956,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureTripValve.initName("Turbine#LowPressureTripValve");
         turbineLowPressureIn = new PhasedNode();
         turbineLowPressureIn.setName("Turbine#LowPressureIn");
+        turbineLowPressureInMass = new PhasedThermalExchanger(phasedWater);
+        turbineLowPressureInMass.setName("Turbine#LowPressureInMass");
+        turbineLowPressureMidIn = new PhasedNode();
+        turbineLowPressureMidIn.setName("Turbine#LowPressureMidIn");
         for (int idx = 0; idx < 6; idx++) {
             turbineLowPressureStage[idx]
                     = new PhasedLimitedPhaseSimpleFlowResistance(phasedWater);
             turbineLowPressureStage[idx].setName(
                     "Turbine" + (idx + 1) + "#LowPressureStage");
-
         }
         for (int idx = 0; idx < 5; idx++) {
             turbineLowPressureStageOut[idx] = new PhasedNode();
@@ -954,6 +981,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineLowPressureTapValve[idx].initName(
                     "Turbine" + (idx + 1) + "#LowPressureTapValve");
         }
+        turbineLowPressureMidOut = new PhasedNode();
+        turbineLowPressureMidOut.setName("Turbine#LowPressureMidOut");
+        turbineLowPressureOutMass = new PhasedThermalExchanger(phasedWater);
+        turbineLowPressureOutMass.setName("Turbine#LowPressureOutMass");
 
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
@@ -1136,6 +1167,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellUpperLevel.registerParameterHandler(outputValues);
         setpointHotwellLowerLevel.registerParameterHandler(outputValues);
         // </editor-fold>  
+        turbine.initConnections();
         // <editor-fold defaultstate="collapsed" desc="Node-element connections">
         // Cold condensate storage
         makeupStorage.connectTo(makeupStorageDrainCollector);
@@ -1555,10 +1587,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         turbineHighPressureTripValve.getValveElement().connectBetween(
                 turbineSteamIn, turbineHighPressureIn);
+        // There is a thermal volume at the beginning and at the end of the
+        // turbine which exchanges heat with the rotor and the stator.
+        // Between these volumes is the limiting element that represents the
+        // enthaly loss and transfer to the turbine blades.
+        turbineHighPressureInMass.connectBetween(turbineHighPressureIn,
+                turbineHighPressureMidIn);
+        turbineHighPressure.connectBetween(turbineHighPressureMidIn,
+                turbineHighPressureMidOut);
         // High pressure ends in the secondary loop of the superheater
-        turbineHighPressure.connectBetween(turbineHighPressureIn,
-                turbineReheater.getPhasedNode(PhasedSuperheater.SECONDARY_IN)
-        );
+        turbineHighPressureOutMass.connectBetween(turbineHighPressureMidOut,
+                turbineReheater.getPhasedNode(PhasedSuperheater.SECONDARY_IN));
+        // Connect both thermal exchangers to the turbine thermal model which
+        // is managed in a different object.
+        turbineHighPressureInMass.setInnerThermalEffortSource(
+                turbine.getThermalEffortSource(0));
+        turbineHighPressureOutMass.setInnerThermalEffortSource(
+                turbine.getThermalEffortSource(1));
+
         // Superheater goes to a shutoff valve - this is quite non realistic 
         // but why not.
         turbineLowPressureTripValve.getValveElement().connectBetween(
@@ -1581,8 +1627,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         turbineReheaterCondensateValvesMidNode,
                         hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
 
-        // Turbine Low pressure path
-        turbineLowPressureStage[0].connectTo(turbineLowPressureIn); // 1st stage
+        // Turbine Low pressure path. First, a mass element that is also used
+        // for thermal exchange like in the high pressure part
+        turbineLowPressureInMass.connectBetween(turbineLowPressureIn,
+                turbineLowPressureMidIn);
+        turbineLowPressureStage[0].connectTo(turbineLowPressureMidIn); // 1st stage
         for (int idx = 0; idx < 6; idx++) {
             if (idx >= 1) {
                 turbineLowPressureStage[idx].connectTo(
@@ -1593,9 +1642,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         turbineLowPressureStageOut[idx]);
             }
         }
-        // Last stage into condenser:
-        turbineLowPressureStage[5].connectTo(
+        // Last stage again into a thermal mass, but that will not do much 
+        // of dynamics as it will likely say cold there. just to get the value.
+        turbineLowPressureStage[5].connectTo(turbineLowPressureMidOut);
+        // last mass goes straight into hotwell
+        turbineLowPressureOutMass.connectBetween(turbineLowPressureMidOut,
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+
+        // make connections to the thermal model
+        turbineLowPressureInMass.setInnerThermalEffortSource(
+                turbine.getThermalEffortSource(2));
+        turbineLowPressureOutMass.setInnerThermalEffortSource(
+                turbine.getThermalEffortSource(3));
+
         // connect turbine taps, also represented as resistors. Each ends on a
         // node that will be connected to other components later.
         for (int idx = 0; idx < 5; idx++) {
@@ -1902,6 +1961,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineHighPressure.setResistanceParameter(5537);
         turbineHighPressure.setOutVaporFraction(0.85);
 
+        // The steam mass inside the turbine is modeled constant, those are some
+        // numbers that are totally non realistic but they have to be high for
+        // the solution to be stable.
+        turbineHighPressureInMass.getPhasedHandler()
+                .setInnerHeatedMass(600);
+        turbineHighPressureOutMass.getPhasedHandler()
+                .setInnerHeatedMass(600);
+        turbineLowPressureInMass.getPhasedHandler()
+                .setInnerHeatedMass(600);
+        turbineLowPressureOutMass.getPhasedHandler()
+                .setInnerHeatedMass(600);
+
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
         // The turbine will need a minimum pressure of 10 bars 
@@ -1920,10 +1991,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // is 1182.8 Pa/kg*s
         // Note that the used resistances on valves will be different to
         // have some possibility of controlling them left.
-//        turbineReheaterPriShutValve.initCharacteristic(7000, -1);
-//        turbineReheaterPriControlValve.initCharacteristic(9000, -1);
-//        turbineReheaterCondensateShutoffValve.initCharacteristic(500, -1);
-//        turbineReheaterCondensateValve.initCharacteristic(500, -1);
+        turbineReheaterPriShutValve.initCharacteristic(7000, -1);
+        turbineReheaterPriControlValve.initCharacteristic(9000, -1);
+        turbineReheaterCondensateShutoffValve.initCharacteristic(500, -1);
+        turbineReheaterCondensateValve.initCharacteristic(500, -1);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
@@ -3006,6 +3077,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         }
 
+        // Calculate turbine mechanical energy transfer
+        turbineShaftPower = turbineHighPressure.getExcessPower()
+                + turbineLowPressureStage[0].getExcessPower()
+                + turbineLowPressureStage[1].getExcessPower()
+                + turbineLowPressureStage[2].getExcessPower()
+                + turbineLowPressureStage[3].getExcessPower()
+                + turbineLowPressureStage[4].getExcessPower()
+                + turbineLowPressureStage[5].getExcessPower();
+        System.out.println(turbineShaftPower * 1e-6);
+
         // Condenser Vacuum: There is no specific model for that, it is assumed
         // that certain effects do either make the vacuum go down or up. The
         // sum (or difference) of those effects will be integrated, providing a
@@ -3272,16 +3353,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // as the node does not store anything.
         if (turbineReheater.getPhasedNode(
                 PhasedSuperheater.SECONDARY_IN)
-                .heatEnergyUpdated(turbineHighPressure)) {
+                .heatEnergyUpdated(turbineHighPressureOutMass)) {
             if (!turbineReheater.getPhasedNode(
                     PhasedSuperheater.SECONDARY_IN)
-                    .noHeatEnergy(turbineHighPressure)) {
+                    .noHeatEnergy(turbineHighPressureOutMass)) {
                 outputValues.setParameterValue("Turbine#HPOutTemp",
                         phasedWater.getTemperature(
                                 turbineReheater.getPhasedNode(
                                         PhasedSuperheater.SECONDARY_IN)
                                         .getHeatEnergy(
-                                                turbineHighPressure),
+                                                turbineHighPressureOutMass),
                                 turbineReheater.getPhasedNode(
                                         PhasedSuperheater.SECONDARY_IN)
                                         .getEffort()
@@ -3643,5 +3724,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     public void registerReactor(ReactorCore core) {
         this.core = core;
+    }
+
+    public void registerTurbine(Turbine turbine) {
+        this.turbine = turbine;
     }
 }

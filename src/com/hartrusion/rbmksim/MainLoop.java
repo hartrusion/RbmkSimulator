@@ -35,6 +35,7 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     private ReactorCore core = new ReactorCore();
     private ThermalLayout process = new ThermalLayout();
+    private Turbine turbine = new Turbine();
 
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
@@ -56,6 +57,8 @@ public class MainLoop implements Runnable, ModelManipulation {
         core.registerController(controller);
 
         process.registerReactor(core);
+        process.registerTurbine(turbine);
+        
         process.registerParameterOutput(outputValues);
         process.registerController(controller);
         process.registerAlarmManager(alarms);
