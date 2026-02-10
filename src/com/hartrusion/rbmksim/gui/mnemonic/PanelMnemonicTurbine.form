@@ -237,14 +237,14 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartupReg1">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveSteamReheater1">
       <Properties>
         <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="11" y="164" width="-1" height="-1"/>
+          <AbsoluteConstraints x="8" y="154" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -252,13 +252,13 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveMain1">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveTrip1">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="36" y="298" width="-1" height="-1"/>
+          <AbsoluteConstraints x="40" y="304" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -266,27 +266,13 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveMain2">
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveTrip2">
       <Properties>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="148" y="298" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartup1">
-      <Properties>
-        <Property name="vertical" type="boolean" value="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="11" y="206" width="-1" height="-1"/>
+          <AbsoluteConstraints x="152" y="304" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -301,7 +287,22 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="67" y="185" width="-1" height="-1"/>
+          <AbsoluteConstraints x="40" y="224" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartup1">
+      <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
+        <Property name="vertical" type="boolean" value="true"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="72" y="224" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -311,26 +312,12 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartup2">
       <Properties>
-        <Property name="vertical" type="boolean" value="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="123" y="206" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveStartupReg2">
-      <Properties>
         <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="123" y="164" width="-1" height="-1"/>
+          <AbsoluteConstraints x="120" y="224" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -345,7 +332,22 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="179" y="185" width="-1" height="-1"/>
+          <AbsoluteConstraints x="152" y="224" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveSteamReheater2">
+      <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
+        <Property name="vertical" type="boolean" value="true"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="184" y="154" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -375,20 +377,6 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="235" y="81" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
-    <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveHighPressure">
-      <Properties>
-        <Property name="vertical" type="boolean" value="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="35" y="32" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -715,7 +703,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve2">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveMain2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -732,11 +720,11 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="144" y="166" width="24" height="-1"/>
+          <AbsoluteConstraints x="166" y="266" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve3">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveReheater1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -753,11 +741,11 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="32" y="166" width="24" height="-1"/>
+          <AbsoluteConstraints x="22" y="198" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve4">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveReheaterReg">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -979,7 +967,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="46" y="128" width="52" height="-1"/>
+          <AbsoluteConstraints x="82" y="86" width="52" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1061,7 +1049,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve6">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveStartup1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -1078,11 +1066,11 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="90" y="188" width="24" height="-1"/>
+          <AbsoluteConstraints x="86" y="208" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve7">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveReheater2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -1099,11 +1087,11 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="202" y="188" width="24" height="-1"/>
+          <AbsoluteConstraints x="200" y="200" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve5">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveMain1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -1120,11 +1108,11 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="32" y="212" width="24" height="-1"/>
+          <AbsoluteConstraints x="22" y="266" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingValve8">
+    <Component class="javax.swing.JLabel" name="jLabelReadingValveStartup2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -1141,7 +1129,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="144" y="212" width="24" height="-1"/>
+          <AbsoluteConstraints x="100" y="266" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
