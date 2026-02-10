@@ -40,6 +40,8 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     protected static final Color RED = new Color(255, 0, 0);
     protected static final Color DARKYELLOW = new Color(128, 128, 0);
     protected static final Color YELLOW = new Color(208, 208, 0);
+    protected static final Color WHITE = new Color(255, 255, 255);
+    protected static final Color GRAY = new Color(128, 128, 128);
 
     protected ActionReceiver controller;
 
@@ -118,6 +120,21 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
         } else {
             button.setBackground(DARKYELLOW);
         }
+    }
+    
+    /**
+     * Used to set yellow buttons either to highlight or non-highlited state.
+     *
+     * @param button
+     * @param val
+     */
+    protected void setWhiteButtonColor(JButton button, boolean val) {
+        if (val) {
+            button.setBackground(WHITE);
+        } else {
+            button.setBackground(GRAY);
+        }
+        button.setForeground(Color.BLACK);
     }
 
     /**
