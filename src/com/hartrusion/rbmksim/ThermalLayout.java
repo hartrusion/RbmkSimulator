@@ -1960,18 +1960,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // is R_HD = 5536.7 Pa/kg*s 
         turbineHighPressure.setResistanceParameter(5537);
         turbineHighPressure.setOutVaporFraction(0.85);
+        
+        // Inlst valves: It was suggested by maha that we use 10 bar pressure 
+        // to start heating up but with very low steam flow.
+        for (int idx = 0; idx < 2; idx++) {
+            turbineStartupShutoffValve[idx].initCharacteristic(2e5, -1.0);
+            turbineStartupSteamValve[idx].initCharacteristic(2e5, -1.0);
+        }
 
         // The steam mass inside the turbine is modeled constant, those are some
         // numbers that are totally non realistic but they have to be high for
         // the solution to be stable.
         turbineHighPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
         turbineLowPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
         turbineLowPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
@@ -1983,7 +1990,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[4].setResistanceParameter(60);
         turbineLowPressureStage[5].setResistanceParameter(60);
 
-        turbineReheater.initCharacteristic(0.5, 500, 5e2, 0.0);
+        turbineReheater.initCharacteristic(8.0, 500, 5e2, 0.0);
 
         // Resistance to Reheater in: (69e5 Pa-4.4e5 Pe) / 372 kg/s
         // both valves full open will have sum R of 17365 Pa/kg*s 
@@ -1995,6 +2002,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterPriControlValve.initCharacteristic(9000, -1);
         turbineReheaterCondensateShutoffValve.initCharacteristic(500, -1);
         turbineReheaterCondensateValve.initCharacteristic(500, -1);
+        
+        
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
@@ -2019,7 +2028,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
-        blowdownValveCoolant.initFlow(400);
+        
+        if (debugAddInitTemp <= 5) { // no cooldown for hot tests
+            blowdownValveCoolant.initFlow(400);
+        }
 
         // Variant 1: Forced Circ. with MPC and no Cooldown Pump:
         /* for (int idx = 0; idx <= 1; idx++) {
@@ -3085,7 +3097,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + turbineLowPressureStage[3].getExcessPower()
                 + turbineLowPressureStage[4].getExcessPower()
                 + turbineLowPressureStage[5].getExcessPower();
-        System.out.println(turbineShaftPower * 1e-6);
+        // System.out.println(turbineShaftPower * 1e-6);
 
         // Condenser Vacuum: There is no specific model for that, it is assumed
         // that certain effects do either make the vacuum go down or up. The
@@ -3395,7 +3407,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineReheater.getPrimarySideReservoir()
                         .getTemperature() - 273.15); // K to °C
         outputValues.setParameterValue("Turbine#ReheaterSteamInFlow",
-                turbineReheater.getPrimarySideCondenser().getFlow());
+                - turbineReheater.getPrimarySideCondenser().getFlow());
         outputValues.setParameterValue("Turbine#LowPressureFlow",
                 turbineLowPressureStage[0].getFlow());
 
