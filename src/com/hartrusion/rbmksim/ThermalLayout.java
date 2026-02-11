@@ -1591,7 +1591,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     turbineSteamIn[idx], turbineHighPressureIn);
             // Reheater Steam Valve
             turbineReheaterSteamValve[idx].getValveElement().connectBetween(
-                    turbineSteamIn[idx], turbineReheaterSteam);
+                    mainSteam[idx], turbineReheaterSteam);
         }
         // There is a thermal volume at the beginning and at the end of the
         // turbine which exchanges heat with the rotor and the stator.
