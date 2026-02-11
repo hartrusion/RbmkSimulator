@@ -114,6 +114,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingReheaterFlow = new javax.swing.JLabel();
         jLabelReadingReheaterCondTemp = new javax.swing.JLabel();
         jLabelReadingLowPressureFlow = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -237,10 +239,10 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
 
         valveReheaterCondensate.setVertical(true);
         add(valveReheaterCondensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 81, -1, -1));
-        add(valveReheaterIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 19, -1, -1));
+        add(valveReheaterIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 19, -1, -1));
 
         valveReheaterInReg.setControlIndicator(true);
-        add(valveReheaterInReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 19, -1, -1));
+        add(valveReheaterInReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 19, -1, -1));
         add(valveLowPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 39, -1, -1));
 
         valveBypassInjection2.setControlIndicator(true);
@@ -397,8 +399,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel20.getFont().getSize()-3));
         jLabel20.setForeground(new java.awt.Color(14, 222, 194));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Superheater");
-        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 22, 66, -1));
+        jLabel20.setText("Reheater");
+        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 44, 66, -1));
 
         jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel21.getFont().getSize()-3));
         jLabel21.setForeground(new java.awt.Color(14, 222, 194));
@@ -408,15 +410,15 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
 
         jLabel22.setFont(jLabel22.getFont().deriveFont(jLabel22.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel22.getFont().getSize()-3));
         jLabel22.setForeground(new java.awt.Color(14, 222, 194));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel22.setText("Loop 1");
-        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 342, 52, -1));
+        add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 346, 52, -1));
 
         jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel23.getFont().getSize()-3));
         jLabel23.setForeground(new java.awt.Color(14, 222, 194));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel23.setText("Loop 2");
-        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 344, 52, -1));
+        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 346, 52, -1));
 
         jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel24.getFont().getSize()-3));
         jLabel24.setForeground(new java.awt.Color(14, 222, 194));
@@ -513,6 +515,18 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingLowPressureFlow.setOpaque(true);
         add(jLabelReadingLowPressureFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(394, 24, 64, 16));
 
+        jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel25.getFont().getSize()-3));
+        jLabel25.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setText("LP");
+        add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 84, 52, -1));
+
+        jLabel26.setFont(jLabel26.getFont().deriveFont(jLabel26.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel26.getFont().getSize()-3));
+        jLabel26.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("LP");
+        add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 84, 52, -1));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -528,6 +542,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingBypass1;
     private javax.swing.JLabel jLabelReadingBypass2;
