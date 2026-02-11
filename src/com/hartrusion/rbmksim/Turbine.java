@@ -83,4 +83,11 @@ public class Turbine {
         return thermalSteamTemperature[idx];
     }
     
+    public void setShaftPower(double power) {
+        
+    }
+    
+    public void triggerTurbineTrip() {
+        
+    }
 }

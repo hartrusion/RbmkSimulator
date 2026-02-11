@@ -401,7 +401,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core to test the turbine.
      */
-    private double debugAddInitTemp = 0.0;
+    private double debugAddInitTemp = 180.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -1980,13 +1980,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // numbers that are totally non realistic but they have to be high for
         // the solution to be stable.
         turbineHighPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
         turbineLowPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
         turbineLowPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(600);
+                .setInnerHeatedMass(60);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
@@ -2928,6 +2928,48 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("ReheaterCondensateTemp");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return turbineReheater.getPrimarySideReservoir()
+                        .getTemperature() - 273.15;
+            }
+        });
+        am.defineAlarm(180.0, AlarmState.MAX1);
+        am.defineAlarm(160.0, AlarmState.HIGH2);
+        am.defineAlarm(150.0, AlarmState.HIGH1);
+
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                turbine.triggerTurbineTrip();
+            }
+        });
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("ReheaterCondensateLevel");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return turbineReheater.getPrimarySideReservoir()
+                        .getFillHeight() * 100;
+            }
+        });
+        am.defineAlarm(120.0, AlarmState.MAX1);
+        am.defineAlarm(100.0, AlarmState.HIGH2);
+        am.defineAlarm(80.0, AlarmState.HIGH1);
+        am.defineAlarm(20.0, AlarmState.LOW1);
+        am.defineAlarm(15.0, AlarmState.LOW2);
+        am.defineAlarm(10.0, AlarmState.MIN1);
+
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Safety">
         // Steam Drum Level must be above MIN2 for MCPs to run.
@@ -3014,6 +3056,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !alarmManager.isAlarmActive(
                             "HotwellLevel", AlarmState.MIN1));
         }
+        
+        // Turbine: Reheater gets limited by condensate level
+        turbineReheaterCondensateShutoffValve.addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "ReheaterCondensateLevel", AlarmState.MAX1));
+        turbineReheaterTripValve.addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "ReheaterCondensateLevel", AlarmState.MIN1));
 
         // </editor-fold>
     }
@@ -3104,7 +3154,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + turbineLowPressureStage[3].getExcessPower()
                 + turbineLowPressureStage[4].getExcessPower()
                 + turbineLowPressureStage[5].getExcessPower();
-        // System.out.println(turbineShaftPower * 1e-6);
+        // and make it known to the turbine
+        turbine.setShaftPower(turbineShaftPower);
 
         // Condenser Vacuum: There is no specific model for that, it is assumed
         // that certain effects do either make the vacuum go down or up. The
@@ -3364,8 +3415,31 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Get the HP out temperature directly from the heated steam mass
         outputValues.setParameterValue("Turbine#HPOutTemp",
                 turbineHighPressureOutMass.getTemperature() - 273.15);
-        outputValues.setParameterValue("Turbine#LPInTemp",
-                turbineLowPressureInMass.getTemperature() - 273.15);
+
+        if (turbineReheater.getPhasedNode(
+                PhasedSuperheater.SECONDARY_OUT).heatEnergyUpdated(
+                        turbineLowPressureTripValve.getValveElement())) {
+            if (!turbineReheater.getPhasedNode(
+                    PhasedSuperheater.SECONDARY_OUT)
+                    .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
+                outputValues.setParameterValue("Turbine#LPInTemp",
+                        phasedWater.getTemperature(
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getHeatEnergy(
+                                                turbineLowPressureTripValve
+                                                        .getValveElement()),
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getEffort()
+                        ) - 273.15);
+            } else {
+                // Fallback to turbine inner steam mass temperature if no 
+                // temperature is available from reheater
+                outputValues.setParameterValue("Turbine#LPInTemp",
+                        turbineLowPressureInMass.getTemperature() - 273.15);
+            }
+        }
 
         outputValues.setParameterValue("Turbine#ReheaterLevel",
                 turbineReheater.getPrimarySideReservoir()
