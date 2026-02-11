@@ -401,7 +401,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core to test the turbine.
      */
-    private double debugAddInitTemp = 180.0;
+    private double debugAddInitTemp = 0.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -1934,6 +1934,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].initCharacteristic(400, -1);
         }
+
+        // Condenser startup ejectors do actually not use much steam, make them
+        // use 1 kg/s at 5 bar steam pressure. 4e5 Pa / 1 kg/s well... 
+        for (int idx = 0; idx < 2; idx++) {
+            ejectorStartup[idx].initCharacteristic(4e5, -1);
+        }
+
         // Todo: make some proper resistance values on the preheaters
         preheaterPiping[0].setResistanceParameter(200);
         preheaterPiping[1].setResistanceParameter(200);
@@ -2492,7 +2499,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(-40.0, AlarmState.LOW2);
         am.defineAlarm(-60.0, AlarmState.MIN1);
         am.defineAlarm(-80.0, AlarmState.MIN2);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
@@ -2502,7 +2508,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 }
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -2513,7 +2518,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownValveFromLoop[0].operateCloseValve();
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2534,7 +2538,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(-40.0, AlarmState.LOW2);
         am.defineAlarm(-60.0, AlarmState.MIN1);
         am.defineAlarm(-80.0, AlarmState.MIN2);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
@@ -2544,7 +2547,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 }
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -2555,7 +2557,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownValveFromLoop[1].operateCloseValve();
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2573,7 +2574,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(3000.0, AlarmState.LOW2);
         am.defineAlarm(2000.0, AlarmState.MIN1);
         am.defineAlarm(50.0, AlarmState.MIN2);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -2589,7 +2589,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // Todo: Min2 trigger eccs system operation?
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2607,7 +2606,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(3000.0, AlarmState.LOW2);
         am.defineAlarm(2000.0, AlarmState.MIN1);
         am.defineAlarm(50.0, AlarmState.MIN2);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -2623,7 +2621,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // Todo: Min2 trigger eccs system operation
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2643,7 +2640,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(40.0, AlarmState.LOW2);
         am.defineAlarm(20.0, AlarmState.MIN1);
         am.defineAlarm(10.0, AlarmState.MIN2);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
@@ -2653,7 +2649,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 deaeratorSteamInRegValve[0].operateCloseValve();
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX2) {
             @Override
             public void run() {
@@ -2661,14 +2656,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 condensationValveToDA[0].operateCloseValve();
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
                 deaeratorDrain[0].operateCloseValve();
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
             @Override
             public void run() {
@@ -2684,7 +2677,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 }
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2704,7 +2696,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(40.0, AlarmState.LOW2);
         am.defineAlarm(20.0, AlarmState.MIN1);
         am.defineAlarm(10.0, AlarmState.MIN2);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
@@ -2714,7 +2705,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 deaeratorSteamInRegValve[1].operateCloseValve();
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX2) {
             @Override
             public void run() {
@@ -2722,14 +2712,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 condensationValveToDA[1].operateCloseValve();
             }
         });
-
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
                 deaeratorDrain[1].operateCloseValve();
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2790,7 +2778,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(60.0, AlarmState.LOW1);
         am.defineAlarm(40.0, AlarmState.LOW2);
         am.defineAlarm(5.0, AlarmState.MIN1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2809,7 +2796,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(60.0, AlarmState.LOW1);
         am.defineAlarm(40.0, AlarmState.LOW2);
         am.defineAlarm(5.0, AlarmState.MIN1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2825,7 +2811,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(90.0, AlarmState.MAX1);
         am.defineAlarm(65.0, AlarmState.HIGH2);
         am.defineAlarm(55.0, AlarmState.HIGH1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2841,7 +2826,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(90.0, AlarmState.MAX1);
         am.defineAlarm(65.0, AlarmState.HIGH2);
         am.defineAlarm(55.0, AlarmState.HIGH1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2855,7 +2839,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
         am.defineAlarm(30.0, AlarmState.HIGH1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2869,12 +2852,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
         am.defineAlarm(30.0, AlarmState.HIGH1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
-        am.setName("HotwellPumpPressure");
+        am.setName("CondenserVacuum");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return 1e5 - condenserVacuum.getOutput();
+            }
+        });
+        am.defineAlarm(9e4, AlarmState.LOW1);
+        am.defineAlarm(7e4, AlarmState.LOW2);
+        am.defineAlarm(5e4, AlarmState.MIN1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("CondensatePumpPressure");
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
@@ -2900,6 +2896,32 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
+        am.setName("StartupEjector1Flow");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return ejectorStartup[0].getValveElement().getFlow();
+            }
+        });
+        am.defineAlarm(1.2, AlarmState.HIGH1);
+        am.defineAlarm(1.5, AlarmState.HIGH2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("StartupEjector2Flow");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return ejectorStartup[1].getValveElement().getFlow();
+            }
+        });
+        am.defineAlarm(1.2, AlarmState.HIGH1);
+        am.defineAlarm(1.5, AlarmState.HIGH2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
         am.setName("HotwellLevel");
         am.addInputProvider(new DoubleSupplier() {
             @Override
@@ -2912,7 +2934,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(15.0, AlarmState.LOW1);
         am.defineAlarm(10.0, AlarmState.LOW2);
         am.defineAlarm(5.0, AlarmState.MIN1);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
@@ -2925,7 +2946,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.triggerAutoShutdown();
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2941,17 +2961,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(180.0, AlarmState.MAX1);
         am.defineAlarm(160.0, AlarmState.HIGH2);
         am.defineAlarm(150.0, AlarmState.HIGH1);
-
         am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
             @Override
             public void run() {
                 turbine.triggerTurbineTrip();
             }
         });
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("ReheaterCondensateLevel");
         am.addInputProvider(new DoubleSupplier() {
@@ -3044,6 +3062,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         "AuxCond2Temp", AlarmState.MAX1))
         );
 
+        // Nothing gets into condenser if no vacuum is available.
+        for (int idx = 0; idx < 2; idx++) {
+            mainSteamDump[idx].addSafeClosedProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "CondenserVacuum", AlarmState.MIN1));
+        }
+
         // Hotwell
         hotwellDrainValve.addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
@@ -3057,15 +3082,35 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             "HotwellLevel", AlarmState.MIN1));
         }
         
-        // Turbine: Reheater gets limited by condensate level
+        // Turbine - there is no trip logic yet but for now block all valves
+        // if there is no vacuum - TODO - this will be included in turbine 
+        // logic later
+        for (int idx = 0; idx < 2; idx++) {
+            turbineTripValve[idx].addSafeClosedProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "CondenserVacuum", AlarmState.MIN1));
+            turbineReheaterSteamValve[idx].addSafeClosedProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "CondenserVacuum", AlarmState.MIN1));
+        }
+        
+        // Turbine: Reheater gets limited by condensate level and the 
+        // shut valve also gets limited by condenser vacuum
         turbineReheaterCondensateShutoffValve.addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
-                        "ReheaterCondensateLevel", AlarmState.MAX1));
+                        "ReheaterCondensateLevel", AlarmState.MIN1)
+                && !alarmManager.isAlarmActive(
+                        "CondenserVacuum", AlarmState.MIN1));
         turbineReheaterTripValve.addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
-                        "ReheaterCondensateLevel", AlarmState.MIN1));
+                        "ReheaterCondensateLevel", AlarmState.MAX1));
 
         // </editor-fold>
+        // Time ocnstant for condenser
+        condenserVacuum.setMaxOutput(1e5); // 1 bar
+        condenserVacuum.setMinOutput(0); // 0 bar
+        condenserVacuum.setTi(2e-4);
+        condenserVacuum.forceOutputValue(1e5); // initialize with ambient press.
     }
 
     @Override
@@ -3114,6 +3159,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownReturnValve[1].operateSetOpening(80);
             }
         }
+
+        // Apply the vacuum value to the hotwell/condenser element
+        hotwell.getPrimarySideReservoir().setAmbientPressure(
+                condenserVacuum.getOutput());
 
         // Reset and solve (update) the whole thermal layout one cycle.
         solver.prepareCalculation();
@@ -3164,8 +3213,28 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Todo: Remember to have some initital condition value for this!
         // Make a -100 to 100 % value for integral input to describe the speed
         // of integration.
-        // condenserVacuum.setInput(
-        //        hotwell.getPrimaryInFlow() / 1400 * 10); // Exp. : 1400 kg/s
+        condenserVacuum.setInput(
+                // A static value that will make the vacuum disappear if no
+                // ejector is active.
+                0.4
+                // Full flow of 1400 kg/s adds a number of "10" so it is
+                // 1 / 1400 * 10 = 7.14e-3
+                + hotwell.getPrimaryInFlow() * 7e-3
+                // A way smaller factor will be applied to the steam dump, it
+                // does not bring in that much extra air and there is no turbine
+                // tap available to use the main ejectors.
+                + mainSteamDump[0].getValveElement().getFlow() * 2e-3
+                + mainSteamDump[1].getValveElement().getFlow() * 2e-3
+                // Each startup ejector makes 1 kg/s in operation. They should
+                // not be able to compensate for large steam quantities
+                - ejectorStartup[0].getValveElement().getFlow()
+                - ejectorStartup[1].getValveElement().getFlow()
+                // Main ejectors are designed to use about 3 kg/s of steam
+                // each 
+                - ejectorMainSteamValve[0].getValveElement().getFlow()
+        );
+        condenserVacuum.run();
+        
         // Update Alarms
         alarmUpdater.invokeAll();
 
@@ -3393,6 +3462,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getTemperature() - 273.15);
         outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
+
+        // Make a 0..100 kPa value like in the old sim game with 0 being 
+        // 1 barabs and 100 kPa being 0 barabs.
+        outputValues.setParameterValue("Condenser#Vacuum",
+                (1e5 - condenserVacuum.getOutput()) * 1e-3);
 
         for (int idx = 0; idx < 3; idx++) {
             outputValues.setParameterValue(

@@ -40,6 +40,11 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetPumpBoost3.registerActionReceiver(controller);
         controlLoopHotwellFill.registerActionReceiver(controller);
         controlLoopHotwellDrain.registerActionReceiver(controller);
+        integralSwitch1.registerActionReceiver(controller);
+        integralSwitch2.registerActionReceiver(controller);
+        integralSwitch3.registerActionReceiver(controller);
+        integralSwitch4.registerActionReceiver(controller);
+        integralSwitch5.registerActionReceiver(controller);
     }
 
     /**
@@ -129,6 +134,15 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump23 = new javax.swing.JLabel();
         jLabelCaptionPump24 = new javax.swing.JLabel();
         jLabelCaptionPump25 = new javax.swing.JLabel();
+        integralSwitch4 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitch5 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        chornobylGaugeVacuum = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabelCaption1 = new javax.swing.JLabel();
+        jLabelCaption2 = new javax.swing.JLabel();
+        jLabelCaption3 = new javax.swing.JLabel();
+        jLabelCaption4 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(580, 340));
         setMinimumSize(new java.awt.Dimension(580, 340));
@@ -156,28 +170,28 @@ public class PanelCondensation extends AbstractPanelWidget {
         controlLoopHotwellFill.setControlComponent("Hotwell#FillValve");
         controlLoopHotwellFill.setFeedbackComponent("Hotwell#Level");
         controlLoopHotwellFill.setSetpointComponent("Hotwell#LowerSetpoint");
-        add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 46, -1, -1));
+        add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 88, -1, -1));
 
         controlLoopHotwellDrain.setControlComponent("Hotwell#DrainValve");
         controlLoopHotwellDrain.setFeedbackComponent("Hotwell#Level");
         controlLoopHotwellDrain.setSetpointComponent("Hotwell#UpperSetpoint");
-        add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 90, -1, -1));
+        add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 132, -1, -1));
 
         jLabelHotwellDrain1.setFont(jLabelHotwellDrain1.getFont().deriveFont(jLabelHotwellDrain1.getFont().getSize()-2f));
         jLabelHotwellDrain1.setText("Hotwell");
-        add(jLabelHotwellDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 96, 50, 14));
+        add(jLabelHotwellDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 138, 50, 14));
 
         jLabelHotwellDrain2.setFont(jLabelHotwellDrain2.getFont().deriveFont(jLabelHotwellDrain2.getFont().getSize()-2f));
         jLabelHotwellDrain2.setText("Drain");
-        add(jLabelHotwellDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 110, 50, 14));
+        add(jLabelHotwellDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 152, 50, 14));
 
         jLabelHotwellFill2.setFont(jLabelHotwellFill2.getFont().deriveFont(jLabelHotwellFill2.getFont().getSize()-2f));
         jLabelHotwellFill2.setText("Fill");
-        add(jLabelHotwellFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 68, 50, 14));
+        add(jLabelHotwellFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 110, 50, 14));
 
         jLabelHotwellFill1.setFont(jLabelHotwellFill1.getFont().deriveFont(jLabelHotwellFill1.getFont().getSize()-2f));
         jLabelHotwellFill1.setText("Hotwell");
-        add(jLabelHotwellFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 54, 50, 14));
+        add(jLabelHotwellFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 96, 50, 14));
         add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 252, -1, -1));
         add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 252, -1, -1));
         add(integralSwitch3, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 252, -1, -1));
@@ -418,7 +432,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelBypass.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelBypass.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 164, 52, 14));
+        add(jLabelBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 296, 52, 14));
 
         jButtonEjectorBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjectorBypassClose.setText("C");
@@ -429,7 +443,7 @@ public class PanelCondensation extends AbstractPanelWidget {
                 jButtonEjectorBypassCloseActionPerformed(evt);
             }
         });
-        add(jButtonEjectorBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 178, 20, 20));
+        add(jButtonEjectorBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 310, 20, 20));
 
         jButtonEjectorBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjectorBypassOpen.setText("O");
@@ -440,7 +454,7 @@ public class PanelCondensation extends AbstractPanelWidget {
                 jButtonEjectorBypassOpenActionPerformed(evt);
             }
         });
-        add(jButtonEjectorBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 178, 20, 20));
+        add(jButtonEjectorBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 310, 20, 20));
 
         jLabelCaptionEjector3.setFont(jLabelCaptionEjector3.getFont().deriveFont(jLabelCaptionEjector3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionEjector3.getFont().getSize()-2));
         jLabelCaptionEjector3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -665,6 +679,59 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump25.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump25.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPump25, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 40, 132, 14));
+
+        integralSwitch4.setComponent("EjectorStartup1");
+        add(integralSwitch4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));
+
+        integralSwitch5.setComponent("EjectorStartup2");
+        add(integralSwitch5, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 220, -1, -1));
+
+        chornobylGaugeVacuum.setChornobylMaximum(100.0F);
+        chornobylGaugeVacuum.setChornobylMinimum(0.0F);
+        chornobylGaugeVacuum.setChornobylTicks(new float[] {0.0f, 25.0f, 50.0f, 75.0f, 100.0f});
+        chornobylGaugeVacuum.setChornobylUnitText("kPa");
+        chornobylGaugeVacuum.setChornobylValue(1.0F);
+        add(chornobylGaugeVacuum, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
+
+        jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getSize()-2f));
+        jLabel23.setText("Condens.");
+        add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 34, 52, 14));
+
+        jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getSize()-2f));
+        jLabel17.setText("Vacuum");
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 46, 52, 14));
+
+        jLabelCaption1.setFont(jLabelCaption1.getFont().deriveFont(jLabelCaption1.getFont().getSize()-2f));
+        jLabelCaption1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption1.setText("Startup");
+        jLabelCaption1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 192, 51, 14));
+
+        jLabelCaption2.setFont(jLabelCaption2.getFont().deriveFont(jLabelCaption2.getFont().getSize()-2f));
+        jLabelCaption2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption2.setText("Ejector 2");
+        jLabelCaption2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 204, 51, 14));
+
+        jLabelCaption3.setFont(jLabelCaption3.getFont().deriveFont(jLabelCaption3.getFont().getSize()-2f));
+        jLabelCaption3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption3.setText("Startup");
+        jLabelCaption3.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption3.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 192, 51, 14));
+
+        jLabelCaption4.setFont(jLabelCaption4.getFont().deriveFont(jLabelCaption4.getFont().getSize()-2f));
+        jLabelCaption4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaption4.setText("Ejector 1");
+        jLabelCaption4.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption4.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaption4.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 204, 51, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFeed12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12CloseActionPerformed
@@ -768,11 +835,14 @@ public class PanelCondensation extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeCondensateFlow;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeHotwellLevel;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLevel;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeVacuum;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopHotwellDrain;
     private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoopHotwellFill;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch3;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch4;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch5;
     private javax.swing.JButton jButtonColdCondensateDrainClose;
     private javax.swing.JButton jButtonColdCondensateDrainOpen;
     private javax.swing.JButton jButtonColdCondensateFillClose;
@@ -797,11 +867,17 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JButton jButtonEjectorBypassOpen;
     private javax.swing.JButton jButtonFeed12Close;
     private javax.swing.JButton jButtonFeed12Open;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabelBypass;
+    private javax.swing.JLabel jLabelCaption1;
+    private javax.swing.JLabel jLabelCaption2;
+    private javax.swing.JLabel jLabelCaption3;
+    private javax.swing.JLabel jLabelCaption4;
     private javax.swing.JLabel jLabelCaptionEjector1;
     private javax.swing.JLabel jLabelCaptionEjector2;
     private javax.swing.JLabel jLabelCaptionEjector3;
@@ -850,6 +926,11 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetPumpBoost3.updateComponent(evt);
         controlLoopHotwellFill.updateComponent(evt);
         controlLoopHotwellDrain.updateComponent(evt);
+        integralSwitch1.updateComponent(evt);
+        integralSwitch2.updateComponent(evt);
+        integralSwitch3.updateComponent(evt);
+        integralSwitch4.updateComponent(evt);
+        integralSwitch5.updateComponent(evt);
 
         switch (evt.getPropertyName()) {
             case "EjectorMain1#FlowIn_Pos" ->
@@ -888,6 +969,8 @@ public class PanelCondensation extends AbstractPanelWidget {
                 chornobylGaugeLevel.setChornobylValue((float) newValue);
             case "Hotwell#Level" ->
                 chornobylGaugeHotwellLevel.setChornobylValue((float) newValue);
+            case "Condenser#Vacuum" ->
+                chornobylGaugeVacuum.setChornobylValue((float) newValue);
         }
         controlLoopHotwellFill.updateComponent(propertyName, newValue);
         controlLoopHotwellDrain.updateComponent(propertyName, newValue);

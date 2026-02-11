@@ -759,6 +759,11 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                     valveReheaterCondensateReg.setControlIndicatorActive(false);
                 }
             }
+            
+            case "EjectorStartup1_Pos" ->
+                valveStartupEjector1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorStartup2_Pos" ->
+                valveStartupEjector2.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 
