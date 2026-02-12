@@ -126,9 +126,9 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonDrumBlowdown2Open = new javax.swing.JButton();
         jLabelCaptionHeaderIntakeMCP = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(250, 340));
-        setMinimumSize(new java.awt.Dimension(250, 340));
-        setPreferredSize(new java.awt.Dimension(250, 340));
+        setMaximumSize(new java.awt.Dimension(270, 340));
+        setMinimumSize(new java.awt.Dimension(270, 340));
+        setPreferredSize(new java.awt.Dimension(270, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelCaptionPumpsToRegen1.setFont(jLabelCaptionPumpsToRegen1.getFont().deriveFont(jLabelCaptionPumpsToRegen1.getFont().getSize()-2f));

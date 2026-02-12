@@ -63,12 +63,12 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         valveStartup2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveMainReg2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveSteamReheater2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveReheaterCondensateReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveReheaterCondensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveReheaterCondensate1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveReheaterCondensate2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveReheaterIn = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveReheaterInReg = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveLowPressure = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valveBypassInjection2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveReheaterDrain = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve16 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valve17 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveHotwellFill = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -89,7 +89,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingValveMain2 = new javax.swing.JLabel();
         jLabelReadingValveReheater1 = new javax.swing.JLabel();
         jLabelReadingValveReheaterReg = new javax.swing.JLabel();
-        jLabelReadingValveReheaterCondensate = new javax.swing.JLabel();
+        jLabelReadingValveReheaterCondensate2 = new javax.swing.JLabel();
+        jLabelReadingValveReheaterCondensate1 = new javax.swing.JLabel();
         jLabelReadingHotwellDrainValve = new javax.swing.JLabel();
         jLabelReadingHotwellFillValve = new javax.swing.JLabel();
         valveStartupEjector2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -116,6 +117,13 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingLowPressureFlow = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabelReadingStartupEjector2 = new javax.swing.JLabel();
+        jLabelReadingStartupEjector1 = new javax.swing.JLabel();
+        jLabelReadingReheaterDrain = new javax.swing.JLabel();
+        jLabelReadingStartupEjectorFlow1 = new javax.swing.JLabel();
+        jLabelReadingStartupEjectorFlow2 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -233,20 +241,19 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         valveSteamReheater2.setVertical(true);
         add(valveSteamReheater2, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 154, -1, -1));
 
-        valveReheaterCondensateReg.setControlIndicator(true);
-        valveReheaterCondensateReg.setVertical(true);
-        add(valveReheaterCondensateReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 123, -1, -1));
+        valveReheaterCondensate1.setControlIndicator(true);
+        valveReheaterCondensate1.setVertical(true);
+        add(valveReheaterCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 119, -1, -1));
 
-        valveReheaterCondensate.setVertical(true);
-        add(valveReheaterCondensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 81, -1, -1));
+        valveReheaterCondensate2.setControlIndicator(true);
+        valveReheaterCondensate2.setVertical(true);
+        add(valveReheaterCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 119, -1, -1));
         add(valveReheaterIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 19, -1, -1));
 
         valveReheaterInReg.setControlIndicator(true);
         add(valveReheaterInReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 19, -1, -1));
         add(valveLowPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 39, -1, -1));
-
-        valveBypassInjection2.setControlIndicator(true);
-        add(valveBypassInjection2, new org.netbeans.lib.awtextra.AbsoluteConstraints(472, 161, -1, -1));
+        add(valveReheaterDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(472, 161, -1, -1));
         add(valve16, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 199, -1, -1));
         add(valve17, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 199, -1, -1));
 
@@ -342,13 +349,21 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingValveReheaterReg.setOpaque(true);
         add(jLabelReadingValveReheaterReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 2, 24, -1));
 
-        jLabelReadingValveReheaterCondensate.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingValveReheaterCondensate.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingValveReheaterCondensate.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingValveReheaterCondensate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingValveReheaterCondensate.setText("___");
-        jLabelReadingValveReheaterCondensate.setOpaque(true);
-        add(jLabelReadingValveReheaterCondensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 122, 24, -1));
+        jLabelReadingValveReheaterCondensate2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValveReheaterCondensate2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValveReheaterCondensate2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValveReheaterCondensate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValveReheaterCondensate2.setText("___");
+        jLabelReadingValveReheaterCondensate2.setOpaque(true);
+        add(jLabelReadingValveReheaterCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 118, 24, -1));
+
+        jLabelReadingValveReheaterCondensate1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingValveReheaterCondensate1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingValveReheaterCondensate1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingValveReheaterCondensate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingValveReheaterCondensate1.setText("___");
+        jLabelReadingValveReheaterCondensate1.setOpaque(true);
+        add(jLabelReadingValveReheaterCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 118, 24, -1));
 
         jLabelReadingHotwellDrainValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingHotwellDrainValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -505,7 +520,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingReheaterCondTemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingReheaterCondTemp.setText("___,_ °C");
         jLabelReadingReheaterCondTemp.setOpaque(true);
-        add(jLabelReadingReheaterCondTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 84, 58, 16));
+        add(jLabelReadingReheaterCondTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 84, 58, 16));
 
         jLabelReadingLowPressureFlow.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingLowPressureFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -527,6 +542,58 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabel26.setText("LP");
         add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 84, 52, -1));
 
+        jLabel28.setFont(jLabel28.getFont().deriveFont(jLabel28.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel28.getFont().getSize()-3));
+        jLabel28.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("DA 1");
+        add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 170, 38, -1));
+
+        jLabel27.setFont(jLabel27.getFont().deriveFont(jLabel27.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel27.getFont().getSize()-3));
+        jLabel27.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("DA 2");
+        add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 170, 38, -1));
+
+        jLabelReadingStartupEjector2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingStartupEjector2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingStartupEjector2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingStartupEjector2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingStartupEjector2.setText("___");
+        jLabelReadingStartupEjector2.setOpaque(true);
+        add(jLabelReadingStartupEjector2, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 312, 24, -1));
+
+        jLabelReadingStartupEjector1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingStartupEjector1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingStartupEjector1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingStartupEjector1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingStartupEjector1.setText("___");
+        jLabelReadingStartupEjector1.setOpaque(true);
+        add(jLabelReadingStartupEjector1, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 312, 24, -1));
+
+        jLabelReadingReheaterDrain.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingReheaterDrain.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingReheaterDrain.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingReheaterDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingReheaterDrain.setText("___");
+        jLabelReadingReheaterDrain.setOpaque(true);
+        add(jLabelReadingReheaterDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 144, 24, -1));
+
+        jLabelReadingStartupEjectorFlow1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingStartupEjectorFlow1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingStartupEjectorFlow1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingStartupEjectorFlow1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingStartupEjectorFlow1.setText("_,_ kg/s");
+        jLabelReadingStartupEjectorFlow1.setOpaque(true);
+        add(jLabelReadingStartupEjectorFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 268, 56, 16));
+
+        jLabelReadingStartupEjectorFlow2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingStartupEjectorFlow2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingStartupEjectorFlow2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingStartupEjectorFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingStartupEjectorFlow2.setText("_,_ kg/s");
+        jLabelReadingStartupEjectorFlow2.setOpaque(true);
+        add(jLabelReadingStartupEjectorFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 268, 56, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -544,6 +611,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingBypass1;
     private javax.swing.JLabel jLabelReadingBypass2;
@@ -560,8 +629,13 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingLPInTemp;
     private javax.swing.JLabel jLabelReadingLowPressureFlow;
     private javax.swing.JLabel jLabelReadingReheaterCondTemp;
+    private javax.swing.JLabel jLabelReadingReheaterDrain;
     private javax.swing.JLabel jLabelReadingReheaterFlow;
     private javax.swing.JLabel jLabelReadingReheaterLevel;
+    private javax.swing.JLabel jLabelReadingStartupEjector1;
+    private javax.swing.JLabel jLabelReadingStartupEjector2;
+    private javax.swing.JLabel jLabelReadingStartupEjectorFlow1;
+    private javax.swing.JLabel jLabelReadingStartupEjectorFlow2;
     private javax.swing.JLabel jLabelReadingSteamIn1Flow;
     private javax.swing.JLabel jLabelReadingSteamIn1Pressure;
     private javax.swing.JLabel jLabelReadingSteamIn1Temp;
@@ -572,7 +646,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingValveMain2;
     private javax.swing.JLabel jLabelReadingValveReheater1;
     private javax.swing.JLabel jLabelReadingValveReheater2;
-    private javax.swing.JLabel jLabelReadingValveReheaterCondensate;
+    private javax.swing.JLabel jLabelReadingValveReheaterCondensate1;
+    private javax.swing.JLabel jLabelReadingValveReheaterCondensate2;
     private javax.swing.JLabel jLabelReadingValveReheaterReg;
     private javax.swing.JLabel jLabelReadingValveStartup1;
     private javax.swing.JLabel jLabelReadingValveStartup2;
@@ -581,7 +656,6 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve16;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve17;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveBypassInjection2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Discharge;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump2Discharge;
@@ -593,8 +667,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveLowPressure;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMainReg1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveMainReg2;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterCondensate;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterCondensateReg;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterCondensate1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterCondensate2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterDrain;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterIn;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterInReg;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveStartup1;
@@ -748,18 +823,27 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                     valveReheaterInReg.setControlIndicatorActive(false);
                 }
             }
-            case "Turbine#ReheaterCondensateShutoffValve_Pos" ->
-                valveReheaterCondensate.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#ReheaterCondensateValve_Pos" ->
-                valveReheaterCondensateReg.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#ReheaterCondensateValveControlState" -> {
+            case "Turbine1#ReheaterCondensateValve_Pos" ->
+                valveReheaterCondensate1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine1#ReheaterCondensateValveControlState" -> {
                 if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
-                    valveReheaterCondensateReg.setControlIndicatorActive(true);
+                    valveReheaterCondensate1.setControlIndicatorActive(true);
                 } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
-                    valveReheaterCondensateReg.setControlIndicatorActive(false);
+                    valveReheaterCondensate1.setControlIndicatorActive(false);
                 }
             }
-            
+            case "Turbine2#ReheaterCondensateValve_Pos" ->
+                valveReheaterCondensate2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine2#ReheaterCondensateValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveReheaterCondensate2.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveReheaterCondensate2.setControlIndicatorActive(false);
+                }
+            }
+            case "Turbine#ReheaterCondensateDrain_Pos" ->
+                valveReheaterDrain.setActive(evt.getNewValue() != ValveState.CLOSED);
+
             case "EjectorStartup1_Pos" ->
                 valveStartupEjector1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "EjectorStartup2_Pos" ->
@@ -847,8 +931,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Turbine#ReheaterPriControlValve" ->
                 jLabelReadingValveReheaterReg.setText(
                         String.format("%3.0f", newValue));
-            case "Turbine#ReheaterCondensateValve" ->
-                jLabelReadingValveReheaterCondensate.setText(
+            case "Turbine1#ReheaterCondensateValve" ->
+                jLabelReadingValveReheaterCondensate1.setText(
+                        String.format("%3.0f", newValue));
+            case "Turbine2#ReheaterCondensateValve" ->
+                jLabelReadingValveReheaterCondensate2.setText(
+                        String.format("%3.0f", newValue));
+            case "Turbine#ReheaterCondensateDrain" ->
+                jLabelReadingReheaterDrain.setText(
                         String.format("%3.0f", newValue));
             case "Turbine#ReheaterLevel" ->
                 jLabelReadingReheaterLevel.setText(
@@ -868,7 +958,18 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Turbine#LowPressureFlow" ->
                 jLabelReadingLowPressureFlow.setText(
                         String.format("%3.0f", newValue) + " kg/s");
-
+            case "EjectorStartup1" ->
+                jLabelReadingStartupEjector1.setText(
+                        String.format("%3.0f", newValue));
+            case "EjectorStartup2" ->
+                jLabelReadingStartupEjector2.setText(
+                        String.format("%3.0f", newValue));
+            case "EjectorStartup1#Flow" ->
+                jLabelReadingStartupEjectorFlow1.setText(
+                        String.format("%2.1f", newValue) + " kg/s");
+            case "EjectorStartup2#Flow" ->
+                jLabelReadingStartupEjectorFlow2.setText(
+                        String.format("%2.1f", newValue) + " kg/s");
         }
     }
 

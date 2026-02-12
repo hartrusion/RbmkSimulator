@@ -50,9 +50,6 @@ public class PanelPreheaters extends AbstractPanelWidget
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        controlLoop1 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
-        controlLoop2 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
-        controlLoop3 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         jButton1Close = new javax.swing.JButton();
         jButton1Open = new javax.swing.JButton();
         jButton2Open = new javax.swing.JButton();
@@ -62,14 +59,20 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        loopControlDA1Pressure = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        jLabelDA1Press1 = new javax.swing.JLabel();
+        jLabelDA1Press2 = new javax.swing.JLabel();
+        loopControlDA1Pressure1 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        jLabelDA1Press3 = new javax.swing.JLabel();
+        jLabelDA1Press4 = new javax.swing.JLabel();
+        loopControlDA1Pressure2 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        jLabelDA1Press5 = new javax.swing.JLabel();
+        jLabelDA1Press6 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(190, 190));
-        setMinimumSize(new java.awt.Dimension(190, 190));
-        setPreferredSize(new java.awt.Dimension(190, 190));
+        setMaximumSize(new java.awt.Dimension(260, 130));
+        setMinimumSize(new java.awt.Dimension(260, 130));
+        setPreferredSize(new java.awt.Dimension(260, 130));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(controlLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 146, -1, -1));
-        add(controlLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 102, -1, -1));
-        add(controlLoop3, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 58, -1, -1));
 
         jButton1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton1Close.setText("C");
@@ -80,7 +83,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton1CloseActionPerformed(evt);
             }
         });
-        add(jButton1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 22, 20, 20));
+        add(jButton1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 20, 20));
 
         jButton1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton1Open.setText("O");
@@ -91,7 +94,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton1OpenActionPerformed(evt);
             }
         });
-        add(jButton1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 22, 20, 20));
+        add(jButton1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 20, 20, 20));
 
         jButton2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton2Open.setText("O");
@@ -102,7 +105,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton2OpenActionPerformed(evt);
             }
         });
-        add(jButton2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 22, 20, 20));
+        add(jButton2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 58, 20, 20));
 
         jButton2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton2Close.setText("C");
@@ -113,7 +116,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton2CloseActionPerformed(evt);
             }
         });
-        add(jButton2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 22, 20, 20));
+        add(jButton2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 58, 20, 20));
 
         jButton3Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton3Open.setText("O");
@@ -124,7 +127,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton3OpenActionPerformed(evt);
             }
         });
-        add(jButton3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 22, 20, 20));
+        add(jButton3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 20, 20));
 
         jButton3Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton3Close.setText("C");
@@ -135,7 +138,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton3CloseActionPerformed(evt);
             }
         });
-        add(jButton3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 22, 20, 20));
+        add(jButton3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 100, 20, 20));
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() | java.awt.Font.BOLD, jLabel3.getFont().getSize()-2));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -143,7 +146,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabel3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabel3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 4, 64, 14));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 84, 58, 14));
 
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getStyle() | java.awt.Font.BOLD, jLabel2.getFont().getSize()-2));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -151,7 +154,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabel2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabel2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 64, 14));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 58, 14));
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()-2));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -159,7 +162,52 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabel1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabel1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 4, 64, 14));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 42, 58, 14));
+
+        loopControlDA1Pressure.setControlComponent("Deaerator1#SteamInRegValve");
+        loopControlDA1Pressure.setFeedbackComponent("Deaerator1#Pressure");
+        loopControlDA1Pressure.setMaxValue(10.0);
+        loopControlDA1Pressure.setSetpoint(8.0);
+        loopControlDA1Pressure.setSetpointComponent("Deaerator1#PressureSetpoint");
+        add(loopControlDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 4, -1, -1));
+
+        jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
+        jLabelDA1Press1.setText("DA 1");
+        add(jLabelDA1Press1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 36, 14));
+
+        jLabelDA1Press2.setFont(jLabelDA1Press2.getFont().deriveFont(jLabelDA1Press2.getFont().getSize()-2f));
+        jLabelDA1Press2.setText("Press.");
+        add(jLabelDA1Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 24, 36, 14));
+
+        loopControlDA1Pressure1.setControlComponent("Deaerator1#SteamInRegValve");
+        loopControlDA1Pressure1.setFeedbackComponent("Deaerator1#Pressure");
+        loopControlDA1Pressure1.setMaxValue(10.0);
+        loopControlDA1Pressure1.setSetpoint(8.0);
+        loopControlDA1Pressure1.setSetpointComponent("Deaerator1#PressureSetpoint");
+        add(loopControlDA1Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 44, -1, -1));
+
+        jLabelDA1Press3.setFont(jLabelDA1Press3.getFont().deriveFont(jLabelDA1Press3.getFont().getSize()-2f));
+        jLabelDA1Press3.setText("DA 1");
+        add(jLabelDA1Press3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 36, 14));
+
+        jLabelDA1Press4.setFont(jLabelDA1Press4.getFont().deriveFont(jLabelDA1Press4.getFont().getSize()-2f));
+        jLabelDA1Press4.setText("Press.");
+        add(jLabelDA1Press4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 64, 36, 14));
+
+        loopControlDA1Pressure2.setControlComponent("Deaerator1#SteamInRegValve");
+        loopControlDA1Pressure2.setFeedbackComponent("Deaerator1#Pressure");
+        loopControlDA1Pressure2.setMaxValue(10.0);
+        loopControlDA1Pressure2.setSetpoint(8.0);
+        loopControlDA1Pressure2.setSetpointComponent("Deaerator1#PressureSetpoint");
+        add(loopControlDA1Pressure2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 84, -1, -1));
+
+        jLabelDA1Press5.setFont(jLabelDA1Press5.getFont().deriveFont(jLabelDA1Press5.getFont().getSize()-2f));
+        jLabelDA1Press5.setText("DA 1");
+        add(jLabelDA1Press5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 36, 14));
+
+        jLabelDA1Press6.setFont(jLabelDA1Press6.getFont().deriveFont(jLabelDA1Press6.getFont().getSize()-2f));
+        jLabelDA1Press6.setText("Press.");
+        add(jLabelDA1Press6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 104, 36, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CloseActionPerformed
@@ -188,9 +236,6 @@ public class PanelPreheaters extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoop1;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoop2;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop controlLoop3;
     private javax.swing.JButton jButton1Close;
     private javax.swing.JButton jButton1Open;
     private javax.swing.JButton jButton2Close;
@@ -200,6 +245,15 @@ public class PanelPreheaters extends AbstractPanelWidget
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelDA1Press1;
+    private javax.swing.JLabel jLabelDA1Press2;
+    private javax.swing.JLabel jLabelDA1Press3;
+    private javax.swing.JLabel jLabelDA1Press4;
+    private javax.swing.JLabel jLabelDA1Press5;
+    private javax.swing.JLabel jLabelDA1Press6;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlDA1Pressure;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlDA1Pressure1;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlDA1Pressure2;
     // End of variables declaration//GEN-END:variables
 
     @Override
