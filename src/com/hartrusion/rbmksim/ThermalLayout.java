@@ -2031,6 +2031,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].initOpening(70);
             }
         }
+        
+        // Initial setpoint for steam pressure
+        setpointDrumPressure.forceOutputValue(4.0);
+        
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].initOpening(80);
             blowdownValveFromLoop[idx].initOpening(95);
@@ -2430,6 +2434,74 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) auxCondCondensateValve[idx].getController())
                     .setParameterTN(20);
         }
+
+        // Aux condensate steam in: Those can control drum pressure
+        auxCondSteamValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                if (!loopNodeDrumFromReactor[0].effortUpdated()) {
+                    return 0.0;
+                }
+                // Negative control: Open valve to decrease pressure
+                return - setpointDrumPressure.getOutput()
+                        + (loopNodeDrumFromReactor[0].getEffort()
+                        / 100000 - 1.0); // Pa abs to bar rel
+            }
+        });
+        auxCondSteamValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                if (!loopNodeDrumFromReactor[1].effortUpdated()) {
+                    return 0.0;
+                }
+                // Negative control: Open valve to decrease pressure
+                return - setpointDrumPressure.getOutput()
+                        + (loopNodeDrumFromReactor[1].getEffort()
+                        / 100000 - 1.0); // Pa abs to bar rel
+            }
+        });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) auxCondSteamValve[idx].getController())
+                    .setParameterK(5.0);
+            ((PIControl) auxCondSteamValve[idx].getController())
+                    .setParameterTN(20);
+        } // Todo: Get some parameters, those here were random numbers!
+
+        // Steam dump or turbine bypass: Controls main drum pressure
+        mainSteamDump[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                if (!loopNodeDrumFromReactor[0].effortUpdated()) {
+                    return 0.0;
+                }
+                // Negative control: Open valve to decrease pressure
+                return - setpointDrumPressure.getOutput()
+                        + (loopNodeDrumFromReactor[0].getEffort()
+                        / 100000 - 1.0); // Pa abs to bar rel
+            }
+        });
+        mainSteamDump[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                if (!loopNodeDrumFromReactor[1].effortUpdated()) {
+                    return 0.0;
+                }
+                // Negative control: Open valve to decrease pressure
+                return - setpointDrumPressure.getOutput()
+                        + (loopNodeDrumFromReactor[1].getEffort()
+                        / 100000 - 1.0); // Pa abs to bar rel
+            }
+        });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) mainSteamDump[idx].getController())
+                    .setParameterK(5.0);
+            ((PIControl) mainSteamDump[idx].getController())
+                    .setParameterTN(10);
+        } // Todo: Get some parameters, those here were random numbers!
 
         // Hotwell level control
         // Alarms: 5 min, 10 low2, 15 low1, 80 high1, 100: max1
@@ -3081,7 +3153,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !alarmManager.isAlarmActive(
                             "HotwellLevel", AlarmState.MIN1));
         }
-        
+
         // Turbine - there is no trip logic yet but for now block all valves
         // if there is no vacuum - TODO - this will be included in turbine 
         // logic later
@@ -3093,7 +3165,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !alarmManager.isAlarmActive(
                             "CondenserVacuum", AlarmState.MIN1));
         }
-        
+
         // Turbine: Reheater gets limited by condensate level and the 
         // shut valve also gets limited by condenser vacuum
         turbineReheaterCondensateShutoffValve.addSafeClosedProvider(()
@@ -3234,7 +3306,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 - ejectorMainSteamValve[0].getValveElement().getFlow()
         );
         condenserVacuum.run();
-        
+
         // Update Alarms
         alarmUpdater.invokeAll();
 

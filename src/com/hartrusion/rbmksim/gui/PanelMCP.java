@@ -118,6 +118,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel12 = new javax.swing.JLabel();
         jLabelCaptionDrain6 = new javax.swing.JLabel();
         setpointControl1 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
+        jLabelCaptionPassiveFlow3 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(480, 340));
         setMinimumSize(new java.awt.Dimension(480, 340));
@@ -189,7 +190,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop1CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 90, 20, 20));
+        add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 100, 20, 20));
 
         jButtonLoop1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop1Open.setText("O");
@@ -200,7 +201,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop1OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 90, 20, 20));
+        add(jButtonLoop1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 100, 20, 20));
 
         jLabelCaptionPassiveFlow2.setFont(jLabelCaptionPassiveFlow2.getFont().deriveFont(jLabelCaptionPassiveFlow2.getFont().getSize()-2f));
         jLabelCaptionPassiveFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -208,7 +209,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabelCaptionPassiveFlow2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 76, 51, 14));
+        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 86, 51, 14));
 
         jButtonLoop2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close.setText("C");
@@ -219,7 +220,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop2CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 130, 20, 20));
+        add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 140, 20, 20));
 
         jButtonLoop2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open.setText("O");
@@ -230,7 +231,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop2OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 130, 20, 20));
+        add(jButtonLoop2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 140, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler2.setFont(jLabeljLabelCaptionRegenToCooler2.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler2.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -238,7 +239,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 116, 51, 14));
+        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 126, 51, 14));
 
         chornobylGaugeLoop2Pressure1.setChornobylTicks(new float[] {0.0f, 20.0f, 70.0f, 100.0f});
         chornobylGaugeLoop2Pressure1.setChornobylUnitText("bar");
@@ -264,7 +265,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabelCaptionDrain5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain5, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 22, 86, 14));
+        add(jLabelCaptionDrain5, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 20, 86, 14));
 
         jLabel13.setFont(jLabel13.getFont().deriveFont(jLabel13.getFont().getSize()-2f));
         jLabel13.setText("Rc. Flow");
@@ -402,14 +403,22 @@ public class PanelMCP extends AbstractPanelWidget
 
         jLabelCaptionDrain6.setFont(jLabelCaptionDrain6.getFont().deriveFont(jLabelCaptionDrain6.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain6.getFont().getSize()-2));
         jLabelCaptionDrain6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrain6.setText("Pressure");
+        jLabelCaptionDrain6.setText("Drum pressure");
         jLabelCaptionDrain6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 8, 86, 14));
+        add(jLabelCaptionDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 6, 86, 14));
 
         setpointControl1.setComponent("LoopPressureSetpoint");
-        add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 40, -1, -1));
+        add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 38, -1, -1));
+
+        jLabelCaptionPassiveFlow3.setFont(jLabelCaptionPassiveFlow3.getFont().deriveFont(jLabelCaptionPassiveFlow3.getFont().getSize()-2f));
+        jLabelCaptionPassiveFlow3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPassiveFlow3.setText("bar");
+        jLabelCaptionPassiveFlow3.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPassiveFlow3.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPassiveFlow3.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPassiveFlow3, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 62, 51, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLoop1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop1CloseActionPerformed
@@ -483,6 +492,7 @@ public class PanelMCP extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaptionDrain5;
     private javax.swing.JLabel jLabelCaptionDrain6;
     private javax.swing.JLabel jLabelCaptionPassiveFlow2;
+    private javax.swing.JLabel jLabelCaptionPassiveFlow3;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler2;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControl1;
     // End of variables declaration//GEN-END:variables
