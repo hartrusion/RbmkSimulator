@@ -2844,7 +2844,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getFillHeight() * 100;
             }
         });
-        am.defineAlarm(500.0, AlarmState.MAX1);
+        am.defineAlarm(300.0, AlarmState.MAX1);
         am.defineAlarm(200.0, AlarmState.HIGH2);
         am.defineAlarm(120.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
@@ -2862,7 +2862,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getFillHeight() * 100;
             }
         });
-        am.defineAlarm(500.0, AlarmState.MAX1);
+        am.defineAlarm(300.0, AlarmState.MAX1);
         am.defineAlarm(200.0, AlarmState.HIGH2);
         am.defineAlarm(120.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
@@ -3121,15 +3121,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         );
 
         // close aux condenser steam valves on high level or high temperature
-        auxCondCondensateValve[0].addSafeOpenProvider(()
+        auxCondSteamValve[0].addSafeClosedProvider(()
                 -> !(alarmManager.isAlarmActive(
-                        "AuxCond1Level", AlarmState.MAX2)
+                        "AuxCond1Level", AlarmState.MAX1)
                 || alarmManager.isAlarmActive(
                         "AuxCond1Temp", AlarmState.MAX1))
         );
-        auxCondCondensateValve[1].addSafeOpenProvider(()
+        auxCondSteamValve[1].addSafeClosedProvider(()
                 -> !(alarmManager.isAlarmActive(
-                        "AuxCond2Level", AlarmState.MAX2)
+                        "AuxCond2Level", AlarmState.MAX1)
                 || alarmManager.isAlarmActive(
                         "AuxCond2Temp", AlarmState.MAX1))
         );

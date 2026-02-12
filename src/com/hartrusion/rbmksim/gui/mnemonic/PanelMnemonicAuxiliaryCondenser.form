@@ -97,6 +97,7 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFromMain1">
       <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -111,6 +112,7 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.mnemonic.Valve" name="valveFromMain2">
       <Properties>
+        <Property name="controlIndicator" type="boolean" value="true"/>
         <Property name="vertical" type="boolean" value="true"/>
       </Properties>
       <Constraints>
@@ -371,7 +373,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="38" y="30" width="24" height="-1"/>
+          <AbsoluteConstraints x="40" y="30" width="24" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

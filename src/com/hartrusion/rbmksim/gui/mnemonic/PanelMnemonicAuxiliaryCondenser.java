@@ -89,9 +89,11 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         valvePump1Discharge.setVertical(true);
         add(valvePump1Discharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 256, -1, -1));
 
+        valveFromMain1.setControlIndicator(true);
         valveFromMain1.setVertical(true);
         add(valveFromMain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 16, -1, -1));
 
+        valveFromMain2.setControlIndicator(true);
         valveFromMain2.setVertical(true);
         add(valveFromMain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 16, -1, -1));
 
@@ -178,7 +180,7 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
         jLabelReadingSteamValve1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamValve1.setText("___");
         jLabelReadingSteamValve1.setOpaque(true);
-        add(jLabelReadingSteamValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 30, 24, -1));
+        add(jLabelReadingSteamValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 24, -1));
 
         jLabelReadingSteamFlow1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamFlow1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -329,8 +331,22 @@ public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
                 valvePassiveFlow.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "AuxCond1#SteamValve_Pos" ->
                 valveFromMain1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond1#SteamValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveFromMain1.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveFromMain1.setControlIndicatorActive(false);
+                }
+            }
             case "AuxCond2#SteamValve_Pos" ->
                 valveFromMain2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "AuxCond2#SteamValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveFromMain2.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveFromMain2.setControlIndicatorActive(false);
+                }
+            }
             case "AuxCond#ToHotwell_Pos" ->
                 valveToHotwell.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "AuxCond#ToDrain_Pos" ->

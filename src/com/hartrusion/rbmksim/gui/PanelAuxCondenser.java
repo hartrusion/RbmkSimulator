@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
@@ -93,9 +94,11 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         chornobylGaugeFlow2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jTogglePressureControl1 = new javax.swing.JToggleButton();
-        jToggleButtonGlobalEnable1 = new javax.swing.JToggleButton();
+        jToggleButtonControl2Enable = new javax.swing.JToggleButton();
+        jToggleButtonControl1Enable = new javax.swing.JToggleButton();
         jLabelCaptionSteamIn1 = new javax.swing.JLabel();
+        lightBulbControl1Active = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbControl2Active = new com.hartrusion.rbmksim.gui.elements.LightBulb();
 
         setMaximumSize(new java.awt.Dimension(190, 340));
         setMinimumSize(new java.awt.Dimension(190, 340));
@@ -286,27 +289,27 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitch2.setToolTipText("From main steam line 2 valve to auxiliary condenser 2");
         add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 250, -1, -1));
 
-        jTogglePressureControl1.setFont(jTogglePressureControl1.getFont().deriveFont(jTogglePressureControl1.getFont().getStyle() | java.awt.Font.BOLD));
-        jTogglePressureControl1.setText("←");
-        jTogglePressureControl1.setToolTipText("Enables valve control by pressure regulator");
-        jTogglePressureControl1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jTogglePressureControl1.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButtonControl2Enable.setFont(jToggleButtonControl2Enable.getFont().deriveFont(jToggleButtonControl2Enable.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonControl2Enable.setText("←");
+        jToggleButtonControl2Enable.setToolTipText("Enables valve control by pressure regulator");
+        jToggleButtonControl2Enable.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonControl2Enable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTogglePressureControl1ActionPerformed(evt);
+                jToggleButtonControl2EnableActionPerformed(evt);
             }
         });
-        add(jTogglePressureControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, 20, 20));
+        add(jToggleButtonControl2Enable, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, 20, 20));
 
-        jToggleButtonGlobalEnable1.setFont(jToggleButtonGlobalEnable1.getFont().deriveFont(jToggleButtonGlobalEnable1.getFont().getStyle() | java.awt.Font.BOLD));
-        jToggleButtonGlobalEnable1.setText("←");
-        jToggleButtonGlobalEnable1.setToolTipText("Enables valve control by pressure regulator");
-        jToggleButtonGlobalEnable1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonGlobalEnable1.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButtonControl1Enable.setFont(jToggleButtonControl1Enable.getFont().deriveFont(jToggleButtonControl1Enable.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonControl1Enable.setText("←");
+        jToggleButtonControl1Enable.setToolTipText("Enables valve control by pressure regulator");
+        jToggleButtonControl1Enable.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonControl1Enable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonGlobalEnable1ActionPerformed(evt);
+                jToggleButtonControl1EnableActionPerformed(evt);
             }
         });
-        add(jToggleButtonGlobalEnable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 206, 20, 20));
+        add(jToggleButtonControl1Enable, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 206, 20, 20));
 
         jLabelCaptionSteamIn1.setFont(jLabelCaptionSteamIn1.getFont().deriveFont(jLabelCaptionSteamIn1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSteamIn1.getFont().getSize()-2));
         jLabelCaptionSteamIn1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -315,6 +318,8 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionSteamIn1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSteamIn1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSteamIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 182, 64, 14));
+        add(lightBulbControl1Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 198, -1, -1));
+        add(lightBulbControl2Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 248, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBypassCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBypassCloseActionPerformed
@@ -325,13 +330,25 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         controller.userAction(new ActionCommand("AuxCond#Bypass", true));
     }//GEN-LAST:event_jButtonBypassOpenActionPerformed
 
-    private void jTogglePressureControl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTogglePressureControl1ActionPerformed
-        
-    }//GEN-LAST:event_jTogglePressureControl1ActionPerformed
+    private void jToggleButtonControl2EnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl2EnableActionPerformed
+        if (jToggleButtonControl2Enable.isSelected()) {
+            jToggleButtonControl2Enable.setText("↑");
+            controller.userAction(new ActionCommand("AuxCond2#SteamValveControlCommand", ControlCommand.AUTOMATIC));
+        } else {
+            jToggleButtonControl2Enable.setText("←");
+            controller.userAction(new ActionCommand("AuxCond2#SteamValveControlCommand", ControlCommand.MANUAL_OPERATION));
+        }
+    }//GEN-LAST:event_jToggleButtonControl2EnableActionPerformed
 
-    private void jToggleButtonGlobalEnable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonGlobalEnable1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonGlobalEnable1ActionPerformed
+    private void jToggleButtonControl1EnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1EnableActionPerformed
+        if (jToggleButtonControl1Enable.isSelected()) {
+            jToggleButtonControl1Enable.setText("↑");
+            controller.userAction(new ActionCommand("AuxCond1#SteamValveControlCommand", ControlCommand.AUTOMATIC));
+        } else {
+            jToggleButtonControl1Enable.setText("←");
+            controller.userAction(new ActionCommand("AuxCond1#SteamValveControlCommand", ControlCommand.MANUAL_OPERATION));
+        }
+    }//GEN-LAST:event_jToggleButtonControl1EnableActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -365,8 +382,10 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     private javax.swing.JLabel jLabelDA1Press3;
     private javax.swing.JLabel jLabelDA1Press4;
     private javax.swing.JLabel jLabelFeed20;
-    private javax.swing.JToggleButton jToggleButtonGlobalEnable1;
-    private javax.swing.JToggleButton jTogglePressureControl1;
+    private javax.swing.JToggleButton jToggleButtonControl1Enable;
+    private javax.swing.JToggleButton jToggleButtonControl2Enable;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl2Active;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelCondensatePump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelCondensatePump2;
     // End of variables declaration//GEN-END:variables
@@ -390,6 +409,40 @@ public class PanelAuxCondenser extends AbstractPanelWidget
             case "AuxCond#Bypass_Pos" ->
                 setValveButtons(jButtonBypassClose,
                         jButtonBypassOpen, evt.getNewValue());
+            case "AuxCond1#SteamValveControlState" -> {
+                // Set the initial position of the switch button, this will be
+                // received when opening the panel.
+                if (ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue()
+                        && !jToggleButtonControl1Enable.isSelected()) {
+                    jToggleButtonControl1Enable.setSelected(true);
+                    jToggleButtonControl1Enable.setText("↑");
+                }
+                if (ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue()) {
+                    lightBulbControl1Active.setActive(true);
+                } else if (ControlCommand.MANUAL_OPERATION
+                        == (ControlCommand) evt.getNewValue()) {
+                    lightBulbControl1Active.setActive(false);
+                }
+            }
+            case "AuxCond2#SteamValveControlState" -> {
+                // Set the initial position of the switch button, this will be
+                // received when opening the panel.
+                if (ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue()
+                        && !jToggleButtonControl2Enable.isSelected()) {
+                    jToggleButtonControl2Enable.setSelected(true);
+                    jToggleButtonControl2Enable.setText("↑");
+                }
+                if (ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue()) {
+                    lightBulbControl2Active.setActive(true);
+                } else if (ControlCommand.MANUAL_OPERATION
+                        == (ControlCommand) evt.getNewValue()) {
+                    lightBulbControl2Active.setActive(false);
+                }
+            }
         }
     }
 
