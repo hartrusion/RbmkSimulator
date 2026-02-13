@@ -1,6 +1,18 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Copyright (C) 2026 Viktor Alexander Hartung
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.hartrusion.rbmksim.gui;
 
@@ -12,7 +24,7 @@ import java.beans.PropertyChangeEvent;
 
 /**
  *
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
 public class PanelTurbine extends AbstractPanelWidget
         implements UpdateReceiver {
@@ -28,7 +40,7 @@ public class PanelTurbine extends AbstractPanelWidget
         setpointControlTemperature.registerActionReceiver(controller);
         controlLoopValve3.registerActionReceiver(controller);
         controlLoopValve4.registerActionReceiver(controller);
-        integralSwitchReheaterDrain.registerActionReceiver(controller);
+        controlLoopValveCondToHotwell.registerActionReceiver(controller);
         controlLoopValveCondToDA1.registerActionReceiver(controller);
         controlLoopValveCondToDA2.registerActionReceiver(controller);
     }
@@ -49,33 +61,6 @@ public class PanelTurbine extends AbstractPanelWidget
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        lightBulbSpeed1 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeed1 = new javax.swing.JButton();
-        lightBulbSpeed2 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeed2 = new javax.swing.JButton();
-        lightBulbSpeed3 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeed3 = new javax.swing.JButton();
-        lightBulbSpeed4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeed4 = new javax.swing.JButton();
-        lightBulbSpeed5 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeed5 = new javax.swing.JButton();
-        lightBulbSpeedGradient1 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeedGradient1 = new javax.swing.JButton();
-        lightBulbSpeedGradient2 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeedGradient2 = new javax.swing.JButton();
-        lightBulbSpeedGradient3 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jButtonSpeedGradient3 = new javax.swing.JButton();
-        jLabelReadingActiveSpeedSetpoint = new javax.swing.JLabel();
-        jLabelCaptionAZ7 = new javax.swing.JLabel();
-        jLabelCaptionAZ9 = new javax.swing.JLabel();
-        jLabelCaptionAZ10 = new javax.swing.JLabel();
-        jLabelCaptionAZ11 = new javax.swing.JLabel();
-        jLabelCaptionAZ12 = new javax.swing.JLabel();
-        jLabelCaptionAZ13 = new javax.swing.JLabel();
-        jLabelCaptionAZ14 = new javax.swing.JLabel();
-        jLabelCaptionAZ15 = new javax.swing.JLabel();
-        jLabelCaptionAZ16 = new javax.swing.JLabel();
         jButtonTrip1Close = new javax.swing.JButton();
         jButtonTrip1Open = new javax.swing.JButton();
         jLabelCaptionLPShut1 = new javax.swing.JLabel();
@@ -86,16 +71,17 @@ public class PanelTurbine extends AbstractPanelWidget
         setpointControlTemperature = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         jLabelTempSetpoint = new javax.swing.JLabel();
         controlLoopValveSteamIn = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
-        jLabelCaptionSuperheaterShutoff = new javax.swing.JLabel();
-        jButtonSuperheaterShutoffClose = new javax.swing.JButton();
-        jButtonSuperheaterShutoffOpen = new javax.swing.JButton();
         jLabelCaptionsuperheaterCond2 = new javax.swing.JLabel();
         jLabelCaptionsuperheaterCond1 = new javax.swing.JLabel();
         controlLoopValveCondToDA1 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
         controlLoopValveCondToDA2 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
         jLabelCaptionsuperheaterCond3 = new javax.swing.JLabel();
         jLabelCaptionsuperheaterCond4 = new javax.swing.JLabel();
-        jLabelCaptionSuperheaterControl = new javax.swing.JLabel();
+        setpointControlTemperature1 = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
+        jLabelTempSetpoint1 = new javax.swing.JLabel();
+        controlLoopValveCondToHotwell = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
+        jLabelCaptionsuperheaterCond5 = new javax.swing.JLabel();
+        jLabelCaptionsuperheaterCond6 = new javax.swing.JLabel();
         jLabelCaption1 = new javax.swing.JLabel();
         jLabelCaptionSuperheaterControl1 = new javax.swing.JLabel();
         jLabelCaptionSuperheaterControl2 = new javax.swing.JLabel();
@@ -135,7 +121,6 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         chornobylGaugeFeed2Temp3 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelCaptionSuperheaterControl3 = new javax.swing.JLabel();
         jLabelCaption4 = new javax.swing.JLabel();
         jLabelCaption5 = new javax.swing.JLabel();
         jLabelCaption6 = new javax.swing.JLabel();
@@ -155,213 +140,20 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut8 = new javax.swing.JLabel();
         jLabelCaptionLPShut9 = new javax.swing.JLabel();
         jLabelCaptionLPShut10 = new javax.swing.JLabel();
-        integralSwitchReheaterDrain = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jLabelCaptionLPShut11 = new javax.swing.JLabel();
-        jLabelCaptionLPShut12 = new javax.swing.JLabel();
         jToggleButtonAutoDrain2 = new javax.swing.JToggleButton();
         jLabelCaption9 = new javax.swing.JLabel();
         jLabelCaptionSuperheaterControl7 = new javax.swing.JLabel();
         jLabelCaption10 = new javax.swing.JLabel();
         jLabelCaptionSuperheaterControl8 = new javax.swing.JLabel();
+        jButtonSuperheaterShutoffClose = new javax.swing.JButton();
+        jButtonSuperheaterShutoffOpen = new javax.swing.JButton();
+        jLabelCaptionSuperheaterControl5 = new javax.swing.JLabel();
+        jLabelCaptionLPShut5 = new javax.swing.JLabel();
+        jLabelCaptionLPShut6 = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(580, 340));
-        setPreferredSize(new java.awt.Dimension(580, 340));
+        setMinimumSize(new java.awt.Dimension(574, 340));
+        setPreferredSize(new java.awt.Dimension(574, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(lightBulbSpeed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 28, -1, -1));
-
-        jButtonSpeed1.setFont(jButtonSpeed1.getFont().deriveFont(jButtonSpeed1.getFont().getSize()-2f));
-        jButtonSpeed1.setText("●");
-        jButtonSpeed1.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeed1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeed1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeed1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, 20, 20));
-        jPanel1.add(lightBulbSpeed2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 28, -1, -1));
-
-        jButtonSpeed2.setFont(jButtonSpeed2.getFont().deriveFont(jButtonSpeed2.getFont().getSize()-2f));
-        jButtonSpeed2.setText("●");
-        jButtonSpeed2.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeed2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeed2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeed2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeed2, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 22, 20, 20));
-        jPanel1.add(lightBulbSpeed3, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 28, -1, -1));
-
-        jButtonSpeed3.setFont(jButtonSpeed3.getFont().deriveFont(jButtonSpeed3.getFont().getSize()-2f));
-        jButtonSpeed3.setText("●");
-        jButtonSpeed3.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeed3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeed3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeed3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeed3, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 22, 20, 20));
-        jPanel1.add(lightBulbSpeed4, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 28, -1, -1));
-
-        jButtonSpeed4.setFont(jButtonSpeed4.getFont().deriveFont(jButtonSpeed4.getFont().getSize()-2f));
-        jButtonSpeed4.setText("●");
-        jButtonSpeed4.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeed4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeed4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeed4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeed4, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 22, 20, 20));
-        jPanel1.add(lightBulbSpeed5, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 28, -1, -1));
-
-        jButtonSpeed5.setFont(jButtonSpeed5.getFont().deriveFont(jButtonSpeed5.getFont().getSize()-2f));
-        jButtonSpeed5.setText("●");
-        jButtonSpeed5.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeed5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeed5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeed5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeed5, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 22, 20, 20));
-        jPanel1.add(lightBulbSpeedGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 70, -1, -1));
-
-        jButtonSpeedGradient1.setFont(jButtonSpeedGradient1.getFont().deriveFont(jButtonSpeedGradient1.getFont().getSize()-2f));
-        jButtonSpeedGradient1.setText("●");
-        jButtonSpeedGradient1.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeedGradient1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeedGradient1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeedGradient1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeedGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 64, 20, 20));
-        jPanel1.add(lightBulbSpeedGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
-
-        jButtonSpeedGradient2.setFont(jButtonSpeedGradient2.getFont().deriveFont(jButtonSpeedGradient2.getFont().getSize()-2f));
-        jButtonSpeedGradient2.setText("●");
-        jButtonSpeedGradient2.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeedGradient2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeedGradient2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeedGradient2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeedGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 64, 20, 20));
-        jPanel1.add(lightBulbSpeedGradient3, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 70, -1, -1));
-
-        jButtonSpeedGradient3.setFont(jButtonSpeedGradient3.getFont().deriveFont(jButtonSpeedGradient3.getFont().getSize()-2f));
-        jButtonSpeedGradient3.setText("●");
-        jButtonSpeedGradient3.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeedGradient3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeedGradient3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeedGradient3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonSpeedGradient3, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 64, 20, 20));
-
-        jLabelReadingActiveSpeedSetpoint.setBackground(new java.awt.Color(51, 51, 51));
-        jLabelReadingActiveSpeedSetpoint.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingActiveSpeedSetpoint.setForeground(new java.awt.Color(0, 255, 153));
-        jLabelReadingActiveSpeedSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingActiveSpeedSetpoint.setText("___,_");
-        jLabelReadingActiveSpeedSetpoint.setToolTipText("Active setpoint which the global control is currently using");
-        jLabelReadingActiveSpeedSetpoint.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabelReadingActiveSpeedSetpoint.setMaximumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingActiveSpeedSetpoint.setMinimumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingActiveSpeedSetpoint.setOpaque(true);
-        jLabelReadingActiveSpeedSetpoint.setPreferredSize(new java.awt.Dimension(52, 18));
-        jPanel1.add(jLabelReadingActiveSpeedSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 66, 48, -1));
-
-        jLabelCaptionAZ7.setFont(jLabelCaptionAZ7.getFont().deriveFont(jLabelCaptionAZ7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ7.getFont().getSize()-2));
-        jLabelCaptionAZ7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ7.setText("750");
-        jLabelCaptionAZ7.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ7.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ7.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ7.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ7, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 6, 28, -1));
-
-        jLabelCaptionAZ9.setFont(jLabelCaptionAZ9.getFont().deriveFont(jLabelCaptionAZ9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ9.getFont().getSize()-2));
-        jLabelCaptionAZ9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ9.setText("0");
-        jLabelCaptionAZ9.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ9.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ9.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ9.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 28, -1));
-
-        jLabelCaptionAZ10.setFont(jLabelCaptionAZ10.getFont().deriveFont(jLabelCaptionAZ10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ10.getFont().getSize()-2));
-        jLabelCaptionAZ10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ10.setText("3000");
-        jLabelCaptionAZ10.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ10.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ10.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ10.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ10, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 6, 28, -1));
-
-        jLabelCaptionAZ11.setFont(jLabelCaptionAZ11.getFont().deriveFont(jLabelCaptionAZ11.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ11.getFont().getSize()-2));
-        jLabelCaptionAZ11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ11.setText("1500");
-        jLabelCaptionAZ11.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ11.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ11.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ11.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ11, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 6, 28, -1));
-
-        jLabelCaptionAZ12.setFont(jLabelCaptionAZ12.getFont().deriveFont(jLabelCaptionAZ12.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ12.getFont().getSize()-2));
-        jLabelCaptionAZ12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ12.setText("2250");
-        jLabelCaptionAZ12.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ12.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ12.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ12.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 6, 28, -1));
-
-        jLabelCaptionAZ13.setFont(jLabelCaptionAZ13.getFont().deriveFont(jLabelCaptionAZ13.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ13.getFont().getSize()-2));
-        jLabelCaptionAZ13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ13.setText("Slow");
-        jLabelCaptionAZ13.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ13.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ13.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ13.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ13, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 48, 36, -1));
-
-        jLabelCaptionAZ14.setFont(jLabelCaptionAZ14.getFont().deriveFont(jLabelCaptionAZ14.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ14.getFont().getSize()-2));
-        jLabelCaptionAZ14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ14.setText("Med");
-        jLabelCaptionAZ14.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ14.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ14.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ14.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 48, 36, -1));
-
-        jLabelCaptionAZ15.setFont(jLabelCaptionAZ15.getFont().deriveFont(jLabelCaptionAZ15.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ15.getFont().getSize()-2));
-        jLabelCaptionAZ15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ15.setText("Setpoint");
-        jLabelCaptionAZ15.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ15.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ15.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ15.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ15, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 64, -1));
-
-        jLabelCaptionAZ16.setFont(jLabelCaptionAZ16.getFont().deriveFont(jLabelCaptionAZ16.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ16.getFont().getSize()-2));
-        jLabelCaptionAZ16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ16.setText("Fast");
-        jLabelCaptionAZ16.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionAZ16.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ16.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ16.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel1.add(jLabelCaptionAZ16, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 48, 36, -1));
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 118, 200, 96));
 
         jButtonTrip1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonTrip1Close.setText("C");
@@ -372,7 +164,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonTrip1CloseActionPerformed(evt);
             }
         });
-        add(jButtonTrip1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 246, 20, 20));
+        add(jButtonTrip1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 20, 20));
 
         jButtonTrip1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonTrip1Open.setText("O");
@@ -383,7 +175,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonTrip1OpenActionPerformed(evt);
             }
         });
-        add(jButtonTrip1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 246, 20, 20));
+        add(jButtonTrip1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 130, 20, 20));
 
         jLabelCaptionLPShut1.setFont(jLabelCaptionLPShut1.getFont().deriveFont(jLabelCaptionLPShut1.getFont().getSize()-2f));
         jLabelCaptionLPShut1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -391,7 +183,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 276, 51, 14));
+        add(jLabelCaptionLPShut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 282, 51, 14));
 
         jLabelCaptionLPShut2.setFont(jLabelCaptionLPShut2.getFont().deriveFont(jLabelCaptionLPShut2.getFont().getSize()-2f));
         jLabelCaptionLPShut2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -399,7 +191,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut2, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 288, 51, 14));
+        add(jLabelCaptionLPShut2, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 294, 51, 14));
 
         jButtonLPShutClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLPShutClose.setText("C");
@@ -410,7 +202,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonLPShutCloseActionPerformed(evt);
             }
         });
-        add(jButtonLPShutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 302, 20, 20));
+        add(jButtonLPShutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 308, 20, 20));
 
         jButtenLPShutOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtenLPShutOpen.setText("O");
@@ -421,7 +213,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtenLPShutOpenActionPerformed(evt);
             }
         });
-        add(jButtenLPShutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 302, 20, 20));
+        add(jButtenLPShutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 308, 20, 20));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -429,7 +221,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jLabelTempSetpoint.setFont(jLabelTempSetpoint.getFont().deriveFont(jLabelTempSetpoint.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelTempSetpoint.getFont().getSize()-2));
         jLabelTempSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTempSetpoint.setText("Setpoint");
+        jLabelTempSetpoint.setText("Temperature");
         jLabelTempSetpoint.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelTempSetpoint.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelTempSetpoint.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -437,70 +229,51 @@ public class PanelTurbine extends AbstractPanelWidget
         jPanel2.add(jLabelTempSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 88, -1));
 
         controlLoopValveSteamIn.setComponent("Turbine#ReheaterPriControlValve");
-        jPanel2.add(controlLoopValveSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 8, -1, -1));
-
-        jLabelCaptionSuperheaterShutoff.setFont(jLabelCaptionSuperheaterShutoff.getFont().deriveFont(jLabelCaptionSuperheaterShutoff.getFont().getSize()-2f));
-        jLabelCaptionSuperheaterShutoff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionSuperheaterShutoff.setText("Trip Vlv");
-        jLabelCaptionSuperheaterShutoff.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterShutoff.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterShutoff.setPreferredSize(new java.awt.Dimension(52, 14));
-        jPanel2.add(jLabelCaptionSuperheaterShutoff, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 10, 51, -1));
-
-        jButtonSuperheaterShutoffClose.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonSuperheaterShutoffClose.setText("C");
-        jButtonSuperheaterShutoffClose.setToolTipText("");
-        jButtonSuperheaterShutoffClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSuperheaterShutoffClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSuperheaterShutoffCloseActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButtonSuperheaterShutoffClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 24, 20, 20));
-
-        jButtonSuperheaterShutoffOpen.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonSuperheaterShutoffOpen.setText("O");
-        jButtonSuperheaterShutoffOpen.setToolTipText("");
-        jButtonSuperheaterShutoffOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSuperheaterShutoffOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSuperheaterShutoffOpenActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButtonSuperheaterShutoffOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 24, 20, 20));
+        jPanel2.add(controlLoopValveSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabelCaptionsuperheaterCond2.setFont(jLabelCaptionsuperheaterCond2.getFont().deriveFont(jLabelCaptionsuperheaterCond2.getFont().getSize()-2f));
         jLabelCaptionsuperheaterCond2.setText("DA 1");
-        jPanel2.add(jLabelCaptionsuperheaterCond2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 70, 50, 14));
+        jPanel2.add(jLabelCaptionsuperheaterCond2, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 28, 50, 14));
 
         jLabelCaptionsuperheaterCond1.setFont(jLabelCaptionsuperheaterCond1.getFont().deriveFont(jLabelCaptionsuperheaterCond1.getFont().getSize()-2f));
         jLabelCaptionsuperheaterCond1.setText("Cond.");
-        jPanel2.add(jLabelCaptionsuperheaterCond1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 56, 50, 14));
+        jPanel2.add(jLabelCaptionsuperheaterCond1, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 14, 50, 14));
 
         controlLoopValveCondToDA1.setComponent("Turbine1#ReheaterCondensateValve");
-        jPanel2.add(controlLoopValveCondToDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 52, -1, -1));
+        jPanel2.add(controlLoopValveCondToDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 10, -1, -1));
 
         controlLoopValveCondToDA2.setComponent("Turbine2#ReheaterCondensateValve");
-        jPanel2.add(controlLoopValveCondToDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 52, -1, -1));
+        jPanel2.add(controlLoopValveCondToDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 50, -1, -1));
 
         jLabelCaptionsuperheaterCond3.setFont(jLabelCaptionsuperheaterCond3.getFont().deriveFont(jLabelCaptionsuperheaterCond3.getFont().getSize()-2f));
         jLabelCaptionsuperheaterCond3.setText("Cond.");
-        jPanel2.add(jLabelCaptionsuperheaterCond3, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 56, 50, 14));
+        jPanel2.add(jLabelCaptionsuperheaterCond3, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 54, 50, 14));
 
         jLabelCaptionsuperheaterCond4.setFont(jLabelCaptionsuperheaterCond4.getFont().deriveFont(jLabelCaptionsuperheaterCond4.getFont().getSize()-2f));
-        jLabelCaptionsuperheaterCond4.setText("DA 1");
-        jPanel2.add(jLabelCaptionsuperheaterCond4, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 70, 50, 14));
+        jLabelCaptionsuperheaterCond4.setText("DA 2");
+        jPanel2.add(jLabelCaptionsuperheaterCond4, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 68, 50, 14));
+        jPanel2.add(setpointControlTemperature1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 14, -1, -1));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 238, 294, 96));
+        jLabelTempSetpoint1.setFont(jLabelTempSetpoint1.getFont().deriveFont(jLabelTempSetpoint1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelTempSetpoint1.getFont().getSize()-2));
+        jLabelTempSetpoint1.setText("Level");
+        jLabelTempSetpoint1.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelTempSetpoint1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelTempSetpoint1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelTempSetpoint1.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel2.add(jLabelTempSetpoint1, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 18, 36, -1));
 
-        jLabelCaptionSuperheaterControl.setFont(jLabelCaptionSuperheaterControl.getFont().deriveFont(jLabelCaptionSuperheaterControl.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl.getFont().getSize()-2));
-        jLabelCaptionSuperheaterControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionSuperheaterControl.setText("Reheater Temperature Control");
-        jLabelCaptionSuperheaterControl.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionSuperheaterControl.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterControl.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterControl.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 222, 262, 14));
+        controlLoopValveCondToHotwell.setComponent("Turbine#ReheaterCondensateDrain");
+        jPanel2.add(controlLoopValveCondToHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 50, -1, -1));
+
+        jLabelCaptionsuperheaterCond5.setFont(jLabelCaptionsuperheaterCond5.getFont().deriveFont(jLabelCaptionsuperheaterCond5.getFont().getSize()-2f));
+        jLabelCaptionsuperheaterCond5.setText("Cond.");
+        jPanel2.add(jLabelCaptionsuperheaterCond5, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 54, 50, 14));
+
+        jLabelCaptionsuperheaterCond6.setFont(jLabelCaptionsuperheaterCond6.getFont().deriveFont(jLabelCaptionsuperheaterCond6.getFont().getSize()-2f));
+        jLabelCaptionsuperheaterCond6.setText("Drain");
+        jPanel2.add(jLabelCaptionsuperheaterCond6, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 68, 50, 14));
+
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 238, 396, 96));
 
         jLabelCaption1.setFont(jLabelCaption1.getFont().deriveFont(jLabelCaption1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption1.getFont().getSize()-2));
         jLabelCaption1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -509,7 +282,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 116, 90, 14));
+        add(jLabelCaption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 118, 90, 14));
 
         jLabelCaptionSuperheaterControl1.setFont(jLabelCaptionSuperheaterControl1.getFont().deriveFont(jLabelCaptionSuperheaterControl1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl1.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -518,7 +291,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 100, 244, 14));
+        add(jLabelCaptionSuperheaterControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 102, 244, 14));
 
         jLabelCaptionSuperheaterControl2.setFont(jLabelCaptionSuperheaterControl2.getFont().deriveFont(jLabelCaptionSuperheaterControl2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl2.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -527,7 +300,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 126, 56, 14));
+        add(jLabelCaptionSuperheaterControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 124, 56, 14));
 
         jButtonProtectionRest.setFont(jButtonProtectionRest.getFont().deriveFont(jButtonProtectionRest.getFont().getSize()-2f));
         jButtonProtectionRest.setText("●");
@@ -538,7 +311,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonProtectionRestActionPerformed(evt);
             }
         });
-        add(jButtonProtectionRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 264, 20, 20));
+        add(jButtonProtectionRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 148, 20, 20));
 
         jButtonProtectionTrip.setFont(jButtonProtectionTrip.getFont().deriveFont(jButtonProtectionTrip.getFont().getSize()-2f));
         jButtonProtectionTrip.setText("●");
@@ -549,10 +322,10 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonProtectionTripActionPerformed(evt);
             }
         });
-        add(jButtonProtectionTrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 264, 20, 20));
+        add(jButtonProtectionTrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 148, 20, 20));
 
         lightBulbSpeed6.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbSpeed6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, -1, -1));
+        add(lightBulbSpeed6, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 154, -1, -1));
 
         jLabelCaption2.setFont(jLabelCaption2.getFont().deriveFont(jLabelCaption2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2.getFont().getSize()-2));
         jLabelCaption2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -561,7 +334,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 248, 32, 14));
+        add(jLabelCaption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 132, 32, 14));
 
         jLabelCaption3.setFont(jLabelCaption3.getFont().deriveFont(jLabelCaption3.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption3.getFont().getSize()-2));
         jLabelCaption3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -570,19 +343,19 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 248, 32, 14));
+        add(jLabelCaption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 132, 32, 14));
 
         controlLoopStartupValve1.setComponent("Turbine1#StartupSteamValve");
-        add(controlLoopStartupValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 132, -1, -1));
+        add(controlLoopStartupValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 134, -1, -1));
 
         controlLoopStartupValve2.setComponent("Turbine2#StartupSteamValve");
-        add(controlLoopStartupValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 174, -1, -1));
+        add(controlLoopStartupValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 176, -1, -1));
 
         controlLoopValve3.setComponent("Turbine1#MainSteamValve");
-        add(controlLoopValve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 132, -1, -1));
+        add(controlLoopValve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 134, -1, -1));
 
         controlLoopValve4.setComponent("Turbine2#MainSteamValve");
-        add(controlLoopValve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 174, -1, -1));
+        add(controlLoopValve4, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 176, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
         jLabel5.setText("Turbine");
@@ -716,15 +489,6 @@ public class PanelTurbine extends AbstractPanelWidget
         chornobylGaugeFeed2Temp3.setChornobylValue(0.0F);
         add(chornobylGaugeFeed2Temp3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 64, -1, -1));
 
-        jLabelCaptionSuperheaterControl3.setFont(jLabelCaptionSuperheaterControl3.getFont().deriveFont(jLabelCaptionSuperheaterControl3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl3.getFont().getSize()-2));
-        jLabelCaptionSuperheaterControl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionSuperheaterControl3.setText("Startup Speed Setpoint");
-        jLabelCaptionSuperheaterControl3.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionSuperheaterControl3.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterControl3.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterControl3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 100, 196, 14));
-
         jLabelCaption4.setFont(jLabelCaption4.getFont().deriveFont(jLabelCaption4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption4.getFont().getSize()-2));
         jLabelCaption4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaption4.setText("2");
@@ -732,7 +496,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 186, 10, 14));
+        add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 188, 10, 14));
 
         jLabelCaption5.setFont(jLabelCaption5.getFont().deriveFont(jLabelCaption5.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption5.getFont().getSize()-2));
         jLabelCaption5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -741,7 +505,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 116, 86, 14));
+        add(jLabelCaption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 118, 86, 14));
 
         jLabelCaption6.setFont(jLabelCaption6.getFont().deriveFont(jLabelCaption6.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption6.getFont().getSize()-2));
         jLabelCaption6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -750,7 +514,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 186, 54, 14));
+        add(jLabelCaption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 184, 54, 14));
 
         jLabelCaptionSuperheaterControl4.setFont(jLabelCaptionSuperheaterControl4.getFont().deriveFont(jLabelCaptionSuperheaterControl4.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl4.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -759,7 +523,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl4, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 220, 56, 14));
+        add(jLabelCaptionSuperheaterControl4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 104, 56, 14));
 
         jLabelCaption7.setFont(jLabelCaption7.getFont().deriveFont(jLabelCaption7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption7.getFont().getSize()-2));
         jLabelCaption7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -768,7 +532,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption7.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption7.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption7.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption7, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 140, 10, 14));
+        add(jLabelCaption7, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 142, 10, 14));
 
         jToggleButtonAutoDrain1.setText("←");
         jToggleButtonAutoDrain1.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -777,7 +541,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jToggleButtonAutoDrain1ActionPerformed(evt);
             }
         });
-        add(jToggleButtonAutoDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 160, 20, 20));
+        add(jToggleButtonAutoDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 158, 20, 20));
 
         jLabelCaptionLPShut3.setFont(jLabelCaptionLPShut3.getFont().deriveFont(jLabelCaptionLPShut3.getFont().getSize()-2f));
         jLabelCaptionLPShut3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -785,7 +549,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut3, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 220, 51, 14));
+        add(jLabelCaptionLPShut3, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 226, 51, 14));
 
         jLabelCaptionLPShut4.setFont(jLabelCaptionLPShut4.getFont().deriveFont(jLabelCaptionLPShut4.getFont().getSize()-2f));
         jLabelCaptionLPShut4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -793,7 +557,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut4, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 232, 51, 14));
+        add(jLabelCaptionLPShut4, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 238, 51, 14));
 
         jButtonDrainsClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrainsClose.setText("C");
@@ -804,7 +568,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonDrainsCloseActionPerformed(evt);
             }
         });
-        add(jButtonDrainsClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 246, 20, 20));
+        add(jButtonDrainsClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 252, 20, 20));
 
         jButtenDrainsOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtenDrainsOpen.setText("O");
@@ -815,7 +579,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtenDrainsOpenActionPerformed(evt);
             }
         });
-        add(jButtenDrainsOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 246, 20, 20));
+        add(jButtenDrainsOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 252, 20, 20));
 
         jButtonTrip2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonTrip2Close.setText("C");
@@ -826,7 +590,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonTrip2CloseActionPerformed(evt);
             }
         });
-        add(jButtonTrip2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 302, 20, 20));
+        add(jButtonTrip2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 186, 20, 20));
 
         jButtonTrip2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonTrip2Open.setText("O");
@@ -837,13 +601,13 @@ public class PanelTurbine extends AbstractPanelWidget
                 jButtonTrip2OpenActionPerformed(evt);
             }
         });
-        add(jButtonTrip2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 302, 20, 20));
+        add(jButtonTrip2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 186, 20, 20));
 
         controlLoopValveReheater1.setComponent("Turbine1#ReheaterSteamValve");
-        add(controlLoopValveReheater1, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 132, -1, -1));
+        add(controlLoopValveReheater1, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 134, -1, -1));
 
         controlLoopValveReheater2.setComponent("Turbine2#ReheaterSteamValve");
-        add(controlLoopValveReheater2, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 174, -1, -1));
+        add(controlLoopValveReheater2, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 176, -1, -1));
 
         jLabelCaption8.setFont(jLabelCaption8.getFont().deriveFont(jLabelCaption8.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption8.getFont().getSize()-2));
         jLabelCaption8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -852,7 +616,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption8.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption8.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption8.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption8, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 116, 90, 14));
+        add(jLabelCaption8, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 118, 90, 14));
 
         jLabelCaptionLPShut7.setFont(jLabelCaptionLPShut7.getFont().deriveFont(jLabelCaptionLPShut7.getFont().getSize()-2f));
         jLabelCaptionLPShut7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -860,7 +624,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut7.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut7.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut7.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut7, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 220, 51, 14));
+        add(jLabelCaptionLPShut7, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 104, 51, 14));
 
         jLabelCaptionLPShut8.setFont(jLabelCaptionLPShut8.getFont().deriveFont(jLabelCaptionLPShut8.getFont().getSize()-2f));
         jLabelCaptionLPShut8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -868,7 +632,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut8.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut8.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut8.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut8, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 232, 51, 14));
+        add(jLabelCaptionLPShut8, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 116, 51, 14));
 
         jLabelCaptionLPShut9.setFont(jLabelCaptionLPShut9.getFont().deriveFont(jLabelCaptionLPShut9.getFont().getSize()-2f));
         jLabelCaptionLPShut9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -876,7 +640,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut9.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut9.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut9.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut9, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 286, 51, 14));
+        add(jLabelCaptionLPShut9, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 170, 51, 14));
 
         jLabelCaptionLPShut10.setFont(jLabelCaptionLPShut10.getFont().deriveFont(jLabelCaptionLPShut10.getFont().getSize()-2f));
         jLabelCaptionLPShut10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -884,26 +648,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut10.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut10.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut10, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 274, 51, 14));
-
-        integralSwitchReheaterDrain.setComponent("Turbine#ReheaterCondensateDrain");
-        add(integralSwitchReheaterDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 284, -1, -1));
-
-        jLabelCaptionLPShut11.setFont(jLabelCaptionLPShut11.getFont().deriveFont(jLabelCaptionLPShut11.getFont().getSize()-2f));
-        jLabelCaptionLPShut11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionLPShut11.setText("Reheater");
-        jLabelCaptionLPShut11.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLPShut11.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLPShut11.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut11, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 256, 51, 14));
-
-        jLabelCaptionLPShut12.setFont(jLabelCaptionLPShut12.getFont().deriveFont(jLabelCaptionLPShut12.getFont().getSize()-2f));
-        jLabelCaptionLPShut12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionLPShut12.setText("Drain");
-        jLabelCaptionLPShut12.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLPShut12.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionLPShut12.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut12, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 268, 51, 14));
+        add(jLabelCaptionLPShut10, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 158, 51, 14));
 
         jToggleButtonAutoDrain2.setText("←");
         jToggleButtonAutoDrain2.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -912,7 +657,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jToggleButtonAutoDrain2ActionPerformed(evt);
             }
         });
-        add(jToggleButtonAutoDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 294, 20, 20));
+        add(jToggleButtonAutoDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 178, 20, 20));
 
         jLabelCaption9.setFont(jLabelCaption9.getFont().deriveFont(jLabelCaption9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption9.getFont().getSize()-2));
         jLabelCaption9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -921,7 +666,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption9.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption9.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption9.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption9, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 316, 54, 14));
+        add(jLabelCaption9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 54, 14));
 
         jLabelCaptionSuperheaterControl7.setFont(jLabelCaptionSuperheaterControl7.getFont().deriveFont(jLabelCaptionSuperheaterControl7.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl7.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -930,7 +675,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl7.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl7.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl7.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl7, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 234, 72, 14));
+        add(jLabelCaptionSuperheaterControl7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 118, 72, 14));
 
         jLabelCaption10.setFont(jLabelCaption10.getFont().deriveFont(jLabelCaption10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption10.getFont().getSize()-2));
         jLabelCaption10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -939,7 +684,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption10.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption10.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption10, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 142, 54, 14));
+        add(jLabelCaption10, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 140, 54, 14));
 
         jLabelCaptionSuperheaterControl8.setFont(jLabelCaptionSuperheaterControl8.getFont().deriveFont(jLabelCaptionSuperheaterControl8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl8.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -948,40 +693,55 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl8.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl8.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl8.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl8, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 112, 56, 14));
+        add(jLabelCaptionSuperheaterControl8, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 110, 56, 14));
+
+        jButtonSuperheaterShutoffClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonSuperheaterShutoffClose.setText("C");
+        jButtonSuperheaterShutoffClose.setToolTipText("");
+        jButtonSuperheaterShutoffClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSuperheaterShutoffClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSuperheaterShutoffCloseActionPerformed(evt);
+            }
+        });
+        add(jButtonSuperheaterShutoffClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 308, 20, 20));
+
+        jButtonSuperheaterShutoffOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonSuperheaterShutoffOpen.setText("O");
+        jButtonSuperheaterShutoffOpen.setToolTipText("");
+        jButtonSuperheaterShutoffOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSuperheaterShutoffOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSuperheaterShutoffOpenActionPerformed(evt);
+            }
+        });
+        add(jButtonSuperheaterShutoffOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 308, 20, 20));
+
+        jLabelCaptionSuperheaterControl5.setFont(jLabelCaptionSuperheaterControl5.getFont().deriveFont(jLabelCaptionSuperheaterControl5.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl5.getFont().getSize()-2));
+        jLabelCaptionSuperheaterControl5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionSuperheaterControl5.setText("Reheater Temperature and Condensate Control");
+        jLabelCaptionSuperheaterControl5.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionSuperheaterControl5.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionSuperheaterControl5.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionSuperheaterControl5.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionSuperheaterControl5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 222, 394, 14));
+
+        jLabelCaptionLPShut5.setFont(jLabelCaptionLPShut5.getFont().deriveFont(jLabelCaptionLPShut5.getFont().getSize()-2f));
+        jLabelCaptionLPShut5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionLPShut5.setText("Reheater");
+        jLabelCaptionLPShut5.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionLPShut5.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionLPShut5.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionLPShut5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 282, 51, 14));
+
+        jLabelCaptionLPShut6.setFont(jLabelCaptionLPShut6.getFont().deriveFont(jLabelCaptionLPShut6.getFont().getSize()-2f));
+        jLabelCaptionLPShut6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionLPShut6.setText("Valve");
+        jLabelCaptionLPShut6.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionLPShut6.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionLPShut6.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionLPShut6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 294, 51, 14));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonSpeed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed1ActionPerformed
-        controller.userAction(new ActionCommand("Reactor#GlobalControlAuto", null));
-    }//GEN-LAST:event_jButtonSpeed1ActionPerformed
-
-    private void jButtonSpeed2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeed2ActionPerformed
-
-    private void jButtonSpeed3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeed3ActionPerformed
-
-    private void jButtonSpeed4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeed4ActionPerformed
-
-    private void jButtonSpeed5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeed5ActionPerformed
-
-    private void jButtonSpeedGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeedGradient1ActionPerformed
-
-    private void jButtonSpeedGradient2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeedGradient2ActionPerformed
-
-    private void jButtonSpeedGradient3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeedGradient3ActionPerformed
 
     private void jButtonTrip1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrip1CloseActionPerformed
         controller.userAction(new ActionCommand("Turbine1#TripValve", false));
@@ -1056,24 +816,16 @@ public class PanelTurbine extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValve4;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValveCondToDA1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValveCondToDA2;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValveCondToHotwell;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValveReheater1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValveReheater2;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValveSteamIn;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchReheaterDrain;
     private javax.swing.JButton jButtenDrainsOpen;
     private javax.swing.JButton jButtenLPShutOpen;
     private javax.swing.JButton jButtonDrainsClose;
     private javax.swing.JButton jButtonLPShutClose;
     private javax.swing.JButton jButtonProtectionRest;
     private javax.swing.JButton jButtonProtectionTrip;
-    private javax.swing.JButton jButtonSpeed1;
-    private javax.swing.JButton jButtonSpeed2;
-    private javax.swing.JButton jButtonSpeed3;
-    private javax.swing.JButton jButtonSpeed4;
-    private javax.swing.JButton jButtonSpeed5;
-    private javax.swing.JButton jButtonSpeedGradient1;
-    private javax.swing.JButton jButtonSpeedGradient2;
-    private javax.swing.JButton jButtonSpeedGradient3;
     private javax.swing.JButton jButtonSuperheaterShutoffClose;
     private javax.swing.JButton jButtonSuperheaterShutoffOpen;
     private javax.swing.JButton jButtonTrip1Close;
@@ -1108,53 +860,36 @@ public class PanelTurbine extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaption7;
     private javax.swing.JLabel jLabelCaption8;
     private javax.swing.JLabel jLabelCaption9;
-    private javax.swing.JLabel jLabelCaptionAZ10;
-    private javax.swing.JLabel jLabelCaptionAZ11;
-    private javax.swing.JLabel jLabelCaptionAZ12;
-    private javax.swing.JLabel jLabelCaptionAZ13;
-    private javax.swing.JLabel jLabelCaptionAZ14;
-    private javax.swing.JLabel jLabelCaptionAZ15;
-    private javax.swing.JLabel jLabelCaptionAZ16;
-    private javax.swing.JLabel jLabelCaptionAZ7;
-    private javax.swing.JLabel jLabelCaptionAZ9;
     private javax.swing.JLabel jLabelCaptionLPShut1;
     private javax.swing.JLabel jLabelCaptionLPShut10;
-    private javax.swing.JLabel jLabelCaptionLPShut11;
-    private javax.swing.JLabel jLabelCaptionLPShut12;
     private javax.swing.JLabel jLabelCaptionLPShut2;
     private javax.swing.JLabel jLabelCaptionLPShut3;
     private javax.swing.JLabel jLabelCaptionLPShut4;
+    private javax.swing.JLabel jLabelCaptionLPShut5;
+    private javax.swing.JLabel jLabelCaptionLPShut6;
     private javax.swing.JLabel jLabelCaptionLPShut7;
     private javax.swing.JLabel jLabelCaptionLPShut8;
     private javax.swing.JLabel jLabelCaptionLPShut9;
-    private javax.swing.JLabel jLabelCaptionSuperheaterControl;
     private javax.swing.JLabel jLabelCaptionSuperheaterControl1;
     private javax.swing.JLabel jLabelCaptionSuperheaterControl2;
-    private javax.swing.JLabel jLabelCaptionSuperheaterControl3;
     private javax.swing.JLabel jLabelCaptionSuperheaterControl4;
+    private javax.swing.JLabel jLabelCaptionSuperheaterControl5;
     private javax.swing.JLabel jLabelCaptionSuperheaterControl7;
     private javax.swing.JLabel jLabelCaptionSuperheaterControl8;
-    private javax.swing.JLabel jLabelCaptionSuperheaterShutoff;
     private javax.swing.JLabel jLabelCaptionsuperheaterCond1;
     private javax.swing.JLabel jLabelCaptionsuperheaterCond2;
     private javax.swing.JLabel jLabelCaptionsuperheaterCond3;
     private javax.swing.JLabel jLabelCaptionsuperheaterCond4;
-    private javax.swing.JLabel jLabelReadingActiveSpeedSetpoint;
+    private javax.swing.JLabel jLabelCaptionsuperheaterCond5;
+    private javax.swing.JLabel jLabelCaptionsuperheaterCond6;
     private javax.swing.JLabel jLabelTempSetpoint;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelTempSetpoint1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToggleButton jToggleButtonAutoDrain1;
     private javax.swing.JToggleButton jToggleButtonAutoDrain2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed1;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed3;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed4;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed5;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed6;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeedGradient1;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeedGradient2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeedGradient3;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlTemperature;
+    private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlTemperature1;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -1167,7 +902,7 @@ public class PanelTurbine extends AbstractPanelWidget
         controlLoopValve4.updateComponent(evt);
         controlLoopValveSteamIn.updateComponent(evt);
         setpointControlTemperature.updateComponent(evt);
-        integralSwitchReheaterDrain.updateComponent(evt);
+        controlLoopValveCondToHotwell.updateComponent(evt);
         controlLoopValveCondToDA1.updateComponent(evt);
         controlLoopValveCondToDA2.updateComponent(evt);
         switch (evt.getPropertyName()) {
@@ -1207,6 +942,7 @@ public class PanelTurbine extends AbstractPanelWidget
         setpointControlTemperature.updateComponent(propertyName, newValue);
         controlLoopValveCondToDA1.updateComponent(propertyName, newValue);
         controlLoopValveCondToDA2.updateComponent(propertyName, newValue);
+        controlLoopValveCondToHotwell.updateComponent(propertyName, newValue);
     }
 
     @Override

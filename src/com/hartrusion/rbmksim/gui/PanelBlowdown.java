@@ -126,9 +126,9 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jButtonDrumBlowdown2Open = new javax.swing.JButton();
         jLabelCaptionHeaderIntakeMCP = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(270, 340));
-        setMinimumSize(new java.awt.Dimension(270, 340));
-        setPreferredSize(new java.awt.Dimension(270, 340));
+        setMaximumSize(new java.awt.Dimension(264, 340));
+        setMinimumSize(new java.awt.Dimension(264, 340));
+        setPreferredSize(new java.awt.Dimension(264, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelCaptionPumpsToRegen1.setFont(jLabelCaptionPumpsToRegen1.getFont().deriveFont(jLabelCaptionPumpsToRegen1.getFont().getSize()-2f));
@@ -137,7 +137,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPumpsToRegen1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToRegen1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToRegen1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPumpsToRegen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 158, 51, 14));
+        add(jLabelCaptionPumpsToRegen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 158, 51, 14));
 
         jLabelCaptionPumpsToRegen2.setFont(jLabelCaptionPumpsToRegen2.getFont().deriveFont(jLabelCaptionPumpsToRegen2.getFont().getSize()-2f));
         jLabelCaptionPumpsToRegen2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -145,7 +145,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPumpsToRegen2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToRegen2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToRegen2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPumpsToRegen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 170, 51, 14));
+        add(jLabelCaptionPumpsToRegen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 170, 51, 14));
 
         jButtonPumpsToRegenClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonPumpsToRegenClose.setText("C");
@@ -156,7 +156,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonPumpsToRegenCloseActionPerformed(evt);
             }
         });
-        add(jButtonPumpsToRegenClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 184, 20, 20));
+        add(jButtonPumpsToRegenClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 184, 20, 20));
 
         jButtonPumpsToRegenOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonPumpsToRegenOpen.setText("O");
@@ -167,13 +167,13 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonPumpsToRegenOpenActionPerformed(evt);
             }
         });
-        add(jButtonPumpsToRegenOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 184, 20, 20));
+        add(jButtonPumpsToRegenOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 184, 20, 20));
 
         panelWidgetPump1.setChornobylPrefix("Blowdown#CooldownPump1");
-        add(panelWidgetPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 224, -1, -1));
+        add(panelWidgetPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 224, -1, -1));
 
         panelWidgetPump2.setChornobylPrefix("Blowdown#CooldownPump2");
-        add(panelWidgetPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 224, -1, -1));
+        add(panelWidgetPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 224, -1, -1));
 
         jLabelCaptionPumpsToCooler1.setFont(jLabelCaptionPumpsToCooler1.getFont().deriveFont(jLabelCaptionPumpsToCooler1.getFont().getSize()-2f));
         jLabelCaptionPumpsToCooler1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -181,7 +181,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPumpsToCooler1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToCooler1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToCooler1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPumpsToCooler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 158, 51, 14));
+        add(jLabelCaptionPumpsToCooler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 158, 51, 14));
 
         jLabelCaptionPumpsToCooler2.setFont(jLabelCaptionPumpsToCooler2.getFont().deriveFont(jLabelCaptionPumpsToCooler2.getFont().getSize()-2f));
         jLabelCaptionPumpsToCooler2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -189,7 +189,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPumpsToCooler2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToCooler2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPumpsToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPumpsToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 170, 51, 14));
+        add(jLabelCaptionPumpsToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 51, 14));
 
         jButtonPumpsToCoolerClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonPumpsToCoolerClose.setText("C");
@@ -200,7 +200,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonPumpsToCoolerCloseActionPerformed(evt);
             }
         });
-        add(jButtonPumpsToCoolerClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 184, 22, 20));
+        add(jButtonPumpsToCoolerClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 184, 22, 20));
 
         jButtonPumpsToCoolerOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonPumpsToCoolerOpen.setText("O");
@@ -211,7 +211,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonPumpsToCoolerOpenActionPerformed(evt);
             }
         });
-        add(jButtonPumpsToCoolerOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 184, 20, 20));
+        add(jButtonPumpsToCoolerOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 184, 20, 20));
 
         jLabelCaptionRegenToCooler1.setFont(jLabelCaptionRegenToCooler1.getFont().deriveFont(jLabelCaptionRegenToCooler1.getFont().getSize()-2f));
         jLabelCaptionRegenToCooler1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -219,7 +219,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionRegenToCooler1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRegenToCooler1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRegenToCooler1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRegenToCooler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 112, 51, 14));
+        add(jLabelCaptionRegenToCooler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 112, 51, 14));
 
         jLabeljLabelCaptionRegenToCooler2.setFont(jLabeljLabelCaptionRegenToCooler2.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler2.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -227,7 +227,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabeljLabelCaptionRegenToCooler2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 124, 51, 14));
+        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 124, 51, 14));
 
         jButtonRegenToCoolerClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonRegenToCoolerClose.setText("C");
@@ -238,7 +238,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonRegenToCoolerCloseActionPerformed(evt);
             }
         });
-        add(jButtonRegenToCoolerClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 138, 20, 20));
+        add(jButtonRegenToCoolerClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 138, 20, 20));
 
         jButtonRegenToCoolerOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonRegenToCoolerOpen.setText("O");
@@ -249,7 +249,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonRegenToCoolerOpenActionPerformed(evt);
             }
         });
-        add(jButtonRegenToCoolerOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 138, 20, 20));
+        add(jButtonRegenToCoolerOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 138, 20, 20));
 
         jLabelCaptionTreatmentBypass1.setFont(jLabelCaptionTreatmentBypass1.getFont().deriveFont(jLabelCaptionTreatmentBypass1.getFont().getSize()-2f));
         jLabelCaptionTreatmentBypass1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -257,7 +257,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionTreatmentBypass1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTreatmentBypass1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTreatmentBypass1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionTreatmentBypass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 66, 51, 14));
+        add(jLabelCaptionTreatmentBypass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 66, 51, 14));
 
         jLabelCaptionTreatmentBypass2.setFont(jLabelCaptionTreatmentBypass2.getFont().deriveFont(jLabelCaptionTreatmentBypass2.getFont().getSize()-2f));
         jLabelCaptionTreatmentBypass2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -265,7 +265,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionTreatmentBypass2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTreatmentBypass2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionTreatmentBypass2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionTreatmentBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 78, 51, 14));
+        add(jLabelCaptionTreatmentBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 78, 51, 14));
 
         jButtonTreatmentBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonTreatmentBypassClose.setText("C");
@@ -276,7 +276,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonTreatmentBypassCloseActionPerformed(evt);
             }
         });
-        add(jButtonTreatmentBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 92, 20, 20));
+        add(jButtonTreatmentBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 92, 20, 20));
 
         jButtonTreatmentBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonTreatmentBypassOpen.setText("O");
@@ -287,7 +287,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonTreatmentBypassOpenActionPerformed(evt);
             }
         });
-        add(jButtonTreatmentBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 92, 20, 20));
+        add(jButtonTreatmentBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 92, 20, 20));
 
         jToggleButtonBalanceControl.setText("←");
         jToggleButtonBalanceControl.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -296,7 +296,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jToggleButtonjToggleButtonBalanceControlActionPerformed(evt);
             }
         });
-        add(jToggleButtonBalanceControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 40, 20, 20));
+        add(jToggleButtonBalanceControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 38, 20, 20));
 
         jLabelCaptionBlowdownLoop2.setFont(jLabelCaptionBlowdownLoop2.getFont().deriveFont(jLabelCaptionBlowdownLoop2.getFont().getSize()-2f));
         jLabelCaptionBlowdownLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -304,7 +304,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlowdownLoop2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlowdownLoop2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlowdownLoop2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBlowdownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 292, 51, 14));
+        add(jLabelCaptionBlowdownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 292, 51, 14));
 
         jLabelCaptionBlowdownLoop1.setFont(jLabelCaptionBlowdownLoop1.getFont().deriveFont(jLabelCaptionBlowdownLoop1.getFont().getSize()-2f));
         jLabelCaptionBlowdownLoop1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -312,7 +312,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlowdownLoop1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlowdownLoop1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlowdownLoop1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 292, 51, 14));
+        add(jLabelCaptionBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 292, 51, 14));
 
         jLabelCaptionSuction11.setFont(jLabelCaptionSuction11.getFont().deriveFont(jLabelCaptionSuction11.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuction11.getFont().getSize()-2));
         jLabelCaptionSuction11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -320,7 +320,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionSuction11.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuction11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuction11.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuction11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 51, 14));
+        add(jLabelCaptionSuction11, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 210, 51, 14));
 
         jLabelCaptionReturnLoop2.setFont(jLabelCaptionReturnLoop2.getFont().deriveFont(jLabelCaptionReturnLoop2.getFont().getSize()-2f));
         jLabelCaptionReturnLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -328,7 +328,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionReturnLoop2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReturnLoop2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReturnLoop2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReturnLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 82, 50, 14));
+        add(jLabelCaptionReturnLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 82, 50, 14));
 
         jLabelCaptionReturnLoop1.setFont(jLabelCaptionReturnLoop1.getFont().deriveFont(jLabelCaptionReturnLoop1.getFont().getSize()-2f));
         jLabelCaptionReturnLoop1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -336,7 +336,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionReturnLoop1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReturnLoop1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReturnLoop1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReturnLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 82, 46, 14));
+        add(jLabelCaptionReturnLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 82, 46, 14));
 
         jLabelCaptionReturnValve.setFont(jLabelCaptionReturnValve.getFont().deriveFont(jLabelCaptionReturnValve.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionReturnValve.getFont().getSize()-2));
         jLabelCaptionReturnValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -344,7 +344,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionReturnValve.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReturnValve.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReturnValve.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReturnValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 68, 102, 14));
+        add(jLabelCaptionReturnValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 68, 102, 14));
 
         jLabelCaptionPump1.setFont(jLabelCaptionPump1.getFont().deriveFont(jLabelCaptionPump1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump1.getFont().getSize()-2));
         jLabelCaptionPump1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -352,7 +352,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPump1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 210, 51, 14));
+        add(jLabelCaptionPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 51, 14));
 
         jLabelCaptionRegenToDrums1.setFont(jLabelCaptionRegenToDrums1.getFont().deriveFont(jLabelCaptionRegenToDrums1.getFont().getSize()-2f));
         jLabelCaptionRegenToDrums1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -360,7 +360,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionRegenToDrums1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRegenToDrums1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRegenToDrums1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRegenToDrums1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 66, 51, 14));
+        add(jLabelCaptionRegenToDrums1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 66, 51, 14));
 
         jLabelCaptionRegenToDrums2.setFont(jLabelCaptionRegenToDrums2.getFont().deriveFont(jLabelCaptionRegenToDrums2.getFont().getSize()-2f));
         jLabelCaptionRegenToDrums2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -368,7 +368,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionRegenToDrums2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRegenToDrums2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionRegenToDrums2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionRegenToDrums2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 78, 51, 14));
+        add(jLabelCaptionRegenToDrums2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 78, 51, 14));
 
         jButtonRegenToDrumsClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonRegenToDrumsClose.setText("C");
@@ -379,7 +379,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonRegenToDrumsCloseActionPerformed(evt);
             }
         });
-        add(jButtonRegenToDrumsClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 92, 20, 20));
+        add(jButtonRegenToDrumsClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, 20, 20));
 
         jButtonRegenToDrumsOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonRegenToDrumsOpen.setText("O");
@@ -390,7 +390,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonRegenToDrumsOpenActionPerformed(evt);
             }
         });
-        add(jButtonRegenToDrumsOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 92, 20, 20));
+        add(jButtonRegenToDrumsOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 92, 20, 20));
 
         jLabelCaptionBlowdown.setFont(jLabelCaptionBlowdown.getFont().deriveFont(jLabelCaptionBlowdown.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBlowdown.getFont().getSize()-2));
         jLabelCaptionBlowdown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -398,7 +398,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlowdown.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlowdown.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlowdown.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBlowdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 214, 130, 14));
+        add(jLabelCaptionBlowdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 214, 130, 14));
 
         jLabelCaptionPassiveFlow2.setFont(jLabelCaptionPassiveFlow2.getFont().deriveFont(jLabelCaptionPassiveFlow2.getFont().getSize()-2f));
         jLabelCaptionPassiveFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -406,7 +406,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPassiveFlow2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 124, 51, 14));
+        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 124, 51, 14));
 
         jButtonPassiveFlowOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonPassiveFlowOpen.setText("O");
@@ -417,7 +417,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonPassiveFlowOpenActionPerformed(evt);
             }
         });
-        add(jButtonPassiveFlowOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 138, 20, 20));
+        add(jButtonPassiveFlowOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 138, 20, 20));
 
         jButtonPassiveFlowClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonPassiveFlowClose.setText("C");
@@ -428,7 +428,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonPassiveFlowCloseActionPerformed(evt);
             }
         });
-        add(jButtonPassiveFlowClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 138, 20, 20));
+        add(jButtonPassiveFlowClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 138, 20, 20));
 
         jLabelCaptionPassiveFlow1.setFont(jLabelCaptionPassiveFlow1.getFont().deriveFont(jLabelCaptionPassiveFlow1.getFont().getSize()-2f));
         jLabelCaptionPassiveFlow1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -436,7 +436,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPassiveFlow1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPassiveFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 112, 51, 14));
+        add(jLabelCaptionPassiveFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 112, 51, 14));
 
         jLabelCaptionBalanceControl1.setFont(jLabelCaptionBalanceControl1.getFont().deriveFont(jLabelCaptionBalanceControl1.getFont().getSize()-2f));
         jLabelCaptionBalanceControl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -444,7 +444,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBalanceControl1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBalanceControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 24, 50, 16));
+        add(jLabelCaptionBalanceControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 22, 50, 16));
 
         jLabelCaptionCoolant1.setFont(jLabelCaptionCoolant1.getFont().deriveFont(jLabelCaptionCoolant1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCoolant1.getFont().getSize()-2));
         jLabelCaptionCoolant1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -452,7 +452,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionCoolant1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 154, 51, 14));
+        add(jLabelCaptionCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 154, 51, 14));
 
         jLabelCaptionDrain.setFont(jLabelCaptionDrain.getFont().deriveFont(jLabelCaptionDrain.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain.getFont().getSize()-2));
         jLabelCaptionDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -460,22 +460,22 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionDrain.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 130, -1, 14));
+        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 130, -1, 14));
 
         integralSwitchBlowdownLoop1.setComponent("Blowdown#ValveFromLoop1");
-        add(integralSwitchBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 308, -1, -1));
+        add(integralSwitchBlowdownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 308, -1, -1));
 
         integralSwitchDrain.setComponent("Blowdown#ValveDrain");
-        add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 146, -1, -1));
+        add(integralSwitchDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 146, -1, -1));
 
         integralSwitchBlowdownLoop2.setComponent("Blowdown#ValveFromLoop2");
-        add(integralSwitchBlowdownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 308, -1, -1));
+        add(integralSwitchBlowdownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 308, -1, -1));
 
         integralSwitchReturn1.setComponent("Blowdown#ReturnValve1");
-        add(integralSwitchReturn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 96, -1, -1));
+        add(integralSwitchReturn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 96, -1, -1));
 
         integralSwitchReturn2.setComponent("Blowdown#ReturnValve2");
-        add(integralSwitchReturn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 96, -1, -1));
+        add(integralSwitchReturn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 96, -1, -1));
 
         chornobylGaugeFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         chornobylGaugeFlow.setChornobylMaximum(800.0F);
@@ -514,7 +514,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonCloseInputActionPerformed(evt);
             }
         });
-        add(jButtonCloseInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 314, 20, 20));
+        add(jButtonCloseInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 314, 20, 20));
 
         jLabelCaptionInClose.setFont(jLabelCaptionInClose.getFont().deriveFont(jLabelCaptionInClose.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionInClose.getFont().getSize()-2));
         jLabelCaptionInClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -522,7 +522,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionInClose.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionInClose.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionInClose.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionInClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 298, 48, 14));
+        add(jLabelCaptionInClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 298, 48, 14));
 
         jButtonCloseOutput.setFont(jButtonCloseOutput.getFont().deriveFont(jButtonCloseOutput.getFont().getSize()-2f));
         jButtonCloseOutput.setText("●");
@@ -533,7 +533,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonCloseOutputActionPerformed(evt);
             }
         });
-        add(jButtonCloseOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 102, 20, 20));
+        add(jButtonCloseOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 102, 20, 20));
 
         jLabelCaptionBalanceControl2.setFont(jLabelCaptionBalanceControl2.getFont().deriveFont(jLabelCaptionBalanceControl2.getFont().getSize()-2f));
         jLabelCaptionBalanceControl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -541,7 +541,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBalanceControl2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBalanceControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 12, 50, 16));
+        add(jLabelCaptionBalanceControl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 10, 50, 16));
 
         jLabelCaptionOutClose1.setFont(jLabelCaptionOutClose1.getFont().deriveFont(jLabelCaptionOutClose1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionOutClose1.getFont().getSize()-2));
         jLabelCaptionOutClose1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -549,7 +549,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionOutClose1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionOutClose1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionOutClose1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionOutClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 86, 48, 14));
+        add(jLabelCaptionOutClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 86, 48, 14));
 
         jToggleButtonAutoDrain.setText("←");
         jToggleButtonAutoDrain.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -558,7 +558,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jToggleButtonAutoDrainActionPerformed(evt);
             }
         });
-        add(jToggleButtonAutoDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 188, 20, 20));
+        add(jToggleButtonAutoDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 188, 20, 20));
 
         jLabelCaptionBalanceControl3.setFont(jLabelCaptionBalanceControl3.getFont().deriveFont(jLabelCaptionBalanceControl3.getFont().getSize()-2f));
         jLabelCaptionBalanceControl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -566,10 +566,10 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBalanceControl3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBalanceControl3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBalanceControl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 172, 50, 16));
+        add(jLabelCaptionBalanceControl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 172, 50, 16));
 
         integralSwitchCoolant.setComponent("Blowdown#ValveCoolant");
-        add(integralSwitchCoolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 172, -1, -1));
+        add(integralSwitchCoolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 172, -1, -1));
 
         jLabelCaptionCoolant2.setFont(jLabelCaptionCoolant2.getFont().deriveFont(jLabelCaptionCoolant2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCoolant2.getFont().getSize()-2));
         jLabelCaptionCoolant2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -577,7 +577,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionCoolant2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCoolant2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 138, 72, 14));
+        add(jLabelCaptionCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 138, 72, 14));
 
         jLabelCaptionBlodownLoop1.setFont(jLabelCaptionBlodownLoop1.getFont().deriveFont(jLabelCaptionBlodownLoop1.getFont().getSize()-2f));
         jLabelCaptionBlodownLoop1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -585,7 +585,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlodownLoop1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlodownLoop1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlodownLoop1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBlodownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 228, 51, 14));
+        add(jLabelCaptionBlodownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 228, 51, 14));
 
         jButtonDrumBlowdown1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumBlowdown1Close.setText("C");
@@ -596,7 +596,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonDrumBlowdown1CloseActionPerformed(evt);
             }
         });
-        add(jButtonDrumBlowdown1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 242, 20, 20));
+        add(jButtonDrumBlowdown1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 242, 20, 20));
 
         jButtonDrumBlowdown1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumBlowdown1Open.setText("O");
@@ -607,7 +607,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonDrumBlowdown1OpenActionPerformed(evt);
             }
         });
-        add(jButtonDrumBlowdown1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 242, 20, 20));
+        add(jButtonDrumBlowdown1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 242, 20, 20));
 
         jLabelCaptionBlodownLoop2.setFont(jLabelCaptionBlodownLoop2.getFont().deriveFont(jLabelCaptionBlodownLoop2.getFont().getSize()-2f));
         jLabelCaptionBlodownLoop2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -615,7 +615,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlodownLoop2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlodownLoop2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBlodownLoop2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBlodownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 228, 51, 14));
+        add(jLabelCaptionBlodownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 228, 51, 14));
 
         jButtonDrumBlowdown2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumBlowdown2Close.setText("C");
@@ -626,7 +626,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonDrumBlowdown2CloseActionPerformed(evt);
             }
         });
-        add(jButtonDrumBlowdown2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 242, 22, 20));
+        add(jButtonDrumBlowdown2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 242, 22, 20));
 
         jButtonDrumBlowdown2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumBlowdown2Open.setText("O");
@@ -637,7 +637,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 jButtonDrumBlowdown2OpenActionPerformed(evt);
             }
         });
-        add(jButtonDrumBlowdown2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 242, 20, 20));
+        add(jButtonDrumBlowdown2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 242, 20, 20));
 
         jLabelCaptionHeaderIntakeMCP.setFont(jLabelCaptionHeaderIntakeMCP.getFont().deriveFont(jLabelCaptionHeaderIntakeMCP.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionHeaderIntakeMCP.getFont().getSize()-2));
         jLabelCaptionHeaderIntakeMCP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -645,7 +645,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionHeaderIntakeMCP.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionHeaderIntakeMCP.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionHeaderIntakeMCP.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionHeaderIntakeMCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 276, 130, 14));
+        add(jLabelCaptionHeaderIntakeMCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 276, 130, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPumpsToRegenOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPumpsToRegenOpenActionPerformed

@@ -1,14 +1,31 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Copyright (C) 2026 Viktor Alexander Hartung
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
+import java.beans.PropertyChangeEvent;
+
 /**
  *
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
-public class PanelTurbineAux extends javax.swing.JPanel {
+public class PanelTurbineAux extends AbstractPanelWidget
+        implements UpdateReceiver {
 
     /**
      * Creates new form PanelTurbineAux
@@ -40,12 +57,14 @@ public class PanelTurbineAux extends javax.swing.JPanel {
         jLabel33 = new javax.swing.JLabel();
         chornobylGaugeFeed2Temp4 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabelCaptionSuperheaterControl6 = new javax.swing.JLabel();
-        jToggleButtonPump3 = new javax.swing.JToggleButton();
-        lightBulbReady3 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        lightBulbInService3 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jLabelCaptionLPShut5 = new javax.swing.JLabel();
         jLabelCaptionLPShut6 = new javax.swing.JLabel();
+        jToggleButtonPump4 = new javax.swing.JToggleButton();
+        lightBulbReady4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbInService4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
 
+        setMinimumSize(new java.awt.Dimension(208, 130));
+        setPreferredSize(new java.awt.Dimension(208, 130));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jToggleButtonPump.setText("←");
@@ -55,13 +74,13 @@ public class PanelTurbineAux extends javax.swing.JPanel {
                 jToggleButtonPumpActionPerformed(evt);
             }
         });
-        add(jToggleButtonPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 98, 20, 20));
+        add(jToggleButtonPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 96, 20, 20));
 
         lightBulbReady.setForeground(new java.awt.Color(0, 255, 0));
-        add(lightBulbReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 90, -1, -1));
+        add(lightBulbReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 88, -1, -1));
 
         lightBulbInService.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbInService, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 90, -1, -1));
+        add(lightBulbInService, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 88, -1, -1));
 
         jToggleButtonPump1.setText("←");
         jToggleButtonPump1.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -70,13 +89,13 @@ public class PanelTurbineAux extends javax.swing.JPanel {
                 jToggleButtonPump1ActionPerformed(evt);
             }
         });
-        add(jToggleButtonPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 60, 20, 20));
+        add(jToggleButtonPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 58, 20, 20));
 
         lightBulbReady1.setForeground(new java.awt.Color(0, 255, 0));
-        add(lightBulbReady1, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 52, -1, -1));
+        add(lightBulbReady1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
         lightBulbInService1.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbInService1, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 52, -1, -1));
+        add(lightBulbInService1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         jToggleButtonPump2.setText("←");
         jToggleButtonPump2.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -85,13 +104,13 @@ public class PanelTurbineAux extends javax.swing.JPanel {
                 jToggleButtonPump2ActionPerformed(evt);
             }
         });
-        add(jToggleButtonPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 60, 20, 20));
+        add(jToggleButtonPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 58, 20, 20));
 
         lightBulbReady2.setForeground(new java.awt.Color(0, 255, 0));
-        add(lightBulbReady2, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 52, -1, -1));
+        add(lightBulbReady2, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 50, -1, -1));
 
         lightBulbInService2.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbInService2, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 52, -1, -1));
+        add(lightBulbInService2, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 50, -1, -1));
 
         jLabelCaptionSuperheaterControl5.setFont(jLabelCaptionSuperheaterControl5.getFont().deriveFont(jLabelCaptionSuperheaterControl5.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl5.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,22 +119,22 @@ public class PanelTurbineAux extends javax.swing.JPanel {
         jLabelCaptionSuperheaterControl5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl5, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 100, -1, 14));
+        add(jLabelCaptionSuperheaterControl5, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 98, -1, 14));
 
         jLabel32.setFont(jLabel32.getFont().deriveFont(jLabel32.getFont().getSize()-2f));
         jLabel32.setText("Oil");
-        add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 14, 32, 14));
+        add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 10, 32, 14));
 
         jLabel33.setFont(jLabel33.getFont().deriveFont(jLabel33.getFont().getSize()-2f));
         jLabel33.setText("press");
-        add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 26, 32, 14));
+        add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 22, 32, 14));
 
         chornobylGaugeFeed2Temp4.setChornobylMaximum(10.0F);
         chornobylGaugeFeed2Temp4.setChornobylMinimum(0.0F);
         chornobylGaugeFeed2Temp4.setChornobylTicks(new float[] {0.0f, 2.0f, 4.0f, 6.0f, 8.0f, 10.0f});
         chornobylGaugeFeed2Temp4.setChornobylUnitText("bar");
         chornobylGaugeFeed2Temp4.setChornobylValue(0.0F);
-        add(chornobylGaugeFeed2Temp4, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 14, -1, -1));
+        add(chornobylGaugeFeed2Temp4, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 10, -1, -1));
 
         jLabelCaptionSuperheaterControl6.setFont(jLabelCaptionSuperheaterControl6.getFont().deriveFont(jLabelCaptionSuperheaterControl6.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl6.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -124,22 +143,7 @@ public class PanelTurbineAux extends javax.swing.JPanel {
         jLabelCaptionSuperheaterControl6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionSuperheaterControl6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 64, 68, 14));
-
-        jToggleButtonPump3.setText("←");
-        jToggleButtonPump3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonPump3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonPump3ActionPerformed(evt);
-            }
-        });
-        add(jToggleButtonPump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 46, 20, 20));
-
-        lightBulbReady3.setForeground(new java.awt.Color(0, 255, 0));
-        add(lightBulbReady3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 66, -1, -1));
-
-        lightBulbInService3.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbInService3, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 38, -1, -1));
+        add(jLabelCaptionSuperheaterControl6, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 62, 68, 14));
 
         jLabelCaptionLPShut5.setFont(jLabelCaptionLPShut5.getFont().deriveFont(jLabelCaptionLPShut5.getFont().getSize()-2f));
         jLabelCaptionLPShut5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,7 +151,7 @@ public class PanelTurbineAux extends javax.swing.JPanel {
         jLabelCaptionLPShut5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut5, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 10, 51, 14));
+        add(jLabelCaptionLPShut5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 54, 51, 14));
 
         jLabelCaptionLPShut6.setFont(jLabelCaptionLPShut6.getFont().deriveFont(jLabelCaptionLPShut6.getFont().getSize()-2f));
         jLabelCaptionLPShut6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -155,7 +159,22 @@ public class PanelTurbineAux extends javax.swing.JPanel {
         jLabelCaptionLPShut6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLPShut6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLPShut6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 22, 51, 14));
+        add(jLabelCaptionLPShut6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 66, 51, 14));
+
+        jToggleButtonPump4.setText("←");
+        jToggleButtonPump4.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPump4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonPump4ActionPerformed(evt);
+            }
+        });
+        add(jToggleButtonPump4, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 92, 20, 20));
+
+        lightBulbReady4.setForeground(new java.awt.Color(0, 255, 0));
+        add(lightBulbReady4, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 84, -1, -1));
+
+        lightBulbInService4.setForeground(new java.awt.Color(255, 0, 0));
+        add(lightBulbInService4, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 84, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonPumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPumpActionPerformed
@@ -170,9 +189,9 @@ public class PanelTurbineAux extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButtonPump2ActionPerformed
 
-    private void jToggleButtonPump3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPump3ActionPerformed
+    private void jToggleButtonPump4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPump4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonPump3ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPump4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -186,14 +205,34 @@ public class PanelTurbineAux extends javax.swing.JPanel {
     private javax.swing.JToggleButton jToggleButtonPump;
     private javax.swing.JToggleButton jToggleButtonPump1;
     private javax.swing.JToggleButton jToggleButtonPump2;
-    private javax.swing.JToggleButton jToggleButtonPump3;
+    private javax.swing.JToggleButton jToggleButtonPump4;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService3;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService4;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady3;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+        
+    }
+
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+        
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+        
+    }
 }

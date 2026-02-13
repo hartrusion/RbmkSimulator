@@ -347,7 +347,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedValveControlled[2];
     private final PhasedNode[] turbineReheaterCondensateNode
             = new PhasedNode[2];
-    private final PhasedValve turbineReheaterCondensateDrain;
+    private final PhasedValveControlled turbineReheaterCondensateDrain;
     private final PhasedNode turbineReheaterCondensateDrainOut;
     private final PhasedEffortSource turbineReheaterCondensateHeight;
     private final PhasedValve turbineLowPressureTripValve;
@@ -406,7 +406,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core to test the turbine.
      */
-    private double debugAddInitTemp = 150.0;
+    private double debugAddInitTemp = 0.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -961,7 +961,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineReheaterCondensateNode[idx].setName(
                     "Turbine" + (idx + 1) + "#ReheaterCondensateNode");
         }
-        turbineReheaterCondensateDrain = new PhasedValve();
+        turbineReheaterCondensateDrain = new PhasedValveControlled();
+        turbineReheaterCondensateDrain.registerController(new PIControl());
         turbineReheaterCondensateDrain.initName("Turbine#ReheaterCondensateDrain");
         turbineReheaterCondensateDrainOut = new PhasedNode();
         turbineReheaterCondensateDrainOut.setName("Turbine#ReheaterCondensateDrainOut");

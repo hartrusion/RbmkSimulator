@@ -253,6 +253,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         valveReheaterInReg.setControlIndicator(true);
         add(valveReheaterInReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 19, -1, -1));
         add(valveLowPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 39, -1, -1));
+
+        valveReheaterDrain.setControlIndicator(true);
         add(valveReheaterDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(472, 161, -1, -1));
         add(valve16, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 199, -1, -1));
         add(valve17, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 199, -1, -1));
@@ -843,7 +845,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             }
             case "Turbine#ReheaterCondensateDrain_Pos" ->
                 valveReheaterDrain.setActive(evt.getNewValue() != ValveState.CLOSED);
-
+            case "Turbine#ReheaterCondensateDrainControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveReheaterDrain.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveReheaterDrain.setControlIndicatorActive(false);
+                }
+            }
+            
             case "EjectorStartup1_Pos" ->
                 valveStartupEjector1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "EjectorStartup2_Pos" ->
