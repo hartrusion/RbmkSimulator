@@ -249,8 +249,6 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         valveReheaterCondensate2.setVertical(true);
         add(valveReheaterCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 119, -1, -1));
         add(valveReheaterIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 19, -1, -1));
-
-        valveReheaterInReg.setControlIndicator(true);
         add(valveReheaterInReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 19, -1, -1));
         add(valveLowPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 39, -1, -1));
 
@@ -816,15 +814,8 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
                 valveLowPressure.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine#ReheaterTripValve_Pos" ->
                 valveReheaterIn.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#ReheaterPriControlValve_Pos" ->
+            case "Turbine#ReheaterTrimValve_Pos" ->
                 valveReheaterInReg.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine#ReheaterPriControlValveControlState" -> {
-                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
-                    valveReheaterInReg.setControlIndicatorActive(true);
-                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
-                    valveReheaterInReg.setControlIndicatorActive(false);
-                }
-            }
             case "Turbine1#ReheaterCondensateValve_Pos" ->
                 valveReheaterCondensate1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine1#ReheaterCondensateValveControlState" -> {
@@ -937,7 +928,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "Turbine2#ReheaterSteamValve" ->
                 jLabelReadingValveReheater2.setText(
                         String.format("%3.0f", newValue));
-            case "Turbine#ReheaterPriControlValve" ->
+            case "Turbine#ReheaterTrimValve" ->
                 jLabelReadingValveReheaterReg.setText(
                         String.format("%3.0f", newValue));
             case "Turbine1#ReheaterCondensateValve" ->

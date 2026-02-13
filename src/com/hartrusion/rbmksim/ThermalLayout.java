@@ -341,7 +341,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedNode turbineReheaterSteam;
     private final PhasedValve turbineReheaterTripValve;
     private final PhasedNode turbineReheaterPriValvesMidNode;
-    private final PhasedValveControlled turbineReheaterPriControlValve;
+    private final PhasedValve turbineReheaterTrimValve;
     private final PhasedSuperheater turbineReheater;
     private final PhasedValveControlled[] turbineReheaterCondensateValve
             = new PhasedValveControlled[2];
@@ -374,6 +374,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final Setpoint setpointDrumPressure;
     private final Setpoint setpointHotwellUpperLevel;
     private final Setpoint setpointHotwellLowerLevel;
+    private final Setpoint setpointTurbineReheaterTemperature;
+    private final Setpoint setpointTurbineReheaterLevel;
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final SerialRunner runner = new SerialRunner();
@@ -945,9 +947,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterPriValvesMidNode = new PhasedNode();
         turbineReheaterPriValvesMidNode.setName(
                 "Turbine#ReheaterPriValvesMidNode");
-        turbineReheaterPriControlValve = new PhasedValveControlled();
-        turbineReheaterPriControlValve.registerController(new PIControl());
-        turbineReheaterPriControlValve.initName("Turbine#ReheaterPriControlValve");
+        turbineReheaterTrimValve = new PhasedValve();
+        turbineReheaterTrimValve.initName("Turbine#ReheaterTrimValve");
         turbineReheater = new PhasedSuperheater(phasedWater);
         turbineReheater.initGenerateNodes();
         turbineReheater.initName("Turbine#Superheater");
@@ -1026,6 +1027,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellLowerLevel.initName("Hotwell#LowerSetpoint");
         setpointDrumPressure = new Setpoint();
         setpointDrumPressure.initName("LoopPressureSetpoint");
+        setpointTurbineReheaterTemperature = new Setpoint();
+        setpointTurbineReheaterTemperature.initName(
+                "Turbine#SetpointReheaterTemperature");
+        setpointTurbineReheaterLevel = new Setpoint();
+        setpointTurbineReheaterLevel.initName(
+                "Turbine#SetpointReheaterLevel");
+
         // </editor-fold>
     }
 
@@ -1163,8 +1171,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureTripValve.registerSignalListener(controller);
         turbineReheaterTripValve.registerParameterHandler(outputValues);
         turbineReheaterTripValve.registerSignalListener(controller);
-        turbineReheaterPriControlValve.registerParameterHandler(outputValues);
-        turbineReheaterPriControlValve.registerSignalListener(controller);
+        turbineReheaterTrimValve.registerParameterHandler(outputValues);
+        turbineReheaterTrimValve.registerSignalListener(controller);
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterCondensateValve[idx].registerParameterHandler(outputValues);
             turbineReheaterCondensateValve[idx].registerSignalListener(controller);
@@ -1186,6 +1194,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointDrumPressure.registerParameterHandler(outputValues);
         setpointHotwellUpperLevel.registerParameterHandler(outputValues);
         setpointHotwellLowerLevel.registerParameterHandler(outputValues);
+        setpointTurbineReheaterTemperature.registerParameterHandler(outputValues);
+        setpointTurbineReheaterLevel.registerParameterHandler(outputValues);
         // </editor-fold>  
         turbine.initConnections();
         // <editor-fold defaultstate="collapsed" desc="Node-element connections">
@@ -1636,7 +1646,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterTripValve.getValveElement()
                 .connectBetween(turbineReheaterSteam,
                         turbineReheaterPriValvesMidNode);
-        turbineReheaterPriControlValve.getValveElement()
+        turbineReheaterTrimValve.getValveElement()
                 .connectBetween(turbineReheaterPriValvesMidNode,
                         turbineReheater.getPhasedNode(
                                 PhasedSuperheater.PRIMARY_IN));
@@ -2044,7 +2054,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Note that the used resistances on valves will be different to
         // have some possibility of controlling them left.
         turbineReheaterTripValve.initCharacteristic(7000, -1);
-        turbineReheaterPriControlValve.initCharacteristic(9000, -1);
+        turbineReheaterTrimValve.initCharacteristic(9000, -1);
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterCondensateValve[idx].initCharacteristic(500, -1);
         }
@@ -2154,6 +2164,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheater.initConditions(273.15 + 22.5,
                 (273.15 + 22.5) * phasedWater.getSpecificHeatCapacity(),
                 0.5, 0.0);
+        // Init Setpoint values
+        setpointTurbineReheaterTemperature.forceOutputValue(140);
+        setpointTurbineReheaterLevel.forceOutputValue(60);
 
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
@@ -2260,7 +2273,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         runner.submit(turbineReheaterTripValve);
-        runner.submit(turbineReheaterPriControlValve);
+        runner.submit(turbineReheaterTrimValve);
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(turbineReheaterCondensateValve[idx]);
         }
@@ -2284,6 +2297,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.submit(setpointDrumPressure);
         runner.submit(setpointHotwellUpperLevel);
         runner.submit(setpointHotwellLowerLevel);
+        runner.submit(setpointTurbineReheaterTemperature);
+        runner.submit(setpointTurbineReheaterLevel);
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Control Loops Configuration">
@@ -2554,6 +2569,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellLowerLevel.setMaxRate(8.0);
         setpointHotwellLowerLevel.setLowerLimit(10);
         setpointHotwellLowerLevel.setUpperLimit(90);
+        setpointTurbineReheaterTemperature.setMaxRate(10);
+        setpointTurbineReheaterTemperature.setLowerLimit(120);
+        setpointTurbineReheaterTemperature.setUpperLimit(280);
+        setpointTurbineReheaterLevel.setMaxRate(10);
+        setpointTurbineReheaterLevel.setLowerLimit(40);
+        setpointTurbineReheaterLevel.setUpperLimit(140);
 
         hotwellFillValve.getController().addInputProvider(
                 new DoubleSupplier() {
@@ -3925,7 +3946,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineReheaterSteamValve[idx].handleAction(ac);
             }
             turbineReheaterTripValve.handleAction(ac);
-            turbineReheaterPriControlValve.handleAction(ac);
+            turbineReheaterTrimValve.handleAction(ac);
             turbineReheaterCondensateValve[0].handleAction(ac);
             turbineReheaterCondensateValve[1].handleAction(ac);
             turbineReheaterCondensateDrain.handleAction(ac);
@@ -3933,6 +3954,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             for (int idx = 0; idx < 5; idx++) {
                 turbineLowPressureTapValve[idx].handleAction(ac);
             }
+            setpointTurbineReheaterTemperature.handleAction(ac);
+            setpointTurbineReheaterLevel.handleAction(ac);
 
             if (ac.getPropertyName().equals("SetCoreOnly")) {
                 noReactorInput = true;
