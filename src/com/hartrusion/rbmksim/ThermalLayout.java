@@ -1655,9 +1655,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 .connectBetween(turbineReheater.getPhasedNode(
                         PhasedSuperheater.PRIMARY_OUT),
                         turbineReheaterCondensateDrainOut);
+        // Connect the drain to the hotwell reservoir directly. This will make
+        // the model way easier as this is a direct connection between two
+        // self capacitances then. Otherwise the solver will crash unfortunately
         turbineReheaterCondensateHeight.connectBetween(
                 turbineReheaterCondensateDrainOut,
-                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_INNER));
 
         // Turbine Low pressure path. First, a mass element that is also used
         // for thermal exchange like in the high pressure part
@@ -2013,13 +2016,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // numbers that are totally non realistic but they have to be high for
         // the solution to be stable.
         turbineHighPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(60);
+                .setInnerHeatedMass(150);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(60);
+                .setInnerHeatedMass(150);
         turbineLowPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(60);
+                .setInnerHeatedMass(150);
         turbineLowPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(60);
+                .setInnerHeatedMass(150);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
