@@ -39,7 +39,7 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
-    
+
     /**
      * An instance for the core indicator panel.
      */
@@ -58,11 +58,16 @@ public class MainLoop implements Runnable, ModelManipulation {
 
         process.registerReactor(core);
         process.registerTurbine(turbine);
-        
+
         process.registerParameterOutput(outputValues);
         process.registerController(controller);
         process.registerAlarmManager(alarms);
         process.init();
+
+        turbine.registerAlarmManager(alarms);
+        turbine.init();
+        turbine.registerParameterOutput(outputValues);
+        turbine.registerController(controller);
 
         indicator1.setCore(core);
     }
@@ -82,6 +87,7 @@ public class MainLoop implements Runnable, ModelManipulation {
                 core.setVoiding(process.getVoiding());
                 core.run();
                 process.run();
+                turbine.run();
                 indicator1.run();
 
                 // Send all measurement data to the GUI by sending a reference.
@@ -123,7 +129,7 @@ public class MainLoop implements Runnable, ModelManipulation {
         if (ac.getPropertyName().equals("PauseSimulation")) {
             pause = !pause;
         }
-        
+
         if (ac.getPropertyName().equals("AcknowledgeAlarms")) {
             alarms.acknowledge();
         }
@@ -134,6 +140,7 @@ public class MainLoop implements Runnable, ModelManipulation {
 
         core.handleAction(ac);
         process.handleAction(ac);
+        turbine.handleAction(ac);
     }
 
     @Override // called on initialization

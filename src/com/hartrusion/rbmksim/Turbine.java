@@ -16,10 +16,16 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.general.EffortSource;
 import com.hartrusion.modeling.general.GeneralNode;
 import com.hartrusion.modeling.general.OpenOrigin;
+import com.hartrusion.mvc.ActionCommand;
+import com.hartrusion.mvc.ModelListener;
+import static com.hartrusion.rbmksim.SpeedSelect.LOW;
+import com.hartrusion.values.ValueHandler;
+import java.beans.PropertyChangeEvent;
 
 /**
  * Represents the turbine and its systems. Holds a network model with the
@@ -29,7 +35,7 @@ import com.hartrusion.modeling.general.OpenOrigin;
  *
  * @author Viktor Alexander Hartung
  */
-public class Turbine {
+public class Turbine extends Subsystem implements Runnable {
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
     private final OpenOrigin[] thermalOriginSteam = new OpenOrigin[4];
@@ -37,6 +43,11 @@ public class Turbine {
     private final EffortSource[] thermalSteamTemperature = new EffortSource[4];
     private final GeneralNode[] thermalNodeSteamTemperature = new GeneralNode[4];
     // </editor-fold>
+
+    private double targetTurbineSpeed = 0.0;
+    private final Setpoint setpointTurbineSpeed;
+    private SpeedSelect setpointSpeedGradient = SpeedSelect.MED;
+    private SpeedSelect oldSetpointSpeedGradient = null;
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -55,8 +66,62 @@ public class Turbine {
                     + (idx + 1) + "#ThermalNodeSteamTemperature");
         }
         // </editor-fold>
+        setpointTurbineSpeed = new Setpoint();
     }
-    
+
+    @Override
+    public void run() {
+        // Check if speed setpoint gradient was changed, if so, apply it
+        // and send it back as a property to controller (to have a light
+        // on the panel).
+        if (oldSetpointSpeedGradient != setpointSpeedGradient) {
+            switch (setpointSpeedGradient) {
+                case LOW ->
+                    setpointTurbineSpeed.setMaxRate(30);
+                case MED ->
+                    setpointTurbineSpeed.setMaxRate(60);
+                case HIGH ->
+                    setpointTurbineSpeed.setMaxRate(90);
+            }
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Turbine#SpeedSetpointGradient", 
+                    oldSetpointSpeedGradient, setpointSpeedGradient));
+            oldSetpointSpeedGradient = setpointSpeedGradient;
+        }
+
+        setpointTurbineSpeed.run();
+
+        // Send target value back, used for the control panel lights
+        outputValues.setParameterValue("Turbine#SpeedSetpointTarget",
+                targetTurbineSpeed);
+    }
+
+    @Override
+    public void handleAction(ActionCommand ac) {
+        switch (ac.getPropertyName()) {
+            case "Turbine#SpeedSetpointTargetValue" -> {
+                targetTurbineSpeed = (double) ac.getValue();
+                setpointTurbineSpeed.setInput(targetTurbineSpeed);
+            }
+            case "Turbine#SpeedSetpointGradient" ->
+                setpointSpeedGradient = (SpeedSelect) ac.getValue();
+        }
+        setpointTurbineSpeed.handleAction(ac);
+    }
+
+    public void init() {
+        setpointTurbineSpeed.initName("Turbine#SpeedSetpoint");
+
+        setpointTurbineSpeed.setLowerLimit(0);
+        setpointTurbineSpeed.setUpperLimit(3100);
+        setpointTurbineSpeed.setMaxRate(30);
+
+    }
+
+    /**
+     * Called from model setup in ThermalLayout, this prepares the part that
+     * will be managed here.
+     */
     public void initConnections() {
         // make connection: origin - node - effort source - node
         // for each of the four effort sources
@@ -67,9 +132,36 @@ public class Turbine {
                     thermalNodeSteamTemperature[idx]);
         }
     }
-    
+
     public void initElementProperties() {
-        
+
+    }
+
+    public void setShaftPower(double power) {
+
+    }
+
+    public void triggerTurbineTrip() {
+
+    }
+
+    @Override
+    public void updateNotification(String propertyName) {
+
+    }
+
+    @Override
+    public void registerController(ModelListener controller) {
+        // Will be called after init() - note that it is the other way round in
+        // the ThermalLayout!
+        super.registerController(controller);
+        // Todo for whatever elements
+    }
+
+    @Override
+    public void registerParameterOutput(ValueHandler output) {
+        super.registerParameterOutput(output);
+        setpointTurbineSpeed.registerParameterHandler(output);
     }
 
     /**
@@ -81,13 +173,5 @@ public class Turbine {
      */
     public EffortSource getThermalEffortSource(int idx) {
         return thermalSteamTemperature[idx];
-    }
-    
-    public void setShaftPower(double power) {
-        
-    }
-    
-    public void triggerTurbineTrip() {
-        
     }
 }

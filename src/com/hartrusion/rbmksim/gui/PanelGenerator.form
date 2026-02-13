@@ -656,11 +656,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonSpeedGradient4">
+    <Component class="javax.swing.JButton" name="jButtonSpeedValvesMinus">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButtonSpeedGradient4" property="font" relativeSize="true" size="-2"/>
+            <Font component="jButtonSpeedValvesMinus" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
@@ -670,7 +670,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSpeedGradient4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSpeedValvesMinusActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -678,11 +678,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonSpeedGradient5">
+    <Component class="javax.swing.JButton" name="jButtonSpeedValvesPlus">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jButtonSpeedGradient5" property="font" relativeSize="true" size="-2"/>
+            <Font component="jButtonSpeedValvesPlus" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
@@ -692,7 +692,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSpeedGradient5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSpeedValvesPlusActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

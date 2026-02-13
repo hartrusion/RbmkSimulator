@@ -16,7 +16,9 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.rbmksim.SpeedSelect;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
 
@@ -73,8 +75,8 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionThermalPower2 = new javax.swing.JLabel();
         jLabelReadingThermalPower = new javax.swing.JLabel();
         jLabelCaptionThermalPowerUnit = new javax.swing.JLabel();
-        jButtonSpeedGradient4 = new javax.swing.JButton();
-        jButtonSpeedGradient5 = new javax.swing.JButton();
+        jButtonSpeedValvesMinus = new javax.swing.JButton();
+        jButtonSpeedValvesPlus = new javax.swing.JButton();
         synchroscope1 = new com.hartrusion.rbmksim.gui.elements.Synchroscope();
         jLabelCaptionAZ17 = new javax.swing.JLabel();
         jLabelCaptionAZ18 = new javax.swing.JLabel();
@@ -305,27 +307,27 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionThermalPowerUnit.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionThermalPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 10, 26, 14));
 
-        jButtonSpeedGradient4.setFont(jButtonSpeedGradient4.getFont().deriveFont(jButtonSpeedGradient4.getFont().getSize()-2f));
-        jButtonSpeedGradient4.setText("●");
-        jButtonSpeedGradient4.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeedGradient4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeedGradient4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSpeedValvesMinus.setFont(jButtonSpeedValvesMinus.getFont().deriveFont(jButtonSpeedValvesMinus.getFont().getSize()-2f));
+        jButtonSpeedValvesMinus.setText("●");
+        jButtonSpeedValvesMinus.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedValvesMinus.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeedValvesMinus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeedGradient4ActionPerformed(evt);
+                jButtonSpeedValvesMinusActionPerformed(evt);
             }
         });
-        add(jButtonSpeedGradient4, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 148, 20, 20));
+        add(jButtonSpeedValvesMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 148, 20, 20));
 
-        jButtonSpeedGradient5.setFont(jButtonSpeedGradient5.getFont().deriveFont(jButtonSpeedGradient5.getFont().getSize()-2f));
-        jButtonSpeedGradient5.setText("●");
-        jButtonSpeedGradient5.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
-        jButtonSpeedGradient5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeedGradient5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSpeedValvesPlus.setFont(jButtonSpeedValvesPlus.getFont().deriveFont(jButtonSpeedValvesPlus.getFont().getSize()-2f));
+        jButtonSpeedValvesPlus.setText("●");
+        jButtonSpeedValvesPlus.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedValvesPlus.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeedValvesPlus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeedGradient5ActionPerformed(evt);
+                jButtonSpeedValvesPlusActionPerformed(evt);
             }
         });
-        add(jButtonSpeedGradient5, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 148, 20, 20));
+        add(jButtonSpeedValvesPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 148, 20, 20));
 
         synchroscope1.setBackground(new java.awt.Color(255, 255, 255));
         synchroscope1.setForeground(new java.awt.Color(0, 0, 0));
@@ -363,44 +365,44 @@ public class PanelGenerator extends AbstractPanelWidget
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSpeed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed1ActionPerformed
-        
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointTargetValue", 0.0));
     }//GEN-LAST:event_jButtonSpeed1ActionPerformed
 
     private void jButtonSpeed2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed2ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointTargetValue", 750.0));
     }//GEN-LAST:event_jButtonSpeed2ActionPerformed
 
     private void jButtonSpeed3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed3ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointTargetValue", 1500.0));
     }//GEN-LAST:event_jButtonSpeed3ActionPerformed
 
     private void jButtonSpeed4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed4ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointTargetValue", 2250.0));
     }//GEN-LAST:event_jButtonSpeed4ActionPerformed
 
     private void jButtonSpeed5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed5ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointTargetValue", 3000.0));
     }//GEN-LAST:event_jButtonSpeed5ActionPerformed
 
     private void jButtonSpeedGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient1ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointGradient", SpeedSelect.LOW));
     }//GEN-LAST:event_jButtonSpeedGradient1ActionPerformed
 
     private void jButtonSpeedGradient2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient2ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointGradient", SpeedSelect.MED));
     }//GEN-LAST:event_jButtonSpeedGradient2ActionPerformed
 
     private void jButtonSpeedGradient3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient3ActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointGradient", SpeedSelect.HIGH));
     }//GEN-LAST:event_jButtonSpeedGradient3ActionPerformed
 
-    private void jButtonSpeedGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient4ActionPerformed
+    private void jButtonSpeedValvesMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesMinusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeedGradient4ActionPerformed
+    }//GEN-LAST:event_jButtonSpeedValvesMinusActionPerformed
 
-    private void jButtonSpeedGradient5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient5ActionPerformed
+    private void jButtonSpeedValvesPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesPlusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeedGradient5ActionPerformed
+    }//GEN-LAST:event_jButtonSpeedValvesPlusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -412,8 +414,8 @@ public class PanelGenerator extends AbstractPanelWidget
     private javax.swing.JButton jButtonSpeedGradient1;
     private javax.swing.JButton jButtonSpeedGradient2;
     private javax.swing.JButton jButtonSpeedGradient3;
-    private javax.swing.JButton jButtonSpeedGradient4;
-    private javax.swing.JButton jButtonSpeedGradient5;
+    private javax.swing.JButton jButtonSpeedValvesMinus;
+    private javax.swing.JButton jButtonSpeedValvesPlus;
     private javax.swing.JLabel jLabelCaptionAZ10;
     private javax.swing.JLabel jLabelCaptionAZ11;
     private javax.swing.JLabel jLabelCaptionAZ12;
@@ -443,21 +445,42 @@ public class PanelGenerator extends AbstractPanelWidget
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        
+        switch (evt.getPropertyName()) {
+            case "Turbine#SpeedSetpointGradient" -> {
+                SpeedSelect speedSetpoint = (SpeedSelect) evt.getNewValue();
+                lightBulbSpeedGradient1.setActive(
+                        speedSetpoint == SpeedSelect.LOW);
+                lightBulbSpeedGradient2.setActive(
+                        speedSetpoint == SpeedSelect.MED);
+                lightBulbSpeedGradient3.setActive(
+                        speedSetpoint == SpeedSelect.HIGH);
+            }
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        
+
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        
+        switch (propertyName) {
+            case "Turbine#SpeedSetpoint" ->
+                jLabelReadingActiveSpeedSetpoint.setText(
+                        String.format("%4.0f", newValue));
+            case "Turbine#SpeedSetpointTarget" -> {
+                lightBulbSpeed1.setActive(newValue <= 5);
+                lightBulbSpeed2.setActive(newValue >= 745 && newValue <= 755);
+                lightBulbSpeed3.setActive(newValue >= 1495 && newValue <= 1505);
+                lightBulbSpeed4.setActive(newValue >= 2245 && newValue <= 2255);
+                lightBulbSpeed5.setActive(newValue >= 2995 && newValue <= 3005);
+            }
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        
+
     }
 }
