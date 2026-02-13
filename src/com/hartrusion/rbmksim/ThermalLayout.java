@@ -408,7 +408,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core to test the turbine.
      */
-    private double debugAddInitTemp = 0.0;
+    private double debugAddInitTemp = 180.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -3628,30 +3628,30 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Turbine#HPOutTemp",
                 turbineHighPressureOutMass.getTemperature() - 273.15);
 
-        if (turbineReheater.getPhasedNode(
-                PhasedSuperheater.SECONDARY_OUT).heatEnergyUpdated(
-                        turbineLowPressureTripValve.getValveElement())) {
-            if (!turbineReheater.getPhasedNode(
-                    PhasedSuperheater.SECONDARY_OUT)
-                    .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
-                outputValues.setParameterValue("Turbine#LPInTemp",
-                        phasedWater.getTemperature(
-                                turbineReheater.getPhasedNode(
-                                        PhasedSuperheater.SECONDARY_OUT)
-                                        .getHeatEnergy(
-                                                turbineLowPressureTripValve
-                                                        .getValveElement()),
-                                turbineReheater.getPhasedNode(
-                                        PhasedSuperheater.SECONDARY_OUT)
-                                        .getEffort()
-                        ) - 273.15);
-            } else {
+//        if (turbineReheater.getPhasedNode(
+//                PhasedSuperheater.SECONDARY_OUT).heatEnergyUpdated(
+//                        turbineLowPressureTripValve.getValveElement())) {
+//            if (!turbineReheater.getPhasedNode(
+//                    PhasedSuperheater.SECONDARY_OUT)
+//                    .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
+//                outputValues.setParameterValue("Turbine#LPInTemp",
+//                        phasedWater.getTemperature(
+//                                turbineReheater.getPhasedNode(
+//                                        PhasedSuperheater.SECONDARY_OUT)
+//                                        .getHeatEnergy(
+//                                                turbineLowPressureTripValve
+//                                                        .getValveElement()),
+//                                turbineReheater.getPhasedNode(
+//                                        PhasedSuperheater.SECONDARY_OUT)
+//                                        .getEffort()
+//                        ) - 273.15);
+//            } else {
                 // Fallback to turbine inner steam mass temperature if no 
                 // temperature is available from reheater
                 outputValues.setParameterValue("Turbine#LPInTemp",
                         turbineLowPressureInMass.getTemperature() - 273.15);
-            }
-        }
+//            }
+//        }
 
         outputValues.setParameterValue("Turbine#ReheaterLevel",
                 turbineReheater.getPrimarySideReservoir()
