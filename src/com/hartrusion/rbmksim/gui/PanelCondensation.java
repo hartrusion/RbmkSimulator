@@ -144,54 +144,54 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaption3 = new javax.swing.JLabel();
         jLabelCaption4 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(580, 340));
-        setMinimumSize(new java.awt.Dimension(580, 340));
-        setPreferredSize(new java.awt.Dimension(580, 340));
+        setMaximumSize(new java.awt.Dimension(568, 340));
+        setMinimumSize(new java.awt.Dimension(568, 340));
+        setPreferredSize(new java.awt.Dimension(568, 340));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelWidgetPumpBoost3.setChornobylPrefix("Condensation3#CondensatePump");
-        add(panelWidgetPumpBoost3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 222, -1, -1));
+        add(panelWidgetPumpBoost3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, -1, -1));
 
         panelWidgetPumpBoost2.setChornobylPrefix("Condensation2#CondensatePump");
-        add(panelWidgetPumpBoost2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 222, -1, -1));
+        add(panelWidgetPumpBoost2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
         panelWidgetPumpBoost1.setChornobylPrefix("Condensation1#CondensatePump");
-        add(panelWidgetPumpBoost1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 222, -1, -1));
+        add(panelWidgetPumpBoost1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
 
         panelWidgetPumpCondensate3.setChornobylPrefix("Condensation3#HotwellPump");
-        add(panelWidgetPumpCondensate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 72, -1, -1));
+        add(panelWidgetPumpCondensate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, -1, -1));
 
         panelWidgetPumpCondensate2.setChornobylPrefix("Condensation2#HotwellPump");
-        add(panelWidgetPumpCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 72, -1, -1));
+        add(panelWidgetPumpCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, -1));
 
         panelWidgetPumpCondensate1.setChornobylPrefix("Condensation1#HotwellPump");
-        add(panelWidgetPumpCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 72, -1, -1));
+        add(panelWidgetPumpCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
 
         controlLoopHotwellFill.setControlComponent("Hotwell#FillValve");
         controlLoopHotwellFill.setFeedbackComponent("Hotwell#Level");
         controlLoopHotwellFill.setSetpointComponent("Hotwell#LowerSetpoint");
-        add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 88, -1, -1));
+        add(controlLoopHotwellFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 82, -1, -1));
 
         controlLoopHotwellDrain.setControlComponent("Hotwell#DrainValve");
         controlLoopHotwellDrain.setFeedbackComponent("Hotwell#Level");
         controlLoopHotwellDrain.setSetpointComponent("Hotwell#UpperSetpoint");
-        add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 132, -1, -1));
+        add(controlLoopHotwellDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 126, -1, -1));
 
         jLabelHotwellDrain1.setFont(jLabelHotwellDrain1.getFont().deriveFont(jLabelHotwellDrain1.getFont().getSize()-2f));
         jLabelHotwellDrain1.setText("Hotwell");
-        add(jLabelHotwellDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 138, 50, 14));
+        add(jLabelHotwellDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 132, 50, 14));
 
         jLabelHotwellDrain2.setFont(jLabelHotwellDrain2.getFont().deriveFont(jLabelHotwellDrain2.getFont().getSize()-2f));
         jLabelHotwellDrain2.setText("Drain");
-        add(jLabelHotwellDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 152, 50, 14));
+        add(jLabelHotwellDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 146, 50, 14));
 
         jLabelHotwellFill2.setFont(jLabelHotwellFill2.getFont().deriveFont(jLabelHotwellFill2.getFont().getSize()-2f));
         jLabelHotwellFill2.setText("Fill");
-        add(jLabelHotwellFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 110, 50, 14));
+        add(jLabelHotwellFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 104, 50, 14));
 
         jLabelHotwellFill1.setFont(jLabelHotwellFill1.getFont().deriveFont(jLabelHotwellFill1.getFont().getSize()-2f));
         jLabelHotwellFill1.setText("Hotwell");
-        add(jLabelHotwellFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 96, 50, 14));
+        add(jLabelHotwellFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 90, 50, 14));
         add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 252, -1, -1));
         add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 252, -1, -1));
         add(integralSwitch3, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 252, -1, -1));
@@ -576,7 +576,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump16.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump16.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump16.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump16, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 56, 54, 14));
+        add(jLabelCaptionPump16, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 54, 54, 14));
 
         jLabelCaptionPump17.setFont(jLabelCaptionPump17.getFont().deriveFont(jLabelCaptionPump17.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump17.getFont().getSize()-2));
         jLabelCaptionPump17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -603,18 +603,18 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getSize()-2f));
         jLabel25.setText("Cond.");
-        add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 4, 52, 14));
+        add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 4, 36, 14));
 
         jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getSize()-2f));
         jLabel19.setText("Flow");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 52, 14));
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 36, 14));
 
         chornobylGaugeCondensateFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         chornobylGaugeCondensateFlow.setChornobylMaximum(4000.0F);
         chornobylGaugeCondensateFlow.setChornobylMinimum(0.0F);
         chornobylGaugeCondensateFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 3500.0f});
         chornobylGaugeCondensateFlow.setChornobylUnitText("kg/s");
-        add(chornobylGaugeCondensateFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
+        add(chornobylGaugeCondensateFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 4, -1, -1));
 
         jLabelCaptionPump18.setFont(jLabelCaptionPump18.getFont().deriveFont(jLabelCaptionPump18.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump18.getFont().getSize()-2));
         jLabelCaptionPump18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -630,7 +630,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump19.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump19.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump19.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump19, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 56, 54, 14));
+        add(jLabelCaptionPump19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 54, 54, 14));
 
         jLabelCaptionPump20.setFont(jLabelCaptionPump20.getFont().deriveFont(jLabelCaptionPump20.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump20.getFont().getSize()-2));
         jLabelCaptionPump20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -638,7 +638,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump20.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump20.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump20.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump20, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 56, 54, 14));
+        add(jLabelCaptionPump20, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 54, 54, 14));
 
         jLabelCaptionPump21.setFont(jLabelCaptionPump21.getFont().deriveFont(jLabelCaptionPump21.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump21.getFont().getSize()-2));
         jLabelCaptionPump21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -646,7 +646,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump21.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump21.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump21.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump21, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 192, 132, 14));
+        add(jLabelCaptionPump21, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 190, 132, 14));
 
         jLabelCaptionPump22.setFont(jLabelCaptionPump22.getFont().deriveFont(jLabelCaptionPump22.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump22.getFont().getSize()-2));
         jLabelCaptionPump22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -654,7 +654,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump22.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump22.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump22.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump22, new org.netbeans.lib.awtextra.AbsoluteConstraints(456, 208, 54, 14));
+        add(jLabelCaptionPump22, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 206, 54, 14));
 
         jLabelCaptionPump23.setFont(jLabelCaptionPump23.getFont().deriveFont(jLabelCaptionPump23.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump23.getFont().getSize()-2));
         jLabelCaptionPump23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -662,7 +662,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump23.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump23.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump23.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump23, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 208, 54, 14));
+        add(jLabelCaptionPump23, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 206, 54, 14));
 
         jLabelCaptionPump24.setFont(jLabelCaptionPump24.getFont().deriveFont(jLabelCaptionPump24.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump24.getFont().getSize()-2));
         jLabelCaptionPump24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -670,7 +670,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump24.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump24.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump24.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump24, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 208, 54, 14));
+        add(jLabelCaptionPump24, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 206, 54, 14));
 
         jLabelCaptionPump25.setFont(jLabelCaptionPump25.getFont().deriveFont(jLabelCaptionPump25.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump25.getFont().getSize()-2));
         jLabelCaptionPump25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -678,7 +678,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump25.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump25.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump25.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump25, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 40, 132, 14));
+        add(jLabelCaptionPump25, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 38, 132, 14));
 
         integralSwitch4.setComponent("EjectorStartup1");
         add(integralSwitch4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));

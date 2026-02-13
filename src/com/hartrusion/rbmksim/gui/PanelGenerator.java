@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 Viktor Alexander Hartung
+ * Copyright (C) 2025 Viktor Alexander Hartung
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ public class PanelGenerator extends AbstractPanelWidget
         implements UpdateReceiver {
 
     /**
-     * Creates new form PanelGenerator
+     * Creates new form PanelTurbineRunup
      */
     public PanelGenerator() {
         initComponents();
@@ -43,11 +43,329 @@ public class PanelGenerator extends AbstractPanelWidget
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setMaximumSize(new java.awt.Dimension(190, 120));
-        setMinimumSize(new java.awt.Dimension(190, 120));
-        setPreferredSize(new java.awt.Dimension(190, 120));
+        lightBulbSpeed1 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeed1 = new javax.swing.JButton();
+        lightBulbSpeed2 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeed2 = new javax.swing.JButton();
+        lightBulbSpeed3 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeed3 = new javax.swing.JButton();
+        lightBulbSpeed4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeed4 = new javax.swing.JButton();
+        lightBulbSpeed5 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeed5 = new javax.swing.JButton();
+        lightBulbSpeedGradient1 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeedGradient1 = new javax.swing.JButton();
+        lightBulbSpeedGradient2 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeedGradient2 = new javax.swing.JButton();
+        lightBulbSpeedGradient3 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonSpeedGradient3 = new javax.swing.JButton();
+        jLabelReadingActiveSpeedSetpoint = new javax.swing.JLabel();
+        jLabelCaptionAZ7 = new javax.swing.JLabel();
+        jLabelCaptionAZ9 = new javax.swing.JLabel();
+        jLabelCaptionAZ10 = new javax.swing.JLabel();
+        jLabelCaptionAZ11 = new javax.swing.JLabel();
+        jLabelCaptionAZ12 = new javax.swing.JLabel();
+        jLabelCaptionAZ13 = new javax.swing.JLabel();
+        jLabelCaptionAZ14 = new javax.swing.JLabel();
+        jLabelCaptionAZ15 = new javax.swing.JLabel();
+        jLabelCaptionAZ16 = new javax.swing.JLabel();
+        jLabelCaptionThermalPower1 = new javax.swing.JLabel();
+        jLabelCaptionThermalPower2 = new javax.swing.JLabel();
+        jLabelReadingThermalPower = new javax.swing.JLabel();
+        jLabelCaptionThermalPowerUnit = new javax.swing.JLabel();
+
+        setMinimumSize(new java.awt.Dimension(190, 190));
+        setPreferredSize(new java.awt.Dimension(190, 190));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        add(lightBulbSpeed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 66, -1, -1));
+
+        jButtonSpeed1.setFont(jButtonSpeed1.getFont().deriveFont(jButtonSpeed1.getFont().getSize()-2f));
+        jButtonSpeed1.setText("●");
+        jButtonSpeed1.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeed1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeed1ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 60, 20, 20));
+        add(lightBulbSpeed2, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 66, -1, -1));
+
+        jButtonSpeed2.setFont(jButtonSpeed2.getFont().deriveFont(jButtonSpeed2.getFont().getSize()-2f));
+        jButtonSpeed2.setText("●");
+        jButtonSpeed2.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeed2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeed2ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeed2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 20, 20));
+        add(lightBulbSpeed3, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 66, -1, -1));
+
+        jButtonSpeed3.setFont(jButtonSpeed3.getFont().deriveFont(jButtonSpeed3.getFont().getSize()-2f));
+        jButtonSpeed3.setText("●");
+        jButtonSpeed3.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeed3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeed3ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeed3, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 60, 20, 20));
+        add(lightBulbSpeed4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 66, -1, -1));
+
+        jButtonSpeed4.setFont(jButtonSpeed4.getFont().deriveFont(jButtonSpeed4.getFont().getSize()-2f));
+        jButtonSpeed4.setText("●");
+        jButtonSpeed4.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed4.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeed4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeed4ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeed4, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 60, 20, 20));
+        add(lightBulbSpeed5, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 66, -1, -1));
+
+        jButtonSpeed5.setFont(jButtonSpeed5.getFont().deriveFont(jButtonSpeed5.getFont().getSize()-2f));
+        jButtonSpeed5.setText("●");
+        jButtonSpeed5.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed5.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeed5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeed5ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeed5, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 60, 20, 20));
+        add(lightBulbSpeedGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 108, -1, -1));
+
+        jButtonSpeedGradient1.setFont(jButtonSpeedGradient1.getFont().deriveFont(jButtonSpeedGradient1.getFont().getSize()-2f));
+        jButtonSpeedGradient1.setText("●");
+        jButtonSpeedGradient1.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedGradient1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeedGradient1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeedGradient1ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeedGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 102, 20, 20));
+        add(lightBulbSpeedGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 108, -1, -1));
+
+        jButtonSpeedGradient2.setFont(jButtonSpeedGradient2.getFont().deriveFont(jButtonSpeedGradient2.getFont().getSize()-2f));
+        jButtonSpeedGradient2.setText("●");
+        jButtonSpeedGradient2.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedGradient2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeedGradient2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeedGradient2ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeedGradient2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 102, 20, 20));
+        add(lightBulbSpeedGradient3, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 108, -1, -1));
+
+        jButtonSpeedGradient3.setFont(jButtonSpeedGradient3.getFont().deriveFont(jButtonSpeedGradient3.getFont().getSize()-2f));
+        jButtonSpeedGradient3.setText("●");
+        jButtonSpeedGradient3.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedGradient3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeedGradient3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpeedGradient3ActionPerformed(evt);
+            }
+        });
+        add(jButtonSpeedGradient3, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 102, 20, 20));
+
+        jLabelReadingActiveSpeedSetpoint.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingActiveSpeedSetpoint.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingActiveSpeedSetpoint.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingActiveSpeedSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingActiveSpeedSetpoint.setText("___,_");
+        jLabelReadingActiveSpeedSetpoint.setToolTipText("Active setpoint which the global control is currently using");
+        jLabelReadingActiveSpeedSetpoint.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelReadingActiveSpeedSetpoint.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingActiveSpeedSetpoint.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingActiveSpeedSetpoint.setOpaque(true);
+        jLabelReadingActiveSpeedSetpoint.setPreferredSize(new java.awt.Dimension(52, 18));
+        add(jLabelReadingActiveSpeedSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 102, 48, -1));
+
+        jLabelCaptionAZ7.setFont(jLabelCaptionAZ7.getFont().deriveFont(jLabelCaptionAZ7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ7.getFont().getSize()-2));
+        jLabelCaptionAZ7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ7.setText("750");
+        jLabelCaptionAZ7.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ7.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ7.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ7.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ7, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 44, 28, -1));
+
+        jLabelCaptionAZ9.setFont(jLabelCaptionAZ9.getFont().deriveFont(jLabelCaptionAZ9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ9.getFont().getSize()-2));
+        jLabelCaptionAZ9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ9.setText("0");
+        jLabelCaptionAZ9.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ9.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ9.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ9.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 44, 28, -1));
+
+        jLabelCaptionAZ10.setFont(jLabelCaptionAZ10.getFont().deriveFont(jLabelCaptionAZ10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ10.getFont().getSize()-2));
+        jLabelCaptionAZ10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ10.setText("3000");
+        jLabelCaptionAZ10.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ10.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ10.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ10.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ10, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 44, 28, -1));
+
+        jLabelCaptionAZ11.setFont(jLabelCaptionAZ11.getFont().deriveFont(jLabelCaptionAZ11.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ11.getFont().getSize()-2));
+        jLabelCaptionAZ11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ11.setText("1500");
+        jLabelCaptionAZ11.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ11.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ11.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ11.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, 28, -1));
+
+        jLabelCaptionAZ12.setFont(jLabelCaptionAZ12.getFont().deriveFont(jLabelCaptionAZ12.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ12.getFont().getSize()-2));
+        jLabelCaptionAZ12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ12.setText("2250");
+        jLabelCaptionAZ12.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ12.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ12.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ12.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ12, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 44, 28, -1));
+
+        jLabelCaptionAZ13.setFont(jLabelCaptionAZ13.getFont().deriveFont(jLabelCaptionAZ13.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ13.getFont().getSize()-2));
+        jLabelCaptionAZ13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ13.setText("Slow");
+        jLabelCaptionAZ13.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ13.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ13.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ13.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ13, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 86, 36, -1));
+
+        jLabelCaptionAZ14.setFont(jLabelCaptionAZ14.getFont().deriveFont(jLabelCaptionAZ14.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ14.getFont().getSize()-2));
+        jLabelCaptionAZ14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ14.setText("Med");
+        jLabelCaptionAZ14.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ14.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ14.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ14.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ14, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 86, 36, -1));
+
+        jLabelCaptionAZ15.setFont(jLabelCaptionAZ15.getFont().deriveFont(jLabelCaptionAZ15.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ15.getFont().getSize()-2));
+        jLabelCaptionAZ15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ15.setText("Setpoint");
+        jLabelCaptionAZ15.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ15.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ15.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ15.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ15, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 86, 64, -1));
+
+        jLabelCaptionAZ16.setFont(jLabelCaptionAZ16.getFont().deriveFont(jLabelCaptionAZ16.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ16.getFont().getSize()-2));
+        jLabelCaptionAZ16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionAZ16.setText("Fast");
+        jLabelCaptionAZ16.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionAZ16.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ16.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionAZ16.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionAZ16, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 86, 36, -1));
+
+        jLabelCaptionThermalPower1.setFont(jLabelCaptionThermalPower1.getFont().deriveFont(jLabelCaptionThermalPower1.getFont().getSize()-2f));
+        jLabelCaptionThermalPower1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionThermalPower1.setText("Generator");
+        jLabelCaptionThermalPower1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionThermalPower1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 62, 14));
+
+        jLabelCaptionThermalPower2.setFont(jLabelCaptionThermalPower2.getFont().deriveFont(jLabelCaptionThermalPower2.getFont().getSize()-2f));
+        jLabelCaptionThermalPower2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionThermalPower2.setText("Power");
+        jLabelCaptionThermalPower2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionThermalPower2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 16, 52, 14));
+
+        jLabelReadingThermalPower.setBackground(new java.awt.Color(0, 0, 0));
+        jLabelReadingThermalPower.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        jLabelReadingThermalPower.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingThermalPower.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingThermalPower.setText("_____");
+        jLabelReadingThermalPower.setOpaque(true);
+        add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 4, 76, 26));
+
+        jLabelCaptionThermalPowerUnit.setFont(jLabelCaptionThermalPowerUnit.getFont().deriveFont(jLabelCaptionThermalPowerUnit.getFont().getSize()-2f));
+        jLabelCaptionThermalPowerUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionThermalPowerUnit.setText("MW");
+        jLabelCaptionThermalPowerUnit.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPowerUnit.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPowerUnit.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionThermalPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 10, 26, 14));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSpeed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed1ActionPerformed
+        
+    }//GEN-LAST:event_jButtonSpeed1ActionPerformed
+
+    private void jButtonSpeed2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeed2ActionPerformed
+
+    private void jButtonSpeed3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeed3ActionPerformed
+
+    private void jButtonSpeed4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeed4ActionPerformed
+
+    private void jButtonSpeed5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeed5ActionPerformed
+
+    private void jButtonSpeedGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeedGradient1ActionPerformed
+
+    private void jButtonSpeedGradient2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeedGradient2ActionPerformed
+
+    private void jButtonSpeedGradient3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedGradient3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSpeedGradient3ActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonSpeed1;
+    private javax.swing.JButton jButtonSpeed2;
+    private javax.swing.JButton jButtonSpeed3;
+    private javax.swing.JButton jButtonSpeed4;
+    private javax.swing.JButton jButtonSpeed5;
+    private javax.swing.JButton jButtonSpeedGradient1;
+    private javax.swing.JButton jButtonSpeedGradient2;
+    private javax.swing.JButton jButtonSpeedGradient3;
+    private javax.swing.JLabel jLabelCaptionAZ10;
+    private javax.swing.JLabel jLabelCaptionAZ11;
+    private javax.swing.JLabel jLabelCaptionAZ12;
+    private javax.swing.JLabel jLabelCaptionAZ13;
+    private javax.swing.JLabel jLabelCaptionAZ14;
+    private javax.swing.JLabel jLabelCaptionAZ15;
+    private javax.swing.JLabel jLabelCaptionAZ16;
+    private javax.swing.JLabel jLabelCaptionAZ7;
+    private javax.swing.JLabel jLabelCaptionAZ9;
+    private javax.swing.JLabel jLabelCaptionThermalPower1;
+    private javax.swing.JLabel jLabelCaptionThermalPower2;
+    private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
+    private javax.swing.JLabel jLabelReadingActiveSpeedSetpoint;
+    private javax.swing.JLabel jLabelReadingThermalPower;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed1;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed2;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed3;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed4;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed5;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeedGradient1;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeedGradient2;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeedGradient3;
+    // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
@@ -68,8 +386,4 @@ public class PanelGenerator extends AbstractPanelWidget
     public void updateComponent(String propertyName, boolean newValue) {
         
     }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

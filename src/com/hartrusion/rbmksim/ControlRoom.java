@@ -101,8 +101,6 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemAuxCond = new javax.swing.JMenuItem();
         jMenuItemTurbine = new javax.swing.JMenuItem();
         jMenuItemTurbineBypass = new javax.swing.JMenuItem();
-        jMenuItemRunupControl = new javax.swing.JMenuItem();
-        jMenuItemTurbineAux = new javax.swing.JMenuItem();
         jMenuItemCondensation = new javax.swing.JMenuItem();
         jMenuItemPreheaters = new javax.swing.JMenuItem();
         jMenuItemGenerator = new javax.swing.JMenuItem();
@@ -252,22 +250,6 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuControls.add(jMenuItemTurbineBypass);
-
-        jMenuItemRunupControl.setText("Turbine Runup Control");
-        jMenuItemRunupControl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRunupControlActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemRunupControl);
-
-        jMenuItemTurbineAux.setText("Turbine Auxiliary");
-        jMenuItemTurbineAux.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTurbineAuxActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemTurbineAux);
 
         jMenuItemCondensation.setText("Condensation");
         jMenuItemCondensation.addActionListener(new java.awt.event.ActionListener() {
@@ -826,58 +808,47 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemTurbineBypassActionPerformed(null);
         jMenuItemPreheatersActionPerformed(null);
         jMenuItemTurbineActionPerformed(null);
-        jMenuItemTurbineAuxActionPerformed(null);
-        jMenuItemRunupControlActionPerformed(null);
         jMenuItemGeneratorActionPerformed(null);
-        jMenuItemCoolantActionPerformed(null);
-        
+    //    jMenuItemCoolantActionPerformed(null);
+
         // Align them in a preset grid layout.
         // 1st row:
         jDesktopPane1.windowPlaceAtZero(
                 getControlPanelInstance("Reactor Controls"));
         jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Aux. Condensation"),
+                getControlPanelInstance("Blowdown"),
                 getControlPanelInstance("Reactor Controls"));
         jDesktopPane1.windowPlaceRightTo(
                 getControlPanelInstance("Turbine"),
-                getControlPanelInstance("Aux. Condensation"));
+                getControlPanelInstance("Blowdown"));
         jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Turbine Bypass"),
+                getControlPanelInstance("Generator"),
                 getControlPanelInstance("Turbine"));
         jDesktopPane1.windowPlaceBelow(
-                getControlPanelInstance("Generator"),
-                getControlPanelInstance("Turbine Bypass"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Deaerators"),
-                getControlPanelInstance("Turbine Bypass"));
+                getControlPanelInstance("Turbine Bypass"),
+                getControlPanelInstance("Generator"));
 
         // 2nd row:
         jDesktopPane1.windowPlaceBelow(
                 getControlPanelInstance("Recirculation"),
                 getControlPanelInstance("Reactor Controls"));
         jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Blowdown"),
+                getControlPanelInstance("Feedwater"),
                 getControlPanelInstance("Recirculation"));
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Deaerators"),
+                getControlPanelInstance("Feedwater"));
         jDesktopPane1.windowPlaceRightTo(
                 getControlPanelInstance("Condensation"),
-                getControlPanelInstance("Blowdown"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Feedwater"),
-                getControlPanelInstance("Condensation"));
-        
+                getControlPanelInstance("Deaerators"));
+
         // 3rd row:
         jDesktopPane1.windowPlaceBelow(
-                getControlPanelInstance("Coolant"),
+                getControlPanelInstance("Preheaters"),
                 getControlPanelInstance("Recirculation"));
         jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Preheaters"),
-                getControlPanelInstance("Coolant"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Turbine Aux. Systems"),
+                getControlPanelInstance("Aux. Condensation"),
                 getControlPanelInstance("Preheaters"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Turbine Runup"),
-                getControlPanelInstance("Turbine Aux. Systems"));
     }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
 
     private void jMenuItemPresetNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetNoneActionPerformed
@@ -940,28 +911,6 @@ public class ControlRoom extends javax.swing.JFrame
         // if theres no active frame, generate it and make it known here.
         initializeControlPanel(new PanelTurbine(), "Turbine");
     }//GEN-LAST:event_jMenuItemTurbineActionPerformed
-
-    private void jMenuItemTurbineAuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineAuxActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Turbine Aux. Systems")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelTurbineAux(), "Turbine Aux. Systems");
-    }//GEN-LAST:event_jMenuItemTurbineAuxActionPerformed
-
-    private void jMenuItemRunupControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRunupControlActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Turbine Runup")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelTurbineRunup(), "Turbine Runup");
-    }//GEN-LAST:event_jMenuItemRunupControlActionPerformed
 
     private void jMenuItemGeneratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGeneratorActionPerformed
         for (ControlPanelFrame pf : controlPanels) {
@@ -1197,9 +1146,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemRecirculation;
-    private javax.swing.JMenuItem jMenuItemRunupControl;
     private javax.swing.JMenuItem jMenuItemTurbine;
-    private javax.swing.JMenuItem jMenuItemTurbineAux;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
