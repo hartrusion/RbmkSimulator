@@ -628,7 +628,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
         int identifier, x, y;
         boolean value;
-        
+
         switch (ac.getPropertyName()) {
             case "Reactor#RodSelect": // Manual selection of single rod
                 identifier = (int) ac.getValue();
@@ -990,11 +990,16 @@ public class ReactorCore extends Subsystem implements Runnable {
                 return false;
             }
         }
-        if (avgRodPosition < 7.1) {
-            return false; // rods not fully inserted
-        }
-        if (neutronFluxModel.getYNeutronFlux() > 0.2) {
-            return false; // chain reaction still active
+        // Checks that will only be performed when not switchting the RPS back 
+        // on during already running operator. Those are designed to make sure
+        // some other state must be reached first befroe able to reset the RPS
+        if (!oldRps.equals(ControlCommand.MANUAL_OPERATION)) {
+            if (avgRodPosition < 7.1) {
+                return false; // rods not fully inserted
+            }
+            if (neutronFluxModel.getYNeutronFlux() > 0.2) {
+                return false; // chain reaction still active
+            }
         }
         return true;
     }
