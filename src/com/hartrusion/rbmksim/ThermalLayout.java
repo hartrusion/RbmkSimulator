@@ -2991,12 +2991,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return 1e5 - condenserVacuum.getOutput();
+                return 1e5 - condenserVacuum.getOutput();               
             }
         });
         am.defineAlarm(9e4, AlarmState.LOW1);
         am.defineAlarm(7e4, AlarmState.LOW2);
         am.defineAlarm(5e4, AlarmState.MIN1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                turbine.triggerTurbineTrip();
+            }
+        });
+        
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -3069,12 +3076,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public void run() {
                 core.triggerAutoShutdown();
+                turbine.triggerTurbineTrip();
             }
         });
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
                 core.triggerAutoShutdown();
+                turbine.triggerTurbineTrip();
             }
         });
         am.registerAlarmManager(alarmManager);
@@ -3218,8 +3227,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // logic later
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].addSafeClosedProvider(()
-                    -> !alarmManager.isAlarmActive(
-                            "CondenserVacuum", AlarmState.MIN1));
+                    -> !turbine.isTpsActive());
             turbineReheaterSteamValve[idx].addSafeClosedProvider(()
                     -> !alarmManager.isAlarmActive(
                             "CondenserVacuum", AlarmState.MIN1));
@@ -3230,12 +3238,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !alarmManager.isAlarmActive(
                             "ReheaterCondensateLevel", AlarmState.MIN1));
         }
+        turbineLowPressureTripValve.addSafeClosedProvider(()
+                -> !turbine.isTpsActive());
         turbineReheaterCondensateDrain.addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
                         "ReheaterCondensateLevel", AlarmState.MIN1));
         turbineReheaterTripValve.addSafeClosedProvider(()
-                -> !alarmManager.isAlarmActive(
-                        "ReheaterCondensateLevel", AlarmState.MAX1));
+                -> !turbine.isTpsActive());
 
         // </editor-fold>
         // Time ocnstant for condenser
@@ -3975,6 +3984,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Limit the thermal power to 10 Gigawatts per side, it will crash the
         // simulation anyway but that way it's not that fast.
         thermalPower[loop] = Math.min(power + 2.8, 1e4);
+    }
+    
+    /**
+     * Called from the turbine protection system on turbine trip action, this
+     * handles the part which is defined here in the thermal layout.
+     */
+    public void turbineTrip() {
+        turbineReheaterTrimValve.operateCloseValve();
+        turbineTripValve[0].operateCloseValve();
+        turbineTripValve[1].operateCloseValve();
+        turbineLowPressureTripValve.operateCloseValve();
     }
 
     /**

@@ -324,7 +324,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulbSpeed6">
+    <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulbTPSLock">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -1137,7 +1137,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButtonAutoDrain2">
+    <Component class="javax.swing.JToggleButton" name="jToggleButtonTPSActive">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1145,7 +1145,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonAutoDrain2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonTPSActiveActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1161,7 +1161,7 @@
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Override"/>
+        <Property name="text" type="java.lang.String" value="Active"/>
         <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>

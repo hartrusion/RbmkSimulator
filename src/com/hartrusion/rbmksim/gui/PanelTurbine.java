@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
@@ -79,7 +80,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl2 = new javax.swing.JLabel();
         jButtonProtectionRest = new javax.swing.JButton();
         jButtonProtectionTrip = new javax.swing.JButton();
-        lightBulbSpeed6 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbTPSLock = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jLabelCaption2 = new javax.swing.JLabel();
         jLabelCaption3 = new javax.swing.JLabel();
         controlLoopStartupValve1 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
@@ -126,7 +127,7 @@ public class PanelTurbine extends AbstractPanelWidget
         controlLoopValveReheater1 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
         controlLoopValveReheater2 = new com.hartrusion.rbmksim.gui.elements.ControlLoopValve();
         jLabelCaption8 = new javax.swing.JLabel();
-        jToggleButtonAutoDrain2 = new javax.swing.JToggleButton();
+        jToggleButtonTPSActive = new javax.swing.JToggleButton();
         jLabelCaption9 = new javax.swing.JLabel();
         jLabelCaptionSuperheaterControl7 = new javax.swing.JLabel();
         jLabelCaption10 = new javax.swing.JLabel();
@@ -274,8 +275,8 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         add(jButtonProtectionTrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 144, 20, 20));
 
-        lightBulbSpeed6.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbSpeed6, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 150, -1, -1));
+        lightBulbTPSLock.setForeground(new java.awt.Color(255, 0, 0));
+        add(lightBulbTPSLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 150, -1, -1));
 
         jLabelCaption2.setFont(jLabelCaption2.getFont().deriveFont(jLabelCaption2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption2.getFont().getSize()-2));
         jLabelCaption2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -546,18 +547,18 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption8.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaption8, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 118, 90, 14));
 
-        jToggleButtonAutoDrain2.setText("←");
-        jToggleButtonAutoDrain2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonAutoDrain2.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButtonTPSActive.setText("←");
+        jToggleButtonTPSActive.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonTPSActive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonAutoDrain2ActionPerformed(evt);
+                jToggleButtonTPSActiveActionPerformed(evt);
             }
         });
-        add(jToggleButtonAutoDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 174, 20, 20));
+        add(jToggleButtonTPSActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 174, 20, 20));
 
         jLabelCaption9.setFont(jLabelCaption9.getFont().deriveFont(jLabelCaption9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption9.getFont().getSize()-2));
         jLabelCaption9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption9.setText("Override");
+        jLabelCaption9.setText("Active");
         jLabelCaption9.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaption9.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption9.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -901,11 +902,11 @@ public class PanelTurbine extends AbstractPanelWidget
     }//GEN-LAST:event_jButtonSuperheaterShutoffOpenActionPerformed
 
     private void jButtonProtectionRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProtectionRestActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#TPSReset", null));
     }//GEN-LAST:event_jButtonProtectionRestActionPerformed
 
     private void jButtonProtectionTripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProtectionTripActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine#Trip", true));
     }//GEN-LAST:event_jButtonProtectionTripActionPerformed
 
     private void jToggleButtonTurboSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTurboSetpointActionPerformed
@@ -928,9 +929,13 @@ public class PanelTurbine extends AbstractPanelWidget
         controller.userAction(new ActionCommand("Turbine2#TripValve", true));
     }//GEN-LAST:event_jButtonTrip2OpenActionPerformed
 
-    private void jToggleButtonAutoDrain2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonAutoDrain2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonAutoDrain2ActionPerformed
+    private void jToggleButtonTPSActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTPSActiveActionPerformed
+        if (toggleButtonChange(evt)) {
+            controller.userAction(new ActionCommand("Turbine#TPS", true));
+        } else {
+            controller.userAction(new ActionCommand("Turbine#TPS", false));
+        }
+    }//GEN-LAST:event_jToggleButtonTPSActiveActionPerformed
 
     private void jToggleButtonPumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPumpActionPerformed
 
@@ -1041,10 +1046,10 @@ public class PanelTurbine extends AbstractPanelWidget
     private javax.swing.JLabel jLabelTempSetpoint1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButtonAutoDrain2;
     private javax.swing.JToggleButton jToggleButtonPump;
     private javax.swing.JToggleButton jToggleButtonPump1;
     private javax.swing.JToggleButton jToggleButtonPump2;
+    private javax.swing.JToggleButton jToggleButtonTPSActive;
     private javax.swing.JToggleButton jToggleButtonTurboSetpoint;
     private javax.swing.JToggleButton jToggleButtonTurningGear;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService;
@@ -1055,7 +1060,7 @@ public class PanelTurbine extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady2;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady4;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed6;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbTPSLock;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlLevel;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlTemperature;
     // End of variables declaration//GEN-END:variables
@@ -1090,6 +1095,16 @@ public class PanelTurbine extends AbstractPanelWidget
                 setValveButtons(jButtonLPShutClose,
                         jButtenLPShutOpen, evt.getNewValue());
                 break;
+            case "Turbine#ProtectionLock":
+                lightBulbTPSLock.setActive((boolean) evt.getNewValue());
+                break;
+            case "Turbine#TPSState":
+                if (ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue()
+                        && !jToggleButtonTPSActive.isSelected()) {
+                    jToggleButtonTPSActive.setSelected(true);
+                    jToggleButtonTPSActive.setText("↑");
+                }
         }
     }
 
@@ -1111,7 +1126,7 @@ public class PanelTurbine extends AbstractPanelWidget
         controlLoopValveCondToDA2.updateComponent(propertyName, newValue);
         controlLoopValveCondToHotwell.updateComponent(propertyName, newValue);
         setpointControlLevel.updateComponent(propertyName, newValue);
-        
+
         switch (propertyName) {
             case "Turbine#Speed" ->
                 chornobylGaugeRotorSpeed.setChornobylValue((float) newValue);

@@ -64,6 +64,7 @@ public class MainLoop implements Runnable, ModelManipulation {
         process.registerAlarmManager(alarms);
         process.init();
 
+        turbine.registerThermalLayout(process);
         turbine.registerAlarmManager(alarms);
         turbine.init();
         turbine.registerParameterOutput(outputValues);

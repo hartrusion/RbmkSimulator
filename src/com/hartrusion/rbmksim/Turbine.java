@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
@@ -36,6 +37,8 @@ import static com.hartrusion.rbmksim.SpeedSelect.LOW;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents the turbine and its systems. Holds a network model with the
@@ -46,6 +49,14 @@ import java.util.function.DoubleSupplier;
  * @author Viktor Alexander Hartung
  */
 public class Turbine extends Subsystem implements Runnable {
+
+    private static final Logger LOGGER = Logger.getLogger(
+            Turbine.class.getName());
+
+    /**
+     * Reference to the thermal layout process class
+     */
+    private ThermalLayout process;
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
     private final OpenOrigin[] thermalOriginSteam = new OpenOrigin[4];
@@ -67,8 +78,21 @@ public class Turbine extends Subsystem implements Runnable {
     private SpeedSelect setpointSpeedGradient = SpeedSelect.MED;
     private SpeedSelect oldSetpointSpeedGradient = null;
 
+    /**
+     * Holds the state of the Turbine protection system, uses the ControlCommand
+     * which is used usually by control loops as a variable.
+     */
+    private ControlCommand tps = ControlCommand.AUTOMATIC;
+    private ControlCommand oldTps = null;
+
+    /**
+     * Active in terms of not allowing the turbine valves to open.
+     */
+    private boolean tpsActive = false;
+    private boolean oldTpsActive = false; // previous value
+
     private final DomainAnalogySolver turbineRotor = new DomainAnalogySolver();
-    
+
     private final SerialRunner alarmUpdater = new SerialRunner();
 
     Turbine() {
@@ -128,14 +152,37 @@ public class Turbine extends Subsystem implements Runnable {
 
         setpointTurbineSpeed.run();
 
+        alarmUpdater.invokeAll();
+
+        // Send the TPS state to controller
+        if (tps != oldTps) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Turbine#TPSState", oldTps, tps));
+            oldTps = tps;
+        }
+
+        // Send the RPS alarm message on change
+        if (tpsActive != oldTpsActive) {
+            oldTpsActive = tpsActive;
+            if (tpsActive) {
+                alarmManager.fireAlarm("TurbineProtection",
+                        AlarmState.ACTIVE, false);
+            } else {
+                alarmManager.fireAlarm("TurbineProtection",
+                        AlarmState.NONE, false);
+            }
+            // this is used for the light bulb on the panel
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Turbine#ProtectionLock", oldTpsActive, tpsActive));
+        }
+
         // Send target value back, used for the control panel lights
         outputValues.setParameterValue("Turbine#SpeedSetpointTarget",
                 targetTurbineSpeed);
 
         outputValues.setParameterValue("Turbine#Speed",
                 turbineVelocity.getEffort());
-        
-        alarmUpdater.invokeAll();
+
     }
 
     @Override
@@ -147,6 +194,41 @@ public class Turbine extends Subsystem implements Runnable {
             }
             case "Turbine#SpeedSetpointGradient" ->
                 setpointSpeedGradient = (SpeedSelect) ac.getValue();
+
+            case "Turbine#Trip" -> {
+                process.turbineTrip();
+                LOGGER.log(Level.INFO, "Received Turbine Trip Command");
+            }
+
+            case "Turbine#TPSReset" -> {
+                // allow reset only after rods are in and there's no neutron flux.
+                if (checkTpsDisengage()) {
+                    tpsActive = false;
+                } else {
+                    LOGGER.log(Level.INFO, "Command refused, TPS still active.");
+                }
+            }
+
+            case "Turbine#TPS" -> {
+                // translate boolean on/off into ControlCommand state
+                if ((boolean) ac.getValue()) {
+                    tps = ControlCommand.AUTOMATIC;
+                } else {
+                    tps = ControlCommand.MANUAL_OPERATION;
+                }
+                if (tps.equals(ControlCommand.MANUAL_OPERATION)) {
+                    tpsActive = false; // skip the need for reset when turning off
+                } else {
+                    // When switching on, check conditions if reactor can be
+                    // started up, otherwise block immediately.
+                    if (!checkTpsDisengage()) {
+                        tpsActive = true;
+                        process.turbineTrip(); // close fast valves
+                        turbineTrip(); // this class
+                    }
+                }
+
+            }
         }
         setpointTurbineSpeed.handleAction(ac);
     }
@@ -182,18 +264,23 @@ public class Turbine extends Subsystem implements Runnable {
         // Initial conditions
         turbineTurningGear.setFlow(0.0);
         turbineMomentum.setFlow(0.0);
-        
-        
+
         ValueAlarmMonitor am;
-        
+
         // Turbine rotor speed alarm
         am = new ValueAlarmMonitor();
-        am.setName("Turbine#Speed");
+        am.setName("TurbineSpeed");
         am.addInputProvider(() -> turbineVelocity.getEffort());
         am.defineAlarm(3100.0, AlarmState.MAX1);
         am.defineAlarm(3030.0, AlarmState.HIGH2);
         am.defineAlarm(3015.0, AlarmState.HIGH1);
         am.defineAlarm(50.0, AlarmState.LOW1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                triggerTurbineTrip();
+            }
+        });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -232,13 +319,58 @@ public class Turbine extends Subsystem implements Runnable {
         turbineMomentum.setFlow(power);
     }
 
-    public void triggerTurbineTrip() {
-
-    }
-
     @Override
     public void updateNotification(String propertyName) {
 
+    }
+
+    /**
+     * Can be invoked by this or externally, this is the TPS (turbine protection
+     * system) shutdown command that is supposed to close all inlet valves. It
+     * can be overridden however.
+     */
+    public void triggerTurbineTrip() {
+        if (tps.equals(ControlCommand.MANUAL_OPERATION)) {
+            return;
+        }
+        turbineTrip();
+        tpsActive = true;
+    }
+
+    /**
+     * Handles the trip functions of this class, is called from whatever trips
+     * the turbine, mostly the triggerTurbineTrip function.
+     */
+    public void turbineTrip() {
+
+    }
+
+    public boolean isTpsActive() {
+        return tpsActive;
+    }
+
+    /**
+     * Checks the plant state that it is in a state where it allows the TPS to
+     * be cleared. Note that the Alarm system is a trigger-event only
+     *
+     * @return true if everything is fine.
+     */
+    private boolean checkTpsDisengage() {
+        if (alarmManager.isAlarmActive("HotwellLevel", AlarmState.MAX1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("CondenserVacuum", AlarmState.MIN1)) {
+            return false;
+        }
+        // Checks that will only be performed when not switchting the RPS back 
+        // on during already running operator. Those are designed to make sure
+        // some other state must be reached first befroe able to reset the RPS
+        if (!oldTps.equals(ControlCommand.MANUAL_OPERATION)) {
+            if (turbineVelocity.getEffort() > 500) {
+                return false; // turbine needs to spin down first
+            }
+        }
+        return true;
     }
 
     @Override
@@ -264,5 +396,9 @@ public class Turbine extends Subsystem implements Runnable {
      */
     public EffortSource getThermalEffortSource(int idx) {
         return thermalSteamTemperature[idx];
+    }
+
+    public void registerThermalLayout(ThermalLayout process) {
+        this.process = process;
     }
 }
