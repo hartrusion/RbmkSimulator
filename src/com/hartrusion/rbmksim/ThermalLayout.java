@@ -406,9 +406,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
     /**
      * Poor mans debugging: This temperature is added everywhere to be able to
      * start the simulation with pressurized reactor. Set to 150 for example to
-     * have some steam inside the core to test the turbine.
+     * have some steam inside the core to test the turbine. 240 is full power
      */
-    private double debugAddInitTemp = 180.0;
+    private double debugAddInitTemp = 0.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -2027,13 +2027,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // numbers that are totally non realistic but they have to be high for
         // the solution to be stable.
         turbineHighPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(150);
+                .setInnerHeatedMass(2);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(150);
+                .setInnerHeatedMass(1);
         turbineLowPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(150);
+                .setInnerHeatedMass(5);
         turbineLowPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(150);
+                .setInnerHeatedMass(1);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
@@ -2045,7 +2045,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[4].setResistanceParameter(60);
         turbineLowPressureStage[5].setResistanceParameter(60);
 
-        turbineReheater.initCharacteristic(8.0, 500, 5e2, 0.0);
+        turbineReheater.initCharacteristic(25.0, 500, 5e2, 0.0);
 
         // Resistance to Reheater in: (69e5 Pa-4.4e5 Pe) / 372 kg/s
         // both valves full open will have sum R of 17365 Pa/kg*s 
@@ -3336,7 +3336,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + turbineLowPressureStage[4].getExcessPower()
                 + turbineLowPressureStage[5].getExcessPower();
         // and make it known to the turbine
-        turbine.setShaftPower(turbineShaftPower);
+        turbine.setShaftPower(turbineShaftPower * 1e-6);
 
         // Condenser Vacuum: There is no specific model for that, it is assumed
         // that certain effects do either make the vacuum go down or up. The

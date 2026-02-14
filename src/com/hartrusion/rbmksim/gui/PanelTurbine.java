@@ -91,7 +91,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         chornobylGaugeFeed1Temp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeFeed1Flow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeRotorSpeed = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel24 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -329,12 +329,12 @@ public class PanelTurbine extends AbstractPanelWidget
         chornobylGaugeFeed1Temp.setChornobylUnitText("°C");
         add(chornobylGaugeFeed1Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
-        chornobylGaugeFeed1Flow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeFeed1Flow.setChornobylMaximum(3200.0F);
-        chornobylGaugeFeed1Flow.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed1Flow.setChornobylTicks(new float[] {500.0f, 1500.0f, 3000.0f});
-        chornobylGaugeFeed1Flow.setChornobylUnitText("1/min");
-        add(chornobylGaugeFeed1Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+        chornobylGaugeRotorSpeed.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeRotorSpeed.setChornobylMaximum(3200.0F);
+        chornobylGaugeRotorSpeed.setChornobylMinimum(0.0F);
+        chornobylGaugeRotorSpeed.setChornobylTicks(new float[] {500.0f, 1500.0f, 3000.0f});
+        chornobylGaugeRotorSpeed.setChornobylUnitText("1/min");
+        add(chornobylGaugeRotorSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getSize()-2f));
         jLabel24.setText("HP Case");
@@ -950,7 +950,6 @@ public class PanelTurbine extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Flow;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Temp;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Temp1;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Flow;
@@ -960,6 +959,7 @@ public class PanelTurbine extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp2;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp3;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeOilPressure;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeRotorSpeed;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopStartupValve1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopStartupValve2;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValve3;
@@ -1111,6 +1111,11 @@ public class PanelTurbine extends AbstractPanelWidget
         controlLoopValveCondToDA2.updateComponent(propertyName, newValue);
         controlLoopValveCondToHotwell.updateComponent(propertyName, newValue);
         setpointControlLevel.updateComponent(propertyName, newValue);
+        
+        switch (propertyName) {
+            case "Turbine#Speed" ->
+                chornobylGaugeRotorSpeed.setChornobylValue((float) newValue);
+        }
     }
 
     @Override

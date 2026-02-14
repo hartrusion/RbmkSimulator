@@ -16,16 +16,26 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.alarm.AlarmAction;
+import com.hartrusion.alarm.AlarmState;
+import com.hartrusion.alarm.ValueAlarmMonitor;
+import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
+import com.hartrusion.modeling.general.ClosedOrigin;
 import com.hartrusion.modeling.general.EffortSource;
+import com.hartrusion.modeling.general.FlowSource;
 import com.hartrusion.modeling.general.GeneralNode;
+import com.hartrusion.modeling.general.LinearDissipator;
+import com.hartrusion.modeling.general.MutualCapacitance;
 import com.hartrusion.modeling.general.OpenOrigin;
+import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import static com.hartrusion.rbmksim.SpeedSelect.LOW;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
+import java.util.function.DoubleSupplier;
 
 /**
  * Represents the turbine and its systems. Holds a network model with the
@@ -42,12 +52,24 @@ public class Turbine extends Subsystem implements Runnable {
     private final GeneralNode[] thermalNodeSteamGnd = new GeneralNode[4];
     private final EffortSource[] thermalSteamTemperature = new EffortSource[4];
     private final GeneralNode[] thermalNodeSteamTemperature = new GeneralNode[4];
-    // </editor-fold>
 
+    private final ClosedOrigin turbineOrigin;
+    private final GeneralNode turbineReference;
+    private final GeneralNode turbineVelocity;
+    private final FlowSource turbineMomentum;
+    private final FlowSource turbineTurningGear;
+    private final MutualCapacitance turbineInertia;
+    private final LinearDissipator turbineFriction;
+
+    // </editor-fold>
     private double targetTurbineSpeed = 0.0;
     private final Setpoint setpointTurbineSpeed;
     private SpeedSelect setpointSpeedGradient = SpeedSelect.MED;
     private SpeedSelect oldSetpointSpeedGradient = null;
+
+    private final DomainAnalogySolver turbineRotor = new DomainAnalogySolver();
+    
+    private final SerialRunner alarmUpdater = new SerialRunner();
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -65,6 +87,16 @@ public class Turbine extends Subsystem implements Runnable {
             thermalNodeSteamTemperature[idx].setName("Turbine"
                     + (idx + 1) + "#ThermalNodeSteamTemperature");
         }
+
+        // Turbine and Generator Rotor mechanical model
+        turbineOrigin = new ClosedOrigin(PhysicalDomain.MECHANICAL);
+        turbineReference = new GeneralNode(PhysicalDomain.MECHANICAL);
+        turbineVelocity = new GeneralNode(PhysicalDomain.MECHANICAL);
+        turbineMomentum = new FlowSource(PhysicalDomain.MECHANICAL);
+        turbineTurningGear = new FlowSource(PhysicalDomain.MECHANICAL);
+        turbineInertia = new MutualCapacitance(PhysicalDomain.MECHANICAL);
+        turbineFriction = new LinearDissipator(PhysicalDomain.MECHANICAL);
+
         // </editor-fold>
         setpointTurbineSpeed = new Setpoint();
     }
@@ -84,16 +116,26 @@ public class Turbine extends Subsystem implements Runnable {
                     setpointTurbineSpeed.setMaxRate(90);
             }
             controller.propertyChange(new PropertyChangeEvent(
-                    this, "Turbine#SpeedSetpointGradient", 
+                    this, "Turbine#SpeedSetpointGradient",
                     oldSetpointSpeedGradient, setpointSpeedGradient));
             oldSetpointSpeedGradient = setpointSpeedGradient;
         }
+
+        // Calculate current turbine speed as long as the generator breaker
+        // is open
+        turbineRotor.prepareCalculation();
+        turbineRotor.doCalculation();
 
         setpointTurbineSpeed.run();
 
         // Send target value back, used for the control panel lights
         outputValues.setParameterValue("Turbine#SpeedSetpointTarget",
                 targetTurbineSpeed);
+
+        outputValues.setParameterValue("Turbine#Speed",
+                turbineVelocity.getEffort());
+        
+        alarmUpdater.invokeAll();
     }
 
     @Override
@@ -116,6 +158,45 @@ public class Turbine extends Subsystem implements Runnable {
         setpointTurbineSpeed.setUpperLimit(3100);
         setpointTurbineSpeed.setMaxRate(30);
 
+        // Build the mechanical model of the turbine rotor. We use a full linear
+        // analogy on how to describe and build the rotor model.
+        turbineOrigin.connectTo(turbineReference);
+        turbineMomentum.connectBetween(turbineReference, turbineVelocity);
+        turbineTurningGear.connectBetween(turbineReference, turbineVelocity);
+        turbineInertia.connectBetween(turbineReference, turbineVelocity);
+        turbineFriction.connectBetween(turbineReference, turbineVelocity);
+
+        // Decide that we need a continuous shaft power of X to hold the 
+        // turbine on 3000, this energy will be consumed by the resistor and 
+        // defines the working point for the spin up model.
+        turbineFriction.setResistanceParameter(3000.0 / 12.0);
+
+        // There could be a fancy calculation on how to get the time constand 
+        // but this number was found by trying some and getting a nice spin up
+        // dynamic behavior.
+        turbineInertia.setTimeConstant(0.08);
+
+        // Set up a solver for this network
+        turbineRotor.addNetwork(turbineVelocity);
+
+        // Initial conditions
+        turbineTurningGear.setFlow(0.0);
+        turbineMomentum.setFlow(0.0);
+        
+        
+        ValueAlarmMonitor am;
+        
+        // Turbine rotor speed alarm
+        am = new ValueAlarmMonitor();
+        am.setName("Turbine#Speed");
+        am.addInputProvider(() -> turbineVelocity.getEffort());
+        am.defineAlarm(3100.0, AlarmState.MAX1);
+        am.defineAlarm(3030.0, AlarmState.HIGH2);
+        am.defineAlarm(3015.0, AlarmState.HIGH1);
+        am.defineAlarm(50.0, AlarmState.LOW1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
     }
 
     /**
@@ -137,8 +218,18 @@ public class Turbine extends Subsystem implements Runnable {
 
     }
 
+    /**
+     * Sets the transferred power from the turbine steam layout to this class.
+     * Note that the number is totally made up but in the units of megawatts. We
+     * use it as a momentum to spin up the turbine here.
+     *
+     * @param power
+     */
     public void setShaftPower(double power) {
+        // 11 bar, 6 kg/s, no reheater: 5.3 MW (HD 47.6, ND 38.3)
+        // 11 bar, 6 kg/s, reheat 3 kg/s: 7 Mw (HD 47, ND 120)
 
+        turbineMomentum.setFlow(power);
     }
 
     public void triggerTurbineTrip() {

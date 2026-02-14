@@ -124,6 +124,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingReheaterDrain = new javax.swing.JLabel();
         jLabelReadingStartupEjectorFlow1 = new javax.swing.JLabel();
         jLabelReadingStartupEjectorFlow2 = new javax.swing.JLabel();
+        jLabelReadingTurbineSpeed = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 432));
@@ -594,6 +595,14 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
         jLabelReadingStartupEjectorFlow2.setOpaque(true);
         add(jLabelReadingStartupEjectorFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 268, 56, 16));
 
+        jLabelReadingTurbineSpeed.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingTurbineSpeed.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingTurbineSpeed.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingTurbineSpeed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingTurbineSpeed.setText("____ 1/min");
+        jLabelReadingTurbineSpeed.setOpaque(true);
+        add(jLabelReadingTurbineSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 8, 80, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicTurbine.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -642,6 +651,7 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingSteamIn2Flow;
     private javax.swing.JLabel jLabelReadingSteamIn2Pressure;
     private javax.swing.JLabel jLabelReadingSteamIn2Temp;
+    private javax.swing.JLabel jLabelReadingTurbineSpeed;
     private javax.swing.JLabel jLabelReadingValveMain1;
     private javax.swing.JLabel jLabelReadingValveMain2;
     private javax.swing.JLabel jLabelReadingValveReheater1;
@@ -970,6 +980,9 @@ public class PanelMnemonicTurbine extends javax.swing.JPanel
             case "EjectorStartup2#Flow" ->
                 jLabelReadingStartupEjectorFlow2.setText(
                         String.format("%2.1f", newValue) + " kg/s");
+            case "Turbine#Speed" ->
+                jLabelReadingTurbineSpeed.setText(
+                        String.format("%4.0f", newValue) + " 1/min");
         }
     }
 
