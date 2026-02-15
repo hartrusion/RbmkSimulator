@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.rbmksim.SpeedSelect;
@@ -80,6 +81,9 @@ public class PanelGenerator extends AbstractPanelWidget
         synchroscope1 = new com.hartrusion.rbmksim.gui.elements.Synchroscope();
         jLabelCaptionAZ17 = new javax.swing.JLabel();
         jLabelCaptionAZ18 = new javax.swing.JLabel();
+        jLabelCaptionBreaker2 = new javax.swing.JLabel();
+        jToggleButtonBreaker = new javax.swing.JToggleButton();
+        jLabelCaptionBreaker1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(190, 190));
         setPreferredSize(new java.awt.Dimension(190, 190));
@@ -362,6 +366,33 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ18.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ18.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionAZ18, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 132, 64, -1));
+
+        jLabelCaptionBreaker2.setFont(jLabelCaptionBreaker2.getFont().deriveFont(jLabelCaptionBreaker2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBreaker2.getFont().getSize()-2));
+        jLabelCaptionBreaker2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionBreaker2.setText("breaker");
+        jLabelCaptionBreaker2.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionBreaker2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBreaker2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBreaker2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionBreaker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 132, 72, 14));
+
+        jToggleButtonBreaker.setText("←");
+        jToggleButtonBreaker.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonBreaker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonBreakerActionPerformed(evt);
+            }
+        });
+        add(jToggleButtonBreaker, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 156, 20, 20));
+
+        jLabelCaptionBreaker1.setFont(jLabelCaptionBreaker1.getFont().deriveFont(jLabelCaptionBreaker1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBreaker1.getFont().getSize()-2));
+        jLabelCaptionBreaker1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionBreaker1.setText("Generator");
+        jLabelCaptionBreaker1.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelCaptionBreaker1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBreaker1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionBreaker1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionBreaker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 120, 72, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSpeed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed1ActionPerformed
@@ -404,6 +435,14 @@ public class PanelGenerator extends AbstractPanelWidget
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSpeedValvesPlusActionPerformed
 
+    private void jToggleButtonBreakerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBreakerActionPerformed
+        if (toggleButtonChange(evt)) {
+            controller.userAction(new ActionCommand("Generator#Breaker", true));
+        } else {
+            controller.userAction(new ActionCommand("Generator#Breaker", false));
+        }
+    }//GEN-LAST:event_jToggleButtonBreakerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSpeed1;
@@ -427,11 +466,14 @@ public class PanelGenerator extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaptionAZ18;
     private javax.swing.JLabel jLabelCaptionAZ7;
     private javax.swing.JLabel jLabelCaptionAZ9;
+    private javax.swing.JLabel jLabelCaptionBreaker1;
+    private javax.swing.JLabel jLabelCaptionBreaker2;
     private javax.swing.JLabel jLabelCaptionThermalPower1;
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
     private javax.swing.JLabel jLabelReadingActiveSpeedSetpoint;
     private javax.swing.JLabel jLabelReadingThermalPower;
+    private javax.swing.JToggleButton jToggleButtonBreaker;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed2;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed3;
@@ -455,6 +497,13 @@ public class PanelGenerator extends AbstractPanelWidget
                 lightBulbSpeedGradient3.setActive(
                         speedSetpoint == SpeedSelect.HIGH);
             }
+            case "Generator#BreakerClosed" -> {
+                if ((boolean) evt.getNewValue()
+                        && !jToggleButtonBreaker.isSelected()) {
+                    jToggleButtonBreaker.setSelected(true);
+                    jToggleButtonBreaker.setText("↑");
+                }
+            }
         }
     }
 
@@ -476,8 +525,11 @@ public class PanelGenerator extends AbstractPanelWidget
                 lightBulbSpeed4.setActive(newValue >= 2245 && newValue <= 2255);
                 lightBulbSpeed5.setActive(newValue >= 2995 && newValue <= 3005);
             }
-            case "Generator#SyncAngle" -> 
+            case "Generator#SyncAngle" ->
                 synchroscope1.setChornobylPhiValue((float) newValue);
+            case "Generator#Power" ->
+                jLabelReadingThermalPower.setText(
+                        String.format("%5.0f", newValue));
         }
     }
 

@@ -96,14 +96,29 @@ public class Turbine extends Subsystem implements Runnable {
      */
     private boolean tpsActive = false;
     private boolean oldTpsActive = false; // previous value
+    
+    /**
+     * Value from thermal model, this is the value provided by the steam part
+     * given in Megawatts. The number is a high estimate.
+     */
+    private double shaftPower;
 
     private final DomainAnalogySolver turbineRotor = new DomainAnalogySolver();
 
     private final SerialRunner alarmUpdater = new SerialRunner();
 
-    private final boolean generatorSynched = false;
+    private boolean generatorSynched = false;
+    private boolean oldGeneratorSynched = true;
     
     private double syncAngle = 0.0;
+    
+    /**
+     * Power from the steam part that is required to spin the turbine exactly at
+     * 3000 1/min.
+     */
+    private final double holdPower = 12.0;
+    
+    private double generatorPower = 0.0;
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -160,10 +175,15 @@ public class Turbine extends Subsystem implements Runnable {
         // turbine for simplification reasons. Force to exactly 3000.0 as long
         // as the generator is synced.
         if (!generatorSynched) {
+            turbineMomentum.setFlow(shaftPower);
             turbineRotor.prepareCalculation();
             turbineRotor.doCalculation();
+            
+            generatorPower = 0.0;
         } else {
-            turbineInertia.setInitialEffort(3000);
+            turbineInertia.setInitialEffort(3000); // sync model to 3000
+            
+            generatorPower = shaftPower - holdPower;
         }
 
         setpointTurbineSpeed.run();
@@ -191,6 +211,14 @@ public class Turbine extends Subsystem implements Runnable {
                     this, "Turbine#TPSState", oldTps, tps));
             oldTps = tps;
         }
+        
+        // Send the generator breaker state on change
+        if (generatorSynched != oldGeneratorSynched) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Generator#BreakerClosed", 
+                    oldGeneratorSynched, generatorSynched));
+            oldGeneratorSynched = generatorSynched;
+        }
 
         // Send the RPS alarm message on change
         if (tpsActive != oldTpsActive) {
@@ -215,6 +243,8 @@ public class Turbine extends Subsystem implements Runnable {
                 turbineVelocity.getEffort());
         
         outputValues.setParameterValue("Generator#SyncAngle", syncAngle);
+        
+        outputValues.setParameterValue("Generator#Power", generatorPower);
 
     }
 
@@ -260,7 +290,28 @@ public class Turbine extends Subsystem implements Runnable {
                         turbineTrip(); // this class
                     }
                 }
-
+            }
+            
+            case "Generator#Breaker" -> {
+                boolean close = (boolean) ac.getValue();
+                if (close != generatorSynched) {
+                    if (close) {
+                        // Check if the generator breaker can be closed. The
+                        // Speed must be in a defined range and the angle 
+                        // must be near 0
+                        // Values will be reducet to 2998, 3003 and 0.2 (11.5°)
+                        // as its too hard to sync this with missing controls
+                        if ( turbineVelocity.getEffort() >= 2990
+                                && turbineVelocity.getEffort() <= 3020
+                                && Math.abs(syncAngle) <= 0.5 ) { // 11,5 °
+                            generatorSynched = true; 
+                        } else {
+                            LOGGER.log(Level.INFO, "Sync failed.");
+                        }
+                    } else {
+                        generatorSynched = false;
+                    }
+                }
             }
         }
         setpointTurbineSpeed.handleAction(ac);
@@ -284,7 +335,6 @@ public class Turbine extends Subsystem implements Runnable {
         // Decide that we need a continuous shaft power of X to hold the 
         // turbine on 3000, this energy will be consumed by the resistor and 
         // defines the working point for the spin up model.
-        double holdPower = 12.0; // in units of setShaftPower
         double turnResistance = 3000.0 / holdPower;
         turbineFriction.setResistanceParameter(turnResistance);
 
@@ -350,8 +400,7 @@ public class Turbine extends Subsystem implements Runnable {
     public void setShaftPower(double power) {
         // 11 bar, 6 kg/s, no reheater: 5.3 MW (HD 47.6, ND 38.3)
         // 11 bar, 6 kg/s, reheat 3 kg/s: 7 Mw (HD 47, ND 120)
-
-        turbineMomentum.setFlow(power);
+        shaftPower = power;
     }
 
     @Override
