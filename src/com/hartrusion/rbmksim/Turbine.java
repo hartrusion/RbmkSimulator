@@ -52,6 +52,12 @@ public class Turbine extends Subsystem implements Runnable {
 
     private static final Logger LOGGER = Logger.getLogger(
             Turbine.class.getName());
+    
+    /**
+     * To convert 1/min to rad/second the number can be multiplied with 
+     * 2pi/60 = pi/30.
+     */
+    private static final double RPM_TO_RAD = 0.10471975512;
 
     /**
      * Reference to the thermal layout process class
@@ -94,6 +100,10 @@ public class Turbine extends Subsystem implements Runnable {
     private final DomainAnalogySolver turbineRotor = new DomainAnalogySolver();
 
     private final SerialRunner alarmUpdater = new SerialRunner();
+
+    private final boolean generatorSynched = false;
+    
+    private double syncAngle = 0.0;
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -146,11 +156,32 @@ public class Turbine extends Subsystem implements Runnable {
         }
 
         // Calculate current turbine speed as long as the generator breaker
-        // is open
-        turbineRotor.prepareCalculation();
-        turbineRotor.doCalculation();
+        // is open. We do not model the force of the generator towards the
+        // turbine for simplification reasons. Force to exactly 3000.0 as long
+        // as the generator is synced.
+        if (!generatorSynched) {
+            turbineRotor.prepareCalculation();
+            turbineRotor.doCalculation();
+        } else {
+            turbineInertia.setInitialEffort(3000);
+        }
 
         setpointTurbineSpeed.run();
+        
+        
+        if (!generatorSynched) {
+            double tVel = turbineVelocity.getEffort();
+            if (tVel >= 2900) {
+                // sum up using discrete steps of 0.1 s
+                syncAngle += tVel * 0.10471975512 * 0.1;
+                // limit between -pi and +pi
+                syncAngle = syncAngle % (2 * Math.PI);
+            } else {
+                syncAngle = 0.0;
+            }
+        } else {
+            syncAngle = 0.0;
+        }
 
         alarmUpdater.invokeAll();
 
@@ -182,6 +213,8 @@ public class Turbine extends Subsystem implements Runnable {
 
         outputValues.setParameterValue("Turbine#Speed",
                 turbineVelocity.getEffort());
+        
+        outputValues.setParameterValue("Generator#SyncAngle", syncAngle);
 
     }
 
@@ -251,7 +284,9 @@ public class Turbine extends Subsystem implements Runnable {
         // Decide that we need a continuous shaft power of X to hold the 
         // turbine on 3000, this energy will be consumed by the resistor and 
         // defines the working point for the spin up model.
-        turbineFriction.setResistanceParameter(3000.0 / 12.0);
+        double holdPower = 12.0; // in units of setShaftPower
+        double turnResistance = 3000.0 / holdPower;
+        turbineFriction.setResistanceParameter(turnResistance);
 
         // There could be a fancy calculation on how to get the time constand 
         // but this number was found by trying some and getting a nice spin up

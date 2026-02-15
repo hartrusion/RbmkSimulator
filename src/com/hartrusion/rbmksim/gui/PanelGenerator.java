@@ -476,6 +476,8 @@ public class PanelGenerator extends AbstractPanelWidget
                 lightBulbSpeed4.setActive(newValue >= 2245 && newValue <= 2255);
                 lightBulbSpeed5.setActive(newValue >= 2995 && newValue <= 3005);
             }
+            case "Generator#SyncAngle" -> 
+                synchroscope1.setChornobylPhiValue((float) newValue);
         }
     }
 

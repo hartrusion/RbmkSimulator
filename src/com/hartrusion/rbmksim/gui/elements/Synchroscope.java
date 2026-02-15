@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2026 Viktor Alexander Hartung
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.hartrusion.rbmksim.gui.elements;
 
 import java.awt.Color;
@@ -10,9 +26,10 @@ import java.awt.geom.Path2D;
 import java.beans.BeanProperty;
 
 /**
- * A synchroscope
+ * A synchroscope gauge used to display the difference between rotation of the
+ * generator shaft and the grid rotational field for syncing the generator.
  *
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
 public class Synchroscope extends javax.swing.JComponent {
 
@@ -30,7 +47,7 @@ public class Synchroscope extends javax.swing.JComponent {
     public Synchroscope() {
         initComponents();
     }
-    
+
     public float getChornobylPhiValue() {
         return phiValue;
     }
@@ -105,12 +122,12 @@ public class Synchroscope extends javax.swing.JComponent {
         Object prevHint = g2d.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // Draw background recticle
         g2d.setColor(getBackground());
-        g2d.fillRect(0, 0, size-1, size-1);
+        g2d.fillRect(0, 0, size - 1, size - 1);
         g2d.setColor(getForeground());
-        g2d.drawRect(0, 0, size-1, size-1);
+        g2d.drawRect(0, 0, size - 1, size - 1);
 //        // Draw background
 //        Ellipse2D.Float circle;
 //        g2d.setColor(Color.WHITE);
