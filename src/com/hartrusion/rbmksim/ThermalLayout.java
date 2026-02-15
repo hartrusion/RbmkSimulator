@@ -410,7 +410,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core to test the turbine. 240 is full power
      */
-    private double debugAddInitTemp = 150.0;
+    private double debugAddInitTemp = 0.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
