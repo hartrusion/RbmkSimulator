@@ -22,6 +22,7 @@ package com.hartrusion.rbmksim;
  * @author Viktor Alexander Hartung
  */
 public enum SpeedSelect {
+    STOP,
     LOW,
     MED,
     HIGH,

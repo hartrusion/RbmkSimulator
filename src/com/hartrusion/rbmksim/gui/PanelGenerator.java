@@ -46,7 +46,6 @@ public class PanelGenerator extends AbstractPanelWidget
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lightBulbSpeed1 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jButtonSpeed1 = new javax.swing.JButton();
         lightBulbSpeed2 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jButtonSpeed2 = new javax.swing.JButton();
@@ -88,11 +87,10 @@ public class PanelGenerator extends AbstractPanelWidget
         setMinimumSize(new java.awt.Dimension(190, 190));
         setPreferredSize(new java.awt.Dimension(190, 190));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(lightBulbSpeed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 58, -1, -1));
 
         jButtonSpeed1.setFont(jButtonSpeed1.getFont().deriveFont(jButtonSpeed1.getFont().getSize()-2f));
         jButtonSpeed1.setText("●");
-        jButtonSpeed1.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed1.setToolTipText("Stops the current speed setpoint at its current value.");
         jButtonSpeed1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeed1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +102,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeed2.setFont(jButtonSpeed2.getFont().deriveFont(jButtonSpeed2.getFont().getSize()-2f));
         jButtonSpeed2.setText("●");
-        jButtonSpeed2.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed2.setToolTipText("Sets the speed setpoint value");
         jButtonSpeed2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeed2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +114,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeed3.setFont(jButtonSpeed3.getFont().deriveFont(jButtonSpeed3.getFont().getSize()-2f));
         jButtonSpeed3.setText("●");
-        jButtonSpeed3.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed3.setToolTipText("Sets the speed setpoint value");
         jButtonSpeed3.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeed3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +126,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeed4.setFont(jButtonSpeed4.getFont().deriveFont(jButtonSpeed4.getFont().getSize()-2f));
         jButtonSpeed4.setText("●");
-        jButtonSpeed4.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed4.setToolTipText("Sets the speed setpoint value");
         jButtonSpeed4.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeed4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +138,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeed5.setFont(jButtonSpeed5.getFont().deriveFont(jButtonSpeed5.getFont().getSize()-2f));
         jButtonSpeed5.setText("●");
-        jButtonSpeed5.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeed5.setToolTipText("Sets the speed setpoint value");
         jButtonSpeed5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeed5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +150,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeedGradient1.setFont(jButtonSpeedGradient1.getFont().deriveFont(jButtonSpeedGradient1.getFont().getSize()-2f));
         jButtonSpeedGradient1.setText("●");
-        jButtonSpeedGradient1.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedGradient1.setToolTipText("Sets the speed of how the setpoint will ramp up or down.");
         jButtonSpeedGradient1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeedGradient1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +162,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeedGradient2.setFont(jButtonSpeedGradient2.getFont().deriveFont(jButtonSpeedGradient2.getFont().getSize()-2f));
         jButtonSpeedGradient2.setText("●");
-        jButtonSpeedGradient2.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedGradient2.setToolTipText("Sets the speed of how the setpoint will ramp up or down.");
         jButtonSpeedGradient2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeedGradient2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +174,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeedGradient3.setFont(jButtonSpeedGradient3.getFont().deriveFont(jButtonSpeedGradient3.getFont().getSize()-2f));
         jButtonSpeedGradient3.setText("●");
-        jButtonSpeedGradient3.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedGradient3.setToolTipText("Sets the speed of how the setpoint will ramp up or down.");
         jButtonSpeedGradient3.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeedGradient3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +188,7 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelReadingActiveSpeedSetpoint.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingActiveSpeedSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingActiveSpeedSetpoint.setText("___,_");
-        jLabelReadingActiveSpeedSetpoint.setToolTipText("Active setpoint which the global control is currently using");
+        jLabelReadingActiveSpeedSetpoint.setToolTipText("Active turbine speed setpoint for startup");
         jLabelReadingActiveSpeedSetpoint.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabelReadingActiveSpeedSetpoint.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingActiveSpeedSetpoint.setMinimumSize(new java.awt.Dimension(52, 18));
@@ -209,7 +207,7 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jLabelCaptionAZ9.setFont(jLabelCaptionAZ9.getFont().deriveFont(jLabelCaptionAZ9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ9.getFont().getSize()-2));
         jLabelCaptionAZ9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ9.setText("0");
+        jLabelCaptionAZ9.setText("Hold");
         jLabelCaptionAZ9.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ9.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ9.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -313,8 +311,16 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeedValvesMinus.setFont(jButtonSpeedValvesMinus.getFont().deriveFont(jButtonSpeedValvesMinus.getFont().getSize()-2f));
         jButtonSpeedValvesMinus.setText("●");
-        jButtonSpeedValvesMinus.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedValvesMinus.setToolTipText("Overrides the commands on the startup steam valves");
         jButtonSpeedValvesMinus.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSpeedValvesMinus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonSpeedValvesMinusMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonSpeedValvesMinusMouseReleased(evt);
+            }
+        });
         jButtonSpeedValvesMinus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSpeedValvesMinusActionPerformed(evt);
@@ -324,11 +330,14 @@ public class PanelGenerator extends AbstractPanelWidget
 
         jButtonSpeedValvesPlus.setFont(jButtonSpeedValvesPlus.getFont().deriveFont(jButtonSpeedValvesPlus.getFont().getSize()-2f));
         jButtonSpeedValvesPlus.setText("●");
-        jButtonSpeedValvesPlus.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonSpeedValvesPlus.setToolTipText("Overrides the commands on the startup steam valves");
         jButtonSpeedValvesPlus.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonSpeedValvesPlus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSpeedValvesPlusActionPerformed(evt);
+        jButtonSpeedValvesPlus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonSpeedValvesPlusMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonSpeedValvesPlusMouseReleased(evt);
             }
         });
         add(jButtonSpeedValvesPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 148, 20, 20));
@@ -396,7 +405,7 @@ public class PanelGenerator extends AbstractPanelWidget
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSpeed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed1ActionPerformed
-        controller.userAction(new ActionCommand("Turbine#SpeedSetpointTargetValue", 0.0));
+        controller.userAction(new ActionCommand("Turbine#SpeedSetpointHold", false));
     }//GEN-LAST:event_jButtonSpeed1ActionPerformed
 
     private void jButtonSpeed2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed2ActionPerformed
@@ -431,10 +440,6 @@ public class PanelGenerator extends AbstractPanelWidget
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSpeedValvesMinusActionPerformed
 
-    private void jButtonSpeedValvesPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesPlusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSpeedValvesPlusActionPerformed
-
     private void jToggleButtonBreakerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBreakerActionPerformed
         if (toggleButtonChange(evt)) {
             controller.userAction(new ActionCommand("Generator#Breaker", true));
@@ -442,6 +447,22 @@ public class PanelGenerator extends AbstractPanelWidget
             controller.userAction(new ActionCommand("Generator#Breaker", false));
         }
     }//GEN-LAST:event_jToggleButtonBreakerActionPerformed
+
+    private void jButtonSpeedValvesPlusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesPlusMousePressed
+        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_INCREASE));
+    }//GEN-LAST:event_jButtonSpeedValvesPlusMousePressed
+
+    private void jButtonSpeedValvesPlusMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesPlusMouseReleased
+        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_CONTINUE));
+    }//GEN-LAST:event_jButtonSpeedValvesPlusMouseReleased
+
+    private void jButtonSpeedValvesMinusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesMinusMousePressed
+        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_DECREASE));
+    }//GEN-LAST:event_jButtonSpeedValvesMinusMousePressed
+
+    private void jButtonSpeedValvesMinusMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesMinusMouseReleased
+        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_CONTINUE));
+    }//GEN-LAST:event_jButtonSpeedValvesMinusMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -474,7 +495,6 @@ public class PanelGenerator extends AbstractPanelWidget
     private javax.swing.JLabel jLabelReadingActiveSpeedSetpoint;
     private javax.swing.JLabel jLabelReadingThermalPower;
     private javax.swing.JToggleButton jToggleButtonBreaker;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed2;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed3;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbSpeed4;
@@ -519,7 +539,6 @@ public class PanelGenerator extends AbstractPanelWidget
                 jLabelReadingActiveSpeedSetpoint.setText(
                         String.format("%4.0f", newValue));
             case "Turbine#SpeedSetpointTarget" -> {
-                lightBulbSpeed1.setActive(newValue <= 5);
                 lightBulbSpeed2.setActive(newValue >= 745 && newValue <= 755);
                 lightBulbSpeed3.setActive(newValue >= 1495 && newValue <= 1505);
                 lightBulbSpeed4.setActive(newValue >= 2245 && newValue <= 2255);

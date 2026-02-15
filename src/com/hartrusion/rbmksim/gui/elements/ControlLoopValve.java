@@ -191,6 +191,11 @@ public class ControlLoopValve extends javax.swing.JPanel
                 jButtonLowerMouseReleased(evt);
             }
         });
+        jButtonLower.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLowerActionPerformed(evt);
+            }
+        });
         add(jButtonLower, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 18, 20, 16));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 204));
@@ -231,6 +236,10 @@ public class ControlLoopValve extends javax.swing.JPanel
         controller.userAction(new ActionCommand(actionCommand,
                 ControlCommand.OUTPUT_CONTINUE));
     }//GEN-LAST:event_jButtonUpperMouseReleased
+
+    private void jButtonLowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLowerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLowerActionPerformed
 
     @Override
     public void paintComponent(Graphics g) {

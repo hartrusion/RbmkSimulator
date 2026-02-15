@@ -26,17 +26,6 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulbSpeed1">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="38" y="58" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
     <Component class="javax.swing.JButton" name="jButtonSpeed1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
@@ -45,7 +34,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Stops the current speed setpoint at its current value."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -78,7 +67,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed setpoint value"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -111,7 +100,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed setpoint value"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -144,7 +133,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed setpoint value"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -177,7 +166,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed setpoint value"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -210,7 +199,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed of how the setpoint will ramp up or down."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -243,7 +232,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed of how the setpoint will ramp up or down."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -276,7 +265,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Sets the speed of how the setpoint will ramp up or down."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -303,7 +292,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="___,_"/>
-        <Property name="toolTipText" type="java.lang.String" value="Active setpoint which the global control is currently using"/>
+        <Property name="toolTipText" type="java.lang.String" value="Active turbine speed setpoint for startup"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -360,7 +349,7 @@
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="text" type="java.lang.String" value="Hold"/>
         <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
@@ -664,12 +653,14 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Overrides the commands on the startup steam valves"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSpeedValvesMinusMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSpeedValvesMinusMouseReleased"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSpeedValvesMinusActionPerformed"/>
       </Events>
       <Constraints>
@@ -686,13 +677,14 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Overrides the commands on the startup steam valves"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSpeedValvesPlusActionPerformed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSpeedValvesPlusMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSpeedValvesPlusMouseReleased"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

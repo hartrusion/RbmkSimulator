@@ -389,6 +389,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
 
     private double turbineShaftPower = 0.0;
+    private double reheaterOutTemperature = 22.5;
+    private double reheaterOutQuality = 0.0;
 
     /**
      * Holds the vacuum value for the condenser. This is made up from the
@@ -408,7 +410,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core to test the turbine. 240 is full power
      */
-    private double debugAddInitTemp = 0.0;
+    private double debugAddInitTemp = 150.0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -2029,11 +2031,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineHighPressureInMass.getPhasedHandler()
                 .setInnerHeatedMass(2);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(1);
+                .setInnerHeatedMass(2);
         turbineLowPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(5);
+                .setInnerHeatedMass(10);
         turbineLowPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(1);
+                .setInnerHeatedMass(5);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
@@ -2555,6 +2557,50 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) mainSteamDump[idx].getController())
                     .setParameterTN(10);
         } // Todo: Get some parameters, those here were random numbers!
+        
+        turbineStartupSteamValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return turbine.getTurbineSpeedDeviation();
+            }
+        });
+        turbineStartupSteamValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return turbine.getTurbineSpeedDeviation();
+            }
+        });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) turbineReheaterSteamValve[idx].getController())
+                    .setParameterK(0.05);
+            ((PIControl) turbineReheaterSteamValve[idx].getController())
+                    .setParameterTN(10);
+        } // Todo: Get some parameters, those here were random numbers!
+
+        turbineReheaterSteamValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return setpointTurbineReheaterTemperature.getOutput()
+                        - reheaterOutTemperature;
+            }
+        });
+        turbineReheaterSteamValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return setpointTurbineReheaterTemperature.getOutput()
+                        - reheaterOutTemperature;
+            }
+        });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) turbineReheaterSteamValve[idx].getController())
+                    .setParameterK(0.2);
+            ((PIControl) turbineReheaterSteamValve[idx].getController())
+                    .setParameterTN(20);
+        } // Todo: Get some parameters, those here were random numbers!
 
         // Hotwell level control
         // Alarms: 5 min, 10 low2, 15 low1, 80 high1, 100: max1
@@ -2991,7 +3037,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return 1e5 - condenserVacuum.getOutput();               
+                return 1e5 - condenserVacuum.getOutput();
             }
         });
         am.defineAlarm(9e4, AlarmState.LOW1);
@@ -3003,7 +3049,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbine.triggerTurbineTrip();
             }
         });
-        
+
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -3376,6 +3422,40 @@ public class ThermalLayout extends Subsystem implements Runnable {
         );
         condenserVacuum.run();
 
+        // Get the temperature on the steam reheater out - problem is, that this
+        // value directly calculated from other values and highly dependend on
+        // flows and pressures. It is also not always available due to the 
+        // bad quality of the solver and all the numeric issues.
+        if (turbineReheater.getPhasedNode(
+                PhasedSuperheater.SECONDARY_OUT).heatEnergyUpdated(
+                        turbineLowPressureTripValve.getValveElement())) {
+            if (!turbineReheater.getPhasedNode(
+                    PhasedSuperheater.SECONDARY_OUT)
+                    .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
+                reheaterOutTemperature
+                        = phasedWater.getTemperature(
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getHeatEnergy(
+                                                turbineLowPressureTripValve
+                                                        .getValveElement()),
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getEffort()
+                        ) - 273.15;
+                reheaterOutQuality
+                        = phasedWater.getVapourFraction(
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getHeatEnergy(
+                                                turbineLowPressureTripValve
+                                                        .getValveElement()),
+                                turbineReheater.getPhasedNode(
+                                        PhasedSuperheater.SECONDARY_OUT)
+                                        .getEffort());
+            }
+        }
+
         // Update Alarms
         alarmUpdater.invokeAll();
 
@@ -3636,31 +3716,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Get the HP out temperature directly from the heated steam mass
         outputValues.setParameterValue("Turbine#HPOutTemp",
                 turbineHighPressureOutMass.getTemperature() - 273.15);
-
-//        if (turbineReheater.getPhasedNode(
-//                PhasedSuperheater.SECONDARY_OUT).heatEnergyUpdated(
-//                        turbineLowPressureTripValve.getValveElement())) {
-//            if (!turbineReheater.getPhasedNode(
-//                    PhasedSuperheater.SECONDARY_OUT)
-//                    .noHeatEnergy(turbineLowPressureTripValve.getValveElement())) {
-//                outputValues.setParameterValue("Turbine#LPInTemp",
-//                        phasedWater.getTemperature(
-//                                turbineReheater.getPhasedNode(
-//                                        PhasedSuperheater.SECONDARY_OUT)
-//                                        .getHeatEnergy(
-//                                                turbineLowPressureTripValve
-//                                                        .getValveElement()),
-//                                turbineReheater.getPhasedNode(
-//                                        PhasedSuperheater.SECONDARY_OUT)
-//                                        .getEffort()
-//                        ) - 273.15);
-//            } else {
-                // Fallback to turbine inner steam mass temperature if no 
-                // temperature is available from reheater
-                outputValues.setParameterValue("Turbine#LPInTemp",
-                        turbineLowPressureInMass.getTemperature() - 273.15);
-//            }
-//        }
+        outputValues.setParameterValue("Turbine#LPInTemp",
+                turbineLowPressureInMass.getTemperature() - 273.15);
+        
+        outputValues.setParameterValue("Turbine#ReheaterOutTemp",
+                reheaterOutTemperature);
+        outputValues.setParameterValue("Turbine#ReheaterOutQuality",
+                reheaterOutQuality);
 
         outputValues.setParameterValue("Turbine#ReheaterLevel",
                 turbineReheater.getPrimarySideReservoir()
@@ -3985,7 +4047,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // simulation anyway but that way it's not that fast.
         thermalPower[loop] = Math.min(power + 2.8, 1e4);
     }
-    
+
     /**
      * Called from the turbine protection system on turbine trip action, this
      * handles the part which is defined here in the thermal layout.
@@ -4008,6 +4070,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     public double getCoreTemp() {
         return coreTemp;
+    }
+    
+    /**
+     * Called by the turbine setpoint to check if the turbine startup valves 
+     * are currently in automatic mode. This is used to make a follow up on the
+     * setpoint generator value.
+     * 
+     * @return true if one of both startup valves is in auto mode
+     */
+    public boolean isTurbineStartupValveAutomatic() {
+        return !turbineStartupSteamValve[0].getController().isManualMode()
+                || !turbineStartupSteamValve[1].getController().isManualMode();
     }
 
     public void registerReactor(ReactorCore core) {

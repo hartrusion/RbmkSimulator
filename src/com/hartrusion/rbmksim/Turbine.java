@@ -52,10 +52,10 @@ public class Turbine extends Subsystem implements Runnable {
 
     private static final Logger LOGGER = Logger.getLogger(
             Turbine.class.getName());
-    
+
     /**
-     * To convert 1/min to rad/second the number can be multiplied with 
-     * 2pi/60 = pi/30.
+     * To convert 1/min to rad/second the number can be multiplied with 2pi/60 =
+     * pi/30.
      */
     private static final double RPM_TO_RAD = 0.10471975512;
 
@@ -96,7 +96,7 @@ public class Turbine extends Subsystem implements Runnable {
      */
     private boolean tpsActive = false;
     private boolean oldTpsActive = false; // previous value
-    
+
     /**
      * Value from thermal model, this is the value provided by the steam part
      * given in Megawatts. The number is a high estimate.
@@ -109,16 +109,18 @@ public class Turbine extends Subsystem implements Runnable {
 
     private boolean generatorSynched = false;
     private boolean oldGeneratorSynched = true;
-    
+
     private double syncAngle = 0.0;
-    
+
     /**
      * Power from the steam part that is required to spin the turbine exactly at
      * 3000 1/min.
      */
-    private final double holdPower = 12.0;
-    
+    private final double holdPower = 8.0;
+
     private double generatorPower = 0.0;
+
+    private boolean speedSetpointFollowup;
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -178,17 +180,35 @@ public class Turbine extends Subsystem implements Runnable {
             turbineMomentum.setFlow(shaftPower);
             turbineRotor.prepareCalculation();
             turbineRotor.doCalculation();
-            
+
             generatorPower = 0.0;
         } else {
-            turbineInertia.setInitialEffort(3000); // sync model to 3000
-            
+            turbineInertia.setInitialEffort(-3000); // sync model to 3000
+
             generatorPower = shaftPower - holdPower;
+        }
+        
+        // Get startup valves auto/manual mode
+        speedSetpointFollowup = !process.isTurbineStartupValveAutomatic();
+        
+        // Force the setpoint to the current value as long as no controller 
+        // can control it.
+        if (speedSetpointFollowup && !generatorSynched) {
+            targetTurbineSpeed = turbineVelocity.getEffort();
+        }
+
+        if (generatorSynched) {
+            setpointTurbineSpeed.setInput(3000);
+            setpointTurbineSpeed.forceOutputValue(3000);
+        } else if (speedSetpointFollowup) {
+            // As long as no turbine control is active, force the setpoint to 
+            // the current speed.
+            setpointTurbineSpeed.setInput(turbineVelocity.getEffort());
+            setpointTurbineSpeed.forceOutputValue(turbineVelocity.getEffort());
         }
 
         setpointTurbineSpeed.run();
-        
-        
+
         if (!generatorSynched) {
             double tVel = turbineVelocity.getEffort();
             if (tVel >= 2900) {
@@ -211,11 +231,11 @@ public class Turbine extends Subsystem implements Runnable {
                     this, "Turbine#TPSState", oldTps, tps));
             oldTps = tps;
         }
-        
+
         // Send the generator breaker state on change
         if (generatorSynched != oldGeneratorSynched) {
             controller.propertyChange(new PropertyChangeEvent(
-                    this, "Generator#BreakerClosed", 
+                    this, "Generator#BreakerClosed",
                     oldGeneratorSynched, generatorSynched));
             oldGeneratorSynched = generatorSynched;
         }
@@ -239,11 +259,15 @@ public class Turbine extends Subsystem implements Runnable {
         outputValues.setParameterValue("Turbine#SpeedSetpointTarget",
                 targetTurbineSpeed);
 
-        outputValues.setParameterValue("Turbine#Speed",
-                turbineVelocity.getEffort());
-        
+        if (generatorSynched) {
+            outputValues.setParameterValue("Turbine#Speed", 3000.0);
+        } else {
+            outputValues.setParameterValue("Turbine#Speed",
+                    turbineVelocity.getEffort());
+        }
+
         outputValues.setParameterValue("Generator#SyncAngle", syncAngle);
-        
+
         outputValues.setParameterValue("Generator#Power", generatorPower);
 
     }
@@ -257,6 +281,11 @@ public class Turbine extends Subsystem implements Runnable {
             }
             case "Turbine#SpeedSetpointGradient" ->
                 setpointSpeedGradient = (SpeedSelect) ac.getValue();
+
+            case "Turbine#SpeedSetpointHold" -> {
+                targetTurbineSpeed = setpointTurbineSpeed.getOutput();
+                setpointTurbineSpeed.setStop();
+            }
 
             case "Turbine#Trip" -> {
                 process.turbineTrip();
@@ -291,7 +320,7 @@ public class Turbine extends Subsystem implements Runnable {
                     }
                 }
             }
-            
+
             case "Generator#Breaker" -> {
                 boolean close = (boolean) ac.getValue();
                 if (close != generatorSynched) {
@@ -301,10 +330,10 @@ public class Turbine extends Subsystem implements Runnable {
                         // must be near 0
                         // Values will be reducet to 2998, 3003 and 0.2 (11.5°)
                         // as its too hard to sync this with missing controls
-                        if ( turbineVelocity.getEffort() >= 2990
+                        if (turbineVelocity.getEffort() >= 2990
                                 && turbineVelocity.getEffort() <= 3020
-                                && Math.abs(syncAngle) <= 0.5 ) { // 11,5 °
-                            generatorSynched = true; 
+                                && Math.abs(syncAngle) <= 0.5) { // 11,5 °
+                            generatorSynched = true;
                         } else {
                             LOGGER.log(Level.INFO, "Sync failed.");
                         }
@@ -341,7 +370,7 @@ public class Turbine extends Subsystem implements Runnable {
         // There could be a fancy calculation on how to get the time constand 
         // but this number was found by trying some and getting a nice spin up
         // dynamic behavior.
-        turbineInertia.setTimeConstant(0.08);
+        turbineInertia.setTimeConstant(0.11);
 
         // Set up a solver for this network
         turbineRotor.addNetwork(turbineVelocity);
@@ -484,5 +513,23 @@ public class Turbine extends Subsystem implements Runnable {
 
     public void registerThermalLayout(ThermalLayout process) {
         this.process = process;
+    }
+
+    /**
+     * For startup, this returns the current difference between desired and
+     * current turbine speed. This is used by the startup steam valves to
+     * control the turbine spin up.
+     *
+     * @return
+     */
+    public double getTurbineSpeedDeviation() {
+        if (generatorSynched) {
+            return setpointTurbineSpeed.getOutput() - 3000;
+        } else if (!turbineVelocity.effortUpdated()) {
+            return 0.0;
+        } else {
+            return setpointTurbineSpeed.getOutput()
+                    - turbineVelocity.getEffort();
+        }
     }
 }
