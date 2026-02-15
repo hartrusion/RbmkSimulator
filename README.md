@@ -83,12 +83,6 @@ accident can be triggered.
 * Mnemonic displays with additional measurement data on them.
 * Some line plots to monitor measurement time series.
 
-Still, there is lots of work to do, so currently there is **no turbine** and 
-most coolant loops are connected to fixed cold water flow sources instead of 
-having a secondary and technical coolant water circuit. It is not possible to 
-operate the plant on full power as there is no turbine and no bypass at this
-stage.
-
 ## Build from Source
 To build the simulator from source, you need the source code from this repo
 and some additional code that is released on different repositories:
