@@ -1764,8 +1764,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].initCharacteristic(5.51724, 80.0);
             }
             loopDownflow[idx].setResistanceParameter(12.6);
-            loopDownflow[idx].setInnerThermalMass(100);
-            loopChannelFlowResistance[idx].setInnerThermalMass(100);
+            loopDownflow[idx].setInnerThermalMass(50); // initial: 100
+            loopChannelFlowResistance[idx].setInnerThermalMass(50);
             loopChannelFlowResistance[idx].setResistanceParameter(293.1);
         }
 
@@ -1791,8 +1791,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // LOW2: -40
         // MIN1: -60 shut off MPC
         // MIN2: -80 close all blowdown valves
+        // Base area: A value of 40 is quite realistic but it does not make a 
+        // Fast simulation, it takes long to heat up and build up pressure. so
+        // the value is set to a different one.
         for (int idx = 0; idx < 2; idx++) {
-            loopSteamDrum[idx].setBaseArea(40);
+            loopSteamDrum[idx].setBaseArea(20);
         }
 
         // Bypass valves: Not yet proper configured. Todo. Just randomly used
@@ -1922,7 +1925,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].initCharacteristic(1.8e4, 10);
+            auxCondSteamValve[idx].initCharacteristic(1.8e4, -1);
             auxCondensers[idx].initCharacteristic(4.0, 500, 5e5, 1e5, 4.0);
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
@@ -2123,7 +2126,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValvePumpsToRegenerator.initOpening(100); */
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
-            loopSteamDrum[idx].setInitialState(40000, 42.9 + 273.15 + debugAddInitTemp);
+            // first value is the mass, it is the base area time 1000
+            loopSteamDrum[idx].setInitialState(21000, 42.9 + 273.15 + debugAddInitTemp);
             loopEvaporator[idx].setInitialState(6.0, 1e5,
                     273.5 + 29.4 + debugAddInitTemp, 273.5 + 46.3 + debugAddInitTemp);
             loopBypass[idx].initOpening(100); // Open Bypass
@@ -2519,7 +2523,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) auxCondSteamValve[idx].getController())
-                    .setParameterK(5.0);
+                    .setParameterK(7.0);
             ((PIControl) auxCondSteamValve[idx].getController())
                     .setParameterTN(20);
         } // Todo: Get some parameters, those here were random numbers!
@@ -2553,11 +2557,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) mainSteamDump[idx].getController())
-                    .setParameterK(5.0);
+                    .setParameterK(6.0);
             ((PIControl) mainSteamDump[idx].getController())
                     .setParameterTN(10);
         } // Todo: Get some parameters, those here were random numbers!
-        
+
         turbineStartupSteamValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -2577,6 +2581,41 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setParameterK(0.05);
             ((PIControl) turbineReheaterSteamValve[idx].getController())
                     .setParameterTN(10);
+        } // Todo: Get some parameters, those here were random numbers!
+
+        // Main Turbine steam valves control the drum pressure so they open
+        // as soon as the pressure rises.
+        turbineMainSteamValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                if (!loopNodeDrumFromReactor[0].effortUpdated()) {
+                    return 0.0;
+                }
+                // Negative control: Open valve to decrease pressure
+                return -setpointDrumPressure.getOutput()
+                        + (loopNodeDrumFromReactor[0].getEffort()
+                        / 100000 - 1.0); // Pa abs to bar rel
+            }
+        });
+        turbineMainSteamValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                if (!loopNodeDrumFromReactor[1].effortUpdated()) {
+                    return 0.0;
+                }
+                // Negative control: Open valve to decrease pressure
+                return -setpointDrumPressure.getOutput()
+                        + (loopNodeDrumFromReactor[1].getEffort()
+                        / 100000 - 1.0); // Pa abs to bar rel
+            }
+        });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) mainSteamDump[idx].getController())
+                    .setParameterK(6.0);
+            ((PIControl) mainSteamDump[idx].getController())
+                    .setParameterTN(8);
         } // Todo: Get some parameters, those here were random numbers!
 
         turbineReheaterSteamValve[0].getController().addInputProvider(
@@ -2599,6 +2638,45 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) turbineReheaterSteamValve[idx].getController())
                     .setParameterK(0.2);
             ((PIControl) turbineReheaterSteamValve[idx].getController())
+                    .setParameterTN(20);
+        } // Todo: Get some parameters, those here were random numbers!
+
+        turbineReheaterCondensateDrain.getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return -setpointTurbineReheaterLevel.getOutput()
+                        + turbineReheater.getPrimarySideReservoir()
+                                .getFillHeight() * 100;
+            }
+        });
+        ((PIControl) turbineReheaterCondensateDrain.getController())
+                .setParameterK(5);
+        ((PIControl) turbineReheaterCondensateDrain.getController())
+                .setParameterTN(20);
+        
+        turbineReheaterCondensateValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return -setpointTurbineReheaterLevel.getOutput()
+                        + turbineReheater.getPrimarySideReservoir()
+                                .getFillHeight() * 100;
+            }
+        });
+        turbineReheaterCondensateValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return -setpointTurbineReheaterLevel.getOutput()
+                        + turbineReheater.getPrimarySideReservoir()
+                                .getFillHeight() * 100;
+            }
+        });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) turbineReheaterCondensateValve[idx].getController())
+                    .setParameterK(5);
+            ((PIControl) turbineReheaterCondensateValve[idx].getController())
                     .setParameterTN(20);
         } // Todo: Get some parameters, those here were random numbers!
 
@@ -3718,7 +3796,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineHighPressureOutMass.getTemperature() - 273.15);
         outputValues.setParameterValue("Turbine#LPInTemp",
                 turbineLowPressureInMass.getTemperature() - 273.15);
-        
+
         outputValues.setParameterValue("Turbine#ReheaterOutTemp",
                 reheaterOutTemperature);
         outputValues.setParameterValue("Turbine#ReheaterOutQuality",
@@ -4071,12 +4149,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public double getCoreTemp() {
         return coreTemp;
     }
-    
+
     /**
-     * Called by the turbine setpoint to check if the turbine startup valves 
-     * are currently in automatic mode. This is used to make a follow up on the
+     * Called by the turbine setpoint to check if the turbine startup valves are
+     * currently in automatic mode. This is used to make a follow up on the
      * setpoint generator value.
-     * 
+     *
      * @return true if one of both startup valves is in auto mode
      */
     public boolean isTurbineStartupValveAutomatic() {
