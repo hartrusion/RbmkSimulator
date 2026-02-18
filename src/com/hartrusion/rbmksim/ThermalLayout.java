@@ -408,7 +408,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     /**
      * Poor mans debugging: This temperature is added everywhere to be able to
      * start the simulation with pressurized reactor. Set to 150 for example to
-     * have some steam inside the core to test the turbine. 240 is full power
+     * have some steam inside the core, 245 is operating power
      */
     private double debugAddInitTemp = 0.0;
 
@@ -1857,7 +1857,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // there must be 777.775 kg/s Feedwater flow. Expected pressure in 
         // steam drum is 69 bar and 284 °C. All safety valves will open at 75.5
         // bar so there should be no need to have a pump that can press huge 
-        // amounts of water against closed valves
+        // amounts of water against closed valves.
+        // The 4th square root formula will put out 65 bar abs for 284 °C.
         // It is assumed that we need two pumps per side and two flow regulation
         // valves per side so it's all in use on full power. The real plant has
         // more valves on the feed side but the simulation core cannot calculate
@@ -1980,10 +1981,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationValveToDA[idx].initCharacteristic(400, -1);
         }
 
-        // Condenser startup ejectors do actually not use much steam, make them
-        // use 1 kg/s at 5 bar steam pressure. 4e5 Pa / 1 kg/s well... 
+        // Condenser startup ejectors do actually not use much steam, they will
+        // have an operating flow of 1 kg/s.
         for (int idx = 0; idx < 2; idx++) {
-            ejectorStartup[idx].initCharacteristic(4e5, -1);
+            ejectorStartup[idx].initCharacteristic(2e6, -1);
         }
 
         // Todo: make some proper resistance values on the preheaters
@@ -2023,7 +2024,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // to start heating up but with very low steam flow.
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].initCharacteristic(500, -1.0);
-            turbineStartupSteamValve[idx].initCharacteristic(2e5, -1.0);
+            // Fast closing valve: 200 % per second, default is 25 %/s
+            turbineTripValve[idx].getIntegrator().setMaxRate(200);
+            turbineStartupSteamValve[idx].initCharacteristic(8e5, -1.0);
             turbineMainSteamValve[idx].initCharacteristic(2e4, -1.0);
             turbineReheaterSteamValve[idx].initCharacteristic(2e5, -1.0);
         }
@@ -2032,13 +2035,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // numbers that are totally non realistic but they have to be high for
         // the solution to be stable.
         turbineHighPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(2);
+                .setInnerHeatedMass(20);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(2);
+                .setInnerHeatedMass(80);
         turbineLowPressureInMass.getPhasedHandler()
                 .setInnerHeatedMass(10);
         turbineLowPressureOutMass.getPhasedHandler()
                 .setInnerHeatedMass(5);
+
+        turbineLowPressureTripValve.initCharacteristic(1.0, -1);
+        turbineLowPressureTripValve.getIntegrator().setMaxRate(200);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
@@ -2058,7 +2064,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // is 1182.8 Pa/kg*s
         // Note that the used resistances on valves will be different to
         // have some possibility of controlling them left.
-        turbineReheaterTripValve.initCharacteristic(7000, -1);
+        turbineReheaterTripValve.getIntegrator().setMaxRate(200);
+        turbineReheaterTripValve.initCharacteristic(500, -1);
+
         turbineReheaterTrimValve.initCharacteristic(9000, -1);
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterCondensateValve[idx].initCharacteristic(500, -1);
@@ -2082,7 +2090,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // Initial setpoint for steam pressure
-        setpointDrumPressure.forceOutputValue(4.0);
+        setpointDrumPressure.forceOutputValue(64.0);
 
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].initOpening(80);
@@ -2330,8 +2338,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Pressure setpoint and controls are given in bar relative while the 
         // model itsel works on Pascal absolute. Sounds painful but is a real
         // world approach.
-        setpointDrumPressure.setLowerLimit(0.0);
-        setpointDrumPressure.setUpperLimit(70.0);
+        setpointDrumPressure.setLowerLimit(58);
+        setpointDrumPressure.setUpperLimit(72.0);
         setpointDrumPressure.setMaxRate(5.0);
 
         blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
@@ -2654,7 +2662,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 .setParameterK(5);
         ((PIControl) turbineReheaterCondensateDrain.getController())
                 .setParameterTN(20);
-        
+
         turbineReheaterCondensateValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -2810,6 +2818,55 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownReturnValve[1].operateCloseValve();
                 blowdownValveFromDrum[1].operateCloseValve();
                 blowdownValveFromLoop[1].operateCloseValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        // Steam Drum Pressure
+        am = new ValueAlarmMonitor();
+        am.setName("Drum1Pressure");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return loopNodeDrumFromReactor[0].getEffort() / 100000 - 1.0;
+            }
+        });
+        am.defineAlarm(75.0, AlarmState.MAX2);
+        am.defineAlarm(74.0, AlarmState.MAX1);
+        am.defineAlarm(72.0, AlarmState.HIGH2);
+        am.defineAlarm(70.0, AlarmState.HIGH1);
+        am.defineAlarm(60.0, AlarmState.LOW1);
+        am.defineAlarm(58.0, AlarmState.LOW2);
+        am.defineAlarm(55.0, AlarmState.MIN1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                turbine.triggerTurbineTrip();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("Drum2Pressure");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return loopNodeDrumFromReactor[1].getEffort() / 100000 - 1.0;
+            }
+        });
+        am.defineAlarm(75.0, AlarmState.MAX2);
+        am.defineAlarm(74.0, AlarmState.MAX1);
+        am.defineAlarm(72.0, AlarmState.HIGH2);
+        am.defineAlarm(70.0, AlarmState.HIGH1);
+        am.defineAlarm(60.0, AlarmState.LOW1);
+        am.defineAlarm(58.0, AlarmState.LOW2);
+        am.defineAlarm(55.0, AlarmState.MIN1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                turbine.triggerTurbineTrip();
             }
         });
         am.registerAlarmManager(alarmManager);
@@ -3813,7 +3870,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Turbine#LowPressureFlow",
                 turbineLowPressureStage[0].getFlow());
 
-        // </editor-fold>
+        // </editor-fold>        
+//        System.out.println(
+//                "p_HP-In: "
+//                + ((int) turbineHighPressureIn.getEffort())
+//                + ", h_HP-In: "
+//                + ((int) turbineHighPressureIn.getHeatEnergy())
+//                + ", p_HP-MidOut: "
+//                + turbineHighPressureMidOut.getEffort()
+//                + ", h_HP-MidOut: "
+//                + turbineHighPressureMidOut.getHeatEnergy());
     }
 
     @Override

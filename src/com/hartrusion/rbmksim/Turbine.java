@@ -116,7 +116,7 @@ public class Turbine extends Subsystem implements Runnable {
      * Power from the steam part that is required to spin the turbine exactly at
      * 3000 1/min.
      */
-    private final double holdPower = 8.0;
+    private final double holdPower = 12.0;
 
     private double generatorPower = 0.0;
 
@@ -429,6 +429,8 @@ public class Turbine extends Subsystem implements Runnable {
     public void setShaftPower(double power) {
         // 11 bar, 6 kg/s, no reheater: 5.3 MW (HD 47.6, ND 38.3)
         // 11 bar, 6 kg/s, reheat 3 kg/s: 7 Mw (HD 47, ND 120)
+        // 65 bar, 6 kg/s, no reheater: 8.5 MW (HD 49, ND 40.2)
+        // 59 bar, 6 kg/s, reheat 8kg/s: 14 MW (HD 48, ND 270)
         shaftPower = power;
     }
 
@@ -473,6 +475,12 @@ public class Turbine extends Subsystem implements Runnable {
             return false;
         }
         if (alarmManager.isAlarmActive("CondenserVacuum", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Drum1Pressure", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Drum2Pressure", AlarmState.MIN1)) {
             return false;
         }
         // Checks that will only be performed when not switchting the RPS back 
