@@ -288,7 +288,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Clear turbine protection lock if all prerequisites are met."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -310,7 +310,7 @@
           </FontInfo>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25cf;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods."/>
+        <Property name="toolTipText" type="java.lang.String" value="Trips the turbines fast closing valves and immediatelly shuts off the turbine."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1140,6 +1140,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButtonTPSActive">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="toolTipText" type="java.lang.String" value="Overrides the turbine protection (unsafe, do NOT turn this off)"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>

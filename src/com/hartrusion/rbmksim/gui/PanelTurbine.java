@@ -255,7 +255,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jButtonProtectionRest.setFont(jButtonProtectionRest.getFont().deriveFont(jButtonProtectionRest.getFont().getSize()-2f));
         jButtonProtectionRest.setText("●");
-        jButtonProtectionRest.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonProtectionRest.setToolTipText("Clear turbine protection lock if all prerequisites are met.");
         jButtonProtectionRest.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonProtectionRest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +266,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jButtonProtectionTrip.setFont(jButtonProtectionTrip.getFont().deriveFont(jButtonProtectionTrip.getFont().getSize()-2f));
         jButtonProtectionTrip.setText("●");
-        jButtonProtectionTrip.setToolTipText("Start auto control. Push this button to start controlling the rods after enabling the global control and selecting the rods.");
+        jButtonProtectionTrip.setToolTipText("Trips the turbines fast closing valves and immediatelly shuts off the turbine.");
         jButtonProtectionTrip.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonProtectionTrip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -548,6 +548,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelCaption8, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 118, 90, 14));
 
         jToggleButtonTPSActive.setText("←");
+        jToggleButtonTPSActive.setToolTipText("Overrides the turbine protection (unsafe, do NOT turn this off)");
         jToggleButtonTPSActive.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonTPSActive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
