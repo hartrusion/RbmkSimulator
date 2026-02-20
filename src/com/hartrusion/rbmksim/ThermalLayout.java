@@ -2387,13 +2387,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         }
                     });
         }
-        // Feedwater level control parameters
+        // Drum level control parameters (with feedwater valves)
         for (int idx = 0; idx < 2; idx++) { // main valves
             for (int jdx = 1; jdx < 3; jdx++) {
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(20);
+                        .getController()).setParameterK(2.0);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(80.0);
+                        .getController()).setParameterTN(30.0);
             }
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
