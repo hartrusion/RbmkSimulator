@@ -384,6 +384,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final AbstractController blowdownBalanceControlLoop
             = new PControl();
 
+    private double[] steamOutToTurbine = new double[2];
+
     private double voiding = 0;
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
@@ -410,7 +412,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * start the simulation with pressurized reactor. Set to 150 for example to
      * have some steam inside the core, 245 is operating power
      */
-    private double debugAddInitTemp = 0.0;
+    private double debugAddInitTemp = 0;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -1607,10 +1609,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Turbine
         // Turbine valves from steam drums to common collector node
+        // NOTE: The turbine is NOT connected to the steam out valve from the 
+        // drum. This would be more correct but crashes the solver so far, so 
+        // it is connected directly to the durm, allowing more simple networks
+        // to be compiled. It is not noticeable to the end user as the trip 
+        // valves can't be opened when the main steam drum shutoff is closed.
         for (int idx = 0; idx < 2; idx++) {
             // Main steam valve:
             turbineTripValve[idx].getValveElement().connectBetween(
-                    mainSteam[idx], turbineSteamIn[idx]);
+                    mainSteamDrumNode[idx], turbineSteamIn[idx]);
             // Startup path:
             turbineStartupSteamValve[idx].getValveElement().connectBetween(
                     turbineSteamIn[idx], turbineHighPressureIn);
@@ -1619,7 +1626,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     turbineSteamIn[idx], turbineHighPressureIn);
             // Reheater Steam Valve
             turbineReheaterSteamValve[idx].getValveElement().connectBetween(
-                    mainSteam[idx], turbineReheaterSteam);
+                    mainSteamDrumNode[idx], turbineReheaterSteam);
         }
         // There is a thermal volume at the beginning and at the end of the
         // turbine which exchanges heat with the rotor and the stator.
@@ -2028,7 +2035,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineTripValve[idx].getIntegrator().setMaxRate(200);
             turbineStartupSteamValve[idx].initCharacteristic(8e5, -1.0);
             turbineMainSteamValve[idx].initCharacteristic(2e4, -1.0);
+            turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
             turbineReheaterSteamValve[idx].initCharacteristic(2e5, -1.0);
+            turbineReheaterSteamValve[idx].getIntegrator().setMaxRate(8);
         }
 
         // The steam mass inside the turbine is modeled constant, those are some
@@ -3490,6 +3499,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         solver.prepareCalculation();
         solver.doCalculation();
 
+        // Get those values here so we can add them later more easy. We had to
+        // simplify the model in a bad, misleading way to keep it stable.
+        for (int idx = 0; idx < 2; idx++) {
+            steamOutToTurbine[idx]
+                    = mainSteamDrumNode[idx].getFlow(
+                            turbineTripValve[idx].getValveElement())
+                    + mainSteamDrumNode[idx].getFlow(
+                            turbineReheaterSteamValve[idx].getValveElement());
+        }
+
         // Generate core temperature value (avg deg celsius value)
         if (!noReactorInput) {
             coreTemp = (fuelThermalOut[0].getEffort()
@@ -3612,7 +3631,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     mainSteamShutoffValve[idx].getValveElement().getOpening());
             outputValues.setParameterValue("Main" + (idx + 1)
                     + "#SteamFromDrumFlow",
-                    mainSteamShutoffValve[idx].getValveElement().getFlow());
+                    -mainSteamDrumNode[idx].getFlow(loopSteamDrum[idx]));
 
             // Trim valve percentage:
             for (int jdx = 0; jdx < 4; jdx++) {
@@ -3846,7 +3865,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             outputValues.setParameterValue(
                     "Turbine" + (idx + 1) + "#MainSteamFlow",
-                    turbineTripValve[idx].getValveElement().getFlow());
+                    steamOutToTurbine[idx]);
         }
         // Get the HP out temperature directly from the heated steam mass
         outputValues.setParameterValue("Turbine#HPOutTemp",
