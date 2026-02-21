@@ -17,11 +17,20 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmManager;
+import com.hartrusion.modeling.initial.AbstractIC;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
 import com.hartrusion.rbmksim.gui.ExceptionPopup;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +39,9 @@ import java.util.logging.Logger;
  * @author Viktor Alexander Hartung
  */
 public class MainLoop implements Runnable, ModelManipulation {
+
+    private static final Logger LOGGER = Logger.getLogger(
+            MainLoop.class.getName());
 
     private ModelListener controller;
 
@@ -107,9 +119,8 @@ public class MainLoop implements Runnable, ModelManipulation {
         if (stopTime - startTime > maxTime) {
             if (initialIterations > 2) {
                 maxTime = stopTime - startTime;
-                Logger.getLogger(MainLoop.class.getName())
-                        .log(Level.INFO, "New max cyclic time: "
-                                + maxTime / 1000 + " us");
+                LOGGER.log(Level.INFO, "New max cyclic time: "
+                        + maxTime / 1000 + " us");
             } else {
                 initialIterations++;
             }
@@ -123,9 +134,8 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     @Override // Called from controller upon fireActions here in run()
     public void handleAction(ActionCommand ac) {
-        Logger.getLogger(MainLoop.class.getName())
-                .log(Level.INFO, "Received Action: " + ac.getPropertyName()
-                        + ", Value: " + ac.getValue());
+        LOGGER.log(Level.INFO, "Received Action: " + ac.getPropertyName()
+                + ", Value: " + ac.getValue());
 
         if (ac.getPropertyName().equals("PauseSimulation")) {
             pause = !pause;
@@ -135,10 +145,43 @@ public class MainLoop implements Runnable, ModelManipulation {
             alarms.acknowledge();
         }
 
+        if (ac.getPropertyName().equals("SaveSimulationState")) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(
+                    new FileOutputStream(
+                            new File((String) ac.getValue())))) {
+                SaveGame save = new SaveGame();
+                process.saveTo(save);
+                core.saveTo(save);
+                turbine.saveTo(save);
+                oos.writeObject(save);
+                LOGGER.log(Level.INFO, "Simulation state saved to: "
+                        + ac.getValue());
+            } catch (IOException e) {
+                ExceptionPopup.show(e);
+            }
+        }
+        
+        if (ac.getPropertyName().equals("LoadSimulationState")) {
+            pause = true;
+            try (ObjectInputStream ois = new ObjectInputStream(
+                    new FileInputStream(
+                            new File((String) ac.getValue())))) {
+                SaveGame save = (SaveGame) ois.readObject();
+                core.load(save);
+                process.load(save);
+                turbine.load(save);
+                LOGGER.log(Level.INFO, "Simulation state loaded from: "
+                        + ac.getValue() + " (saved at: "
+                        + save.getTimestamp() + ")");
+
+            } catch (IOException | ClassNotFoundException e) {
+                ExceptionPopup.show(e);
+            }
+        }
+
         if (pause) {
             return; // irgnore commands during pause
         }
-
         core.handleAction(ac);
         process.handleAction(ac);
         turbine.handleAction(ac);

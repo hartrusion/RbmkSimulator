@@ -51,4 +51,13 @@ public abstract class Subsystem implements ModelManipulation {
     public void registerAlarmManager(AlarmManager alarmManager) {
         this.alarmManager = alarmManager;
     }
+    
+    public void saveTo(SaveGame save) {
+        // to be overridden by subsystems, on call, they can put all their
+        // state stuff into the provided file.
+    }
+    
+    public void load(SaveGame save) {
+        // to be overridden if used
+    }
 }

@@ -30,9 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -87,6 +89,9 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuFile = new javax.swing.JMenu();
         jMenuItemPause = new javax.swing.JMenuItem();
         jCheckBoxMenuOnlyCore = new javax.swing.JCheckBoxMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuLoad = new javax.swing.JMenuItem();
+        jMenuSave = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
@@ -156,6 +161,25 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuFile.add(jCheckBoxMenuOnlyCore);
+        jMenuFile.add(jSeparator2);
+
+        jMenuLoad.setText("Load");
+        jMenuLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuLoadActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuLoad);
+
+        jMenuSave.setText("Save as...");
+        jMenuSave.setToolTipText("");
+        jMenuSave.setActionCommand("Save");
+        jMenuSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSaveActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuSave);
         jMenuFile.add(jSeparator1);
 
         jMenuItemExit.setText("Exit");
@@ -809,7 +833,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItemPreheatersActionPerformed(null);
         jMenuItemTurbineActionPerformed(null);
         jMenuItemGeneratorActionPerformed(null);
-    //    jMenuItemCoolantActionPerformed(null);
+        //    jMenuItemCoolantActionPerformed(null);
 
         // Align them in a preset grid layout.
         // 1st row:
@@ -933,6 +957,28 @@ public class ControlRoom extends javax.swing.JFrame
         // if theres no active frame, generate it and make it known here.
         initializeControlPanel(new PanelCoolant(), "Coolant");
     }//GEN-LAST:event_jMenuItemCoolantActionPerformed
+
+    private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter(
+                "Initial Conditions Files (*.ic)", "ic"));
+        if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            controller.userAction(new ActionCommand(
+                    "SaveSimulationState",
+                    fc.getSelectedFile().getAbsolutePath()));
+        }
+    }//GEN-LAST:event_jMenuSaveActionPerformed
+
+    private void jMenuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLoadActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter(
+                "Initial Conditions Files (*.ic)", "ic"));
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            controller.userAction(new ActionCommand(
+                    "LoadSimulationState",
+                    fc.getSelectedFile().getAbsolutePath()));
+        }
+    }//GEN-LAST:event_jMenuLoadActionPerformed
 
     @Override // Called on startup
     public void registerController(ViewerController controller) {
@@ -1148,12 +1194,15 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
+    private javax.swing.JMenuItem jMenuLoad;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPanels;
     private javax.swing.JMenuItem jMenuRodPositions;
+    private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }
