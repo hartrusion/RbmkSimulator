@@ -17,10 +17,13 @@
 package com.hartrusion.rbmksim.gui.elements;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.beans.BeanProperty;
@@ -40,6 +43,20 @@ public class Synchroscope extends javax.swing.JComponent {
     private float pointerWidth, pointerLength;
 
     private float phiValue = 0;
+
+    private static final float ARC_RADIUS_RATIO = 0.4F;
+    private static final float ARC_START_ANGLE_OFFSET = 0.3F;
+    private static final float ARC_END_ANGLE_OFFSET = -0.4F;
+    private static final float ARROW_LENGTH_RATIO = 0.08F;
+    private static final float ARROW_WIDTH_RATIO = 0.8F;
+    private static final float CENTER_CIRCLE_DIAMETER_RATIO = 0.15F;
+
+    // pre-cached shapes
+    private Arc2D.Float leftArc;
+    private Arc2D.Float rightArc;
+    private Path2D.Float leftArrow;
+    private Path2D.Float rightArrow;
+    private Ellipse2D.Float centerCircle;
 
     /**
      * Creates new form Synchroscope
@@ -92,30 +109,46 @@ public class Synchroscope extends javax.swing.JComponent {
             oldWidth = getWidth();
             oldHeight = getHeight();
             size = Math.min(oldWidth, oldHeight);
-//            outerRingRadius = 0.45F * (float) size;
-//            outerTickRadius = 0.4F * (float) size;
-//            majorTicksInnerRadius = outerTickRadius * 0.8F;
-//            minorTicksInnerRadius = outerTickRadius * 0.9F;
-//            innerCircleRadius = 0.08F * (float) size;
             pointerWidth = 0.08F * (float) size * 0.5F;
             pointerLength = 0.4F * (float) size * 1.05F;
-//            indicatorSize = size * 0.14F;
-//            halfSize = size * 0.5F;
 
-            // This calls sin and cosine a lot, so we will have this calculated
-            // only once and just draw the shapes stored in those lists
-//            majorTickLines.clear();
-//            for (int idx = 0; idx < majorTicks.length; idx++) {
-//                majorTickLines.add(getLine(majorTicksInnerRadius, 
-//                        outerTickRadius,
-//                        getPhi((double) majorTicks[idx])));
-//            }
-//            minorTickLines.clear();
-//            for (int idx = 0; idx < minorTicks.length; idx++) {
-//                minorTickLines.add(getLine(minorTicksInnerRadius, 
-//                        outerTickRadius,
-//                        getPhi((double) minorTicks[idx])));
-//            }
+            // precalculate static shapes
+            float cx = size * 0.5F;
+            float cy = size * 0.5F;
+            float arcRadius = size * ARC_RADIUS_RATIO;
+            float arcX = cx - arcRadius;
+            float arcY = cy - arcRadius;
+            float arcW = arcRadius * 2.0F;
+            float arcH = arcRadius * 2.0F;
+
+            float topOffsetDeg = (float) Math.toDegrees(ARC_START_ANGLE_OFFSET);
+            float bottomOffsetDeg = (float) Math.toDegrees(ARC_END_ANGLE_OFFSET);
+
+            float startAngleRight = 90.0F - topOffsetDeg;
+            float extentRight = -(90.0F - topOffsetDeg - bottomOffsetDeg);
+            rightArc = new Arc2D.Float(arcX, arcY, arcW, arcH, startAngleRight, extentRight, Arc2D.OPEN);
+
+            float startAngleLeft = 90.0F + topOffsetDeg;
+            float extentLeft = 90.0F - topOffsetDeg - bottomOffsetDeg;
+            leftArc = new Arc2D.Float(arcX, arcY, arcW, arcH, startAngleLeft, extentLeft, Arc2D.OPEN);
+
+            float arrowLen = size * ARROW_LENGTH_RATIO;
+            float arrowWidth = arrowLen * ARROW_WIDTH_RATIO;
+
+            float phiRightEnd = PI_HALF - ARC_END_ANGLE_OFFSET;
+            float rightTipX = getXCoordinate(arcRadius, phiRightEnd);
+            float rightTipY = getYCoordinate(arcRadius, phiRightEnd);
+            rightArrow = createArrowHead(rightTipX, rightTipY, phiRightEnd, arrowLen, arrowWidth);
+
+            float phiLeftEnd = -PI_HALF + ARC_END_ANGLE_OFFSET;
+            float leftTipX = getXCoordinate(arcRadius, phiLeftEnd);
+            float leftTipY = getYCoordinate(arcRadius, phiLeftEnd);
+            leftArrow = createArrowHead(leftTipX, leftTipY, phiLeftEnd + (float) Math.PI, arrowLen, arrowWidth);
+
+            float centerCircleDia = size * CENTER_CIRCLE_DIAMETER_RATIO;
+            float centerCircleRad = centerCircleDia * 0.5F;
+            centerCircle = new Ellipse2D.Float(cx - centerCircleRad, cy - centerCircleRad, centerCircleDia, centerCircleDia);
+
         }
 
         // Force the use of antialiasing to not look like 1997
@@ -128,32 +161,12 @@ public class Synchroscope extends javax.swing.JComponent {
         g2d.fillRect(0, 0, size - 1, size - 1);
         g2d.setColor(getForeground());
         g2d.drawRect(0, 0, size - 1, size - 1);
-//        // Draw background
-//        Ellipse2D.Float circle;
-//        g2d.setColor(Color.WHITE);
-//        circle = new Ellipse2D.Float(
-//                halfSize - outerRingRadius,
-//                halfSize - outerRingRadius,
-//                2.0F * outerRingRadius, 2.0F * outerRingRadius);
-//        g2d.fill(circle);
-//        // Draw the outer ring using foreground color.
-//        g2d.setColor(getForeground());
-//        g2d.draw(circle);
-//        // draw major tick lines
-//        g2d.setColor(Color.BLACK);
-//        for (Shape s : majorTickLines) {
-//            g2d.draw(s);
-//        }
-//        // Draw minor tick lines
-//        for (Shape s : minorTickLines) {
-//            g2d.draw(s);
-//        }
-//        // draw the inner cirle:
-//        circle = new Ellipse2D.Float(
-//                halfSize - innerCircleRadius,
-//                halfSize - innerCircleRadius,
-//                2.0F * innerCircleRadius, 2.0F * innerCircleRadius);
-//        g2d.fill(circle);
+
+        // Draw precached shapes
+        g2d.draw(rightArc);
+        g2d.draw(leftArc);
+        g2d.fill(rightArrow);
+        g2d.fill(leftArrow);
 
         // generate the pointer as a triangle
         Path2D.Float triangle = new Path2D.Float();
@@ -166,6 +179,10 @@ public class Synchroscope extends javax.swing.JComponent {
                 getYCoordinate(pointerWidth, phiValue + PI_HALF));
         triangle.closePath();
         g2d.fill(triangle);
+
+        if (centerCircle != null) {
+            g2d.fill(centerCircle);
+        }
 
         // Reset the antialiasing to its previous value
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, prevHint);
@@ -193,6 +210,36 @@ public class Synchroscope extends javax.swing.JComponent {
      */
     private float getYCoordinate(float r, float phi) {
         return size * 0.5F - (float) Math.cos((double) phi) * r;
+    }
+
+    /**
+     * Creates an arrow head shape with provided coordinates
+     *
+     * @param tipX tip x coordinate
+     * @param tipY tip y coordinate
+     * @param dir direction (radiants)
+     * @param length arrow length
+     * @param width arrow width at its base
+     * @return Path2D.Float calculated arrow head
+     */
+    private Path2D.Float createArrowHead(float tipX, float tipY, float dir, 
+            float length, float width) {
+        float dx = (float) Math.cos(dir) * length;
+        float dy = (float) Math.sin(dir) * length;
+
+        float baseX = tipX - dx;
+        float baseY = tipY - dy;
+
+        float perpX = (float) -Math.sin(dir) * width * 0.5F;
+        float perpY = (float) Math.cos(dir) * width * 0.5F;
+
+        Path2D.Float head = new Path2D.Float();
+        head.moveTo(tipX, tipY);
+        head.lineTo(baseX + perpX, baseY + perpY);
+        head.lineTo(baseX - perpX, baseY - perpY);
+        head.closePath();
+
+        return head;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
