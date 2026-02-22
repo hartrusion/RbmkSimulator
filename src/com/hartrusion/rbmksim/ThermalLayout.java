@@ -2048,7 +2048,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // signal listeners to each element that gets added.
         runner.setParameterHandler(outputValues);
         runner.setSignalListener(controller);
-        
+
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(makeupPumps[idx]);
         }
@@ -3285,6 +3285,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterTripValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
 
+        // All tap vales need to be shut close to prevent spinning up the 
+        // turbine from higher pressure than the condenser.
+        for (int idx = 0; idx < 5; idx++) {
+            turbineLowPressureTapValve[idx].addSafeClosedProvider(()
+                    -> !turbine.isTpsActive());
+        }
+
         // </editor-fold>
         // Time ocnstant for condenser
         condenserVacuum.setMaxOutput(1e5); // 1 bar
@@ -4095,16 +4102,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         return !turbineStartupSteamValve[0].getController().isManualMode()
                 || !turbineStartupSteamValve[1].getController().isManualMode();
     }
-    
+
     @Override
     public void saveTo(SaveGame save) {
-        save.addSolverState(solver.toString(), 
+        save.addSolverState(solver.toString(),
                 solver.getCurrentNetworkCondition());
-        save.addRunnerState("thermalLayout", 
+        save.addRunnerState("thermalLayout",
                 runner.getCurrentAutomationCondition());
         save.setCondenserVacuum(condenserVacuum.getOutput());
     }
-    
+
     public void load(SaveGame save) {
         solver.setNetworkInitialCondition(
                 save.getSolverState(solver.toString()));
