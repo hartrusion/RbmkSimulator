@@ -20,6 +20,11 @@ _github-ci-snapshot_). It always points to the current development state and
 will be replaced automatically each time I change something. You might find a 
 new file there from time to time.
 
+Plase note that save files do not have any compatibility between versions 
+implemented. It is possible to load old saves on newer simulator releases but 
+some newer components will not get a proper initialization so you end up in a 
+plat state that you would not reach normally.
+
 <details>
   <summary>This is a Java application. Expand this section (just click here) 
   if you want to read more about this and don't know what to do with 
@@ -80,6 +85,7 @@ time.
 * Reactor with nasty features, has some surprises on low power levels and the
 accident can be triggered.
 * Accident sequence (prompt neutron excursion) possible.
+* One turbogenerator set with steam reheater.
 * Mnemonic displays with additional measurement data on them.
 * Some line plots to monitor measurement time series.
 
