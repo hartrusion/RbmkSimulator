@@ -26,12 +26,14 @@ import com.hartrusion.rbmksim.gui.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -963,9 +965,29 @@ public class ControlRoom extends javax.swing.JFrame
         fc.setFileFilter(new FileNameExtensionFilter(
                 "Initial Conditions Files (*.ic)", "ic"));
         if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            
+            // Append .ic if no extension was typed by the user
+            if (!file.getName().contains(".")) {
+                file = new File(file.getAbsolutePath() + ".ic");
+            }
+            
+            // Warn before overwriting an existing file
+            if (file.exists()) {
+                int result = JOptionPane.showConfirmDialog(this,
+                        "The file \"" + file.getName()
+                        + "\" already exists.\nDo you want to replace it?",
+                        "Confirm Save",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                if (result != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+
             controller.userAction(new ActionCommand(
                     "SaveSimulationState",
-                    fc.getSelectedFile().getAbsolutePath()));
+                    file.getAbsolutePath()));
         }
     }//GEN-LAST:event_jMenuSaveActionPerformed
 

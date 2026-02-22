@@ -16,7 +16,7 @@
  */
 package com.hartrusion.rbmksim;
 
-import com.hartrusion.modeling.automated.AbstractAC;
+import com.hartrusion.modeling.initial.AbstractAC;
 import com.hartrusion.modeling.initial.AbstractIC;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -59,8 +59,6 @@ public class SaveGame implements Serializable {
         return timestamp;
     }
 
-    // ---- Solver States (ICs from DomainAnalogySolver) ----
-
     public void addSolverState(String solverName, List<AbstractIC> states) {
         networkIC.put(solverName, new ArrayList<>(states));
     }
@@ -72,8 +70,6 @@ public class SaveGame implements Serializable {
     public Map<String, List<AbstractIC>> getAllSolverStates() {
         return networkIC;
     }
-
-    // ---- Runner States (ACs from SerialRunner) ----
 
     public void addRunnerState(String runnerName, List<AbstractAC> states) {
         automationConditions.put(runnerName, new ArrayList<>(states));

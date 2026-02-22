@@ -162,7 +162,6 @@ public class MainLoop implements Runnable, ModelManipulation {
         }
         
         if (ac.getPropertyName().equals("LoadSimulationState")) {
-            pause = true;
             try (ObjectInputStream ois = new ObjectInputStream(
                     new FileInputStream(
                             new File((String) ac.getValue())))) {
@@ -173,7 +172,6 @@ public class MainLoop implements Runnable, ModelManipulation {
                 LOGGER.log(Level.INFO, "Simulation state loaded from: "
                         + ac.getValue() + " (saved at: "
                         + save.getTimestamp() + ")");
-
             } catch (IOException | ClassNotFoundException e) {
                 ExceptionPopup.show(e);
             }

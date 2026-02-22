@@ -20,6 +20,7 @@ import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AbstractController;
+import com.hartrusion.control.AutomationRunner;
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.Integrator;
 import com.hartrusion.control.PControl;
@@ -378,7 +379,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final Setpoint setpointTurbineReheaterLevel;
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
-    private final SerialRunner runner = new SerialRunner();
+    private final AutomationRunner runner = new AutomationRunner();
     private final SerialRunner alarmUpdater = new SerialRunner();
 
     private final AbstractController blowdownBalanceControlLoop
@@ -744,6 +745,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondCondenserOutNode[idx].setName(
                     "AuxCond" + (idx + 1) + "#CondenserOutNode");
             auxCondCondensateValve[idx] = new HeatValveControlled();
+            auxCondCondensateValve[idx].registerController(new PIControl());
             auxCondCondensateValve[idx].initName(
                     "AuxCond" + (idx + 1) + "#CondensateValve");
         }
@@ -1009,6 +1011,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
+        solver.setString("ThermalLayoutMainSolver");
 
         // <editor-fold defaultstate="collapsed" desc="Control Setpoint instances">
         for (int idx = 0; idx < 2; idx++) {
@@ -1042,165 +1045,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
     }
 
     public void init() {
-        // <editor-fold defaultstate="collapsed" desc="Init listeners">
-        // Attach controller to monitor elements. Those monitor elements are
-        // part of assemblies and send events to the controller, like a valve
-        // open state reached.
-        for (int idx = 0; idx < 2; idx++) {
-            makeupPumps[idx].registerSignalListener(controller);
-        }
-
-        for (int idx = 0; idx < 2; idx++) {
-            mainSteamShutoffValve[idx].registerSignalListener(controller);
-            deaeratorSteamInRegValve[idx].registerSignalListener(controller);
-            deaeratorSteamInRegValve[idx].registerParameterHandler(
-                    outputValues);
-            deaeratorSteamFromMain[idx].registerSignalListener(controller);
-            deaeratorSteamFromMain[idx].registerParameterHandler(outputValues);
-            for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx].registerSignalListener(controller);
-            }
-            loopBypass[idx].registerSignalListener(controller);
-            blowdownValveFromDrum[idx].registerSignalListener(controller);
-            blowdownValveFromDrum[idx].registerParameterHandler(outputValues);
-            blowdownValveFromLoop[idx].registerSignalListener(controller);
-            blowdownValveFromLoop[idx].registerParameterHandler(outputValues);
-            blowdownCooldownPumps[idx].registerSignalListener(controller);
-        }
-        blowdownValvePassiveFlow.registerSignalListener(controller);
-        blowdownValvePumpsToRegenerator.registerSignalListener(controller);
-        blowdownValvePumpsToCooler.registerSignalListener(controller);
-        blowdownValveRegeneratorToCooler.registerSignalListener(controller);
-        blowdownValveTreatmentBypass.registerSignalListener(controller);
-        blowdownValveRegeneratedToDrums.registerSignalListener(controller);
-        blowdownValveDrain.registerSignalListener(controller);
-        blowdownValveCoolant.registerSignalListener(controller);
-        blowdownValveCoolant.registerParameterHandler(outputValues);
-        for (int idx = 0; idx < 2; idx++) {
-            blowdownReturnValve[idx].registerSignalListener(controller);
-            blowdownReturnValve[idx].registerParameterHandler(outputValues);
-        }
-        blowdownBalanceControlLoop.addPropertyChangeListener(controller);
-        for (int idx = 0; idx < 2; idx++) {
-            deaeratorDrain[idx].registerSignalListener(controller);
-            deaeratorDrain[idx].registerParameterHandler(outputValues);
-        }
-        for (int idx = 0; idx < 2; idx++) {
-            for (int jdx = 0; jdx < 2; jdx++) {
-                feedwaterPump[idx][jdx].registerSignalListener(controller);
-            }
-            feedwaterSparePumpInValve[idx].registerSignalListener(controller);
-        }
-        feedwaterPump3.registerSignalListener(controller);
-        for (int idx = 0; idx < 2; idx++) {
-            feedwaterSparePumpOutValve[idx].registerSignalListener(controller);
-            feedwaterStartupReductionValve[idx].registerSignalListener(
-                    controller);
-            for (int jdx = 0; jdx < 3; jdx++) {
-                feedwaterShutoffValve[idx][jdx].registerSignalListener(
-                        controller);
-                feedwaterFlowRegulationValve[idx][jdx]
-                        .registerSignalListener(controller);
-                feedwaterFlowRegulationValve[idx][jdx]
-                        .registerParameterHandler(outputValues);
-            }
-        }
-        for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].registerSignalListener(controller);
-            auxCondSteamValve[idx].registerParameterHandler(outputValues);
-            auxCondCoolantValve[idx].registerSignalListener(controller);
-            auxCondCoolantValve[idx].registerParameterHandler(outputValues);
-            auxCondCondensateValve[idx].registerController(new PIControl());
-            auxCondCondensateValve[idx].registerSignalListener(controller);
-            auxCondCondensateValve[idx].registerParameterHandler(outputValues);
-        }
-        auxCondBypass.registerSignalListener(controller);
-        auxCondBypass.registerParameterHandler(outputValues);
-        for (int idx = 0; idx < 2; idx++) {
-            auxCondPumps[idx].registerSignalListener(controller);
-        }
-        auxCondValveToHotwell.registerSignalListener(controller);
-        auxCondValveToHotwell.registerParameterHandler(outputValues);
-        auxCondValveToDrain.registerSignalListener(controller);
-        auxCondValveToDrain.registerParameterHandler(outputValues);
-        for (int idx = 0; idx < mainSteamDump.length; idx++) {
-            mainSteamDump[idx].registerSignalListener(controller);
-            mainSteamDump[idx].registerParameterHandler(outputValues);
-        }
-        for (int idx = 0; idx < 3; idx++) {
-            condensationHotwellPump[idx].registerSignalListener(controller);
-            condensationCondensatePump[idx].registerSignalListener(controller);
-        }
-        for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].registerParameterHandler(outputValues);
-            condensationValveToDA[idx].registerSignalListener(controller);
-        }
-        hotwellFillValve.registerParameterHandler(outputValues);
-        hotwellFillValve.registerSignalListener(controller);
-        hotwellDrainValve.registerParameterHandler(outputValues);
-        hotwellDrainValve.registerSignalListener(controller);
-        for (int idx = 0; idx < 2; idx++) {
-            ejectorStartup[idx].registerParameterHandler(outputValues);
-            ejectorStartup[idx].registerSignalListener(controller);
-        }
-        for (int idx = 0; idx < 3; idx++) {
-            ejectorMainSteamValve[idx].registerParameterHandler(outputValues);
-            ejectorMainSteamValve[idx].registerSignalListener(controller);
-            ejectorMainCondensateValve[idx].registerParameterHandler(outputValues);
-            ejectorMainCondensateValve[idx].registerSignalListener(controller);
-            ejectorMainFlowIn[idx].registerParameterHandler(outputValues);
-            ejectorMainFlowIn[idx].registerSignalListener(controller);
-            ejectorMainFlowOut[idx].registerParameterHandler(outputValues);
-            ejectorMainFlowOut[idx].registerSignalListener(controller);
-        }
-        ejectorMainBypass.registerParameterHandler(outputValues);
-        ejectorMainBypass.registerSignalListener(controller);
-
-        for (int idx = 0; idx < 3; idx++) {
-            preheaterCondensateValve[idx].registerParameterHandler(outputValues);
-            preheaterCondensateValve[idx].registerSignalListener(controller);
-        }
-
-        for (int idx = 0; idx < 2; idx++) {
-            turbineTripValve[idx].registerParameterHandler(outputValues);
-            turbineTripValve[idx].registerSignalListener(controller);
-            turbineStartupSteamValve[idx].registerParameterHandler(outputValues);
-            turbineStartupSteamValve[idx].registerSignalListener(controller);
-            turbineMainSteamValve[idx].registerParameterHandler(outputValues);
-            turbineMainSteamValve[idx].registerSignalListener(controller);
-            turbineReheaterSteamValve[idx].registerParameterHandler(outputValues);
-            turbineReheaterSteamValve[idx].registerSignalListener(controller);
-        }
-        turbineLowPressureTripValve.registerParameterHandler(outputValues);
-        turbineLowPressureTripValve.registerSignalListener(controller);
-        turbineReheaterTripValve.registerParameterHandler(outputValues);
-        turbineReheaterTripValve.registerSignalListener(controller);
-        turbineReheaterTrimValve.registerParameterHandler(outputValues);
-        turbineReheaterTrimValve.registerSignalListener(controller);
-        for (int idx = 0; idx < 2; idx++) {
-            turbineReheaterCondensateValve[idx].registerParameterHandler(outputValues);
-            turbineReheaterCondensateValve[idx].registerSignalListener(controller);
-        }
-        turbineReheaterCondensateDrain.registerParameterHandler(outputValues);
-        turbineReheaterCondensateDrain.registerSignalListener(controller);
-        for (int idx = 0; idx < 5; idx++) {
-            turbineLowPressureTapValve[idx].registerParameterHandler(outputValues);
-            turbineLowPressureTapValve[idx].registerSignalListener(controller);
-        }
-
-        // Attach Signal Listeners or Handlers to Control elements
-        for (int idx = 0; idx < 2; idx++) {
-            setpointDrumLevel[idx].registerParameterHandler(outputValues);
-            setpointDAPressure[idx].registerParameterHandler(outputValues);
-            setpointDALevel[idx].registerParameterHandler(outputValues);
-            setpointAuxCondLevel[idx].registerParameterHandler(outputValues);
-        }
-        setpointDrumPressure.registerParameterHandler(outputValues);
-        setpointHotwellUpperLevel.registerParameterHandler(outputValues);
-        setpointHotwellLowerLevel.registerParameterHandler(outputValues);
-        setpointTurbineReheaterTemperature.registerParameterHandler(outputValues);
-        setpointTurbineReheaterLevel.registerParameterHandler(outputValues);
-        // </editor-fold>  
         turbine.initConnections();
         // <editor-fold defaultstate="collapsed" desc="Node-element connections">
         // Cold condensate storage
@@ -2200,6 +2044,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Add assemblies to runner instance, this way they get their run 
         // method called each cycle (this sets valve movements, fires events
         // and so on).
+        // The runner also takes care of assigning the parameter handler and 
+        // signal listeners to each element that gets added.
+        runner.setParameterHandler(outputValues);
+        runner.setSignalListener(controller);
+        
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(makeupPumps[idx]);
         }
@@ -4245,6 +4094,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public boolean isTurbineStartupValveAutomatic() {
         return !turbineStartupSteamValve[0].getController().isManualMode()
                 || !turbineStartupSteamValve[1].getController().isManualMode();
+    }
+    
+    @Override
+    public void saveTo(SaveGame save) {
+        save.addSolverState(solver.toString(), 
+                solver.getCurrentNetworkCondition());
+        save.addRunnerState("thermalLayout", 
+                runner.getCurrentAutomationCondition());
+    }
+    
+    public void load(SaveGame save) {
+        solver.setNetworkInitialCondition(
+                save.getSolverState(solver.toString()));
+        runner.setRunnablesAutomationCondition(
+                save.getRunnerState("thermalLayout"));
     }
 
     public void registerReactor(ReactorCore core) {
