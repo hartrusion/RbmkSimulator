@@ -38,16 +38,23 @@ public class SaveGame implements Serializable {
     private final LocalDateTime timestamp;
 
     /**
-     * Maps a DomainAnalogySolver name to its list of initial conditions.
-     * Each entry represents one solver instance.
+     * Maps a DomainAnalogySolver name to its list of initial conditions. Each
+     * entry represents one solver instance.
      */
     private final LinkedHashMap<String, List<AbstractIC>> networkIC;
 
     /**
-     * Maps a SerialRunner name to its list of automation conditions.
-     * Each entry represents one automation runner instance.
+     * Maps a SerialRunner name to its list of automation conditions. Each entry
+     * represents one automation runner instance.
      */
     private final LinkedHashMap<String, List<AbstractAC>> automationConditions;
+
+    /**
+     * Holds the object that describes the state of the reactor component. This
+     * container includes the state space variables for the core state space
+     * models.
+     */
+    private ReactorState reactorState;
 
     public SaveGame() {
         this.timestamp = LocalDateTime.now();
@@ -81,5 +88,13 @@ public class SaveGame implements Serializable {
 
     public Map<String, List<AbstractAC>> getAllRunnerStates() {
         return automationConditions;
+    }
+
+    public ReactorState getReactorState() {
+        return reactorState;
+    }
+
+    public void addReactorState(ReactorState reactorState) {
+        this.reactorState = reactorState;
     }
 }

@@ -1029,4 +1029,85 @@ public class ReactorCore extends Subsystem implements Runnable {
     public NeutronFluxModel getNeutronModel() {
         return neutronFluxModel;
     }
+
+    @Override
+    public void saveTo(SaveGame save) {
+        // Generate a save object containint the reactor state
+        ReactorState s = new ReactorState();
+        s.setCoreOnlySimulation(coreOnlySimulation);
+        s.setSetpointNeutronFluxInput(setpointNeutronFlux.getInput());
+        s.setSetpointNeutronFluxOutput(setpointNeutronFlux.getOutput());
+        s.setSetpointPowerGradientInput(setpointPowerGradient.getInput());
+        s.setSetpointPowerGradientOutput(setpointPowerGradient.getOutput());
+        s.setSetpointTargetNeutronFluxInput(setpointTargetNeutronFlux.getInput());
+        s.setSetpointTargetNeutronFluxOutput(setpointTargetNeutronFlux.getOutput());
+        for (int idx = 0; idx < 6; idx++) {
+            s.setxNeutronFluxModel(
+                    neutronFluxModel.getStateSpaceVariable(idx), idx);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            s.setxXenonModel(
+                    xenonModel.getStateSpaceVariable(idx), idx);
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            s.setxGraphiteModel(
+                    graphiteModel.getStateSpaceVariable(idx), idx);
+        }
+        s.setRps(rps);
+        s.setRpsActive(rpsActive);
+        s.setGlobalControlEnabled(globalControlEnabled);
+        s.setGlobalControlActive(globalControlActive);
+        s.setGlobalControlTransient(globalControlTransient);
+        s.setGlobalControlTarget(globalControlTarget);
+        for (ControlRod r : controlRods) {
+            // generate RodState object and pass it to each control rod.
+            RodState rs = new RodState();
+            r.writeToRodStateObject(rs);
+            s.getRodStates().add(rs);
+        }
+
+        save.addReactorState(s);
+    }
+
+    @Override
+    public void load(SaveGame save) {
+        ReactorState rs = save.getReactorState();
+
+        coreOnlySimulation = rs.isCoreOnlySimulation();
+        setpointNeutronFlux.setInput(rs.getSetpointNeutronFluxInput());
+        setpointNeutronFlux.forceOutputValue(rs.getSetpointNeutronFluxOutput());
+        setpointPowerGradient.setInput(rs.getSetpointPowerGradientInput());
+        setpointPowerGradient.forceOutputValue(rs.getSetpointPowerGradientOutput());
+        setpointTargetNeutronFlux.setInput(rs.getSetpointTargetNeutronFluxInput());
+        setpointTargetNeutronFlux.forceOutputValue(rs.getSetpointTargetNeutronFluxOutput());
+        for (int idx = 0; idx < 6; idx++) {
+            neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            xenonModel.setStateSpaceVariable(idx, rs.getxXenonModel(idx));
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            graphiteModel.setStateSpaceVariable(idx, rs.getxGraphiteModel(idx));
+        }
+        rps = rs.getRps();
+        rpsActive = rs.isRpsActive();
+        globalControlEnabled = rs.isGlobalControlEnabled();
+        globalControlActive = rs.isGlobalControlActive();
+        globalControlTransient = rs.isGlobalControlTransient();
+        globalControlTarget = rs.isGlobalControlTarget();
+        for (int idx = 0; idx < controlRods.size(); idx++) {
+            // generate RodState object and pass it to each control rod.
+            controlRods.get(idx).applyRodState(rs.getRodStates().get(idx));
+        }
+
+        // sot old-variables to trigger all those property change events.
+        oldGlobalControlTransient = !globalControlTransient;
+        oldGlobalControlTarget = !globalControlTarget;
+        oldGlobelControlActive = !globalControlActive;
+        oldGlobalControlEnabled = !globalControlEnabled;
+        oldRpsActive = !rpsActive;
+        oldRps = null;
+        oldAutoRodsPositionAlarmState = null;
+        oldAutoRodsPositionState = null;
+    }
 }

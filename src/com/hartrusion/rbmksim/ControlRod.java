@@ -113,7 +113,7 @@ public class ControlRod extends ReactorElement implements Runnable {
      * Property Change Event description which describes the control state.
      */
     private final String controlStateProperty;
-    
+
     /**
      * Property Change Event description which describes the selection state.
      */
@@ -162,7 +162,7 @@ public class ControlRod extends ReactorElement implements Runnable {
                     oldAutomatic, automatic);
             oldAutomatic = automatic;
         }
-        
+
         // Send the selection state to registered listeners
         if (selected != oldSelected) {
             pcs.firePropertyChange(selectedProperty,
@@ -378,6 +378,37 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     public void rodSpeedMax() {
         rodSpeedIndex = rodSpeeds.length - 1;
+        swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+    }
+
+    /**
+     * Saves the current state of this control rod to a RodState object that is
+     * provided as an argument.
+     *
+     * @param rs RodState object
+     */
+    public void writeToRodStateObject(RodState rs) {
+        rs.setAutoState(automatic);
+        rs.setCurrentPosition(swi.getOutput());
+        rs.setTargetPosition(swi.getInput());
+        rs.setSelected(selected);
+        rs.setRodSpeedIndex(rodSpeedIndex);
+    }
+
+    /**
+     * Sets this control rod to the provided state for loading the simulation
+     * state.
+     *
+     * @param rs RodState object
+     */
+    public void applyRodState(RodState rs) {
+        automatic = rs.getAutoState();
+        oldAutomatic = null;
+        swi.setInput(rs.getTargetPosition());
+        swi.forceOutputValue(rs.getCurrentPosition());
+        selected = rs.isSelected();
+        oldSelected = !selected;
+        rodSpeedIndex = rs.getRodSpeedIndex();
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
     }
 }
