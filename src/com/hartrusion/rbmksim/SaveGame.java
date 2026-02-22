@@ -62,6 +62,11 @@ public class SaveGame implements Serializable {
      */
     private double condenserVacuum;
 
+    /**
+     * Holds the object that describes the state of the turbine component.
+     */
+    private TurbineState turbineState;
+
     public SaveGame() {
         this.timestamp = LocalDateTime.now();
         this.networkIC = new LinkedHashMap<>();
@@ -110,5 +115,13 @@ public class SaveGame implements Serializable {
 
     public void setCondenserVacuum(double condenserVacuum) {
         this.condenserVacuum = condenserVacuum;
+    }
+    
+    public TurbineState getTurbineState() {
+        return turbineState;
+    }
+
+    public void addTurbineState(TurbineState turbineState) {
+        this.turbineState = turbineState;
     }
 }

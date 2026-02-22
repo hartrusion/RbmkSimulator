@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
+import com.hartrusion.control.AutomationRunner;
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
@@ -103,7 +104,7 @@ public class Turbine extends Subsystem implements Runnable {
      */
     private double shaftPower;
 
-    private final DomainAnalogySolver turbineRotor = new DomainAnalogySolver();
+    private final DomainAnalogySolver rotorSolver=  new DomainAnalogySolver();
 
     private final SerialRunner alarmUpdater = new SerialRunner();
 
@@ -121,6 +122,8 @@ public class Turbine extends Subsystem implements Runnable {
     private double generatorPower = 0.0;
 
     private boolean speedSetpointFollowup;
+    
+    private final AutomationRunner runner = new AutomationRunner();
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -150,6 +153,7 @@ public class Turbine extends Subsystem implements Runnable {
 
         // </editor-fold>
         setpointTurbineSpeed = new Setpoint();
+        rotorSolver.setString("TurbineRotorSolver");
     }
 
     @Override
@@ -178,8 +182,8 @@ public class Turbine extends Subsystem implements Runnable {
         // as the generator is synced.
         if (!generatorSynched) {
             turbineMomentum.setFlow(shaftPower);
-            turbineRotor.prepareCalculation();
-            turbineRotor.doCalculation();
+            rotorSolver.prepareCalculation();
+            rotorSolver.doCalculation();
 
             generatorPower = 0.0;
         } else {
@@ -207,7 +211,7 @@ public class Turbine extends Subsystem implements Runnable {
             setpointTurbineSpeed.forceOutputValue(turbineVelocity.getEffort());
         }
 
-        setpointTurbineSpeed.run();
+        runner.invokeAll();
 
         if (!generatorSynched) {
             double tVel = turbineVelocity.getEffort();
@@ -352,6 +356,7 @@ public class Turbine extends Subsystem implements Runnable {
         setpointTurbineSpeed.setLowerLimit(0);
         setpointTurbineSpeed.setUpperLimit(3100);
         setpointTurbineSpeed.setMaxRate(30);
+        runner.submit(setpointTurbineSpeed);
 
         // Build the mechanical model of the turbine rotor. We use a full linear
         // analogy on how to describe and build the rotor model.
@@ -373,7 +378,7 @@ public class Turbine extends Subsystem implements Runnable {
         turbineInertia.setTimeConstant(0.11);
 
         // Set up a solver for this network
-        turbineRotor.addNetwork(turbineVelocity);
+        rotorSolver.addNetwork(turbineVelocity);
 
         // Initial conditions
         turbineTurningGear.setFlow(0.0);
@@ -539,5 +544,48 @@ public class Turbine extends Subsystem implements Runnable {
             return setpointTurbineSpeed.getOutput()
                     - turbineVelocity.getEffort();
         }
+    }
+    
+    @Override
+    public void saveTo(SaveGame save) {
+        // Generate a new object that contains all values for current state.
+        TurbineState ts = new TurbineState();
+
+        ts.setGeneratorSynched(generatorSynched);
+        ts.setSetpointSpeedGradient(setpointSpeedGradient);
+        ts.setSyncAngle(syncAngle);
+        ts.setTargetTurbineSpeed(targetTurbineSpeed);
+        ts.setTps(tps);
+        ts.setTpsActive(tpsActive);
+        save.addTurbineState(ts);
+        
+        save.addSolverState(rotorSolver.toString(),
+                rotorSolver.getCurrentNetworkCondition());
+        save.addRunnerState("turbineSetpoints",
+                runner.getCurrentAutomationCondition());
+        
+        
+    }
+
+    public void load(SaveGame save) {
+        TurbineState ts = save.getTurbineState();
+        
+        generatorSynched = ts.isGeneratorSynched();
+        setpointSpeedGradient = ts.getSetpointSpeedGradient();
+        syncAngle = ts.getSyncAngle();
+        targetTurbineSpeed = ts.getTargetTurbineSpeed();
+        tps = ts.getTps();
+        tpsActive = ts.isTpsActive();
+        
+        // Reset old values to trigger all related events
+        oldSetpointSpeedGradient = null;
+        oldTps = null;
+        oldTpsActive = !tpsActive;
+        oldGeneratorSynched = !generatorSynched;
+        
+        rotorSolver.setNetworkInitialCondition(
+                save.getSolverState(rotorSolver.toString()));
+        runner.setRunnablesAutomationCondition(
+                save.getRunnerState("turbineSetpoints"));
     }
 }
