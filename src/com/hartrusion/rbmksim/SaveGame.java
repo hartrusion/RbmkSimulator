@@ -56,6 +56,12 @@ public class SaveGame implements Serializable {
      */
     private ReactorState reactorState;
 
+    /**
+     * Saved as a single variable as there is nothing like this system, no
+     * specialized class for this.
+     */
+    private double condenserVacuum;
+
     public SaveGame() {
         this.timestamp = LocalDateTime.now();
         this.networkIC = new LinkedHashMap<>();
@@ -96,5 +102,13 @@ public class SaveGame implements Serializable {
 
     public void addReactorState(ReactorState reactorState) {
         this.reactorState = reactorState;
+    }
+
+    public double getCondenserVacuum() {
+        return condenserVacuum;
+    }
+
+    public void setCondenserVacuum(double condenserVacuum) {
+        this.condenserVacuum = condenserVacuum;
     }
 }

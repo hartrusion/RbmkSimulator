@@ -4102,6 +4102,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 solver.getCurrentNetworkCondition());
         save.addRunnerState("thermalLayout", 
                 runner.getCurrentAutomationCondition());
+        save.setCondenserVacuum(condenserVacuum.getOutput());
     }
     
     public void load(SaveGame save) {
@@ -4109,6 +4110,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 save.getSolverState(solver.toString()));
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("thermalLayout"));
+        condenserVacuum.forceOutputValue(save.getCondenserVacuum());
     }
 
     public void registerReactor(ReactorCore core) {
