@@ -94,4 +94,23 @@ public class XenonModel implements Runnable {
     public void setStepTime(double stepTime) {
        this.stepTime = stepTime;
     }
+    
+    public void setStateSpaceVariable(int idx, double x) {
+        switch (idx) {
+            case 0 ->
+                xIodine135 = x;
+            case 1 ->
+                xXenon135 = x;
+        }
+    }
+
+    public double getStateSpaceVariable(int idx) {
+        switch (idx) {
+            case 0:
+                return xIodine135;
+            case 1:
+                return xXenon135;
+        }
+        throw new IllegalArgumentException("Provided index not exsisting.");
+    }
 }

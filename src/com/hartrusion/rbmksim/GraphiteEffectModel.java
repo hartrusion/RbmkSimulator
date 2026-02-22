@@ -143,5 +143,24 @@ public class GraphiteEffectModel implements Runnable {
         }
         return 0;
     }
+    
+    public void setStateSpaceVariable(int idx, double x) {
+        switch (idx) {
+            case 0 ->
+                xHidden = x;
+            case 1 ->
+                xGraphite = x;
+        }
+    }
+
+    public double getStateSpaceVariable(int idx) {
+        switch (idx) {
+            case 0:
+                return xHidden;
+            case 1:
+                return xGraphite;
+        }
+        throw new IllegalArgumentException("Provided index not exsisting.");
+    }
 
 }

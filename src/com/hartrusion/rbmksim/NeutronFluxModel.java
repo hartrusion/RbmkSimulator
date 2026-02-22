@@ -444,8 +444,43 @@ public class NeutronFluxModel implements Runnable {
     public void setBeta(double beta) {
         this.beta = beta;
     }
-    
+
     public boolean isReactorIntact() {
         return (xNeutronFlux < 500);
+    }
+
+    public void setStateSpaceVariable(int idx, double x) {
+        switch (idx) {
+            case 0 ->
+                xNeutronFlux = x;
+            case 1 ->
+                xDelayedCriticality = x;
+            case 2 ->
+                xDeltaRods = x;
+            case 3 ->
+                xDelayedThermalPower = x;
+            case 4 ->
+                xFirstDelay = x;
+            case 5 ->
+                xNeutronRateDelay = x;
+        }
+    }
+
+    public double getStateSpaceVariable(int idx) {
+        switch (idx) {
+            case 0:
+                return xNeutronFlux;
+            case 1:
+                return xDelayedCriticality;
+            case 2:
+                return xDeltaRods;
+            case 3:
+                return xDelayedThermalPower;
+            case 4:
+                return xFirstDelay;
+            case 5:
+                return xNeutronRateDelay;
+        }
+        throw new IllegalArgumentException("Provided index not exsisting.");
     }
 }
