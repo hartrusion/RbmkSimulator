@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim;
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
 import com.hartrusion.alarm.ValueAlarmMonitor;
+import com.hartrusion.control.AutomationRunner;
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.PIControl;
 import java.beans.PropertyChangeEvent;
@@ -173,6 +174,8 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private ValveState autoRodsPositionState;
     private ValveState oldAutoRodsPositionState;
+
+    private final AutomationRunner runner = new AutomationRunner();
 
     ReactorCore() {
         globalControl = new PIControl();
@@ -770,6 +773,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         setpointTargetNeutronFlux.setUpperLimit(110.0);
         setpointTargetNeutronFlux.setMaxRate(2.0);
 
+        runner.submit(setpointNeutronFlux);
+        runner.submit(setpointTargetNeutronFlux);
+
         // Define controler input for automatic rods. e = -(setpoing - flux)
         // is negative, inserting rods means positive output values, removing is
         // negtive.
@@ -843,6 +849,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         setpointPowerGradient.setUpperLimit(0.35);
         setpointPowerGradient.setMaxRate(0.1);
         setpointPowerGradient.forceOutputValue(0.2); // initial value
+
+        runner.submit(setpointPowerGradient);
 
         // Define alarms and consequences
         ValueAlarmMonitor am;
@@ -1035,12 +1043,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         // Generate a save object containint the reactor state
         ReactorState s = new ReactorState();
         s.setCoreOnlySimulation(coreOnlySimulation);
-        s.setSetpointNeutronFluxInput(setpointNeutronFlux.getInput());
-        s.setSetpointNeutronFluxOutput(setpointNeutronFlux.getOutput());
-        s.setSetpointPowerGradientInput(setpointPowerGradient.getInput());
-        s.setSetpointPowerGradientOutput(setpointPowerGradient.getOutput());
-        s.setSetpointTargetNeutronFluxInput(setpointTargetNeutronFlux.getInput());
-        s.setSetpointTargetNeutronFluxOutput(setpointTargetNeutronFlux.getOutput());
         for (int idx = 0; idx < 6; idx++) {
             s.setxNeutronFluxModel(
                     neutronFluxModel.getStateSpaceVariable(idx), idx);
@@ -1067,6 +1069,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
 
         save.addReactorState(s);
+        
+        // Add setpoint object properties
+        save.addRunnerState("reactorRunner", 
+                runner.getCurrentAutomationCondition());
     }
 
     @Override
@@ -1074,12 +1080,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         ReactorState rs = save.getReactorState();
 
         coreOnlySimulation = rs.isCoreOnlySimulation();
-        setpointNeutronFlux.setInput(rs.getSetpointNeutronFluxInput());
-        setpointNeutronFlux.forceOutputValue(rs.getSetpointNeutronFluxOutput());
-        setpointPowerGradient.setInput(rs.getSetpointPowerGradientInput());
-        setpointPowerGradient.forceOutputValue(rs.getSetpointPowerGradientOutput());
-        setpointTargetNeutronFlux.setInput(rs.getSetpointTargetNeutronFluxInput());
-        setpointTargetNeutronFlux.forceOutputValue(rs.getSetpointTargetNeutronFluxOutput());
         for (int idx = 0; idx < 6; idx++) {
             neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
         }
@@ -1109,5 +1109,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         oldRps = null;
         oldAutoRodsPositionAlarmState = null;
         oldAutoRodsPositionState = null;
+        
+        // write back setpoint object states
+        runner.setRunnablesAutomationCondition(
+                save.getRunnerState("reactorRunner"));
     }
 }

@@ -32,12 +32,6 @@ public class ReactorState implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
     private boolean coreOnlySimulation;
-    private double setpointTargetNeutronFluxInput;
-    private double setpointTargetNeutronFluxOutput;
-    private double setpointPowerGradientInput;
-    private double setpointPowerGradientOutput;
-    private double setpointNeutronFluxInput;
-    private double setpointNeutronFluxOutput;
     private final double[] xNeutronFluxModel = new double[6];
     private final double[] xXenonModel = new double[2];
     private final double[] xGraphiteModel = new double[2];
@@ -56,54 +50,6 @@ public class ReactorState implements java.io.Serializable {
 
     public void setCoreOnlySimulation(boolean coreOnlySimulation) {
         this.coreOnlySimulation = coreOnlySimulation;
-    }
-
-    public double getSetpointTargetNeutronFluxInput() {
-        return setpointTargetNeutronFluxInput;
-    }
-
-    public void setSetpointTargetNeutronFluxInput(double setpointTargetNeutronFluxInput) {
-        this.setpointTargetNeutronFluxInput = setpointTargetNeutronFluxInput;
-    }
-
-    public double getSetpointTargetNeutronFluxOutput() {
-        return setpointTargetNeutronFluxOutput;
-    }
-
-    public void setSetpointTargetNeutronFluxOutput(double setpointTargetNeutronFluxOutput) {
-        this.setpointTargetNeutronFluxOutput = setpointTargetNeutronFluxOutput;
-    }
-
-    public double getSetpointPowerGradientInput() {
-        return setpointPowerGradientInput;
-    }
-
-    public void setSetpointPowerGradientInput(double setpointPowerGradientInput) {
-        this.setpointPowerGradientInput = setpointPowerGradientInput;
-    }
-
-    public double getSetpointPowerGradientOutput() {
-        return setpointPowerGradientOutput;
-    }
-
-    public void setSetpointPowerGradientOutput(double setpointPowerGradientOutput) {
-        this.setpointPowerGradientOutput = setpointPowerGradientOutput;
-    }
-
-    public double getSetpointNeutronFluxInput() {
-        return setpointNeutronFluxInput;
-    }
-
-    public void setSetpointNeutronFluxInput(double setpointNeutronFluxInput) {
-        this.setpointNeutronFluxInput = setpointNeutronFluxInput;
-    }
-
-    public double getSetpointNeutronFluxOutput() {
-        return setpointNeutronFluxOutput;
-    }
-
-    public void setSetpointNeutronFluxOutput(double setpointNeutronFluxOutput) {
-        this.setpointNeutronFluxOutput = setpointNeutronFluxOutput;
     }
 
     public double getxNeutronFluxModel(int idx) {
