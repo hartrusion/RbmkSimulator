@@ -850,7 +850,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
                 setValveButtons(jButtonDrumBlowdown2Close,
                         jButtonDrumBlowdown2Open, evt.getNewValue());
                 break;
-            case "Blowdown#BalanceControlControlState":
+            case "Blowdown#BalanceControlState":
                 // Set the initial position of the switch button, this will be
                 // received when opening the panel.
                 if (ControlCommand.AUTOMATIC

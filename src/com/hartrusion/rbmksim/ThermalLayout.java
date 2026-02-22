@@ -61,6 +61,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedThermalExchanger;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
+import java.beans.PropertyChangeEvent;
 import java.util.function.DoubleSupplier;
 
 /**
@@ -414,6 +415,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * have some steam inside the core, 245 is operating power
      */
     private double debugAddInitTemp = 0;
+
+    private ControlCommand balanceControlState;
+    private ControlCommand oldBalanceControlState;
 
     ThermalLayout() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -3345,6 +3349,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 blowdownReturnValve[0].operateSetOpening(80);
                 blowdownReturnValve[1].operateSetOpening(80);
             }
+            balanceControlState = ControlCommand.AUTOMATIC;
+        } else {
+            balanceControlState = ControlCommand.MANUAL_OPERATION;
+        }
+        // Manually fire property change as we do not have an object containing
+        // the controller here.
+        if (balanceControlState != oldBalanceControlState) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Blowdown#BalanceControlState",
+                    oldBalanceControlState, balanceControlState));
+            oldBalanceControlState = balanceControlState;
         }
 
         // Apply the vacuum value to the hotwell/condenser element
@@ -4110,6 +4125,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         save.addRunnerState("thermalLayout",
                 runner.getCurrentAutomationCondition());
         save.setCondenserVacuum(condenserVacuum.getOutput());
+        save.setBlowdownBalanceActive(
+                !blowdownBalanceControlLoop.isManualMode());
     }
 
     public void load(SaveGame save) {
@@ -4118,6 +4135,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("thermalLayout"));
         condenserVacuum.forceOutputValue(save.getCondenserVacuum());
+        blowdownBalanceControlLoop.setManualMode(
+                !save.isBlowdownBalanceActive());
+        oldBalanceControlState = null; // reset to refire property change
     }
 
     public void registerReactor(ReactorCore core) {

@@ -61,6 +61,8 @@ public class SaveGame implements Serializable {
      * specialized class for this.
      */
     private double condenserVacuum;
+    
+    private boolean blowdownBalanceActive;
 
     /**
      * Holds the object that describes the state of the turbine component.
@@ -115,6 +117,14 @@ public class SaveGame implements Serializable {
 
     public void setCondenserVacuum(double condenserVacuum) {
         this.condenserVacuum = condenserVacuum;
+    }
+    
+    public boolean isBlowdownBalanceActive() {
+        return blowdownBalanceActive;
+    }
+
+    public void setBlowdownBalanceActive(boolean blowdownBalanceActive) {
+        this.blowdownBalanceActive = blowdownBalanceActive;
     }
     
     public TurbineState getTurbineState() {
