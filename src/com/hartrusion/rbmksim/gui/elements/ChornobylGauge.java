@@ -60,6 +60,11 @@ public final class ChornobylGauge extends javax.swing.JPanel {
     private javax.swing.JLabel[] tickLabels = new javax.swing.JLabel[3];
 
     /**
+     * Reference to the tooltip object if it is present.
+     */
+    private javax.swing.JToolTip activeToolTip;
+
+    /**
      * Creates new form Gauge
      */
     public ChornobylGauge() {
@@ -71,6 +76,7 @@ public final class ChornobylGauge extends javax.swing.JPanel {
         updateIndicatorPosition();
         initComponents();
         updateTicks();
+        updateTooltipText();
     }
 
     private void updateIndicatorPosition() {
@@ -175,6 +181,7 @@ public final class ChornobylGauge extends javax.swing.JPanel {
         if (value != old) {
             updateIndicatorPosition();
             firePropertyChange("chornobylValue", old, value);
+            updateTooltipText();
             repaint();
         }
     }
@@ -234,6 +241,21 @@ public final class ChornobylGauge extends javax.swing.JPanel {
         jLabelUnit.setBounds(3, 2, 38, 16);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateTooltipText() {
+        if (jLabelUnit != null) {
+            String tooltip = String.format("%.1f %s",
+                    this.value, jLabelUnit.getText());
+            setToolTipText(tooltip);
+
+            // If the tooltip is active and shown, force a repaint of its text
+            // to allow a live view of the data.
+            if (activeToolTip != null && activeToolTip.isShowing()) {
+                activeToolTip.setTipText(tooltip);
+                activeToolTip.repaint();
+            }
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -263,6 +285,13 @@ public final class ChornobylGauge extends javax.swing.JPanel {
         g2.setColor(spotColor);
         g2.fillRect(xPositionLeftSpot, Y_POSITION_BAR + 1, SPOT_WIDTH, BAR_HEIGHT - 2);
         g2.fillRect(xPositionRightSpot, Y_POSITION_BAR + 1, SPOT_WIDTH, BAR_HEIGHT - 2);
+    }
+
+    @Override
+    public javax.swing.JToolTip createToolTip() {
+        // get the reference on the tooltip as it is created.
+        activeToolTip = super.createToolTip();
+        return activeToolTip;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
