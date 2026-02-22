@@ -298,7 +298,9 @@ public class ReactorCore extends Subsystem implements Runnable {
             oldAutoRodsPositionState = autoRodsPositionState;
         }
 
-        globalControl.setFollowUp(avgPositionActiveAutomatic);
+        if (Double.isFinite(avgPositionActiveAutomatic)) {
+            globalControl.setFollowUp(avgPositionActiveAutomatic);
+        }
         globalControl.setManualMode(
                 !globalControlActive || globalControlOverride);
         globalControl.run();
@@ -1069,9 +1071,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
 
         save.addReactorState(s);
-        
+
         // Add setpoint object properties
-        save.addRunnerState("reactorRunner", 
+        save.addRunnerState("reactorRunner",
                 runner.getCurrentAutomationCondition());
     }
 
@@ -1109,7 +1111,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         oldRps = null;
         oldAutoRodsPositionAlarmState = null;
         oldAutoRodsPositionState = null;
-        
+
         // write back setpoint object states
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("reactorRunner"));
