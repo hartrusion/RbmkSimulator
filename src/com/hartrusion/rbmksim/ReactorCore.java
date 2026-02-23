@@ -1063,6 +1063,11 @@ public class ReactorCore extends Subsystem implements Runnable {
         s.setGlobalControlActive(globalControlActive);
         s.setGlobalControlTransient(globalControlTransient);
         s.setGlobalControlTarget(globalControlTarget);
+        
+        // This control object is not part of an assembly class so we need to 
+        // save the integral part manually.
+        s.setGlobalControlIntegral(globalControl.acGetIntegral());
+        
         for (ControlRod r : controlRods) {
             // generate RodState object and pass it to each control rod.
             RodState rs = new RodState();
@@ -1097,6 +1102,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControlActive = rs.isGlobalControlActive();
         globalControlTransient = rs.isGlobalControlTransient();
         globalControlTarget = rs.isGlobalControlTarget();
+        
+        globalControl.acSetIntegral(rs.getGlobalControlIntegral());
+        
         for (int idx = 0; idx < controlRods.size(); idx++) {
             // generate RodState object and pass it to each control rod.
             controlRods.get(idx).applyRodState(rs.getRodStates().get(idx));
