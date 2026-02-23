@@ -451,8 +451,10 @@ public class NeutronFluxModel implements Runnable {
 
     public void setStateSpaceVariable(int idx, double x) {
         switch (idx) {
-            case 0 ->
+            case 0 -> {
                 xNeutronFlux = x;
+                yNeutronFlux = xNeutronFlux;
+            }
             case 1 ->
                 xDelayedCriticality = x;
             case 2 ->
