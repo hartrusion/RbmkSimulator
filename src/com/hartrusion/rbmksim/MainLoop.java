@@ -17,7 +17,6 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmManager;
-import com.hartrusion.modeling.initial.AbstractIC;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
@@ -29,13 +28,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Main cyclic loop that gets called each 100 ms. Holds references to the 
+ * simulation subystems and manages loading and saving the state.
+ * 
  * @author Viktor Alexander Hartung
  */
 public class MainLoop implements Runnable, ModelManipulation {
@@ -160,7 +159,7 @@ public class MainLoop implements Runnable, ModelManipulation {
                 ExceptionPopup.show(e);
             }
         }
-        
+
         if (ac.getPropertyName().equals("LoadSimulationState")) {
             try (ObjectInputStream ois = new ObjectInputStream(
                     new FileInputStream(
