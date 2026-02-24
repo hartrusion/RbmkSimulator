@@ -41,7 +41,8 @@ public class ReactorState implements java.io.Serializable {
     private boolean globalControlActive;
     private boolean globalControlTransient;
     private boolean globalControlTarget;
-    private double globalControlIntegral;
+    private double globalControlInputValue;
+    private double globalControlOutputValue;
 
     private final List<RodState> rodStates = new ArrayList<>();
 
@@ -125,12 +126,20 @@ public class ReactorState implements java.io.Serializable {
         this.globalControlTarget = globalControlTarget;
     }
 
-    public double getGlobalControlIntegral() {
-        return globalControlIntegral;
+    public double getGlobalControlInputValue() {
+        return globalControlInputValue;
     }
 
-    public void setGlobalControlIntegral(double globalControlIntegral) {
-        this.globalControlIntegral = globalControlIntegral;
+    public void setGlobalControlInputValue(double globalControlInputValue) {
+        this.globalControlInputValue = globalControlInputValue;
+    }
+
+    public double getGlobalControlOutputValue() {
+        return globalControlOutputValue;
+    }
+
+    public void setGlobalControlOutputValue(double globalControlOutputValue) {
+        this.globalControlOutputValue = globalControlOutputValue;
     }
 
     /**
