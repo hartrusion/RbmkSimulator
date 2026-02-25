@@ -631,7 +631,7 @@ public class PanelFeedwater extends AbstractPanelWidget
     }//GEN-LAST:event_jButtonFeed21OpenActionPerformed
 
     private void jButtonFeed21CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed21CloseActionPerformed
-        controller.userAction(new ActionCommand("Feedwater2#ShutoffValve3", false));
+        controller.userAction(new ActionCommand("Feedwater2#ShutoffValve1", false));
     }//GEN-LAST:event_jButtonFeed21CloseActionPerformed
 
     private void jButtonFeed22OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed22OpenActionPerformed
