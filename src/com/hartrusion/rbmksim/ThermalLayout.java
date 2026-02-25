@@ -1747,7 +1747,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 1; jdx < 3; jdx++) {
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .initCharacteristic(800, 20);
+                        .initCharacteristic(800, -1);
             }
         }
 
