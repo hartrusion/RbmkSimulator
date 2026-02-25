@@ -165,6 +165,7 @@ public class MainLoop implements Runnable, ModelManipulation {
                     new FileInputStream(
                             new File((String) ac.getValue())))) {
                 SaveGame save = (SaveGame) ois.readObject();
+                alarms.clear();
                 core.load(save);
                 process.load(save);
                 turbine.load(save);
