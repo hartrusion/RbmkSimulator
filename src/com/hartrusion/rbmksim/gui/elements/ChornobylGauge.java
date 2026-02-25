@@ -19,11 +19,14 @@ package com.hartrusion.rbmksim.gui.elements;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.BeanProperty;
 import java.beans.JavaBean;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import javax.swing.JLabel;
+import javax.swing.ToolTipManager;
 
 /**
  * A fixed size gauge as it can be found everywhere in the control panel.
@@ -68,6 +71,28 @@ public final class ChornobylGauge extends javax.swing.JPanel {
      * Creates new form Gauge
      */
     public ChornobylGauge() {
+        // Get the default tooltip display duration in miliseconds.
+        final int defaultDismissDelay
+                = ToolTipManager.sharedInstance().getDismissDelay();
+
+        // Mouse listener to manipulate tooltip duration
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // set to a duration of 60 secodnds
+                ToolTipManager.sharedInstance().setDismissDelay(
+                        60000);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // on leaving the mouse, we will restore the default setting 
+                // to have the standard behavior on other elements.
+                ToolTipManager.sharedInstance().setDismissDelay(
+                        defaultDismissDelay);
+            }
+        });
+
         // one-time calculations
         barWidth = SCALE_WIDTH + 2 * SPOT_WIDTH + 3;
         xPosIndicatorMin = X_POSITION_BAR + 1 + SPOT_WIDTH;
