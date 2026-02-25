@@ -1045,15 +1045,15 @@ public class ReactorCore extends Subsystem implements Runnable {
         // Generate a save object containint the reactor state
         ReactorState s = new ReactorState();
         s.setCoreOnlySimulation(coreOnlySimulation);
-        for (int idx = 0; idx < 6; idx++) {
+        for (int idx = 0; idx < 9; idx++) {
             s.setxNeutronFluxModel(
                     neutronFluxModel.getStateSpaceVariable(idx), idx);
         }
-        for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 3; idx++) {
             s.setxXenonModel(
                     xenonModel.getStateSpaceVariable(idx), idx);
         }
-        for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 3; idx++) {
             s.setxGraphiteModel(
                     graphiteModel.getStateSpaceVariable(idx), idx);
         }
@@ -1109,7 +1109,7 @@ public class ReactorCore extends Subsystem implements Runnable {
                 rs.getGlobalControlOutputValue());
 
         for (int idx = 0; idx < controlRods.size(); idx++) {
-            // generate RodState object and pass it to each control rod.
+            // get RodState object and pass it to each control rod.
             controlRods.get(idx).applyRodState(rs.getRodStates().get(idx));
         }
 

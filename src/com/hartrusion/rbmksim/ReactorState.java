@@ -32,9 +32,9 @@ public class ReactorState implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
     private boolean coreOnlySimulation;
-    private final double[] xNeutronFluxModel = new double[6];
-    private final double[] xXenonModel = new double[2];
-    private final double[] xGraphiteModel = new double[2];
+    private final double[] xNeutronFluxModel = new double[9];
+    private final double[] xXenonModel = new double[3];
+    private final double[] xGraphiteModel = new double[3];
     private ControlCommand rps;
     private boolean rpsActive;
     private boolean globalControlEnabled;

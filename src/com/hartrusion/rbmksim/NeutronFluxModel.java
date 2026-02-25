@@ -465,6 +465,12 @@ public class NeutronFluxModel implements Runnable {
                 xFirstDelay = x;
             case 5 ->
                 xNeutronRateDelay = x;
+            case 6 ->
+                uAbsorberRods = x;
+            case 7 ->
+                uReactivity = x;
+            case 8 ->
+                uSkew = x;
         }
     }
 
@@ -482,6 +488,12 @@ public class NeutronFluxModel implements Runnable {
                 return xFirstDelay;
             case 5:
                 return xNeutronRateDelay;
+            case 6:
+                return uAbsorberRods;
+            case 7:
+                return uReactivity;
+            case 8:
+                return uSkew;
         }
         throw new IllegalArgumentException("Provided index not exsisting.");
     }

@@ -150,6 +150,8 @@ public class GraphiteEffectModel implements Runnable {
                 xHidden = x;
             case 1 ->
                 xGraphite = x;
+            case 2 ->
+                uNeutronFlux = x;
         }
     }
 
@@ -159,6 +161,8 @@ public class GraphiteEffectModel implements Runnable {
                 return xHidden;
             case 1:
                 return xGraphite;
+            case 2:
+                return uNeutronFlux;
         }
         throw new IllegalArgumentException("Provided index not exsisting.");
     }

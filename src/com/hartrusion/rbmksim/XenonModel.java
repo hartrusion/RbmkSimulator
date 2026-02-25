@@ -101,6 +101,8 @@ public class XenonModel implements Runnable {
                 xIodine135 = x;
             case 1 ->
                 xXenon135 = x;
+            case 2 ->
+                uNeutronFlux = x;
         }
     }
 
@@ -110,6 +112,8 @@ public class XenonModel implements Runnable {
                 return xIodine135;
             case 1:
                 return xXenon135;
+            case 2:
+                return uNeutronFlux;
         }
         throw new IllegalArgumentException("Provided index not exsisting.");
     }

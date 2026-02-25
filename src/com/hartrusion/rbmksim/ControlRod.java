@@ -410,5 +410,8 @@ public class ControlRod extends ReactorElement implements Runnable {
         oldSelected = !selected;
         rodSpeedIndex = rs.getRodSpeedIndex();
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+        
+        calculateAbsorption();
+        calculateDisplacerBoost();
     }
 }
