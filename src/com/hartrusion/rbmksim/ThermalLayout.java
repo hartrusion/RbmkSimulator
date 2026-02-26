@@ -4127,6 +4127,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         save.setCondenserVacuum(condenserVacuum.getOutput());
         save.setBlowdownBalanceActive(
                 !blowdownBalanceControlLoop.isManualMode());
+        save.setCoreOnlySimulation(noReactorInput);
     }
 
     public void load(SaveGame save) {
@@ -4138,6 +4139,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownBalanceControlLoop.setManualMode(
                 !save.isBlowdownBalanceActive());
         oldBalanceControlState = null; // reset to refire property change
+        noReactorInput = save.isCoreOnlySimulation();
     }
 
     public void registerReactor(ReactorCore core) {

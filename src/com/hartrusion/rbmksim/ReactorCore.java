@@ -1044,7 +1044,6 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void saveTo(SaveGame save) {
         // Generate a save object containint the reactor state
         ReactorState s = new ReactorState();
-        s.setCoreOnlySimulation(coreOnlySimulation);
         for (int idx = 0; idx < 9; idx++) {
             s.setxNeutronFluxModel(
                     neutronFluxModel.getStateSpaceVariable(idx), idx);
@@ -1063,6 +1062,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         s.setGlobalControlActive(globalControlActive);
         s.setGlobalControlTransient(globalControlTransient);
         s.setGlobalControlTarget(globalControlTarget);
+        s.setCoreTemp(coreTemp);
+        s.setVoiding(voiding);
 
         // This control object is not part of an assembly class so we need to 
         // save the integral part manually.
@@ -1087,7 +1088,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void load(SaveGame save) {
         ReactorState rs = save.getReactorState();
 
-        coreOnlySimulation = rs.isCoreOnlySimulation();
+        coreOnlySimulation = save.isCoreOnlySimulation();
         for (int idx = 0; idx < 9; idx++) {
             neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
         }
@@ -1103,6 +1104,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControlActive = rs.isGlobalControlActive();
         globalControlTransient = rs.isGlobalControlTransient();
         globalControlTarget = rs.isGlobalControlTarget();
+        // those values get assigned from previous cycle from thermal layout.
+        // as there is no previous cycle, we need to restore them.
+        coreTemp = rs.getCoreTemp();
+        voiding = rs.getVoiding();
 
         globalControl.acSetCondition(
                 rs.getGlobalControlInputValue(),

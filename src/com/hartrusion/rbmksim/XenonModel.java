@@ -37,13 +37,13 @@ public class XenonModel implements Runnable {
     // Iodine 136 half life: 6.6 Hours
     // Xenon 136 half life: 9.4 hours -> 9.4/6.6 = 1.384
     private static final double T_XENON = T_IODINE * 1.4;
-    
+
     /**
      * Time constant for burning xenon at 100 % neutron flux as percentage of
      * the Xenon time constant.
      */
     private static final double T_BURN = T_XENON * 0.2;
-    
+
     private double uNeutronFlux;
 
     private double xIodine135 = 0;
@@ -51,7 +51,7 @@ public class XenonModel implements Runnable {
 
     private double yXenon;
     private double yIodine;
-    
+
     public void setInititalState(double xIodine135, double xXenon135) {
         this.xIodine135 = xIodine135;
         this.xXenon135 = xXenon135;
@@ -90,17 +90,19 @@ public class XenonModel implements Runnable {
     public double getYIodine() {
         return yIodine;
     }
-    
+
     public void setStepTime(double stepTime) {
-       this.stepTime = stepTime;
+        this.stepTime = stepTime;
     }
-    
+
     public void setStateSpaceVariable(int idx, double x) {
         switch (idx) {
             case 0 ->
                 xIodine135 = x;
-            case 1 ->
+            case 1 -> {
                 xXenon135 = x;
+                yXenon = x;
+            }
             case 2 ->
                 uNeutronFlux = x;
         }

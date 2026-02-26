@@ -30,8 +30,7 @@ import java.util.List;
 public class ReactorState implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private boolean coreOnlySimulation;
+    
     private final double[] xNeutronFluxModel = new double[9];
     private final double[] xXenonModel = new double[3];
     private final double[] xGraphiteModel = new double[3];
@@ -43,16 +42,10 @@ public class ReactorState implements java.io.Serializable {
     private boolean globalControlTarget;
     private double globalControlInputValue;
     private double globalControlOutputValue;
+    private double coreTemp;
+    private double voiding;
 
     private final List<RodState> rodStates = new ArrayList<>();
-
-    public boolean isCoreOnlySimulation() {
-        return coreOnlySimulation;
-    }
-
-    public void setCoreOnlySimulation(boolean coreOnlySimulation) {
-        this.coreOnlySimulation = coreOnlySimulation;
-    }
 
     public double getxNeutronFluxModel(int idx) {
         return xNeutronFluxModel[idx];
@@ -140,6 +133,22 @@ public class ReactorState implements java.io.Serializable {
 
     public void setGlobalControlOutputValue(double globalControlOutputValue) {
         this.globalControlOutputValue = globalControlOutputValue;
+    }
+
+    public double getCoreTemp() {
+        return coreTemp;
+    }
+
+    public void setCoreTemp(double coreTemp) {
+        this.coreTemp = coreTemp;
+    }
+    
+    public double getVoiding() {
+        return voiding;
+    }
+    
+    public void setVoiding(double voiding) {
+        this.voiding = voiding;
     }
 
     /**
