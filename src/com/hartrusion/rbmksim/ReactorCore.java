@@ -1088,13 +1088,13 @@ public class ReactorCore extends Subsystem implements Runnable {
         ReactorState rs = save.getReactorState();
 
         coreOnlySimulation = rs.isCoreOnlySimulation();
-        for (int idx = 0; idx < 6; idx++) {
+        for (int idx = 0; idx < 9; idx++) {
             neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
         }
-        for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 3; idx++) {
             xenonModel.setStateSpaceVariable(idx, rs.getxXenonModel(idx));
         }
-        for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 3; idx++) {
             graphiteModel.setStateSpaceVariable(idx, rs.getxGraphiteModel(idx));
         }
         rps = rs.getRps();
