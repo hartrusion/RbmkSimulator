@@ -89,6 +89,10 @@ accident can be triggered.
 * Mnemonic displays with additional measurement data on them.
 * Some line plots to monitor measurement time series.
 
+There is a list of **missing features** in the 
+[Issues](https://github.com/hartrusion/RbmkSimulator/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Missing%20feature%22) 
+section, those are planned to be implemented.
+
 ## Build from Source
 To build the simulator from source, you need the source code from this repo
 and some additional code that is released on different repositories:
@@ -106,16 +110,14 @@ work anymore.
 
 ## Getting involved
 As this project is in a very early stage, there are still a few architecture 
-and design decissions to be made so things might still change a lot. There 
-are lots of systems missing and not working.
+and design decissions to be made so things might still change a lot.
 
 Please make yourself familiar with the rather unusual
 [Code of Conduct](./CODE_OF_CONDUCT.md) first and read the
 [Contributing](./CONTRIBUTING.md) guidelines.
 
-I did not set up antything for contributing for now, but if you're a senior
-java dev and you have some suggestions, feel free to open a discussion or 
-issue.
+If you encounter any bug (like unexpected crashes), feel free to open an 
+[Issue](https://github.com/hartrusion/RbmkSimulator/issues) here on Github.
 
 No Z supporters wanted.
 
