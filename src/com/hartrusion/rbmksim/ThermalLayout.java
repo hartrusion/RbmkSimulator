@@ -62,6 +62,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedThermalExchanger;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import java.beans.PropertyChangeEvent;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 /**
@@ -3265,9 +3266,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             "HotwellLevel", AlarmState.MIN1));
         }
 
-        // Turbine - there is no trip logic yet but for now block all valves
-        // if there is no vacuum - TODO - this will be included in turbine 
-        // logic later
+        // Turbine
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].addSafeClosedProvider(()
                     -> !turbine.isTpsActive());
@@ -3283,9 +3282,57 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         turbineLowPressureTripValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
-        turbineReheaterCondensateDrain.addSafeClosedProvider(()
-                -> !alarmManager.isAlarmActive(
-                        "ReheaterCondensateLevel", AlarmState.MIN1));
+
+        // Keep condensate drain shut if pressure would result in a reverse
+        // flow.
+        turbineReheaterCondensateDrain.addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (turbineReheater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT).effortUpdated()
+                        && turbineReheaterCondensateDrainOut.effortUpdated()) {
+                    return !alarmManager.isAlarmActive(
+                            "ReheaterCondensateLevel", AlarmState.MIN1)
+                            && turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            > turbineReheaterCondensateDrainOut.getEffort();
+                }
+                return false;
+            }
+        });
+        // Same for normal drain vales to Deaerator: Keep them shut if the
+        // pressure in Deaerator is higher than in the reheater itself to 
+        // prevent a reverse flow.
+        turbineReheaterCondensateValve[0].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (turbineReheater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT).effortUpdated()
+                        && turbineReheaterCondensateNode[0].effortUpdated()) {
+                    return turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            > turbineReheaterCondensateNode[0].getEffort();
+                }
+                return false;
+            }
+        });
+        turbineReheaterCondensateValve[1].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (turbineReheater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT).effortUpdated()
+                        && turbineReheaterCondensateNode[1].effortUpdated()) {
+                    return turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            > turbineReheaterCondensateNode[1].getEffort();
+                }
+                return false;
+            }
+        });
+
         turbineReheaterTripValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
 
