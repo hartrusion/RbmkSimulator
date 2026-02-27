@@ -710,6 +710,8 @@ public class PanelBlowdown extends AbstractPanelWidget {
     private void jButtonCloseInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseInputActionPerformed
         controller.userAction(new ActionCommand("Blowdown#ValveFromLoop1", false));
         controller.userAction(new ActionCommand("Blowdown#ValveFromLoop2", false));
+        controller.userAction(new ActionCommand("Blowdown#ValveFromDrum1", false));
+        controller.userAction(new ActionCommand("Blowdown#ValveFromDrum2", false));
     }//GEN-LAST:event_jButtonCloseInputActionPerformed
 
     private void jButtonCloseOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseOutputActionPerformed
