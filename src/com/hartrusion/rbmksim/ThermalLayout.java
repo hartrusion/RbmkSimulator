@@ -410,13 +410,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
      */
     private boolean noReactorInput;
 
-    /**
-     * Poor mans debugging: This temperature is added everywhere to be able to
-     * start the simulation with pressurized reactor. Set to 150 for example to
-     * have some steam inside the core, 245 is operating power
-     */
-    private double debugAddInitTemp = 0;
-
     private ControlCommand balanceControlState;
     private ControlCommand oldBalanceControlState;
 
@@ -1955,16 +1948,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             blowdownValveFromLoop[idx].initOpening(95);
         }
         blowdownToRegeneratorFirstResistance.getHeatHandler()
-                .setInitialTemperature(298.15 + debugAddInitTemp);
+                .setInitialTemperature(298.15);
         blowdownToRegeneratorSecondResistance.getHeatHandler()
-                .setInitialTemperature(298.15 + debugAddInitTemp);
+                .setInitialTemperature(298.15);
 
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
-
-        if (debugAddInitTemp <= 5) { // no cooldown for hot tests
-            blowdownValveCoolant.initFlow(400);
-        }
 
         // Variant 1: Forced Circ. with MPC and no Cooldown Pump:
         /* for (int idx = 0; idx <= 1; idx++) {
@@ -1993,24 +1982,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
-            loopSteamDrum[idx].setInitialState(21000, 42.9 + 273.15 + debugAddInitTemp);
+            loopSteamDrum[idx].setInitialState(21000, 42.9 + 273.15);
             loopEvaporator[idx].setInitialState(6.0, 1e5,
-                    273.5 + 29.4 + debugAddInitTemp, 273.5 + 46.3 + debugAddInitTemp);
+                    273.5 + 29.4, 273.5 + 46.3);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(273.16 + 29.44 + debugAddInitTemp);
+                    .setInitialTemperature(273.16 + 29.44);
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(273.5 + 29.44 + debugAddInitTemp);
+                    .setInitialTemperature(273.5 + 29.44);
 
             blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
-                    29.44 + 273.5 + debugAddInitTemp);
+                    29.44 + 273.5);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    26.27 + 273.5 + debugAddInitTemp);
+                    26.27 + 273.5);
         }
         blowdownCooldown.getPrimarySide().getHeatHandler()
-                .setInitialTemperature(299.84 + debugAddInitTemp);
+                .setInitialTemperature(299.84);
         blowdownCooldown.getSecondarySide().getHeatHandler()
-                .setInitialTemperature(301.57 + debugAddInitTemp);
+                .setInitialTemperature(301.57);
         // Blowdown/Cooldown one pump is in operation
         blowdownCooldownPumps[1].setInitialCondition(true, true, true);
 
@@ -3312,7 +3301,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         PhasedSuperheater.PRIMARY_OUT).effortUpdated()
                         && turbineReheaterCondensateNode[0].effortUpdated()) {
                     return turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            PhasedSuperheater.PRIMARY_OUT).getEffort()
                             > turbineReheaterCondensateNode[0].getEffort();
                 }
                 return false;
@@ -3326,7 +3315,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         PhasedSuperheater.PRIMARY_OUT).effortUpdated()
                         && turbineReheaterCondensateNode[1].effortUpdated()) {
                     return turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            PhasedSuperheater.PRIMARY_OUT).getEffort()
                             > turbineReheaterCondensateNode[1].getEffort();
                 }
                 return false;
@@ -3808,15 +3797,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineLowPressureStage[0].getFlow());
 
         // </editor-fold>        
-//        System.out.println(
-//                "p_HP-In: "
-//                + ((int) turbineHighPressureIn.getEffort())
-//                + ", h_HP-In: "
-//                + ((int) turbineHighPressureIn.getHeatEnergy())
-//                + ", p_HP-MidOut: "
-//                + turbineHighPressureMidOut.getEffort()
-//                + ", h_HP-MidOut: "
-//                + turbineHighPressureMidOut.getHeatEnergy());
     }
 
     @Override
