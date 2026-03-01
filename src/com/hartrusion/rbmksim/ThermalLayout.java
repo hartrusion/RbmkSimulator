@@ -2910,6 +2910,52 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("DA1Temperature");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return deaerator[0].getTemperature() - 273.15;
+            }
+        });
+        am.defineAlarm(180.0, AlarmState.MAX1);
+        am.defineAlarm(175.0, AlarmState.HIGH2);
+        am.defineAlarm(170.0, AlarmState.HIGH1);
+        am.defineAlarm(130.0, AlarmState.LOW1);
+        am.defineAlarm(110.0, AlarmState.LOW2);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                deaeratorSteamInRegValve[0].getController().setManualMode(true);
+                deaeratorSteamInRegValve[0].operateCloseValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("DA2Temperature");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return deaerator[1].getTemperature() - 273.15;
+            }
+        });
+        am.defineAlarm(180.0, AlarmState.MAX1);
+        am.defineAlarm(175.0, AlarmState.HIGH2);
+        am.defineAlarm(170.0, AlarmState.HIGH1);
+        am.defineAlarm(130.0, AlarmState.LOW1);
+        am.defineAlarm(110.0, AlarmState.LOW2);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                deaeratorSteamInRegValve[1].getController().setManualMode(true);
+                deaeratorSteamInRegValve[1].operateCloseValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
         am.setName("Feed1Pressure");
