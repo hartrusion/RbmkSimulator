@@ -2299,7 +2299,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) deaeratorSteamInRegValve[idx].getController())
-                    .setParameterK(1.0);
+                    .setParameterK(6.0);
             ((PIControl) deaeratorSteamInRegValve[idx].getController())
                     .setParameterTN(20);
         }
