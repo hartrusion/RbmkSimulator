@@ -82,6 +82,8 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabelReadingSteamFlow1 = new javax.swing.JLabel();
+        jLabelReadingSteamFlow2 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(400, 264));
@@ -125,7 +127,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingCondIn1Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondIn1Valve.setText("___");
         jLabelReadingCondIn1Valve.setOpaque(true);
-        add(jLabelReadingCondIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 96, 24, -1));
+        add(jLabelReadingCondIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 66, 24, -1));
 
         jLabelReadingSteamIn1Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamIn1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -189,7 +191,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingCondIn2Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondIn2Valve.setText("___");
         jLabelReadingCondIn2Valve.setOpaque(true);
-        add(jLabelReadingCondIn2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 96, 24, -1));
+        add(jLabelReadingCondIn2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 66, 24, -1));
 
         jLabelReadingDA1Pressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA1Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -311,6 +313,22 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabel20.setText("Feed 2");
         add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 248, 38, -1));
 
+        jLabelReadingSteamFlow1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamFlow1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamFlow1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamFlow1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamFlow1.setText("____ kg/s");
+        jLabelReadingSteamFlow1.setOpaque(true);
+        add(jLabelReadingSteamFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 108, 56, 16));
+
+        jLabelReadingSteamFlow2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamFlow2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamFlow2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamFlow2.setText("____ kg/s");
+        jLabelReadingSteamFlow2.setOpaque(true);
+        add(jLabelReadingSteamFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 106, 56, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicDeaerator.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -340,6 +358,8 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingDA2Temperature;
     private javax.swing.JLabel jLabelReadingDrain1Valve;
     private javax.swing.JLabel jLabelReadingDrain2Valve;
+    private javax.swing.JLabel jLabelReadingSteamFlow1;
+    private javax.swing.JLabel jLabelReadingSteamFlow2;
     private javax.swing.JLabel jLabelReadingSteamFromMain1Valve;
     private javax.swing.JLabel jLabelReadingSteamFromMain2Valve;
     private javax.swing.JLabel jLabelReadingSteamIn1Valve;
@@ -482,6 +502,12 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
             case "Deaerator2#Drain" ->
                 jLabelReadingDrain2Valve.setText(
                         String.format("%.0f", newValue));
+            case "Deaerator1#SteamFlow" -> 
+                jLabelReadingSteamFlow1.setText(
+                        String.format("%.1f", newValue) + " kg/s");
+            case "Deaerator2#SteamFlow" -> 
+                jLabelReadingSteamFlow2.setText(
+                        String.format("%.1f", newValue) + " kg/s");
         }
     }
 

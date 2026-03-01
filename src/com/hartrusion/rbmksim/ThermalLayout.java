@@ -1697,10 +1697,36 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
             // Todo: Proper values for DA valves, just some rough estimates 
             deaeratorSteamInRegValve[idx].initCharacteristic(1000, -1.0);
-            deaeratorSteamFromMain[idx].initCharacteristic(200, -1.0);
+
+            // DA from main steam: Here are some thoughts on how to dimenstion 
+            // the valves. We have no low pressure preheater on startup so we
+            // could do a preheating with the DA somehow, but too much steam 
+            // from main will result in dangerously imbalances between both
+            // loops so those thigns have to be limited. 
+            // Allow heating up feedwater flow of 50 kg/s per side maximum 
+            // as this is only for startup, but assume that the feedwater is 
+            // still at a low temperature of about 30 degrees celsius. This 
+            // means heating up to 165 in DA is a delta of 135 Kelvin, which
+            // is 4200 J/kg/K * 135 K = 5.67e5 J/kg, using 50 kg/s it will be
+            // 5.67e5 J/kg * 50 kg/s = 2.84e7 J/s = 28.7 MW.
+            // Main Steam has 284 °C and will be condensed to 30 °C in this 
+            // situation so it will have 254 K * 4200 J/kg/K = 1.07e6 J/kg from
+            // temperature and and additional 2.1e6 J/kg from vaporiztion so 
+            // it is a total of 3.17e6 J/kg. To get those 2.84e7 J/s we need a 
+            // flow 2.84e7 J/s / 3.17e6 J/kg = 8.96 kg/s, which is pretty low.
+            // With a pressure of 65 bar = 6.5e6 Pa down to 1 bar ambient will
+            // be 6.4e6 Pa with 8.96 kg/s. Lets go for 12 kg/s at 5e6Pa so
+            // something is left for the regulator valves afterwards and the 
+            // valves can be used earlier on startup. That will be R = 
+            // 5e6 Pa / 12 kg/s = 4.2e5 Pa*s/kg
+            deaeratorSteamFromMain[idx].initCharacteristic(4.2e5, -1.0);
             deaeratorDrain[idx].initCharacteristic(50, -1.0);
         }
 
+        // Some words on reheating: 
+        // After low pressure reheaters, there are those temperatures:
+        // 58,5, 81.3, 103.1 132.2, 155.3 - and after DA, maybe 165.
+        // 
         // Feedwater
         // Steam generation is about 5600 t/h which is 1555.56 kg/s so per side
         // there must be 777.775 kg/s Feedwater flow. Expected pressure in 
@@ -3643,7 +3669,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     deaerator[idx].getTemperature() - 273.15);
 
             // Feedwater from Deaerators to the pumps (this value is displayed
-            // on the feedwater pumps mnemonics
+            // on the feedwater pumps mnemonics, not on the DA page)
             outputValues.setParameterValue("Deaerator" + (idx + 1)
                     + "#FeedFlow",
                     deaeratorFeedwaterOutHeatNode[idx].getFlow(
@@ -3652,6 +3678,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             feedwaterPump[idx][1].getSuctionValve())
                     + deaeratorFeedwaterOutHeatNode[idx].getFlow(
                             feedwaterSparePumpInValve[idx].getValveElement()));
+            outputValues.setParameterValue("Deaerator" + (idx + 1)
+                    + "#SteamFlow",
+                    deaeratorSteamInRegValve[idx].getValveElement().getFlow());
         }
 
         // Blowdown and Cooldown system
