@@ -4045,7 +4045,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Todo: More valves here, there are only those so far which do work
             for (int idx = 0; idx < 3; idx++) {
                 ejectorMainSteamValve[idx].handleAction(ac);
-                // ejectorMainCondensateValve[idx].handleAction(ac);
+                ejectorMainCondensateValve[idx].handleAction(ac);
                 ejectorMainFlowIn[idx].handleAction(ac);
                 ejectorMainFlowOut[idx].handleAction(ac);
             }
