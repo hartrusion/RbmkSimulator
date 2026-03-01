@@ -239,6 +239,7 @@
         <Property name="feedbackComponent" type="java.lang.String" value="AuxCond1#Level"/>
         <Property name="maxValue" type="double" value="160.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="AuxCond1#LevelSetpoint"/>
+        <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -252,6 +253,7 @@
         <Property name="feedbackComponent" type="java.lang.String" value="AuxCond2#Level"/>
         <Property name="maxValue" type="double" value="160.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="AuxCond2#LevelSetpoint"/>
+        <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

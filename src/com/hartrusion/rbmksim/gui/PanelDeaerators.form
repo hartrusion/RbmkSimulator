@@ -146,6 +146,7 @@
         <Property name="maxValue" type="double" value="10.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Deaerator2#PressureSetpoint"/>
+        <Property name="unit" type="java.lang.String" value="bar"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -160,6 +161,7 @@
         <Property name="maxValue" type="double" value="10.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Deaerator1#PressureSetpoint"/>
+        <Property name="unit" type="java.lang.String" value="bar"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

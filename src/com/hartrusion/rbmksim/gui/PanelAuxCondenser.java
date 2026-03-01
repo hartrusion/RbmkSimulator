@@ -185,12 +185,14 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         controlLoopCondLevel1.setFeedbackComponent("AuxCond1#Level");
         controlLoopCondLevel1.setMaxValue(160.0);
         controlLoopCondLevel1.setSetpointComponent("AuxCond1#LevelSetpoint");
+        controlLoopCondLevel1.setUnit("cm");
         add(controlLoopCondLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 6, -1, -1));
 
         controlLoopCondLevel2.setControlComponent("AuxCond2#CondensateValve");
         controlLoopCondLevel2.setFeedbackComponent("AuxCond2#Level");
         controlLoopCondLevel2.setMaxValue(160.0);
         controlLoopCondLevel2.setSetpointComponent("AuxCond2#LevelSetpoint");
+        controlLoopCondLevel2.setUnit("cm");
         add(controlLoopCondLevel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 46, -1, -1));
 
         chornobylGaugeCondTemperature.setChornobylMaximum(100.0F);

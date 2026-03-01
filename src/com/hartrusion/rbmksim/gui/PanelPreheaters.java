@@ -169,6 +169,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         loopControlDA1Pressure.setMaxValue(10.0);
         loopControlDA1Pressure.setSetpoint(8.0);
         loopControlDA1Pressure.setSetpointComponent("Deaerator1#PressureSetpoint");
+        loopControlDA1Pressure.setUnit("cm");
         add(loopControlDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 4, -1, -1));
 
         jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
@@ -184,6 +185,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         loopControlDA1Pressure1.setMaxValue(10.0);
         loopControlDA1Pressure1.setSetpoint(8.0);
         loopControlDA1Pressure1.setSetpointComponent("Deaerator1#PressureSetpoint");
+        loopControlDA1Pressure1.setUnit("cm");
         add(loopControlDA1Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 44, -1, -1));
 
         jLabelDA1Press3.setFont(jLabelDA1Press3.getFont().deriveFont(jLabelDA1Press3.getFont().getSize()-2f));
@@ -199,6 +201,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         loopControlDA1Pressure2.setMaxValue(10.0);
         loopControlDA1Pressure2.setSetpoint(8.0);
         loopControlDA1Pressure2.setSetpointComponent("Deaerator1#PressureSetpoint");
+        loopControlDA1Pressure2.setUnit("cm");
         add(loopControlDA1Pressure2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 84, -1, -1));
 
         jLabelDA1Press5.setFont(jLabelDA1Press5.getFont().deriveFont(jLabelDA1Press5.getFont().getSize()-2f));

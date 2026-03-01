@@ -24,9 +24,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.beans.BeanProperty;
 import java.beans.PropertyChangeEvent;
+import javax.swing.ToolTipManager;
 
 /**
  * A small widget that allows controlling a control loop with a few buttons. It
@@ -43,7 +46,7 @@ import java.beans.PropertyChangeEvent;
  */
 public class ControlLoop extends javax.swing.JPanel
         implements UpdateReceiver {
-    
+
     protected static final Color DARKRED = new Color(128, 0, 0);
     protected static final Color RED = new Color(255, 0, 0);
 
@@ -70,7 +73,7 @@ public class ControlLoop extends javax.swing.JPanel
 
     // parameters for calculation of X-coodinates from values
     private double mVal = 0.5, bVal = 34, mOut = 0.5, bOut = 34;
-    
+
     private boolean indicatorActive = false;
 
     private String component = "undefined";
@@ -78,6 +81,14 @@ public class ControlLoop extends javax.swing.JPanel
     private String componentControlState = "undefinedControlState";
     private String setpointComponent = "undefinedSetpoint";
     private String feedback = "undefined";
+
+    private String unit = "%";
+    private String outUnit = "%";
+
+    /**
+     * Reference to the tooltip object if it is present.
+     */
+    private javax.swing.JToolTip activeToolTip;
 
     private boolean setpointSelected;
 
@@ -95,9 +106,35 @@ public class ControlLoop extends javax.swing.JPanel
         componentControlState = component + "ControlState";
         firePropertyChange("component", old, component);
     }
-    
+
     public String getSetpointComponent() {
         return setpointComponent;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Unit string for setpoint and current value")
+    public void setUnit(String unit) {
+        String old = this.unit;
+        this.unit = unit;
+        firePropertyChange("unit", old, unit);
+        updateTooltipText();
+    }
+
+    public String getOutUnit() {
+        return outUnit;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Unit string for output value")
+    public void setOutUnit(String outUnit) {
+        String old = this.outUnit;
+        this.outUnit = outUnit;
+        firePropertyChange("outUnit", old, outUnit);
+        updateTooltipText();
     }
 
     @BeanProperty(preferred = true, visualUpdate = true, description
@@ -107,7 +144,7 @@ public class ControlLoop extends javax.swing.JPanel
         this.setpointComponent = setpointComponent;
         firePropertyChange("setpointComponent", old, setpointComponent);
     }
-    
+
     public String getFeedbackComponent() {
         return feedback;
     }
@@ -129,6 +166,38 @@ public class ControlLoop extends javax.swing.JPanel
      */
     public ControlLoop() {
         initComponents();
+
+        // Get the default tooltip display duration in miliseconds.
+        final int defaultDismissDelay
+                = ToolTipManager.sharedInstance().getDismissDelay();
+
+        // Mouse listener to manipulate tooltip duration
+        MouseAdapter tooltipMouseAdapter = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // set to a duration of 60 seconds
+                ToolTipManager.sharedInstance().setDismissDelay(
+                        60000);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // on leaving the mouse, we will restore the default setting 
+                // to have the standard behavior on other elements.
+                ToolTipManager.sharedInstance().setDismissDelay(
+                        defaultDismissDelay);
+            }
+        };
+
+        this.addMouseListener(tooltipMouseAdapter);
+
+        jButtonAuto.addMouseListener(tooltipMouseAdapter);
+        jButtonSetpoint.addMouseListener(tooltipMouseAdapter);
+        jButtonHand.addMouseListener(tooltipMouseAdapter);
+        jButtonUp.addMouseListener(tooltipMouseAdapter);
+        jButtonDown.addMouseListener(tooltipMouseAdapter);
+
+        updateTooltipText();
     }
 
     /**
@@ -247,7 +316,7 @@ public class ControlLoop extends javax.swing.JPanel
         if (setpointSelected) {
             jButtonSetpoint.setBackground(Color.LIGHT_GRAY);
         } else {
-            jButtonSetpoint.setBackground(new Color(229,229,229));
+            jButtonSetpoint.setBackground(new Color(229, 229, 229));
         }
     }//GEN-LAST:event_jButtonSetpointActionPerformed
 
@@ -300,11 +369,11 @@ public class ControlLoop extends javax.swing.JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
+
         Object prevHint = g2.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // Upper display
         // A rectangle with a black frame
         g2.setColor(Color.WHITE);
@@ -347,7 +416,7 @@ public class ControlLoop extends javax.swing.JPanel
         // Value marker
         g2.setColor(Color.BLUE);
         g2.drawLine(outValueXCoord, 21, outValueXCoord, 26);
-        
+
         // A small indicator light, same as on the IntegralSwitch class
         Ellipse2D.Float circle;
         if (indicatorActive) {
@@ -355,13 +424,13 @@ public class ControlLoop extends javax.swing.JPanel
         } else {
             g2.setColor(Color.GRAY);
         }
-        
+
         circle = new Ellipse2D.Float(102, 4, 6, 6);
         g2.fill(circle);
         // Draw the outer ring using foreground color.
         g2.setColor(getForeground());
         g2.draw(circle);
-        
+
         // Reset the antialiasing to its previous value
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, prevHint);
     }
@@ -373,6 +442,34 @@ public class ControlLoop extends javax.swing.JPanel
     private javax.swing.JButton jButtonSetpoint;
     private javax.swing.JButton jButtonUp;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public javax.swing.JToolTip createToolTip() {
+        activeToolTip = super.createToolTip();
+        return activeToolTip;
+    }
+
+    private void updateTooltipText() {
+        // Create an HTML formatted tooltip for line breaks
+        String tooltip = String.format(
+                "<html>Setpoint: %.1f %s<br>Current: %.1f %s<br>Output: %.1f %s</html>",
+                setpoint, unit, value, unit, outValue, outUnit);
+
+        setToolTipText(tooltip);
+
+        if (jButtonAuto != null) {
+            jButtonAuto.setToolTipText(tooltip);
+            jButtonSetpoint.setToolTipText(tooltip);
+            jButtonHand.setToolTipText(tooltip);
+            jButtonUp.setToolTipText(tooltip);
+            jButtonDown.setToolTipText(tooltip);
+        }
+
+        if (activeToolTip != null && activeToolTip.isShowing()) {
+            activeToolTip.setTipText(tooltip);
+            activeToolTip.repaint();
+        }
+    }
 
     public double getValue() {
         return value;
@@ -391,6 +488,7 @@ public class ControlLoop extends javax.swing.JPanel
         if (old != value) {
             valueXCoord = (int) (mVal * value + bVal);
             firePropertyChange("value", old, value);
+            updateTooltipText();
             repaint();
         }
 
@@ -413,6 +511,7 @@ public class ControlLoop extends javax.swing.JPanel
         if (old != setpoint) {
             setpointXCoord = (int) (mVal * setpoint + bVal);
             firePropertyChange("setpoint", old, setpoint);
+            updateTooltipText();
             repaint();
         }
     }
@@ -466,6 +565,7 @@ public class ControlLoop extends javax.swing.JPanel
         if (old != outValue) {
             outValueXCoord = (int) (mOut * outValue + bOut);
             firePropertyChange("outValue", old, outValue);
+            updateTooltipText();
             repaint();
         }
 
@@ -502,7 +602,7 @@ public class ControlLoop extends javax.swing.JPanel
         }
         firePropertyChange("maxOutValue", old, maxOutValue);
     }
-    
+
     public boolean getIndicatorActive() {
         return indicatorActive;
     }
@@ -516,7 +616,7 @@ public class ControlLoop extends javax.swing.JPanel
             firePropertyChange("indicatorActive", old, maxOutValue);
             repaint();
         }
-        
+
     }
 
     @Override

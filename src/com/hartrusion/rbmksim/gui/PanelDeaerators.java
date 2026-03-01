@@ -139,6 +139,7 @@ public class PanelDeaerators extends AbstractPanelWidget {
         loopControlDA2Pressure.setMaxValue(10.0);
         loopControlDA2Pressure.setSetpoint(8.0);
         loopControlDA2Pressure.setSetpointComponent("Deaerator2#PressureSetpoint");
+        loopControlDA2Pressure.setUnit("bar");
         add(loopControlDA2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 242, -1, -1));
 
         loopControlDA1Pressure.setControlComponent("Deaerator1#SteamInRegValve");
@@ -146,6 +147,7 @@ public class PanelDeaerators extends AbstractPanelWidget {
         loopControlDA1Pressure.setMaxValue(10.0);
         loopControlDA1Pressure.setSetpoint(8.0);
         loopControlDA1Pressure.setSetpointComponent("Deaerator1#PressureSetpoint");
+        loopControlDA1Pressure.setUnit("bar");
         add(loopControlDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 202, -1, -1));
 
         jLabelDA1Press2.setFont(jLabelDA1Press2.getFont().deriveFont(jLabelDA1Press2.getFont().getSize()-2f));
