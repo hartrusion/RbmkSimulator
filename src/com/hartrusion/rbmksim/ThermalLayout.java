@@ -4189,7 +4189,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
      * handles the part which is defined here in the thermal layout.
      */
     public void turbineTrip() {
-        turbineReheaterTrimValve.operateCloseValve();
+        turbineReheaterTripValve.operateCloseValve();
         turbineTripValve[0].operateCloseValve();
         turbineTripValve[1].operateCloseValve();
         turbineLowPressureTripValve.operateCloseValve();
