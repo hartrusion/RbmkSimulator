@@ -1802,7 +1802,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
             auxCondSteamValve[idx].initCharacteristic(1.8e4, -1);
-            auxCondensers[idx].initCharacteristic(4.0, 500, 5e5, 1e5, 4.0);
+            auxCondensers[idx].initCharacteristic(4.0, 500, 5e5, 1e5, Double.NaN);
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
@@ -1878,6 +1878,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 3; idx++) {
             // Dummy resistor: 6 bar diff on half flow -> 6e5 / 1500
             ejectorMainFlowReistance[idx].setResistanceParameter(95);
+            // The main ejectors are actually just condensers that condense some
+            // steam, the amount of steam is used to determine how much the 
+            // vacuum itself is affected by incoming flows from turbine.
+            ejectorMain[idx].initCharacteristic(1.0, 300, 5e5, 0.0, Double.NaN);
+            // assume vacuum always:
+            ejectorMain[idx].getPrimarySideReservoir()
+                    .setAmbientPressure(0.0);
         }
         ejectorMainBypass.initCharacteristic(200, -1);
 
@@ -2910,7 +2917,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("DA1Temperature");
         am.addInputProvider(new DoubleSupplier() {
@@ -2933,7 +2940,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("DA2Temperature");
         am.addInputProvider(new DoubleSupplier() {
@@ -3326,6 +3333,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !alarmManager.isAlarmActive(
                             "HotwellLevel", AlarmState.MIN1));
         }
+
+        // Do not allow main ejector condensate valves to open if the direction
+        // of the pressure is wrong (lower pressure in ejectors than in 
+        // condenser) to prevent flow in the wrong direction.
+        ejectorMainCondensateValve[0].addSafeClosedProvider(()
+                -> (hotwell.getPrimarySideReservoir().getEffort()
+                < ejectorMain[0].getPrimarySideReservoir().getEffort()));
+        ejectorMainCondensateValve[1].addSafeClosedProvider(()
+                -> (hotwell.getPrimarySideReservoir().getEffort()
+                < ejectorMain[1].getPrimarySideReservoir().getEffort()));
+        ejectorMainCondensateValve[2].addSafeClosedProvider(()
+                -> (hotwell.getPrimarySideReservoir().getEffort()
+                < ejectorMain[2].getPrimarySideReservoir().getEffort()));
 
         // Turbine
         for (int idx = 0; idx < 2; idx++) {
@@ -3830,6 +3850,30 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "EjectorStartup" + (idx + 1) + "#Flow",
                     ejectorStartup[idx].getValveElement().getFlow());
         }
+        outputValues.setParameterValue("EjectorMain#SteamPressure",
+                ejectorTurbineTapNode.getEffort() / 100000); // absolute
+        outputValues.setParameterValue("EjectorMain#SteamFlow",
+                turbineLowPressureTapValve[3].getValveElement().getFlow());
+        for (int idx = 0; idx < 3; idx++) {
+            outputValues.setParameterValue(
+                    "EjectorMain" + (idx + 1) + "#Level",
+                    ejectorMain[idx].getPrimarySideReservoir()
+                            .getFillHeight() * 100);
+            outputValues.setParameterValue(
+                    "EjectorMain" + (idx + 1) + "#Temperature",
+                    ejectorMain[idx].getPrimarySideReservoir()
+                            .getTemperature() - 273.15);
+        }
+
+        outputValues.setParameterValue("EjectorMain#FeedwaterTemperature",
+                condensationBoosterPumpIn.getTemperature() - 273.15);
+        outputValues.setParameterValue("EjectorMain#FeedwaterPressure",
+                condensationBoosterPumpIn.getEffort() / 100000 - 1.0); // rel
+        outputValues.setParameterValue("EjectorMain#FeedwaterFlow",
+                ejectorMainBypass.getValveElement().getFlow()
+                + ejectorMainFlowOut[0].getValveElement().getFlow()
+                + ejectorMainFlowOut[1].getValveElement().getFlow()
+                + ejectorMainFlowOut[2].getValveElement().getFlow());
 
         for (int idx = 0; idx < 3; idx++) {
             outputValues.setParameterValue(

@@ -77,6 +77,14 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         valveEjectorBypass = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabelFromHotwell = new javax.swing.JLabel();
         jLabelToDA = new javax.swing.JLabel();
+        jLabelReadingSteamInFlow = new javax.swing.JLabel();
+        jLabelReadingSteamInPressure = new javax.swing.JLabel();
+        jLabelReadingEjector1Level = new javax.swing.JLabel();
+        jLabelReadingEjector2Level = new javax.swing.JLabel();
+        jLabelReadingEjector3Level = new javax.swing.JLabel();
+        jLabelReadingCondensate2Temperature = new javax.swing.JLabel();
+        jLabelReadingCondensate2Pressure = new javax.swing.JLabel();
+        jLabelReadingCondensate2Flow = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 228));
@@ -170,6 +178,73 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelToDA.setText("DA");
         add(jLabelToDA, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 184, 26, -1));
 
+        jLabelReadingSteamInFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamInFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamInFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamInFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamInFlow.setText("__,_ kg/s");
+        jLabelReadingSteamInFlow.setOpaque(true);
+        add(jLabelReadingSteamInFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 30, 64, 16));
+
+        jLabelReadingSteamInPressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingSteamInPressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingSteamInPressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingSteamInPressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingSteamInPressure.setText("_,__ bar");
+        jLabelReadingSteamInPressure.setOpaque(true);
+        add(jLabelReadingSteamInPressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 30, 64, 16));
+
+        jLabelReadingEjector1Level.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingEjector1Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingEjector1Level.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingEjector1Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingEjector1Level.setText("__ cm");
+        jLabelReadingEjector1Level.setToolTipText("");
+        jLabelReadingEjector1Level.setOpaque(true);
+        add(jLabelReadingEjector1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 132, 40, 16));
+
+        jLabelReadingEjector2Level.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingEjector2Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingEjector2Level.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingEjector2Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingEjector2Level.setText("__ cm");
+        jLabelReadingEjector2Level.setToolTipText("");
+        jLabelReadingEjector2Level.setOpaque(true);
+        add(jLabelReadingEjector2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 132, 40, 16));
+
+        jLabelReadingEjector3Level.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingEjector3Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingEjector3Level.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingEjector3Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingEjector3Level.setText("__ cm");
+        jLabelReadingEjector3Level.setToolTipText("");
+        jLabelReadingEjector3Level.setOpaque(true);
+        add(jLabelReadingEjector3Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 132, 40, 16));
+
+        jLabelReadingCondensate2Temperature.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensate2Temperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensate2Temperature.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensate2Temperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensate2Temperature.setText("___,_ °C");
+        jLabelReadingCondensate2Temperature.setOpaque(true);
+        add(jLabelReadingCondensate2Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 18, 64, 16));
+
+        jLabelReadingCondensate2Pressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensate2Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensate2Pressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensate2Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensate2Pressure.setText("__,_ bar");
+        jLabelReadingCondensate2Pressure.setOpaque(true);
+        add(jLabelReadingCondensate2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 38, 64, 16));
+
+        jLabelReadingCondensate2Flow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensate2Flow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensate2Flow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensate2Flow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensate2Flow.setText("____ kg/s");
+        jLabelReadingCondensate2Flow.setOpaque(true);
+        add(jLabelReadingCondensate2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 58, 64, 16));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCondensate.png"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -178,6 +253,14 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFromHotwell;
+    private javax.swing.JLabel jLabelReadingCondensate2Flow;
+    private javax.swing.JLabel jLabelReadingCondensate2Pressure;
+    private javax.swing.JLabel jLabelReadingCondensate2Temperature;
+    private javax.swing.JLabel jLabelReadingEjector1Level;
+    private javax.swing.JLabel jLabelReadingEjector2Level;
+    private javax.swing.JLabel jLabelReadingEjector3Level;
+    private javax.swing.JLabel jLabelReadingSteamInFlow;
+    private javax.swing.JLabel jLabelReadingSteamInPressure;
     private javax.swing.JLabel jLabelToDA;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate1;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate2;
@@ -319,7 +402,17 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-
+        switch (propertyName) {
+            case "EjectorMain#FeedwaterTemperature" ->
+                jLabelReadingCondensate2Temperature.setText(
+                        String.format("%5.1f", newValue) + " °C");
+            case "EjectorMain#FeedwaterPressure" ->
+                jLabelReadingCondensate2Pressure.setText(
+                        String.format("%4.1f", newValue) + " bar");
+            case "EjectorMain#FeedwaterFlow" ->
+                jLabelReadingCondensate2Flow.setText(
+                        String.format("%4.0f", newValue) + " kg/s");
+        }
     }
 
     @Override
