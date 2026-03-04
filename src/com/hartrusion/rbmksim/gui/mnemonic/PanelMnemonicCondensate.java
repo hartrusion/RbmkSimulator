@@ -85,7 +85,10 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelReadingCondensate2Temperature = new javax.swing.JLabel();
         jLabelReadingCondensate2Pressure = new javax.swing.JLabel();
         jLabelReadingCondensate2Flow = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelReadingEjector2CondensateValve = new javax.swing.JLabel();
+        jLabelReadingEjector3CondensateValve = new javax.swing.JLabel();
+        jLabelReadingEjector1CondensateValve = new javax.swing.JLabel();
+        jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 228));
         setMinimumSize(new java.awt.Dimension(652, 228));
@@ -245,19 +248,46 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelReadingCondensate2Flow.setOpaque(true);
         add(jLabelReadingCondensate2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 58, 64, 16));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCondensate.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabelReadingEjector2CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingEjector2CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingEjector2CondensateValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingEjector2CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingEjector2CondensateValve.setText("___");
+        jLabelReadingEjector2CondensateValve.setOpaque(true);
+        add(jLabelReadingEjector2CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(452, 132, 24, -1));
+
+        jLabelReadingEjector3CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingEjector3CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingEjector3CondensateValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingEjector3CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingEjector3CondensateValve.setText("___");
+        jLabelReadingEjector3CondensateValve.setOpaque(true);
+        add(jLabelReadingEjector3CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 132, 24, -1));
+
+        jLabelReadingEjector1CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingEjector1CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingEjector1CondensateValve.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingEjector1CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingEjector1CondensateValve.setText("___");
+        jLabelReadingEjector1CondensateValve.setOpaque(true);
+        add(jLabelReadingEjector1CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 132, 24, -1));
+
+        jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCondensate.png"))); // NOI18N
+        add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelFromHotwell;
     private javax.swing.JLabel jLabelReadingCondensate2Flow;
     private javax.swing.JLabel jLabelReadingCondensate2Pressure;
     private javax.swing.JLabel jLabelReadingCondensate2Temperature;
+    private javax.swing.JLabel jLabelReadingEjector1CondensateValve;
     private javax.swing.JLabel jLabelReadingEjector1Level;
+    private javax.swing.JLabel jLabelReadingEjector2CondensateValve;
     private javax.swing.JLabel jLabelReadingEjector2Level;
+    private javax.swing.JLabel jLabelReadingEjector3CondensateValve;
     private javax.swing.JLabel jLabelReadingEjector3Level;
     private javax.swing.JLabel jLabelReadingSteamInFlow;
     private javax.swing.JLabel jLabelReadingSteamInPressure;
@@ -412,6 +442,30 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
             case "EjectorMain#FeedwaterFlow" ->
                 jLabelReadingCondensate2Flow.setText(
                         String.format("%4.0f", newValue) + " kg/s");
+            case "EjectorMain#SteamPressure" ->
+                jLabelReadingSteamInPressure.setText(
+                        String.format("%4.2f", newValue) + " bar");
+            case "EjectorMain#SteamFlow" ->
+                jLabelReadingSteamInFlow.setText(
+                        String.format("%4.1f", newValue) + " kg/s");
+            case "EjectorMain1#Level" ->
+                jLabelReadingEjector1Level.setText(
+                        String.format("%3.0f", newValue) + " cm");
+            case "EjectorMain2#Level" ->
+                jLabelReadingEjector2Level.setText(
+                        String.format("%3.0f", newValue) + " cm");
+            case "EjectorMain3#Level" ->
+                jLabelReadingEjector3Level.setText(
+                        String.format("%3.0f", newValue) + " cm");
+            case "EjectorMain1#CondensateValve" ->
+                jLabelReadingEjector1CondensateValve.setText(
+                        String.format("%3.0f", newValue));
+            case "EjectorMain2#CondensateValve" ->
+                jLabelReadingEjector2CondensateValve.setText(
+                        String.format("%3.0f", newValue));
+            case "EjectorMain3#CondensateValve" ->
+                jLabelReadingEjector3CondensateValve.setText(
+                        String.format("%3.0f", newValue));
         }
     }
 

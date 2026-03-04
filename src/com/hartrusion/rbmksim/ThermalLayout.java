@@ -3915,6 +3915,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Turbine#LowPressureFlow",
                 turbineLowPressureStage[0].getFlow());
 
+        for (int idx = 0; idx < 5; idx++) {
+            outputValues.setParameterValue( // absolute pressure here
+                    "Turbine" + (idx + 1) + "#TapOutPressure",
+                    turbineLowPressureTapOut[idx].getEffort() / 100000);
+        }
         // </editor-fold>        
     }
 
