@@ -85,7 +85,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="40" y="58" width="20" height="20"/>
+          <AbsoluteConstraints x="38" y="62" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -105,7 +105,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="12" y="58" width="20" height="20"/>
+          <AbsoluteConstraints x="10" y="62" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -125,7 +125,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="40" y="100" width="20" height="20"/>
+          <AbsoluteConstraints x="38" y="104" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -145,7 +145,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="12" y="100" width="20" height="20"/>
+          <AbsoluteConstraints x="10" y="104" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -170,7 +170,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="84" width="58" height="14"/>
+          <AbsoluteConstraints x="4" y="88" width="58" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -220,22 +220,22 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="42" width="58" height="14"/>
+          <AbsoluteConstraints x="4" y="46" width="58" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlDA1Pressure">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlPreHeater1Condensate">
       <Properties>
-        <Property name="controlComponent" type="java.lang.String" value="Deaerator1#SteamInRegValve"/>
-        <Property name="feedbackComponent" type="java.lang.String" value="Deaerator1#Pressure"/>
-        <Property name="maxValue" type="double" value="10.0"/>
+        <Property name="controlComponent" type="java.lang.String" value="Preheater1#CondensateValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Preheater1#Level"/>
+        <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
-        <Property name="setpointComponent" type="java.lang.String" value="Deaerator1#PressureSetpoint"/>
+        <Property name="setpointComponent" type="java.lang.String" value="null"/>
         <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="110" y="4" width="-1" height="-1"/>
+          <AbsoluteConstraints x="110" y="6" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -246,11 +246,11 @@
             <Font component="jLabelDA1Press1" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="DA 1"/>
+        <Property name="text" type="java.lang.String" value="Prh. 1"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="10" width="36" height="14"/>
+          <AbsoluteConstraints x="70" y="12" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -261,26 +261,26 @@
             <Font component="jLabelDA1Press2" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Press."/>
+        <Property name="text" type="java.lang.String" value="Level"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="24" width="36" height="14"/>
+          <AbsoluteConstraints x="70" y="26" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlDA1Pressure1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlPreHeater2Condensate">
       <Properties>
-        <Property name="controlComponent" type="java.lang.String" value="Deaerator1#SteamInRegValve"/>
-        <Property name="feedbackComponent" type="java.lang.String" value="Deaerator1#Pressure"/>
-        <Property name="maxValue" type="double" value="10.0"/>
+        <Property name="controlComponent" type="java.lang.String" value="Preheater2#CondensateValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Preheater2#Level"/>
+        <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Deaerator1#PressureSetpoint"/>
         <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="110" y="44" width="-1" height="-1"/>
+          <AbsoluteConstraints x="110" y="46" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -291,11 +291,11 @@
             <Font component="jLabelDA1Press3" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="DA 1"/>
+        <Property name="text" type="java.lang.String" value="Prh. 2"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="50" width="36" height="14"/>
+          <AbsoluteConstraints x="70" y="52" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -306,26 +306,26 @@
             <Font component="jLabelDA1Press4" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Press."/>
+        <Property name="text" type="java.lang.String" value="Level"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="64" width="36" height="14"/>
+          <AbsoluteConstraints x="70" y="66" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlDA1Pressure2">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlPreHeater3Condensate">
       <Properties>
-        <Property name="controlComponent" type="java.lang.String" value="Deaerator1#SteamInRegValve"/>
-        <Property name="feedbackComponent" type="java.lang.String" value="Deaerator1#Pressure"/>
-        <Property name="maxValue" type="double" value="10.0"/>
+        <Property name="controlComponent" type="java.lang.String" value="Preheater3#CondensateValve"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Preheater3#Level"/>
+        <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Deaerator1#PressureSetpoint"/>
         <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="110" y="84" width="-1" height="-1"/>
+          <AbsoluteConstraints x="110" y="86" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -336,11 +336,11 @@
             <Font component="jLabelDA1Press5" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="DA 1"/>
+        <Property name="text" type="java.lang.String" value="Prh 3."/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="90" width="36" height="14"/>
+          <AbsoluteConstraints x="70" y="92" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -351,11 +351,11 @@
             <Font component="jLabelDA1Press6" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Press."/>
+        <Property name="text" type="java.lang.String" value="Level"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="104" width="36" height="14"/>
+          <AbsoluteConstraints x="70" y="106" width="36" height="14"/>
         </Constraint>
       </Constraints>
     </Component>

@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
@@ -31,7 +32,9 @@ public class PanelPreheaters extends AbstractPanelWidget
     @Override
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
-        
+        loopControlPreHeater1Condensate.registerActionReceiver(controller);
+        loopControlPreHeater2Condensate.registerActionReceiver(controller);
+        loopControlPreHeater3Condensate.registerActionReceiver(controller);
     }
 
     /**
@@ -59,13 +62,13 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        loopControlDA1Pressure = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        loopControlPreHeater1Condensate = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         jLabelDA1Press1 = new javax.swing.JLabel();
         jLabelDA1Press2 = new javax.swing.JLabel();
-        loopControlDA1Pressure1 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        loopControlPreHeater2Condensate = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         jLabelDA1Press3 = new javax.swing.JLabel();
         jLabelDA1Press4 = new javax.swing.JLabel();
-        loopControlDA1Pressure2 = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
+        loopControlPreHeater3Condensate = new com.hartrusion.rbmksim.gui.elements.ControlLoop();
         jLabelDA1Press5 = new javax.swing.JLabel();
         jLabelDA1Press6 = new javax.swing.JLabel();
 
@@ -105,7 +108,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton2OpenActionPerformed(evt);
             }
         });
-        add(jButton2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 58, 20, 20));
+        add(jButton2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 62, 20, 20));
 
         jButton2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton2Close.setText("C");
@@ -116,7 +119,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton2CloseActionPerformed(evt);
             }
         });
-        add(jButton2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 58, 20, 20));
+        add(jButton2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 62, 20, 20));
 
         jButton3Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton3Open.setText("O");
@@ -127,7 +130,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton3OpenActionPerformed(evt);
             }
         });
-        add(jButton3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 20, 20));
+        add(jButton3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 104, 20, 20));
 
         jButton3Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton3Close.setText("C");
@@ -138,7 +141,7 @@ public class PanelPreheaters extends AbstractPanelWidget
                 jButton3CloseActionPerformed(evt);
             }
         });
-        add(jButton3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 100, 20, 20));
+        add(jButton3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 104, 20, 20));
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() | java.awt.Font.BOLD, jLabel3.getFont().getSize()-2));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,7 +149,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabel3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabel3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 84, 58, 14));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 88, 58, 14));
 
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getStyle() | java.awt.Font.BOLD, jLabel2.getFont().getSize()-2));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -162,79 +165,79 @@ public class PanelPreheaters extends AbstractPanelWidget
         jLabel1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabel1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabel1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 42, 58, 14));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 46, 58, 14));
 
-        loopControlDA1Pressure.setControlComponent("Deaerator1#SteamInRegValve");
-        loopControlDA1Pressure.setFeedbackComponent("Deaerator1#Pressure");
-        loopControlDA1Pressure.setMaxValue(10.0);
-        loopControlDA1Pressure.setSetpoint(8.0);
-        loopControlDA1Pressure.setSetpointComponent("Deaerator1#PressureSetpoint");
-        loopControlDA1Pressure.setUnit("cm");
-        add(loopControlDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 4, -1, -1));
+        loopControlPreHeater1Condensate.setControlComponent("Preheater1#CondensateValve");
+        loopControlPreHeater1Condensate.setFeedbackComponent("Preheater1#Level");
+        loopControlPreHeater1Condensate.setMaxValue(150.0);
+        loopControlPreHeater1Condensate.setSetpoint(8.0);
+        loopControlPreHeater1Condensate.setSetpointComponent("null");
+        loopControlPreHeater1Condensate.setUnit("cm");
+        add(loopControlPreHeater1Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 6, -1, -1));
 
         jLabelDA1Press1.setFont(jLabelDA1Press1.getFont().deriveFont(jLabelDA1Press1.getFont().getSize()-2f));
-        jLabelDA1Press1.setText("DA 1");
-        add(jLabelDA1Press1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 36, 14));
+        jLabelDA1Press1.setText("Prh. 1");
+        add(jLabelDA1Press1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 12, 36, 14));
 
         jLabelDA1Press2.setFont(jLabelDA1Press2.getFont().deriveFont(jLabelDA1Press2.getFont().getSize()-2f));
-        jLabelDA1Press2.setText("Press.");
-        add(jLabelDA1Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 24, 36, 14));
+        jLabelDA1Press2.setText("Level");
+        add(jLabelDA1Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 26, 36, 14));
 
-        loopControlDA1Pressure1.setControlComponent("Deaerator1#SteamInRegValve");
-        loopControlDA1Pressure1.setFeedbackComponent("Deaerator1#Pressure");
-        loopControlDA1Pressure1.setMaxValue(10.0);
-        loopControlDA1Pressure1.setSetpoint(8.0);
-        loopControlDA1Pressure1.setSetpointComponent("Deaerator1#PressureSetpoint");
-        loopControlDA1Pressure1.setUnit("cm");
-        add(loopControlDA1Pressure1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 44, -1, -1));
+        loopControlPreHeater2Condensate.setControlComponent("Preheater2#CondensateValve");
+        loopControlPreHeater2Condensate.setFeedbackComponent("Preheater2#Level");
+        loopControlPreHeater2Condensate.setMaxValue(150.0);
+        loopControlPreHeater2Condensate.setSetpoint(8.0);
+        loopControlPreHeater2Condensate.setSetpointComponent("Deaerator1#PressureSetpoint");
+        loopControlPreHeater2Condensate.setUnit("cm");
+        add(loopControlPreHeater2Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 46, -1, -1));
 
         jLabelDA1Press3.setFont(jLabelDA1Press3.getFont().deriveFont(jLabelDA1Press3.getFont().getSize()-2f));
-        jLabelDA1Press3.setText("DA 1");
-        add(jLabelDA1Press3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 36, 14));
+        jLabelDA1Press3.setText("Prh. 2");
+        add(jLabelDA1Press3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 52, 36, 14));
 
         jLabelDA1Press4.setFont(jLabelDA1Press4.getFont().deriveFont(jLabelDA1Press4.getFont().getSize()-2f));
-        jLabelDA1Press4.setText("Press.");
-        add(jLabelDA1Press4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 64, 36, 14));
+        jLabelDA1Press4.setText("Level");
+        add(jLabelDA1Press4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 66, 36, 14));
 
-        loopControlDA1Pressure2.setControlComponent("Deaerator1#SteamInRegValve");
-        loopControlDA1Pressure2.setFeedbackComponent("Deaerator1#Pressure");
-        loopControlDA1Pressure2.setMaxValue(10.0);
-        loopControlDA1Pressure2.setSetpoint(8.0);
-        loopControlDA1Pressure2.setSetpointComponent("Deaerator1#PressureSetpoint");
-        loopControlDA1Pressure2.setUnit("cm");
-        add(loopControlDA1Pressure2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 84, -1, -1));
+        loopControlPreHeater3Condensate.setControlComponent("Preheater3#CondensateValve");
+        loopControlPreHeater3Condensate.setFeedbackComponent("Preheater3#Level");
+        loopControlPreHeater3Condensate.setMaxValue(150.0);
+        loopControlPreHeater3Condensate.setSetpoint(8.0);
+        loopControlPreHeater3Condensate.setSetpointComponent("Deaerator1#PressureSetpoint");
+        loopControlPreHeater3Condensate.setUnit("cm");
+        add(loopControlPreHeater3Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 86, -1, -1));
 
         jLabelDA1Press5.setFont(jLabelDA1Press5.getFont().deriveFont(jLabelDA1Press5.getFont().getSize()-2f));
-        jLabelDA1Press5.setText("DA 1");
-        add(jLabelDA1Press5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 36, 14));
+        jLabelDA1Press5.setText("Prh 3.");
+        add(jLabelDA1Press5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 92, 36, 14));
 
         jLabelDA1Press6.setFont(jLabelDA1Press6.getFont().deriveFont(jLabelDA1Press6.getFont().getSize()-2f));
-        jLabelDA1Press6.setText("Press.");
-        add(jLabelDA1Press6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 104, 36, 14));
+        jLabelDA1Press6.setText("Level");
+        add(jLabelDA1Press6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 106, 36, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CloseActionPerformed
-
+        controller.userAction(new ActionCommand("Turbine5#LowPressureTapValve", false));
     }//GEN-LAST:event_jButton1CloseActionPerformed
 
     private void jButton1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1OpenActionPerformed
-
+        controller.userAction(new ActionCommand("Turbine5#LowPressureTapValve", true));
     }//GEN-LAST:event_jButton1OpenActionPerformed
 
     private void jButton2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine3#LowPressureTapValve", true));
     }//GEN-LAST:event_jButton2OpenActionPerformed
 
     private void jButton2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine3#LowPressureTapValve", false));
     }//GEN-LAST:event_jButton2CloseActionPerformed
 
     private void jButton3OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine1#LowPressureTapValve", true));
     }//GEN-LAST:event_jButton3OpenActionPerformed
 
     private void jButton3CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Turbine1#LowPressureTapValve", false));
     }//GEN-LAST:event_jButton3CloseActionPerformed
 
 
@@ -254,14 +257,27 @@ public class PanelPreheaters extends AbstractPanelWidget
     private javax.swing.JLabel jLabelDA1Press4;
     private javax.swing.JLabel jLabelDA1Press5;
     private javax.swing.JLabel jLabelDA1Press6;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlDA1Pressure;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlDA1Pressure1;
-    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlDA1Pressure2;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlPreHeater1Condensate;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlPreHeater2Condensate;
+    private com.hartrusion.rbmksim.gui.elements.ControlLoop loopControlPreHeater3Condensate;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-
+        switch (evt.getPropertyName()) {
+            case "Turbine5#LowPressureTapValve_Pos" ->
+                setValveButtons(jButton1Close,
+                        jButton1Open, evt.getNewValue());
+            case "Turbine3#LowPressureTapValve_Pos" ->
+                setValveButtons(jButton2Close,
+                        jButton2Open, evt.getNewValue());
+            case "Turbine1#LowPressureTapValve_Pos" ->
+                setValveButtons(jButton3Close,
+                        jButton3Open, evt.getNewValue());
+        }
+        loopControlPreHeater1Condensate.updateComponent(evt);
+        loopControlPreHeater2Condensate.updateComponent(evt);
+        loopControlPreHeater3Condensate.updateComponent(evt);
     }
 
     @Override
@@ -271,7 +287,9 @@ public class PanelPreheaters extends AbstractPanelWidget
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-
+        loopControlPreHeater1Condensate.updateComponent(propertyName, newValue);
+        loopControlPreHeater2Condensate.updateComponent(propertyName, newValue);
+        loopControlPreHeater3Condensate.updateComponent(propertyName, newValue);
     }
 
     @Override

@@ -1885,8 +1885,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // assume vacuum always:
             ejectorMain[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
+            ejectorMain[idx].initConditions(273.15 + 22, 273.15 + 22, 0.15);
         }
         ejectorMainBypass.initCharacteristic(200, -1);
+
+        // Preheaters - those are just some very rough estimate values
+        // to allow having something at least
+        preheater[0].initConditions(273.15 + 22, 273.15 + 22, 0.32);
+        preheater[1].initConditions(273.15 + 22, 273.15 + 22, 0.27);
+        preheater[2].initConditions(273.15 + 22, 273.15 + 22, 0.31);
 
         // Turbine: fresh steam from drums is 1555 kg/s with 4_440_030 J/kg
         // as we have 69 bars with 284 °C with X=1.0 from drums.
