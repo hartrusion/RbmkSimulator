@@ -59,15 +59,18 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingLevel2 = new javax.swing.JLabel();
         jLabelReadingTemp1 = new javax.swing.JLabel();
         jLabelReadingLevel1 = new javax.swing.JLabel();
-        jLabelReadingEjector1CondensateValve = new javax.swing.JLabel();
-        jLabelReadingEjector2CondensateValve = new javax.swing.JLabel();
-        jLabelReadingEjector1CondensateValve1 = new javax.swing.JLabel();
-        jLabelReadingTemp4 = new javax.swing.JLabel();
-        jLabelReadingTemp5 = new javax.swing.JLabel();
-        jLabelReadingTemp6 = new javax.swing.JLabel();
+        jLabelReadingCondensateValve3 = new javax.swing.JLabel();
+        jLabelReadingCondensateValve1 = new javax.swing.JLabel();
+        jLabelReadingCondensateValve2 = new javax.swing.JLabel();
+        jLabelReadingTemp12 = new javax.swing.JLabel();
+        jLabelReadingTemp23 = new javax.swing.JLabel();
+        jLabelReadingTemp3n = new javax.swing.JLabel();
         jLabelReadingTurbineLPTap3Pressure = new javax.swing.JLabel();
         jLabelReadingTurbineLPTap1Pressure = new javax.swing.JLabel();
         jLabelReadingTurbineLPTap5Pressure = new javax.swing.JLabel();
+        jLabelReadingReheater1SteamFlow = new javax.swing.JLabel();
+        jLabelReadingReheater2SteamFlow = new javax.swing.JLabel();
+        jLabelReadingReheater3SteamFlow = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(480, 180));
@@ -165,53 +168,53 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingLevel1.setOpaque(true);
         add(jLabelReadingLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 60, 56, 16));
 
-        jLabelReadingEjector1CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingEjector1CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingEjector1CondensateValve.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingEjector1CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingEjector1CondensateValve.setText("___");
-        jLabelReadingEjector1CondensateValve.setOpaque(true);
-        add(jLabelReadingEjector1CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 136, 24, -1));
+        jLabelReadingCondensateValve3.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensateValve3.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCondensateValve3.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensateValve3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensateValve3.setText("___");
+        jLabelReadingCondensateValve3.setOpaque(true);
+        add(jLabelReadingCondensateValve3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 24, -1));
 
-        jLabelReadingEjector2CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingEjector2CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingEjector2CondensateValve.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingEjector2CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingEjector2CondensateValve.setText("___");
-        jLabelReadingEjector2CondensateValve.setOpaque(true);
-        add(jLabelReadingEjector2CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 130, 24, -1));
+        jLabelReadingCondensateValve1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensateValve1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCondensateValve1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensateValve1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensateValve1.setText("___");
+        jLabelReadingCondensateValve1.setOpaque(true);
+        add(jLabelReadingCondensateValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 130, 24, -1));
 
-        jLabelReadingEjector1CondensateValve1.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingEjector1CondensateValve1.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingEjector1CondensateValve1.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingEjector1CondensateValve1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingEjector1CondensateValve1.setText("___");
-        jLabelReadingEjector1CondensateValve1.setOpaque(true);
-        add(jLabelReadingEjector1CondensateValve1, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 138, 24, -1));
+        jLabelReadingCondensateValve2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensateValve2.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingCondensateValve2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensateValve2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensateValve2.setText("___");
+        jLabelReadingCondensateValve2.setOpaque(true);
+        add(jLabelReadingCondensateValve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 140, 24, -1));
 
-        jLabelReadingTemp4.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingTemp4.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingTemp4.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingTemp4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingTemp4.setText("___ °C");
-        jLabelReadingTemp4.setOpaque(true);
-        add(jLabelReadingTemp4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 92, 56, 16));
+        jLabelReadingTemp12.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingTemp12.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingTemp12.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingTemp12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingTemp12.setText("___ °C");
+        jLabelReadingTemp12.setOpaque(true);
+        add(jLabelReadingTemp12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 92, 56, 16));
 
-        jLabelReadingTemp5.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingTemp5.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingTemp5.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingTemp5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingTemp5.setText("___ °C");
-        jLabelReadingTemp5.setOpaque(true);
-        add(jLabelReadingTemp5, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 92, 56, 16));
+        jLabelReadingTemp23.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingTemp23.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingTemp23.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingTemp23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingTemp23.setText("___ °C");
+        jLabelReadingTemp23.setOpaque(true);
+        add(jLabelReadingTemp23, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 92, 56, 16));
 
-        jLabelReadingTemp6.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingTemp6.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingTemp6.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingTemp6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingTemp6.setText("___ °C");
-        jLabelReadingTemp6.setOpaque(true);
-        add(jLabelReadingTemp6, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 92, 56, 16));
+        jLabelReadingTemp3n.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingTemp3n.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingTemp3n.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingTemp3n.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingTemp3n.setText("___ °C");
+        jLabelReadingTemp3n.setOpaque(true);
+        add(jLabelReadingTemp3n, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 92, 56, 16));
 
         jLabelReadingTurbineLPTap3Pressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTurbineLPTap3Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -237,6 +240,30 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingTurbineLPTap5Pressure.setOpaque(true);
         add(jLabelReadingTurbineLPTap5Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 4, 64, 16));
 
+        jLabelReadingReheater1SteamFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingReheater1SteamFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingReheater1SteamFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingReheater1SteamFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingReheater1SteamFlow.setText("__,_ kg/s");
+        jLabelReadingReheater1SteamFlow.setOpaque(true);
+        add(jLabelReadingReheater1SteamFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 30, 64, 16));
+
+        jLabelReadingReheater2SteamFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingReheater2SteamFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingReheater2SteamFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingReheater2SteamFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingReheater2SteamFlow.setText("__,_ kg/s");
+        jLabelReadingReheater2SteamFlow.setOpaque(true);
+        add(jLabelReadingReheater2SteamFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 64, 16));
+
+        jLabelReadingReheater3SteamFlow.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingReheater3SteamFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingReheater3SteamFlow.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingReheater3SteamFlow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingReheater3SteamFlow.setText("__,_ kg/s");
+        jLabelReadingReheater3SteamFlow.setOpaque(true);
+        add(jLabelReadingReheater3SteamFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 32, 64, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicPreheaters.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -248,18 +275,21 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
     private javax.swing.JLabel jLabe4;
     private javax.swing.JLabel jLabe5;
     private javax.swing.JLabel jLabelBackground;
-    private javax.swing.JLabel jLabelReadingEjector1CondensateValve;
-    private javax.swing.JLabel jLabelReadingEjector1CondensateValve1;
-    private javax.swing.JLabel jLabelReadingEjector2CondensateValve;
+    private javax.swing.JLabel jLabelReadingCondensateValve1;
+    private javax.swing.JLabel jLabelReadingCondensateValve2;
+    private javax.swing.JLabel jLabelReadingCondensateValve3;
     private javax.swing.JLabel jLabelReadingLevel1;
     private javax.swing.JLabel jLabelReadingLevel2;
     private javax.swing.JLabel jLabelReadingLevel3;
+    private javax.swing.JLabel jLabelReadingReheater1SteamFlow;
+    private javax.swing.JLabel jLabelReadingReheater2SteamFlow;
+    private javax.swing.JLabel jLabelReadingReheater3SteamFlow;
     private javax.swing.JLabel jLabelReadingTemp1;
+    private javax.swing.JLabel jLabelReadingTemp12;
     private javax.swing.JLabel jLabelReadingTemp2;
+    private javax.swing.JLabel jLabelReadingTemp23;
     private javax.swing.JLabel jLabelReadingTemp3;
-    private javax.swing.JLabel jLabelReadingTemp4;
-    private javax.swing.JLabel jLabelReadingTemp5;
-    private javax.swing.JLabel jLabelReadingTemp6;
+    private javax.swing.JLabel jLabelReadingTemp3n;
     private javax.swing.JLabel jLabelReadingTurbineLPTap1Pressure;
     private javax.swing.JLabel jLabelReadingTurbineLPTap3Pressure;
     private javax.swing.JLabel jLabelReadingTurbineLPTap5Pressure;
@@ -320,22 +350,19 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         switch (propertyName) {
             case "Preheater1#Temperature" ->
                 jLabelReadingTemp1.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
+                        String.format("%3.1f", newValue) + " °C");
             case "Preheater1#Level" ->
                 jLabelReadingLevel1.setText(
                         String.format("%.0f", newValue) + " cm");
             case "Preheater2#Temperature" ->
                 jLabelReadingTemp2.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
+                        String.format("%3.1f", newValue) + " °C");
             case "Preheater2#Level" ->
                 jLabelReadingLevel2.setText(
                         String.format("%.0f", newValue) + " cm");
             case "Preheater3#Temperature" ->
                 jLabelReadingTemp3.setText(
-                        String.format("%.1f", newValue)
-                                .replaceAll("(\\.\\d+?)0*$", "$1") + " °C");
+                        String.format("%3.1f", newValue) + " °C");
             case "Preheater3#Level" ->
                 jLabelReadingLevel3.setText(
                         String.format("%.0f", newValue) + " cm");
@@ -348,6 +375,33 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
             case "Turbine5#TapOutPressure" ->
                 jLabelReadingTurbineLPTap5Pressure.setText(
                         String.format("%4.2f", newValue) + " bar");
+            case "Preheater1#SteamFlow" ->
+                jLabelReadingReheater1SteamFlow.setText(
+                        String.format("%4.2f", newValue) + " kg/s");
+            case "Preheater2#SteamFlow" ->
+                jLabelReadingReheater2SteamFlow.setText(
+                        String.format("%4.2f", newValue) + " kg/s");
+            case "Preheater3#SteamFlow" ->
+                jLabelReadingReheater3SteamFlow.setText(
+                        String.format("%4.2f", newValue) + " kg/s");
+            case "Preheater1#FeedOutTemp" ->
+                jLabelReadingTemp12.setText(
+                        String.format("%4.1f", newValue) + " °C");
+            case "Preheater2#FeedOutTemp" ->
+                jLabelReadingTemp23.setText(
+                        String.format("%4.1f", newValue) + " °C");
+            case "Preheater3#FeedOutTemp" ->
+                jLabelReadingTemp3n.setText(
+                        String.format("%4.1f", newValue) + " °C");
+            case "Preheater1#CondensateValve" ->
+                jLabelReadingCondensateValve1.setText(
+                        String.format("%3.0f", newValue));
+            case "Preheater2#CondensateValve" ->
+                jLabelReadingCondensateValve2.setText(
+                        String.format("%3.0f", newValue));
+            case "Preheater3#CondensateValve" ->
+                jLabelReadingCondensateValve3.setText(
+                        String.format("%3.0f", newValue));
         }
     }
 

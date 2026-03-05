@@ -1889,11 +1889,20 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         ejectorMainBypass.initCharacteristic(200, -1);
 
-        // Preheaters - those are just some very rough estimate values
-        // to allow having something at least
-        preheater[0].initConditions(273.15 + 22, 273.15 + 22, 0.32);
-        preheater[1].initConditions(273.15 + 22, 273.15 + 22, 0.27);
-        preheater[2].initConditions(273.15 + 22, 273.15 + 22, 0.31);
+        // Preheaters: Those will not get any vacuum modeled but in general 
+        // they should be of lower pressure than the turbine itself, which is
+        // sub-ambient pressure.
+        for (int idx = 0; idx < 3; idx++) {
+            preheater[idx].getPrimarySideReservoir().setAmbientPressure(0.0);
+        }
+
+        
+        // More To do here, just some very rough estimates so the valves itself
+        // do work but there's no science behind it yet. The default value has
+        // way too high flows on those
+        turbineLowPressureTapValve[0].initCharacteristic(2e3, -1);
+        turbineLowPressureTapValve[2].initCharacteristic(2e3, -1);
+        turbineLowPressureTapValve[4].initCharacteristic(2e3, -1);
 
         // Turbine: fresh steam from drums is 1555 kg/s with 4_440_030 J/kg
         // as we have 69 bars with 284 °C with X=1.0 from drums.
@@ -2060,6 +2069,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // start with full hotwell cooling
         condenserCoolant.initFlow(44000);
+
+        // Have some condensate inside the condesate reheaters but everything
+        // is cooled down
+        preheater[0].initConditions(273.15 + 22, 273.15 + 22, 0.32);
+        preheater[1].initConditions(273.15 + 22, 273.15 + 22, 0.27);
+        preheater[2].initConditions(273.15 + 22, 273.15 + 22, 0.31);
 
         // Turbine: Reheater
         turbineReheater.initConditions(273.15 + 22.5,
@@ -3892,6 +3907,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     preheater[idx].getPrimarySideReservoir()
                             .getTemperature() - 273.15);
         }
+        outputValues.setParameterValue("Preheater1#SteamFlow",
+                turbineLowPressureTapValve[4].getValveElement().getFlow());
+        outputValues.setParameterValue("Preheater2#SteamFlow",
+                turbineLowPressureTapValve[2].getValveElement().getFlow());
+        outputValues.setParameterValue("Preheater3#SteamFlow",
+                turbineLowPressureTapValve[0].getValveElement().getFlow());
+
+        outputValues.setParameterValue("Preheater1#FeedOutTemp",
+                preheater[0].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
+                - 273.15);
+        outputValues.setParameterValue("Preheater2#FeedOutTemp",
+                preheater[1].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
+                - 273.15);
+        outputValues.setParameterValue("Preheater3#FeedOutTemp",
+                preheater[2].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
+                - 273.15);
 
         // Flow to turbine and startup ejectors, this is displayed as main flow
         // to turbine system on turbine panel. Includes the steam dump valves.
@@ -4298,7 +4332,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 !save.isBlowdownBalanceActive());
         oldBalanceControlState = null; // reset to refire property change
         noReactorInput = save.isCoreOnlySimulation();
-        
+
         // Reset all alarm value monitors so they will re-fire their alarms on
         // loading. Alarms will be cleared and as those alarm value monitors 
         // work on monitoring changes only, they need to be triggered here.
