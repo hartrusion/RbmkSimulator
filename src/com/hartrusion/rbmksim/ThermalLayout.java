@@ -18,6 +18,7 @@ package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
+import com.hartrusion.alarm.AlarmUpdater;
 import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AbstractController;
 import com.hartrusion.control.AutomationRunner;
@@ -25,7 +26,6 @@ import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.Integrator;
 import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
-import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.automated.HeatControlledFlowSource;
@@ -382,7 +382,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final AutomationRunner runner = new AutomationRunner();
-    private final SerialRunner alarmUpdater = new SerialRunner();
+    private final AlarmUpdater alarmUpdater = new AlarmUpdater();
 
     private final AbstractController blowdownBalanceControlLoop
             = new PControl();
@@ -4298,6 +4298,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 !save.isBlowdownBalanceActive());
         oldBalanceControlState = null; // reset to refire property change
         noReactorInput = save.isCoreOnlySimulation();
+        
+        // Reset all alarm value monitors so they will re-fire their alarms on
+        // loading. Alarms will be cleared and as those alarm value monitors 
+        // work on monitoring changes only, they need to be triggered here.
+        alarmUpdater.clearAlarmUpdaters();
     }
 
     public void registerReactor(ReactorCore core) {

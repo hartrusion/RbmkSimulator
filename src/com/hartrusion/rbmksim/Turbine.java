@@ -18,6 +18,7 @@ package com.hartrusion.rbmksim;
 
 import com.hartrusion.alarm.AlarmAction;
 import com.hartrusion.alarm.AlarmState;
+import com.hartrusion.alarm.AlarmUpdater;
 import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AutomationRunner;
 import com.hartrusion.control.ControlCommand;
@@ -106,7 +107,7 @@ public class Turbine extends Subsystem implements Runnable {
 
     private final DomainAnalogySolver rotorSolver=  new DomainAnalogySolver();
 
-    private final SerialRunner alarmUpdater = new SerialRunner();
+    private final AlarmUpdater alarmUpdater = new AlarmUpdater();
 
     private boolean generatorSynched = false;
     private boolean oldGeneratorSynched = true;
@@ -587,5 +588,7 @@ public class Turbine extends Subsystem implements Runnable {
                 save.getSolverState(rotorSolver.toString()));
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("turbineSetpoints"));
+        
+        alarmUpdater.clearAlarmUpdaters();
     }
 }
