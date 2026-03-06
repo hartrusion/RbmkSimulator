@@ -310,7 +310,7 @@ public class PanelGenerator extends AbstractPanelWidget
         add(jLabelCaptionThermalPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 10, 26, 14));
 
         jButtonSpeedValvesMinus.setFont(jButtonSpeedValvesMinus.getFont().deriveFont(jButtonSpeedValvesMinus.getFont().getSize()-2f));
-        jButtonSpeedValvesMinus.setText("●");
+        jButtonSpeedValvesMinus.setText("↑");
         jButtonSpeedValvesMinus.setToolTipText("Overrides the commands on the startup steam valves");
         jButtonSpeedValvesMinus.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeedValvesMinus.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,7 +329,7 @@ public class PanelGenerator extends AbstractPanelWidget
         add(jButtonSpeedValvesMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 148, 20, 20));
 
         jButtonSpeedValvesPlus.setFont(jButtonSpeedValvesPlus.getFont().deriveFont(jButtonSpeedValvesPlus.getFont().getSize()-2f));
-        jButtonSpeedValvesPlus.setText("●");
+        jButtonSpeedValvesPlus.setText("↓");
         jButtonSpeedValvesPlus.setToolTipText("Overrides the commands on the startup steam valves");
         jButtonSpeedValvesPlus.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSpeedValvesPlus.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -449,19 +449,23 @@ public class PanelGenerator extends AbstractPanelWidget
     }//GEN-LAST:event_jToggleButtonBreakerActionPerformed
 
     private void jButtonSpeedValvesPlusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesPlusMousePressed
-        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_INCREASE));
+        controller.userAction(new ActionCommand("Turbine1#StartupSteamValveControlCommand", ControlCommand.OUTPUT_DECREASE));
+        controller.userAction(new ActionCommand("Turbine2#StartupSteamValveControlCommand", ControlCommand.OUTPUT_DECREASE));
     }//GEN-LAST:event_jButtonSpeedValvesPlusMousePressed
 
     private void jButtonSpeedValvesPlusMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesPlusMouseReleased
-        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_CONTINUE));
+        controller.userAction(new ActionCommand("Turbine1#StartupSteamValveControlCommand", ControlCommand.OUTPUT_CONTINUE));
+        controller.userAction(new ActionCommand("Turbine2#StartupSteamValveControlCommand", ControlCommand.OUTPUT_CONTINUE));
     }//GEN-LAST:event_jButtonSpeedValvesPlusMouseReleased
 
     private void jButtonSpeedValvesMinusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesMinusMousePressed
-        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_DECREASE));
+        controller.userAction(new ActionCommand("Turbine1#StartupSteamValveControlCommand", ControlCommand.OUTPUT_INCREASE));
+        controller.userAction(new ActionCommand("Turbine2#StartupSteamValveControlCommand", ControlCommand.OUTPUT_INCREASE));
     }//GEN-LAST:event_jButtonSpeedValvesMinusMousePressed
 
     private void jButtonSpeedValvesMinusMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSpeedValvesMinusMouseReleased
-        controller.userAction(new ActionCommand("Turbine#StartupSpeedManipulation", ControlCommand.OUTPUT_CONTINUE));
+        controller.userAction(new ActionCommand("Turbine1#StartupSteamValveControlCommand", ControlCommand.OUTPUT_CONTINUE));
+        controller.userAction(new ActionCommand("Turbine2#StartupSteamValveControlCommand", ControlCommand.OUTPUT_CONTINUE));
     }//GEN-LAST:event_jButtonSpeedValvesMinusMouseReleased
 
 

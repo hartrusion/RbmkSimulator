@@ -652,7 +652,7 @@
             <Font component="jButtonSpeedValvesMinus" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x25cf;"/>
+        <Property name="text" type="java.lang.String" value="&#x2191;"/>
         <Property name="toolTipText" type="java.lang.String" value="Overrides the commands on the startup steam valves"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
@@ -676,7 +676,7 @@
             <Font component="jButtonSpeedValvesPlus" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x25cf;"/>
+        <Property name="text" type="java.lang.String" value="&#x2193;"/>
         <Property name="toolTipText" type="java.lang.String" value="Overrides the commands on the startup steam valves"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
