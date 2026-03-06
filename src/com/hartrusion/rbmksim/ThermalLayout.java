@@ -1896,7 +1896,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheater[idx].getPrimarySideReservoir().setAmbientPressure(0.0);
         }
 
-        
         // More To do here, just some very rough estimates so the valves itself
         // do work but there's no science behind it yet. The default value has
         // way too high flows on those
@@ -1905,7 +1904,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureTapValve[4].initCharacteristic(2e3, -1);
 
         // Turbine: fresh steam from drums is 1555 kg/s with 4_440_030 J/kg
-        // as we have 69 bars with 284 °C with X=1.0 from drums.
+        // as we have 64 bars with 284 °C with X=1.0 from drums.
         // After HD turbine: x=0.85 3.5 bar 137 °C - 3_507_630 J/kg
         // Reheated to 263 °C: 4_351_830 J/kg, Delta: 844_201 J/kg
         // Condensation after Reheater, assumed: 4.4 bar 145 °C
@@ -1913,19 +1912,33 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // in reheater is then 2_683_800 J/kg.
         // Energy balance in reheater: m1*844_201 = m2*2_683_800, with
         // m1 + m2 = 1555 it is m1=1183 and m2=372 kg/s flows.
-        // Therefore resistance of HD: (69e5 Pa-3.5e5 Pe) / 1183 kg/s
-        // is R_HD = 5536.7 Pa/kg*s 
-        turbineHighPressure.setResistanceParameter(5537);
+        // Assume that on full load, the main valves will throttle about 2 bars
+        // from that 64 bar in steam drums so the drum pressure could even fall
+        // down to 62 without issues
+        // Therefore resistance of HD: (62e5 Pa-3.5e5 Pe) / 1183 kg/s
+        // is R_HD = 4945 Pa/kg*s 
+        turbineHighPressure.setResistanceParameter(4945);
+
+        // The model works by setting an out vapour fraction and consuming all
+        // of the energy, this will drive the shaft later.
         turbineHighPressure.setOutVaporFraction(0.85);
 
-        // Inlst valves: It was suggested by maha that we use 10 bar pressure 
-        // to start heating up but with very low steam flow.
         for (int idx = 0; idx < 2; idx++) {
-            turbineTripValve[idx].initCharacteristic(500, -1.0);
+            // The trip valves will not contribute with much resistance here
+            turbineTripValve[idx].initCharacteristic(5.0, -1.0);
             // Fast closing valve: 200 % per second, default is 25 %/s
             turbineTripValve[idx].getIntegrator().setMaxRate(200);
+
+            // Inlet valves: It was suggested by maha that we use around 10 kg/s 
+            // for heating up the turbine and spinning it up. 
+            // They will be able to move quite fast as they are small.
             turbineStartupSteamValve[idx].initCharacteristic(8e5, -1.0);
-            turbineMainSteamValve[idx].initCharacteristic(2e4, -1.0);
+
+            // Assuming we have 2 bars pressure diff left, we use that value as
+            // an hint to get the resistance of that valve. times 2 because
+            // we have 2 of those valves.
+            // 2 * 3.5e5 Pe / 1183 kg/s = 590
+            turbineMainSteamValve[idx].initCharacteristic(590, -1.0);
             turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
             turbineReheaterSteamValve[idx].initCharacteristic(2e5, -1.0);
             turbineReheaterSteamValve[idx].getIntegrator().setMaxRate(8);
@@ -1948,7 +1961,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
-        // The turbine will need a minimum pressure of 10 bars 
         turbineLowPressureStage[0].setResistanceParameter(60);
         turbineLowPressureStage[1].setResistanceParameter(60);
         turbineLowPressureStage[2].setResistanceParameter(60);
@@ -3467,7 +3479,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // opening values or pump effort source values to the thermal layout 
         // model.
         runner.invokeAll();
-
+        
         // Apply thermal power from fuel
         if (!noReactorInput) { // for debugging and full reactor use
             for (int idx = 0; idx < 2; idx++) {
