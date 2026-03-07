@@ -999,6 +999,12 @@ public class ReactorCore extends Subsystem implements Runnable {
             if (alarmManager.isAlarmActive("Feed2Pressure", AlarmState.MIN1)) {
                 return false;
             }
+            if (alarmManager.isAlarmActive("Drum1Pressure", AlarmState.MAX1)) {
+                return false;
+            }
+            if (alarmManager.isAlarmActive("Drum2Pressure", AlarmState.MAX1)) {
+                return false;
+            } 
         }
         // Checks that will only be performed when not switchting the RPS back 
         // on during already running operator. Those are designed to make sure

@@ -1586,7 +1586,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // model stable, it will be operated automatically. Randomly setting it 
         // to 200 for a little pressure loss.
         for (int idx = 0; idx < 2; idx++) {
-            mainSteamShutoffValve[idx].intitCharacteristicSimple(20);
+            mainSteamShutoffValve[idx].initCharacteristicSimple(20);
             mainSteamShutoffValve[idx].getIntegrator().setMaxRate(50);
         }
 
@@ -1611,7 +1611,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopAssembly[idx][jdx].initCharacteristic(
                         2.5e6, 2.03e6, 1933.3);
                 // Todo: Advanced Characteristic here
-                loopTrimValve[idx][jdx].intitCharacteristicSimple(5.51724);
+                loopTrimValve[idx][jdx].initCharacteristicSimple(5.51724);
             }
             loopDownflow[idx].setResistanceParameter(12.6);
             loopDownflow[idx].setInnerThermalMass(50); // initial: 100
@@ -1651,7 +1651,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Bypass valves: Not yet proper configured. Todo. Just randomly used
         // 10 Pa/kg/s with the default shut valve characteristic.
         for (int idx = 0; idx < 2; idx++) {
-            loopBypass[idx].intitCharacteristicSimple(10.0);
+            loopBypass[idx].initCharacteristicSimple(10.0);
         }
 
         // Fuel model: Full thermal power per side is 1.6e9 Watts with fuel
@@ -1673,18 +1673,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
             blowdownReturn[idx].setResistanceParameter(2400);
             blowdownReturn[idx].setInnerThermalMass(400);
             // Valves connected to those
-            blowdownValveFromLoop[idx].intitCharacteristicSimple(400);
-            blowdownReturnValve[idx].intitCharacteristicSimple(400);
+            blowdownValveFromLoop[idx].initCharacteristicSimple(400);
+            blowdownReturnValve[idx].initCharacteristicSimple(400);
             blowdownCooldownPumps[idx].initCharacteristic(16e5, 12e5, 900);
         }
-        blowdownValvePassiveFlow.intitCharacteristicSimple(3000);
-        blowdownValvePumpsToRegenerator.intitCharacteristicSimple(500);
-        blowdownValvePumpsToCooler.intitCharacteristicSimple(100);
-        blowdownValveRegeneratorToCooler.intitCharacteristicSimple(500);
+        blowdownValvePassiveFlow.initCharacteristicSimple(3000);
+        blowdownValvePumpsToRegenerator.initCharacteristicSimple(500);
+        blowdownValvePumpsToCooler.initCharacteristicSimple(100);
+        blowdownValveRegeneratorToCooler.initCharacteristicSimple(500);
         blowdownCooldownResistance.setResistanceParameter(500); // war: 2000
-        blowdownValveTreatmentBypass.intitCharacteristicSimple(100);
-        blowdownValveRegeneratedToDrums.intitCharacteristicSimple(100);
-        blowdownValveDrain.intitCharacteristicSimple(400);
+        blowdownValveTreatmentBypass.initCharacteristicSimple(100);
+        blowdownValveRegeneratedToDrums.initCharacteristicSimple(100);
+        blowdownValveDrain.initCharacteristicSimple(400);
         blowdownToRegeneratorFirstResistance.setResistanceParameter(500);
         blowdownToRegeneratorSecondResistance.setResistanceParameter(500);
         blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
@@ -1697,7 +1697,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             deaerator[idx].setBaseArea(40);
 
             // Todo: Proper values for DA valves, just some rough estimates 
-            deaeratorSteamInRegValve[idx].intitCharacteristicSimple(1000);
+            deaeratorSteamInRegValve[idx].initCharacteristicSimple(1000);
 
             // DA from main steam: Here are some thoughts on how to dimenstion 
             // the valves. We have no low pressure preheater on startup so we
@@ -1720,8 +1720,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // something is left for the regulator valves afterwards and the 
             // valves can be used earlier on startup. That will be R = 
             // 5e6 Pa / 12 kg/s = 4.2e5 Pa*s/kg
-            deaeratorSteamFromMain[idx].intitCharacteristicSimple(4.2e5);
-            deaeratorDrain[idx].intitCharacteristicSimple(50);
+            deaeratorSteamFromMain[idx].initCharacteristicSimple(4.2e5);
+            deaeratorDrain[idx].initCharacteristicSimple(50);
         }
 
         // Some words on reheating: 
@@ -1752,7 +1752,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 feedwaterShutoffValve[idx][jdx]
-                        .intitCharacteristicSimple(500);
+                        .initCharacteristicSimple(500);
             }
         }
         // Startup valves
@@ -1760,15 +1760,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // This thing reduces to 100 kg/s at no pressure on startupt so it
             // has a huge pressure drop of about 6e5 -> 6e3
             feedwaterStartupReductionValve[idx]
-                    .intitCharacteristicSimple(6000); // Todo: Adv. Char
+                    .initCharacteristicSimple(6000); // Todo: Adv. Char
             feedwaterFlowRegulationValve[idx][0]
-                    .intitCharacteristicSimple(800); // todo: Adv. Char
+                    .initCharacteristicSimple(800); // todo: Adv. Char
         }
         // Full power valves
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 1; jdx < 3; jdx++) {
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .intitCharacteristicSimple(800);
+                        .initCharacteristicSimple(800);
             }
         }
 
@@ -1779,13 +1779,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 8e6 / 200 = 4e4 -> 180 kg/s reduce to 3e4
         for (int idx = 0; idx < 2; idx++) {
             // Todo: Use advanced characteristic here
-            feedwaterStartupReductionValve[idx].intitCharacteristicSimple(3e4);
+            feedwaterStartupReductionValve[idx].initCharacteristicSimple(3e4);
         }
 
         // Those from middle pump do not have much resistance, just a shutoff.
         for (int idx = 0; idx < 2; idx++) {
-            feedwaterSparePumpInValve[idx].intitCharacteristicSimple(200);
-            feedwaterSparePumpOutValve[idx].intitCharacteristicSimple(200);
+            feedwaterSparePumpInValve[idx].initCharacteristicSimple(200);
+            feedwaterSparePumpOutValve[idx].initCharacteristicSimple(200);
         }
 
         // Auxiliary condensers (БРУ–ТК) each can condense about 100 t/h 
@@ -1803,7 +1803,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // diff between condensation and coolant will be 10 K or so we will
         // kA = 8.7e7 W / 10 K = 8.7e6 W/K (k times A is basically that).
         for (int idx = 0; idx < 2; idx++) {
-            auxCondSteamValve[idx].intitCharacteristicSimple(1.8e4);
+            auxCondSteamValve[idx].initCharacteristicSimple(1.8e4);
             auxCondensers[idx].initCharacteristic(4.0, 500, 5e5, 1e5, Double.NaN);
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
@@ -1821,12 +1821,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // we use 3000 on the auxCondSteamValve and 2500 on the valves to
         // the hotwell or makeup storage, 2000 on the aux bypass valve.
         for (int idx = 0; idx < 2; idx++) {
-            auxCondCondensateValve[idx].intitCharacteristicSimple(3e3);
+            auxCondCondensateValve[idx].initCharacteristicSimple(3e3);
             auxCondPumps[idx].initCharacteristic(5e5, 4e5, 60.0);
         }
-        auxCondBypass.intitCharacteristicSimple(2000);
-        auxCondValveToDrain.intitCharacteristicSimple(2500);
-        auxCondValveToHotwell.intitCharacteristicSimple(2500);
+        auxCondBypass.initCharacteristicSimple(2000);
+        auxCondValveToDrain.initCharacteristicSimple(2500);
+        auxCondValveToHotwell.initCharacteristicSimple(2500);
 
         // The steam dump or turbine bypass will not be able to handle the full
         // reactor load, only a bit more than 50 % of it roughly, but it needs
@@ -1834,7 +1834,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 50 bar we'll get those 400 kg/s of steam throuh the valve if it is 
         // opened to 100 %: 5e6 Pa / 400 kg/s = 12500 Pa/kg*s
         for (int idx = 0; idx < 2; idx++) {
-            mainSteamDump[idx].intitCharacteristicSimple(12500);
+            mainSteamDump[idx].initCharacteristicSimple(12500);
         }
 
         // Todo: Get proper values, those are completely made up here
@@ -1855,13 +1855,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 3 bar diff on full opening at 1555 kg/s
         // this was 800, reduced to 400 and added 400 on preheater piping.
         for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].intitCharacteristicSimple(400);
+            condensationValveToDA[idx].initCharacteristicSimple(400);
         }
 
         // Condenser startup ejectors do actually not use much steam, they will
         // have an operating flow of 1 kg/s.
         for (int idx = 0; idx < 2; idx++) {
-            ejectorStartup[idx].intitCharacteristicSimple(2e6);
+            ejectorStartup[idx].initCharacteristicSimple(2e6);
         }
 
         // Todo: make some proper resistance values on the preheaters
@@ -1870,8 +1870,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // The makup storage pump makes 200 kg/s at 4.0 bars
         // Todo: This was advanced characteristics here
-        hotwellFillValve.intitCharacteristicSimple(2000);
-        hotwellDrainValve.intitCharacteristicSimple(2000);
+        hotwellFillValve.initCharacteristicSimple(2000);
+        hotwellDrainValve.initCharacteristicSimple(2000);
 
         // Condenser Coolant
         condenserCoolantSource.setOriginTemperature(273.15 + 22.5);
@@ -1890,7 +1890,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setAmbientPressure(0.0);
             ejectorMain[idx].initConditions(273.15 + 22, 273.15 + 22, 0.15);
         }
-        ejectorMainBypass.intitCharacteristicSimple(200);
+        ejectorMainBypass.initCharacteristicSimple(200);
 
         // Preheaters: Those will not get any vacuum modeled but in general 
         // they should be of lower pressure than the turbine itself, which is
@@ -1902,9 +1902,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // More To do here, just some very rough estimates so the valves itself
         // do work but there's no science behind it yet. The default value has
         // way too high flows on those
-        turbineLowPressureTapValve[0].intitCharacteristicSimple(2e3);
-        turbineLowPressureTapValve[2].intitCharacteristicSimple(2e3);
-        turbineLowPressureTapValve[4].intitCharacteristicSimple(2e3);
+        turbineLowPressureTapValve[0].initCharacteristicSimple(2e3);
+        turbineLowPressureTapValve[2].initCharacteristicSimple(2e3);
+        turbineLowPressureTapValve[4].initCharacteristicSimple(2e3);
 
         // Turbine: fresh steam from drums is 1555 kg/s with 4_440_030 J/kg
         // as we have 64 bars with 284 °C with X=1.0 from drums.
@@ -1928,14 +1928,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         for (int idx = 0; idx < 2; idx++) {
             // The trip valves will not contribute with much resistance here
-            turbineTripValve[idx].intitCharacteristicSimple(5.0);
+            turbineTripValve[idx].initCharacteristicSimple(5.0);
             // Fast closing valve: 200 % per second, default is 25 %/s
             turbineTripValve[idx].getIntegrator().setMaxRate(200);
 
             // Inlet valves: It was suggested by maha that we use around 10 kg/s 
             // for heating up the turbine and spinning it up. 
             // They will be able to move quite fast as they are small.
-            turbineStartupSteamValve[idx].intitCharacteristicSimple(8e5);
+            turbineStartupSteamValve[idx].initCharacteristicSimple(8e5);
 
             // Use the advanced characteristic curve for the main steam flow
             // valves to make them behave as linear as possible. Assume to have
@@ -1947,8 +1947,23 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineMainSteamValve[idx].initCharacteristicAdvanced(
                     592, 6e6, 2473);
             turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
-            turbineReheaterSteamValve[idx].intitCharacteristicSimple(2e5);
-            turbineReheaterSteamValve[idx].getIntegrator().setMaxRate(8);
+        }
+
+        // Reheater will have a pressure between 0 and 4.5 bar depending on its
+        // saturated steam state. The maximum flow should be 372 kg/s. So with
+        // full open valves (assume resistance 0) we could have 500 kg/s from 
+        // 60 bars to obtain the resistance of trim and trip valve:
+        // R = 6e6 Pa / 500 kg/s = 12.000 -> use a sum of 1.1e4
+        turbineReheaterTripValve.getIntegrator().setMaxRate(200);
+        turbineReheaterTripValve.initCharacteristicSimple(2e3);
+        turbineReheaterTrimValve.initCharacteristicSimple(9e3);
+        
+        // So we have R = 2.2e4 and U = 6e6 Pa describing the system, use the 
+        // advanced characteristic on the valve to get a linear behavior.
+        for (int idx = 0; idx < 2; idx++) {
+            turbineReheaterSteamValve[idx].initCharacteristicAdvanced(
+                400, 6e6, 1.1e4);
+            turbineReheaterSteamValve[idx].getIntegrator().setMaxRate(12);
         }
 
         // The steam mass inside the turbine is modeled constant, those are some
@@ -1963,7 +1978,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureOutMass.getPhasedHandler()
                 .setInnerHeatedMass(5);
 
-        turbineLowPressureTripValve.intitCharacteristicSimple(1.0);
+        turbineLowPressureTripValve.initCharacteristicSimple(1.0);
         turbineLowPressureTripValve.getIntegrator().setMaxRate(200);
 
         // ND turbine part: 3.5 bar to almost 0 at condensation with 
@@ -1976,23 +1991,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[5].setResistanceParameter(60);
 
         turbineReheater.initCharacteristic(25.0, 500, 5e2, 0.0);
-
-        // Resistance to Reheater in: (69e5 Pa-4.4e5 Pe) / 372 kg/s
-        // both valves full open will have sum R of 17365 Pa/kg*s 
-        // Reistance of Reheater condensate: 4.4 e6 Pa / 372 kg/s
-        // is 1182.8 Pa/kg*s
-        // Note that the used resistances on valves will be different to
-        // have some possibility of controlling them left.
-        turbineReheaterTripValve.getIntegrator().setMaxRate(200);
-        turbineReheaterTripValve.intitCharacteristicSimple(500);
-
-        turbineReheaterTrimValve.intitCharacteristicSimple(9000);
         for (int idx = 0; idx < 2; idx++) {
-            turbineReheaterCondensateValve[idx].intitCharacteristicSimple(500);
+            turbineReheaterCondensateValve[idx].initCharacteristicSimple(500);
         }
         // 1 bar difference towards hotwell to ensure flow
         turbineReheaterCondensateHeight.setEffort(2e5);
-        turbineReheaterCondensateDrain.intitCharacteristicSimple(200);
+        turbineReheaterCondensateDrain.initCharacteristicSimple(200);
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
@@ -2494,7 +2498,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setParameterK(6.0);
             ((PIControl) mainSteamDump[idx].getController())
                     .setParameterTN(10);
-        } // Todo: Get some parameters, those here were random numbers!
+        }
 
         turbineStartupSteamValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
@@ -2515,7 +2519,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setParameterK(0.05);
             ((PIControl) turbineReheaterSteamValve[idx].getController())
                     .setParameterTN(10);
-        } // Todo: Get some parameters, those here were random numbers!
+        }
 
         // Main Turbine steam valves control the drum pressure so they open
         // as soon as the pressure rises.
@@ -2546,9 +2550,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
         for (int idx = 0; idx < 2; idx++) {
-            ((PIControl) mainSteamDump[idx].getController())
+            ((PIControl) turbineMainSteamValve[idx].getController())
                     .setParameterK(6.0);
-            ((PIControl) mainSteamDump[idx].getController())
+            ((PIControl) turbineMainSteamValve[idx].getController())
                     .setParameterTN(8);
         } // Todo: Get some parameters, those here were random numbers!
 
@@ -2771,6 +2775,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbine.triggerTurbineTrip();
             }
         });
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
+            }
+        });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -2793,6 +2803,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public void run() {
                 turbine.triggerTurbineTrip();
+            }
+        });
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                core.triggerAutoShutdown();
             }
         });
         am.registerAlarmManager(alarmManager);
@@ -3486,7 +3502,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // opening values or pump effort source values to the thermal layout 
         // model.
         runner.invokeAll();
-        
+
         // Apply thermal power from fuel
         if (!noReactorInput) { // for debugging and full reactor use
             for (int idx = 0; idx < 2; idx++) {
