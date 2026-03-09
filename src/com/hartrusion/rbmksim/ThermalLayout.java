@@ -1990,7 +1990,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[4].setResistanceParameter(60);
         turbineLowPressureStage[5].setResistanceParameter(60);
 
-        turbineReheater.initCharacteristic(25.0, 500, 5e2, 0.0);
+        turbineReheater.initCharacteristic(25.0, 200, 1e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterCondensateValve[idx].initCharacteristicSimple(500);
         }
