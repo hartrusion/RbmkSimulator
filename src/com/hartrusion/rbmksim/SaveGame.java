@@ -66,6 +66,8 @@ public class SaveGame implements Serializable {
 
     private boolean coreOnlySimulation;
 
+    private double turbineHPOutSatTemp;
+
     /**
      * Holds the object that describes the state of the turbine component.
      */
@@ -135,6 +137,14 @@ public class SaveGame implements Serializable {
 
     public void setCoreOnlySimulation(boolean coreOnlySimulation) {
         this.coreOnlySimulation = coreOnlySimulation;
+    }
+    
+    public double getTurbineHPOutSatTemp() {
+        return turbineHPOutSatTemp;
+    }
+
+    public void setTurbineHPOutSatTemp(double turbineHPOutSatTemp) {
+        this.turbineHPOutSatTemp = turbineHPOutSatTemp;
     }
 
     public TurbineState getTurbineState() {

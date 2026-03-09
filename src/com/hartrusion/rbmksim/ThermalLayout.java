@@ -377,7 +377,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final Setpoint setpointDrumPressure;
     private final Setpoint setpointHotwellUpperLevel;
     private final Setpoint setpointHotwellLowerLevel;
-    private final Setpoint setpointTurbineReheaterTemperature;
+    private final Setpoint setpointTurbineReheaterSuperheating;
     private final Setpoint setpointTurbineReheaterLevel;
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
@@ -387,11 +387,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final AbstractController blowdownBalanceControlLoop
             = new PControl();
 
-    private double[] steamOutToTurbine = new double[2];
+    private final double[] steamOutToTurbine = new double[2];
 
     private double voiding = 0;
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
+
+    /**
+     * Saturation temperature of the HP turbine out. This is used for generating
+     * a setpoint for superheating. Value has to be saved to be available on
+     * calculation start.
+     */
+    private double turbineHPOutSatTemp;
 
     private double turbineShaftPower = 0.0;
     private double reheaterOutTemperature = 22.5;
@@ -1032,8 +1039,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellLowerLevel.initName("Hotwell#LowerSetpoint");
         setpointDrumPressure = new Setpoint();
         setpointDrumPressure.initName("LoopPressureSetpoint");
-        setpointTurbineReheaterTemperature = new Setpoint();
-        setpointTurbineReheaterTemperature.initName(
+        setpointTurbineReheaterSuperheating = new Setpoint();
+        setpointTurbineReheaterSuperheating.initName(
                 "Turbine#SetpointReheaterTemperature");
         setpointTurbineReheaterLevel = new Setpoint();
         setpointTurbineReheaterLevel.initName(
@@ -1957,12 +1964,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterTripValve.getIntegrator().setMaxRate(200);
         turbineReheaterTripValve.initCharacteristicSimple(2e3);
         turbineReheaterTrimValve.initCharacteristicSimple(9e3);
-        
+
         // So we have R = 2.2e4 and U = 6e6 Pa describing the system, use the 
         // advanced characteristic on the valve to get a linear behavior.
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterSteamValve[idx].initCharacteristicAdvanced(
-                400, 6e6, 1.1e4);
+                    400, 6e6, 1.1e4);
             turbineReheaterSteamValve[idx].getIntegrator().setMaxRate(12);
         }
 
@@ -1990,7 +1997,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[4].setResistanceParameter(60);
         turbineLowPressureStage[5].setResistanceParameter(60);
 
-        turbineReheater.initCharacteristic(25.0, 200, 1e5, 0.0);
+        turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterCondensateValve[idx].initCharacteristicSimple(500);
         }
@@ -2011,9 +2018,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].initOpening(70);
             }
         }
-
-        // Initial setpoint for steam pressure
-        setpointDrumPressure.forceOutputValue(64.0);
 
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].initOpening(80);
@@ -2080,10 +2084,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // try to have a fill level of 100 cm (normal level)
             deaerator[idx].setInitialState(40000, 35 + 273.15);
         }
-        for (int idx = 0; idx < 2; idx++) {
-            setpointDALevel[idx].forceOutputValue(100);
-        }
-
         // Todo: Something that makes more sense here.
         for (int idx = 0; idx < 2; idx++) {
             auxCondensers[idx].initConditions(320, 320, 0.8);
@@ -2103,9 +2103,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheater.initConditions(273.15 + 22.5,
                 (273.15 + 22.5) * phasedWater.getSpecificHeatCapacity(),
                 0.5, 0.0);
-        // Init Setpoint values
-        setpointTurbineReheaterTemperature.forceOutputValue(140);
-        setpointTurbineReheaterLevel.forceOutputValue(60);
 
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
@@ -2241,7 +2238,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.submit(setpointDrumPressure);
         runner.submit(setpointHotwellUpperLevel);
         runner.submit(setpointHotwellLowerLevel);
-        runner.submit(setpointTurbineReheaterTemperature);
+        runner.submit(setpointTurbineReheaterSuperheating);
         runner.submit(setpointTurbineReheaterLevel);
 
         // </editor-fold>
@@ -2560,7 +2557,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return setpointTurbineReheaterTemperature.getOutput()
+                return turbineHPOutSatTemp 
+                        + setpointTurbineReheaterSuperheating.getOutput()
                         - reheaterOutTemperature;
             }
         });
@@ -2568,7 +2566,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return setpointTurbineReheaterTemperature.getOutput()
+                return turbineHPOutSatTemp 
+                        + setpointTurbineReheaterSuperheating.getOutput()
                         - reheaterOutTemperature;
             }
         });
@@ -2631,9 +2630,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellLowerLevel.setMaxRate(8.0);
         setpointHotwellLowerLevel.setLowerLimit(10);
         setpointHotwellLowerLevel.setUpperLimit(90);
-        setpointTurbineReheaterTemperature.setMaxRate(10);
-        setpointTurbineReheaterTemperature.setLowerLimit(120);
-        setpointTurbineReheaterTemperature.setUpperLimit(280);
+        // This sets the turbine superheating as a delta in Kelvin. By default,
+        // it is HP out 137 °C reheated to 263 °C, this is a Delta of 126 °C.
+        setpointTurbineReheaterSuperheating.setMaxRate(10);
+        setpointTurbineReheaterSuperheating.setLowerLimit(50);
+        setpointTurbineReheaterSuperheating.setUpperLimit(200);
         setpointTurbineReheaterLevel.setMaxRate(10);
         setpointTurbineReheaterLevel.setLowerLimit(40);
         setpointTurbineReheaterLevel.setUpperLimit(140);
@@ -2664,6 +2665,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellDrainValve.getController().setMinOutput(-5.0);
 
         // </editor-fold>
+        // Initial Setpoint Values
+        // Those can only be set after the setpoint elements were configured
+        // in previous step or otherwise min max will prevent to set the initial
+        // values.
+        // Initial setpoint for steam pressure
+        setpointDrumPressure.forceOutputValue(64.0);
+        for (int idx = 0; idx < 2; idx++) {
+            setpointDALevel[idx].forceOutputValue(100);
+        }
+
+        setpointTurbineReheaterSuperheating.forceOutputValue(126);
+        setpointTurbineReheaterLevel.forceOutputValue(60);
+
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,
         // there is no need to have a class field for them.
@@ -3666,6 +3680,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         }
 
+        // Calculate saturation temperature on Steam Superheater Inlet from
+        // HP Turbine
+        if (turbineReheater.getPhasedNode(PhasedSuperheater.SECONDARY_IN)
+                .effortUpdated()) {
+            turbineHPOutSatTemp = phasedWater.getSaturationTemperature(
+                    turbineReheater.getPhasedNode(
+                            PhasedSuperheater.SECONDARY_IN).getEffort());
+        }
+
         // Update Alarms
         alarmUpdater.invokeAll();
 
@@ -4286,7 +4309,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             for (int idx = 0; idx < 5; idx++) {
                 turbineLowPressureTapValve[idx].handleAction(ac);
             }
-            setpointTurbineReheaterTemperature.handleAction(ac);
+            setpointTurbineReheaterSuperheating.handleAction(ac);
             setpointTurbineReheaterLevel.handleAction(ac);
 
             if (ac.getPropertyName().equals("SetCoreOnly")) {
@@ -4355,6 +4378,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         save.setBlowdownBalanceActive(
                 !blowdownBalanceControlLoop.isManualMode());
         save.setCoreOnlySimulation(noReactorInput);
+        save.setTurbineHPOutSatTemp(turbineHPOutSatTemp);
     }
 
     public void load(SaveGame save) {
@@ -4367,6 +4391,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 !save.isBlowdownBalanceActive());
         oldBalanceControlState = null; // reset to refire property change
         noReactorInput = save.isCoreOnlySimulation();
+        turbineHPOutSatTemp = save.getTurbineHPOutSatTemp();
 
         // Reset all alarm value monitors so they will re-fire their alarms on
         // loading. Alarms will be cleared and as those alarm value monitors 

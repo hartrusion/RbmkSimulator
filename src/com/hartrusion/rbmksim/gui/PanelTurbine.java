@@ -171,6 +171,7 @@ public class PanelTurbine extends AbstractPanelWidget
         integralSwitchReheaterSteam = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelCaptionReheatTrim1 = new javax.swing.JLabel();
         jLabelCaptionReheatTrim2 = new javax.swing.JLabel();
+        jLabelTempSetpoint2 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(574, 340));
         setPreferredSize(new java.awt.Dimension(574, 340));
@@ -851,15 +852,15 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jLabelTempSetpoint.setFont(jLabelTempSetpoint.getFont().deriveFont(jLabelTempSetpoint.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelTempSetpoint.getFont().getSize()-2));
         jLabelTempSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTempSetpoint.setText("LP Temp Setp.");
+        jLabelTempSetpoint.setText("Setpoint (K)");
         jLabelTempSetpoint.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelTempSetpoint.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelTempSetpoint.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelTempSetpoint.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelTempSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 228, 88, 14));
+        add(jLabelTempSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 230, 88, 14));
 
         integralSwitchReheaterSteam.setComponent("Turbine#ReheaterTrimValve");
-        add(integralSwitchReheaterSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 302, -1, -1));
+        add(integralSwitchReheaterSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 308, -1, -1));
 
         jLabelCaptionReheatTrim1.setFont(jLabelCaptionReheatTrim1.getFont().deriveFont(jLabelCaptionReheatTrim1.getFont().getSize()-2f));
         jLabelCaptionReheatTrim1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -867,7 +868,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionReheatTrim1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReheatTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 272, 84, 14));
+        add(jLabelCaptionReheatTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 278, 84, 14));
 
         jLabelCaptionReheatTrim2.setFont(jLabelCaptionReheatTrim2.getFont().deriveFont(jLabelCaptionReheatTrim2.getFont().getSize()-2f));
         jLabelCaptionReheatTrim2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -875,7 +876,16 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionReheatTrim2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReheatTrim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 284, 84, 14));
+        add(jLabelCaptionReheatTrim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 84, 14));
+
+        jLabelTempSetpoint2.setFont(jLabelTempSetpoint2.getFont().deriveFont(jLabelTempSetpoint2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelTempSetpoint2.getFont().getSize()-2));
+        jLabelTempSetpoint2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTempSetpoint2.setText("Steam Reheater");
+        jLabelTempSetpoint2.setToolTipText("Scrams the reactor by immediately inserting all rods");
+        jLabelTempSetpoint2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelTempSetpoint2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelTempSetpoint2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelTempSetpoint2, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 216, 88, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTrip1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrip1CloseActionPerformed
@@ -1045,6 +1055,7 @@ public class PanelTurbine extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaptionsuperheaterCond6;
     private javax.swing.JLabel jLabelTempSetpoint;
     private javax.swing.JLabel jLabelTempSetpoint1;
+    private javax.swing.JLabel jLabelTempSetpoint2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToggleButton jToggleButtonPump;
