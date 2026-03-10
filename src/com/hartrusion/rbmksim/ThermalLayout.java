@@ -4368,6 +4368,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineTripValve[0].operateCloseValve();
         turbineTripValve[1].operateCloseValve();
         turbineLowPressureTripValve.operateCloseValve();
+        
+        // Some rudimentary but important automation: In case of vacuum ok
+        // in condenser, set both turbine bypass valves to automatic to prevent
+        // sudden pressure buildup. 
+        if (!alarmManager.isAlarmActive("CondenserVacuum", AlarmState.MIN1)) {
+            mainSteamDump[0].getController().setManualMode(false);
+            mainSteamDump[1].getController().setManualMode(false);
+        }
     }
 
     /**
