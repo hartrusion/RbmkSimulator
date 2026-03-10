@@ -2827,7 +2827,34 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-
+        
+        am = new ValueAlarmMonitor();
+        am.setName("DrumPressureDiff");
+        am.addInputProvider(new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return Math.abs(loopNodeDrumFromReactor[1].getEffort() 
+                        - loopNodeDrumFromReactor[0].getEffort()) / 100000;
+            }
+        });
+        am.defineAlarm(8.0, AlarmState.MAX1);
+        am.defineAlarm(6.0, AlarmState.HIGH2);
+        am.defineAlarm(4.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                // Close all valves from blowdown system that are connected to 
+                // the drums to prevent reverse flow.
+                for (int idx = 0; idx < 2; idx++) {
+                    blowdownValveFromDrum[idx].operateCloseValve();
+                    blowdownReturnValve[idx].operateCloseValve();
+                    blowdownValveFromLoop[idx].operateCloseValve();
+                }
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+       
         am = new ValueAlarmMonitor();
         am.setName("Loop1Flow");
         am.addInputProvider(new DoubleSupplier() {
