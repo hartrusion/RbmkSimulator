@@ -2030,6 +2030,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
+        // Set the initial flow through the aftercooler to 600 kg/s
+        blowdownValveCoolant.getSetpointObject().forceOutputValue(600.0);
 
         // Variant 1: Forced Circ. with MPC and no Cooldown Pump:
         /* for (int idx = 0; idx <= 1; idx++) {
