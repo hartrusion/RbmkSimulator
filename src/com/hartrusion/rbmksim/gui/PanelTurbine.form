@@ -500,6 +500,7 @@
           <PropertyValue value="[50.0, 100.0, 150.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -595,6 +596,7 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -615,6 +617,7 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -690,6 +693,7 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -710,6 +714,7 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -756,6 +761,7 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="mm"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -802,6 +808,7 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="mm"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -848,6 +855,7 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="mm"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1805,6 +1813,7 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="bar"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

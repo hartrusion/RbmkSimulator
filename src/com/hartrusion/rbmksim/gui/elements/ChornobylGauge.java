@@ -298,7 +298,8 @@ public final class ChornobylGauge extends javax.swing.JPanel {
             }
         }
 
-        // tick labels
+        // tick labels - this is replaced, the container element now "has" 
+        // jLabel elements which are getting drawn by themselfes.
 //        FontMetrics fm = g.getFontMetrics();
 //        for (int idx = 0; idx < tickLabels.length; idx++) {
 //            g.drawString(tickLabels[idx],
@@ -306,6 +307,12 @@ public final class ChornobylGauge extends javax.swing.JPanel {
 //                        - fm.stringWidth(tickLabels[idx]) / 2,
 //                        Y_POSITION_BAR - TICK_HEIGHT - 2);
 //        }
+
+        // A disabled element does not have any display
+        if (!isEnabled()) {
+            return;
+        }
+
         // Two orange squares for value
         g2.setColor(spotColor);
         g2.fillRect(xPositionLeftSpot, Y_POSITION_BAR + 1, SPOT_WIDTH, BAR_HEIGHT - 2);
@@ -318,7 +325,7 @@ public final class ChornobylGauge extends javax.swing.JPanel {
         activeToolTip = super.createToolTip();
         return activeToolTip;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelUnit;
     // End of variables declaration//GEN-END:variables
