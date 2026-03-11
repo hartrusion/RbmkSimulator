@@ -988,6 +988,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButtonTurboSetpoint">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1058,6 +1059,7 @@
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1078,6 +1080,7 @@
         </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1593,6 +1596,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButtonPump">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1641,6 +1645,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButtonPump1">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1689,6 +1694,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButtonPump2">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -1885,6 +1891,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButtonTurningGear">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x2190;"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>

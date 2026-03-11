@@ -233,6 +233,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonFeed12Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed12Close.setText("C");
         jButtonFeed12Close.setToolTipText("");
+        jButtonFeed12Close.setEnabled(false);
         jButtonFeed12Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonFeed12Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +245,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonFeed12Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed12Open.setText("O");
         jButtonFeed12Open.setToolTipText("");
+        jButtonFeed12Open.setEnabled(false);
         jButtonFeed12Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonFeed12Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +405,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector2SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector2SuctionOpen.setText("O");
         jButtonEjector2SuctionOpen.setToolTipText("");
+        jButtonEjector2SuctionOpen.setEnabled(false);
         jButtonEjector2SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector2SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -414,6 +417,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector2SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector2SuctionClose.setText("C");
         jButtonEjector2SuctionClose.setToolTipText("");
+        jButtonEjector2SuctionClose.setEnabled(false);
         jButtonEjector2SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector2SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,6 +429,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector3SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector3SuctionOpen.setText("O");
         jButtonEjector3SuctionOpen.setToolTipText("");
+        jButtonEjector3SuctionOpen.setEnabled(false);
         jButtonEjector3SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector3SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -436,6 +441,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector3SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector3SuctionClose.setText("C");
         jButtonEjector3SuctionClose.setToolTipText("");
+        jButtonEjector3SuctionClose.setEnabled(false);
         jButtonEjector3SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector3SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,6 +515,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonColdCondensateDrainClose.setText("C");
         jButtonColdCondensateDrainClose.setToolTipText("");
+        jButtonColdCondensateDrainClose.setEnabled(false);
         jButtonColdCondensateDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateDrainClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,6 +535,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonColdCondensateDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonColdCondensateDrainOpen.setText("O");
         jButtonColdCondensateDrainOpen.setToolTipText("");
+        jButtonColdCondensateDrainOpen.setEnabled(false);
         jButtonColdCondensateDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateDrainOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -569,6 +577,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(0, 128, 0));
         jButtonColdCondensateFillOpen.setText("C");
         jButtonColdCondensateFillOpen.setToolTipText("");
+        jButtonColdCondensateFillOpen.setEnabled(false);
         jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateFillOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -588,6 +597,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonColdCondensateFillClose.setBackground(new java.awt.Color(128, 0, 0));
         jButtonColdCondensateFillClose.setText("O");
         jButtonColdCondensateFillClose.setToolTipText("");
+        jButtonColdCondensateFillClose.setEnabled(false);
         jButtonColdCondensateFillClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateFillClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

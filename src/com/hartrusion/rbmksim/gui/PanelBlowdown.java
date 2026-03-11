@@ -552,6 +552,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
         add(jLabelCaptionOutClose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 86, 48, 14));
 
         jToggleButtonAutoDrain.setText("←");
+        jToggleButtonAutoDrain.setEnabled(false);
         jToggleButtonAutoDrain.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonAutoDrain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -487,6 +487,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelCaption7, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 142, 10, 14));
 
         jToggleButtonTurboSetpoint.setText("←");
+        jToggleButtonTurboSetpoint.setEnabled(false);
         jToggleButtonTurboSetpoint.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonTurboSetpoint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -514,6 +515,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jButtonDrainsClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrainsClose.setText("C");
         jButtonDrainsClose.setToolTipText("");
+        jButtonDrainsClose.setEnabled(false);
         jButtonDrainsClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrainsClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -525,6 +527,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jButtenDrainsOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtenDrainsOpen.setText("O");
         jButtenDrainsOpen.setToolTipText("");
+        jButtenDrainsOpen.setEnabled(false);
         jButtenDrainsOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtenDrainsOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -738,6 +741,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelCaptionSuperheaterControl6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 100, 56, 14));
 
         jToggleButtonPump.setText("←");
+        jToggleButtonPump.setEnabled(false);
         jToggleButtonPump.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonPump.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -753,6 +757,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(lightBulbInService, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 304, -1, -1));
 
         jToggleButtonPump1.setText("←");
+        jToggleButtonPump1.setEnabled(false);
         jToggleButtonPump1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonPump1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -768,6 +773,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(lightBulbInService1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 272, -1, -1));
 
         jToggleButtonPump2.setText("←");
+        jToggleButtonPump2.setEnabled(false);
         jToggleButtonPump2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonPump2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -832,6 +838,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelCaptionTG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 268, 51, 14));
 
         jToggleButtonTurningGear.setText("←");
+        jToggleButtonTurningGear.setEnabled(false);
         jToggleButtonTurningGear.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonTurningGear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

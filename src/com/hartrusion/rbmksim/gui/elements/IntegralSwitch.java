@@ -238,6 +238,13 @@ public class IntegralSwitch extends javax.swing.JPanel
         // Reset the antialiasing to its previous value
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, prevHint);
     }
+    
+    @Override
+    public void setEnabled(boolean b) {
+        super.setEnabled(b);
+        jButtonNeg.setEnabled(b);
+        jButtonPos.setEnabled(b);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonNeg;

@@ -218,7 +218,11 @@ public class PanelDeaerators extends AbstractPanelWidget {
 
         controlLoopValveDA2Flow.setComponent("Condensation2#ValveToDA");
         add(controlLoopValveDA2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 104, -1, -1));
+
+        integralSwitchVent1.setEnabled(false);
         add(integralSwitchVent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 166, -1, -1));
+
+        integralSwitchVent2.setEnabled(false);
         add(integralSwitchVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 166, -1, -1));
 
         jLabelVent2.setFont(jLabelVent2.getFont().deriveFont(jLabelVent2.getFont().getSize()-2f));
