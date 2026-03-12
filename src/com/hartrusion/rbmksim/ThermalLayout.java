@@ -1621,8 +1621,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].initCharacteristicSimple(5.51724);
             }
             loopDownflow[idx].setResistanceParameter(12.6);
-            loopDownflow[idx].setInnerThermalMass(50); // initial: 100
-            loopChannelFlowResistance[idx].setInnerThermalMass(50);
+            loopDownflow[idx].setInnerThermalMass(200); // initial: 100
+            loopChannelFlowResistance[idx].setInnerThermalMass(180);
             loopChannelFlowResistance[idx].setResistanceParameter(293.1);
         }
 
@@ -1906,7 +1906,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheater[idx].getPrimarySideReservoir().setAmbientPressure(0.0);
         }
 
-        // More To do here, just some very rough estimates so the valves itself
+        // More To do here, jus t some very rough estimates so the valves itself
         // do work but there's no science behind it yet. The default value has
         // way too high flows on those
         turbineLowPressureTapValve[0].initCharacteristicSimple(2e3);
@@ -1962,8 +1962,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 60 bars to obtain the resistance of trim and trip valve:
         // R = 6e6 Pa / 500 kg/s = 12.000 -> use a sum of 1.1e4
         turbineReheaterTripValve.getIntegrator().setMaxRate(200);
-        turbineReheaterTripValve.initCharacteristicSimple(2e3);
-        turbineReheaterTrimValve.initCharacteristicSimple(9e3);
+        turbineReheaterTripValve.initCharacteristicSimple(9e3);
+        turbineReheaterTrimValve.initCharacteristicSimple(2e3);
 
         // So we have R = 2.2e4 and U = 6e6 Pa describing the system, use the 
         // advanced characteristic on the valve to get a linear behavior.
@@ -2061,7 +2061,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
             loopSteamDrum[idx].setInitialState(21000, 42.9 + 273.15);
-            loopEvaporator[idx].setInitialState(6.0, 1e5,
+            loopEvaporator[idx].setInitialState(20.0, 1e5,
                     273.5 + 29.4, 273.5 + 46.3);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
@@ -2770,6 +2770,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         // Steam Drum Pressure
+        // From the NRC Report: Turbine startup is done with 15 bar and synced
+        // to grid on 50 bar. The min pressure value which also triggers turbine
+        // trip is therefore set to 12 bar.
         am = new ValueAlarmMonitor();
         am.setName("Drum1Pressure");
         am.addInputProvider(new DoubleSupplier() {
@@ -2783,8 +2786,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(72.0, AlarmState.HIGH2);
         am.defineAlarm(70.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
-        am.defineAlarm(58.0, AlarmState.LOW2);
-        am.defineAlarm(55.0, AlarmState.MIN1);
+        am.defineAlarm(50.0, AlarmState.LOW2);
+        am.defineAlarm(12.0, AlarmState.MIN1);
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -2813,8 +2816,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(72.0, AlarmState.HIGH2);
         am.defineAlarm(70.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
-        am.defineAlarm(58.0, AlarmState.LOW2);
-        am.defineAlarm(55.0, AlarmState.MIN1);
+        am.defineAlarm(50.0, AlarmState.LOW2);
+        am.defineAlarm(12.0, AlarmState.MIN1);
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
