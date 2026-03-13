@@ -420,7 +420,33 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private ControlCommand balanceControlState;
     private ControlCommand oldBalanceControlState;
 
+    public static final double PRESSURE_SETPOINT_POWER_START = 40; // 40 MWth
+    public static final double PRESSURE_SETPOINT_POWER_END = 300; // 300 MWth
+    public static final double PRESSURE_SETPOINT_LOWER = 5.0; // bar
+    public static final double PRESSURE_SETPOINT_UPPER = 64.0; // bar
+
+    public final double PRESSURE_SETPOINT_M;
+
+    /**
+     * Additional pressure for the main steam bypass, the bypass will hold a
+     * slightly higher pressure than the turbine.
+     */
+    public static final double PRESSURE_SETPOINT_BYPASS_OFFSET = 1.0;
+    public final double PRESSURE_SETPOINT_BYPASS_POWEREND;
+
     ThermalLayout() {
+        // calculate linear factor for pressure setpoint y=m(x-x1)
+        // with m = (y2-y1)/(x2-x1) with x power and y pressure
+        PRESSURE_SETPOINT_M
+                = (PRESSURE_SETPOINT_UPPER - PRESSURE_SETPOINT_LOWER)
+                / (PRESSURE_SETPOINT_POWER_END - PRESSURE_SETPOINT_POWER_START);
+        // The line for the bypass is slightly longer, where does it end?
+        // y = m(x-x1) -> x = y/m + x1
+        PRESSURE_SETPOINT_BYPASS_POWEREND = 
+                (PRESSURE_SETPOINT_UPPER + PRESSURE_SETPOINT_BYPASS_OFFSET)
+                / PRESSURE_SETPOINT_M + PRESSURE_SETPOINT_POWER_START;
+
+
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
         // Generate all instances and name them. This is done here and not in
         // variables declaration so we can both instanciate single and array
@@ -1621,8 +1647,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].initCharacteristicSimple(5.51724);
             }
             loopDownflow[idx].setResistanceParameter(12.6);
-            loopDownflow[idx].setInnerThermalMass(200); // initial: 100
-            loopChannelFlowResistance[idx].setInnerThermalMass(180);
+            loopDownflow[idx].setInnerThermalMass(50); // initial: 100
+            loopChannelFlowResistance[idx].setInnerThermalMass(50);
             loopChannelFlowResistance[idx].setResistanceParameter(293.1);
         }
 
@@ -2266,10 +2292,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Pressure setpoint and controls are given in bar relative while the 
         // model itsel works on Pascal absolute. Sounds painful but is a real
-        // world approach.
-        setpointDrumPressure.setLowerLimit(58);
+        // world approach. This setpoint element is used to have some slower
+        // setpoint instead of directyl calling the function.
+        setpointDrumPressure.setLowerLimit(1.0);
         setpointDrumPressure.setUpperLimit(72.0);
-        setpointDrumPressure.setMaxRate(5.0);
+        setpointDrumPressure.setMaxRate(2.0);
 
         blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
             @Override
@@ -2559,7 +2586,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return turbineHPOutSatTemp 
+                return turbineHPOutSatTemp
                         + setpointTurbineReheaterSuperheating.getOutput()
                         - reheaterOutTemperature;
             }
@@ -2568,7 +2595,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return turbineHPOutSatTemp 
+                return turbineHPOutSatTemp
                         + setpointTurbineReheaterSuperheating.getOutput()
                         - reheaterOutTemperature;
             }
@@ -2672,7 +2699,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // in previous step or otherwise min max will prevent to set the initial
         // values.
         // Initial setpoint for steam pressure
-        setpointDrumPressure.forceOutputValue(64.0);
         for (int idx = 0; idx < 2; idx++) {
             setpointDALevel[idx].forceOutputValue(100);
         }
@@ -2832,13 +2858,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("DrumPressureDiff");
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return Math.abs(loopNodeDrumFromReactor[1].getEffort() 
+                return Math.abs(loopNodeDrumFromReactor[1].getEffort()
                         - loopNodeDrumFromReactor[0].getEffort()) / 100000;
             }
         });
@@ -2859,7 +2885,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-       
+
         am = new ValueAlarmMonitor();
         am.setName("Loop1Flow");
         am.addInputProvider(new DoubleSupplier() {
@@ -3539,7 +3565,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public void run() {
         setThermalPower(0, core.getThermalPower(0));
         setThermalPower(1, core.getThermalPower(1));
-
+        
+        // Pressure setpoint is obtained as a function of generator power for 
+        // startup
+        setpointDrumPressure.setInput(getPressureSetpoint(
+            core.getNeutronModel().getYThermalPower()));
+               
+        
         // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
         // handleAction in this class here. So the first thing happening is
@@ -4373,7 +4405,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineTripValve[0].operateCloseValve();
         turbineTripValve[1].operateCloseValve();
         turbineLowPressureTripValve.operateCloseValve();
-        
+
         // Some rudimentary but important automation: In case of vacuum ok
         // in condenser, set both turbine bypass valves to automatic to prevent
         // sudden pressure buildup. 
@@ -4394,6 +4426,42 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     public double getCoreTemp() {
         return coreTemp;
+    }
+
+    /**
+     * Returns the pressure setpoint for any given thermal power. The setpoint
+     * is lower for startup according to some report. 
+     *
+     * @param thermalPower
+     * @return
+     */
+    public double getPressureSetpoint(double thermalPower) {
+        if (thermalPower <= PRESSURE_SETPOINT_POWER_START) {
+            return PRESSURE_SETPOINT_LOWER;
+        }
+        if (thermalPower >= PRESSURE_SETPOINT_POWER_END) {
+            return PRESSURE_SETPOINT_UPPER;
+        }
+        return PRESSURE_SETPOINT_M * (thermalPower - PRESSURE_SETPOINT_LOWER);
+    }
+
+    /**
+     * Returns the pressure setpoint for the bypass valves. This setpoint is
+     * slightly higher and reaches a little further to have the turbine control
+     * the pressure and close the bypass on auto mode.
+     *
+     * @param thermalPower
+     * @return
+     */
+    public double getPressureSetpointBypass(double thermalPower) {
+        if (thermalPower <= PRESSURE_SETPOINT_POWER_START) {
+            return PRESSURE_SETPOINT_LOWER;
+        }
+        if (thermalPower >= PRESSURE_SETPOINT_BYPASS_POWEREND) {
+            return PRESSURE_SETPOINT_UPPER + PRESSURE_SETPOINT_BYPASS_OFFSET;
+        }
+        // same interpolation as above, but it is slightly longer.
+        return PRESSURE_SETPOINT_M * (thermalPower - PRESSURE_SETPOINT_LOWER);
     }
 
     /**

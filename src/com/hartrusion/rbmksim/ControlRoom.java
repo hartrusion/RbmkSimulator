@@ -55,6 +55,7 @@ public class ControlRoom extends javax.swing.JFrame
     private FrameDiagramLoopLevel frameDiagramLoop1Level;
     private FrameDiagramLoopLevel frameDiagramLoop2Level;
     private FrameDiagramGlobalControl frameDiagramGlobalControl;
+    private FrameDiagramStartupPressureSetpoint frameDiagramStartupPressure;
 
     private FrameAlarmTable frameAlarms;
     private List alarmList;
@@ -133,6 +134,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuDrumSeparators = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
 
@@ -464,6 +466,14 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuDiagrams.add(jMenuItem9);
+
+        jMenuItemStartupPressureSetpoint.setText("Startup Pressure Setpoint");
+        jMenuItemStartupPressureSetpoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemStartupPressureSetpointActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuItemStartupPressureSetpoint);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -1002,6 +1012,22 @@ public class ControlRoom extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuLoadActionPerformed
 
+    private void jMenuItemStartupPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartupPressureSetpointActionPerformed
+        if (frameDiagramStartupPressure == null && plotData != null) {
+            frameDiagramStartupPressure = new FrameDiagramStartupPressureSetpoint();
+            frameDiagramStartupPressure.initPlots(plotData, 0);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameDiagramStartupPressure.setVisible(true);
+            });
+            frameDiagramStartupPressure.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameDiagramStartupPressure = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItemStartupPressureSetpointActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -1046,6 +1072,9 @@ public class ControlRoom extends javax.swing.JFrame
             }
             if (frameDiagramGlobalControl != null) {
                 frameDiagramGlobalControl.updatePlots();
+            }
+            if (frameDiagramStartupPressure != null) {
+                frameDiagramStartupPressure.updatePlots();
             }
 
             // use this event to update the alarm list also.
@@ -1214,6 +1243,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemRecirculation;
+    private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenuItem jMenuLoad;

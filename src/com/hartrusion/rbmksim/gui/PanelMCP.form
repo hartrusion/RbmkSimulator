@@ -409,7 +409,7 @@
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Setpoint"/>
+        <Property name="text" type="java.lang.String" value="setpoint offset"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -881,7 +881,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.SetpointControl" name="setpointControl1">
       <Properties>
-        <Property name="component" type="java.lang.String" value="LoopPressureSetpoint"/>
+        <Property name="component" type="java.lang.String" value="LoopPressureSetpointOffset"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

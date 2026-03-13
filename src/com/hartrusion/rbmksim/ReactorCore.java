@@ -768,10 +768,9 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void init() {
         neutronFluxModel.setInitialConditions(100, 80.144, 0);
 
-        // Auto Control is limited between 4 and 110 % flux
         setpointNeutronFlux.setLowerLimit(0.0);
         setpointNeutronFlux.setUpperLimit(120.0);
-        setpointTargetNeutronFlux.setLowerLimit(4.0);
+        setpointTargetNeutronFlux.setLowerLimit(1.0);
         setpointTargetNeutronFlux.setUpperLimit(110.0);
         setpointTargetNeutronFlux.setMaxRate(2.0);
 

@@ -261,7 +261,7 @@ public class PanelMCP extends AbstractPanelWidget
 
         jLabelCaptionDrain5.setFont(jLabelCaptionDrain5.getFont().deriveFont(jLabelCaptionDrain5.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrain5.getFont().getSize()-2));
         jLabelCaptionDrain5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrain5.setText("Setpoint");
+        jLabelCaptionDrain5.setText("setpoint offset");
         jLabelCaptionDrain5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain5.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -409,7 +409,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabelCaptionDrain6.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 6, 86, 14));
 
-        setpointControl1.setComponent("LoopPressureSetpoint");
+        setpointControl1.setComponent("LoopPressureSetpointOffset");
         add(setpointControl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 38, -1, -1));
 
         jLabelCaptionPassiveFlow3.setFont(jLabelCaptionPassiveFlow3.getFont().deriveFont(jLabelCaptionPassiveFlow3.getFont().getSize()-2f));
