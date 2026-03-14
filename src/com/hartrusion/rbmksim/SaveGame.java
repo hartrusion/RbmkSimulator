@@ -67,6 +67,8 @@ public class SaveGame implements Serializable {
     private boolean coreOnlySimulation;
 
     private double turbineHPOutSatTemp;
+    
+    private boolean startupPressureSetpointActive;
 
     /**
      * Holds the object that describes the state of the turbine component.
@@ -153,5 +155,13 @@ public class SaveGame implements Serializable {
 
     public void addTurbineState(TurbineState turbineState) {
         this.turbineState = turbineState;
+    }
+    
+    public boolean isStartupPressureSetpointActive() {
+        return startupPressureSetpointActive;
+    }
+
+    public void setStartupPressureSetpointActive(boolean startupPressureSetpointActive) {
+        this.startupPressureSetpointActive = startupPressureSetpointActive;
     }
 }

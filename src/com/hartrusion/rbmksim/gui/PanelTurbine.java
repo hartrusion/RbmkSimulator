@@ -247,7 +247,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jLabelCaptionSuperheaterControl2.setFont(jLabelCaptionSuperheaterControl2.getFont().deriveFont(jLabelCaptionSuperheaterControl2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl2.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionSuperheaterControl2.setText("Selection");
+        jLabelCaptionSuperheaterControl2.setText("Setpoint");
         jLabelCaptionSuperheaterControl2.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionSuperheaterControl2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl2.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -469,7 +469,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jLabelCaption6.setFont(jLabelCaption6.getFont().deriveFont(jLabelCaption6.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption6.getFont().getSize()-2));
         jLabelCaption6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption6.setText("Speed");
+        jLabelCaption6.setText("Full");
         jLabelCaption6.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaption6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption6.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -495,14 +495,14 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelCaption7, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 142, 10, 14));
 
         jToggleButtonTurboSetpoint.setText("←");
-        jToggleButtonTurboSetpoint.setEnabled(false);
+        jToggleButtonTurboSetpoint.setToolTipText("Toggles the startup pressure setpoint to start the plant with a lower pressure that is linked to the thermal power output.");
         jToggleButtonTurboSetpoint.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonTurboSetpoint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonTurboSetpointActionPerformed(evt);
             }
         });
-        add(jToggleButtonTurboSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 20, 20));
+        add(jToggleButtonTurboSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 160, 20, 20));
 
         jLabelCaptionDrains1.setFont(jLabelCaptionDrains1.getFont().deriveFont(jLabelCaptionDrains1.getFont().getSize()-2f));
         jLabelCaptionDrains1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -589,7 +589,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jLabelCaption10.setFont(jLabelCaption10.getFont().deriveFont(jLabelCaption10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption10.getFont().getSize()-2));
         jLabelCaption10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaption10.setText("Pressure");
+        jLabelCaption10.setText("Startup");
         jLabelCaption10.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaption10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption10.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -598,7 +598,7 @@ public class PanelTurbine extends AbstractPanelWidget
 
         jLabelCaptionSuperheaterControl8.setFont(jLabelCaptionSuperheaterControl8.getFont().deriveFont(jLabelCaptionSuperheaterControl8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl8.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionSuperheaterControl8.setText("Setpoint");
+        jLabelCaptionSuperheaterControl8.setText("Pressure");
         jLabelCaptionSuperheaterControl8.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionSuperheaterControl8.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSuperheaterControl8.setMinimumSize(new java.awt.Dimension(52, 14));
@@ -937,7 +937,13 @@ public class PanelTurbine extends AbstractPanelWidget
     }//GEN-LAST:event_jButtonProtectionTripActionPerformed
 
     private void jToggleButtonTurboSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTurboSetpointActionPerformed
-        // TODO add your handling code here:
+        if (jToggleButtonTurboSetpoint.isSelected()) {
+            jToggleButtonTurboSetpoint.setText("↑");
+            controller.userAction(new ActionCommand("Main#StartupPressureSetpoint", true));
+        } else {
+            jToggleButtonTurboSetpoint.setText("←");
+            controller.userAction(new ActionCommand("Main#StartupPressureSetpoint", false));
+        }
     }//GEN-LAST:event_jToggleButtonTurboSetpointActionPerformed
 
     private void jButtonDrainsCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrainsCloseActionPerformed
@@ -1095,6 +1101,15 @@ public class PanelTurbine extends AbstractPanelWidget
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("Main#StartupPressureSetpoint")) {
+            // Set the initial position of the switch button, this will be
+            // received when opening the panel.
+            if ((boolean) evt.getNewValue()
+                    && !jToggleButtonTurboSetpoint.isSelected()) {
+                jToggleButtonTurboSetpoint.setSelected(true);
+                jToggleButtonTurboSetpoint.setText("↑");
+            }
+        }
         controlLoopStartupValve1.updateComponent(evt);
         controlLoopStartupValve2.updateComponent(evt);
         controlLoopValveReheater1.updateComponent(evt);

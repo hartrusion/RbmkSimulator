@@ -434,6 +434,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public static final double PRESSURE_SETPOINT_BYPASS_OFFSET = 1.0;
     public final double PRESSURE_SETPOINT_BYPASS_POWEREND;
 
+    private boolean startupPressureSetpointActive;
+    private boolean oldStartupPressureSetpointActive;
+
     ThermalLayout() {
         // calculate linear factor for pressure setpoint y=m(x-x1)
         // with m = (y2-y1)/(x2-x1) with x power and y pressure
@@ -442,10 +445,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 / (PRESSURE_SETPOINT_POWER_END - PRESSURE_SETPOINT_POWER_START);
         // The line for the bypass is slightly longer, where does it end?
         // y = m(x-x1) -> x = y/m + x1
-        PRESSURE_SETPOINT_BYPASS_POWEREND = 
-                (PRESSURE_SETPOINT_UPPER + PRESSURE_SETPOINT_BYPASS_OFFSET)
+        PRESSURE_SETPOINT_BYPASS_POWEREND
+                = (PRESSURE_SETPOINT_UPPER + PRESSURE_SETPOINT_BYPASS_OFFSET)
                 / PRESSURE_SETPOINT_M + PRESSURE_SETPOINT_POWER_START;
-
 
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
         // Generate all instances and name them. This is done here and not in
@@ -2706,6 +2708,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointTurbineReheaterSuperheating.forceOutputValue(126);
         setpointTurbineReheaterLevel.forceOutputValue(60);
 
+        startupPressureSetpointActive = true;
+
         // <editor-fold defaultstate="collapsed" desc="Alarm Definitions">
         // Alarm monitors are defined here and stored in the alarmUpdater only,
         // there is no need to have a class field for them.
@@ -3565,13 +3569,26 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public void run() {
         setThermalPower(0, core.getThermalPower(0));
         setThermalPower(1, core.getThermalPower(1));
-        
+
+        // Fire property change update on change of startup pressure setpoint
+        // selection.
+        if (startupPressureSetpointActive != oldStartupPressureSetpointActive) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Main#StartupPressureSetpoint",
+                    oldStartupPressureSetpointActive,
+                    startupPressureSetpointActive));
+            oldStartupPressureSetpointActive = startupPressureSetpointActive;
+        }
+
         // Pressure setpoint is obtained as a function of generator power for 
-        // startup
-        setpointDrumPressure.setInput(getPressureSetpoint(
-            core.getNeutronModel().getYThermalPower()));
-               
-        
+        // startup, otherwise it is just a constant value.
+        if (startupPressureSetpointActive) {
+            setpointDrumPressure.setInput(getPressureSetpoint(
+                    core.getNeutronModel().getYThermalPower()));
+        } else {
+            setpointDrumPressure.setInput(PRESSURE_SETPOINT_UPPER);
+        }
+
         // Before this run method is invoked from the MainLoop, the controller
         // will be triggered to fire all property updates (this will invoke
         // handleAction in this class here. So the first thing happening is
@@ -4379,6 +4396,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             if (ac.getPropertyName().equals("SetCoreOnly")) {
                 noReactorInput = true;
             }
+            
+            if (ac.getPropertyName().equals("Main#StartupPressureSetpoint")) {
+                startupPressureSetpointActive = (boolean) ac.getValue();
+            }
         }
         // </editor-fold>
     }
@@ -4430,7 +4451,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     /**
      * Returns the pressure setpoint for any given thermal power. The setpoint
-     * is lower for startup according to some report. 
+     * is lower for startup according to some report.
      *
      * @param thermalPower
      * @return
@@ -4487,6 +4508,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 !blowdownBalanceControlLoop.isManualMode());
         save.setCoreOnlySimulation(noReactorInput);
         save.setTurbineHPOutSatTemp(turbineHPOutSatTemp);
+        save.setStartupPressureSetpointActive(startupPressureSetpointActive);
     }
 
     public void load(SaveGame save) {
@@ -4500,6 +4522,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         oldBalanceControlState = null; // reset to refire property change
         noReactorInput = save.isCoreOnlySimulation();
         turbineHPOutSatTemp = save.getTurbineHPOutSatTemp();
+        startupPressureSetpointActive = save.isStartupPressureSetpointActive();
+        // force property change event with this:
+        oldStartupPressureSetpointActive = !startupPressureSetpointActive;
 
         // Reset all alarm value monitors so they will re-fire their alarms on
         // loading. Alarms will be cleared and as those alarm value monitors 
