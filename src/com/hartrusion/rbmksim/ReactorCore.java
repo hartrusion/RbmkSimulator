@@ -509,8 +509,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         //            rodAbsorption);
         outputValues.setParameterValue("Reactor#Xenon",
                 xenonModel.getYXenon());
-        outputValues.setParameterValue("Reactor#ThermalPower",
-                neutronFluxModel.getYThermalPower());
+        outputValues.setParameterValue("Reactor#ThermalPowerDisplay",
+                neutronFluxModel.getYThermalPowerDisplayed());
         outputValues.setParameterValue("Reactor#k",
                 neutronFluxModel.getYK());
         outputValues.setParameterValue("Reactor#Reactivity",
@@ -922,17 +922,6 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     public void setCoreTemp(double coreTemp) {
         this.coreTemp = coreTemp;
-    }
-
-    public double getThermalPower(int loop) {
-        return switch (loop) {
-            case 0 ->
-                neutronFluxModel.getYThermalPower1();
-            case 1 ->
-                neutronFluxModel.getYThermalPower2();
-            default ->
-                0.0;
-        };
     }
 
     /**

@@ -2419,16 +2419,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // given in pascals as absolute value. Controllers will use bar.
                 // Negative control, as opening valve shall decrease the drum
                 // pressure.
-                return setpointDrumPressure.getOutput() 
-                        -(loopSteamDrum[0].getEffort() * 1e-5 + 1.0);
+                return (loopSteamDrum[0].getEffort() * 1e-5 + 1.0)
+                        - setpointDrumPressure.getOutput();
             }
         });
         auxCondSteamValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return setpointDrumPressure.getOutput() 
-                        -(loopSteamDrum[0].getEffort() * 1e-5 + 1.0);
+                return (loopSteamDrum[1].getEffort() * 1e-5 + 1.0)
+                        - setpointDrumPressure.getOutput();
             }
         });
         for (int idx = 0; idx < 2; idx++) {
@@ -3539,8 +3539,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     @Override
     public void run() {
-        setThermalPower(0, core.getThermalPower(0));
-        setThermalPower(1, core.getThermalPower(1));
+        // Get the thermal power output per side from the core model. Limit it
+        // to 10 gigawatts so something can be seen on prompt neutron excursion.
+        thermalPower[0] = Math.min(
+                core.getNeutronModel().getYThermalPower1(), 1e4);
+        thermalPower[1] = Math.min(
+                core.getNeutronModel().getYThermalPower1(), 1e4);
 
         // Fire property change update on change of startup pressure setpoint
         // selection.
@@ -4368,25 +4372,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             if (ac.getPropertyName().equals("SetCoreOnly")) {
                 noReactorInput = true;
             }
-            
+
             if (ac.getPropertyName().equals("Main#StartupPressureSetpoint")) {
                 startupPressureSetpointActive = (boolean) ac.getValue();
             }
         }
         // </editor-fold>
-    }
-
-    /**
-     * Set the current thermal power in the reactor.
-     *
-     * @param loop 0 or 1
-     * @param power in Megawatts
-     */
-    private void setThermalPower(int loop, double power) {
-        // Add 5.6 MW idle (2.8 per side) power here
-        // Limit the thermal power to 10 Gigawatts per side, it will crash the
-        // simulation anyway but that way it's not that fast.
-        thermalPower[loop] = Math.min(power + 2.8, 1e4);
     }
 
     /**

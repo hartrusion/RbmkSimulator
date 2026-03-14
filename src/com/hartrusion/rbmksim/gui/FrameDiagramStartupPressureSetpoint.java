@@ -89,7 +89,7 @@ public class FrameDiagramStartupPressureSetpoint extends javax.swing.JFrame
     @Override
     public void updatePlots() {
         // get values and paint cursors
-        float x = (float) plotData.getParameterDouble("Reactor#ThermalPower");
+        float x = (float) plotData.getParameterDouble("Reactor#ThermalPowerDisplay");
         float y1 = (float) plotData.getParameterDouble("Loop1#DrumPressure");
         float y2 = (float) plotData.getParameterDouble("Loop2#DrumPressure");
 

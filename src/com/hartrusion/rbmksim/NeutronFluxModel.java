@@ -40,6 +40,16 @@ package com.hartrusion.rbmksim;
 public class NeutronFluxModel implements Runnable {
 
     /**
+     * Power in Megawatts when having full neutron flux of 100 %
+     */
+    private static final double FULL_FLUX_POWER = 3200;
+
+    /**
+     *
+     */
+    public static final double IDLE_HEAT = 5.6;
+
+    /**
      * Step time in Seconds
      */
     private double stepTime = 0.1;
@@ -275,7 +285,10 @@ public class NeutronFluxModel implements Runnable {
 
         dXDeltaRods = (uAbsorberRods - xDeltaRods) / T_DIFF_RODS;
 
-        dXFirstDelay = (xNeutronFlux * P_DECAY * 15.76 - xFirstDelay) / T_DECAY;
+        // here: times p decay and make a 0...3200 MW range from 0..100 %
+        dXFirstDelay = (xNeutronFlux
+                * P_DECAY * (FULL_FLUX_POWER - IDLE_HEAT) / 200
+                - xFirstDelay) / T_DECAY;
 
         dXDelayedThermalPower = (xFirstDelay - xDelayedThermalPower) / T_DECAY;
 
@@ -327,13 +340,19 @@ public class NeutronFluxModel implements Runnable {
 
         yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
 
-        // Limit the total thermal power output to 30.000 Megawatts
+        // Also limit the total thermal power output to 30.000 Megawatts
+        // divided by 200 makes 100 % flux to 1 and divides by 2 for 2 sides.
+        // multiplied with full power we get a megawatt number per side here.
         yThermalPower1 = Math.min(15000,
-                xNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
-                + xDelayedThermalPower);
+                xNeutronFlux * (1 - P_DECAY)
+                * (FULL_FLUX_POWER - IDLE_HEAT) / 200 * (1.0 + uSkew)
+                + xDelayedThermalPower
+                + IDLE_HEAT / 2);
         yThermalPower2 = Math.min(15000,
-                xNeutronFlux * (1 - P_DECAY) * 16 * (uSkew + 1)
-                + xDelayedThermalPower);
+                xNeutronFlux * (1 - P_DECAY)
+                * (FULL_FLUX_POWER - IDLE_HEAT) / 200 * (1.0 - uSkew)
+                + xDelayedThermalPower
+                + IDLE_HEAT / 2);
         yThermalPower = yThermalPower1 + yThermalPower2;
     }
 
@@ -411,7 +430,7 @@ public class NeutronFluxModel implements Runnable {
     }
 
     /**
-     * Thermal power for loop 1, including the decay heat.
+     * Thermal power for loop 1, including the decay heat and half idle power.
      *
      * @return Power in Megawatts.
      */
@@ -420,7 +439,7 @@ public class NeutronFluxModel implements Runnable {
     }
 
     /**
-     * Thermal power for loop 2, including the decay heat.
+     * Thermal power for loop 2, including the decay heat and half idle power.
      *
      * @return Power in Megawatts.
      */
@@ -429,12 +448,23 @@ public class NeutronFluxModel implements Runnable {
     }
 
     /**
-     * Thermal power (sum), including the decay heat.
+     * Thermal power (sum), including the decay heat and half idle power.
      *
      * @return Power in Megawatts.
      */
     public double getYThermalPower() {
         return yThermalPower;
+    }
+
+    /**
+     * A faked value that does not consider the idle heat. This is used for the
+     * display value as we do not want the display on the core to show the
+     * megawatt value of idle heat.
+     *
+     * @return Power in Megawatts.
+     */
+    public double getYThermalPowerDisplayed() {
+        return yThermalPower - IDLE_HEAT;
     }
 
     public void setStepTime(double stepTime) {

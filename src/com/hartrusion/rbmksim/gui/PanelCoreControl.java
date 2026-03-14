@@ -2391,7 +2391,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 ammeterRate.setChornobylValue(20 * newValue + 50);
                 lightBulbNeutronRate.setActive(newValue >= 2.2);
             }
-            case "Reactor#ThermalPower" ->
+            case "Reactor#ThermalPowerDisplay" ->
                 jLabelReadingThermalPower.setText(
                         String.format("%05d", Math.round(newValue)));
             case "Reactor#SetpointPowerGradient" ->
