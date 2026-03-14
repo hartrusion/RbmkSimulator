@@ -45,9 +45,13 @@ public class NeutronFluxModel implements Runnable {
     private static final double FULL_FLUX_POWER = 3200;
 
     /**
-     *
+     * Besides decay heat, the core will always produce the set amount of heat.
+     * A value of 5.6 MW was decided to be fine, however, this will take a long
+     * time to heat up things even with the way smaller masses here. A higher 
+     * value is chosen to get a better simulation experience. This allows 
+     * pressure buildup to be observed even without any neutron flux.
      */
-    public static final double IDLE_HEAT = 5.6;
+    public static final double IDLE_HEAT = 48;
 
     /**
      * Step time in Seconds

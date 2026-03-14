@@ -169,7 +169,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve blowdownValveTreatmentBypass;
     private final HeatNode blowdownToCooldownNode;
     private final HeatSimpleFlowResistance blowdownCooldownResistance;
-    private final HeatExchanger blowdownCooldown;
+    private final HeatExchangerNoMass blowdownCooldown;
     // There is no coolant loop yet, just a flow source
     private final HeatOrigin blowdownCoolantSource;
     private final HeatNode blowdownCoolantSourceNode;
@@ -624,7 +624,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownCooldownResistance = new HeatSimpleFlowResistance();
         blowdownCooldownResistance.setName(
                 "Blowdown#CooldownResistance");
-        blowdownCooldown = new HeatExchanger();
+        blowdownCooldown = new HeatExchangerNoMass();
         blowdownCooldown.initGenerateNodes();
         blowdownCooldown.initName("Blowdown#Cooldown");
         blowdownCoolantSource = new HeatOrigin();
@@ -1722,7 +1722,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValveDrain.initCharacteristicSimple(400);
         blowdownToRegeneratorFirstResistance.setResistanceParameter(500);
         blowdownToRegeneratorSecondResistance.setResistanceParameter(500);
-        blowdownCooldown.initCharacteristic(3000, 1500, 7e6);
+        // make a super-efficient heat exchanger here
+        blowdownCooldown.initCharacteristic(8.0);
         // Flow source for coolant
         blowdownValveCoolant.initCharacteristic(1000, 6);
 
@@ -2088,24 +2089,20 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
-            loopSteamDrum[idx].setInitialState(21000, 42.9 + 273.15);
+            loopSteamDrum[idx].setInitialState(21000, 84.0 + 273.15);
             loopEvaporator[idx].setInitialState(20.0, 1e5,
-                    273.5 + 29.4, 273.5 + 46.3);
+                    273.5 + 52.8, 273.5 + 84.0);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(273.16 + 29.44);
+                    .setInitialTemperature(273.16 + 52.8);
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(273.5 + 29.44);
+                    .setInitialTemperature(273.5 + 52.8);
 
             blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
-                    29.44 + 273.5);
+                    52.8 + 273.5);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    26.27 + 273.5);
+                    25.4 + 273.5);
         }
-        blowdownCooldown.getPrimarySide().getHeatHandler()
-                .setInitialTemperature(299.84);
-        blowdownCooldown.getSecondarySide().getHeatHandler()
-                .setInitialTemperature(301.57);
         // Blowdown/Cooldown one pump is in operation
         blowdownCooldownPumps[1].setInitialCondition(true, true, true);
 
@@ -3650,7 +3647,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopThermalLift[idx].setEffort(
                         (loopEvaporator[idx].getTemperature()
                         - loopDownflow[idx].getHeatHandler().getTemperature())
-                        * 1000); // its a coincidentce that this is 1000
+                        * 2000); // try-and-error obtained number
             }
         }
 
