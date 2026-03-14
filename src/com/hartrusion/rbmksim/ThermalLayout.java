@@ -2417,20 +2417,26 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public double getAsDouble() {
                 // Loop setpoint is bar relative, provided value from loop is
                 // given in pascals as absolute value. Controllers will use bar.
-                return loopSteamDrum[0].getEffort() * 1e-5 + 1.0
-                        - setpointDrumPressure.getOutput();
+                // Negative control, as opening valve shall decrease the drum
+                // pressure.
+                return setpointDrumPressure.getOutput() 
+                        -(loopSteamDrum[0].getEffort() * 1e-5 + 1.0);
             }
         });
         auxCondSteamValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                // Loop setpoint is bar relative, provided value from loop is
-                // given in pascals as absolute value. Controllers will use bar.
-                return loopSteamDrum[1].getEffort() * 1e-5 + 1.0
-                        - setpointDrumPressure.getOutput();
+                return setpointDrumPressure.getOutput() 
+                        -(loopSteamDrum[0].getEffort() * 1e-5 + 1.0);
             }
         });
+        for (int idx = 0; idx < 2; idx++) {
+            ((PIControl) auxCondSteamValve[idx].getController())
+                    .setParameterK(5.0);
+            ((PIControl) auxCondSteamValve[idx].getController())
+                    .setParameterTN(20);
+        } // Todo: Get some parameters, those here were random numbers!
 
         // Aux Condensation condensate level control
         auxCondCondensateValve[0].getController().addInputProvider(
@@ -2459,40 +2465,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) auxCondCondensateValve[idx].getController())
                     .setParameterTN(20);
         }
-
-        // Aux condensate steam in: Those can control drum pressure
-        auxCondSteamValve[0].getController().addInputProvider(
-                new DoubleSupplier() {
-            @Override
-            public double getAsDouble() {
-                if (!loopNodeDrumFromReactor[0].effortUpdated()) {
-                    return 0.0;
-                }
-                // Negative control: Open valve to decrease pressure
-                return -setpointDrumPressure.getOutput()
-                        + (loopNodeDrumFromReactor[0].getEffort()
-                        / 100000 - 1.0); // Pa abs to bar rel
-            }
-        });
-        auxCondSteamValve[1].getController().addInputProvider(
-                new DoubleSupplier() {
-            @Override
-            public double getAsDouble() {
-                if (!loopNodeDrumFromReactor[1].effortUpdated()) {
-                    return 0.0;
-                }
-                // Negative control: Open valve to decrease pressure
-                return -setpointDrumPressure.getOutput()
-                        + (loopNodeDrumFromReactor[1].getEffort()
-                        / 100000 - 1.0); // Pa abs to bar rel
-            }
-        });
-        for (int idx = 0; idx < 2; idx++) {
-            ((PIControl) auxCondSteamValve[idx].getController())
-                    .setParameterK(7.0);
-            ((PIControl) auxCondSteamValve[idx].getController())
-                    .setParameterTN(20);
-        } // Todo: Get some parameters, those here were random numbers!
 
         // Steam dump or turbine bypass: Controls main drum pressure
         mainSteamDump[0].getController().addInputProvider(
