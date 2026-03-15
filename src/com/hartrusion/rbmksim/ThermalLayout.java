@@ -393,6 +393,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double coreTemp = 200;
     private final double[] thermalPower = new double[]{2.4e6, 2.4e6};
 
+    private double turbineDebugHPInTemp;
+    private double turbineDebugHPOutTemp;
+    private double turbineDebugLPInTemp;
+
     /**
      * Saturation temperature of the HP turbine out. This is used for generating
      * a setpoint for superheating. Value has to be saved to be available on
@@ -1653,6 +1657,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopDownflow[idx].setInnerThermalMass(50); // initial: 100
             loopChannelFlowResistance[idx].setInnerThermalMass(50);
             loopChannelFlowResistance[idx].setResistanceParameter(293.1);
+            // 20 m³ volume in evaporator per side
+            loopEvaporator[idx].setThermalDimension(20.0, 5000);
         }
 
         // Steam Drum: to compare with RXmodel simulator: Experiments show
@@ -1765,7 +1771,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Some words on reheating: 
         // After low pressure reheaters, there are those temperatures:
         // 58,5, 81.3, 103.1 132.2, 155.3 - and after DA, maybe 165.
-        // 
+        // This is modified for the simulator to:
+        // Preheater 1: 60 °C
+        // Main Ejecotrs: 65 °C
+        // Preheater 2: 110 °C
+        // Preheater 3: 155 °C
+        // Deaerator Inlet Steam Mixing: 165 °C
         // Feedwater
         // Steam generation is about 5600 t/h which is 1555.56 kg/s so per side
         // there must be 777.775 kg/s Feedwater flow. Expected pressure in 
@@ -2021,8 +2032,22 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureTripValve.initCharacteristicSimple(1.0);
         turbineLowPressureTripValve.getIntegrator().setMaxRate(200);
 
-        // ND turbine part: 3.5 bar to almost 0 at condensation with 
+        // ND turbine part: 3.5 bar to almost 0.0 at condensation with 
         // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
+        // The turbine taps define
+        //  o Inlet: 3.5 bar
+        // [|] Turbine Stage 0
+        //  o--- Tap: Preheater 3 heats to 155 °C
+        // [|] Turbine Stage 1
+        //  o--- Tap: Deaerator, heats to 165 °C
+        // [|] Turbine Stage 2
+        //  o--- Tap: Preheater 2 heats to 110 °C
+        // [|] Turbine Stage 3
+        //  o--- Tap: Main Ejectors heats to 65 °C
+        // [|] Turbine Stage 4
+        //  o--- Tap: Preheater 1, heats to 60 °C
+        // [|] Turbine Stage 5
+        //  v Condenser: 0.0 bar
         turbineLowPressureStage[0].setResistanceParameter(60);
         turbineLowPressureStage[1].setResistanceParameter(60);
         turbineLowPressureStage[2].setResistanceParameter(60);
@@ -2094,7 +2119,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
             loopSteamDrum[idx].setInitialState(21000, 84.0 + 273.15);
-            loopEvaporator[idx].setInitialState(20.0, 1e5,
+            loopEvaporator[idx].setInitialState(1e5,
                     273.5 + 52.8, 273.5 + 84.0);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
@@ -3540,6 +3565,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     @Override
     public void run() {
+        // Due to the way steam is modeled as a so called phased fluid with 
+        // large inaccuracies, the thermal power in watts can not be directly 
+        // used with the numbers as desired, instead, we need to correct this 
+        // to get matching numbers on full load. On full load, the core will
+        // evaporate 1555.56 kg/s from 165 °C to 284 °C, this is 119 K
+        // which is 119 K * 4200 J/kg/K = 49980 J/kg. Adding the evaporation
+        // with 2100000 J/kg makes 2149980 J/kg energy per mass. 
+        // 2149980 J/kg * 1555.56 kg/s = 3344 MW
+        
         // Get the thermal power output per side from the core model. Limit it
         // to 10 gigawatts so something can be seen on prompt neutron excursion.
         thermalPower[0] = Math.min(
@@ -3738,6 +3772,30 @@ public class ThermalLayout extends Subsystem implements Runnable {
                                         PhasedSuperheater.SECONDARY_OUT)
                                         .getEffort());
             }
+        }
+
+        // Obtain the current temperature on the turbine inlet from the model
+        // without any delays, this is used in the debugging graphs.
+        if (turbineHighPressureIn.heatEnergyUpdated(turbineHighPressureInMass)
+                && turbineHighPressureIn.effortUpdated()) {
+            turbineDebugHPInTemp = phasedWater.getTemperature(
+                    turbineHighPressureIn.getHeatEnergy(),
+                    turbineHighPressureIn.getEffort());
+        }
+        // Same for Out temperature
+        if (turbineHighPressureMidOut.heatEnergyUpdated(turbineHighPressure)
+                && turbineHighPressureMidOut.effortUpdated()) {
+            turbineDebugHPOutTemp = phasedWater.getTemperature(
+                    turbineHighPressureMidOut.getHeatEnergy(),
+                    turbineHighPressureMidOut.getEffort());
+        }
+        // And low pressure in temperautre. We do not need low pressure out as
+        // this temperature is always around vaccum staturation.
+        if (turbineLowPressureMidIn.heatEnergyUpdated(turbineLowPressureStage[0])
+                && turbineLowPressureMidIn.effortUpdated()) {
+            turbineDebugLPInTemp = phasedWater.getTemperature(
+                    turbineLowPressureMidIn.getHeatEnergy(),
+                    turbineLowPressureMidIn.getEffort());
         }
 
         // Calculate saturation temperature on Steam Superheater Inlet from
@@ -4052,11 +4110,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Turbine" + (idx + 1) + "#MainSteamFlow",
                     steamOutToTurbine[idx]);
         }
-        // Get the HP out temperature directly from the heated steam mass
+        // Get the HP out temperature directly from the heated steam mass.
         outputValues.setParameterValue("Turbine#HPOutTemp",
                 turbineHighPressureOutMass.getTemperature() - 273.15);
         outputValues.setParameterValue("Turbine#LPInTemp",
                 turbineLowPressureInMass.getTemperature() - 273.15);
+
+        outputValues.setParameterValue("Turbine#DebugHPInTemp",
+                turbineDebugHPInTemp - 273.15);
+        outputValues.setParameterValue("Turbine#DebugHPOutTemp",
+                turbineDebugHPOutTemp - 273.15);
+        outputValues.setParameterValue("Turbine#DebugLPInTemp",
+                turbineDebugLPInTemp - 273.15);
 
         outputValues.setParameterValue("Turbine#ReheaterOutTemp",
                 reheaterOutTemperature);

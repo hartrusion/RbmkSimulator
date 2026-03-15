@@ -56,6 +56,7 @@ public class ControlRoom extends javax.swing.JFrame
     private FrameDiagramLoopLevel frameDiagramLoop2Level;
     private FrameDiagramGlobalControl frameDiagramGlobalControl;
     private FrameDiagramStartupPressureSetpoint frameDiagramStartupPressure;
+    private FrameDiagramTurbineWarmup frameDiagramTurbineWarmup;
 
     private FrameAlarmTable frameAlarms;
     private List alarmList;
@@ -135,6 +136,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
+        jMenuItemTurbineWarmup = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
 
@@ -474,6 +476,14 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuDiagrams.add(jMenuItemStartupPressureSetpoint);
+
+        jMenuItemTurbineWarmup.setText("Turbine Warmup");
+        jMenuItemTurbineWarmup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTurbineWarmupActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuItemTurbineWarmup);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -1028,6 +1038,22 @@ public class ControlRoom extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuItemStartupPressureSetpointActionPerformed
 
+    private void jMenuItemTurbineWarmupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineWarmupActionPerformed
+        if (frameDiagramTurbineWarmup == null && plotData != null) {
+            frameDiagramTurbineWarmup = new FrameDiagramTurbineWarmup();
+            frameDiagramTurbineWarmup.initPlots(plotData, 0);
+            java.awt.EventQueue.invokeLater(() -> {
+                frameDiagramTurbineWarmup.setVisible(true);
+            });
+            frameDiagramTurbineWarmup.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    frameDiagramTurbineWarmup = null;
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItemTurbineWarmupActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -1075,6 +1101,9 @@ public class ControlRoom extends javax.swing.JFrame
             }
             if (frameDiagramStartupPressure != null) {
                 frameDiagramStartupPressure.updatePlots();
+            }
+            if (frameDiagramTurbineWarmup != null) {
+                frameDiagramTurbineWarmup.updatePlots();
             }
 
             // use this event to update the alarm list also.
@@ -1246,6 +1275,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
+    private javax.swing.JMenuItem jMenuItemTurbineWarmup;
     private javax.swing.JMenuItem jMenuLoad;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
