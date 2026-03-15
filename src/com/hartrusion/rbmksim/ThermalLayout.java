@@ -420,8 +420,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private ControlCommand balanceControlState;
     private ControlCommand oldBalanceControlState;
 
-    public static final double PRESSURE_SETPOINT_POWER_START = 40; // 40 MWth
-    public static final double PRESSURE_SETPOINT_POWER_END = 300; // 300 MWth
+    public static final double PRESSURE_SETPOINT_POWER_START = 90; // 40 MWth
+    public static final double PRESSURE_SETPOINT_POWER_END = 400; // 300 MWth
     public static final double PRESSURE_SETPOINT_LOWER = 5.0; // bar
     public static final double PRESSURE_SETPOINT_UPPER = 64.0; // bar
 
@@ -438,15 +438,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private boolean oldStartupPressureSetpointActive;
 
     ThermalLayout() {
-        // calculate linear factor for pressure setpoint y=m(x-x1)
+        // calculate linear factor for pressure setpoint y=m(x-x1)+y1
         // with m = (y2-y1)/(x2-x1) with x power and y pressure
         PRESSURE_SETPOINT_M
                 = (PRESSURE_SETPOINT_UPPER - PRESSURE_SETPOINT_LOWER)
                 / (PRESSURE_SETPOINT_POWER_END - PRESSURE_SETPOINT_POWER_START);
         // The line for the bypass is slightly longer, where does it end?
-        // y = m(x-x1) -> x = y/m + x1
+        // y = m(x-x1)+y1 -> x = (y-y1)/m + x1
         PRESSURE_SETPOINT_BYPASS_POWEREND
-                = (PRESSURE_SETPOINT_UPPER + PRESSURE_SETPOINT_BYPASS_OFFSET)
+                = (PRESSURE_SETPOINT_UPPER - PRESSURE_SETPOINT_LOWER
+                + PRESSURE_SETPOINT_BYPASS_OFFSET)
                 / PRESSURE_SETPOINT_M + PRESSURE_SETPOINT_POWER_START;
 
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -1720,6 +1721,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValveTreatmentBypass.initCharacteristicSimple(100);
         blowdownValveRegeneratedToDrums.initCharacteristicSimple(100);
         blowdownValveDrain.initCharacteristicSimple(400);
+        blowdownRegenerator.initCharacteristic(0.8); // default: 0.9
         blowdownToRegeneratorFirstResistance.setResistanceParameter(500);
         blowdownToRegeneratorSecondResistance.setResistanceParameter(500);
         // make a super-efficient heat exchanger here
@@ -1829,8 +1831,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // vacuum so it will propably be operated in low pressure regions only.
         // Set the valves to have 30 kg/s with 5 bar of pressure (5e5 Pa)
         // so it will be R = 5e5 Pa / 30 kg/s = 1.2e4 Pa/kg*s for steam valve.
-        // Tbh, had to play around with those values for some time to get some
-        // proper behavior.
+        // Besides that, for simulation behavior, the steam flow has to be 
+        // allowed way higher as we do not want to wait 2 hours for some initial
+        // warming up. The calculations seem to be ok but we'll use that thing
+        // a bit different.
         // 30 bar is roughly saturation temperature of 500 Kelvin. Lets assume 
         // condensation tempearture of 310 Kelvin so this is 190 K temperature 
         // 190 K * 4200 J/kg/K + 2100000 J/kg = 2898000 J/kg = 2.9e6 J/kg
@@ -1971,7 +1975,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Inlet valves: It was suggested by maha that we use around 10 kg/s 
             // for heating up the turbine and spinning it up. 
             // They will be able to move quite fast as they are small.
-            turbineStartupSteamValve[idx].initCharacteristicSimple(8e5);
+            turbineStartupSteamValve[idx].initCharacteristicSimple(6e5);
 
             // Use the advanced characteristic curve for the main steam flow
             // valves to make them behave as linear as possible. Assume to have
@@ -2416,7 +2420,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // given in pascals as absolute value. Controllers will use bar.
                 // Negative control, as opening valve shall decrease the drum
                 // pressure.
-                return (loopSteamDrum[0].getEffort() * 1e-5 + 1.0)
+                return (loopSteamDrum[0].getEffort() * 1e-5 - 1.0)
                         - setpointDrumPressure.getOutput();
             }
         });
@@ -2424,13 +2428,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return (loopSteamDrum[1].getEffort() * 1e-5 + 1.0)
+                return (loopSteamDrum[1].getEffort() * 1e-5 - 1.0)
                         - setpointDrumPressure.getOutput();
             }
         });
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) auxCondSteamValve[idx].getController())
-                    .setParameterK(5.0);
+                    .setParameterK(16.0);
             ((PIControl) auxCondSteamValve[idx].getController())
                     .setParameterTN(20);
         } // Todo: Get some parameters, those here were random numbers!
@@ -2786,7 +2790,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(70.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
         am.defineAlarm(50.0, AlarmState.LOW2);
-        am.defineAlarm(12.0, AlarmState.MIN1);
+        am.defineAlarm(8.0, AlarmState.MIN1);
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -2816,7 +2820,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(70.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
         am.defineAlarm(50.0, AlarmState.LOW2);
-        am.defineAlarm(12.0, AlarmState.MIN1);
+        am.defineAlarm(8.0, AlarmState.MIN1);
         am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
             @Override
             public void run() {
@@ -3183,7 +3187,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
             }
         });
-        am.defineAlarm(30.0, AlarmState.HIGH1);
+        am.defineAlarm(40.0, AlarmState.HIGH1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -3196,7 +3200,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
             }
         });
-        am.defineAlarm(30.0, AlarmState.HIGH1);
+        am.defineAlarm(40.0, AlarmState.HIGH1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -3556,8 +3560,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Pressure setpoint is obtained as a function of generator power for 
         // startup, otherwise it is just a constant value.
         if (startupPressureSetpointActive) {
+            // The pressure setpoint does not consider the idle power so the 
+            // display value is also used here.
             setpointDrumPressure.setInput(getPressureSetpoint(
-                    core.getNeutronModel().getYThermalPower()));
+                    core.getNeutronModel().getYThermalPowerDisplayed()));
         } else {
             setpointDrumPressure.setInput(PRESSURE_SETPOINT_UPPER);
         }
@@ -4423,7 +4429,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         if (thermalPower >= PRESSURE_SETPOINT_POWER_END) {
             return PRESSURE_SETPOINT_UPPER;
         }
-        return PRESSURE_SETPOINT_M * (thermalPower - PRESSURE_SETPOINT_LOWER);
+        return PRESSURE_SETPOINT_M
+                * (thermalPower - PRESSURE_SETPOINT_POWER_START)
+                + PRESSURE_SETPOINT_LOWER;
     }
 
     /**
@@ -4442,7 +4450,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             return PRESSURE_SETPOINT_UPPER + PRESSURE_SETPOINT_BYPASS_OFFSET;
         }
         // same interpolation as above, but it is slightly longer.
-        return PRESSURE_SETPOINT_M * (thermalPower - PRESSURE_SETPOINT_LOWER);
+        return PRESSURE_SETPOINT_M
+                * (thermalPower - PRESSURE_SETPOINT_POWER_START)
+                + PRESSURE_SETPOINT_LOWER;
     }
 
     /**
