@@ -1518,10 +1518,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineHighPressureInside);
         turbineHighPressureSecond.connectBetween(turbineHighPressureInside,
                 turbineHighPressureMidOut);
-        
+
         turbineHighPressureTapValve.getValveElement().connectBetween(
                 turbineHighPressureInside, deaeratorSteamMiddle);
-        
+
         // High pressure ends in the secondary loop of the superheater
         turbineHighPressureOutMass.connectBetween(turbineHighPressureMidOut,
                 turbineReheater.getPhasedNode(PhasedSuperheater.SECONDARY_IN));
@@ -1771,15 +1771,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // After low pressure reheaters, there are those temperatures:
         // 58,5, 81.3, 103.1 132.2, 155.3 - and after DA, maybe 165.
         // This is modified for the simulator to:
-        // Preheater 1: 60 °C
-        // Main Ejecotrs: 65 °C
+        // Main Ejecotrs: 40 °C
+        // Preheater 1: 65 °C
         // Preheater 2: 110 °C
         // Preheater 3: 155 °C
         // Deaerator Inlet Steam Mixing: 165 °C
         // Feedwater
-        // Steam generation is about 5600 t/h which is 1555.56 kg/s so per side
-        // there must be 777.775 kg/s Feedwater flow. Expected pressure in 
-        // steam drum is 69 bar and 284 °C. All safety valves will open at 75.5
+        // Steam generation is about 5600 t/h which is 1555.56 kg/s 
+        // Expected pressure in steam drum is 65 barabs and 284 °C. 
+        // All safety valves will open at 75.5
         // bar so there should be no need to have a pump that can press huge 
         // amounts of water against closed valves.
         // The 4th square root formula will put out 65 bar abs for 284 °C.
@@ -1960,14 +1960,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Turbine HP part: See documentation on how to obtain those values.
         // A linear equation system had to be solved, this would be too much
         // for inline code documentation here.
-        turbineHighPressureFirst.setResistanceParameter(4945);
-        turbineHighPressureSecond.setResistanceParameter(4945);
+        // So far: The resistance is calculated with 1196 kg/s in flow to HP
+        // turbine and a TOTAL pressure drop from drum (65 barabs) to LP in
+        // at 3.5 barabs. 42.1 kg/s will be redirected to heat up the deaerator.
+        // Total resistance of first HP part is 4554.95 Pa/kg*s, it will be less
+        // so the inlet valves form the missing resistance of 1000
+        turbineHighPressureFirst.setResistanceParameter(3554.95);
+        turbineHighPressureSecond.setResistanceParameter(606.40);
+        
+        // Todo, just some random number for now.
+        turbineHighPressureTapValve.initCharacteristicSimple(4e3);
 
         // The model works by setting an out vapour fraction and consuming all
         // of the energy, this will drive the shaft later.
         turbineHighPressureFirst.setOutVaporFraction(1.0);
         turbineHighPressureSecond.setOutVaporFraction(0.85);
 
+        // In theroy, 41.1 kg/s flow of 180 °C at 10.5 barabs will flow to the
+        // deaerators in steady state on full power.
         for (int idx = 0; idx < 2; idx++) {
             // The trip valves will not contribute with much resistance here
             turbineTripValve[idx].initCharacteristicSimple(5.0);
@@ -1991,11 +2001,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
         }
 
-        // Reheater will have a pressure between 0 and 4.5 bar depending on its
-        // saturated steam state. The maximum flow should be 372 kg/s. So with
-        // full open valves (assume resistance 0) we could have 500 kg/s from 
-        // 60 bars to obtain the resistance of trim and trip valve:
-        // R = 6e6 Pa / 500 kg/s = 12.000 -> use a sum of 1.1e4
+        // Reheater is designed to have a flow of 359.0 kg/s (from the linear
+        // equation system) which comes from drums directly, it will re-heat the
+        // steam from 136.7 with X=0.85 at 3.5 barabs and 136.7 °C to 263 °C. 
+        // the reheater condensate will be fed back to deaerator.
         turbineReheaterTripValve.getIntegrator().setMaxRate(200);
         turbineReheaterTripValve.initCharacteristicSimple(9e3);
         turbineReheaterTrimValve.initCharacteristicSimple(2e3);
@@ -2023,22 +2032,37 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureTripValve.initCharacteristicSimple(1.0);
         turbineLowPressureTripValve.getIntegrator().setMaxRate(200);
 
-        // ND turbine part: 3.5 bar to almost 0.0 at condensation with 
-        // 1183 kg/s will be R = 295 Pa/kg*s which is about 60 per resistance.
+        // Pressure on the LP turbine stages will be as listed.
         // The turbine taps define
         //  o Inlet: 3.5 bar
         // [|] Turbine Stage 0
-        //  o--- Tap: Preheater 3 heats to 155 °C
+        //  o--- Tap 3.0 bar: Preheater 3 heats to 155 °C
         // [|] Turbine Stage 1
-        //  o--- Tap: Deaerator, heats to 165 °C
+        //  o--- Tap 2.5 bar: Preheater 2 heats to 110 °C
         // [|] Turbine Stage 2
-        //  o--- Tap: Preheater 2 heats to 110 °C
+        //  o--- Tap 2.0 bar: Preheater 1 heats to 65 °C
         // [|] Turbine Stage 3
-        //  o--- Tap: Main Ejectors heats to 65 °C
+        //  o--- Tap 1.5 bar: Main Ejectors heats to 38 °C 
         // [|] Turbine Stage 4
-        //  o--- Tap: Preheater 1, heats to 60 °C
-        // [|] Turbine Stage 5
-        //  v Condenser: 0.0 bar
+        //  v Condenser: 0.0 bar - Condensate-Temp designed to 32 °C
+        // 
+        // The turbine LP will be designed with superheating degrading down 
+        // to X=0.9 at its end. So the first design temp is the one from
+        // the reheater, we use gradually stepping down in design temperature
+        // that are just set fixed by me like this. This allows to calculate
+        // an X-value >1 from superheating.
+        // press.  Sat-Temp   reheats  design temp  superheat   X
+        // 3.5      136.77                268       149.3       1.2986
+        // 3.0      131.6       155       234       102.4       1.2048
+        // 2.5      125.7       110       200        74.3       1.1486
+        // 2.0      118.9       65        166        47.1       1.0942
+        // 1.5      110.7       38        133        22.3       1.0446
+        turbineLowPressureStage[0].setOutVaporFraction(1.2986);
+        turbineLowPressureStage[1].setOutVaporFraction(1.2048);
+        turbineLowPressureStage[2].setOutVaporFraction(1.1486);
+        turbineLowPressureStage[3].setOutVaporFraction(1.0942);
+        turbineLowPressureStage[4].setOutVaporFraction(1.0446);
+        
         turbineLowPressureStage[0].setResistanceParameter(60);
         turbineLowPressureStage[1].setResistanceParameter(60);
         turbineLowPressureStage[2].setResistanceParameter(60);
@@ -3545,7 +3569,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     -> !turbine.isTpsActive());
         }
         turbineHighPressureTapValve.addSafeClosedProvider(()
-                    -> !turbine.isTpsActive());
+                -> !turbine.isTpsActive());
 
         // </editor-fold>
         // Time ocnstant for condenser
@@ -3565,7 +3589,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // which is 119 K * 4200 J/kg/K = 49980 J/kg. Adding the evaporation
         // with 2100000 J/kg makes 2149980 J/kg energy per mass. 
         // 2149980 J/kg * 1555.56 kg/s = 3344 MW
-        
+
         // Get the thermal power output per side from the core model. Limit it
         // to 10 gigawatts so something can be seen on prompt neutron excursion.
         thermalPower[0] = Math.min(
