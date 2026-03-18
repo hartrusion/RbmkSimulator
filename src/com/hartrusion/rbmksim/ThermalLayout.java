@@ -2057,17 +2057,32 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 2.5      125.7       110       200        74.3       1.1486
         // 2.0      118.9       65        166        47.1       1.0942
         // 1.5      110.7       38        133        22.3       1.0446
-        turbineLowPressureStage[0].setOutVaporFraction(1.2986);
-        turbineLowPressureStage[1].setOutVaporFraction(1.2048);
-        turbineLowPressureStage[2].setOutVaporFraction(1.1486);
-        turbineLowPressureStage[3].setOutVaporFraction(1.0942);
-        turbineLowPressureStage[4].setOutVaporFraction(1.0446);
+        turbineLowPressureStage[0].setOutVaporFraction(1.2048);
+        turbineLowPressureStage[1].setOutVaporFraction(1.1486);
+        turbineLowPressureStage[2].setOutVaporFraction(1.0942);
+        turbineLowPressureStage[3].setOutVaporFraction(1.0446);
+        turbineLowPressureStage[4].setOutVaporFraction(0.9); // to condenser
         
-        turbineLowPressureStage[0].setResistanceParameter(60);
-        turbineLowPressureStage[1].setResistanceParameter(60);
+        // 1154.36 kg/s from 3.5 to 3.0 bar:
+        turbineLowPressureStage[0].setResistanceParameter(43.314);
+        
+        // To reheater 3: 83.247 kg/s from 3.0 to 1.4641 barabs (sat temp
+        // of 110 °C). That mass flow is calculated from spec. energy sum.
+        turbineLowPressureTapValve[0].initCharacteristicSimple(1844.99);
+        
+        // 1071.113 kg/s from 3.0 to 2.5 bar:
+        turbineLowPressureStage[1].setResistanceParameter(46.68);
+        
+        // Reheater 2 will have the condensate of reheater mixed into it (with
+        // 110 °C and 83.247 kg/s).
+        
+        // Todo:
         turbineLowPressureStage[2].setResistanceParameter(60);
         turbineLowPressureStage[3].setResistanceParameter(60);
-        turbineLowPressureStage[4].setResistanceParameter(60);
+        turbineLowPressureStage[4].setResistanceParameter(150);
+        turbineLowPressureTapValve[1].initCharacteristicSimple(2000);
+        turbineLowPressureTapValve[2].initCharacteristicSimple(2000);
+        turbineLowPressureTapValve[3].initCharacteristicSimple(2000);
 
         turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
