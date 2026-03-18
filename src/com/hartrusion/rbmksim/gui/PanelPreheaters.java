@@ -217,19 +217,19 @@ public class PanelPreheaters extends AbstractPanelWidget
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CloseActionPerformed
-        controller.userAction(new ActionCommand("Turbine5#LowPressureTapValve", false));
+        controller.userAction(new ActionCommand("Turbine3#LowPressureTapValve", false));
     }//GEN-LAST:event_jButton1CloseActionPerformed
 
     private void jButton1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1OpenActionPerformed
-        controller.userAction(new ActionCommand("Turbine5#LowPressureTapValve", true));
+        controller.userAction(new ActionCommand("Turbine3#LowPressureTapValve", true));
     }//GEN-LAST:event_jButton1OpenActionPerformed
 
     private void jButton2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2OpenActionPerformed
-        controller.userAction(new ActionCommand("Turbine3#LowPressureTapValve", true));
+        controller.userAction(new ActionCommand("Turbine2#LowPressureTapValve", true));
     }//GEN-LAST:event_jButton2OpenActionPerformed
 
     private void jButton2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2CloseActionPerformed
-        controller.userAction(new ActionCommand("Turbine3#LowPressureTapValve", false));
+        controller.userAction(new ActionCommand("Turbine2#LowPressureTapValve", false));
     }//GEN-LAST:event_jButton2CloseActionPerformed
 
     private void jButton3OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3OpenActionPerformed
@@ -265,10 +265,10 @@ public class PanelPreheaters extends AbstractPanelWidget
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case "Turbine5#LowPressureTapValve_Pos" ->
+            case "Turbine3#LowPressureTapValve_Pos" ->
                 setValveButtons(jButton1Close,
                         jButton1Open, evt.getNewValue());
-            case "Turbine3#LowPressureTapValve_Pos" ->
+            case "Turbine2#LowPressureTapValve_Pos" ->
                 setValveButtons(jButton2Close,
                         jButton2Open, evt.getNewValue());
             case "Turbine1#LowPressureTapValve_Pos" ->

@@ -441,7 +441,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingTurbineLPTap3Pressure">
+    <Component class="javax.swing.JLabel" name="jLabelReadingTurbineLPTap2Pressure">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>
@@ -483,7 +483,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelReadingTurbineLPTap5Pressure">
+    <Component class="javax.swing.JLabel" name="jLabelReadingTurbineLPTap3Pressure">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="1b" green="45" red="4d" type="rgb"/>

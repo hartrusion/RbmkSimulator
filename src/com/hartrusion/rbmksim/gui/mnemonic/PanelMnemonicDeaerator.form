@@ -599,11 +599,11 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c2" green="de" red="e" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Turbine"/>
+        <Property name="text" type="java.lang.String" value="HP Turbine"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="204" y="248" width="-1" height="-1"/>
+          <AbsoluteConstraints x="204" y="248" width="58" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

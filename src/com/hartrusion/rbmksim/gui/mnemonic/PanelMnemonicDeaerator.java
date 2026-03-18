@@ -276,8 +276,8 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
 
         jLabel14.setFont(jLabel14.getFont().deriveFont(jLabel14.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel14.getFont().getSize()-3));
         jLabel14.setForeground(new java.awt.Color(14, 222, 194));
-        jLabel14.setText("Turbine");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 248, -1, -1));
+        jLabel14.setText("HP Turbine");
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 248, 58, -1));
 
         jLabel15.setFont(jLabel15.getFont().deriveFont(jLabel15.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel15.getFont().getSize()-3));
         jLabel15.setForeground(new java.awt.Color(14, 222, 194));
@@ -457,7 +457,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
                     String.format("%.0f", newValue) + " kg/s");
             return;
         }
-        if (propertyName.equals("Turbine2#LowPressureTapValve")) {
+        if (propertyName.equals("Turbine#HighPressureTapValve")) {
             jLabelReadingTurbineTapValve.setText(
                     String.format("%.0f", newValue));
             return;

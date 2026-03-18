@@ -201,7 +201,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchFromTDA1">
       <Properties>
-        <Property name="component" type="java.lang.String" value="Turbine2#LowPressureTapValve"/>
+        <Property name="component" type="java.lang.String" value="Turbine#HighPressureTapValve"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

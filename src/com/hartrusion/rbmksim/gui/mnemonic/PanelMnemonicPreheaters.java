@@ -65,9 +65,9 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingTemp12 = new javax.swing.JLabel();
         jLabelReadingTemp23 = new javax.swing.JLabel();
         jLabelReadingTemp3n = new javax.swing.JLabel();
-        jLabelReadingTurbineLPTap3Pressure = new javax.swing.JLabel();
+        jLabelReadingTurbineLPTap2Pressure = new javax.swing.JLabel();
         jLabelReadingTurbineLPTap1Pressure = new javax.swing.JLabel();
-        jLabelReadingTurbineLPTap5Pressure = new javax.swing.JLabel();
+        jLabelReadingTurbineLPTap3Pressure = new javax.swing.JLabel();
         jLabelReadingReheater1SteamFlow = new javax.swing.JLabel();
         jLabelReadingReheater2SteamFlow = new javax.swing.JLabel();
         jLabelReadingReheater3SteamFlow = new javax.swing.JLabel();
@@ -216,13 +216,13 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingTemp3n.setOpaque(true);
         add(jLabelReadingTemp3n, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 92, 56, 16));
 
-        jLabelReadingTurbineLPTap3Pressure.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingTurbineLPTap3Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingTurbineLPTap3Pressure.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingTurbineLPTap3Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingTurbineLPTap3Pressure.setText("_,__ bar");
-        jLabelReadingTurbineLPTap3Pressure.setOpaque(true);
-        add(jLabelReadingTurbineLPTap3Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 4, 64, 16));
+        jLabelReadingTurbineLPTap2Pressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingTurbineLPTap2Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingTurbineLPTap2Pressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingTurbineLPTap2Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingTurbineLPTap2Pressure.setText("_,__ bar");
+        jLabelReadingTurbineLPTap2Pressure.setOpaque(true);
+        add(jLabelReadingTurbineLPTap2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 4, 64, 16));
 
         jLabelReadingTurbineLPTap1Pressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTurbineLPTap1Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -232,13 +232,13 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingTurbineLPTap1Pressure.setOpaque(true);
         add(jLabelReadingTurbineLPTap1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 6, 64, 16));
 
-        jLabelReadingTurbineLPTap5Pressure.setBackground(new java.awt.Color(77, 69, 27));
-        jLabelReadingTurbineLPTap5Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabelReadingTurbineLPTap5Pressure.setForeground(new java.awt.Color(231, 255, 166));
-        jLabelReadingTurbineLPTap5Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingTurbineLPTap5Pressure.setText("_,__ bar");
-        jLabelReadingTurbineLPTap5Pressure.setOpaque(true);
-        add(jLabelReadingTurbineLPTap5Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 4, 64, 16));
+        jLabelReadingTurbineLPTap3Pressure.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingTurbineLPTap3Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingTurbineLPTap3Pressure.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingTurbineLPTap3Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingTurbineLPTap3Pressure.setText("_,__ bar");
+        jLabelReadingTurbineLPTap3Pressure.setOpaque(true);
+        add(jLabelReadingTurbineLPTap3Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 4, 64, 16));
 
         jLabelReadingReheater1SteamFlow.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingReheater1SteamFlow.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -291,8 +291,8 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
     private javax.swing.JLabel jLabelReadingTemp3;
     private javax.swing.JLabel jLabelReadingTemp3n;
     private javax.swing.JLabel jLabelReadingTurbineLPTap1Pressure;
+    private javax.swing.JLabel jLabelReadingTurbineLPTap2Pressure;
     private javax.swing.JLabel jLabelReadingTurbineLPTap3Pressure;
-    private javax.swing.JLabel jLabelReadingTurbineLPTap5Pressure;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensate1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensate2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensate3;
@@ -331,9 +331,9 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
                     valveCondensate3.setControlIndicatorActive(false);
                 }
             }
-            case "Turbine5#LowPressureTapValve_Pos" ->
-                valveSteam1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine3#LowPressureTapValve_Pos" ->
+                valveSteam1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine2#LowPressureTapValve_Pos" ->
                 valveSteam2.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine1#LowPressureTapValve_Pos" ->
                 valveSteam3.setActive(evt.getNewValue() != ValveState.CLOSED);
@@ -366,14 +366,14 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
             case "Preheater3#Level" ->
                 jLabelReadingLevel3.setText(
                         String.format("%.0f", newValue) + " cm");
-            case "Turbine1#TapOutPressure" ->
+            case "Turbine1#LowPressurePressure" ->
                 jLabelReadingTurbineLPTap1Pressure.setText(
                         String.format("%4.2f", newValue) + " bar");
-            case "Turbine3#TapOutPressure" ->
-                jLabelReadingTurbineLPTap3Pressure.setText(
+            case "Turbine2#LowPressurePressure" ->
+                jLabelReadingTurbineLPTap2Pressure.setText(
                         String.format("%4.2f", newValue) + " bar");
-            case "Turbine5#TapOutPressure" ->
-                jLabelReadingTurbineLPTap5Pressure.setText(
+            case "Turbine3#LowPressurePressure" ->
+                jLabelReadingTurbineLPTap3Pressure.setText(
                         String.format("%4.2f", newValue) + " bar");
             case "Preheater1#SteamFlow" ->
                 jLabelReadingReheater1SteamFlow.setText(
