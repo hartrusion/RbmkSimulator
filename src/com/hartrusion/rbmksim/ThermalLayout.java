@@ -330,6 +330,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new HeatNode[2];
     private final PhasedValveControlled[] preheaterCondensateValve
             = new PhasedValveControlled[3];
+    private final PhasedEffortSource preheaterCondensateHeight;
+    private final PhasedNode preheaterCondensateHeightNode;
 
     // Valves to turbine inlet
     private final PhasedValve[] turbineTripValve
@@ -971,6 +973,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheaterCondensateValve[idx].initName(
                     "Preheater" + (idx + 1) + "#CondensateValve");
         }
+        preheaterCondensateHeight = new PhasedEffortSource();
+        preheaterCondensateHeight.setName("Preheater#CondensateHeight");
+        preheaterCondensateHeightNode = new PhasedNode();
+        preheaterCondensateHeightNode.setName("Preheater#CondensateHeightNode");
 
         // Valves to turbine inlet
         for (int idx = 0; idx < 2; idx++) {
@@ -1531,6 +1537,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
         preheaterCondensateValve[0].getValveElement().connectBetween(
                 preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
+                preheaterCondensateHeightNode);
+        // add an effort source for height difference, allows easier flow even
+        // if pressures would not match exaclty.
+        preheaterCondensateHeight.connectBetween(preheaterCondensateHeightNode,
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
 
         // Turbine
@@ -1985,6 +1995,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMain[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
             ejectorMain[idx].initConditions(273.15 + 22, 273.15 + 22, 0.15);
+
+            // See turbine tap calculation on why this value is 1000.
+            ejectorMainSteamValve[idx].initCharacteristicSimple(1000);
         }
         ejectorMainBypass.initCharacteristicSimple(200);
 
@@ -1994,14 +2007,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 3; idx++) {
             preheater[idx].getPrimarySideReservoir().setAmbientPressure(0.0);
         }
-
-        // More To do here, jus t some very rough estimates so the valves itself
-        // do work but there's no science behind it yet. The default value has
-        // way too high flows on those
-        turbineLowPressureTapValve[0].initCharacteristicSimple(2e3);
-        turbineLowPressureTapValve[1].initCharacteristicSimple(2e3);
-        turbineLowPressureTapValve[2].initCharacteristicSimple(2e3);
-        turbineLowPressureTapValve[3].initCharacteristicSimple(2e3);
 
         // Turbine HP part: See documentation on how to obtain those values.
         // A linear equation system had to be solved, this would be too much
@@ -2112,11 +2117,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 1154.36 kg/s from 3.5 to 3.0 bar:
         turbineLowPressureStage[0].setResistanceParameter(43.314);
 
-        // To reheater 3: 83.247 kg/s from 3.0 to 1.4641 barabs (sat temp
+        // To Reheater 3: 83.247 kg/s from 3.0 to 1.4641 barabs (sat temp
         // of 110 °C). That mass flow is calculated from spec. energy sum.
         turbineLowPressureTapValve[0].initCharacteristicSimple(1844.99);
 
-        // 1071.113 kg/s from 3.0 to 2.5 bar:
+        // 1071.113 kg/s (1154.36-83.247) from 3.0 to 2.5 bar:
         turbineLowPressureStage[1].setResistanceParameter(46.68);
 
         // Reheater 2 will have the condensate of reheater used to pre-heat
@@ -2124,15 +2129,50 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // This will rise the feedwater temperature from 65 °C to 68.25 °C
         // To get to 110 °C, we will need 72.399 kg/s of steam from tap from
         // a pressure of 2.5 barabs to 0.2170 barabs, that gives us resistance.
-        turbineLowPressureTapValve[0].initCharacteristicSimple(3153.36);
+        turbineLowPressureTapValve[1].initCharacteristicSimple(3153.36);
+        // 2.0 bar to 0.0306 with 42.83 kg/s needed on reheater 0
+        // Cooler will heat from 38 to 41.84, reheater to 65 °C
+        turbineLowPressureTapValve[2].initCharacteristicSimple(4597.24);
 
-        // Todo:
-        turbineLowPressureStage[2].setResistanceParameter(60);
-        turbineLowPressureStage[3].setResistanceParameter(60);
-        turbineLowPressureStage[4].setResistanceParameter(150);
-        turbineLowPressureTapValve[1].initCharacteristicSimple(2000);
-        turbineLowPressureTapValve[2].initCharacteristicSimple(2000);
-        turbineLowPressureTapValve[3].initCharacteristicSimple(2000);
+        // 1071.11 kg/s - 72.399 = 998.71 kg/s and 0.5 bar drop to 2.0
+        turbineLowPressureStage[2].setResistanceParameter(50.64);
+
+        // 998.71 - 42.83 = 955.88 kg/s and 0.5 bar drop to 1.5
+        turbineLowPressureStage[3].setResistanceParameter(52.31);
+
+        // It is set that condensate out temperature from condenser will be
+        // 28 °C. So pressure is 614 Pa only near vacuum. Same condition will
+        // be there for main ejectors, so the flow of 19.08 kg/s goes from 
+        // 1.5 bar to 
+        // Main ejectors will be connected to the last tap. 
+        // R = 149385 Pa/19.08 = Total of 7829.40.
+        // Now as there are three ejectors from which we use 2, we use 2000
+        // per ejector which will be 1000 if 2 are open in parallel. remaining:
+        turbineLowPressureTapValve[3].initCharacteristicSimple(6829.40);
+        // - The ejector steam valves get full open resistance of 1000.
+
+        // Last stage has 955.88 - 19.08 kg/s = 936.8 kg/s left 
+        // R = 149385 Pa/936.8 = 159.46 
+        turbineLowPressureStage[4].setResistanceParameter(159.46);
+
+        // As we know flows through each valve and the pressure differences
+        // we can make some good estimates on the valve resistances here.
+        // Use higher flows as those are regulation valves.
+        // Reheater 3: 1.4641 bar
+        // from 3 to 2: 83.247 kg/s - 100 kg/s
+        // Reheater 2: 0.2170 bar - Between 2 and 3: 124710 Pa
+        // from 3 and 2 to 1: 155.64 kg/s - 180 kg/s
+        // Reheater 1: 0.0306 bar - Between 1 and 2:  18640 Pa
+        preheaterCondensateValve[2].initCharacteristicSimple(1247);
+        preheaterCondensateValve[1].initCharacteristicSimple(105);
+
+        // Total flow: 198.47 kg/s (Reheater 1 + cond sum on 2 and 3)
+        // additional difference towards hotwell to ensure flow to hotwell 
+        // (614 Pa), so total pressure diff is 68026 Pa.
+        // R = 68026 Pa / 250 kg/s 
+        preheaterCondensateHeight.setEffort(5e4);
+        // Makes a total pressure diff: 
+        preheaterCondensateValve[0].initCharacteristicSimple(2720);
 
         turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
