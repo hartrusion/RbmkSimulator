@@ -29,13 +29,13 @@ import com.hartrusion.control.PIControl;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.automated.HeatControlledFlowSource;
-import com.hartrusion.modeling.assemblies.HeatExchanger;
 import com.hartrusion.modeling.assemblies.HeatExchangerNoMass;
 import com.hartrusion.modeling.automated.HeatFluidPump;
 import com.hartrusion.modeling.automated.HeatFluidPumpSimple;
 import com.hartrusion.modeling.automated.HeatValve;
 import com.hartrusion.modeling.automated.HeatValveControlled;
 import com.hartrusion.modeling.assemblies.PhasedCondenserNoMass;
+import com.hartrusion.modeling.assemblies.PhasedHeatExchangerNoMass;
 import com.hartrusion.modeling.assemblies.PhasedSuperheater;
 import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.automated.PhasedValveControlled;
@@ -320,8 +320,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     private final PhasedCondenserNoMass[] preheater
             = new PhasedCondenserNoMass[3];
+    private final PhasedHeatExchangerNoMass[] preheaterCondensateCooler
+            = new PhasedHeatExchangerNoMass[2];
+    private final PhasedNode[] preheaterCondensateOut
+            = new PhasedNode[2];
     private final HeatSimpleFlowResistance[] preheaterPiping
             = new HeatSimpleFlowResistance[2];
+    private final HeatNode[] preheaterPipingOut
+            = new HeatNode[2];
     private final PhasedValveControlled[] preheaterCondensateValve
             = new PhasedValveControlled[3];
 
@@ -937,9 +943,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Preheater" + (idx + 1));
         }
         for (int idx = 0; idx < 2; idx++) {
+            preheaterCondensateCooler[idx]
+                    = new PhasedHeatExchangerNoMass(phasedWater);
+            preheaterCondensateCooler[idx].initName("Preheater"
+                    + (idx + 1) + "#CondensateCooler");
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            preheaterCondensateOut[idx] = new PhasedNode();
+            preheaterCondensateOut[idx].setName("Preheater"
+                    + (idx + 1) + "#CondensateOut");
+        }
+        for (int idx = 0; idx < 2; idx++) {
             preheaterPiping[idx] = new HeatSimpleFlowResistance();
             preheaterPiping[idx].setName("Preheater"
                     + (idx + 1) + "#Piping");
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            preheaterPipingOut[idx] = new HeatNode();
+            preheaterPipingOut[idx].setName("Preheater"
+                    + (idx + 1) + "#PipingOut");
         }
         for (int idx = 0; idx < 3; idx++) {
             preheaterCondensateValve[idx]
@@ -1383,18 +1405,33 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // Condensate gets pumped through secondary side of low pressure 
-        // preheater and heated up there. Connect the preheaters with a 
-        // resistance element inbetween them.
+        // preheaters. The elements are in following order, as seen for 
+        // condensate flow direction:
+        // - Preheater 0
+        // - Pipe Resistance 0
+        // - Condensate Cooler 0
+        // - Preheater 1
+        // - Pipe Resistance 1
+        // - Condensate Cooler 1
+        // - Preheater 2
+        // Preheater 2 drains its condensate into preheater 1 and preheater 1 
+        // drains its condensate into preheater 0. The condensate cooler 
+        // elements are put in place to model the thermal energy transfer from 
+        // preheater condensate to the main condensate flow first before it is
+        // then mixed into the reservoir of the preheater where it gets mixed 
+        // into the outlet. This models that thermal energy transfer separately.
         preheaterPiping[0].connectBetween(
-                preheater[0].getHeatNode(
-                        PhasedCondenserNoMass.SECONDARY_OUT),
-                preheater[1].getHeatNode(
-                        PhasedCondenserNoMass.SECONDARY_IN));
+                preheater[0].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
+                preheaterPipingOut[0]);
+        preheaterCondensateCooler[0].getSecondarySide().connectBetween(
+                preheaterPipingOut[0],
+                preheater[1].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
         preheaterPiping[1].connectBetween(
-                preheater[1].getHeatNode(
-                        PhasedCondenserNoMass.SECONDARY_OUT),
-                preheater[2].getHeatNode(
-                        PhasedCondenserNoMass.SECONDARY_IN));
+                preheater[1].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
+                preheaterPipingOut[1]);
+        preheaterCondensateCooler[1].getSecondarySide().connectBetween(
+                preheaterPipingOut[1],
+                preheater[2].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
 
         // Valve to deaerator
         for (int idx = 0; idx < 2; idx++) {
@@ -1476,12 +1513,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ejectorToHotwellPhasedNode);
 
         // Low pressure preheaters condensate flow: This is pressure based and
-        // the preheater will just push the condensate to the previous one
+        // the preheater will just push the condensate to the previous one,
+        // it will however first push it through the condensate cooler elements.
         preheaterCondensateValve[2].getValveElement().connectBetween(
                 preheater[2].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
+                preheaterCondensateOut[1]);
+        preheaterCondensateCooler[1].getPrimarySide().connectBetween(
+                preheaterCondensateOut[1],
+                // connect to out-port! This allows either mixing or also 
+                // filling the reservoir of [2] with [1].
                 preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
         preheaterCondensateValve[1].getValveElement().connectBetween(
                 preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
+                preheaterCondensateOut[0]);
+        preheaterCondensateCooler[0].getPrimarySide().connectBetween(
+                preheaterCondensateOut[0],
                 preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
         preheaterCondensateValve[0].getValveElement().connectBetween(
                 preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
@@ -1967,7 +2013,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // so the inlet valves form the missing resistance of 1000
         turbineHighPressureFirst.setResistanceParameter(3554.95);
         turbineHighPressureSecond.setResistanceParameter(606.40);
-        
+
         // Todo, just some random number for now.
         turbineHighPressureTapValve.initCharacteristicSimple(4e3);
 
@@ -2062,24 +2108,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureStage[2].setOutVaporFraction(1.0942);
         turbineLowPressureStage[3].setOutVaporFraction(1.0446);
         turbineLowPressureStage[4].setOutVaporFraction(0.9); // to condenser
-        
+
         // 1154.36 kg/s from 3.5 to 3.0 bar:
         turbineLowPressureStage[0].setResistanceParameter(43.314);
-        
+
         // To reheater 3: 83.247 kg/s from 3.0 to 1.4641 barabs (sat temp
         // of 110 °C). That mass flow is calculated from spec. energy sum.
         turbineLowPressureTapValve[0].initCharacteristicSimple(1844.99);
-        
+
         // 1071.113 kg/s from 3.0 to 2.5 bar:
         turbineLowPressureStage[1].setResistanceParameter(46.68);
-        
+
         // Reheater 2 will have the condensate of reheater used to pre-heat
         // the feedwater before entering reheater 2 (110 °C and 83.247 kg/s).
         // This will rise the feedwater temperature from 65 °C to 68.25 °C
         // To get to 110 °C, we will need 72.399 kg/s of steam from tap from
         // a pressure of 2.5 barabs to 0.2170 barabs, that gives us resistance.
         turbineLowPressureTapValve[0].initCharacteristicSimple(3153.36);
-        
+
         // Todo:
         turbineLowPressureStage[2].setResistanceParameter(60);
         turbineLowPressureStage[3].setResistanceParameter(60);
