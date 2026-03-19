@@ -2073,8 +2073,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 1071.113 kg/s from 3.0 to 2.5 bar:
         turbineLowPressureStage[1].setResistanceParameter(46.68);
         
-        // Reheater 2 will have the condensate of reheater mixed into it (with
-        // 110 °C and 83.247 kg/s).
+        // Reheater 2 will have the condensate of reheater used to pre-heat
+        // the feedwater before entering reheater 2 (110 °C and 83.247 kg/s).
+        // This will rise the feedwater temperature from 65 °C to 68.25 °C
+        // To get to 110 °C, we will need 72.399 kg/s of steam from tap from
+        // a pressure of 2.5 barabs to 0.2170 barabs, that gives us resistance.
+        turbineLowPressureTapValve[0].initCharacteristicSimple(3153.36);
         
         // Todo:
         turbineLowPressureStage[2].setResistanceParameter(60);
