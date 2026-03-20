@@ -80,8 +80,8 @@ public class PanelCondensation extends AbstractPanelWidget {
         integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitch3 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelEjectorSuction = new javax.swing.JLabel();
-        jButtonFeed12Close = new javax.swing.JButton();
-        jButtonFeed12Open = new javax.swing.JButton();
+        jButtonEjector1SuctionClose = new javax.swing.JButton();
+        jButtonEjector1SuctionOpen = new javax.swing.JButton();
         jButtonEjector1InClose = new javax.swing.JButton();
         jButtonEjector1InOpen = new javax.swing.JButton();
         jButtonEjector2InOpen = new javax.swing.JButton();
@@ -224,29 +224,27 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelEjectorSuction.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelEjectorSuction, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 200, 40, 14));
 
-        jButtonFeed12Close.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed12Close.setText("C");
-        jButtonFeed12Close.setToolTipText("");
-        jButtonFeed12Close.setEnabled(false);
-        jButtonFeed12Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Close.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector1SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonEjector1SuctionClose.setText("C");
+        jButtonEjector1SuctionClose.setToolTipText("");
+        jButtonEjector1SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector1SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12CloseActionPerformed(evt);
+                jButtonEjector1SuctionCloseActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 198, 20, 20));
+        add(jButtonEjector1SuctionClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 198, 20, 20));
 
-        jButtonFeed12Open.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed12Open.setText("O");
-        jButtonFeed12Open.setToolTipText("");
-        jButtonFeed12Open.setEnabled(false);
-        jButtonFeed12Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed12Open.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEjector1SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonEjector1SuctionOpen.setText("O");
+        jButtonEjector1SuctionOpen.setToolTipText("");
+        jButtonEjector1SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonEjector1SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFeed12OpenActionPerformed(evt);
+                jButtonEjector1SuctionOpenActionPerformed(evt);
             }
         });
-        add(jButtonFeed12Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 198, 20, 20));
+        add(jButtonEjector1SuctionOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 198, 20, 20));
 
         jButtonEjector1InClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector1InClose.setText("C");
@@ -399,7 +397,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector2SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector2SuctionOpen.setText("O");
         jButtonEjector2SuctionOpen.setToolTipText("");
-        jButtonEjector2SuctionOpen.setEnabled(false);
         jButtonEjector2SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector2SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,7 +408,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector2SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector2SuctionClose.setText("C");
         jButtonEjector2SuctionClose.setToolTipText("");
-        jButtonEjector2SuctionClose.setEnabled(false);
         jButtonEjector2SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector2SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,7 +419,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector3SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector3SuctionOpen.setText("O");
         jButtonEjector3SuctionOpen.setToolTipText("");
-        jButtonEjector3SuctionOpen.setEnabled(false);
         jButtonEjector3SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector3SuctionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -435,7 +430,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector3SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector3SuctionClose.setText("C");
         jButtonEjector3SuctionClose.setToolTipText("");
-        jButtonEjector3SuctionClose.setEnabled(false);
         jButtonEjector3SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjector3SuctionClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -876,13 +870,13 @@ public class PanelCondensation extends AbstractPanelWidget {
         add(jButtonEjector3CondensateClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 310, 20, 20));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonFeed12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12CloseActionPerformed
+    private void jButtonEjector1SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1SuctionCloseActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain1#SuctionValve", false));
+    }//GEN-LAST:event_jButtonEjector1SuctionCloseActionPerformed
 
-    }//GEN-LAST:event_jButtonFeed12CloseActionPerformed
-
-    private void jButtonFeed12OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed12OpenActionPerformed
-
-    }//GEN-LAST:event_jButtonFeed12OpenActionPerformed
+    private void jButtonEjector1SuctionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1SuctionOpenActionPerformed
+        controller.userAction(new ActionCommand("EjectorMain1#SuctionValve", true));
+    }//GEN-LAST:event_jButtonEjector1SuctionOpenActionPerformed
 
     private void jButtonEjector1InCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1InCloseActionPerformed
         controller.userAction(new ActionCommand("EjectorMain1#FlowIn", false));
@@ -933,19 +927,19 @@ public class PanelCondensation extends AbstractPanelWidget {
     }//GEN-LAST:event_jButtonEjector3OutCloseActionPerformed
 
     private void jButtonEjector2SuctionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2SuctionOpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("EjectorMain2#SuctionValve", true));
     }//GEN-LAST:event_jButtonEjector2SuctionOpenActionPerformed
 
     private void jButtonEjector2SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2SuctionCloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("EjectorMain2#SuctionValve", false));
     }//GEN-LAST:event_jButtonEjector2SuctionCloseActionPerformed
 
     private void jButtonEjector3SuctionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3SuctionOpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("EjectorMain3#SuctionValve", true));
     }//GEN-LAST:event_jButtonEjector3SuctionOpenActionPerformed
 
     private void jButtonEjector3SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3SuctionCloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("EjectorMain3#SuctionValve", false));
     }//GEN-LAST:event_jButtonEjector3SuctionCloseActionPerformed
 
     private void jButtonEjectorBypassCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjectorBypassCloseActionPerformed
@@ -1027,6 +1021,8 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JButton jButtonEjector1InOpen;
     private javax.swing.JButton jButtonEjector1OutClose;
     private javax.swing.JButton jButtonEjector1OutOpen;
+    private javax.swing.JButton jButtonEjector1SuctionClose;
+    private javax.swing.JButton jButtonEjector1SuctionOpen;
     private javax.swing.JButton jButtonEjector2CondensateClose;
     private javax.swing.JButton jButtonEjector2CondensateOpen;
     private javax.swing.JButton jButtonEjector2InClose;
@@ -1047,8 +1043,6 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JButton jButtonEjectorBypassOpen;
     private javax.swing.JButton jButtonEjectorTurbineTapClose;
     private javax.swing.JButton jButtonEjectorTurbineTapOpen;
-    private javax.swing.JButton jButtonFeed12Close;
-    private javax.swing.JButton jButtonFeed12Open;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1151,6 +1145,15 @@ public class PanelCondensation extends AbstractPanelWidget {
             case "EjectorMain3#CondensateValve_Pos" ->
                 setValveButtons(jButtonEjector3CondensateClose,
                         jButtonEjector3CondensateOpen, evt.getNewValue());
+            case "EjectorMain1#SuctionValve_Pos" ->
+                setValveButtons(jButtonEjector1SuctionClose,
+                        jButtonEjector1SuctionOpen, evt.getNewValue());
+            case "EjectorMain2#SuctionValve_Pos" ->
+                setValveButtons(jButtonEjector2SuctionClose,
+                        jButtonEjector2SuctionOpen, evt.getNewValue());
+            case "EjectorMain3#SuctionValve_Pos" ->
+                setValveButtons(jButtonEjector3SuctionClose,
+                        jButtonEjector3SuctionOpen, evt.getNewValue());
         }
     }
 

@@ -53,18 +53,18 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         valveEjector1In = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector1Out = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector1Steam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve5 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector1Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector1Condensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector2In = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector2Out = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector2Steam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve10 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector2Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector2Condensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector3In = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector3Out = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector3Steam = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveEjector3Condensate = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
-        valve16 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveEjector3Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump1Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump2Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         valveCondensatePump3Suction = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
@@ -85,6 +85,10 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelReadingEjector2CondensateValve = new javax.swing.JLabel();
         jLabelReadingEjector1CondensateValve = new javax.swing.JLabel();
         jLabelReadingEjector3CondensateValve = new javax.swing.JLabel();
+        jLabelEjector1 = new javax.swing.JLabel();
+        jLabelEjector2 = new javax.swing.JLabel();
+        jLabelEjector3 = new javax.swing.JLabel();
+        jLabelEjector4 = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 228));
@@ -104,7 +108,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
 
         valveEjector1Steam.setVertical(true);
         add(valveEjector1Steam, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 23, -1, -1));
-        add(valve5, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 71, -1, -1));
+        add(valveEjector1Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 71, -1, -1));
         add(valveEjector1Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 111, -1, -1));
 
         valveEjector2In.setVertical(true);
@@ -115,7 +119,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
 
         valveEjector2Steam.setVertical(true);
         add(valveEjector2Steam, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 23, -1, -1));
-        add(valve10, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 71, -1, -1));
+        add(valveEjector2Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 71, -1, -1));
         add(valveEjector2Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 111, -1, -1));
 
         valveEjector3In.setVertical(true);
@@ -127,7 +131,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         valveEjector3Steam.setVertical(true);
         add(valveEjector3Steam, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 23, -1, -1));
         add(valveEjector3Condensate, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 111, -1, -1));
-        add(valve16, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 71, -1, -1));
+        add(valveEjector3Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 71, -1, -1));
 
         valveCondensatePump1Suction.setVertical(true);
         add(valveCondensatePump1Suction, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 82, -1, -1));
@@ -218,7 +222,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelReadingEjector2CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingEjector2CondensateValve.setText("___");
         jLabelReadingEjector2CondensateValve.setOpaque(true);
-        add(jLabelReadingEjector2CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 36, 24, -1));
+        add(jLabelReadingEjector2CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 30, 24, -1));
 
         jLabelReadingEjector1CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingEjector1CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -226,7 +230,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelReadingEjector1CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingEjector1CondensateValve.setText("___");
         jLabelReadingEjector1CondensateValve.setOpaque(true);
-        add(jLabelReadingEjector1CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 36, 24, -1));
+        add(jLabelReadingEjector1CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 30, 24, -1));
 
         jLabelReadingEjector3CondensateValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingEjector3CondensateValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -234,7 +238,31 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelReadingEjector3CondensateValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingEjector3CondensateValve.setText("___");
         jLabelReadingEjector3CondensateValve.setOpaque(true);
-        add(jLabelReadingEjector3CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 36, 24, -1));
+        add(jLabelReadingEjector3CondensateValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 30, 24, -1));
+
+        jLabelEjector1.setFont(jLabelEjector1.getFont().deriveFont(jLabelEjector1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelEjector1.getFont().getSize()-3));
+        jLabelEjector1.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelEjector1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelEjector1.setText("Ejector 1");
+        add(jLabelEjector1, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 50, 50, -1));
+
+        jLabelEjector2.setFont(jLabelEjector2.getFont().deriveFont(jLabelEjector2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelEjector2.getFont().getSize()-3));
+        jLabelEjector2.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelEjector2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelEjector2.setText("Ejector 2");
+        add(jLabelEjector2, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 50, 50, -1));
+
+        jLabelEjector3.setFont(jLabelEjector3.getFont().deriveFont(jLabelEjector3.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelEjector3.getFont().getSize()-3));
+        jLabelEjector3.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelEjector3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelEjector3.setText("Ejector 3");
+        add(jLabelEjector3, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 50, 50, -1));
+
+        jLabelEjector4.setFont(jLabelEjector4.getFont().deriveFont(jLabelEjector4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelEjector4.getFont().getSize()-3));
+        jLabelEjector4.setForeground(new java.awt.Color(14, 222, 194));
+        jLabelEjector4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelEjector4.setText("Bypass");
+        add(jLabelEjector4, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 188, 50, -1));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCondensate.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -243,6 +271,10 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelBackground;
+    private javax.swing.JLabel jLabelEjector1;
+    private javax.swing.JLabel jLabelEjector2;
+    private javax.swing.JLabel jLabelEjector3;
+    private javax.swing.JLabel jLabelEjector4;
     private javax.swing.JLabel jLabelFromHotwell;
     private javax.swing.JLabel jLabelReadingCondensate2Flow;
     private javax.swing.JLabel jLabelReadingCondensate2Pressure;
@@ -257,9 +289,6 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate2;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pumpCondensate3;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valve1;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve10;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve16;
-    private com.hartrusion.rbmksim.gui.mnemonic.Valve valve5;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Discharge;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump1Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensatePump2Discharge;
@@ -270,14 +299,17 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1In;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1Out;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1Steam;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector1Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Condensate;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2In;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Out;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Steam;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector2Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Condensate;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3In;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Out;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Steam;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjector3Suction;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveEjectorBypass;
     // End of variables declaration//GEN-END:variables
 
@@ -383,6 +415,12 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
 
             case "EjectorMain#Bypass_Pos" ->
                 valveEjectorBypass.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain1#SuctionValve_Pos" ->
+                valveEjector1Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain2#SuctionValve_Pos" ->
+                valveEjector2Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "EjectorMain3#SuctionValve_Pos" ->
+                valveEjector3Suction.setActive(evt.getNewValue() != ValveState.CLOSED);
         }
     }
 

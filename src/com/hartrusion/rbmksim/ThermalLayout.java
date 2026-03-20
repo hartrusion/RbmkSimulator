@@ -37,6 +37,7 @@ import com.hartrusion.modeling.automated.HeatValveControlled;
 import com.hartrusion.modeling.assemblies.PhasedCondenserNoMass;
 import com.hartrusion.modeling.assemblies.PhasedHeatExchangerNoMass;
 import com.hartrusion.modeling.assemblies.PhasedSuperheater;
+import com.hartrusion.modeling.automated.DummyValve;
 import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.automated.PhasedValveControlled;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
@@ -295,10 +296,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     // Ejectors (both startup and main)
     private final PhasedNode ejectorTurbineTapNode;
-    private final PhasedValve[] ejectorStartup
-            = new PhasedValve[2];
-    private final PhasedValve[] ejectorMainSteamValve
-            = new PhasedValve[3];
+    private final PhasedValve[] ejectorStartup = new PhasedValve[2];
+    private final PhasedValve[] ejectorMainSteamValve = new PhasedValve[3];
+    private final DummyValve[] ejectorSuctionValve = new DummyValve[3];
     private final PhasedHeatExchangerNoMass[] ejectorMain = new PhasedHeatExchangerNoMass[3];
     private final PhasedHeatFluidConverter[] ejectorMainCondensate
             = new PhasedHeatFluidConverter[3];
@@ -898,6 +898,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainSteamValve[idx] = new PhasedValve();
             ejectorMainSteamValve[idx].initName(
                     "EjectorMain" + (idx + 1) + "#SteamValve");
+            ejectorSuctionValve[idx] = new DummyValve();
+            ejectorSuctionValve[idx].initName(
+                    "EjectorMain" + (idx + 1) + "#SuctionValve");
             ejectorMain[idx] = new PhasedHeatExchangerNoMass(phasedWater);
             ejectorMain[idx].initGenerateNodes();
             ejectorMain[idx].initName("EjectorMain" + (idx + 1));
@@ -2373,6 +2376,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         for (int idx = 0; idx < 3; idx++) {
             runner.submit(ejectorMainSteamValve[idx]);
+            runner.submit(ejectorSuctionValve[idx]);
             runner.submit(ejectorMainCondensateValve[idx]);
             runner.submit(ejectorMainFlowIn[idx]);
             runner.submit(ejectorMainFlowOut[idx]);
@@ -2447,13 +2451,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointDrumPressure.setLowerLimit(1.0);
         setpointDrumPressure.setUpperLimit(72.0);
         setpointDrumPressure.setMaxRate(2.0);
-        
+
         // Preheater Levels: Scale is 0..150 cm
         for (int idx = 0; idx < 3; idx++) {
             setpointPreheaterLevel[idx].setLowerLimit(20);
             setpointPreheaterLevel[idx].setUpperLimit(120);
             setpointPreheaterLevel[idx].setMaxRate(20);
-         }
+        }
 
         blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
             @Override
@@ -2834,7 +2838,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         setpointTurbineReheaterSuperheating.forceOutputValue(126);
         setpointTurbineReheaterLevel.forceOutputValue(60);
-        
+
         for (int idx = 0; idx < 3; idx++) {
             setpointPreheaterLevel[idx].forceOutputValue(50);
         }
@@ -3464,7 +3468,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Preheater1Level");
         am.addInputProvider(() -> preheater[0].getPrimarySideReservoir()
@@ -3477,7 +3481,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(10.0, AlarmState.MIN1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Preheater2Level");
         am.addInputProvider(() -> preheater[1].getPrimarySideReservoir()
@@ -3490,7 +3494,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(10.0, AlarmState.MIN1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Preheater3Level");
         am.addInputProvider(() -> preheater[2].getPrimarySideReservoir()
@@ -3542,7 +3546,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(30.0, AlarmState.MIN1);
 
         am.registerAlarmManager(alarmManager);
-        alarmUpdater.submit(am);        
+        alarmUpdater.submit(am);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Safety">
         // Steam Drum Level must be above MIN2 for MCPs to run.
@@ -3639,13 +3643,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         ejectorMainCondensateValve[0].addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
-                            "CondenserVacuum", AlarmState.MIN1));
+                        "CondenserVacuum", AlarmState.MIN1));
         ejectorMainCondensateValve[1].addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
-                            "CondenserVacuum", AlarmState.MIN1));
+                        "CondenserVacuum", AlarmState.MIN1));
         ejectorMainCondensateValve[2].addSafeClosedProvider(()
                 -> !alarmManager.isAlarmActive(
-                            "CondenserVacuum", AlarmState.MIN1));
+                        "CondenserVacuum", AlarmState.MIN1));
 
         // Turbine
         for (int idx = 0; idx < 2; idx++) {
@@ -3987,9 +3991,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // not be able to compensate for large steam quantities
                 - ejectorStartup[0].getValveElement().getFlow()
                 - ejectorStartup[1].getValveElement().getFlow()
-                // Main ejectors are designed to use about 3 kg/s of steam
-                // each 
+                // Main ejectors are designed to use about 8.5 kg/s of steam
+                // each
                 - ejectorMainSteamValve[0].getValveElement().getFlow()
+                * ejectorSuctionValve[0].getOpening() / 100
+                - ejectorMainSteamValve[1].getValveElement().getFlow()
+                * ejectorSuctionValve[1].getOpening() / 100
+                - ejectorMainSteamValve[2].getValveElement().getFlow()
+                * ejectorSuctionValve[2].getOpening() / 100
         );
         condenserVacuum.run();
 
@@ -4651,6 +4660,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ejectorMainCondensateValve[idx].handleAction(ac);
                 ejectorMainFlowIn[idx].handleAction(ac);
                 ejectorMainFlowOut[idx].handleAction(ac);
+                ejectorSuctionValve[idx].handleAction(ac);
             }
             ejectorMainBypass.handleAction(ac);
         } else {
@@ -4700,7 +4710,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             if (ac.getPropertyName().equals("Main#StartupPressureSetpoint")) {
                 startupPressureSetpointActive = (boolean) ac.getValue();
             }
-            
+
             for (int idx = 0; idx < 3; idx++) {
                 setpointPreheaterLevel[idx].handleAction(ac);
             }
