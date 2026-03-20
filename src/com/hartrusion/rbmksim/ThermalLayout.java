@@ -1977,7 +1977,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             ejectorStartup[idx].initCharacteristicSimple(2e6);
         }
-        
+
         // Todo: make some proper resistance values on the preheaters
         preheaterPiping[0].setResistanceParameter(200);
         preheaterPiping[1].setResistanceParameter(200);
@@ -2174,8 +2174,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // (614 Pa), so total pressure diff is 68026 Pa.
         // R = 68026 Pa / 250 kg/s 
         preheaterCondensateHeight.setEffort(5e4);
-        // Makes a total pressure diff: 
-        preheaterCondensateValve[0].initCharacteristicSimple(2720);
+        // Makes a total pressure diff, theroetically R=2720 but that does 
+        // not work at all. use a way lower value for better startup.
+        preheaterCondensateValve[0].initCharacteristicSimple(1600);
 
         turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
@@ -2692,7 +2693,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ((PIControl) preheaterCondensateValve[idx].getController())
                     .setParameterTN(20);
         } // Todo: parameters!
-        
+
         turbineStartupSteamValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -3685,6 +3686,56 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 -> !alarmManager.isAlarmActive(
                         "CondenserVacuum", AlarmState.MIN1));
 
+        // Preheater condensate valves (steam valves are attached to the turbine 
+        // taps so they will be considered later in code): This is a bit 
+        // complicated as the pressure in those condensers can be not as desired
+        // and making the flow in the preheaters go in wrong direction also.
+        // This has to be prevented to prevent model stability issues.
+        // The first condenser does not have those issues, it will alway be able
+        // to drain into condenser.
+        preheaterCondensateValve[0].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "CondenserVacuum", AlarmState.MIN1)
+                && !alarmManager.isAlarmActive(
+                        "Preheater1Level", AlarmState.MIN1));
+
+        preheaterCondensateValve[1].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[0].getPrimarySideReservoir().getEffort()
+                        > preheater[1].getPrimarySideReservoir().getEffort()) {
+                    // Pressure is in wrong direction. Check that this one does
+                    // not flood over max and the OTHER preheater does not get
+                    // drained.
+                    return !alarmManager.isAlarmActive(
+                            "Preheater2Level", AlarmState.MAX1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater1Level", AlarmState.MIN1);
+                } // else:
+                return !alarmManager.isAlarmActive(
+                        "Preheater2Level", AlarmState.MIN1);
+            }
+        });
+        preheaterCondensateValve[2].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[1].getPrimarySideReservoir().getEffort()
+                        > preheater[2].getPrimarySideReservoir().getEffort()) {
+                    // Pressure is in wrong direction. Check that this one does
+                    // not flood over max and the OTHER preheater does not get
+                    // drained.
+                    return !alarmManager.isAlarmActive(
+                            "Preheater3Level", AlarmState.MAX1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater2Level", AlarmState.MIN1);
+                } // else:
+                return !alarmManager.isAlarmActive(
+                        "Preheater3Level", AlarmState.MIN1);
+            }
+        });
+
         // Turbine
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].addSafeClosedProvider(()
@@ -3717,7 +3768,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                                     PhasedSuperheater.PRIMARY_OUT).getEffort()
                             > turbineReheaterCondensateDrainOut.getEffort();
                 }
-                return false;
+                return true;
             }
         });
         // Same for normal drain vales to Deaerator: Keep them shut if the
@@ -3734,7 +3785,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             PhasedSuperheater.PRIMARY_OUT).getEffort()
                             > turbineReheaterCondensateNode[0].getEffort();
                 }
-                return false;
+                return true;
             }
         });
         turbineReheaterCondensateValve[1].addSafeClosedProvider(
@@ -3748,7 +3799,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             PhasedSuperheater.PRIMARY_OUT).getEffort()
                             > turbineReheaterCondensateNode[1].getEffort();
                 }
-                return false;
+                return true;
             }
         });
 
