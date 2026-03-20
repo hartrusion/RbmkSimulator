@@ -3667,12 +3667,94 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterTripValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
 
-        // All tap valves need to be shut close to prevent spinning up the 
-        // turbine from higher pressure than the condenser.
-        for (int idx = 0; idx < 4; idx++) {
-            turbineLowPressureTapValve[idx].addSafeClosedProvider(()
-                    -> !turbine.isTpsActive());
-        }
+        // Preheater: Steam valves are shut close as long as pressure values 
+        // are in the wrong direction. This will unfortunately prevent the 
+        // spinning of the turbine by evaporation of the condensate (nasty 
+        // effect) but makes the simulation more general useable.
+        turbineLowPressureTapValve[0].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[2].getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_IN).effortUpdated()
+                        && turbineLowPressureStageOut[0].effortUpdated()) {
+                    // compare pressure (effort) on both nodes of the valve.
+                    return !turbine.isTpsActive()
+                            && !alarmManager.isAlarmActive(
+                                    "CondenserVacuum", AlarmState.MIN1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater3Level", AlarmState.MAX1)
+                            && (preheater[2].getPhasedNode(
+                                    PhasedCondenserNoMass.PRIMARY_IN).getEffort()
+                            < turbineLowPressureStageOut[0].getEffort());
+                }
+                // fallback if model is not properly updated
+                return !turbine.isTpsActive() && !alarmManager.isAlarmActive(
+                        "CondenserVacuum", AlarmState.MIN1)
+                        && !alarmManager.isAlarmActive(
+                                "Preheater3Level", AlarmState.MAX1);
+            }
+        });
+        turbineLowPressureTapValve[1].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[1].getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_IN).effortUpdated()
+                        && turbineLowPressureStageOut[0].effortUpdated()) {
+                    // compare pressure (effort) on both nodes of the valve.
+                    return !turbine.isTpsActive()
+                            && !alarmManager.isAlarmActive(
+                                    "CondenserVacuum", AlarmState.MIN1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater2Level", AlarmState.MAX1)
+                            && (preheater[1].getPhasedNode(
+                                    PhasedCondenserNoMass.PRIMARY_IN).getEffort()
+                            < turbineLowPressureStageOut[1].getEffort());
+                }
+                // fallback if model is not properly updated
+                return !turbine.isTpsActive() && !alarmManager.isAlarmActive(
+                        "CondenserVacuum", AlarmState.MIN1)
+                        && !alarmManager.isAlarmActive(
+                                "Preheater2Level", AlarmState.MAX1);
+            }
+        });
+        turbineLowPressureTapValve[2].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[0].getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_IN).effortUpdated()
+                        && turbineLowPressureStageOut[2].effortUpdated()) {
+                    // compare pressure (effort) on both nodes of the valve.
+                    return !turbine.isTpsActive()
+                            && !alarmManager.isAlarmActive(
+                                    "CondenserVacuum", AlarmState.MIN1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater1Level", AlarmState.MAX1)
+                            && (preheater[0].getPhasedNode(
+                                    PhasedCondenserNoMass.PRIMARY_IN).getEffort()
+                            < turbineLowPressureStageOut[2].getEffort());
+                }
+                // fallback if model is not properly updated
+                return !turbine.isTpsActive() && !alarmManager.isAlarmActive(
+                        "CondenserVacuum", AlarmState.MIN1)
+                        && !alarmManager.isAlarmActive(
+                                "Preheater1Level", AlarmState.MAX1);
+            }
+        });
+        // Tap valve 3 has the main ejectors attached, those have individual
+        // valves so no level is considered. Just the TPS and vacuum are used.
+        turbineLowPressureTapValve[3].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                return !turbine.isTpsActive()
+                        && !alarmManager.isAlarmActive(
+                                "CondenserVacuum", AlarmState.MIN1);
+            }
+        });
+
         turbineHighPressureTapValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
 
