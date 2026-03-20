@@ -230,7 +230,7 @@
         <Property name="feedbackComponent" type="java.lang.String" value="Preheater1#Level"/>
         <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
-        <Property name="setpointComponent" type="java.lang.String" value="null"/>
+        <Property name="setpointComponent" type="java.lang.String" value="Preheater1#LevelSetpoint"/>
         <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
@@ -275,7 +275,7 @@
         <Property name="feedbackComponent" type="java.lang.String" value="Preheater2#Level"/>
         <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
-        <Property name="setpointComponent" type="java.lang.String" value="Deaerator1#PressureSetpoint"/>
+        <Property name="setpointComponent" type="java.lang.String" value="Preheater2#LevelSetpoint"/>
         <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>
@@ -320,7 +320,7 @@
         <Property name="feedbackComponent" type="java.lang.String" value="Preheater3#Level"/>
         <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
-        <Property name="setpointComponent" type="java.lang.String" value="Deaerator1#PressureSetpoint"/>
+        <Property name="setpointComponent" type="java.lang.String" value="Preheater3#LevelSetpoint"/>
         <Property name="unit" type="java.lang.String" value="cm"/>
       </Properties>
       <Constraints>

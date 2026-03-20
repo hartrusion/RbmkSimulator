@@ -386,6 +386,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final Setpoint setpointHotwellLowerLevel;
     private final Setpoint setpointTurbineReheaterSuperheating;
     private final Setpoint setpointTurbineReheaterLevel;
+    private final Setpoint[] setpointPreheaterLevel = new Setpoint[3];
 
     private final DomainAnalogySolver solver = new DomainAnalogySolver();
     private final AutomationRunner runner = new AutomationRunner();
@@ -1104,6 +1105,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointTurbineReheaterLevel = new Setpoint();
         setpointTurbineReheaterLevel.initName(
                 "Turbine#SetpointReheaterLevel");
+        for (int idx = 0; idx < 3; idx++) {
+            setpointPreheaterLevel[idx] = new Setpoint();
+            setpointPreheaterLevel[idx].initName(
+                    "Preheater" + (idx + 1) + "#LevelSetpoint");
+        }
 
         // </editor-fold>
     }
@@ -2415,6 +2421,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.submit(setpointHotwellLowerLevel);
         runner.submit(setpointTurbineReheaterSuperheating);
         runner.submit(setpointTurbineReheaterLevel);
+        for (int idx = 0; idx < 3; idx++) {
+            runner.submit(setpointPreheaterLevel[idx]);
+        }
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Control Loops Configuration">
@@ -2444,6 +2453,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointDrumPressure.setLowerLimit(1.0);
         setpointDrumPressure.setUpperLimit(72.0);
         setpointDrumPressure.setMaxRate(2.0);
+        
+        // Preheater Levels: Scale is 0..150 cm
+        for (int idx = 0; idx < 3; idx++) {
+            setpointPreheaterLevel[idx].setLowerLimit(20);
+            setpointPreheaterLevel[idx].setUpperLimit(120);
+            setpointPreheaterLevel[idx].setMaxRate(20);
+         }
 
         blowdownBalanceControlLoop.addInputProvider(new DoubleSupplier() {
             @Override
@@ -2824,6 +2840,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         setpointTurbineReheaterSuperheating.forceOutputValue(126);
         setpointTurbineReheaterLevel.forceOutputValue(60);
+        
+        for (int idx = 0; idx < 3; idx++) {
+            setpointPreheaterLevel[idx].forceOutputValue(50);
+        }
 
         startupPressureSetpointActive = true;
 
@@ -4649,6 +4669,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
             if (ac.getPropertyName().equals("Main#StartupPressureSetpoint")) {
                 startupPressureSetpointActive = (boolean) ac.getValue();
+            }
+            
+            for (int idx = 0; idx < 3; idx++) {
+                setpointPreheaterLevel[idx].handleAction(ac);
             }
         }
         // </editor-fold>
