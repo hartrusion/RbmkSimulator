@@ -1977,7 +1977,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             ejectorStartup[idx].initCharacteristicSimple(2e6);
         }
-
+        
         // Todo: make some proper resistance values on the preheaters
         preheaterPiping[0].setResistanceParameter(200);
         preheaterPiping[1].setResistanceParameter(200);
@@ -2008,7 +2008,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // they should be of lower pressure than the turbine itself, which is
         // sub-ambient pressure.
         for (int idx = 0; idx < 3; idx++) {
-            preheater[idx].getPrimarySideReservoir().setAmbientPressure(0.0);
+            preheater[idx].initCharacteristic(2.0, 300, 5e5, 0.0, Double.NaN);
         }
 
         // Turbine HP part: See documentation on how to obtain those values.
@@ -2659,6 +2659,40 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .setParameterTN(10);
         }
 
+        preheaterCondensateValve[0].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return -setpointPreheaterLevel[0].getOutput()
+                        + preheater[0].getPrimarySideReservoir()
+                                .getFillHeight() * 100;
+            }
+        });
+        preheaterCondensateValve[1].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return -setpointPreheaterLevel[1].getOutput()
+                        + preheater[1].getPrimarySideReservoir()
+                                .getFillHeight() * 100;
+            }
+        });
+        preheaterCondensateValve[2].getController().addInputProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                return -setpointPreheaterLevel[2].getOutput()
+                        + preheater[2].getPrimarySideReservoir()
+                                .getFillHeight() * 100;
+            }
+        });
+        for (int idx = 0; idx < 3; idx++) {
+            ((PIControl) preheaterCondensateValve[idx].getController())
+                    .setParameterK(5);
+            ((PIControl) preheaterCondensateValve[idx].getController())
+                    .setParameterTN(20);
+        } // Todo: parameters!
+        
         turbineStartupSteamValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
