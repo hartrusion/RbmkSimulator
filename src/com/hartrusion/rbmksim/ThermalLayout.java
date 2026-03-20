@@ -299,15 +299,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedValve[2];
     private final PhasedValve[] ejectorMainSteamValve
             = new PhasedValve[3];
-    private final PhasedCondenserNoMass[] ejectorMain = new PhasedCondenserNoMass[3];
+    private final PhasedHeatExchangerNoMass[] ejectorMain = new PhasedHeatExchangerNoMass[3];
     private final PhasedHeatFluidConverter[] ejectorMainCondensate
             = new PhasedHeatFluidConverter[3];
     private final HeatNode[] ejectorMainCondensateOut = new HeatNode[3];
     // to rause pressure a bit and allow flow without any pump:
     private final HeatEffortSource[] ejectorLevel = new HeatEffortSource[3];
     private final HeatNode[] ejectorMainCondensateUp = new HeatNode[3];
-    private final HeatValveControlled[] ejectorMainCondensateValve
-            = new HeatValveControlled[3];
+    private final HeatValve[] ejectorMainCondensateValve
+            = new HeatValve[3];
     private final HeatValve[] ejectorMainFlowIn = new HeatValve[3];
     private final HeatSimpleFlowResistance[] ejectorMainFlowReistance
             = new HeatSimpleFlowResistance[3];
@@ -898,7 +898,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainSteamValve[idx] = new PhasedValve();
             ejectorMainSteamValve[idx].initName(
                     "EjectorMain" + (idx + 1) + "#SteamValve");
-            ejectorMain[idx] = new PhasedCondenserNoMass(phasedWater);
+            ejectorMain[idx] = new PhasedHeatExchangerNoMass(phasedWater);
             ejectorMain[idx].initGenerateNodes();
             ejectorMain[idx].initName("EjectorMain" + (idx + 1));
             ejectorMainCondensate[idx]
@@ -913,8 +913,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainCondensateUp[idx] = new HeatNode();
             ejectorMainCondensateUp[idx].setName(
                     "EjectorMain" + (idx + 1) + "#CondensateUp");
-            ejectorMainCondensateValve[idx] = new HeatValveControlled();
-            ejectorMainCondensateValve[idx].registerController(new PIControl());
+            ejectorMainCondensateValve[idx] = new HeatValve();
             ejectorMainCondensateValve[idx].initName("EjectorMain"
                     + (idx + 1) + "#CondensateValve");
             ejectorMainFlowIn[idx] = new HeatValve();
@@ -1996,11 +1995,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // The main ejectors are actually just condensers that condense some
             // steam, the amount of steam is used to determine how much the 
             // vacuum itself is affected by incoming flows from turbine.
-            ejectorMain[idx].initCharacteristic(1.0, 300, 5e5, 0.0, Double.NaN);
-            // assume vacuum always:
-            ejectorMain[idx].getPrimarySideReservoir()
-                    .setAmbientPressure(0.0);
-            ejectorMain[idx].initConditions(273.15 + 22, 273.15 + 22, 0.15);
 
             // See turbine tap calculation on why this value is 1000.
             ejectorMainSteamValve[idx].initCharacteristicSimple(1000);
@@ -3643,18 +3637,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             "HotwellLevel", AlarmState.MIN1));
         }
 
-        // Do not allow main ejector condensate valves to open if the direction
-        // of the pressure is wrong (lower pressure in ejectors than in 
-        // condenser) to prevent flow in the wrong direction.
         ejectorMainCondensateValve[0].addSafeClosedProvider(()
-                -> (hotwell.getPrimarySideReservoir().getEffort()
-                < ejectorMain[0].getPrimarySideReservoir().getEffort()));
+                -> !alarmManager.isAlarmActive(
+                            "CondenserVacuum", AlarmState.MIN1));
         ejectorMainCondensateValve[1].addSafeClosedProvider(()
-                -> (hotwell.getPrimarySideReservoir().getEffort()
-                < ejectorMain[1].getPrimarySideReservoir().getEffort()));
+                -> !alarmManager.isAlarmActive(
+                            "CondenserVacuum", AlarmState.MIN1));
         ejectorMainCondensateValve[2].addSafeClosedProvider(()
-                -> (hotwell.getPrimarySideReservoir().getEffort()
-                < ejectorMain[2].getPrimarySideReservoir().getEffort()));
+                -> !alarmManager.isAlarmActive(
+                            "CondenserVacuum", AlarmState.MIN1));
 
         // Turbine
         for (int idx = 0; idx < 2; idx++) {
@@ -4314,16 +4305,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ejectorTurbineTapNode.getEffort() / 100000); // absolute
         outputValues.setParameterValue("EjectorMain#SteamFlow",
                 turbineLowPressureTapValve[3].getValveElement().getFlow());
-        for (int idx = 0; idx < 3; idx++) {
-            outputValues.setParameterValue(
-                    "EjectorMain" + (idx + 1) + "#Level",
-                    ejectorMain[idx].getPrimarySideReservoir()
-                            .getFillHeight() * 100);
-            outputValues.setParameterValue(
-                    "EjectorMain" + (idx + 1) + "#Temperature",
-                    ejectorMain[idx].getPrimarySideReservoir()
-                            .getTemperature() - 273.15);
-        }
+//        for (int idx = 0; idx < 3; idx++) {
+//            outputValues.setParameterValue(
+//                    "EjectorMain" + (idx + 1) + "#Level",
+//                    ejectorMain[idx].getPrimarySideReservoir()
+//                            .getFillHeight() * 100);
+//            outputValues.setParameterValue(
+//                    "EjectorMain" + (idx + 1) + "#Temperature",
+//                    ejectorMain[idx].getPrimarySideReservoir()
+//                            .getTemperature() - 273.15);
+//        }
 
         outputValues.setParameterValue("EjectorMain#FeedwaterTemperature",
                 condensationBoosterPumpIn.getTemperature() - 273.15);

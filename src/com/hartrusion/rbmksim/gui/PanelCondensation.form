@@ -191,7 +191,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="146" y="226" width="-1" height="-1"/>
+          <AbsoluteConstraints x="136" y="226" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -201,7 +201,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="224" y="226" width="-1" height="-1"/>
+          <AbsoluteConstraints x="200" y="226" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -328,7 +328,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="168" y="258" width="20" height="20"/>
+          <AbsoluteConstraints x="158" y="258" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -348,7 +348,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="258" width="20" height="20"/>
+          <AbsoluteConstraints x="130" y="258" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -418,7 +418,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="246" y="258" width="20" height="20"/>
+          <AbsoluteConstraints x="222" y="258" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -438,7 +438,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="218" y="258" width="20" height="20"/>
+          <AbsoluteConstraints x="194" y="258" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -498,7 +498,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="168" y="284" width="20" height="20"/>
+          <AbsoluteConstraints x="158" y="284" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -518,7 +518,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="284" width="20" height="20"/>
+          <AbsoluteConstraints x="130" y="284" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -538,7 +538,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="246" y="284" width="20" height="20"/>
+          <AbsoluteConstraints x="222" y="284" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -558,7 +558,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="218" y="284" width="20" height="20"/>
+          <AbsoluteConstraints x="194" y="284" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -579,7 +579,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="168" y="198" width="20" height="20"/>
+          <AbsoluteConstraints x="158" y="198" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -600,7 +600,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="198" width="20" height="20"/>
+          <AbsoluteConstraints x="130" y="198" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -621,7 +621,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="246" y="198" width="20" height="20"/>
+          <AbsoluteConstraints x="222" y="198" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -642,7 +642,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="218" y="198" width="20" height="20"/>
+          <AbsoluteConstraints x="194" y="198" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -692,7 +692,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="298" y="288" width="52" height="14"/>
+          <AbsoluteConstraints x="294" y="288" width="52" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -712,7 +712,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="300" y="302" width="20" height="20"/>
+          <AbsoluteConstraints x="296" y="302" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -732,7 +732,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="328" y="302" width="20" height="20"/>
+          <AbsoluteConstraints x="324" y="302" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -757,7 +757,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="208" y="180" width="64" height="14"/>
+          <AbsoluteConstraints x="184" y="180" width="64" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -807,7 +807,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="132" y="180" width="64" height="14"/>
+          <AbsoluteConstraints x="122" y="180" width="64" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1397,7 +1397,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="290" y="200" width="-1" height="-1"/>
+          <AbsoluteConstraints x="286" y="200" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1407,7 +1407,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="342" y="200" width="-1" height="-1"/>
+          <AbsoluteConstraints x="338" y="200" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1478,7 +1478,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="334" y="172" width="51" height="14"/>
+          <AbsoluteConstraints x="330" y="172" width="51" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1503,7 +1503,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="334" y="184" width="51" height="14"/>
+          <AbsoluteConstraints x="330" y="184" width="51" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1528,7 +1528,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="282" y="172" width="51" height="14"/>
+          <AbsoluteConstraints x="278" y="172" width="51" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1553,40 +1553,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="282" y="184" width="51" height="14"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchEjector1Condensate">
-      <Properties>
-        <Property name="component" type="java.lang.String" value="EjectorMain1#CondensateValve"/>
-        <Property name="controlledValve" type="boolean" value="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="80" y="310" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchEjector2Condensate">
-      <Properties>
-        <Property name="component" type="java.lang.String" value="EjectorMain2#CondensateValve"/>
-        <Property name="controlledValve" type="boolean" value="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="156" y="310" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchEjector3Condensate">
-      <Properties>
-        <Property name="component" type="java.lang.String" value="EjectorMain3#CondensateValve"/>
-        <Property name="controlledValve" type="boolean" value="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="234" y="310" width="-1" height="-1"/>
+          <AbsoluteConstraints x="278" y="184" width="51" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1611,109 +1578,10 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="8" y="320" width="40" height="14"/>
+          <AbsoluteConstraints x="8" y="312" width="40" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButtonEjector2CondensateAuto">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-          <FontInfo relative="true">
-            <Font bold="true" component="jToggleButtonEjector2CondensateAuto" property="font" relativeSize="true" size="0"/>
-          </FontInfo>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#x2190;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Enables valve control by pressure regulator"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonEjector2CondensateAutoActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="132" y="316" width="20" height="20"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulbEjector2CondensateAuto">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="138" y="308" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
-    <Component class="javax.swing.JToggleButton" name="jToggleButtonEjector1CondensateAuto">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-          <FontInfo relative="true">
-            <Font bold="true" component="jToggleButtonEjector1CondensateAuto" property="font" relativeSize="true" size="0"/>
-          </FontInfo>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#x2190;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Enables valve control by pressure regulator"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonEjector1CondensateAutoActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="56" y="316" width="20" height="20"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulbEjector1CondensateAuto">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="64" y="308" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
-    <Component class="javax.swing.JToggleButton" name="jToggleButtonEjector3CondensateAuto">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-          <FontInfo relative="true">
-            <Font bold="true" component="jToggleButtonEjector3CondensateAuto" property="font" relativeSize="true" size="0"/>
-          </FontInfo>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#x2190;"/>
-        <Property name="toolTipText" type="java.lang.String" value="Enables valve control by pressure regulator"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonEjector3CondensateAutoActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="210" y="316" width="20" height="20"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Container class="com.hartrusion.rbmksim.gui.elements.LightBulb" name="lightBulbEjector3CondensateAuto">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="216" y="308" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
     <Component class="javax.swing.JLabel" name="jLabelBypass1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
@@ -1735,7 +1603,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="298" y="234" width="52" height="14"/>
+          <AbsoluteConstraints x="294" y="234" width="52" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1755,7 +1623,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="300" y="260" width="20" height="20"/>
+          <AbsoluteConstraints x="296" y="260" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1775,7 +1643,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="328" y="260" width="20" height="20"/>
+          <AbsoluteConstraints x="324" y="260" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -1800,7 +1668,127 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="286" y="246" width="78" height="14"/>
+          <AbsoluteConstraints x="282" y="246" width="78" height="14"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEjector1CondensateClose">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="80" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="C"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEjector1CondensateCloseActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="66" y="310" width="20" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEjector1CondensateOpen">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="80" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="O"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEjector1CondensateOpenActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="94" y="310" width="20" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEjector2CondensateOpen">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="80" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="O"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEjector2CondensateOpenActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="158" y="310" width="20" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEjector2CondensateClose">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="80" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="C"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEjector2CondensateCloseActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="130" y="310" width="20" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEjector3CondensateOpen">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="80" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="O"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEjector3CondensateOpenActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="222" y="310" width="20" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEjector3CondensateClose">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="80" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="C"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEjector3CondensateCloseActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="194" y="310" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
