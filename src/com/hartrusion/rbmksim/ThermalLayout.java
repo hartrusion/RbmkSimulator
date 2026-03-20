@@ -3470,6 +3470,45 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("Preheater1Level");
+        am.addInputProvider(() -> preheater[0].getPrimarySideReservoir()
+                .getFillHeight() * 100);
+        am.defineAlarm(150.0, AlarmState.MAX1);
+        am.defineAlarm(120.0, AlarmState.HIGH2);
+        am.defineAlarm(100.0, AlarmState.HIGH1);
+        am.defineAlarm(20.0, AlarmState.LOW1);
+        am.defineAlarm(15.0, AlarmState.LOW2);
+        am.defineAlarm(10.0, AlarmState.MIN1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("Preheater2Level");
+        am.addInputProvider(() -> preheater[1].getPrimarySideReservoir()
+                .getFillHeight() * 100);
+        am.defineAlarm(150.0, AlarmState.MAX1);
+        am.defineAlarm(120.0, AlarmState.HIGH2);
+        am.defineAlarm(100.0, AlarmState.HIGH1);
+        am.defineAlarm(20.0, AlarmState.LOW1);
+        am.defineAlarm(15.0, AlarmState.LOW2);
+        am.defineAlarm(10.0, AlarmState.MIN1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        
+        am = new ValueAlarmMonitor();
+        am.setName("Preheater3Level");
+        am.addInputProvider(() -> preheater[2].getPrimarySideReservoir()
+                .getFillHeight() * 100);
+        am.defineAlarm(150.0, AlarmState.MAX1);
+        am.defineAlarm(120.0, AlarmState.HIGH2);
+        am.defineAlarm(100.0, AlarmState.HIGH1);
+        am.defineAlarm(20.0, AlarmState.LOW1);
+        am.defineAlarm(15.0, AlarmState.LOW2);
+        am.defineAlarm(10.0, AlarmState.MIN1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
         am.setName("ReheaterCondensateTemp");
@@ -3509,7 +3548,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(30.0, AlarmState.MIN1);
 
         am.registerAlarmManager(alarmManager);
-        alarmUpdater.submit(am);
+        alarmUpdater.submit(am);        
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Safety">
         // Steam Drum Level must be above MIN2 for MCPs to run.
