@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim.gui.diagrams;
 
+import com.hartrusion.plot.Legend;
 import com.hartrusion.plot.Line;
 import com.hartrusion.plot.YYAxes;
 import com.hartrusion.values.ValueHandler;
@@ -38,29 +39,40 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
     @Override
     public void initPlots(ValueHandler plotData) {
         YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
+        Legend le = new Legend();
         ax.setHold(true);
         Line l;
 
         l = new Line();
+        l.setLabel("Target Flux");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Reactor#TargetNeutronFlux", 5));
         l.setLineColor(Color.GRAY);
         ax.addLine(1, l);
+        le.addLine(l);
+        
         l = new Line();
+        l.setLabel("Active Setpoint");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Reactor#SetpointNeutronFlux", 5));
         l.setLineColor(Color.BLACK);
         ax.addLine(1, l);
+        le.addLine(l);
+        
         l = new Line();
+        l.setLabel("Neutron Flux");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 5));
         l.setLineColor(Color.BLUE);
         ax.addLine(1, l);
+        le.addLine(l);
 
         l = new Line();
+        l.setLabel("Avg. Auto Rod Pos. (Y2)");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("GlobalControl#AvgActiveAutoRodsPos", 5));
         ax.addLine(2, l);
+        le.addLine(l);
 
         ax.yLim(1, 0, 100F);
         ax.yLim(2, 0, 7.3F);
@@ -69,6 +81,9 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
 
         ax.ylabel(1, "Neutron Flux (%)");
         ax.ylabel(2, "Avg. Auto Rods Position (m)");
+        
+        figureJPane1.addLegend(le);
+        le.setLocationInsideAxes(ax);
     }
 
     @Override

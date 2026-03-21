@@ -17,6 +17,7 @@
 package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.Axes;
+import com.hartrusion.plot.Legend;
 import com.hartrusion.plot.Line;
 import com.hartrusion.values.ValueHandler;
 
@@ -37,26 +38,35 @@ public class FrameDiagramTurbineWarmup extends javax.swing.JFrame
     @Override
     public void initPlots(ValueHandler plotData) {
         Axes ax = figureJPane1.getLastAxes();
+        Legend le = new Legend();
         ax.setHold(true);
         Line l;
         l = new Line();
+        l.setLabel("HP In");
         l.setDataSource(plotData.getTime60(2),
                 plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 2));
         ax.addLine(l);
+        le.addLine(l);
         l = new Line();
+        l.setLabel("HP Out");
         l.setDataSource(plotData.getTime60(2),
                 plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 2));
         ax.addLine(l);
+        le.addLine(l);
         l = new Line();
+        l.setLabel("LP In");
         l.setDataSource(plotData.getTime60(2),
                 plotData.getParameterDoubleSeries("Turbine#DebugLPInTemp", 2));
         ax.addLine(l);
+        le.addLine(l);
 
         ax.yLim(0, 300);
         ax.autoX();
 
         ax.ylabel("Temperature (°C)");
-
+        
+        figureJPane1.addLegend(le);
+        le.setLocationInsideAxes(ax);
     }
 
     @Override
