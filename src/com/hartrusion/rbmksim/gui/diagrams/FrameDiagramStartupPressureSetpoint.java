@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.Axes;
 import com.hartrusion.plot.Cursor;
@@ -70,7 +70,7 @@ public class FrameDiagramStartupPressureSetpoint extends javax.swing.JFrame
     }
     
     @Override
-    public void initPlots(ValueHandler plotData, int number) {
+    public void initPlots(ValueHandler plotData) {
         this.plotData = plotData;
         
         Axes ax = figureJPane1.getLastAxes();

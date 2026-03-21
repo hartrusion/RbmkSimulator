@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.Line;
 import com.hartrusion.plot.MYAxes;
@@ -73,7 +73,7 @@ public class FrameDiagramDrums extends javax.swing.JFrame
     }
 
     @Override
-    public void initPlots(ValueHandler plotData, int number) {
+    public void initPlots(ValueHandler plotData) {
         Line l;
         SubPlot subPlot = figureJPane1.getSubPlot();
 

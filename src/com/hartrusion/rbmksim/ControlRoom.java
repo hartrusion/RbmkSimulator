@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.rbmksim.gui.diagrams.*;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
@@ -50,14 +51,6 @@ public class ControlRoom extends javax.swing.JFrame
     private FrameRodPositions frameRodPositions;
     private FrameCoreActivity frameCoreActivity;
 
-    private FrameDiagramNeutronFlux frameDiagramNeutronFlux;
-    private FrameDiagramDrums frameDiagramDrums;
-    private FrameDiagramLoopLevel frameDiagramLoop1Level;
-    private FrameDiagramLoopLevel frameDiagramLoop2Level;
-    private FrameDiagramGlobalControl frameDiagramGlobalControl;
-    private FrameDiagramStartupPressureSetpoint frameDiagramStartupPressure;
-    private FrameDiagramTurbineWarmup frameDiagramTurbineWarmup;
-
     private FrameAlarmTable frameAlarms;
     private List alarmList;
 
@@ -70,6 +63,8 @@ public class ControlRoom extends javax.swing.JFrame
     private final List<ControlPanelFrame> controlPanels = new ArrayList<>();
 
     private final List<UpdateReceiver> mnemonics = new ArrayList<>();
+
+    private final List<DiagramFrame> diagrams = new ArrayList<>();
 
     /**
      * Creates new form ControlPanel
@@ -581,19 +576,15 @@ public class ControlRoom extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItemMnemonicLoop2ActionPerformed
 
     private void jMenuNeutronFluxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNeutronFluxActionPerformed
-        if (frameDiagramNeutronFlux == null && plotData != null) {
-            frameDiagramNeutronFlux = new FrameDiagramNeutronFlux();
-            frameDiagramNeutronFlux.initPlots(plotData, 0);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramNeutronFlux.setVisible(true);
-            });
-            frameDiagramNeutronFlux.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramNeutronFlux = null;
-                }
-            });
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramNeutronFlux")) {
+                return;
+            }
         }
+        // if not, generate a new diagram and make it known.
+        initializeDiagram(new FrameDiagramNeutronFlux());
     }//GEN-LAST:event_jMenuNeutronFluxActionPerformed
 
     private void jMenuItemMnemonicAuxCondenserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicAuxCondenserActionPerformed
@@ -645,51 +636,49 @@ public class ControlRoom extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItemMnemonicDeaeratorsActionPerformed
 
     private void jMenuDrumSeparatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDrumSeparatorsActionPerformed
-        if (frameDiagramDrums == null && plotData != null) {
-            frameDiagramDrums = new FrameDiagramDrums();
-            frameDiagramDrums.initPlots(plotData, 0);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramDrums.setVisible(true);
-            });
-            frameDiagramDrums.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramDrums = null;
-                }
-            });
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramDrums")) {
+                return;
+            }
         }
+        // if not, generate a new diagram and make it known.
+        initializeDiagram(new FrameDiagramDrums());
     }//GEN-LAST:event_jMenuDrumSeparatorsActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        if (frameDiagramLoop2Level == null && plotData != null) {
-            frameDiagramLoop2Level = new FrameDiagramLoopLevel();
-            frameDiagramLoop2Level.initPlots(plotData, 2);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramLoop2Level.setVisible(true);
-            });
-            frameDiagramLoop2Level.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramLoop2Level = null;
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramLoopLevel")) {
+                // there can be 2 instances of this Frame for both loops.
+                if (((FrameDiagramLoopLevel) df).getLoop() == 2) {
+                    return;
                 }
-            });
+            }
         }
+        // if not, generate a new diagram, set loop and initialize it.
+        FrameDiagramLoopLevel frame = new FrameDiagramLoopLevel();
+        frame.setLoop(2);
+        initializeDiagram(frame);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        if (frameDiagramLoop1Level == null && plotData != null) {
-            frameDiagramLoop1Level = new FrameDiagramLoopLevel();
-            frameDiagramLoop1Level.initPlots(plotData, 1);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramLoop1Level.setVisible(true);
-            });
-            frameDiagramLoop1Level.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramLoop1Level = null;
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramLoopLevel")) {
+                // there can be 2 instances of this Frame for both loops.
+                if (((FrameDiagramLoopLevel) df).getLoop() == 1) {
+                    return;
                 }
-            });
+            }
         }
+        // if not, generate a new diagram, set loop and initialize it.
+        FrameDiagramLoopLevel frame = new FrameDiagramLoopLevel();
+        frame.setLoop(1);
+        initializeDiagram(frame);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItemCondensationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCondensationActionPerformed
@@ -766,19 +755,15 @@ public class ControlRoom extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuAlarmsActionPerformed
 
     private void jMenuGlobalControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGlobalControlActionPerformed
-        if (frameDiagramGlobalControl == null && plotData != null) {
-            frameDiagramGlobalControl = new FrameDiagramGlobalControl();
-            frameDiagramGlobalControl.initPlots(plotData, 0);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramGlobalControl.setVisible(true);
-            });
-            frameDiagramGlobalControl.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramGlobalControl = null;
-                }
-            });
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramGlobalControl")) {
+                return;
+            }
         }
+        // if not, generate a new diagram and make it known.
+        initializeDiagram(new FrameDiagramGlobalControl());
     }//GEN-LAST:event_jMenuGlobalControlActionPerformed
 
     private void jMenuItemMnemonicCondensationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicCondensationActionPerformed
@@ -986,12 +971,12 @@ public class ControlRoom extends javax.swing.JFrame
                 "Initial Conditions Files (*.ic)", "ic"));
         if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            
+
             // Append .ic if no extension was typed by the user
             if (!file.getName().contains(".")) {
                 file = new File(file.getAbsolutePath() + ".ic");
             }
-            
+
             // Warn before overwriting an existing file
             if (file.exists()) {
                 int result = JOptionPane.showConfirmDialog(this,
@@ -1023,35 +1008,27 @@ public class ControlRoom extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuLoadActionPerformed
 
     private void jMenuItemStartupPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartupPressureSetpointActionPerformed
-        if (frameDiagramStartupPressure == null && plotData != null) {
-            frameDiagramStartupPressure = new FrameDiagramStartupPressureSetpoint();
-            frameDiagramStartupPressure.initPlots(plotData, 0);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramStartupPressure.setVisible(true);
-            });
-            frameDiagramStartupPressure.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramStartupPressure = null;
-                }
-            });
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramStartupPressureSetpoint")) {
+                return;
+            }
         }
+        // if not, generate a new diagram and make it known.
+        initializeDiagram(new FrameDiagramStartupPressureSetpoint());
     }//GEN-LAST:event_jMenuItemStartupPressureSetpointActionPerformed
 
     private void jMenuItemTurbineWarmupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineWarmupActionPerformed
-        if (frameDiagramTurbineWarmup == null && plotData != null) {
-            frameDiagramTurbineWarmup = new FrameDiagramTurbineWarmup();
-            frameDiagramTurbineWarmup.initPlots(plotData, 0);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameDiagramTurbineWarmup.setVisible(true);
-            });
-            frameDiagramTurbineWarmup.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDiagramTurbineWarmup = null;
-                }
-            });
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramTurbineWarmup")) {
+                return;
+            }
         }
+        // if not, generate a new diagram and make it known.
+        initializeDiagram(new FrameDiagramTurbineWarmup());
     }//GEN-LAST:event_jMenuItemTurbineWarmupActionPerformed
 
     @Override // Called on startup
@@ -1082,28 +1059,10 @@ public class ControlRoom extends javax.swing.JFrame
     public void updateComponent(String propertyName, Object newValue) {
         if (propertyName.equals("OutputValues")) {
             ((ValueHandler) newValue).fireAllToMvcView(this);
-
             plotData = (ValueHandler) newValue;
-            if (frameDiagramNeutronFlux != null) {
-                frameDiagramNeutronFlux.updatePlots();
-            }
-            if (frameDiagramDrums != null) {
-                frameDiagramDrums.updatePlots();
-            }
-            if (frameDiagramLoop1Level != null) {
-                frameDiagramLoop1Level.updatePlots();
-            }
-            if (frameDiagramLoop2Level != null) {
-                frameDiagramLoop2Level.updatePlots();
-            }
-            if (frameDiagramGlobalControl != null) {
-                frameDiagramGlobalControl.updatePlots();
-            }
-            if (frameDiagramStartupPressure != null) {
-                frameDiagramStartupPressure.updatePlots();
-            }
-            if (frameDiagramTurbineWarmup != null) {
-                frameDiagramTurbineWarmup.updatePlots();
+            
+            for (DiagramFrame df : diagrams) {
+                df.updatePlots();
             }
 
             // use this event to update the alarm list also.
@@ -1159,7 +1118,8 @@ public class ControlRoom extends javax.swing.JFrame
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
      *
-     * @param object JFrame object that implements UpdateReceiver
+     * @param object JFrame object that implements UpdateReceiver, this is
+     * usually the new FrameMnemoicWhatever()
      */
     private void initializeMnemonic(UpdateReceiver object) {
         // cast to frame as the object is supposed to be an instace of frame.
@@ -1174,6 +1134,25 @@ public class ControlRoom extends javax.swing.JFrame
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 mnemonics.remove(object);
+            }
+        });
+    }
+
+    private void initializeDiagram(DiagramFrame object) {
+        javax.swing.JFrame frame = (javax.swing.JFrame) object;
+        if (plotData == null) {
+            frame.dispose(); // get rid
+            return; // instance not yet received
+        }
+        object.initPlots(plotData);
+        java.awt.EventQueue.invokeLater(() -> {
+            frame.setVisible(true);
+        });
+        diagrams.add(object);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                diagrams.remove(object);
             }
         });
     }

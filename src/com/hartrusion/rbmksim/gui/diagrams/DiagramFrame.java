@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.values.ValueHandler;
 
@@ -34,7 +34,7 @@ public interface DiagramFrame {
      * @param number A number to identify the plot number in case of there being
      * more than one (Like loop number 1 or 2 or similar).
      */
-    public void initPlots(ValueHandler plotData, int number);
+    public void initPlots(ValueHandler plotData);
 
     /**
      * Needs to be called as soon as new data is available to trigger a

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Viktor Alexander Hartung
+ * Copyright (C) 2026 Viktor Alexander Hartung
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,61 +14,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.diagrams;
 
+import com.hartrusion.plot.Axes;
 import com.hartrusion.plot.Line;
-import com.hartrusion.plot.YYAxes;
 import com.hartrusion.values.ValueHandler;
-import java.awt.Color;
 
 /**
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameDiagramGlobalControl extends javax.swing.JFrame
+public class FrameDiagramTurbineWarmup extends javax.swing.JFrame
         implements DiagramFrame {
 
     /**
-     * Creates new form FrameDiagramGlobalControl
+     * Creates new form FrameDiagramTurbineWarmup
      */
-    public FrameDiagramGlobalControl() {
+    public FrameDiagramTurbineWarmup() {
         initComponents();
     }
-
+    
     @Override
-    public void initPlots(ValueHandler plotData, int number) {
-        YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
+    public void initPlots(ValueHandler plotData) {
+        Axes ax = figureJPane1.getLastAxes();
         ax.setHold(true);
         Line l;
-
         l = new Line();
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Reactor#TargetNeutronFlux", 5));
-        l.setLineColor(Color.GRAY);
-        ax.addLine(1, l);
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 2));
+        ax.addLine(l);
         l = new Line();
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Reactor#SetpointNeutronFlux", 5));
-        l.setLineColor(Color.BLACK);
-        ax.addLine(1, l);
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 2));
+        ax.addLine(l);
         l = new Line();
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 5));
-        l.setLineColor(Color.BLUE);
-        ax.addLine(1, l);
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#DebugLPInTemp", 2));
+        ax.addLine(l);
 
-        l = new Line();
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("GlobalControl#AvgActiveAutoRodsPos", 5));
-        ax.addLine(2, l);
-
-        ax.yLim(1, 0, 100F);
-        ax.yLim(2, 0, 7.3F);
-
+        ax.yLim(0, 300);
         ax.autoX();
 
-        ax.ylabel(1, "Neutron Flux (%)");
-        ax.ylabel(2, "Avg. Auto Rods Position (m)");
+        ax.ylabel("Temperature (°C)");
+
     }
 
     @Override
@@ -78,7 +66,7 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
 
     @Override
     public String getPlotName() {
-        return "GlobalControl";
+        return "DrumsOverview";
     }
 
     /**
@@ -93,11 +81,9 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
         figureJPane1 = new com.hartrusion.plot.FigureJPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Global Control");
+        setTitle("Turbine Warmup");
         setPreferredSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-
-        figureJPane1.setYRulers(2);
         getContentPane().add(figureJPane1);
 
         pack();

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.Line;
 import com.hartrusion.plot.YYAxes;
@@ -28,7 +28,7 @@ import java.awt.Color;
 public class FrameDiagramLoopLevel extends javax.swing.JFrame 
         implements DiagramFrame {
     
-    int loop;
+    private int loop;
 
     /**
      * Creates new form FrameDiagramLoop1Level
@@ -36,10 +36,17 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame
     public FrameDiagramLoopLevel() {
         initComponents();
     }
+    
+    public int getLoop() {
+        return loop;
+    }
+    
+    public void setLoop(int loop) {
+        this.loop = loop;
+    }
 
     @Override
-    public void initPlots(ValueHandler plotData, int number) {
-        loop = number;
+    public void initPlots(ValueHandler plotData) {
         setTitle("Loop " + loop + " Level Control");
         YYAxes ax = (YYAxes) figureJPane1.getLastAxes();
         ax.setHold(true);
