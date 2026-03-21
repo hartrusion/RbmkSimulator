@@ -22,7 +22,6 @@ import com.hartrusion.alarm.AlarmUpdater;
 import com.hartrusion.alarm.ValueAlarmMonitor;
 import com.hartrusion.control.AutomationRunner;
 import com.hartrusion.control.ControlCommand;
-import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.general.ClosedOrigin;
@@ -38,7 +37,6 @@ import com.hartrusion.mvc.ModelListener;
 import static com.hartrusion.rbmksim.SpeedSelect.LOW;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
-import java.util.function.DoubleSupplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
