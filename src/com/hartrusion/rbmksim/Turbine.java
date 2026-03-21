@@ -31,6 +31,7 @@ import com.hartrusion.modeling.general.GeneralNode;
 import com.hartrusion.modeling.general.LinearDissipator;
 import com.hartrusion.modeling.general.MutualCapacitance;
 import com.hartrusion.modeling.general.OpenOrigin;
+import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
@@ -65,10 +66,17 @@ public class Turbine extends Subsystem implements Runnable {
     private ThermalLayout process;
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
-    private final OpenOrigin[] thermalOriginSteam = new OpenOrigin[4];
-    private final GeneralNode[] thermalNodeSteamGnd = new GeneralNode[4];
+    private final OpenOrigin[] thermalOrigin = new OpenOrigin[4];
+    private final GeneralNode[] thermalNodeEnvTemp = new GeneralNode[4];
     private final EffortSource[] thermalSteamTemperature = new EffortSource[4];
     private final GeneralNode[] thermalNodeSteamTemperature = new GeneralNode[4];
+    private final LinearDissipator[] thermalResistanceSteamToStator = new LinearDissipator[4];
+    private final LinearDissipator[] thermalResistanceSteamToRotor = new LinearDissipator[4];
+    private final GeneralNode[] thermalNodeStator = new GeneralNode[4];
+    private final SelfCapacitance[] thermalMassStator = new SelfCapacitance[4];
+    private final GeneralNode[] thermalNodeRotor = new GeneralNode[4];
+    private final SelfCapacitance[] thermalMassRotor = new SelfCapacitance[4];
+    private final LinearDissipator[] thermalResistanceStatorToEnv = new LinearDissipator[4];
 
     private final ClosedOrigin turbineOrigin;
     private final GeneralNode turbineReference;
@@ -103,7 +111,7 @@ public class Turbine extends Subsystem implements Runnable {
      */
     private double shaftPower;
 
-    private final DomainAnalogySolver rotorSolver=  new DomainAnalogySolver();
+    private final DomainAnalogySolver rotorSolver = new DomainAnalogySolver();
 
     private final AlarmUpdater alarmUpdater = new AlarmUpdater();
 
@@ -121,17 +129,17 @@ public class Turbine extends Subsystem implements Runnable {
     private double generatorPower = 0.0;
 
     private boolean speedSetpointFollowup;
-    
+
     private final AutomationRunner runner = new AutomationRunner();
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
         for (int idx = 0; idx < 4; idx++) {
-            thermalOriginSteam[idx] = new OpenOrigin(PhysicalDomain.THERMAL);
-            thermalOriginSteam[idx].setName("Turbine"
+            thermalOrigin[idx] = new OpenOrigin(PhysicalDomain.THERMAL);
+            thermalOrigin[idx].setName("Turbine"
                     + (idx + 1) + "#ThermalOriginSteam");
-            thermalNodeSteamGnd[idx] = new GeneralNode(PhysicalDomain.THERMAL);
-            thermalNodeSteamGnd[idx].setName("Turbine"
+            thermalNodeEnvTemp[idx] = new GeneralNode(PhysicalDomain.THERMAL);
+            thermalNodeEnvTemp[idx].setName("Turbine"
                     + (idx + 1) + "#ThermalNodeSteamGnd");
             thermalSteamTemperature[idx] = new EffortSource(PhysicalDomain.THERMAL);
             thermalSteamTemperature[idx].setName("Turbine"
@@ -139,6 +147,27 @@ public class Turbine extends Subsystem implements Runnable {
             thermalNodeSteamTemperature[idx] = new GeneralNode(PhysicalDomain.THERMAL);
             thermalNodeSteamTemperature[idx].setName("Turbine"
                     + (idx + 1) + "#ThermalNodeSteamTemperature");
+            thermalResistanceSteamToStator[idx] = new LinearDissipator(PhysicalDomain.THERMAL);
+            thermalResistanceSteamToStator[idx].setName("Turbine"
+                    + (idx + 1) + "#ResistanceSteamToStator");
+            thermalResistanceSteamToRotor[idx] = new LinearDissipator(PhysicalDomain.THERMAL);
+            thermalResistanceSteamToRotor[idx].setName("Turbine"
+                    + (idx + 1) + "#ResistanceSteamToRotor");
+            thermalNodeStator[idx] = new GeneralNode(PhysicalDomain.THERMAL);
+            thermalNodeStator[idx].setName("Turbine"
+                    + (idx + 1) + "#ThermalNodeStator");
+            thermalMassStator[idx] = new SelfCapacitance(PhysicalDomain.THERMAL);
+            thermalMassStator[idx].setName("Turbine"
+                    + (idx + 1) + "#MassStator");
+            thermalNodeRotor[idx] = new GeneralNode(PhysicalDomain.THERMAL);
+            thermalNodeRotor[idx].setName("Turbine"
+                    + (idx + 1) + "#ThermalNodeRotor");
+            thermalMassRotor[idx] = new SelfCapacitance(PhysicalDomain.THERMAL);
+            thermalMassRotor[idx].setName("Turbine"
+                    + (idx + 1) + "#MassRotor");
+            thermalResistanceStatorToEnv[idx] = new LinearDissipator(PhysicalDomain.THERMAL);
+            thermalResistanceStatorToEnv[idx].setName("Turbine"
+                    + (idx + 1) + "#ResistanceStatorToEnv");
         }
 
         // Turbine and Generator Rotor mechanical model
@@ -190,10 +219,10 @@ public class Turbine extends Subsystem implements Runnable {
 
             generatorPower = shaftPower - holdPower;
         }
-        
+
         // Get startup valves auto/manual mode
         speedSetpointFollowup = !process.isTurbineStartupValveAutomatic();
-        
+
         // Force the setpoint to the current value as long as no controller 
         // can control it.
         if (speedSetpointFollowup && !generatorSynched) {
@@ -270,9 +299,17 @@ public class Turbine extends Subsystem implements Runnable {
         }
 
         outputValues.setParameterValue("Generator#SyncAngle", syncAngle);
-
         outputValues.setParameterValue("Generator#Power", generatorPower);
 
+        // Sent temperatures
+        outputValues.setParameterValue("Turbine#TemperatureHpStatorIn",
+                thermalNodeStator[0].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureHpRotorIn",
+                thermalNodeRotor[0].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureHpStatorOut",
+                thermalNodeStator[1].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureHpRotorOut",
+                thermalNodeRotor[1].getEffort() - 273.15);
     }
 
     @Override
@@ -409,18 +446,70 @@ public class Turbine extends Subsystem implements Runnable {
      * will be managed here.
      */
     public void initConnections() {
-        // make connection: origin - node - effort source - node
-        // for each of the four effort sources
+        // Build the thermal model that represents the thermal behavior that is 
+        // used to determine the turbine expansion.
+        //
+        //     Rotor      Stator   <- thermal Masses
+        //     =====      =====
+        //       |          |
+        //       o          o------    Each node represents a temperature with
+        //       |          |     |    its effort value.
+        // Rotor X   Stator X     |
+        // therm X   therm  X     |
+        // Res-  |   Res    |     X  Stator to
+        //       -----o------     X  Ambient 
+        //            |           X  Thermal Resistance
+        //  Steam    (|)          |  - this cools down slowly during idle
+        //  Volume    |           |
+        //  Temperat. o------------
+        //            |
+        //           _|_  OpenOrigin: Ambien Temperature (273.17 + 22 °C)
+        //
+        // There are 4 of those models for both inlet and outlet of both high 
+        // and low pressure turbine. The low pressure part is kind of nonsense.
         for (int idx = 0; idx < 4; idx++) {
-            thermalOriginSteam[idx].connectToVia(thermalSteamTemperature[idx],
-                    thermalNodeSteamGnd[idx]);
+            thermalOrigin[idx].connectToVia(thermalSteamTemperature[idx],
+                    thermalNodeEnvTemp[idx]);
             thermalSteamTemperature[idx].connectTo(
                     thermalNodeSteamTemperature[idx]);
+            thermalResistanceSteamToStator[idx].connectBetween(
+                    thermalNodeSteamTemperature[idx], thermalNodeStator[idx]);
+            thermalMassStator[idx].connectTo(thermalNodeStator[idx]);
+            thermalResistanceSteamToRotor[idx].connectBetween(
+                    thermalNodeSteamTemperature[idx], thermalNodeRotor[idx]);
+            thermalMassRotor[idx].connectTo(thermalNodeRotor[idx]);
+            thermalResistanceStatorToEnv[idx].connectBetween(
+                    thermalNodeStator[idx], thermalNodeEnvTemp[idx]);
         }
     }
 
     public void initElementProperties() {
+        // The ThermalLayout has an element which represents steam volume 
+        // inside the turbine, it is unfortunately fixed. With a specific heat
+        // capacity of 4200 J/kg/K on 100 kg that is 420.000 J/K. Note that 
+        // everything here is in SI units. We use at least 10 kg/s to spin up
+        // the turbine, more like 15 to 20 maybe. This gives a rough idea on
+        // how long it takes to heat up the 100 kg/s by ideally mixing in the 
+        // 10-20 kg/s steam.
+        for (int idx = 0; idx < 4; idx++) {
+            thermalOrigin[idx].setEffort(0.0);
 
+            // Usually the turbine is super heavy and the stator weighs tons, 
+            // but as this would take many hours we make it very light to 
+            // enable fast heatup.
+            thermalMassRotor[idx].setTimeConstant(4200 * 200); // this is C
+            thermalMassStator[idx].setTimeConstant(4200 * 500);
+            // Those values have to be more tuned:
+            thermalResistanceSteamToStator[idx].setConductanceParameter(5e4);
+            thermalResistanceSteamToRotor[idx].setConductanceParameter(5e4);
+            thermalResistanceStatorToEnv[idx].setOpenConnection();
+        }
+
+        // Initialize Temperatures
+        for (int idx = 0; idx < 4; idx++) {
+            thermalMassRotor[idx].setInitialEffort(273.15 + 22);
+            thermalMassStator[idx].setInitialEffort(273.15 + 22);
+        }
     }
 
     /**
@@ -514,9 +603,12 @@ public class Turbine extends Subsystem implements Runnable {
 
     /**
      * Returns a reference to one of the thermal effort sources representing the
-     * temperature of the steam volume inside the turbine.
+     * temperature of the steam volume inside the turbine. There are 4 volumes
+     * represented with phased thermal exchangers which also have some volume in
+     * the ThermalLayout. This is to access the counterpart of the thermal
+     * turbine model.
      *
-     * @param idx
+     * @param idx 0 HP in, 1 HP out, 2 LP in, 3 LP out
      * @return EffortSource in Thermal Domain
      */
     public EffortSource getThermalEffortSource(int idx) {
@@ -544,7 +636,7 @@ public class Turbine extends Subsystem implements Runnable {
                     - turbineVelocity.getEffort();
         }
     }
-    
+
     @Override
     public void saveTo(SaveGame save) {
         // Generate a new object that contains all values for current state.
@@ -557,37 +649,36 @@ public class Turbine extends Subsystem implements Runnable {
         ts.setTps(tps);
         ts.setTpsActive(tpsActive);
         save.addTurbineState(ts);
-        
+
         save.addSolverState(rotorSolver.toString(),
                 rotorSolver.getCurrentNetworkCondition());
         save.addRunnerState("turbineSetpoints",
                 runner.getCurrentAutomationCondition());
-        
-        
+
     }
 
     @Override
     public void load(SaveGame save) {
         TurbineState ts = save.getTurbineState();
-        
+
         generatorSynched = ts.isGeneratorSynched();
         setpointSpeedGradient = ts.getSetpointSpeedGradient();
         syncAngle = ts.getSyncAngle();
         targetTurbineSpeed = ts.getTargetTurbineSpeed();
         tps = ts.getTps();
         tpsActive = ts.isTpsActive();
-        
+
         // Reset old values to trigger all related events
         oldSetpointSpeedGradient = null;
         oldTps = null;
         oldTpsActive = !tpsActive;
         oldGeneratorSynched = !generatorSynched;
-        
+
         rotorSolver.setNetworkInitialCondition(
                 save.getSolverState(rotorSolver.toString()));
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("turbineSetpoints"));
-        
+
         alarmUpdater.clearAlarmUpdaters();
     }
 }

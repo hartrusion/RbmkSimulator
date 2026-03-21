@@ -25,58 +25,14 @@ import com.hartrusion.values.ValueHandler;
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameDiagramTurbineWarmup extends javax.swing.JFrame
+public class FrameDiagramTurbineHPTemperatures extends javax.swing.JFrame
         implements DiagramFrame {
 
     /**
-     * Creates new form FrameDiagramTurbineWarmup
+     * Creates new form FrameDiagramTurbineHPTemperatures
      */
-    public FrameDiagramTurbineWarmup() {
+    public FrameDiagramTurbineHPTemperatures() {
         initComponents();
-    }
-    
-    @Override
-    public void initPlots(ValueHandler plotData) {
-        Axes ax = figureJPane1.getLastAxes();
-        Legend le = new Legend();
-        ax.setHold(true);
-        Line l;
-        l = new Line();
-        l.setLabel("HP In");
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 2));
-        ax.addLine(l);
-        le.addLine(l);
-        l = new Line();
-        l.setLabel("HP Out");
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 2));
-        ax.addLine(l);
-        le.addLine(l);
-        l = new Line();
-        l.setLabel("LP In");
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Turbine#DebugLPInTemp", 2));
-        ax.addLine(l);
-        le.addLine(l);
-
-        ax.yLim(0, 300);
-        ax.autoX();
-
-        ax.ylabel("Temperature (°C)");
-        
-        figureJPane1.addLegend(le);
-        le.setLocationInsideAxes(ax);
-    }
-
-    @Override
-    public void updatePlots() {
-        repaint();
-    }
-
-    @Override
-    public String getPlotName() {
-        return "TurbineWarmup";
     }
 
     /**
@@ -91,13 +47,68 @@ public class FrameDiagramTurbineWarmup extends javax.swing.JFrame
         figureJPane1 = new com.hartrusion.plot.FigureJPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Turbine Warmup");
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setTitle("Turbine HP Temperatures");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+
+        figureJPane1.setPreferredSize(new java.awt.Dimension(400, 300));
         getContentPane().add(figureJPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void initPlots(ValueHandler plotData) {
+        Axes ax = figureJPane1.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+
+        l = new Line();
+        l.setLabel("Stator In");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#TemperatureHpStatorIn", 5));
+        ax.addLine(l);
+        le.addLine(l);
+
+        l = new Line();
+        l.setLabel("Rotor In");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#TemperatureHpRotorIn", 5));
+        ax.addLine(l);
+        le.addLine(l);
+
+        l = new Line();
+        l.setLabel("Stator Out");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#TemperatureHpStatorOut", 5));
+        ax.addLine(l);
+        le.addLine(l);
+        
+        l = new Line();
+        l.setLabel("Rotor Out");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#TemperatureHpRotorOut", 5));
+        ax.addLine(l);
+        le.addLine(l);
+
+        ax.yLim(0, 300);
+        ax.autoX();
+
+        ax.ylabel("Temperature (°C)");
+
+        figureJPane1.addLegend(le);
+        le.setLocationInsideAxes(ax);
+    }
+
+    @Override
+    public void updatePlots() {
+        repaint();
+    }
+
+    @Override
+    public String getPlotName() {
+        return "TurbineHPTemperatures";
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.plot.FigureJPane figureJPane1;

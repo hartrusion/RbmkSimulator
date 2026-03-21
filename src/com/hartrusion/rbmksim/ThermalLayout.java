@@ -2075,13 +2075,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // numbers that are totally non realistic but they have to be high for
         // the solution to be stable.
         turbineHighPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(20);
+                .setInnerHeatedMass(100);
         turbineHighPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(80);
+                .setInnerHeatedMass(100);
         turbineLowPressureInMass.getPhasedHandler()
-                .setInnerHeatedMass(10);
+                .setInnerHeatedMass(60);
         turbineLowPressureOutMass.getPhasedHandler()
-                .setInnerHeatedMass(5);
+                .setInnerHeatedMass(50);
 
         turbineLowPressureTripValve.initCharacteristicSimple(1.0);
         turbineLowPressureTripValve.getIntegrator().setMaxRate(200);
@@ -2187,6 +2187,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterCondensateDrain.initCharacteristicSimple(200);
 
         // </editor-fold>
+        turbine.initElementProperties();
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
         // ... but use 6.5 as long as there's no fill thing implemented:

@@ -132,6 +132,7 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
         jMenuItemTurbineWarmup = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
 
@@ -479,6 +480,14 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuDiagrams.add(jMenuItemTurbineWarmup);
+
+        jMenuItem1.setText("Turbine HP Temperatures");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuDiagrams.add(jMenuItem1);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -1031,6 +1040,18 @@ public class ControlRoom extends javax.swing.JFrame
         initializeDiagram(new FrameDiagramTurbineWarmup());
     }//GEN-LAST:event_jMenuItemTurbineWarmupActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (DiagramFrame df : diagrams) {
+            if (df.getClass().getSimpleName().equals(
+                    "FrameDiagramTurbineHPTemperatures")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        initializeDiagram(new FrameDiagramTurbineHPTemperatures());
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -1225,6 +1246,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemAuxCond;
