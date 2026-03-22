@@ -60,6 +60,11 @@ public class Turbine extends Subsystem implements Runnable {
      */
     private static final double RPM_TO_RAD = 0.10471975512;
 
+    private double hpRotorTemperature;
+    private double hpStatorTemperature;
+    private double lpRotorTemperature;
+    private double lpStatorTemperature;
+
     /**
      * Reference to the thermal layout process class
      */
@@ -67,7 +72,7 @@ public class Turbine extends Subsystem implements Runnable {
 
     // <editor-fold defaultstate="collapsed" desc="Model elements declaration and array instantiation">
     private final OpenOrigin[] thermalOrigin = new OpenOrigin[4];
-    private final GeneralNode[] thermalNodeEnvTemp = new GeneralNode[4];
+    private final GeneralNode[] thermalNodeZero = new GeneralNode[4];
     private final EffortSource[] thermalSteamTemperature = new EffortSource[4];
     private final GeneralNode[] thermalNodeSteamTemperature = new GeneralNode[4];
     private final LinearDissipator[] thermalResistanceSteamToStator = new LinearDissipator[4];
@@ -76,6 +81,8 @@ public class Turbine extends Subsystem implements Runnable {
     private final SelfCapacitance[] thermalMassStator = new SelfCapacitance[4];
     private final GeneralNode[] thermalNodeRotor = new GeneralNode[4];
     private final SelfCapacitance[] thermalMassRotor = new SelfCapacitance[4];
+    private final GeneralNode[] thermalNodeEnvTemperature = new GeneralNode[4];
+    private final EffortSource[] thermalEnvTemperature = new EffortSource[4];
     private final LinearDissipator[] thermalResistanceStatorToEnv = new LinearDissipator[4];
 
     private final ClosedOrigin turbineOrigin;
@@ -138,8 +145,8 @@ public class Turbine extends Subsystem implements Runnable {
             thermalOrigin[idx] = new OpenOrigin(PhysicalDomain.THERMAL);
             thermalOrigin[idx].setName("Turbine"
                     + (idx + 1) + "#ThermalOriginSteam");
-            thermalNodeEnvTemp[idx] = new GeneralNode(PhysicalDomain.THERMAL);
-            thermalNodeEnvTemp[idx].setName("Turbine"
+            thermalNodeZero[idx] = new GeneralNode(PhysicalDomain.THERMAL);
+            thermalNodeZero[idx].setName("Turbine"
                     + (idx + 1) + "#ThermalNodeSteamGnd");
             thermalSteamTemperature[idx] = new EffortSource(PhysicalDomain.THERMAL);
             thermalSteamTemperature[idx].setName("Turbine"
@@ -165,6 +172,12 @@ public class Turbine extends Subsystem implements Runnable {
             thermalMassRotor[idx] = new SelfCapacitance(PhysicalDomain.THERMAL);
             thermalMassRotor[idx].setName("Turbine"
                     + (idx + 1) + "#MassRotor");
+            thermalNodeEnvTemperature[idx] = new GeneralNode(PhysicalDomain.THERMAL);
+            thermalNodeEnvTemperature[idx].setName("Turbine"
+                    + (idx + 1) + "#ThermalNodeEnvTemperature");
+            thermalEnvTemperature[idx] = new EffortSource(PhysicalDomain.THERMAL);
+            thermalEnvTemperature[idx].setName("Turbine"
+                    + (idx + 1) + "#ThermalEnvTemperature");
             thermalResistanceStatorToEnv[idx] = new LinearDissipator(PhysicalDomain.THERMAL);
             thermalResistanceStatorToEnv[idx].setName("Turbine"
                     + (idx + 1) + "#ResistanceStatorToEnv");
@@ -186,6 +199,19 @@ public class Turbine extends Subsystem implements Runnable {
 
     @Override
     public void run() {
+        // This method is called after run() of ThermalLayout where the
+        // solver is getting invoked, so all elements should be completely 
+        // updated. 
+        // Generate average temperatures:
+        hpRotorTemperature = (thermalNodeRotor[0].getEffort()
+                + thermalNodeRotor[1].getEffort()) / 2.0;
+        hpStatorTemperature = (thermalNodeStator[0].getEffort()
+                + thermalNodeStator[1].getEffort()) / 2.0;
+        lpRotorTemperature = (thermalNodeRotor[2].getEffort()
+                + thermalNodeRotor[3].getEffort()) / 2.0;
+        lpStatorTemperature = (thermalNodeStator[2].getEffort()
+                + thermalNodeStator[3].getEffort()) / 2.0;
+
         // Check if speed setpoint gradient was changed, if so, apply it
         // and send it back as a property to controller (to have a light
         // on the panel).
@@ -310,6 +336,23 @@ public class Turbine extends Subsystem implements Runnable {
                 thermalNodeStator[1].getEffort() - 273.15);
         outputValues.setParameterValue("Turbine#TemperatureHpRotorOut",
                 thermalNodeRotor[1].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureLpStatorIn",
+                thermalNodeStator[2].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureLpRotorIn",
+                thermalNodeRotor[2].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureLpStatorOut",
+                thermalNodeStator[3].getEffort() - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureLpRotorOut",
+                thermalNodeRotor[3].getEffort() - 273.15);
+
+        outputValues.setParameterValue("Turbine#TemperatureHpRotorAvg",
+                hpRotorTemperature - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureHpStatorAvg",
+                hpStatorTemperature - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureHpRotorAvg",
+                lpRotorTemperature - 273.15);
+        outputValues.setParameterValue("Turbine#TemperatureHpStatorAvg",
+                lpStatorTemperature - 273.15);
     }
 
     @Override
@@ -451,25 +494,25 @@ public class Turbine extends Subsystem implements Runnable {
         //
         //     Rotor      Stator   <- thermal Masses
         //     =====      =====
-        //       |          |
-        //       o          o------    Each node represents a temperature with
-        //       |          |     |    its effort value.
-        // Rotor X   Stator X     |
-        // therm X   therm  X     |
-        // Res-  |   Res    |     X  Stator to
-        //       -----o------     X  Ambient 
-        //            |           X  Thermal Resistance
-        //  Steam    (|)          |  - this cools down slowly during idle
+        //       |          |          Each node represents a temperature with
+        //       o          o------    its effort value.
+        //       |          |     |    
+        // Rotor X   Stator X     X    Stator to Ambient Thermal Resistance
+        // therm X   therm  X     X    (this cools down slowly during idle)
+        // Res-  |   Res    |     |    
+        //       -----o------     o  <- thermalNodeEnvTemperature
+        //            |           |    Ambient temperature
+        //  Steam    (|)         (|) 
         //  Volume    |           |
         //  Temperat. o------------
         //            |
-        //           _|_  OpenOrigin: Ambien Temperature (273.17 + 22 °C)
+        //           _|_  OpenOrigin: Absolute Zero (0 K)
         //
         // There are 4 of those models for both inlet and outlet of both high 
         // and low pressure turbine. The low pressure part is kind of nonsense.
         for (int idx = 0; idx < 4; idx++) {
             thermalOrigin[idx].connectToVia(thermalSteamTemperature[idx],
-                    thermalNodeEnvTemp[idx]);
+                    thermalNodeZero[idx]);
             thermalSteamTemperature[idx].connectTo(
                     thermalNodeSteamTemperature[idx]);
             thermalResistanceSteamToStator[idx].connectBetween(
@@ -478,8 +521,10 @@ public class Turbine extends Subsystem implements Runnable {
             thermalResistanceSteamToRotor[idx].connectBetween(
                     thermalNodeSteamTemperature[idx], thermalNodeRotor[idx]);
             thermalMassRotor[idx].connectTo(thermalNodeRotor[idx]);
+            thermalEnvTemperature[idx].connectBetween(thermalNodeZero[idx],
+                    thermalNodeEnvTemperature[idx]);
             thermalResistanceStatorToEnv[idx].connectBetween(
-                    thermalNodeStator[idx], thermalNodeEnvTemp[idx]);
+                    thermalNodeEnvTemperature[idx], thermalNodeStator[idx]);
         }
     }
 
@@ -502,7 +547,9 @@ public class Turbine extends Subsystem implements Runnable {
             // Those values have to be more tuned:
             thermalResistanceSteamToStator[idx].setConductanceParameter(5e4);
             thermalResistanceSteamToRotor[idx].setConductanceParameter(5e4);
-            thermalResistanceStatorToEnv[idx].setOpenConnection();
+            
+            thermalEnvTemperature[idx].setEffort(273.15 + 24.0);
+            thermalResistanceStatorToEnv[idx].setConductanceParameter(1e3);
         }
 
         // Initialize Temperatures

@@ -469,7 +469,7 @@
             <Font component="jLabel7" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="HP"/>
+        <Property name="text" type="java.lang.String" value="HP In"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -492,15 +492,14 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed1Temp">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeHPFlow">
       <Properties>
-        <Property name="chornobylMaximum" type="float" value="200.0"/>
-        <Property name="chornobylMinimum" type="float" value="20.0"/>
+        <Property name="chornobylMaximum" type="float" value="1200.0"/>
+        <Property name="chornobylMinimum" type="float" value="0.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[50.0, 100.0, 150.0]"/>
+          <PropertyValue value="[200.0, 600.0, 1100.0]"/>
         </Property>
-        <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="chornobylUnitText" type="java.lang.String" value="kg/s"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -550,7 +549,7 @@
             <Font component="jLabel18" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Temp"/>
+        <Property name="text" type="java.lang.String" value="Temp In"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -580,7 +579,7 @@
             <Font component="jLabel17" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Temp"/>
+        <Property name="text" type="java.lang.String" value="Temp In"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -588,7 +587,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed2Temp">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeTempHpRotorIn">
       <Properties>
         <Property name="chornobylMaximum" type="float" value="300.0"/>
         <Property name="chornobylMinimum" type="float" value="0.0"/>
@@ -596,7 +595,6 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -604,7 +602,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed2Flow">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeTempHpStatorIn">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -617,7 +615,6 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -647,7 +644,7 @@
             <Font component="jLabel21" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Temp"/>
+        <Property name="text" type="java.lang.String" value="Temp In"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -677,7 +674,7 @@
             <Font component="jLabel22" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Temp"/>
+        <Property name="text" type="java.lang.String" value="Temp In"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -685,7 +682,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed2Temp1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeTempLpRotorIn">
       <Properties>
         <Property name="chornobylMaximum" type="float" value="300.0"/>
         <Property name="chornobylMinimum" type="float" value="0.0"/>
@@ -693,7 +690,6 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -701,7 +697,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed2Flow1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeTempLpStatorIn">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -714,7 +710,6 @@
           <PropertyValue value="[100.0, 200.0, 300.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="&#xb0;C"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1989,7 +1984,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="322" y="308" width="-1" height="-1"/>
+          <AbsoluteConstraints x="320" y="304" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -2014,7 +2009,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="300" y="278" width="84" height="14"/>
+          <AbsoluteConstraints x="298" y="274" width="84" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -2039,7 +2034,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="300" y="290" width="84" height="14"/>
+          <AbsoluteConstraints x="298" y="286" width="84" height="14"/>
         </Constraint>
       </Constraints>
     </Component>

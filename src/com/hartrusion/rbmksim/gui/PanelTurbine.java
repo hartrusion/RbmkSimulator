@@ -91,20 +91,20 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabel20 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        chornobylGaugeFeed1Temp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeHPFlow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         chornobylGaugeRotorSpeed = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel24 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        chornobylGaugeFeed2Temp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeFeed2Flow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeTempHpRotorIn = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeTempHpStatorIn = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel25 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        chornobylGaugeFeed2Temp1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        chornobylGaugeFeed2Flow1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeTempLpRotorIn = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeTempLpStatorIn = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel8 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         chornobylGaugeFeed1Temp1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
@@ -318,19 +318,18 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getSize()-2f));
-        jLabel7.setText("HP");
+        jLabel7.setText("HP In");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 34, 52, 14));
 
         jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getSize()-2f));
         jLabel19.setText("Flow");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        chornobylGaugeFeed1Temp.setChornobylMaximum(200.0F);
-        chornobylGaugeFeed1Temp.setChornobylMinimum(20.0F);
-        chornobylGaugeFeed1Temp.setChornobylTicks(new float[] {50.0f, 100.0f, 150.0f});
-        chornobylGaugeFeed1Temp.setChornobylUnitText("°C");
-        chornobylGaugeFeed1Temp.setEnabled(false);
-        add(chornobylGaugeFeed1Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
+        chornobylGaugeHPFlow.setChornobylMaximum(1200.0F);
+        chornobylGaugeHPFlow.setChornobylMinimum(0.0F);
+        chornobylGaugeHPFlow.setChornobylTicks(new float[] {200.0f, 600.0f, 1100.0f});
+        chornobylGaugeHPFlow.setChornobylUnitText("kg/s");
+        add(chornobylGaugeHPFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
         chornobylGaugeRotorSpeed.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         chornobylGaugeRotorSpeed.setChornobylMaximum(3200.0F);
@@ -344,7 +343,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
 
         jLabel18.setFont(jLabel18.getFont().deriveFont(jLabel18.getFont().getSize()-2f));
-        jLabel18.setText("Temp");
+        jLabel18.setText("Temp In");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
 
         jLabel23.setFont(jLabel23.getFont().deriveFont(jLabel23.getFont().getSize()-2f));
@@ -352,30 +351,28 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 34, 52, 14));
 
         jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getSize()-2f));
-        jLabel17.setText("Temp");
+        jLabel17.setText("Temp In");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 46, 52, 14));
 
-        chornobylGaugeFeed2Temp.setChornobylMaximum(300.0F);
-        chornobylGaugeFeed2Temp.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed2Temp.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
-        chornobylGaugeFeed2Temp.setChornobylUnitText("°C");
-        chornobylGaugeFeed2Temp.setEnabled(false);
-        add(chornobylGaugeFeed2Temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
+        chornobylGaugeTempHpRotorIn.setChornobylMaximum(300.0F);
+        chornobylGaugeTempHpRotorIn.setChornobylMinimum(0.0F);
+        chornobylGaugeTempHpRotorIn.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
+        chornobylGaugeTempHpRotorIn.setChornobylUnitText("°C");
+        add(chornobylGaugeTempHpRotorIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, -1, -1));
 
-        chornobylGaugeFeed2Flow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeFeed2Flow.setChornobylMaximum(300.0F);
-        chornobylGaugeFeed2Flow.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed2Flow.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
-        chornobylGaugeFeed2Flow.setChornobylUnitText("°C");
-        chornobylGaugeFeed2Flow.setEnabled(false);
-        add(chornobylGaugeFeed2Flow, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
+        chornobylGaugeTempHpStatorIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeTempHpStatorIn.setChornobylMaximum(300.0F);
+        chornobylGaugeTempHpStatorIn.setChornobylMinimum(0.0F);
+        chornobylGaugeTempHpStatorIn.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
+        chornobylGaugeTempHpStatorIn.setChornobylUnitText("°C");
+        add(chornobylGaugeTempHpStatorIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
 
         jLabel25.setFont(jLabel25.getFont().deriveFont(jLabel25.getFont().getSize()-2f));
         jLabel25.setText("LP Case");
         add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 4, 52, 14));
 
         jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getSize()-2f));
-        jLabel21.setText("Temp");
+        jLabel21.setText("Temp In");
         add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 52, 14));
 
         jLabel26.setFont(jLabel26.getFont().deriveFont(jLabel26.getFont().getSize()-2f));
@@ -383,23 +380,21 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 34, 52, 14));
 
         jLabel22.setFont(jLabel22.getFont().deriveFont(jLabel22.getFont().getSize()-2f));
-        jLabel22.setText("Temp");
+        jLabel22.setText("Temp In");
         add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 46, 52, 14));
 
-        chornobylGaugeFeed2Temp1.setChornobylMaximum(300.0F);
-        chornobylGaugeFeed2Temp1.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed2Temp1.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
-        chornobylGaugeFeed2Temp1.setChornobylUnitText("°C");
-        chornobylGaugeFeed2Temp1.setEnabled(false);
-        add(chornobylGaugeFeed2Temp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 34, -1, -1));
+        chornobylGaugeTempLpRotorIn.setChornobylMaximum(300.0F);
+        chornobylGaugeTempLpRotorIn.setChornobylMinimum(0.0F);
+        chornobylGaugeTempLpRotorIn.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
+        chornobylGaugeTempLpRotorIn.setChornobylUnitText("°C");
+        add(chornobylGaugeTempLpRotorIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 34, -1, -1));
 
-        chornobylGaugeFeed2Flow1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeFeed2Flow1.setChornobylMaximum(300.0F);
-        chornobylGaugeFeed2Flow1.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed2Flow1.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
-        chornobylGaugeFeed2Flow1.setChornobylUnitText("°C");
-        chornobylGaugeFeed2Flow1.setEnabled(false);
-        add(chornobylGaugeFeed2Flow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
+        chornobylGaugeTempLpStatorIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeTempLpStatorIn.setChornobylMaximum(300.0F);
+        chornobylGaugeTempLpStatorIn.setChornobylMinimum(0.0F);
+        chornobylGaugeTempLpStatorIn.setChornobylTicks(new float[] {100.0f, 200.0f, 300.0f});
+        chornobylGaugeTempLpStatorIn.setChornobylUnitText("°C");
+        add(chornobylGaugeTempLpStatorIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 4, -1, -1));
 
         jLabel8.setFont(jLabel8.getFont().deriveFont(jLabel8.getFont().getSize()-2f));
         jLabel8.setText("Total");
@@ -876,7 +871,7 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelTempSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 230, 88, 14));
 
         integralSwitchReheaterSteam.setComponent("Turbine#ReheaterTrimValve");
-        add(integralSwitchReheaterSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 308, -1, -1));
+        add(integralSwitchReheaterSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 304, -1, -1));
 
         jLabelCaptionReheatTrim1.setFont(jLabelCaptionReheatTrim1.getFont().deriveFont(jLabelCaptionReheatTrim1.getFont().getSize()-2f));
         jLabelCaptionReheatTrim1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -884,7 +879,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionReheatTrim1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReheatTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 278, 84, 14));
+        add(jLabelCaptionReheatTrim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 274, 84, 14));
 
         jLabelCaptionReheatTrim2.setFont(jLabelCaptionReheatTrim2.getFont().deriveFont(jLabelCaptionReheatTrim2.getFont().getSize()-2f));
         jLabelCaptionReheatTrim2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -892,7 +887,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionReheatTrim2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionReheatTrim2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionReheatTrim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 84, 14));
+        add(jLabelCaptionReheatTrim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 286, 84, 14));
 
         jLabelTempSetpoint2.setFont(jLabelTempSetpoint2.getFont().deriveFont(jLabelTempSetpoint2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelTempSetpoint2.getFont().getSize()-2));
         jLabelTempSetpoint2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -988,16 +983,16 @@ public class PanelTurbine extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Temp;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Temp1;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Flow;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Flow1;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp1;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp2;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp3;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeHPFlow;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeOilPressure;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeRotorSpeed;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempHpRotorIn;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempHpStatorIn;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempLpRotorIn;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempLpStatorIn;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopStartupValve1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopStartupValve2;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValve3;
@@ -1173,6 +1168,16 @@ public class PanelTurbine extends AbstractPanelWidget
         switch (propertyName) {
             case "Turbine#Speed" ->
                 chornobylGaugeRotorSpeed.setChornobylValue((float) newValue);
+            case "Turbine#HighPressureFlow" ->
+                chornobylGaugeHPFlow.setChornobylValue((float) newValue);
+            case "Turbine#TemperatureHpRotorIn" ->
+                chornobylGaugeTempHpRotorIn.setChornobylValue((float) newValue);
+            case "Turbine#TemperatureHpStatorIn" ->
+                chornobylGaugeTempHpStatorIn.setChornobylValue((float) newValue);
+            case "Turbine#TemperatureLpRotorIn" ->
+                chornobylGaugeTempLpRotorIn.setChornobylValue((float) newValue);
+            case "Turbine#TemperatureLpStatorIn" ->
+                chornobylGaugeTempLpStatorIn.setChornobylValue((float) newValue);
         }
     }
 

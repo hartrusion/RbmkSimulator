@@ -4486,6 +4486,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getTemperature() - 273.15); // K to °C
         outputValues.setParameterValue("Turbine#ReheaterSteamInFlow",
                 -turbineReheater.getPrimarySideCondenser().getFlow());
+        outputValues.setParameterValue("Turbine#HighPressureFlow",
+                turbineHighPressureFirst.getFlow());
         outputValues.setParameterValue("Turbine#LowPressureFlow",
                 turbineLowPressureStage[0].getFlow());
 
