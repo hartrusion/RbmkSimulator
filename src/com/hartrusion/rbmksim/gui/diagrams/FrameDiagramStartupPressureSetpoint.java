@@ -84,6 +84,9 @@ public class FrameDiagramStartupPressureSetpoint extends javax.swing.JFrame
         
         ax.addCursor(drum1Pressure);
         ax.addCursor(drum2Pressure);
+        
+        figureJPane1.setThreadedRendering();
+        figureJPane1.setRenderIntervalMs(300);
     }
 
     @Override

@@ -50,7 +50,7 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
         l.setLineColor(Color.GRAY);
         ax.addLine(1, l);
         le.addLine(l);
-        
+
         l = new Line();
         l.setLabel("Active Setpoint");
         l.setDataSource(plotData.getTime60(5),
@@ -58,7 +58,7 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
         l.setLineColor(Color.BLACK);
         ax.addLine(1, l);
         le.addLine(l);
-        
+
         l = new Line();
         l.setLabel("Neutron Flux");
         l.setDataSource(plotData.getTime60(5),
@@ -81,9 +81,12 @@ public class FrameDiagramGlobalControl extends javax.swing.JFrame
 
         ax.ylabel(1, "Neutron Flux (%)");
         ax.ylabel(2, "Avg. Auto Rods Position (m)");
-        
+
         figureJPane1.addLegend(le);
         le.setLocationInsideAxes(ax);
+
+        figureJPane1.setThreadedRendering();
+        figureJPane1.setRenderIntervalMs(300);
     }
 
     @Override

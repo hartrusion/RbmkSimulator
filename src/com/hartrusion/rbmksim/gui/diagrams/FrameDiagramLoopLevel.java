@@ -25,9 +25,9 @@ import java.awt.Color;
  *
  * @author viktor
  */
-public class FrameDiagramLoopLevel extends javax.swing.JFrame 
+public class FrameDiagramLoopLevel extends javax.swing.JFrame
         implements DiagramFrame {
-    
+
     private int loop;
 
     /**
@@ -36,11 +36,11 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame
     public FrameDiagramLoopLevel() {
         initComponents();
     }
-    
+
     public int getLoop() {
         return loop;
     }
-    
+
     public void setLoop(int loop) {
         this.loop = loop;
     }
@@ -83,13 +83,16 @@ public class FrameDiagramLoopLevel extends javax.swing.JFrame
 
         ax.ylabel(1, "Drum Level and Setpoint (cm)");
         ax.ylabel(2, "Flow Valve Positions (%)");
+
+        figureJPane1.setThreadedRendering();
+        figureJPane1.setRenderIntervalMs(300);
     }
 
     @Override
     public void updatePlots() {
         repaint();
     }
-    
+
     @Override
     public String getPlotName() {
         return "Loop" + loop + "Level";
