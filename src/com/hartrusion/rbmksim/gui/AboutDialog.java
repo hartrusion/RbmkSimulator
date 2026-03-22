@@ -55,7 +55,7 @@ public class AboutDialog extends javax.swing.JDialog {
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Chornobyl RBMK Simulator\n\nCopyright (C) 2025 Viktor Alexander Hartung\n\nThis is a preview or automated build version of the RBMK Simulator project. See https://github.com/hartrusion/RbmkSimulator for more infos on the project or report problems. You're welcome to report bugs or leave feedback there in the discussion section\n\nThis program is free software and licensed under GPLv3.");
+        jTextArea1.setText("Chornobyl RBMK Simulator\n\nCopyright (C) 2026 Viktor Alexander Hartung\n\nThis is a preview or automated build version of the RBMK Simulator project. See https://github.com/hartrusion/RbmkSimulator for more infos on the project or report problems. You're welcome to report bugs or leave feedback there in the issues section. You can find \n\nThis program is free software and licensed under GPLv3.");
         jTextArea1.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextArea1);
 

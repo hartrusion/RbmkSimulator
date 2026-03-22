@@ -114,7 +114,6 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuRodPositions = new javax.swing.JMenuItem();
         jMenuCoreMatrix = new javax.swing.JMenuItem();
         jMenuMnemonics = new javax.swing.JMenu();
-        jMenuItemCore = new javax.swing.JMenuItem();
         jMenuItemMnemonicBlowdown = new javax.swing.JMenuItem();
         jMenuItemMnemonicLoop1 = new javax.swing.JMenuItem();
         jMenuItemMnemonicLoop2 = new javax.swing.JMenuItem();
@@ -131,15 +130,17 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
-        jMenuItemTurbineWarmup = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemCore = new javax.swing.JMenuItem();
+        jMenuItemTurbineWarmup = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Panel");
         setMinimumSize(new java.awt.Dimension(580, 400));
-        setPreferredSize(new java.awt.Dimension(640, 480));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane2.setViewportView(jDesktopPane1);
@@ -341,14 +342,6 @@ public class ControlRoom extends javax.swing.JFrame
 
         jMenuMnemonics.setText("Mnemonic Displays");
 
-        jMenuItemCore.setText("Core (Debug)");
-        jMenuItemCore.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCoreActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemCore);
-
         jMenuItemMnemonicBlowdown.setText("Blowdown & Aftercooler");
         jMenuItemMnemonicBlowdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,14 +466,6 @@ public class ControlRoom extends javax.swing.JFrame
         });
         jMenuDiagrams.add(jMenuItemStartupPressureSetpoint);
 
-        jMenuItemTurbineWarmup.setText("Turbine Warmup");
-        jMenuItemTurbineWarmup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTurbineWarmupActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuItemTurbineWarmup);
-
         jMenuItem1.setText("Turbine HP Temperatures");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -491,6 +476,26 @@ public class ControlRoom extends javax.swing.JFrame
 
         jMenuBar1.add(jMenuDiagrams);
 
+        jMenu1.setText("Debug");
+
+        jMenuItemCore.setText("Core Mnemonic");
+        jMenuItemCore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCoreActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemCore);
+
+        jMenuItemTurbineWarmup.setText("Turbine Warmup");
+        jMenuItemTurbineWarmup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTurbineWarmupActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemTurbineWarmup);
+
+        jMenuBar1.add(jMenu1);
+
         jMenuHelp.setText("Help");
 
         jMenuAbout.setText("About");
@@ -500,6 +505,14 @@ public class ControlRoom extends javax.swing.JFrame
             }
         });
         jMenuHelp.add(jMenuAbout);
+
+        jMenuItem2.setText("Hot to Start");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuHelp.add(jMenuItem2);
 
         jMenuBar1.add(jMenuHelp);
 
@@ -1052,6 +1065,11 @@ public class ControlRoom extends javax.swing.JFrame
         initializeDiagram(new FrameDiagramTurbineHPTemperatures());
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        HowtoStartDialog dialog = new HowtoStartDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
@@ -1236,6 +1254,7 @@ public class ControlRoom extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuOnlyCore;
     private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuItem jMenuAlarms;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1247,6 +1266,7 @@ public class ControlRoom extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemAuxCond;
