@@ -110,11 +110,6 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame
         repaint();
     }
 
-    @Override
-    public String getPlotName() {
-        return "DrumsOverview";
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.plot.FigureJPane figureJPane1;

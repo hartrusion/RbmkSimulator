@@ -41,13 +41,4 @@ public interface DiagramFrame {
      * repainting of the UI.
      */
     public void updatePlots();
-
-    /**
-     * Returns a string to identify the plot. This can be used to determine
-     * which windows are already opened and prevent opening a plot frame a
-     * second time.
-     *
-     * @return String
-     */
-    public String getPlotName();
 }

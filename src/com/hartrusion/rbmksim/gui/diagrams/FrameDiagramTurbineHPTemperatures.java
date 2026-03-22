@@ -108,11 +108,6 @@ public class FrameDiagramTurbineHPTemperatures extends javax.swing.JFrame
         repaint();
     }
 
-    @Override
-    public String getPlotName() {
-        return "TurbineHPTemperatures";
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.plot.FigureJPane figureJPane1;
     // End of variables declaration//GEN-END:variables
