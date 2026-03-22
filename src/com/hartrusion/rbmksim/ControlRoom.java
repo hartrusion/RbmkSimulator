@@ -141,6 +141,7 @@ public class ControlRoom extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Panel");
         setMinimumSize(new java.awt.Dimension(580, 400));
+        setPreferredSize(new java.awt.Dimension(610, 420));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane2.setViewportView(jDesktopPane1);
@@ -506,7 +507,7 @@ public class ControlRoom extends javax.swing.JFrame
         });
         jMenuHelp.add(jMenuAbout);
 
-        jMenuItem2.setText("Hot to Start");
+        jMenuItem2.setText("How to start");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
