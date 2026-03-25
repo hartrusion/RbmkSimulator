@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.panels;
 
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;

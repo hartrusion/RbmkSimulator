@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Viktor Alexander Hartung
+ * Copyright (C) 2026 Viktor Alexander Hartung
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,24 +14,48 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui.mnemonic;
+package com.hartrusion.rbmksim.gui;
 
 import com.hartrusion.mvc.UpdateReceiver;
 import java.beans.PropertyChangeEvent;
 
 /**
+ * Holds a mnemonics panel to be displayed in a JDesktopPane.
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameMnemonicCondensation extends javax.swing.JFrame implements UpdateReceiver {
+public class InternalFrameMnemonic extends javax.swing.JInternalFrame 
+    implements UpdateReceiver{
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameMnemonicCondensation.class.getName());
+    private UpdateReceiver child;
 
     /**
-     * Creates new form FrameMnemonicCondensation
+     * Creates new form InternalFrameMnemonic
      */
-    public FrameMnemonicCondensation() {
+    public InternalFrameMnemonic() {
         initComponents();
+    }
+    
+    /**
+     * Initializes a control panel Element by adding the Panel
+     *
+     * @param panel The mnemonic display panel object
+     * @param title Title of the Internal Frame
+     */
+    public void initPanel(javax.swing.JPanel panel, String title) {
+        child = (UpdateReceiver) panel;
+        setTitle(title);
+        getContentPane().add(panel, java.awt.BorderLayout.CENTER);
+        pack();
+    }
+
+    /**
+     * Returns a unique name to identify this instance.
+     *
+     * @return String
+     */
+    public String getPanelName() {
+        return getTitle();
     }
 
     /**
@@ -43,38 +67,33 @@ public class FrameMnemonicCondensation extends javax.swing.JFrame implements Upd
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelMnemonicCondensate1 = new com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicCondensate();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Condensate Pumps & Ejectors");
-        setResizable(false);
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(panelMnemonicCondensate1);
+        setClosable(true);
+        setIconifiable(true);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        panelMnemonicCondensate1.updateComponent(evt);
+        child.updateComponent(evt);
     }
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        panelMnemonicCondensate1.updateComponent(propertyName, newValue);
+        child.updateComponent(propertyName, newValue);
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        panelMnemonicCondensate1.updateComponent(propertyName, newValue);
+        child.updateComponent(propertyName, newValue);
     }
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        panelMnemonicCondensate1.updateComponent(propertyName, newValue);
+        child.updateComponent(propertyName, newValue);
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicCondensate panelMnemonicCondensate1;
     // End of variables declaration//GEN-END:variables
 }

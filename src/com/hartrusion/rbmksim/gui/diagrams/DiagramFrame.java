@@ -31,8 +31,6 @@ public interface DiagramFrame {
      * Initializes the plot.
      *
      * @param plotData Used valueHandler that contains the data to display
-     * @param number A number to identify the plot number in case of there being
-     * more than one (Like loop number 1 or 2 or similar).
      */
     public void initPlots(ValueHandler plotData);
 

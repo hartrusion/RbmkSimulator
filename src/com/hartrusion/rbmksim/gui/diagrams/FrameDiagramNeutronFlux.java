@@ -100,9 +100,6 @@ public class FrameDiagramNeutronFlux extends javax.swing.JFrame
         ax.ylabel(2, "Neutron Flux Log");
         ax.ylabel(3, "Neutron Rate (10%/s)");
         ax.ylabel(4, "Reactivity");
-        
-        figureJPane1.setThreadedRendering();
-        figureJPane1.setRenderIntervalMs(300);
     }
 
     @Override

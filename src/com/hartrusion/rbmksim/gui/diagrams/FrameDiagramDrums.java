@@ -69,10 +69,6 @@ public class FrameDiagramDrums extends javax.swing.JFrame
 
         Line l;
         l = new Line();
-        
-        figureJPane1.setThreadedRendering();
-        figureJPane1.setRenderIntervalMs(300);
-
     }
 
     @Override
@@ -136,7 +132,6 @@ public class FrameDiagramDrums extends javax.swing.JFrame
 
     @Override
     public void updatePlots() {
-        figureJPane1.notifyDataChanged();
         repaint();
     }
 

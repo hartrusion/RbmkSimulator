@@ -40,6 +40,7 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
+ * The main control panel that controls the simulation.
  *
  * @author Viktor Alexander Hartung
  */
@@ -50,21 +51,16 @@ public class ControlRoom extends javax.swing.JFrame
 
     private FrameRodPositions frameRodPositions;
     private FrameCoreActivity frameCoreActivity;
-
     private FrameAlarmTable frameAlarms;
     private List alarmList;
 
     private ValueHandler plotData;
 
     /**
-     * Holds a list of all interactive components which are active inside the
-     * desktop pane to update them.
+     * Holds a list of all open control panel windows that are attached to this
+     * control room instance directly.
      */
-    private final List<ControlPanelFrame> controlPanels = new ArrayList<>();
-
-    private final List<UpdateReceiver> mnemonics = new ArrayList<>();
-
-    private final List<DiagramFrame> diagrams = new ArrayList<>();
+    private final List<ControlPanel> controlPanels = new ArrayList<>();
 
     /**
      * Creates new form ControlPanel
@@ -82,8 +78,15 @@ public class ControlRoom extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jDesktopPane1 = new com.hartrusion.util.JDesktopPaneEnhanced();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelCaptionThermalPower2 = new javax.swing.JLabel();
+        jLabelCaptionThermalPower1 = new javax.swing.JLabel();
+        jLabelReadingThermalPower = new javax.swing.JLabel();
+        jLabelCaptionThermalPowerUnit = new javax.swing.JLabel();
+        jLabelReadingGeneratorPower = new javax.swing.JLabel();
+        jLabelCaptionGeneratorPowerUnit = new javax.swing.JLabel();
+        jLabelCaptionGeneratorPower2 = new javax.swing.JLabel();
+        jLabelCaptionGenaratorPower1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemPause = new javax.swing.JMenuItem();
@@ -93,60 +96,90 @@ public class ControlRoom extends javax.swing.JFrame
         jMenuSave = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
-        jMenuControls = new javax.swing.JMenu();
-        jMenuItemPresetFull = new javax.swing.JMenuItem();
-        jMenuItemPresetNone = new javax.swing.JMenuItem();
+        jMenuViews = new javax.swing.JMenu();
+        jMenuItemNewPanel = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemCoreControl = new javax.swing.JMenuItem();
-        jMenuItemRecirculation = new javax.swing.JMenuItem();
-        jMenuItemBlowdown = new javax.swing.JMenuItem();
-        jMenuItemDeaerators = new javax.swing.JMenuItem();
-        jMenuItemFeedwater = new javax.swing.JMenuItem();
-        jMenuItemAuxCond = new javax.swing.JMenuItem();
-        jMenuItemTurbine = new javax.swing.JMenuItem();
-        jMenuItemTurbineBypass = new javax.swing.JMenuItem();
-        jMenuItemCondensation = new javax.swing.JMenuItem();
-        jMenuItemPreheaters = new javax.swing.JMenuItem();
-        jMenuItemGenerator = new javax.swing.JMenuItem();
-        jMenuItemCoolant = new javax.swing.JMenuItem();
-        jMenuPanels = new javax.swing.JMenu();
-        jMenuAlarms = new javax.swing.JMenuItem();
-        jMenuRodPositions = new javax.swing.JMenuItem();
-        jMenuCoreMatrix = new javax.swing.JMenuItem();
-        jMenuMnemonics = new javax.swing.JMenu();
-        jMenuItemMnemonicBlowdown = new javax.swing.JMenuItem();
-        jMenuItemMnemonicLoop1 = new javax.swing.JMenuItem();
-        jMenuItemMnemonicLoop2 = new javax.swing.JMenuItem();
-        jMenuItemMnemonicFeedwater = new javax.swing.JMenuItem();
-        jMenuItemMnemonicDeaerators = new javax.swing.JMenuItem();
-        jMenuItemMnemonicAuxCondenser = new javax.swing.JMenuItem();
-        jMenuItemMnemonicTurbine = new javax.swing.JMenuItem();
-        jMenuItemMnemonicCondensation = new javax.swing.JMenuItem();
-        jMenuItemMnemonicPreheaters = new javax.swing.JMenuItem();
-        jMenuDiagrams = new javax.swing.JMenu();
-        jMenuNeutronFlux = new javax.swing.JMenuItem();
-        jMenuGlobalControl = new javax.swing.JMenuItem();
-        jMenuDrumSeparators = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItemCore = new javax.swing.JMenuItem();
-        jMenuItemTurbineWarmup = new javax.swing.JMenuItem();
+        jMenuItemAlarms = new javax.swing.JMenuItem();
+        jMenuItemRodPositions = new javax.swing.JMenuItem();
+        jMenuItemCoreMatrix = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Control Panel");
-        setMinimumSize(new java.awt.Dimension(580, 400));
-        setPreferredSize(new java.awt.Dimension(610, 420));
+        setTitle("Simulation");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        jScrollPane2.setViewportView(jDesktopPane1);
+        jPanel1.setMaximumSize(new java.awt.Dimension(190, 76));
+        jPanel1.setMinimumSize(new java.awt.Dimension(190, 76));
+        jPanel1.setPreferredSize(new java.awt.Dimension(190, 76));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        getContentPane().add(jScrollPane2);
+        jLabelCaptionThermalPower2.setFont(jLabelCaptionThermalPower2.getFont().deriveFont(jLabelCaptionThermalPower2.getFont().getSize()-2f));
+        jLabelCaptionThermalPower2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionThermalPower2.setText("Power");
+        jLabelCaptionThermalPower2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower2.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionThermalPower2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 52, -1, -1));
+
+        jLabelCaptionThermalPower1.setFont(jLabelCaptionThermalPower1.getFont().deriveFont(jLabelCaptionThermalPower1.getFont().getSize()-2f));
+        jLabelCaptionThermalPower1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionThermalPower1.setText("Thermal");
+        jLabelCaptionThermalPower1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPower1.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionThermalPower1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 40, -1, -1));
+
+        jLabelReadingThermalPower.setBackground(new java.awt.Color(0, 0, 0));
+        jLabelReadingThermalPower.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        jLabelReadingThermalPower.setForeground(new java.awt.Color(255, 153, 0));
+        jLabelReadingThermalPower.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingThermalPower.setText("_____");
+        jLabelReadingThermalPower.setOpaque(true);
+        jPanel1.add(jLabelReadingThermalPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 40, 76, 26));
+
+        jLabelCaptionThermalPowerUnit.setFont(jLabelCaptionThermalPowerUnit.getFont().deriveFont(jLabelCaptionThermalPowerUnit.getFont().getSize()-2f));
+        jLabelCaptionThermalPowerUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionThermalPowerUnit.setText("MW");
+        jLabelCaptionThermalPowerUnit.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPowerUnit.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionThermalPowerUnit.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionThermalPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 46, 26, -1));
+
+        jLabelReadingGeneratorPower.setBackground(new java.awt.Color(0, 0, 0));
+        jLabelReadingGeneratorPower.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        jLabelReadingGeneratorPower.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingGeneratorPower.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingGeneratorPower.setText("_____");
+        jLabelReadingGeneratorPower.setOpaque(true);
+        jPanel1.add(jLabelReadingGeneratorPower, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 6, 76, 26));
+
+        jLabelCaptionGeneratorPowerUnit.setFont(jLabelCaptionGeneratorPowerUnit.getFont().deriveFont(jLabelCaptionGeneratorPowerUnit.getFont().getSize()-2f));
+        jLabelCaptionGeneratorPowerUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionGeneratorPowerUnit.setText("MW");
+        jLabelCaptionGeneratorPowerUnit.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGeneratorPowerUnit.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGeneratorPowerUnit.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionGeneratorPowerUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 12, 26, -1));
+
+        jLabelCaptionGeneratorPower2.setFont(jLabelCaptionGeneratorPower2.getFont().deriveFont(jLabelCaptionGeneratorPower2.getFont().getSize()-2f));
+        jLabelCaptionGeneratorPower2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionGeneratorPower2.setText("Power");
+        jLabelCaptionGeneratorPower2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGeneratorPower2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGeneratorPower2.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionGeneratorPower2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 18, -1, -1));
+
+        jLabelCaptionGenaratorPower1.setFont(jLabelCaptionGenaratorPower1.getFont().deriveFont(jLabelCaptionGenaratorPower1.getFont().getSize()-2f));
+        jLabelCaptionGenaratorPower1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionGenaratorPower1.setText("Generator");
+        jLabelCaptionGenaratorPower1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGenaratorPower1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionGenaratorPower1.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionGenaratorPower1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 6, 62, -1));
+
+        getContentPane().add(jPanel1);
 
         jMenuFile.setText("File");
 
@@ -196,306 +229,42 @@ public class ControlRoom extends javax.swing.JFrame
 
         jMenuBar1.add(jMenuFile);
 
-        jMenuControls.setText("Control Panels");
+        jMenuViews.setText("Window");
 
-        jMenuItemPresetFull.setText("View all (full panel)");
-        jMenuItemPresetFull.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemNewPanel.setText("New Panel Window");
+        jMenuItemNewPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPresetFullActionPerformed(evt);
+                jMenuItemNewPanelActionPerformed(evt);
             }
         });
-        jMenuControls.add(jMenuItemPresetFull);
+        jMenuViews.add(jMenuItemNewPanel);
+        jMenuViews.add(jSeparator3);
 
-        jMenuItemPresetNone.setText("Close all");
-        jMenuItemPresetNone.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAlarms.setText("Alarm List");
+        jMenuItemAlarms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPresetNoneActionPerformed(evt);
+                jMenuItemAlarmsActionPerformed(evt);
             }
         });
-        jMenuControls.add(jMenuItemPresetNone);
-        jMenuControls.add(jSeparator3);
+        jMenuViews.add(jMenuItemAlarms);
 
-        jMenuItemCoreControl.setText("Reactor Controls");
-        jMenuItemCoreControl.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemRodPositions.setText("Rod Positions");
+        jMenuItemRodPositions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCoreControlActionPerformed(evt);
+                jMenuItemRodPositionsActionPerformed(evt);
             }
         });
-        jMenuControls.add(jMenuItemCoreControl);
+        jMenuViews.add(jMenuItemRodPositions);
 
-        jMenuItemRecirculation.setText("Recirculation");
-        jMenuItemRecirculation.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCoreMatrix.setText("Core Matrix");
+        jMenuItemCoreMatrix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRecirculationActionPerformed(evt);
+                jMenuItemCoreMatrixActionPerformed(evt);
             }
         });
-        jMenuControls.add(jMenuItemRecirculation);
+        jMenuViews.add(jMenuItemCoreMatrix);
 
-        jMenuItemBlowdown.setText("Blowdown");
-        jMenuItemBlowdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemBlowdownActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemBlowdown);
-
-        jMenuItemDeaerators.setText("Deaerators");
-        jMenuItemDeaerators.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDeaeratorsActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemDeaerators);
-
-        jMenuItemFeedwater.setText("Feedwater");
-        jMenuItemFeedwater.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemFeedwaterActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemFeedwater);
-
-        jMenuItemAuxCond.setText("Auxiliary Condensers");
-        jMenuItemAuxCond.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAuxCondActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemAuxCond);
-
-        jMenuItemTurbine.setText("Turbine");
-        jMenuItemTurbine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTurbineActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemTurbine);
-
-        jMenuItemTurbineBypass.setText("Turbine Bypass");
-        jMenuItemTurbineBypass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTurbineBypassActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemTurbineBypass);
-
-        jMenuItemCondensation.setText("Condensation");
-        jMenuItemCondensation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCondensationActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemCondensation);
-
-        jMenuItemPreheaters.setText("Preheater");
-        jMenuItemPreheaters.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPreheatersActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemPreheaters);
-
-        jMenuItemGenerator.setText("Generator");
-        jMenuItemGenerator.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGeneratorActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemGenerator);
-
-        jMenuItemCoolant.setText("Coolant");
-        jMenuItemCoolant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCoolantActionPerformed(evt);
-            }
-        });
-        jMenuControls.add(jMenuItemCoolant);
-
-        jMenuBar1.add(jMenuControls);
-
-        jMenuPanels.setText("Views");
-
-        jMenuAlarms.setText("Alarm List");
-        jMenuAlarms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAlarmsActionPerformed(evt);
-            }
-        });
-        jMenuPanels.add(jMenuAlarms);
-
-        jMenuRodPositions.setText("Rod Positions");
-        jMenuRodPositions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuRodPositionsActionPerformed(evt);
-            }
-        });
-        jMenuPanels.add(jMenuRodPositions);
-
-        jMenuCoreMatrix.setText("Core Matrix");
-        jMenuCoreMatrix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCoreMatrixActionPerformed(evt);
-            }
-        });
-        jMenuPanels.add(jMenuCoreMatrix);
-
-        jMenuBar1.add(jMenuPanels);
-
-        jMenuMnemonics.setText("Mnemonic Displays");
-
-        jMenuItemMnemonicBlowdown.setText("Blowdown & Aftercooler");
-        jMenuItemMnemonicBlowdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicBlowdownActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicBlowdown);
-
-        jMenuItemMnemonicLoop1.setText("Loop 1");
-        jMenuItemMnemonicLoop1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicLoop1ActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicLoop1);
-
-        jMenuItemMnemonicLoop2.setText("Loop 2");
-        jMenuItemMnemonicLoop2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicLoop2ActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicLoop2);
-
-        jMenuItemMnemonicFeedwater.setText("Feedwater");
-        jMenuItemMnemonicFeedwater.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicFeedwaterActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicFeedwater);
-
-        jMenuItemMnemonicDeaerators.setText("Deaerators");
-        jMenuItemMnemonicDeaerators.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicDeaeratorsActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicDeaerators);
-
-        jMenuItemMnemonicAuxCondenser.setText("Auxiliary Condenser");
-        jMenuItemMnemonicAuxCondenser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicAuxCondenserActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicAuxCondenser);
-
-        jMenuItemMnemonicTurbine.setText("Turbine & Hotwell");
-        jMenuItemMnemonicTurbine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicTurbineActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicTurbine);
-
-        jMenuItemMnemonicCondensation.setText("Condensation & Ejectors");
-        jMenuItemMnemonicCondensation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicCondensationActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicCondensation);
-
-        jMenuItemMnemonicPreheaters.setText("Preheaters");
-        jMenuItemMnemonicPreheaters.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMnemonicPreheatersActionPerformed(evt);
-            }
-        });
-        jMenuMnemonics.add(jMenuItemMnemonicPreheaters);
-
-        jMenuBar1.add(jMenuMnemonics);
-
-        jMenuDiagrams.setText("Diagrams");
-
-        jMenuNeutronFlux.setText("Neutron Flux");
-        jMenuNeutronFlux.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuNeutronFluxActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuNeutronFlux);
-
-        jMenuGlobalControl.setText("Reactor Global Control");
-        jMenuGlobalControl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuGlobalControlActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuGlobalControl);
-
-        jMenuDrumSeparators.setText("Drum Separators");
-        jMenuDrumSeparators.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuDrumSeparatorsActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuDrumSeparators);
-
-        jMenuItem8.setText("Loop 1 Level Control");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuItem8);
-
-        jMenuItem9.setText("Loop 2 Level Control");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuItem9);
-
-        jMenuItemStartupPressureSetpoint.setText("Startup Pressure Setpoint");
-        jMenuItemStartupPressureSetpoint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemStartupPressureSetpointActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuItemStartupPressureSetpoint);
-
-        jMenuItem1.setText("Turbine HP Temperatures");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenuDiagrams.add(jMenuItem1);
-
-        jMenuBar1.add(jMenuDiagrams);
-
-        jMenu1.setText("Debug");
-
-        jMenuItemCore.setText("Core Mnemonic");
-        jMenuItemCore.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCoreActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItemCore);
-
-        jMenuItemTurbineWarmup.setText("Turbine Warmup");
-        jMenuItemTurbineWarmup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTurbineWarmupActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItemTurbineWarmup);
-
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuViews);
 
         jMenuHelp.setText("Help");
 
@@ -522,7 +291,7 @@ public class ControlRoom extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuRodPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRodPositionsActionPerformed
+    private void jMenuItemRodPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRodPositionsActionPerformed
         if (frameRodPositions == null) {
             frameRodPositions = new FrameRodPositions();
             java.awt.EventQueue.invokeLater(() -> {
@@ -535,9 +304,9 @@ public class ControlRoom extends javax.swing.JFrame
                 }
             });
         }
-    }//GEN-LAST:event_jMenuRodPositionsActionPerformed
+    }//GEN-LAST:event_jMenuItemRodPositionsActionPerformed
 
-    private void jMenuCoreMatrixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCoreMatrixActionPerformed
+    private void jMenuItemCoreMatrixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCoreMatrixActionPerformed
         if (frameCoreActivity == null) {
             frameCoreActivity = new FrameCoreActivity();
             java.awt.EventQueue.invokeLater(() -> {
@@ -550,206 +319,7 @@ public class ControlRoom extends javax.swing.JFrame
                 }
             });
         }
-    }//GEN-LAST:event_jMenuCoreMatrixActionPerformed
-
-    private void jMenuItemMnemonicBlowdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicBlowdownActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicBlowdown")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicBlowdown());
-    }//GEN-LAST:event_jMenuItemMnemonicBlowdownActionPerformed
-
-    private void jMenuItemMnemonicLoop1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicLoop1ActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicLoop")) {
-                // there can be 2 instances of this Frame for both loops.
-                if (((FrameMnemonicLoop) ur).getLoop() == 1) {
-                    return;
-                }
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        FrameMnemonicLoop frame = new FrameMnemonicLoop();
-        frame.setLoop(1);
-        initializeMnemonic(frame);
-    }//GEN-LAST:event_jMenuItemMnemonicLoop1ActionPerformed
-
-    private void jMenuItemMnemonicLoop2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicLoop2ActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicLoop")) {
-                // there can be 2 instances of this Frame for both loops.
-                if (((FrameMnemonicLoop) ur).getLoop() == 2) {
-                    return;
-                }
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        FrameMnemonicLoop frame = new FrameMnemonicLoop();
-        frame.setLoop(2);
-        initializeMnemonic(frame);
-    }//GEN-LAST:event_jMenuItemMnemonicLoop2ActionPerformed
-
-    private void jMenuNeutronFluxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNeutronFluxActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramNeutronFlux")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        initializeDiagram(new FrameDiagramNeutronFlux());
-    }//GEN-LAST:event_jMenuNeutronFluxActionPerformed
-
-    private void jMenuItemMnemonicAuxCondenserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicAuxCondenserActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicAuxiliaryCondenser")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicAuxiliaryCondenser());
-    }//GEN-LAST:event_jMenuItemMnemonicAuxCondenserActionPerformed
-
-    private void jMenuItemCoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCoreActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicCore")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicCore());
-    }//GEN-LAST:event_jMenuItemCoreActionPerformed
-
-    private void jMenuItemMnemonicFeedwaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicFeedwaterActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicFeedwater")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicFeedwater());
-    }//GEN-LAST:event_jMenuItemMnemonicFeedwaterActionPerformed
-
-    private void jMenuItemMnemonicDeaeratorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicDeaeratorsActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicDeaerator")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicDeaerator());
-    }//GEN-LAST:event_jMenuItemMnemonicDeaeratorsActionPerformed
-
-    private void jMenuDrumSeparatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDrumSeparatorsActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramDrums")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        initializeDiagram(new FrameDiagramDrums());
-    }//GEN-LAST:event_jMenuDrumSeparatorsActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramLoopLevel")) {
-                // there can be 2 instances of this Frame for both loops.
-                if (((FrameDiagramLoopLevel) df).getLoop() == 2) {
-                    return;
-                }
-            }
-        }
-        // if not, generate a new diagram, set loop and initialize it.
-        FrameDiagramLoopLevel frame = new FrameDiagramLoopLevel();
-        frame.setLoop(2);
-        initializeDiagram(frame);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramLoopLevel")) {
-                // there can be 2 instances of this Frame for both loops.
-                if (((FrameDiagramLoopLevel) df).getLoop() == 1) {
-                    return;
-                }
-            }
-        }
-        // if not, generate a new diagram, set loop and initialize it.
-        FrameDiagramLoopLevel frame = new FrameDiagramLoopLevel();
-        frame.setLoop(1);
-        initializeDiagram(frame);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItemCondensationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCondensationActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Condensation")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelCondensation(), "Condensation");
-    }//GEN-LAST:event_jMenuItemCondensationActionPerformed
-
-    private void jMenuItemRecirculationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecirculationActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Recirculation")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelMCP(), "Recirculation");
-    }//GEN-LAST:event_jMenuItemRecirculationActionPerformed
-
-    private void jMenuItemFeedwaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFeedwaterActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Feedwater")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelFeedwater(), "Feedwater");
-    }//GEN-LAST:event_jMenuItemFeedwaterActionPerformed
-
-    private void jMenuItemMnemonicTurbineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicTurbineActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicTurbine")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicTurbine());
-    }//GEN-LAST:event_jMenuItemMnemonicTurbineActionPerformed
+    }//GEN-LAST:event_jMenuItemCoreMatrixActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         System.exit(0);
@@ -760,7 +330,7 @@ public class ControlRoom extends javax.swing.JFrame
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuAboutActionPerformed
 
-    private void jMenuAlarmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAlarmsActionPerformed
+    private void jMenuItemAlarmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlarmsActionPerformed
         if (frameAlarms == null) {
             frameAlarms = new FrameAlarmTable();
             frameAlarms.registerActionReceiver(controller);
@@ -775,218 +345,16 @@ public class ControlRoom extends javax.swing.JFrame
                 }
             });
         }
-    }//GEN-LAST:event_jMenuAlarmsActionPerformed
-
-    private void jMenuGlobalControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGlobalControlActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramGlobalControl")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        initializeDiagram(new FrameDiagramGlobalControl());
-    }//GEN-LAST:event_jMenuGlobalControlActionPerformed
-
-    private void jMenuItemMnemonicCondensationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicCondensationActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicCondensation")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicCondensation());
-    }//GEN-LAST:event_jMenuItemMnemonicCondensationActionPerformed
-
-    private void jMenuItemDeaeratorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDeaeratorsActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Deaerators")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelDeaerators(), "Deaerators");
-    }//GEN-LAST:event_jMenuItemDeaeratorsActionPerformed
-
-    private void jMenuItemAuxCondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuxCondActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Aux. Condensation")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelAuxCondenser(), "Aux. Condensation");
-    }//GEN-LAST:event_jMenuItemAuxCondActionPerformed
-
-    private void jMenuItemBlowdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBlowdownActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Blowdown")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelBlowdown(), "Blowdown");
-    }//GEN-LAST:event_jMenuItemBlowdownActionPerformed
-
-    private void jMenuItemCoreControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCoreControlActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Reactor Controls")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelCoreControl(), "Reactor Controls");
-    }//GEN-LAST:event_jMenuItemCoreControlActionPerformed
+    }//GEN-LAST:event_jMenuItemAlarmsActionPerformed
 
     private void jMenuItemPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPauseActionPerformed
         controller.userAction(new ActionCommand("PauseSimulation", null));
     }//GEN-LAST:event_jMenuItemPauseActionPerformed
 
-    private void jMenuItemPresetFullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetFullActionPerformed
-        // Presents a view with all of the controls placed to a defined grid.
-        // First, create all views if they are not yet open
-        jMenuItemCoreControlActionPerformed(null);
-        jMenuItemCondensationActionPerformed(null);
-        jMenuItemRecirculationActionPerformed(null);
-        jMenuItemFeedwaterActionPerformed(null);
-        jMenuItemDeaeratorsActionPerformed(null);
-        jMenuItemAuxCondActionPerformed(null);
-        jMenuItemBlowdownActionPerformed(null);
-        jMenuItemTurbineBypassActionPerformed(null);
-        jMenuItemPreheatersActionPerformed(null);
-        jMenuItemTurbineActionPerformed(null);
-        jMenuItemGeneratorActionPerformed(null);
-        //    jMenuItemCoolantActionPerformed(null);
-
-        // Align them in a preset grid layout.
-        // 1st row:
-        jDesktopPane1.windowPlaceAtZero(
-                getControlPanelInstance("Reactor Controls"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Blowdown"),
-                getControlPanelInstance("Reactor Controls"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Turbine"),
-                getControlPanelInstance("Blowdown"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Generator"),
-                getControlPanelInstance("Turbine"));
-        jDesktopPane1.windowPlaceBelow(
-                getControlPanelInstance("Turbine Bypass"),
-                getControlPanelInstance("Generator"));
-
-        // 2nd row:
-        jDesktopPane1.windowPlaceBelow(
-                getControlPanelInstance("Recirculation"),
-                getControlPanelInstance("Reactor Controls"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Feedwater"),
-                getControlPanelInstance("Recirculation"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Deaerators"),
-                getControlPanelInstance("Feedwater"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Condensation"),
-                getControlPanelInstance("Deaerators"));
-
-        // 3rd row:
-        jDesktopPane1.windowPlaceBelow(
-                getControlPanelInstance("Preheaters"),
-                getControlPanelInstance("Recirculation"));
-        jDesktopPane1.windowPlaceRightTo(
-                getControlPanelInstance("Aux. Condensation"),
-                getControlPanelInstance("Preheaters"));
-    }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
-
-    private void jMenuItemPresetNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetNoneActionPerformed
-        for (JInternalFrame f : jDesktopPane1.getAllFrames()) {
-            f.setVisible(false);
-            f.dispose();
-            jDesktopPane1.remove(f);
-        }
-        jDesktopPane1.revalidate();
-        jDesktopPane1.repaint();
-        controlPanels.clear();
-    }//GEN-LAST:event_jMenuItemPresetNoneActionPerformed
-
     private void jCheckBoxMenuOnlyCoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuOnlyCoreActionPerformed
         controller.userAction(new ActionCommand("SetCoreOnly", null));
         jCheckBoxMenuOnlyCore.setEnabled(false);
     }//GEN-LAST:event_jCheckBoxMenuOnlyCoreActionPerformed
-
-    private void jMenuItemTurbineBypassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineBypassActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Turbine Bypass")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelBypassValve(), "Turbine Bypass");
-    }//GEN-LAST:event_jMenuItemTurbineBypassActionPerformed
-
-    private void jMenuItemPreheatersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPreheatersActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Preheaters")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelPreheaters(), "Preheaters");
-    }//GEN-LAST:event_jMenuItemPreheatersActionPerformed
-
-    private void jMenuItemMnemonicPreheatersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMnemonicPreheatersActionPerformed
-        // Check if there is already an active frame using the slected class
-        for (UpdateReceiver ur : mnemonics) {
-            if (ur.getClass().getSimpleName().equals(
-                    "FrameMnemonicPreheaters")) {
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeMnemonic(new FrameMnemonicPreheaters());
-    }//GEN-LAST:event_jMenuItemMnemonicPreheatersActionPerformed
-
-    private void jMenuItemTurbineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Turbine")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelTurbine(), "Turbine");
-    }//GEN-LAST:event_jMenuItemTurbineActionPerformed
-
-    private void jMenuItemGeneratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGeneratorActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Generator")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelGenerator(), "Generator");
-    }//GEN-LAST:event_jMenuItemGeneratorActionPerformed
-
-    private void jMenuItemCoolantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCoolantActionPerformed
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals("Coolant")) {
-                pf.toFront();
-                return;
-            }
-        }
-        // if theres no active frame, generate it and make it known here.
-        initializeControlPanel(new PanelCoolant(), "Coolant");
-    }//GEN-LAST:event_jMenuItemCoolantActionPerformed
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
         JFileChooser fc = new JFileChooser();
@@ -1030,52 +398,25 @@ public class ControlRoom extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jMenuLoadActionPerformed
 
-    private void jMenuItemStartupPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartupPressureSetpointActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramStartupPressureSetpoint")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        initializeDiagram(new FrameDiagramStartupPressureSetpoint());
-    }//GEN-LAST:event_jMenuItemStartupPressureSetpointActionPerformed
-
-    private void jMenuItemTurbineWarmupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineWarmupActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramTurbineWarmup")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        initializeDiagram(new FrameDiagramTurbineWarmup());
-    }//GEN-LAST:event_jMenuItemTurbineWarmupActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (DiagramFrame df : diagrams) {
-            if (df.getClass().getSimpleName().equals(
-                    "FrameDiagramTurbineHPTemperatures")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        initializeDiagram(new FrameDiagramTurbineHPTemperatures());
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         HowtoStartDialog dialog = new HowtoStartDialog(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemNewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewPanelActionPerformed
+        // Generate a new control panel object and register it in the list of 
+        // active panels.
+        ControlPanel p = new ControlPanel();
+        p.registerController(controller);
+        p.setVisible(true); // we are on the EDT already
+        controlPanels.add(p);
+    }//GEN-LAST:event_jMenuItemNewPanelActionPerformed
+
     @Override // Called on startup
     public void registerController(ViewerController controller) {
         this.controller = controller;
         // Use this event to display at least the core controls
-        jMenuItemCoreControlActionPerformed(null);
+        // jMenuItemCoreControlActionPerformed(null);
     }
 
     @Override
@@ -1085,10 +426,6 @@ public class ControlRoom extends javax.swing.JFrame
                 .log(Level.INFO, "Received PropertyChangeEvent "
                         + evt.getPropertyName() + ", value: "
                         + evt.getNewValue());
-
-        for (UpdateReceiver ur : mnemonics) {
-            ur.updateComponent(evt);
-        }
 
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(evt);
@@ -1100,19 +437,11 @@ public class ControlRoom extends javax.swing.JFrame
         if (propertyName.equals("OutputValues")) {
             ((ValueHandler) newValue).fireAllToMvcView(this);
             plotData = (ValueHandler) newValue;
-            
-            for (DiagramFrame df : diagrams) {
-                df.updatePlots();
-            }
 
             // use this event to update the alarm list also.
             if (frameAlarms != null) {
                 frameAlarms.setAlarms(alarmList);
             }
-        }
-
-        for (UpdateReceiver ur : mnemonics) {
-            ur.updateComponent(propertyName, newValue);
         }
 
         for (UpdateReceiver ur : controlPanels) {
@@ -1130,13 +459,19 @@ public class ControlRoom extends javax.swing.JFrame
             frameRodPositions.updateComponent(propertyName, newValue);
         }
 
-        for (UpdateReceiver ur : mnemonics) {
-            ur.updateComponent(propertyName, newValue);
-        }
-
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
         }
+
+        switch (propertyName) {
+            case "Generator#Power" ->
+                jLabelReadingGeneratorPower.setText(
+                        String.format("%05d", Math.round(newValue)));
+            case "Reactor#ThermalPowerDisplay" ->
+                jLabelReadingThermalPower.setText(
+                        String.format("%05d", Math.round(newValue)));
+        }
+        
     }
 
     @Override
@@ -1145,166 +480,46 @@ public class ControlRoom extends javax.swing.JFrame
             frameRodPositions.updateComponent(propertyName, newValue);
         }
 
-        for (UpdateReceiver ur : mnemonics) {
-            ur.updateComponent(propertyName, newValue);
-        }
-
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
         }
-    }
-
-    /**
-     * Makes some initializations to the mnemonic frame object and add it to the
-     * list to have a reference to the created instance.
-     *
-     * @param object JFrame object that implements UpdateReceiver, this is
-     * usually the new FrameMnemoicWhatever()
-     */
-    private void initializeMnemonic(UpdateReceiver object) {
-        // cast to frame as the object is supposed to be an instace of frame.
-        javax.swing.JFrame frame = (javax.swing.JFrame) object;
-        controller.fireLastPropertyChangesTo(object);
-
-        java.awt.EventQueue.invokeLater(() -> {
-            frame.setVisible(true);
-        });
-        mnemonics.add(object);
-        frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                mnemonics.remove(object);
-            }
-        });
-    }
-
-    private void initializeDiagram(DiagramFrame object) {
-        javax.swing.JFrame frame = (javax.swing.JFrame) object;
-        if (plotData == null) {
-            frame.dispose(); // get rid
-            return; // instance not yet received
-        }
-        object.initPlots(plotData);
-        java.awt.EventQueue.invokeLater(() -> {
-            frame.setVisible(true);
-        });
-        diagrams.add(object);
-        frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                diagrams.remove(object);
-            }
-        });
-    }
-
-    /**
-     * Makes some initializations to an additional control panel frame object
-     * (makes the controller instance known) and add it to the list to have a
-     * reference to the created instance.
-     *
-     * @param object An instance that is the panel
-     */
-    private void initializeControlPanel(AbstractPanelWidget panel,
-            String title) {
-        // Generate a new JInteralFrame object (that will be the frame inside 
-        // the desktop pane)
-        ControlPanelFrame cpf = new ControlPanelFrame();
-        // Give the generated Panel object to that frame and make it initialize 
-        // itself
-        cpf.initPanel(panel, title, controller);
-        cpf.setVisible(true);
-        jDesktopPane1.add(cpf);
-        // The frame will automatically adjust its size due to its layout.
-
-        // Remove it from the list of windows when closing:
-        cpf.addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-                controlPanels.remove(cpf);
-            }
-        }
-        );
-
-        // Put it to front:
-        try {
-            cpf.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            // ignore
-        }
-        cpf.toFront();
-        // Add the frame to the list of active internal frames so the panel
-        // frame will receive updates
-        controlPanels.add(cpf);
-        controller.fireLastPropertyChangesTo(panel);
-    }
-
-    private ControlPanelFrame getControlPanelInstance(String designator) {
-        for (ControlPanelFrame pf : controlPanels) {
-            if (pf.getPanelName().equals(designator)) {
-                return pf;
-            }
-        }
-        return null;
     }
 
     public void setAlarmList(List alarmList) {
         // Todo: maybe there's a better way of organizing this.
         this.alarmList = alarmList;
     }
+    
+    public void openControlPanelWindow() {
+        // TODO - to be replaced by a better strategy. 
+        jMenuItemNewPanelActionPerformed(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuOnlyCore;
-    private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JLabel jLabelCaptionGenaratorPower1;
+    private javax.swing.JLabel jLabelCaptionGeneratorPower2;
+    private javax.swing.JLabel jLabelCaptionGeneratorPowerUnit;
+    private javax.swing.JLabel jLabelCaptionThermalPower1;
+    private javax.swing.JLabel jLabelCaptionThermalPower2;
+    private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
+    private javax.swing.JLabel jLabelReadingGeneratorPower;
+    private javax.swing.JLabel jLabelReadingThermalPower;
     private javax.swing.JMenuItem jMenuAbout;
-    private javax.swing.JMenuItem jMenuAlarms;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuControls;
-    private javax.swing.JMenuItem jMenuCoreMatrix;
-    private javax.swing.JMenu jMenuDiagrams;
-    private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenu jMenuFile;
-    private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JMenuItem jMenuItemAuxCond;
-    private javax.swing.JMenuItem jMenuItemBlowdown;
-    private javax.swing.JMenuItem jMenuItemCondensation;
-    private javax.swing.JMenuItem jMenuItemCoolant;
-    private javax.swing.JMenuItem jMenuItemCore;
-    private javax.swing.JMenuItem jMenuItemCoreControl;
-    private javax.swing.JMenuItem jMenuItemDeaerators;
+    private javax.swing.JMenuItem jMenuItemAlarms;
+    private javax.swing.JMenuItem jMenuItemCoreMatrix;
     private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JMenuItem jMenuItemFeedwater;
-    private javax.swing.JMenuItem jMenuItemGenerator;
-    private javax.swing.JMenuItem jMenuItemMnemonicAuxCondenser;
-    private javax.swing.JMenuItem jMenuItemMnemonicBlowdown;
-    private javax.swing.JMenuItem jMenuItemMnemonicCondensation;
-    private javax.swing.JMenuItem jMenuItemMnemonicDeaerators;
-    private javax.swing.JMenuItem jMenuItemMnemonicFeedwater;
-    private javax.swing.JMenuItem jMenuItemMnemonicLoop1;
-    private javax.swing.JMenuItem jMenuItemMnemonicLoop2;
-    private javax.swing.JMenuItem jMenuItemMnemonicPreheaters;
-    private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
+    private javax.swing.JMenuItem jMenuItemNewPanel;
     private javax.swing.JMenuItem jMenuItemPause;
-    private javax.swing.JMenuItem jMenuItemPreheaters;
-    private javax.swing.JMenuItem jMenuItemPresetFull;
-    private javax.swing.JMenuItem jMenuItemPresetNone;
-    private javax.swing.JMenuItem jMenuItemRecirculation;
-    private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
-    private javax.swing.JMenuItem jMenuItemTurbine;
-    private javax.swing.JMenuItem jMenuItemTurbineBypass;
-    private javax.swing.JMenuItem jMenuItemTurbineWarmup;
+    private javax.swing.JMenuItem jMenuItemRodPositions;
     private javax.swing.JMenuItem jMenuLoad;
-    private javax.swing.JMenu jMenuMnemonics;
-    private javax.swing.JMenuItem jMenuNeutronFlux;
-    private javax.swing.JMenu jMenuPanels;
-    private javax.swing.JMenuItem jMenuRodPositions;
     private javax.swing.JMenuItem jMenuSave;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenu jMenuViews;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;

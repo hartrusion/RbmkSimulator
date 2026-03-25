@@ -119,6 +119,10 @@ public class RbmkSimulator {
         java.awt.EventQueue.invokeLater(() -> {
             view.setVisible(true);
         });
+        
+        // Open the first control panel so the user doesnt have to mess with
+        // this - to be reworked!
+        view.openControlPanelWindow();
 
         // Call the model run-method once here in main thread as this generates
         // a lot of objects on the first run. Further calls will be faster

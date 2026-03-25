@@ -30,14 +30,15 @@ import java.beans.PropertyChangeEvent;
  *
  * @author Viktor Alexander Hartung
  */
-public class ControlPanelFrame extends javax.swing.JInternalFrame implements UpdateReceiver {
+public class InternalFramePanel extends javax.swing.JInternalFrame 
+        implements UpdateReceiver {
 
     private AbstractPanelWidget child;
 
     /**
      * Creates new form ControlPanelFrame
      */
-    public ControlPanelFrame() {
+    public InternalFramePanel() {
         initComponents();
     }
 
@@ -50,10 +51,8 @@ public class ControlPanelFrame extends javax.swing.JInternalFrame implements Upd
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
         setIconifiable(true);
-        setResizable(true);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -80,7 +79,6 @@ public class ControlPanelFrame extends javax.swing.JInternalFrame implements Upd
      * @return String
      */
     public String getPanelName() {
-        // return child.getClass().getSimpleName();
         return getTitle();
     }
 

@@ -46,7 +46,7 @@ public class FrameRodPositions extends javax.swing.JFrame implements UpdateRecei
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRodPositions1 = new com.hartrusion.rbmksim.gui.PanelRodPositions();
+        panelRodPositions1 = new com.hartrusion.rbmksim.gui.panels.PanelRodPositions();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Control Rod Positions");
@@ -56,7 +56,7 @@ public class FrameRodPositions extends javax.swing.JFrame implements UpdateRecei
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.PanelRodPositions panelRodPositions1;
+    private com.hartrusion.rbmksim.gui.panels.PanelRodPositions panelRodPositions1;
     // End of variables declaration//GEN-END:variables
 
     @Override

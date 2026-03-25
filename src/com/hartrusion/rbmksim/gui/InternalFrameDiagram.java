@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Viktor Alexander Hartung
+ * Copyright (C) 2026 Viktor Alexander Hartung
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui.mnemonic;
+package com.hartrusion.rbmksim.gui;
 
-import java.beans.PropertyChangeEvent;
-import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.plot.FigureJPane;
+import com.hartrusion.rbmksim.gui.diagrams.DiagramFrame;
+import com.hartrusion.values.ValueHandler;
 
 /**
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameMnemonicAuxiliaryCondenser extends javax.swing.JFrame implements UpdateReceiver {
-    
+public class InternalFrameDiagram extends javax.swing.JInternalFrame {
+
     /**
-     * Creates new form FrameMnemonicInternalLoad
+     * Creates new form InternalFrameDiagram
      */
-    public FrameMnemonicAuxiliaryCondenser() {
+    public InternalFrameDiagram() {
         initComponents();
     }
 
@@ -41,38 +42,33 @@ public class FrameMnemonicAuxiliaryCondenser extends javax.swing.JFrame implemen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelMnemonicInternalLoad1 = new com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicAuxiliaryCondenser();
+        figureJPane1 = new com.hartrusion.plot.FigureJPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Aux Condenser");
-        setResizable(false);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setMinimumSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(panelMnemonicInternalLoad1);
+
+        figureJPane1.setMinimumSize(new java.awt.Dimension(400, 300));
+        figureJPane1.setPreferredSize(new java.awt.Dimension(400, 300));
+        getContentPane().add(figureJPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.mnemonic.PanelMnemonicAuxiliaryCondenser panelMnemonicInternalLoad1;
+    private com.hartrusion.plot.FigureJPane figureJPane1;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void updateComponent(PropertyChangeEvent evt) {
-        panelMnemonicInternalLoad1.updateComponent(evt);
+    
+    public void updatePlots() {
+        figureJPane1.notifyDataChanged();
     }
-
-    @Override
-    public void updateComponent(String propertyName, Object newValue) {
-        panelMnemonicInternalLoad1.updateComponent(propertyName, newValue);
-    }
-
-    @Override
-    public void updateComponent(String propertyName, double newValue) {
-        panelMnemonicInternalLoad1.updateComponent(propertyName, newValue);
-    }
-
-    @Override
-    public void updateComponent(String propertyName, boolean newValue) {
-        panelMnemonicInternalLoad1.updateComponent(propertyName, newValue);
+    
+    public FigureJPane getFigure() {
+        return figureJPane1;
     }
 }

@@ -67,9 +67,6 @@ public class FrameDiagramTurbineWarmup extends javax.swing.JFrame
         
         figureJPane1.addLegend(le);
         le.setLocationInsideAxes(ax);
-        
-        figureJPane1.setThreadedRendering();
-        figureJPane1.setRenderIntervalMs(300);
     }
 
     @Override
