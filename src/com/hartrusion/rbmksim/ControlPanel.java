@@ -123,6 +123,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineHPTemperatures = new javax.swing.JMenuItem();
         jMenuPresets = new javax.swing.JMenu();
         jMenuItemPresetFull = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
 
@@ -244,14 +245,17 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuDiagrams.add(jMenuDrumSeparators);
 
         jMenuItemLoop1LevelControl.setText("Loop 1 Level Control");
+        jMenuItemLoop1LevelControl.setEnabled(false);
         jMenuItemLoop1LevelControl.addActionListener(this::jMenuItemLoop1LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop1LevelControl);
 
         jMenuItemLoop2LevelControl.setText("Loop 2 Level Control");
+        jMenuItemLoop2LevelControl.setEnabled(false);
         jMenuItemLoop2LevelControl.addActionListener(this::jMenuItemLoop2LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop2LevelControl);
 
         jMenuItemStartupPressureSetpoint.setText("Startup Pressure Setpoint");
+        jMenuItemStartupPressureSetpoint.setEnabled(false);
         jMenuItemStartupPressureSetpoint.addActionListener(this::jMenuItemStartupPressureSetpointActionPerformed);
         jMenuDiagrams.add(jMenuItemStartupPressureSetpoint);
 
@@ -266,6 +270,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetFull.setText("Full Control Panel");
         jMenuItemPresetFull.addActionListener(this::jMenuItemPresetFullActionPerformed);
         jMenuPresets.add(jMenuItemPresetFull);
+
+        jMenuItem1.setText("All Mnemonics");
+        jMenuItem1.setToolTipText("");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jMenuPresets.add(jMenuItem1);
         jMenuPresets.add(jSeparator1);
 
         jMenuItemPresetNone.setText("Clear (close all)");
@@ -281,6 +290,9 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     private void jMenuItemPresetFullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetFullActionPerformed
         // Presents a view with all of the controls placed to a defined grid.
+        // close all:
+        jMenuItemPresetNoneActionPerformed(null);
+
         // First, create all views if they are not yet open
         jMenuItemCoreControlActionPerformed(null);
         jMenuItemCondensationActionPerformed(null);
@@ -344,6 +356,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jDesktopPane1.revalidate();
         jDesktopPane1.repaint();
         panels.clear();
+        mnemonics.clear();
+        diagrams.clear();
     }//GEN-LAST:event_jMenuItemPresetNoneActionPerformed
 
     private void jMenuItemCoreControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCoreControlActionPerformed
@@ -596,7 +610,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         InternalFrameDiagram df = new InternalFrameDiagram();
         df.setTitle("Neutron Flux");
         DiagramPresets.neutronFlux(df.getFigure(), plotData);
-        
+
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuNeutronFluxActionPerformed
 
@@ -611,7 +625,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         InternalFrameDiagram df = new InternalFrameDiagram();
         df.setTitle("Global Control");
         DiagramPresets.globalControl(df.getFigure(), plotData);
-        
+
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuGlobalControlActionPerformed
 
@@ -638,7 +652,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItemLoop2LevelControlActionPerformed
 
     private void jMenuItemStartupPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartupPressureSetpointActionPerformed
-         // TODO - Reimplement!
+        // TODO - Reimplement!
     }//GEN-LAST:event_jMenuItemStartupPressureSetpointActionPerformed
 
     private void jMenuItemTurbineHPTemperaturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineHPTemperaturesActionPerformed
@@ -654,6 +668,53 @@ public class ControlPanel extends javax.swing.JFrame implements
         DiagramPresets.turbineHPTemperatures(df.getFigure(), plotData);
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemTurbineHPTemperaturesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // close all:
+        jMenuItemPresetNoneActionPerformed(null);
+        
+        // Open all mnemonics:        
+        jMenuItemMnemonicBlowdownActionPerformed(null);
+        jMenuItemMnemonicLoop1ActionPerformed(null);
+        jMenuItemMnemonicLoop2ActionPerformed(null);
+        jMenuItemMnemonicFeedwaterActionPerformed(null);
+        jMenuItemMnemonicDeaeratorsActionPerformed(null);
+        jMenuItemMnemonicAuxCondenserActionPerformed(null);
+        jMenuItemMnemonicTurbineActionPerformed(null);
+        jMenuItemMnemonicCondensationActionPerformed(null);
+        jMenuItemMnemonicPreheatersActionPerformed(null);
+
+        jDesktopPane1.windowPlaceAtZero(
+                getMnemonicInstance("Loop 1"));
+        jDesktopPane1.windowPlaceRightTo(
+                getMnemonicInstance("Blowdown"),
+                getMnemonicInstance("Loop 1"));
+        jDesktopPane1.windowPlaceRightTo(
+                getMnemonicInstance("Loop 2"),
+                getMnemonicInstance("Blowdown"));
+        jDesktopPane1.windowPlaceRightTo(
+                getMnemonicInstance("Aux Condenser"),
+                getMnemonicInstance("Loop 2"));
+        jDesktopPane1.windowPlaceRightTo(
+                getMnemonicInstance("Turbine"),
+                getMnemonicInstance("Aux Condenser"));
+
+        // Below turbine, down:
+        jDesktopPane1.windowPlaceBelow(
+                getMnemonicInstance("Condensation"),
+                getMnemonicInstance("Turbine"));
+        jDesktopPane1.windowPlaceBelow(
+                getMnemonicInstance("Preheaters"),
+                getMnemonicInstance("Condensation"));
+
+        // Place feedwater and DA below loop 1 and 2, not that pretty:
+        jDesktopPane1.windowPlaceBelow(
+                getMnemonicInstance("Feedwater Pumps"),
+                getMnemonicInstance("Loop 1"));
+        jDesktopPane1.windowPlaceBelow(
+                getMnemonicInstance("Deaerator"),
+                getMnemonicInstance("Loop 2"));
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -731,7 +792,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         panels.add(cpf);
         controller.fireLastPropertyChangesTo(panel);
     }
-    
+
     /**
      * Makes some initializations to the diagram frame object and add it to the
      * list to have a reference to the created instance.
@@ -769,6 +830,15 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         return null;
     }
+    
+    private InternalFrameMnemonic getMnemonicInstance(String designator) {
+        for (InternalFrameMnemonic mf : mnemonics) {
+            if (mf.getPanelName().equals(designator)) {
+                return mf;
+            }
+        }
+        return null;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -778,6 +848,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuDiagrams;
     private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenuItem jMenuGlobalControl;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
@@ -833,7 +904,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         if (propertyName.equals("OutputValues")) {
             ((ValueHandler) newValue).fireAllToMvcView(this);
             plotData = (ValueHandler) newValue;
-            
+
             for (InternalFrameDiagram df : diagrams) {
                 df.updatePlots();
             }
@@ -842,7 +913,7 @@ public class ControlPanel extends javax.swing.JFrame implements
             // if (frameAlarms != null) {
             //    frameAlarms.setAlarms(alarmList);
             //}
-        }        
+        }
         for (InternalFramePanel pf : panels) {
             pf.updateComponent(propertyName, newValue);
         }

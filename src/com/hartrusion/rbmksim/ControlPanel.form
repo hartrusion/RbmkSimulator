@@ -223,6 +223,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoop1LevelControl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Loop 1 Level Control"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoop1LevelControlActionPerformed"/>
@@ -231,6 +232,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoop2LevelControl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Loop 2 Level Control"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoop2LevelControlActionPerformed"/>
@@ -239,6 +241,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemStartupPressureSetpoint">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Startup Pressure Setpoint"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemStartupPressureSetpointActionPerformed"/>
@@ -265,6 +268,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetFullActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="All Mnemonics"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
