@@ -47,6 +47,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 /**
+ * A windows from which multiple can exist that holds various widgets and
+ * windows to interact with the simulation. Can be configured individually.
  *
  * @author Viktor Alexander Hartung
  */
@@ -70,7 +72,10 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     private final List<InternalFrameDiagram> diagrams = new ArrayList<>();
 
-    private InternalFrameSelsyns frameRodPositions;
+    private InternalFrameSelsyns rodPositions;
+
+    private InternalFrameAlarmTable alarmTable;
+    private List alarmList;
 
     /**
      * Creates new form ControlPanel
@@ -94,6 +99,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -147,6 +153,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItem2.setText("Rod Positions");
         jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Alarm List");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
 
@@ -729,19 +739,35 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        if (frameRodPositions == null) {
-            frameRodPositions = new InternalFrameSelsyns();
-            frameRodPositions.setVisible(true);
+        if (rodPositions == null) {
+            rodPositions = new InternalFrameSelsyns();
+            rodPositions.setVisible(true);
 
-            frameRodPositions.addInternalFrameListener(new InternalFrameAdapter() {
+            rodPositions.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
-                    frameRodPositions = null;
+                    rodPositions = null;
                 }
             });
-            jDesktopPane1.add(frameRodPositions);
+            jDesktopPane1.add(rodPositions);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        if (alarmTable == null) {
+            alarmTable = new InternalFrameAlarmTable();
+            alarmTable.registerActionReceiver(controller);
+            alarmTable.setVisible(true);
+
+            alarmTable.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    alarmTable = null;
+                }
+            });
+            jDesktopPane1.add(alarmTable);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -878,6 +904,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
@@ -917,6 +944,11 @@ public class ControlPanel extends javax.swing.JFrame implements
     public void registerController(ViewerController controller) {
         this.controller = controller;
     }
+    
+    public void setAlarmList(List alarmList) {
+        // Todo: maybe there's a better way of organizing this.
+        this.alarmList = alarmList;
+    }
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
@@ -926,9 +958,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         for (InternalFrameMnemonic mf : mnemonics) {
             mf.updateComponent(evt);
         }
-        
-        if (frameRodPositions != null) {
-            frameRodPositions.updateComponent(evt);
+
+        if (rodPositions != null) {
+            rodPositions.updateComponent(evt);
         }
     }
 
@@ -943,9 +975,9 @@ public class ControlPanel extends javax.swing.JFrame implements
             }
 
             // use this event to update the alarm list also.
-            // if (frameAlarms != null) {
-            //    frameAlarms.setAlarms(alarmList);
-            //}
+            if (alarmTable != null) {
+                alarmTable.setAlarms(alarmList);
+            }
         }
         for (InternalFramePanel pf : panels) {
             pf.updateComponent(propertyName, newValue);
@@ -963,8 +995,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         for (InternalFrameMnemonic mf : mnemonics) {
             mf.updateComponent(propertyName, newValue);
         }
-        if (frameRodPositions != null) {
-            frameRodPositions.updateComponent(propertyName, newValue);
+        if (rodPositions != null) {
+            rodPositions.updateComponent(propertyName, newValue);
         }
     }
 

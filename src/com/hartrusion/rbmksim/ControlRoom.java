@@ -408,6 +408,7 @@ public class ControlRoom extends javax.swing.JFrame
         // active panels.
         ControlPanel p = new ControlPanel();
         p.registerController(controller);
+        p.setAlarmList(alarmList);
         p.setVisible(true); // we are on the EDT already
         controlPanels.add(p);
     }//GEN-LAST:event_jMenuItemNewPanelActionPerformed
