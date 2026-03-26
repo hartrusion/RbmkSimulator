@@ -70,6 +70,8 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     private final List<InternalFrameDiagram> diagrams = new ArrayList<>();
 
+    private InternalFrameSelsyns frameRodPositions;
+
     /**
      * Creates new form ControlPanel
      */
@@ -90,6 +92,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jScrollPane1 = new javax.swing.JScrollPane();
         jDesktopPane1 = new com.hartrusion.util.JDesktopPaneEnhanced();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -137,6 +141,14 @@ public class ControlPanel extends javax.swing.JFrame implements
         jScrollPane1.setViewportView(jDesktopPane1);
 
         getContentPane().add(jScrollPane1);
+
+        jMenu1.setText("View");
+
+        jMenuItem2.setText("Rod Positions");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
 
         jMenuControls.setText("Control Widgets");
 
@@ -672,7 +684,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // close all:
         jMenuItemPresetNoneActionPerformed(null);
-        
+
         // Open all mnemonics:        
         jMenuItemMnemonicBlowdownActionPerformed(null);
         jMenuItemMnemonicLoop1ActionPerformed(null);
@@ -715,6 +727,21 @@ public class ControlPanel extends javax.swing.JFrame implements
                 getMnemonicInstance("Deaerator"),
                 getMnemonicInstance("Loop 2"));
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if (frameRodPositions == null) {
+            frameRodPositions = new InternalFrameSelsyns();
+            frameRodPositions.setVisible(true);
+
+            frameRodPositions.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    frameRodPositions = null;
+                }
+            });
+            jDesktopPane1.add(frameRodPositions);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -830,7 +857,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         return null;
     }
-    
+
     private InternalFrameMnemonic getMnemonicInstance(String designator) {
         for (InternalFrameMnemonic mf : mnemonics) {
             if (mf.getPanelName().equals(designator)) {
@@ -843,12 +870,14 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuControls;
     private javax.swing.JMenu jMenuDiagrams;
     private javax.swing.JMenuItem jMenuDrumSeparators;
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
@@ -897,6 +926,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         for (InternalFrameMnemonic mf : mnemonics) {
             mf.updateComponent(evt);
         }
+        
+        if (frameRodPositions != null) {
+            frameRodPositions.updateComponent(evt);
+        }
     }
 
     @Override
@@ -929,6 +962,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         for (InternalFrameMnemonic mf : mnemonics) {
             mf.updateComponent(propertyName, newValue);
+        }
+        if (frameRodPositions != null) {
+            frameRodPositions.updateComponent(propertyName, newValue);
         }
     }
 
