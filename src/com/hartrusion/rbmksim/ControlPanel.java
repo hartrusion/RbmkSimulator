@@ -60,7 +60,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         InteractiveView, ActionReceiver {
 
     private ControlRoom parentControlRoom;
-    
+
     private ViewerController controller;
 
     /**
@@ -815,6 +815,12 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
             jDesktopPane1.add(rodPositions);
+            
+            try {
+                rodPositions.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                // ignore
+            }
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -831,6 +837,12 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
             jDesktopPane1.add(alarmTable);
+
+            try {
+                alarmTable.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                // ignore
+            }
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -846,43 +858,43 @@ public class ControlPanel extends javax.swing.JFrame implements
     private void jMenuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLoadActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter(
-            "Initial Conditions Files (*.ic)", "ic"));
-    if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-        controller.userAction(new ActionCommand(
-            "LoadSimulationState",
-            fc.getSelectedFile().getAbsolutePath()));
-    }
+                "Initial Conditions Files (*.ic)", "ic"));
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            controller.userAction(new ActionCommand(
+                    "LoadSimulationState",
+                    fc.getSelectedFile().getAbsolutePath()));
+        }
     }//GEN-LAST:event_jMenuLoadActionPerformed
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter(
-            "Initial Conditions Files (*.ic)", "ic"));
-    if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
+                "Initial Conditions Files (*.ic)", "ic"));
+        if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
 
-        // Append .ic if no extension was typed by the user
-        if (!file.getName().contains(".")) {
-            file = new File(file.getAbsolutePath() + ".ic");
-        }
-
-        // Warn before overwriting an existing file
-        if (file.exists()) {
-            int result = JOptionPane.showConfirmDialog(this,
-                "The file \"" + file.getName()
-                + "\" already exists.\nDo you want to replace it?",
-                "Confirm Save",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-            if (result != JOptionPane.YES_OPTION) {
-                return;
+            // Append .ic if no extension was typed by the user
+            if (!file.getName().contains(".")) {
+                file = new File(file.getAbsolutePath() + ".ic");
             }
-        }
 
-        controller.userAction(new ActionCommand(
-            "SaveSimulationState",
-            file.getAbsolutePath()));
-    }
+            // Warn before overwriting an existing file
+            if (file.exists()) {
+                int result = JOptionPane.showConfirmDialog(this,
+                        "The file \"" + file.getName()
+                        + "\" already exists.\nDo you want to replace it?",
+                        "Confirm Save",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                if (result != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+
+            controller.userAction(new ActionCommand(
+                    "SaveSimulationState",
+                    file.getAbsolutePath()));
+        }
     }//GEN-LAST:event_jMenuSaveActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
@@ -1092,13 +1104,13 @@ public class ControlPanel extends javax.swing.JFrame implements
     public void registerController(ViewerController controller) {
         this.controller = controller;
     }
-    
+
     public void setParent(ControlRoom parent) {
         parentControlRoom = parent;
         // Todo: maybe there's a better way of organizing this.
         this.alarmList = parentControlRoom.getAlarmList();
     }
-    
+
     public void openReactorControlPanel() {
         // To discuss - to be able to open one panel for the first opened frame
         jMenuItemCoreControlActionPerformed(null);
