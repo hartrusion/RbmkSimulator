@@ -103,27 +103,23 @@ public class RbmkSimulator {
         mainLoop.init();
 
         // Make the created view terminate everything on close
-        view.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                scheduler.shutdown();
-                evt.getWindow().dispose(); // Get rid of window
-                System.exit(0); // Terminate java vm
-            }
-        });
+//        view.addWindowListener(new java.awt.event.WindowAdapter() {
+//            @Override
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                scheduler.shutdown();
+//                evt.getWindow().dispose(); // Get rid of window
+//                System.exit(0); // Terminate java vm
+//            }
+//        });
         
         // make the alarm list model of the alarm manager known to the GUI
         view.setAlarmList(mainLoop.alarms.getAlarmList());
 
         // Start the GUI
         java.awt.EventQueue.invokeLater(() -> {
-            view.setVisible(true);
+            view.displayNewControlPanel();
         });
         
-        // Open the first control panel so the user doesnt have to mess with
-        // this - to be reworked!
-        view.openControlPanelWindow();
-
         // Call the model run-method once here in main thread as this generates
         // a lot of objects on the first run. Further calls will be faster
 //        model.run();

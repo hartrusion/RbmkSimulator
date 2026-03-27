@@ -40,11 +40,15 @@ import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * A windows from which multiple can exist that holds various widgets and
@@ -55,6 +59,8 @@ import javax.swing.event.InternalFrameEvent;
 public class ControlPanel extends javax.swing.JFrame implements
         InteractiveView, ActionReceiver {
 
+    private ControlRoom parentControlRoom;
+    
     private ViewerController controller;
 
     /**
@@ -97,7 +103,17 @@ public class ControlPanel extends javax.swing.JFrame implements
         jScrollPane1 = new javax.swing.JScrollPane();
         jDesktopPane1 = new com.hartrusion.util.JDesktopPaneEnhanced();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuItemNewPanel = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemPause = new javax.swing.JMenuItem();
+        jCheckBoxMenuOnlyCore = new javax.swing.JCheckBoxMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuLoad = new javax.swing.JMenuItem();
+        jMenuSave = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemExit = new javax.swing.JMenuItem();
+        jMenuView = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
@@ -136,29 +152,66 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuAbout = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Control Panel");
+        setTitle("RBMK Simulator - Control Panel");
         setMinimumSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(680, 500));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane1.setViewportView(jDesktopPane1);
 
         getContentPane().add(jScrollPane1);
 
-        jMenu1.setText("View");
+        jMenuFile.setText("File");
+
+        jMenuItemNewPanel.setText("New Panel Window");
+        jMenuItemNewPanel.addActionListener(this::jMenuItemNewPanelActionPerformed);
+        jMenuFile.add(jMenuItemNewPanel);
+        jMenuFile.add(jSeparator5);
+
+        jMenuItemPause.setText("Pause Simulation");
+        jMenuItemPause.addActionListener(this::jMenuItemPauseActionPerformed);
+        jMenuFile.add(jMenuItemPause);
+
+        jCheckBoxMenuOnlyCore.setText("Simulate reactor only");
+        jCheckBoxMenuOnlyCore.addActionListener(this::jCheckBoxMenuOnlyCoreActionPerformed);
+        jMenuFile.add(jCheckBoxMenuOnlyCore);
+        jMenuFile.add(jSeparator2);
+
+        jMenuLoad.setText("Load");
+        jMenuLoad.addActionListener(this::jMenuLoadActionPerformed);
+        jMenuFile.add(jMenuLoad);
+
+        jMenuSave.setText("Save as...");
+        jMenuSave.setToolTipText("");
+        jMenuSave.setActionCommand("Save");
+        jMenuSave.addActionListener(this::jMenuSaveActionPerformed);
+        jMenuFile.add(jMenuSave);
+        jMenuFile.add(jSeparator3);
+
+        jMenuItemExit.setText("Exit (Terminate)");
+        jMenuItemExit.addActionListener(this::jMenuItemExitActionPerformed);
+        jMenuFile.add(jMenuItemExit);
+
+        jMenuBar1.add(jMenuFile);
+
+        jMenuView.setText("View");
 
         jMenuItem2.setText("Rod Positions");
         jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
-        jMenu1.add(jMenuItem2);
+        jMenuView.add(jMenuItem2);
 
         jMenuItem3.setText("Alarm List");
         jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
-        jMenu1.add(jMenuItem3);
+        jMenuView.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuView);
 
         jMenuControls.setText("Control Widgets");
 
@@ -304,6 +357,18 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuPresets.add(jMenuItemPresetNone);
 
         jMenuBar1.add(jMenuPresets);
+
+        jMenuHelp.setText("Help");
+
+        jMenuAbout.setText("About");
+        jMenuAbout.addActionListener(this::jMenuAboutActionPerformed);
+        jMenuHelp.add(jMenuAbout);
+
+        jMenuItem4.setText("How to start");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
+        jMenuHelp.add(jMenuItem4);
+
+        jMenuBar1.add(jMenuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -769,6 +834,76 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItemPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPauseActionPerformed
+        controller.userAction(new ActionCommand("PauseSimulation", null));
+    }//GEN-LAST:event_jMenuItemPauseActionPerformed
+
+    private void jCheckBoxMenuOnlyCoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuOnlyCoreActionPerformed
+        controller.userAction(new ActionCommand("SetCoreOnly", null));
+        jCheckBoxMenuOnlyCore.setEnabled(false);
+    }//GEN-LAST:event_jCheckBoxMenuOnlyCoreActionPerformed
+
+    private void jMenuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLoadActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter(
+            "Initial Conditions Files (*.ic)", "ic"));
+    if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        controller.userAction(new ActionCommand(
+            "LoadSimulationState",
+            fc.getSelectedFile().getAbsolutePath()));
+    }
+    }//GEN-LAST:event_jMenuLoadActionPerformed
+
+    private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter(
+            "Initial Conditions Files (*.ic)", "ic"));
+    if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+        File file = fc.getSelectedFile();
+
+        // Append .ic if no extension was typed by the user
+        if (!file.getName().contains(".")) {
+            file = new File(file.getAbsolutePath() + ".ic");
+        }
+
+        // Warn before overwriting an existing file
+        if (file.exists()) {
+            int result = JOptionPane.showConfirmDialog(this,
+                "The file \"" + file.getName()
+                + "\" already exists.\nDo you want to replace it?",
+                "Confirm Save",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+            if (result != JOptionPane.YES_OPTION) {
+                return;
+            }
+        }
+
+        controller.userAction(new ActionCommand(
+            "SaveSimulationState",
+            file.getAbsolutePath()));
+    }
+    }//GEN-LAST:event_jMenuSaveActionPerformed
+
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    private void jMenuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAboutActionPerformed
+        AboutDialog dialog = new AboutDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuAboutActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        HowtoStartDialog dialog = new HowtoStartDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItemNewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewPanelActionPerformed
+        // call on parent as this does all the initialization.
+        parentControlRoom.displayNewControlPanel();
+    }//GEN-LAST:event_jMenuItemNewPanelActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -895,22 +1030,27 @@ public class ControlPanel extends javax.swing.JFrame implements
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuOnlyCore;
     private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuControls;
     private javax.swing.JMenu jMenuDiagrams;
     private javax.swing.JMenuItem jMenuDrumSeparators;
+    private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuGlobalControl;
+    private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
     private javax.swing.JMenuItem jMenuItemCoolant;
     private javax.swing.JMenuItem jMenuItemCoreControl;
     private javax.swing.JMenuItem jMenuItemDeaerators;
+    private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemGenerator;
     private javax.swing.JMenuItem jMenuItemLoop1LevelControl;
@@ -924,6 +1064,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemMnemonicLoop2;
     private javax.swing.JMenuItem jMenuItemMnemonicPreheaters;
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
+    private javax.swing.JMenuItem jMenuItemNewPanel;
+    private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemPreheaters;
     private javax.swing.JMenuItem jMenuItemPresetFull;
     private javax.swing.JMenuItem jMenuItemPresetNone;
@@ -932,11 +1074,17 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenuItem jMenuItemTurbineHPTemperatures;
+    private javax.swing.JMenuItem jMenuLoad;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
     private javax.swing.JMenu jMenuPresets;
+    private javax.swing.JMenuItem jMenuSave;
+    private javax.swing.JMenu jMenuView;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
@@ -945,9 +1093,15 @@ public class ControlPanel extends javax.swing.JFrame implements
         this.controller = controller;
     }
     
-    public void setAlarmList(List alarmList) {
+    public void setParent(ControlRoom parent) {
+        parentControlRoom = parent;
         // Todo: maybe there's a better way of organizing this.
-        this.alarmList = alarmList;
+        this.alarmList = parentControlRoom.getAlarmList();
+    }
+    
+    public void openReactorControlPanel() {
+        // To discuss - to be able to open one panel for the first opened frame
+        jMenuItemCoreControlActionPerformed(null);
     }
 
     @Override
