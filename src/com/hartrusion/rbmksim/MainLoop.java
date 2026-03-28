@@ -55,6 +55,7 @@ public class MainLoop implements Runnable, ModelManipulation {
      * An instance for the core indicator panel.
      */
     private final CoreIndicator indicator1 = new CoreIndicator();
+    private final CoreIndicator indicator2 = new CoreIndicator();
 
     private boolean pause;
 
@@ -82,6 +83,9 @@ public class MainLoop implements Runnable, ModelManipulation {
         turbine.registerController(controller);
 
         indicator1.setCore(core);
+        indicator1.setMode(0);
+        indicator2.setCore(core);
+        indicator2.setMode(1);
     }
 
     @Override
@@ -101,11 +105,13 @@ public class MainLoop implements Runnable, ModelManipulation {
                 process.run();
                 turbine.run();
                 indicator1.run();
+                indicator2.run();
 
                 // Send all measurement data to the GUI by sending a reference.
                 controller.propertyChange("OutputValues", outputValues);
                 // Send the core indicator to update the view
                 controller.propertyChange("CoreIndicator#1", indicator1);
+                controller.propertyChange("CoreIndicator#2", indicator2);
             }
 
         } catch (Exception e) {

@@ -85,7 +85,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private InternalFrameAlarmTable alarmTable;
     private List alarmList;
 
-    private InternalFrameCoreActivity coreActivity;
+    private InternalFrameCoreActivity coreActivity1;
+    private InternalFrameCoreActivity coreActivity2;
 
     /**
      * Creates new form ControlPanel
@@ -118,9 +119,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuView = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItemViewRodPositions = new javax.swing.JMenuItem();
+        jMenuItemViewAlarmList = new javax.swing.JMenuItem();
+        jMenuItemViewCore1 = new javax.swing.JMenuItem();
+        jMenuItemViewCore2 = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -154,12 +156,13 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineHPTemperatures = new javax.swing.JMenuItem();
         jMenuPresets = new javax.swing.JMenu();
         jMenuItemPresetFull = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
+        jMenuItemPresetReactorOperator = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItemHowToStart = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -208,17 +211,21 @@ public class ControlPanel extends javax.swing.JFrame implements
 
         jMenuView.setText("View");
 
-        jMenuItem2.setText("Rod Positions");
-        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
-        jMenuView.add(jMenuItem2);
+        jMenuItemViewRodPositions.setText("Rod Positions");
+        jMenuItemViewRodPositions.addActionListener(this::jMenuItemViewRodPositionsActionPerformed);
+        jMenuView.add(jMenuItemViewRodPositions);
 
-        jMenuItem3.setText("Alarm List");
-        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
-        jMenuView.add(jMenuItem3);
+        jMenuItemViewAlarmList.setText("Alarm List");
+        jMenuItemViewAlarmList.addActionListener(this::jMenuItemViewAlarmListActionPerformed);
+        jMenuView.add(jMenuItemViewAlarmList);
 
-        jMenuItem5.setText("Core Activity");
-        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
-        jMenuView.add(jMenuItem5);
+        jMenuItemViewCore1.setText("Core Activity 1");
+        jMenuItemViewCore1.addActionListener(this::jMenuItemViewCore1ActionPerformed);
+        jMenuView.add(jMenuItemViewCore1);
+
+        jMenuItemViewCore2.setText("Core Activity 2");
+        jMenuItemViewCore2.addActionListener(this::jMenuItemViewCore2ActionPerformed);
+        jMenuView.add(jMenuItemViewCore2);
 
         jMenuBar1.add(jMenuView);
 
@@ -350,14 +357,18 @@ public class ControlPanel extends javax.swing.JFrame implements
 
         jMenuPresets.setText("Presets");
 
-        jMenuItemPresetFull.setText("Full Control Panel");
+        jMenuItemPresetFull.setText("All control widgets");
         jMenuItemPresetFull.addActionListener(this::jMenuItemPresetFullActionPerformed);
         jMenuPresets.add(jMenuItemPresetFull);
 
-        jMenuItem1.setText("All Mnemonics");
-        jMenuItem1.setToolTipText("");
-        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
-        jMenuPresets.add(jMenuItem1);
+        jMenuItemPresetMnemonics.setText("All Mnemonics");
+        jMenuItemPresetMnemonics.setToolTipText("");
+        jMenuItemPresetMnemonics.addActionListener(this::jMenuItemPresetMnemonicsActionPerformed);
+        jMenuPresets.add(jMenuItemPresetMnemonics);
+
+        jMenuItemPresetReactorOperator.setText("Reactor Operator");
+        jMenuItemPresetReactorOperator.addActionListener(this::jMenuItemPresetReactorOperatorActionPerformed);
+        jMenuPresets.add(jMenuItemPresetReactorOperator);
         jMenuPresets.add(jSeparator1);
 
         jMenuItemPresetNone.setText("Clear (close all)");
@@ -372,9 +383,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuAbout.addActionListener(this::jMenuAboutActionPerformed);
         jMenuHelp.add(jMenuAbout);
 
-        jMenuItem4.setText("How to start");
-        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
-        jMenuHelp.add(jMenuItem4);
+        jMenuItemHowToStart.setText("How to start");
+        jMenuItemHowToStart.addActionListener(this::jMenuItemHowToStartActionPerformed);
+        jMenuHelp.add(jMenuItemHowToStart);
 
         jMenuBar1.add(jMenuHelp);
 
@@ -774,7 +785,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemTurbineHPTemperaturesActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemPresetMnemonicsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetMnemonicsActionPerformed
         // close all:
         jMenuItemPresetNoneActionPerformed(null);
 
@@ -819,9 +830,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         jDesktopPane1.windowPlaceBelow(
                 getMnemonicInstance("Deaerator"),
                 getMnemonicInstance("Loop 2"));
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemPresetMnemonicsActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemViewRodPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewRodPositionsActionPerformed
         if (rodPositions == null) {
             rodPositions = new InternalFrameSelsyns();
             rodPositions.setVisible(true);
@@ -839,9 +850,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         } catch (PropertyVetoException ex) {
             // ignore
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemViewRodPositionsActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItemViewAlarmListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewAlarmListActionPerformed
         if (alarmTable == null) {
             alarmTable = new InternalFrameAlarmTable();
             alarmTable.registerActionReceiver(controller);
@@ -860,7 +871,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         } catch (PropertyVetoException ex) {
             // ignore
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItemViewAlarmListActionPerformed
 
     private void jMenuItemPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPauseActionPerformed
         controller.userAction(new ActionCommand("PauseSimulation", null));
@@ -922,35 +933,83 @@ public class ControlPanel extends javax.swing.JFrame implements
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuAboutActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItemHowToStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHowToStartActionPerformed
         HowtoStartDialog dialog = new HowtoStartDialog(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jMenuItemHowToStartActionPerformed
 
     private void jMenuItemNewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewPanelActionPerformed
         // call on parent as this does all the initialization.
         parentControlRoom.displayNewControlPanel();
     }//GEN-LAST:event_jMenuItemNewPanelActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        if (coreActivity == null) {
-            coreActivity = new InternalFrameCoreActivity();
-            coreActivity.setVisible(true);
-            coreActivity.addInternalFrameListener(new InternalFrameAdapter() {
+    private void jMenuItemViewCore1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewCore1ActionPerformed
+        if (coreActivity1 == null) {
+            coreActivity1 = new InternalFrameCoreActivity();
+            coreActivity1.setTitle("Core Activity 1");
+            coreActivity1.setVisible(true);
+            coreActivity1.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
-                    coreActivity = null;
+                    coreActivity1 = null;
                 }
             });
-            jDesktopPane1.add(coreActivity);
+            jDesktopPane1.add(coreActivity1);
         }
 
         try {
-            coreActivity.setSelected(true);
+            coreActivity1.setSelected(true);
         } catch (PropertyVetoException ex) {
             // ignore
         }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuItemViewCore1ActionPerformed
+
+    private void jMenuItemViewCore2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewCore2ActionPerformed
+        if (coreActivity2 == null) {
+            coreActivity2 = new InternalFrameCoreActivity();
+            coreActivity2.setTitle("Core Activity 2");
+            coreActivity2.setVisible(true);
+            coreActivity2.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    coreActivity2 = null;
+                }
+            });
+            jDesktopPane1.add(coreActivity2);
+        }
+
+        try {
+            coreActivity2.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            // ignore
+        }
+    }//GEN-LAST:event_jMenuItemViewCore2ActionPerformed
+
+    private void jMenuItemPresetReactorOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetReactorOperatorActionPerformed
+        jMenuItemPresetNoneActionPerformed(null); // close all:
+
+        jMenuItemViewRodPositionsActionPerformed(null);
+        jMenuItemViewAlarmListActionPerformed(null);
+        jMenuItemViewCore1ActionPerformed(null);
+        jMenuItemViewCore2ActionPerformed(null);
+        jMenuItemCoreControlActionPerformed(null);
+        jMenuNeutronFluxActionPerformed(null);
+        jMenuGlobalControlActionPerformed(null);
+
+        jDesktopPane1.windowPlaceAtZero(coreActivity1);
+        jDesktopPane1.windowPlaceRightTo(rodPositions, coreActivity1);
+        jDesktopPane1.windowPlaceRightTo(coreActivity2, rodPositions);
+        jDesktopPane1.windowPlaceRightTo(alarmTable, coreActivity2);
+        jDesktopPane1.windowPlaceBelow(
+                getDiagramInstance("Global Control"),
+                coreActivity1);
+        jDesktopPane1.windowPlaceRightTo(
+                getControlPanelInstance("Reactor Controls"),
+                getDiagramInstance("Global Control"));
+        jDesktopPane1.windowPlaceRightTo(
+                getDiagramInstance("Neutron Flux"),
+                getControlPanelInstance("Reactor Controls"));
+    }//GEN-LAST:event_jMenuItemPresetReactorOperatorActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1076,6 +1135,15 @@ public class ControlPanel extends javax.swing.JFrame implements
         return null;
     }
 
+    private InternalFrameDiagram getDiagramInstance(String designator) {
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals(designator)) {
+                return df;
+            }
+        }
+        return null;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuOnlyCore;
@@ -1088,11 +1156,6 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
@@ -1102,6 +1165,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemGenerator;
+    private javax.swing.JMenuItem jMenuItemHowToStart;
     private javax.swing.JMenuItem jMenuItemLoop1LevelControl;
     private javax.swing.JMenuItem jMenuItemLoop2LevelControl;
     private javax.swing.JMenuItem jMenuItemMnemonicAuxCondenser;
@@ -1117,12 +1181,18 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemPreheaters;
     private javax.swing.JMenuItem jMenuItemPresetFull;
+    private javax.swing.JMenuItem jMenuItemPresetMnemonics;
     private javax.swing.JMenuItem jMenuItemPresetNone;
+    private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenuItem jMenuItemTurbineHPTemperatures;
+    private javax.swing.JMenuItem jMenuItemViewAlarmList;
+    private javax.swing.JMenuItem jMenuItemViewCore1;
+    private javax.swing.JMenuItem jMenuItemViewCore2;
+    private javax.swing.JMenuItem jMenuItemViewRodPositions;
     private javax.swing.JMenuItem jMenuLoad;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
@@ -1183,8 +1253,12 @@ public class ControlPanel extends javax.swing.JFrame implements
             }
         }
 
-        if (coreActivity != null && propertyName.equals("CoreIndicator#1")) {
-            coreActivity.updateDisplay((CoreIndicator) newValue);
+        if (coreActivity1 != null && propertyName.equals("CoreIndicator#1")) {
+            coreActivity1.updateDisplay((CoreIndicator) newValue);
+            return;
+        }
+        if (coreActivity2 != null && propertyName.equals("CoreIndicator#2")) {
+            coreActivity2.updateDisplay((CoreIndicator) newValue);
             return;
         }
 

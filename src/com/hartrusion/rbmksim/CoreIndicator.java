@@ -31,6 +31,8 @@ public class CoreIndicator {
     private ReactorCore core;
     private NeutronFluxModel neutrons;
 
+    private int mode = 0;
+
     /**
      * Saves if that display on the specific tile is lit up or not. Index starts
      * with 0, so number 21-24 is [1][4].
@@ -40,6 +42,15 @@ public class CoreIndicator {
     public void setCore(ReactorCore core) {
         this.core = core;
         this.neutrons = core.getNeutronModel();
+    }
+
+    /**
+     * Sets the display mode (what to display)
+     *
+     * @param mode Integer
+     */
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 
     public void run() {
@@ -55,8 +66,14 @@ public class CoreIndicator {
                 switch (ChannelData.getChannelType(idx, jdx)) {
                     case FUEL:
                         fuel = (FuelElement) core.getElement(idx, jdx);
-                        active[kdx][ldx]
-                                = (neutrons.getYNeutronFluxLog() + fuel.getAffection() * 3 > -3.5);
+                        if (mode == 0) {
+                            active[kdx][ldx]
+                                    = (neutrons.getYNeutronFluxLog() + fuel.getAffection() * 3 > -3.5);
+                        } else if (mode == 1) {
+                            // Show neutron field distribution when having some flux
+                            active[kdx][ldx]
+                                    = (neutrons.getYNeutronFlux() > 0.1 && fuel.getAffection() > 0.1);
+                        }
                         break;
                     case VOID:
                         break;

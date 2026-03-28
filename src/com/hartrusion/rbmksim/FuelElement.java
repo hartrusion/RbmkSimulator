@@ -71,6 +71,12 @@ public class FuelElement extends ReactorElement {
         affection = sumOfAffections / maxSumOfAffections;
     }
 
+    /**
+     * Normalized value between 0 and 1 that describes how much this fuel rod 
+     * is affected in total by its surrounding control rods.
+     *
+     * @return 0.0 .. 1.0 double
+     */
     public double getAffection() {
         return affection;
     }
