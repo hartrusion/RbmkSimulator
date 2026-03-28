@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  *
  * @author Viktor Alexander Hartung
  */
-public class ControlRoom implements InteractiveView {
+public class ControlPanelManager implements InteractiveView {
 
     private ViewerController controller;
 
@@ -49,7 +49,7 @@ public class ControlRoom implements InteractiveView {
     /**
      * Creates new form ControlPanel
      */
-    public ControlRoom() {
+    public ControlPanelManager() {
         
     }
     
@@ -90,7 +90,7 @@ public class ControlRoom implements InteractiveView {
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
         // Put all events on the log output for easier monitoring
-        Logger.getLogger(ControlRoom.class.getName())
+        Logger.getLogger(ControlPanelManager.class.getName())
                 .log(Level.INFO, "Received PropertyChangeEvent "
                         + evt.getPropertyName() + ", value: "
                         + evt.getNewValue());

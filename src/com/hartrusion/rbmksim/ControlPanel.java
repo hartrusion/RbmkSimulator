@@ -58,7 +58,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ControlPanel extends javax.swing.JFrame implements
         InteractiveView, ActionReceiver {
 
-    private ControlRoom parentControlRoom;
+    private ControlPanelManager parentControlRoom;
 
     private ViewerController controller;
 
@@ -1130,7 +1130,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         this.controller = controller;
     }
 
-    public void setParent(ControlRoom parent) {
+    public void setParent(ControlPanelManager parent) {
         parentControlRoom = parent;
         // Todo: maybe there's a better way of organizing this.
         this.alarmList = parentControlRoom.getAlarmList();

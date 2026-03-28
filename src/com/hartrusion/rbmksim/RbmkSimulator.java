@@ -66,7 +66,6 @@ public class RbmkSimulator {
 
     private void run() {
         /* Set the Chornobyl look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting ">
         try {
             for (UIManager.LookAndFeelInfo info
                     : UIManager.getInstalledLookAndFeels()) {
@@ -83,10 +82,9 @@ public class RbmkSimulator {
             Logger.getLogger(RbmkSimulator.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         // Create control panel instance
-        ControlRoom view = new ControlRoom();
+        ControlPanelManager view = new ControlPanelManager();
 
         // Create a new controller instance with an AWT updater
         Controller contr = new Controller();
@@ -101,16 +99,6 @@ public class RbmkSimulator {
 
         // Build and initialize the model
         mainLoop.init();
-
-        // Make the created view terminate everything on close
-//        view.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosing(java.awt.event.WindowEvent evt) {
-//                scheduler.shutdown();
-//                evt.getWindow().dispose(); // Get rid of window
-//                System.exit(0); // Terminate java vm
-//            }
-//        });
         
         // make the alarm list model of the alarm manager known to the GUI
         view.setAlarmList(mainLoop.alarms.getAlarmList());
@@ -120,15 +108,6 @@ public class RbmkSimulator {
             view.displayNewControlPanel();
         });
         
-        // Call the model run-method once here in main thread as this generates
-        // a lot of objects on the first run. Further calls will be faster
-//        model.run();
-//        try {
-//            Thread.sleep(10);
-//        } catch (InterruptedException ex) {
-//            System.getLogger(RbmkSimulator.class.getName()).log(
-//                    System.Logger.Level.ERROR, (String) null, ex);
-//        }
         // Start the 100 ms cyclic thread
         scheduler.scheduleAtFixedRate(mainLoop, 100, 100, TimeUnit.MILLISECONDS);
     }
