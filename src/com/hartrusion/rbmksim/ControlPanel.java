@@ -16,6 +16,8 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.rbmksim.gui.diagrams.DiagramPresets;
+import com.hartrusion.rbmksim.gui.diagrams.InternalFrameDiagram;
 import com.hartrusion.rbmksim.gui.panels.PanelCondensation;
 import com.hartrusion.rbmksim.gui.panels.PanelBlowdown;
 import com.hartrusion.rbmksim.gui.panels.PanelMCP;
@@ -34,6 +36,7 @@ import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.*;
+import com.hartrusion.rbmksim.gui.diagrams.DiagramStartupPressureSetpoint;
 import com.hartrusion.rbmksim.gui.widgets.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.values.ValueHandler;
@@ -336,7 +339,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuDiagrams.add(jMenuItemLoop2LevelControl);
 
         jMenuItemStartupPressureSetpoint.setText("Startup Pressure Setpoint");
-        jMenuItemStartupPressureSetpoint.setEnabled(false);
         jMenuItemStartupPressureSetpoint.addActionListener(this::jMenuItemStartupPressureSetpointActionPerformed);
         jMenuDiagrams.add(jMenuItemStartupPressureSetpoint);
 
@@ -745,7 +747,17 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItemLoop2LevelControlActionPerformed
 
     private void jMenuItemStartupPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartupPressureSetpointActionPerformed
-        // TODO - Reimplement!
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Startup Pressure Setpoint")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        DiagramStartupPressureSetpoint df = new DiagramStartupPressureSetpoint();
+        df.setTitle("Startup Pressure Setpoint");
+        df.initPlotObjects(plotData); // this init is different from the other diagrams!
+        initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemStartupPressureSetpointActionPerformed
 
     private void jMenuItemTurbineHPTemperaturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineHPTemperaturesActionPerformed

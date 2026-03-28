@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim;
+package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.Axes;
 import com.hartrusion.plot.FigureJPane;

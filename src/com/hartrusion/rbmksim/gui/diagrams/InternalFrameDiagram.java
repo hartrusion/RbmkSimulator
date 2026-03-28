@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hartrusion.rbmksim.gui;
+package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.FigureJPane;
 import com.hartrusion.rbmksim.gui.diagrams.DiagramFrame;
@@ -52,7 +52,6 @@ public class InternalFrameDiagram extends javax.swing.JInternalFrame {
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         figureJPane1.setMinimumSize(new java.awt.Dimension(400, 300));
-        figureJPane1.setPreferredSize(new java.awt.Dimension(400, 300));
         getContentPane().add(figureJPane1);
 
         pack();

@@ -335,7 +335,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemStartupPressureSetpoint">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Startup Pressure Setpoint"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemStartupPressureSetpointActionPerformed"/>
