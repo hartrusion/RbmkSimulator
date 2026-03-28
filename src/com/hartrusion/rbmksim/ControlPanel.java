@@ -34,7 +34,6 @@ import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.*;
-import com.hartrusion.rbmksim.gui.diagrams.*;
 import com.hartrusion.rbmksim.gui.widgets.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.values.ValueHandler;
@@ -83,6 +82,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private InternalFrameAlarmTable alarmTable;
     private List alarmList;
 
+    private InternalFrameCoreActivity coreActivity;
+
     /**
      * Creates new form ControlPanel
      */
@@ -116,6 +117,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuView = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -210,6 +212,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItem3.setText("Alarm List");
         jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
         jMenuView.add(jMenuItem3);
+
+        jMenuItem5.setText("Core Activity");
+        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
+        jMenuView.add(jMenuItem5);
 
         jMenuBar1.add(jMenuView);
 
@@ -815,12 +821,11 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
             jDesktopPane1.add(rodPositions);
-            
-            try {
-                rodPositions.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                // ignore
-            }
+        }
+        try {
+            rodPositions.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            // ignore
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -837,12 +842,11 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
             jDesktopPane1.add(alarmTable);
-
-            try {
-                alarmTable.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                // ignore
-            }
+        }
+        try {
+            alarmTable.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            // ignore
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -915,6 +919,26 @@ public class ControlPanel extends javax.swing.JFrame implements
         // call on parent as this does all the initialization.
         parentControlRoom.displayNewControlPanel();
     }//GEN-LAST:event_jMenuItemNewPanelActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        if (coreActivity == null) {
+            coreActivity = new InternalFrameCoreActivity();
+            coreActivity.setVisible(true);
+            coreActivity.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    coreActivity = null;
+                }
+            });
+            jDesktopPane1.add(coreActivity);
+        }
+
+        try {
+            coreActivity.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            // ignore
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1056,6 +1080,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
@@ -1145,6 +1170,12 @@ public class ControlPanel extends javax.swing.JFrame implements
                 alarmTable.setAlarms(alarmList);
             }
         }
+
+        if (coreActivity != null && propertyName.equals("CoreIndicator#1")) {
+            coreActivity.updateDisplay((CoreIndicator) newValue);
+            return;
+        }
+
         for (InternalFramePanel pf : panels) {
             pf.updateComponent(propertyName, newValue);
         }

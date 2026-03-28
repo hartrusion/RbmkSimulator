@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Viktor Alexander Hartung
+ * Copyright (C) 2026 Viktor Alexander Hartung
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,20 +19,21 @@ package com.hartrusion.rbmksim.gui;
 import com.hartrusion.rbmksim.CoreIndicator;
 
 /**
- *
+ * Holds the core activity display.
+ * 
  * @author Viktor Alexander Hartung
  */
-public class FrameCoreActivity extends javax.swing.JFrame {
+public class InternalFrameCoreActivity extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form FrameCoreActivity
+     * Creates new form InternalFrameCoreActivity
      */
-    public FrameCoreActivity() {
+    public InternalFrameCoreActivity() {
         initComponents();
     }
     
     public void updateDisplay(CoreIndicator source) {
-        displayCoreBoolean2.updateDisplay(source);
+        panelCoreActivity1.updateDisplay(source);
     }
 
     /**
@@ -44,19 +45,20 @@ public class FrameCoreActivity extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        displayCoreBoolean2 = new com.hartrusion.rbmksim.gui.elements.DisplayCoreBoolean();
+        panelCoreActivity1 = new com.hartrusion.rbmksim.gui.PanelCoreActivity();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
         setTitle("Core Activity");
-        setResizable(false);
-        getContentPane().setLayout(new java.awt.FlowLayout());
-        getContentPane().add(displayCoreBoolean2);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(panelCoreActivity1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.DisplayCoreBoolean displayCoreBoolean2;
+    private com.hartrusion.rbmksim.gui.PanelCoreActivity panelCoreActivity1;
     // End of variables declaration//GEN-END:variables
 }

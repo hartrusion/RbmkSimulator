@@ -16,28 +16,15 @@
  */
 package com.hartrusion.rbmksim;
 
-import com.hartrusion.rbmksim.gui.diagrams.*;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.values.ValueHandler;
-import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
-import com.hartrusion.rbmksim.gui.*;
-import com.hartrusion.rbmksim.gui.mnemonic.*;
-import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
-import java.beans.PropertyVetoException;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * The main GUI manager, manages the creation of ControlPanel windows and 
@@ -49,9 +36,6 @@ public class ControlRoom implements InteractiveView {
 
     private ViewerController controller;
 
-    private FrameRodPositions frameRodPositions;
-    private FrameCoreActivity frameCoreActivity;
-    private FrameAlarmTable frameAlarms;
     private List alarmList;
 
     private ValueHandler plotData;
@@ -68,54 +52,7 @@ public class ControlRoom implements InteractiveView {
     public ControlRoom() {
         
     }
-
-    public void displayRodPositionFrame() {
-        if (frameRodPositions == null) {
-            frameRodPositions = new FrameRodPositions();
-            java.awt.EventQueue.invokeLater(() -> {
-                frameRodPositions.setVisible(true);
-            });
-            frameRodPositions.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameRodPositions = null;
-                }
-            });
-        }
-    }
-
-    public void displayCoreMatrixFrame(java.awt.event.ActionEvent evt) {
-        if (frameCoreActivity == null) {
-            frameCoreActivity = new FrameCoreActivity();
-            java.awt.EventQueue.invokeLater(() -> {
-                frameCoreActivity.setVisible(true);
-            });
-            frameCoreActivity.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameCoreActivity = null;
-                }
-            });
-        }
-    }
-
-    public void displayAlarmsFrame() {
-        if (frameAlarms == null) {
-            frameAlarms = new FrameAlarmTable();
-            frameAlarms.registerActionReceiver(controller);
-            // frameAlarms.setAlarmList(alarmList);
-            java.awt.EventQueue.invokeLater(() -> {
-                frameAlarms.setVisible(true);
-            });
-            frameAlarms.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameAlarms = null;
-                }
-            });
-        }
-    }
-
+    
     public void displayNewControlPanel() {
         // Generate a new control panel object and register it in the list of 
         // active panels.
@@ -168,28 +105,14 @@ public class ControlRoom implements InteractiveView {
         if (propertyName.equals("OutputValues")) {
             ((ValueHandler) newValue).fireAllToMvcView(this);
             plotData = (ValueHandler) newValue;
-
-            // use this event to update the alarm list also.
-            if (frameAlarms != null) {
-                frameAlarms.setAlarms(alarmList);
-            }
         }
-
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
-        }
-
-        if (frameCoreActivity != null && propertyName.equals("CoreIndicator#1")) {
-            frameCoreActivity.updateDisplay((CoreIndicator) newValue);
         }
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        if (frameRodPositions != null) {
-            frameRodPositions.updateComponent(propertyName, newValue);
-        }
-
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
         }        
@@ -197,10 +120,6 @@ public class ControlRoom implements InteractiveView {
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        if (frameRodPositions != null) {
-            frameRodPositions.updateComponent(propertyName, newValue);
-        }
-
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
         }
