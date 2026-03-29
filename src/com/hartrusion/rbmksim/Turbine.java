@@ -131,7 +131,7 @@ public class Turbine extends Subsystem implements Runnable {
      * Power from the steam part that is required to spin the turbine exactly at
      * 3000 1/min.
      */
-    private final double holdPower = 12.0;
+    private final double holdPower = 18.0;
 
     private double generatorPower = 0.0;
 
@@ -432,7 +432,7 @@ public class Turbine extends Subsystem implements Runnable {
     public void init() {
         setpointTurbineSpeed.initName("Turbine#SpeedSetpoint");
 
-        setpointTurbineSpeed.setLowerLimit(0);
+        setpointTurbineSpeed.setLowerLimit(750);
         setpointTurbineSpeed.setUpperLimit(3100);
         setpointTurbineSpeed.setMaxRate(30);
         runner.submit(setpointTurbineSpeed);
@@ -543,13 +543,13 @@ public class Turbine extends Subsystem implements Runnable {
             // but as this would take many hours we make it very light to 
             // enable fast heatup.
             thermalMassRotor[idx].setTimeConstant(4200 * 200); // this is C
-            thermalMassStator[idx].setTimeConstant(4200 * 500);
+            thermalMassStator[idx].setTimeConstant(4200 * 600);
             // Those values have to be more tuned:
             thermalResistanceSteamToStator[idx].setConductanceParameter(5e4);
             thermalResistanceSteamToRotor[idx].setConductanceParameter(5e4);
             
             thermalEnvTemperature[idx].setEffort(273.15 + 24.0);
-            thermalResistanceStatorToEnv[idx].setConductanceParameter(1e3);
+            thermalResistanceStatorToEnv[idx].setConductanceParameter(1e2);
         }
 
         // Initialize Temperatures

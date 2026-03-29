@@ -2041,7 +2041,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Inlet valves: It was suggested by maha that we use around 10 kg/s 
             // for heating up the turbine and spinning it up. 
             // They will be able to move quite fast as they are small.
-            turbineStartupSteamValve[idx].initCharacteristicSimple(6e5);
+            turbineStartupSteamValve[idx].initCharacteristicSimple(3e5);
 
             // Use the advanced characteristic curve for the main steam flow
             // valves to make them behave as linear as possible. Assume to have

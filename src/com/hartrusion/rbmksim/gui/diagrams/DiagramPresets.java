@@ -312,6 +312,20 @@ public class DiagramPresets {
                 plotData.getParameterDoubleSeries("Turbine#TemperatureHpRotorOut", 5));
         ax.addLine(l);
         le.addLine(l);
+        
+        // Debugging data
+        l = new Line();
+        l.setLabel("Steam Temp In (Debug)");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 5));
+        ax.addLine(l);
+        le.addLine(l);
+        l = new Line();
+        l.setLabel("Steam Temp Out (Debug)");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 5));
+        ax.addLine(l);
+        le.addLine(l);
 
         ax.yLim(0, 300);
         ax.autoX();
