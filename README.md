@@ -4,7 +4,7 @@ the [Simgenics rxmodel simulator](https://github.com/gdzx/chernobyl-simulator)
 from about 30 years ago but with a lot more detailed systems and a more 
 accurate representation of the chernobyl plant.
 
-**This is work in progress. Pleas do NOT expect a working product.**
+**This is work in progress. Please do NOT expect a working product.**
 
 The app aims to be usable in real time on average to low end computers. It does 
 not require high performance hardware.
