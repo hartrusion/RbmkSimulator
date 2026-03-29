@@ -9,7 +9,7 @@ accurate representation of the chernobyl plant.
 The app aims to be usable in real time on average to low end computers. It does 
 not require high performance hardware.
 
-![Example](docs/images/screenshot-preview4.png)
+![Example](docs/images/screenshot-preview5.png)
 
 For details on the usage and some rudimentary documentation, refer to the 
 [project page](https://hartrusion.com/en/rbmk-simulator/). 
