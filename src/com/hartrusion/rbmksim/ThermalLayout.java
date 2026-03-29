@@ -4050,7 +4050,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + turbineLowPressureStage[1].getExcessPower()
                 + turbineLowPressureStage[2].getExcessPower()
                 + turbineLowPressureStage[3].getExcessPower()
-                + turbineLowPressureStage[4].getExcessPower();
+                + turbineLowPressureStage[4].getExcessPower()
+                // For startup: flow immediatelly should spin the turbine, on 
+                // opening of the valves there is no excess power available 
+                // for about 10 seconds, this is not acceptable. Cheat it with
+                // this formula here:
+                + Math.min(3e6, turbineHighPressureFirst.getFlow() * 1e6);
         // and make it known to the turbine
         turbine.setShaftPower(turbineShaftPower * 1e-6);
 

@@ -131,7 +131,7 @@ public class Turbine extends Subsystem implements Runnable {
      * Power from the steam part that is required to spin the turbine exactly at
      * 3000 1/min.
      */
-    private final double holdPower = 18.0;
+    private final double holdPower = 35.0;
 
     private double generatorPower = 0.0;
 
@@ -567,11 +567,18 @@ public class Turbine extends Subsystem implements Runnable {
      * @param power
      */
     public void setShaftPower(double power) {
-        // 11 bar, 6 kg/s, no reheater: 5.3 MW (HD 47.6, ND 38.3)
-        // 11 bar, 6 kg/s, reheat 3 kg/s: 7 Mw (HD 47, ND 120)
-        // 65 bar, 6 kg/s, no reheater: 8.5 MW (HD 49, ND 40.2)
-        // 59 bar, 6 kg/s, reheat 8kg/s: 14 MW (HD 48, ND 270)
         shaftPower = power;
+        // Some notes on shaftPower: This is a highly cheated value that is 
+        // used for both startup and full load. It is tweaked in a way the 
+        // turbine startup will be possible with given parameters.
+        // On 140 MWth / 14.3 bar: Start spinning the turbine. With both
+        // startup valves on 75 %: shaftPower raises to about 10.2, takes about
+        // 5 minutes. HP flow is 7,5 kg/s. This behavior is realistic as the 
+        // steam looses all its energy on the cold turbine blades immediately.
+        // On 326 MWth / 50 bar, with startup valves on 75 % will have a flow of
+        // 25.5 kg/s, shaftPower is around 34, this is the value which is the 
+        // desired use to sync the turbine to the grid.
+        // We do not intend to use superheating until sync.
     }
 
     @Override
