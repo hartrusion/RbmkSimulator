@@ -1,17 +1,21 @@
 # RBMK Simulator
-A simulator app for the chornobyl RBMK recator. This aims to be a successor for 
-the Simgenics rxmodel simulator from about 30 years ago but with a lot more 
-detailed systems and a more accurate representation of the chernobyl plant.
+A simulator app for the chornobyl RBMK reactor. This aims to be a successor for 
+the [Simgenics rxmodel simulator](https://github.com/gdzx/chernobyl-simulator) 
+from about 30 years ago but with a lot more detailed systems and a more 
+accurate representation of the chernobyl plant.
 
-**This is work in progress. The development is still in a very early stage.**
+**This is work in progress. Pleas do NOT expect a working product.**
 
 The app aims to be usable in real time on average to low end computers. It does 
 not require high performance hardware.
 
 ![Example](docs/images/screenshot-preview4.png)
 
+For details on the usage and some rudimentary documentation, refer to the 
+[project page](https://hartrusion.com/en/rbmk-simulator/). 
+
 ## Installation and Usage
-Download: 
+Download latest: 
 [RbmkSimulator-SNAPSHOT.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-snapshot/RbmkSimulator-SNAPSHOT.jar)
 
 Using this link downloads the latest automated build (also found in 
@@ -20,10 +24,7 @@ _github-ci-snapshot_). It always points to the current development state and
 will be replaced automatically each time I change something. You might find a 
 new file there from time to time.
 
-Plase note that save files do not have any compatibility between versions 
-implemented. It is possible to load old saves on newer simulator releases but 
-some newer components will not get a proper initialization so you end up in a 
-plat state that you would not reach normally.
+Save files are **NOT** compatible with newer versions.
 
 <details>
   <summary>This is a Java application. Expand this section (just click here) 
@@ -67,57 +68,14 @@ plat state that you would not reach normally.
   non programmer end users in the last years.
 </details>
 
-You can find a short [Operating Manual](docs/OPERATING_MANUAL.md) here.
-
-## Focus
-Operating a power plant requires the operators to consider a large amount of 
-data describing the actual plant stage and operate the correct valves, pumps 
-or other elements. This simulator focuses on control loops, alarms and mainly 
-the thermal layout of the plant to make you as an operator control all those
-systems. To keep things simple, many systems are either simplified or they are 
-not present at all.
-
-## Features (and simplifications)
-* Two steam drum separators (instead of 4)
-* Simplified reactor with 5 automatic, 28 manual and 4 short control rods.
-* Automatic reactor power regulator that requires manual overrides from time to
-time.
-* Reactor with nasty features, has some surprises on low power levels and the
-accident can be triggered.
-* Accident sequence (prompt neutron excursion) possible.
-* One turbogenerator set with steam reheater.
-* Mnemonic displays with additional measurement data on them.
-* Some line plots to monitor measurement time series.
-
-There is a list of **missing features** in the 
-[Issues](https://github.com/hartrusion/RbmkSimulator/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Missing%20feature%22) 
-section, those are planned to be implemented.
-
-## Build from Source
-To build the simulator from source, you need the source code from this repo
-and some additional code that is released on different repositories:
-* [PhxNetMod](https://github.com/hartrusion/PhxNetMod) Simulation Engine
-* [PhxNetModExt](https://github.com/hartrusion/PhxNetModExt) Extensions for 
-control loops
-* [Utils](https://github.com/hartrusion/utils) Some commonly used classes
-* [JMPLot](https://github.com/hartrusion/jmplot) A Matlab-like line plot library
-* [AbsoluteLayout](https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout)
-GUI Layout extension for Swing (this comes packed with NetBeans)
-
-The GUI is designed using NetBeans GUI builder, those classes can be used 
-with different IDEs but once edited outside of NetBeans, they propably won't
-work anymore.
-
 ## Getting involved
-As this project is in a very early stage, there are still a few architecture 
-and design decissions to be made so things might still change a lot.
-
 Please make yourself familiar with the rather unusual
 [Code of Conduct](./CODE_OF_CONDUCT.md) first and read the
 [Contributing](./CONTRIBUTING.md) guidelines.
 
-If you encounter any bug (like unexpected crashes), feel free to open an 
-[Issue](https://github.com/hartrusion/RbmkSimulator/issues) here on Github.
+There is a list of **missing features** and known problems in the 
+[Issue](https://github.com/hartrusion/RbmkSimulator/issues) 
+section, everything that is listed here is going to be fixed and implemented.
 
 No Z supporters wanted.
 
