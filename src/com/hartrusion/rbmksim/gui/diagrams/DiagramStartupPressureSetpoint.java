@@ -23,7 +23,10 @@ import com.hartrusion.rbmksim.ThermalLayout;
 import com.hartrusion.values.ValueHandler;
 
 /**
- * Separate extension for the use of Cursor elements in diagram.
+ * Separate extension for the use of Cursor elements in diagram. Unlike other
+ * diagrams, this one paints a static line using available data and uses cursors
+ * to show the current pressure in a characteristic curve x/y chart instead of a
+ * y(t) chart.
  *
  * @author Viktor Alexander Hartung
  */
@@ -40,13 +43,13 @@ public class DiagramStartupPressureSetpoint extends InternalFrameDiagram {
     private Cursor drum2Pressure;
 
     private ValueHandler plotData;
-    
+
     /**
      * Generates line objects for pressure gradient displays
      */
     public void initPlotObjects(ValueHandler plotData) {
         this.plotData = plotData;
-        
+
         // Generate a line from the static parameters from the thermal layout
         xDataPressure[0] = 0.0F;
         xDataPressure[1] = (float) ThermalLayout.PRESSURE_SETPOINT_POWER_START;
@@ -62,16 +65,16 @@ public class DiagramStartupPressureSetpoint extends InternalFrameDiagram {
 
         drum1Pressure = new Cursor();
         drum2Pressure = new Cursor();
-        
+
         Axes ax = getFigure().getLastAxes(); // access field of super
         ax.addLine(pressureGradient);
-        
+
         ax.yLim(0, 80);
         ax.xLim(0, P_TH_MAX);
-        
+
         ax.xlabel("Reactor Thermal Power (MW)");
         ax.ylabel("Pressure Setpoint (bar)");
-        
+
         ax.addCursor(drum1Pressure);
         ax.addCursor(drum2Pressure);
     }

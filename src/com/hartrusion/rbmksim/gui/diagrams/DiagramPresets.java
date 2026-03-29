@@ -27,11 +27,11 @@ import com.hartrusion.values.ValueHandler;
 import java.awt.Color;
 
 /**
- * Collection of methods to configure preset diagrams. A FigureJPane object can 
- * be passed to each of the static methods here and gets configured by adding 
+ * Collection of methods to configure preset diagrams. A FigureJPane object can
+ * be passed to each of the static methods here and gets configured by adding
  * lines, axes limits, descriptions and so on.
  * <p>
- * This allows the Figure to be implemented either in separate windows or in 
+ * This allows the Figure to be implemented either in separate windows or in
  * embedded JInternalFrame objects.
  *
  * @author Viktor Alexander Hartung
@@ -106,7 +106,7 @@ public class DiagramPresets {
 
     public static void globalControl(FigureJPane figure, ValueHandler plotData) {
         figure.setYRulers(2);
-        
+
         YYAxes ax = (YYAxes) figure.getLastAxes();
         Legend le = new Legend();
         ax.setHold(true);
@@ -196,31 +196,42 @@ public class DiagramPresets {
         figure.setYRulers(2);
 
         YYAxes ax = (YYAxes) figure.getLastAxes();
+        Legend le = new Legend();
         ax.setHold(true);
         Line l;
         l = new Line();
+        le.addLine(l);
+        l.setLabel("Drum Level");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Loop" + loop + "#DrumLevel", 5));
         ax.addLine(1, l);
         l = new Line();
+        le.addLine(l);
+        l.setLabel("Setpoint");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Loop" + loop + "#DrumLevelSetpoint", 5));
         l.setLineColor(Color.BLACK);
         ax.addLine(1, l);
         l = new Line();
+        le.addLine(l);
+        l.setLabel("Startup Valve");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve1", 5));
-        l.setLineColor(new Color(0, 128, 0));
+        l.setLineColor(new Color(0, 192, 0));
         ax.addLine(2, l);
         l = new Line();
+        le.addLine(l);
+        l.setLabel("Main 1");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve2", 5));
         l.setLineColor(new Color(0, 128, 0));
         ax.addLine(2, l);
         l = new Line();
+        le.addLine(l);
+        l.setLabel("Main 2");
         l.setDataSource(plotData.getTime60(5),
                 plotData.getParameterDoubleSeries("Feedwater" + loop + "#FlowRegulationValve3", 5));
-        l.setLineColor(new Color(0, 128, 0));
+        l.setLineColor(new Color(0, 64, 0));
         ax.addLine(2, l);
 
         ax.yLim(1, -20, 20);
@@ -228,12 +239,44 @@ public class DiagramPresets {
 
         ax.autoX();
 
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+
         ax.ylabel(1, "Drum Level and Setpoint (cm)");
         ax.ylabel(2, "Flow Valve Positions (%)");
     }
 
-    public static void pressureSetpoint(FigureJPane figure, ValueHandler plotData, int loop) {
+    public static void debugTurbineWarmup(FigureJPane figure, ValueHandler plotData) {
+        Axes ax = figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        l = new Line();
+        l.setLabel("HP In");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 2));
+        ax.addLine(l);
+        le.addLine(l);
+        l = new Line();
+        l.setLabel("HP Out");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 2));
+        ax.addLine(l);
+        le.addLine(l);
+        l = new Line();
+        l.setLabel("LP In");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#DebugLPInTemp", 2));
+        ax.addLine(l);
+        le.addLine(l);
 
+        ax.yLim(0, 300);
+        ax.autoX();
+
+        ax.ylabel("Temperature (°C)");
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
     }
 
     public static void turbineHPTemperatures(FigureJPane figure, ValueHandler plotData) {

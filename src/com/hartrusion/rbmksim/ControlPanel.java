@@ -336,12 +336,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuDiagrams.add(jMenuDrumSeparators);
 
         jMenuItemLoop1LevelControl.setText("Loop 1 Level Control");
-        jMenuItemLoop1LevelControl.setEnabled(false);
         jMenuItemLoop1LevelControl.addActionListener(this::jMenuItemLoop1LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop1LevelControl);
 
         jMenuItemLoop2LevelControl.setText("Loop 2 Level Control");
-        jMenuItemLoop2LevelControl.setEnabled(false);
         jMenuItemLoop2LevelControl.addActionListener(this::jMenuItemLoop2LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop2LevelControl);
 
@@ -750,11 +748,31 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuDrumSeparatorsActionPerformed
 
     private void jMenuItemLoop1LevelControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoop1LevelControlActionPerformed
-        // TODO - Reimplement!
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Loop 1 Level Control")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Loop 1 Level Control");
+        DiagramPresets.loopLevelControl(df.getFigure(), plotData, 1);
+        initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemLoop1LevelControlActionPerformed
 
     private void jMenuItemLoop2LevelControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoop2LevelControlActionPerformed
-        // TODO - Reimplement!
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Loop 2 Level Control")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Loop 2 Level Control");
+        DiagramPresets.loopLevelControl(df.getFigure(), plotData, 2);
+        initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemLoop2LevelControlActionPerformed
 
     private void jMenuItemStartupPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartupPressureSetpointActionPerformed

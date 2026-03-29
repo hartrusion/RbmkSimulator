@@ -325,7 +325,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoop1LevelControl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Loop 1 Level Control"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoop1LevelControlActionPerformed"/>
@@ -334,7 +333,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoop2LevelControl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Loop 2 Level Control"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoop2LevelControlActionPerformed"/>
