@@ -12,6 +12,9 @@
 /dist
 /nbproject
 
+# IDE: VS Code
+/.vscode
+
 # Operating system
 .DS_Store
 Thumbs.db
