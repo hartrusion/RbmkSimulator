@@ -368,4 +368,74 @@ public class DiagramPresets {
         figure.addLegend(le);
         le.setLocationInsideAxes(ax);
     }
+    
+    public static void reheaterControl(FigureJPane figure, ValueHandler plotData) {
+        figure.setYRulers(2);
+
+        YYAxes ax = (YYAxes) figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Reheater Out Temperature");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Turbine#ReheaterOutTemp", 1));
+        l.setMarker('x');
+        l.setMarkerInterval(122);
+        ax.addLine(1, l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Turbine HP Out Temperature");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Turbine#HPOutTemp", 1));
+        l.setLineColor(Color.RED);
+        l.setMarker('o');
+        l.setMarkerInterval(143);
+        ax.addLine(1, l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Reheater Setpoint");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Turbine#ReheaterTemperatureSetpoint", 1));
+        l.setLineColor(Color.BLACK);
+        l.setMarker('s');
+        l.setMarkerInterval(150);
+        ax.addLine(1, l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Valve 1");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Turbine1#ReheaterSteamValve", 1));
+        l.setLineColor(new Color(0, 192, 0));
+        l.setMarker('o');
+        l.setMarkerInterval(85);
+        ax.addLine(2, l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Valve 2");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Turbine2#ReheaterSteamValve", 1));
+        l.setLineColor(new Color(0, 192, 0));
+        l.setMarker('v');
+        l.setMarkerInterval(100);
+        ax.addLine(2, l);
+        
+
+        ax.yLim(1, 0, 300);
+        ax.yLim(2, 0, 100);
+
+        ax.autoX();
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+
+        ax.ylabel(1, "Temperature (°C)");
+        ax.ylabel(2, "Valve Positions (%)");
+    }
 }

@@ -154,6 +154,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemLoop2LevelControl = new javax.swing.JMenuItem();
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
         jMenuItemTurbineHPTemperatures = new javax.swing.JMenuItem();
+        jMenuItemTurbineReheaterDiag = new javax.swing.JMenuItem();
         jMenuPresets = new javax.swing.JMenu();
         jMenuItemPresetFull = new javax.swing.JMenuItem();
         jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
@@ -350,6 +351,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineHPTemperatures.setText("Turbine HP Temperatures");
         jMenuItemTurbineHPTemperatures.addActionListener(this::jMenuItemTurbineHPTemperaturesActionPerformed);
         jMenuDiagrams.add(jMenuItemTurbineHPTemperatures);
+
+        jMenuItemTurbineReheaterDiag.setText("Turbine Superheater");
+        jMenuItemTurbineReheaterDiag.addActionListener(this::jMenuItemTurbineReheaterDiagActionPerformed);
+        jMenuDiagrams.add(jMenuItemTurbineReheaterDiag);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -1029,6 +1034,20 @@ public class ControlPanel extends javax.swing.JFrame implements
                 getControlPanelInstance("Reactor Controls"));
     }//GEN-LAST:event_jMenuItemPresetReactorOperatorActionPerformed
 
+    private void jMenuItemTurbineReheaterDiagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineReheaterDiagActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Turbine: Superheater Control")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Turbine: Superheater Control");
+        DiagramPresets.reheaterControl(df.getFigure(), plotData);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemTurbineReheaterDiagActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1207,6 +1226,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenuItem jMenuItemTurbineHPTemperatures;
+    private javax.swing.JMenuItem jMenuItemTurbineReheaterDiag;
     private javax.swing.JMenuItem jMenuItemViewAlarmList;
     private javax.swing.JMenuItem jMenuItemViewCore1;
     private javax.swing.JMenuItem jMenuItemViewCore2;
