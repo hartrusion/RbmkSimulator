@@ -325,10 +325,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedHeatExchangerNoMass[2];
     private final PhasedNode[] preheaterCondensateCoolerIn
             = new PhasedNode[2];
-    private final HeatSimpleFlowResistance[] preheaterPiping
-            = new HeatSimpleFlowResistance[2];
+    private final HeatVolumizedFlowResistance[] preheaterPiping
+            = new HeatVolumizedFlowResistance[3];
     private final HeatNode[] preheaterPipingOut
-            = new HeatNode[2];
+            = new HeatNode[3];
     private final PhasedValveControlled[] preheaterCondensateValve
             = new PhasedValveControlled[3];
     private final PhasedEffortSource[] preheaterCondensateHeight
@@ -962,12 +962,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheaterCondensateCoolerIn[idx].setName("Preheater"
                     + (idx + 1) + "#CondensateCoolerIn");
         }
-        for (int idx = 0; idx < 2; idx++) {
-            preheaterPiping[idx] = new HeatSimpleFlowResistance();
+        for (int idx = 0; idx < 3; idx++) {
+            preheaterPiping[idx] = new HeatVolumizedFlowResistance();
             preheaterPiping[idx].setName("Preheater"
                     + (idx + 1) + "#Piping");
         }
-        for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 3; idx++) {
             preheaterPipingOut[idx] = new HeatNode();
             preheaterPipingOut[idx].setName("Preheater"
                     + (idx + 1) + "#PipingOut");
@@ -1424,6 +1424,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < condensationCondensatePump.length; idx++) {
             condensationCondensatePump[idx].getSuctionValve().connectTo(
                     condensationBoosterPumpIn);
+            // Those Booster Pumps pump the condensate to preheaters
             condensationCondensatePump[idx].getDischargeValve().connectTo(
                     preheater[0].getHeatNode(
                             PhasedCondenserNoMass.SECONDARY_IN));
@@ -1457,12 +1458,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         preheaterCondensateCooler[1].getSecondarySide().connectBetween(
                 preheaterPipingOut[1],
                 preheater[2].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
-
-        // Valve to deaerator
+        preheaterPiping[2].connectBetween(
+                preheater[2].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
+                preheaterPipingOut[2]);
+        
+        // Valve from End of Preheasters to DA
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].getValveElement().connectBetween(
-                    preheater[2].getHeatNode(
-                            PhasedCondenserNoMass.SECONDARY_OUT),
+                    preheaterPipingOut[2],
                     condensationValveOut[idx]);
             condensationToDeaeratorConverter[idx].connectBetween(
                     condensationValveOut[idx], deaeratorInNode[idx]);
@@ -1543,25 +1546,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // To have a more stable model, an effort source is added to enforce
         // at least some flow. Its value is selected in a way that it is still
         // possible to have some backflow, it is just to support the startup.
-        preheaterCondensateValve[2].getValveElement().connectBetween(
+        preheaterCondensateCooler[1].getPrimarySide().connectBetween(
                 preheater[2].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 preheaterCondensateHeightNode[2]);
         // Add a height simulating effort source
         preheaterCondensateHeight[2].connectBetween(
                 preheaterCondensateHeightNode[2],
                 preheaterCondensateCoolerIn[1]);
-        preheaterCondensateCooler[1].getPrimarySide().connectBetween(
+        preheaterCondensateValve[2].getValveElement().connectBetween(
                 preheaterCondensateCoolerIn[1],
                 // connect to out-port! This allows either mixing or also 
                 // filling the reservoir of [2] with [1].
                 preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
-        preheaterCondensateValve[1].getValveElement().connectBetween(
+        preheaterCondensateCooler[0].getPrimarySide().connectBetween(
                 preheater[1].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 preheaterCondensateHeightNode[1]);
         preheaterCondensateHeight[1].connectBetween(
                 preheaterCondensateHeightNode[1],
                 preheaterCondensateCoolerIn[0]);
-        preheaterCondensateCooler[0].getPrimarySide().connectBetween(
+        preheaterCondensateValve[1].getValveElement().connectBetween(
                 preheaterCondensateCoolerIn[0],
                 preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
         preheaterCondensateValve[0].getValveElement().connectBetween(
@@ -1654,7 +1657,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // self capacitances then. Otherwise the solver will crash unfortunately
         turbineReheaterCondensateHeight.connectBetween(
                 turbineReheaterCondensateDrainOut,
-                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_INNER));
+                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
 
         // Turbine Low pressure path. First, a mass element that is also used
         // for thermal exchange like in the high pressure part
@@ -1674,7 +1677,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Last stage again into a thermal mass, but that will not do much 
         // of dynamics as it will likely say cold there. just to get the value.
         turbineLowPressureStage[4].connectTo(turbineLowPressureMidOut);
-        // last mass goes straight into hotwell
+        // last mass goes straight into hotwell - set to PRIMARY_INNER
+        // to mix it into hotwell reservor, this generates a better model.
+        // for tests, the condensate will be redirected through the heat exch.
+        // also to not heat up the condensate in the initial development 
+        // process - TODO change back to PRIMARY_INNER as soon as condensate 
+        // management works. 
         turbineLowPressureOutMass.connectBetween(turbineLowPressureMidOut,
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
 
@@ -2003,17 +2011,27 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // Todo: make some proper resistance values on the preheaters
-        preheaterPiping[0].setResistanceParameter(200);
-        preheaterPiping[1].setResistanceParameter(200);
+        preheaterPiping[0].setResistanceParameter(133);
+        preheaterPiping[1].setResistanceParameter(133);
+        preheaterPiping[2].setResistanceParameter(133);
+        
+        // Mass modeled after heat exchanger for delay
+        preheaterPiping[0].setInnerThermalMass(600);
+        preheaterPiping[1].setInnerThermalMass(600);
+        preheaterPiping[2].setInnerThermalMass(600);
 
         // The makup storage pump makes 200 kg/s at 4.0 bars
         // Todo: This was advanced characteristics here
         hotwellFillValve.initCharacteristicSimple(2000);
         hotwellDrainValve.initCharacteristicSimple(2000);
-
+        
         // Condenser Coolant
-        condenserCoolantSource.setOriginTemperature(273.15 + 22.5);
-        condenserCoolant.initCharacteristic(44000, 5.0);
+        // Condenser gets 1154.36 kg/s from turbine and has to "remove" 
+        // 1,541,604 J/kg (see trubine calculation sheet).
+        // with 22.0 °C in and a target temperature of 28 °C, this means 
+        // 25200 J/kg and that requires 70,617.7 kg/s flow
+        condenserCoolantSource.setOriginTemperature(273.15 + 22.0);     
+        condenserCoolant.initCharacteristic(70617.7, 5.0);
 
         // Main Ejectors
         for (int idx = 0; idx < 3; idx++) {
@@ -2213,7 +2231,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         preheaterCondensateHeight[0].setEffort(5e4); // 0.5 bar
         // Makes a total pressure diff, theroetically R=2720 but that does 
         // not work at all. use a way lower value for better startup.
-        preheaterCondensateValve[0].initCharacteristicSimple(800);
+        preheaterCondensateValve[0].initCharacteristicSimple(250);
 
         turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
@@ -4477,18 +4495,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Preheater3#SteamFlow",
                 turbineLowPressureTapValve[0].getValveElement().getFlow());
 
-        outputValues.setParameterValue("Preheater1#FeedOutTemp",
+        outputValues.setParameterValue("Preheater1#DebugHeatExchangerOutTemp",
                 preheater[0].getHeatNode(
                         PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
                 - 273.15);
-        outputValues.setParameterValue("Preheater2#FeedOutTemp",
+        outputValues.setParameterValue("Preheater2#DebugHeatExchangerOutTemp",
                 preheater[1].getHeatNode(
                         PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
                 - 273.15);
-        outputValues.setParameterValue("Preheater3#FeedOutTemp",
+        outputValues.setParameterValue("Preheater3#DebugHeatExchangerOutTemp",
                 preheater[2].getHeatNode(
                         PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
                 - 273.15);
+        
+        outputValues.setParameterValue("Preheater1#FeedOutTemp",
+                preheaterPipingOut[0].getTemperature() - 273.15);
+        outputValues.setParameterValue("Preheater2#FeedOutTemp",
+                preheaterPipingOut[1].getTemperature() - 273.15);
+        outputValues.setParameterValue("Preheater3#FeedOutTemp",
+                preheaterPipingOut[2].getTemperature() - 273.15);
 
         // Flow to turbine and startup ejectors, this is displayed as main flow
         // to turbine system on turbine panel. Includes the steam dump valves.

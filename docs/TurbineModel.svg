@@ -24,14 +24,14 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="1"
-     inkscape:cx="554"
-     inkscape:cy="382.5"
-     inkscape:window-width="1920"
-     inkscape:window-height="1008"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="1158.0641"
+     inkscape:cy="630.38568"
+     inkscape:window-width="1278"
+     inkscape:window-height="761"
+     inkscape:window-x="-24"
+     inkscape:window-y="219"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer11"
      showguides="false">
     <inkscape:grid
@@ -54,8 +54,8 @@
     <rect
        x="559.99998"
        y="60.000003"
-       width="460"
-       height="60.000004"
+       width="460.00001"
+       height="80.918503"
        id="rect55" />
     <rect
        x="59.999998"
@@ -874,6 +874,50 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="170.37367"
+       y="61.944252"
+       id="text51-5-5"><tspan
+         sodipodi:role="line"
+         id="tspan51-6-3"
+         style="fill:#1aa3e2;fill-opacity:1;stroke-width:0.529167"
+         x="170.37367"
+         y="61.944252">1071.113 kg/s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="214.02992"
+       y="61.944252"
+       id="text51-5-5-9"><tspan
+         sodipodi:role="line"
+         id="tspan51-6-3-1"
+         style="fill:#1aa3e2;fill-opacity:1;stroke-width:0.529167"
+         x="214.02992"
+         y="61.944252">998.71 kg/s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="261.77875"
+       y="61.944252"
+       id="text51-5-5-9-9"><tspan
+         sodipodi:role="line"
+         id="tspan51-6-3-1-3"
+         style="fill:#1aa3e2;fill-opacity:1;stroke-width:0.529167"
+         x="261.77875"
+         y="61.944252">955.88 kg/s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="315.58124"
+       y="66.706757"
+       id="text51-5-5-9-9-2"><tspan
+         sodipodi:role="line"
+         id="tspan51-6-3-1-3-6"
+         style="fill:#1aa3e2;fill-opacity:1;stroke-width:0.529167"
+         x="315.58124"
+         y="66.706757">936.8 kg/s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        x="151.85283"
        y="101.63175"
        id="text51-5-2"><tspan
@@ -907,13 +951,13 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       x="259.00909"
+       x="256.8797"
        y="177.03801"
        id="text51-5-2-0-0-1"><tspan
          sodipodi:role="line"
          id="tspan51-6-17-2-6-0"
          style="fill:#1aa3e2;fill-opacity:1;stroke-width:0.529167"
-         x="259.00909"
+         x="256.8797"
          y="177.03801">198.48 kg/s</tspan></text>
     <text
        xml:space="preserve"
@@ -951,14 +995,14 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1aa3e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       x="296.05075"
-       y="97.663002"
+       x="294.72784"
+       y="101.10258"
        id="text51-5-2-4-5-0-9"><tspan
          sodipodi:role="line"
          id="tspan51-6-17-1-9-8-6"
          style="fill:#1aa3e2;fill-opacity:1;stroke-width:0.529167"
-         x="296.05075"
-         y="97.663002">19.08 kg/s</tspan></text>
+         x="294.72784"
+         y="101.10258">19.08 kg/s</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1a76e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -970,6 +1014,17 @@
          style="fill:#1a76e2;fill-opacity:1;stroke-width:0.529167"
          x="97.613258"
          y="120.94633">1154.36 kg/s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1a76e2;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="297.37366"
+       y="170.42342"
+       id="text51-5-8-9"><tspan
+         sodipodi:role="line"
+         id="tspan51-6-1-1"
+         style="fill:#1a76e2;fill-opacity:1;stroke-width:0.529167"
+         x="297.37366"
+         y="170.42342">1154.36 kg/s</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -1304,6 +1359,22 @@
          id="tspan54">Limit X = 1.0446</tspan></text>
     <text
        xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-opacity:1"
+       x="314.57159"
+       y="42.288887"
+       id="text25-9"><tspan
+         sodipodi:role="line"
+         id="tspan25-2"
+         style="fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
+         x="314.57159"
+         y="42.288887">28 °C</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
+         x="314.57159"
+         y="46.257637"
+         id="tspan54-0">Limit X = 0.9</tspan></text>
+    <text
+       xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-opacity:1"
        x="130.68828"
        y="121.67659"
@@ -1422,7 +1493,7 @@
          id="tspan30"
          style="fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
          x="271.05502"
-         y="122.9995">32 °C</tspan></text>
+         y="122.9995">38 °C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-opacity:1"
@@ -1437,6 +1508,28 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-opacity:1"
+       x="297.50385"
+       y="178.24663"
+       id="text30-7-2"><tspan
+         sodipodi:role="line"
+         id="tspan30-2-6"
+         style="fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
+         x="297.50385"
+         y="178.24663">28 °C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-opacity:1"
+       x="284.27466"
+       y="138.87451"
+       id="text30-7-4"><tspan
+         sodipodi:role="line"
+         id="tspan30-2-7"
+         style="fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
+         x="284.27466"
+         y="138.87451">28 °C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-opacity:1"
        x="259.14877"
        y="138.87451"
        id="text30-1"><tspan
@@ -1444,7 +1537,7 @@
          id="tspan30-9"
          style="fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
          x="259.14877"
-         y="138.87451">32 °C</tspan></text>
+         y="138.87451">38 °C</tspan></text>
     <path
        style="fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle-0-8)"
        d="m 204.39062,115.09376 1.45521,6.61458"
@@ -1676,6 +1769,39 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="227.25908"
+       y="144.15347"
+       id="text41-4-1-9"><tspan
+         sodipodi:role="line"
+         id="tspan41-4-1-7"
+         style="stroke-width:0.529167"
+         x="227.25908"
+         y="144.15347">1.322.958</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="256.64581"
+       y="188.91251"
+       id="text41-4-1-9-6"><tspan
+         sodipodi:role="line"
+         id="tspan41-4-1-7-3"
+         style="stroke-width:0.529167"
+         x="256.64581"
+         y="188.91251">1,310,244</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="297.37366"
+       y="174.28105"
+       id="text41-4-1-9-6-9"><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.529167"
+         x="297.37366"
+         y="174.28105"
+         id="tspan4">2,806,434</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        x="268.84521"
        y="127.97897"
        id="text41-4-1-1"><tspan
@@ -1687,14 +1813,36 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       x="298.69659"
-       y="130.6248"
+       x="311.17856"
+       y="121.36438"
        id="text41-4-1-1-9"><tspan
          sodipodi:role="line"
          id="tspan41-4-1-0-1"
          style="stroke-width:0.529167"
-         x="298.69659"
-         y="130.6248">1,264,830</tspan></text>
+         x="311.17856"
+         y="121.36438">1,264,830</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="316.47021"
+       y="71.027931"
+       id="text41-4-1-1-9-0"><tspan
+         sodipodi:role="line"
+         id="tspan41-4-1-0-1-3"
+         style="stroke-width:0.529167"
+         x="316.47021"
+         y="71.027931">3,154,830</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="297.94937"
+       y="145.17688"
+       id="text41-4-1-1-9-2"><tspan
+         sodipodi:role="line"
+         id="tspan41-4-1-0-1-9"
+         style="stroke-width:0.529167"
+         x="297.94937"
+         y="145.17688">1,264,830</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5c006c;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -1779,21 +1927,21 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52);display:inline;fill:#1a76e2;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="50"
          y="20.918502"
-         id="tspan2"><tspan
+         id="tspan5"><tspan
            style="fill:#000000"
-           id="tspan1">First, temperatures and pressures are defined, as well as X after turbine exit. </tspan></tspan><tspan
+           id="tspan2">First, temperatures and pressures are defined, as well as X after turbine exit. </tspan></tspan><tspan
          x="50"
          y="35.918502"
-         id="tspan6"><tspan
+         id="tspan8"><tspan
    style="fill:#000000"
-   id="tspan4">By using some energy balace and mass flow equations, </tspan>more mass flows<tspan
+   id="tspan6">By using some energy balace and mass flow equations, </tspan>more mass flows<tspan
    style="fill:#000000"
-   id="tspan5"> </tspan></tspan><tspan
+   id="tspan7"> </tspan></tspan><tspan
          x="50"
          y="50.918502"
-         id="tspan8"><tspan
+         id="tspan10"><tspan
            style="fill:#000000"
-           id="tspan7">can be obtained for superheating and preheating in deaerator.</tspan></tspan></text>
+           id="tspan9">can be obtained for superheating and preheating in deaerator.</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,5.291665,2.4028212)"
@@ -1801,69 +1949,69 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect53);display:inline;fill:#1a76e2;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="260"
          y="560.9185"
-         id="tspan10"><tspan
-           style="fill:#000000"
-           id="tspan9">Second, feedwater reheating is </tspan></tspan><tspan
-         x="260"
-         y="575.9185"
          id="tspan68"><tspan
            style="fill:#000000"
-           id="tspan56">calculated for the given temperatures, </tspan></tspan><tspan
+           id="tspan56">Second, feedwater reheating is </tspan></tspan><tspan
          x="260"
-         y="590.9185"
+         y="575.9185"
          id="tspan70"><tspan
            style="fill:#000000"
-           id="tspan69">all reheaters have ideal heat transfer </tspan></tspan><tspan
+           id="tspan69">calculated for the given temperatures, </tspan></tspan><tspan
          x="260"
-         y="605.9185"
+         y="590.9185"
          id="tspan72"><tspan
            style="fill:#000000"
-           id="tspan71">and 100 % efficiency, this makes it quite </tspan></tspan><tspan
+           id="tspan71">all reheaters have ideal heat transfer </tspan></tspan><tspan
          x="260"
-         y="620.9185"
+         y="605.9185"
          id="tspan74"><tspan
            style="fill:#000000"
-           id="tspan73">easy. Condensate flow is modeled as </tspan></tspan><tspan
+           id="tspan73">and 100 % efficiency, this makes it quite </tspan></tspan><tspan
          x="260"
-         y="635.9185"
+         y="620.9185"
          id="tspan76"><tspan
            style="fill:#000000"
-           id="tspan75">shown to ensure condensate </tspan></tspan><tspan
+           id="tspan75">easy. Condensate flow is modeled as </tspan></tspan><tspan
          x="260"
-         y="650.9185"
+         y="635.9185"
          id="tspan78"><tspan
            style="fill:#000000"
-           id="tspan77">temperature in reheaters which is used </tspan></tspan><tspan
+           id="tspan77">shown to ensure condensate </tspan></tspan><tspan
          x="260"
-         y="665.9185"
+         y="650.9185"
          id="tspan80"><tspan
            style="fill:#000000"
-           id="tspan79">as a driving pressure for the </tspan></tspan><tspan
+           id="tspan79">temperature in reheaters which is used </tspan></tspan><tspan
          x="260"
-         y="680.9185"
+         y="665.9185"
          id="tspan82"><tspan
            style="fill:#000000"
-           id="tspan81">condensate. Starting with reheater 3, </tspan></tspan><tspan
+           id="tspan81">as a driving pressure for the </tspan></tspan><tspan
          x="260"
-         y="695.9185"
+         y="680.9185"
          id="tspan84"><tspan
            style="fill:#000000"
-           id="tspan83">which is easy to calculate. Remaining </tspan></tspan><tspan
+           id="tspan83">condensate. Starting with reheater 3, </tspan></tspan><tspan
          x="260"
-         y="710.9185"
+         y="695.9185"
          id="tspan86"><tspan
            style="fill:#000000"
-           id="tspan85">mass flow in turbine will be used to </tspan></tspan><tspan
+           id="tspan85">which is easy to calculate. Remaining </tspan></tspan><tspan
          x="260"
-         y="725.9185"
+         y="710.9185"
          id="tspan88"><tspan
            style="fill:#000000"
-           id="tspan87">calculate the turbines inner flow </tspan></tspan><tspan
+           id="tspan87">mass flow in turbine will be used to </tspan></tspan><tspan
          x="260"
-         y="740.9185"
+         y="725.9185"
          id="tspan90"><tspan
            style="fill:#000000"
-           id="tspan89">resistance.</tspan></tspan></text>
+           id="tspan89">calculate the turbines inner flow </tspan></tspan><tspan
+         x="260"
+         y="740.9185"
+         id="tspan92"><tspan
+           style="fill:#000000"
+           id="tspan91">resistance.</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,37.041665,39.444483)"
@@ -1871,13 +2019,13 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect54);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="60"
          y="130.9185"
-         id="tspan91">Those resistances </tspan><tspan
+         id="tspan93">Those resistances </tspan><tspan
          x="60"
          y="145.9185"
-         id="tspan92">include ALL valves </tspan><tspan
+         id="tspan94">include ALL valves </tspan><tspan
          x="60"
          y="160.9185"
-         id="tspan93">and the turbine.</tspan></text>
+         id="tspan95">and the turbine.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,170.71765,164.35957)"
@@ -1885,13 +2033,13 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect54-9);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="60"
          y="130.9185"
-         id="tspan94">Consider mixing 65 °C and 68.25 °C here! </tspan><tspan
+         id="tspan96">Consider mixing 65 °C and 68.25 °C here! </tspan><tspan
          x="60"
          y="145.9185"
-         id="tspan95">Pressure is enforced by the condensate in </tspan><tspan
+         id="tspan97">Pressure is enforced by the condensate in </tspan><tspan
          x="60"
          y="160.9185"
-         id="tspan96">the reheater, not from the mixing temp.</tspan></text>
+         id="tspan98">the reheater, not from the mixing temp.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -1981,42 +2129,77 @@
          y="126.76717">From Hotwell</tspan></text>
     <text
        xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:30.735;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="310.57745"
+       y="76.496338"
+       id="text60-5"
+       transform="translate(-3.661469,0.23283203)"><tspan
+         x="310.57745"
+         y="76.496338"
+         id="tspan99">Hotwell enforces </tspan><tspan
+         x="310.57745"
+         y="80.465087"
+         id="tspan100">pressure, so with </tspan><tspan
+         x="310.57745"
+         y="84.433837"
+         id="tspan101">X=0.9 forced, the </tspan><tspan
+         x="310.57745"
+         y="88.402587"
+         id="tspan102">temperature has to </tspan><tspan
+         x="310.57745"
+         y="92.371337"
+         id="tspan103">be on saturation </tspan><tspan
+         x="310.57745"
+         y="96.340087"
+         id="tspan104">temperature.</tspan></text>
+    <text
+       xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:32.058;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        x="309.25452"
        y="84.433838"
        id="text60-8"
-       transform="translate(-7.6289168,71.670335)"><tspan
+       transform="translate(-10.27475,63.732835)"><tspan
          x="309.25452"
          y="84.433838"
-         id="tspan97">It is defined that </tspan><tspan
+         id="tspan105">It is defined that </tspan><tspan
          x="309.25452"
          y="88.402587"
-         id="tspan98">hotwell temperature </tspan><tspan
+         id="tspan106">hotwell temperature </tspan><tspan
          x="309.25452"
          y="92.371337"
-         id="tspan99">will be 28 °C.</tspan></text>
+         id="tspan107">will be 28 °C.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:32.058;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="309.25452"
+       y="84.433838"
+       id="text60-8-1"
+       transform="translate(-75.405639,104.43739)"><tspan
+         x="309.25452"
+         y="84.433838"
+         id="tspan108">From mixture:</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:32.058;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        x="309.25452"
        y="84.433838"
        id="text60-8-9"
-       transform="translate(-28.827333,98.084222)"><tspan
+       transform="translate(-24.826833,104.74325)"><tspan
          x="309.25452"
          y="84.433838"
-         id="tspan100">To ensure flow from </tspan><tspan
+         id="tspan109">To ensure flow from </tspan><tspan
          x="309.25452"
          y="88.402587"
-         id="tspan101">last reheater, an </tspan><tspan
+         id="tspan110">last reheater, an </tspan><tspan
          x="309.25452"
          y="92.371337"
-         id="tspan102">additional pressure </tspan><tspan
+         id="tspan111">additional pressure </tspan><tspan
          x="309.25452"
          y="96.340087"
-         id="tspan103">diff source is placed </tspan><tspan
+         id="tspan112">diff source is placed </tspan><tspan
          x="309.25452"
          y="100.30884"
-         id="tspan104">here.</tspan></text>
+         id="tspan113">here.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:32.058;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -2026,11 +2209,11 @@
        transform="translate(-245.75391,17.43075)"><tspan
          x="309.25452"
          y="84.433838"
-         id="tspan105">Pressure diff source
+         id="tspan114">Pressure diff source
 </tspan><tspan
          x="309.25452"
          y="88.402587"
-         id="tspan106">placed here!</tspan></text>
+         id="tspan115">placed here!</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -2067,14 +2250,41 @@
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       x="320.14581"
-       y="63.500004"
+       x="321.27505"
+       y="61.944252"
        id="text61"><tspan
          sodipodi:role="line"
          id="tspan61"
          style="stroke-width:0.529167"
-         x="320.14581"
-         y="63.500004">Condenser</tspan></text>
+         x="321.27505"
+         y="61.944252">Condenser</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="315.98337"
+       y="142.64217"
+       id="text61-6"><tspan
+         sodipodi:role="line"
+         id="tspan61-9"
+         style="stroke-width:0.529167"
+         x="315.98337"
+         y="142.64217">Condenser</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="297.46252"
+       y="166.45467"
+       id="text61-6-5"><tspan
+         sodipodi:role="line"
+         id="tspan61-9-3"
+         style="stroke-width:0.529167"
+         x="297.46252"
+         y="166.45467">To Condenser (mixed):</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.529167"
+         x="297.46252"
+         y="170.42342"
+         id="tspan1" /></text>
     <text
        xml:space="preserve"
        style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -2126,21 +2336,24 @@
          y="134.59038">3</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,2.5950299,-9.5351859)"
+       transform="matrix(0.26458333,0,0,0.26458333,-3.2966739e-6,-10.826353)"
        id="text55"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect55);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="560"
          y="70.918502"
-         id="tspan107">Inner trubine resistances are calculated to have a flow and pressure match with </tspan><tspan
+         id="tspan116">Inner trubine resistances are calculated to have a flow and pressure match with </tspan><tspan
          x="560"
          y="85.918502"
-         id="tspan108">the given values. The pressure in turbine is defined, then the pressure from </tspan><tspan
+         id="tspan117">the given values. The pressure in turbine is defined, then the pressure from </tspan><tspan
          x="560"
          y="100.9185"
-         id="tspan109">reheaters and the flow to reheaters are used and it becomes simple to get the </tspan><tspan
+         id="tspan118">reheaters and the flow to reheaters are used and it becomes simple to get the </tspan><tspan
          x="560"
          y="115.9185"
-         id="tspan110">inner turbine resistance</tspan></text>
+         id="tspan119">inner turbine resistance. X-Limits are desiged to have some kind of degrading in </tspan><tspan
+         x="560"
+         y="130.9185"
+         id="tspan120">temperature over the LP turbine.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,131.58259,-11.588353)"
@@ -2148,12 +2361,23 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect55-2);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="560"
          y="70.918502"
-         id="tspan111">All calculations are made using </tspan><tspan
+         id="tspan121">All calculations are made using </tspan><tspan
          x="560"
          y="85.918502"
-         id="tspan112">Pascal (SI) but for convenience, </tspan><tspan
+         id="tspan122">Pascal (SI) but for convenience, </tspan><tspan
          x="560"
          y="100.9185"
-         id="tspan113">absolute bar pressure is noted here.</tspan></text>
+         id="tspan123">absolute bar pressure is noted here.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="272.52081"
+       y="181.23959"
+       id="text61-5"><tspan
+         sodipodi:role="line"
+         id="tspan61-2"
+         style="stroke-width:0.529167"
+         x="272.52081"
+         y="181.23959">Condenser</tspan></text>
   </g>
 </svg>
