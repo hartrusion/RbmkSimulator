@@ -2134,7 +2134,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // (theres 2 valves to 1 turbine but we calculate as 2 valves on
             // 2 turbines). 
             turbineMainSteamValve[idx].initCharacteristicAdvanced(
-                    592, 6e6, 2473);
+                    620, 6e6, 2500); // Todo
             turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
         }
 
@@ -4611,6 +4611,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Turbine" + (idx + 1) + "#MainSteamFlow",
                     steamOutToTurbine[idx]);
         }
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "Turbine" + (idx + 1) + "#MainSteamValveFlow",
+                    turbineMainSteamValve[idx].getValveElement().getFlow());
+        }
         // Get the HP out temperature directly from the heated steam mass.
         outputValues.setParameterValue("Turbine#HPOutTemp",
                 turbineHighPressureOutMass.getTemperature() - 273.15);
@@ -4652,7 +4657,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     "Turbine" + (idx + 1) + "#LowPressurePressure",
                     turbineLowPressureStageOut[idx].getEffort() / 100000);
         }
-        // </editor-fold>        
+        // </editor-fold>
     }
 
     @Override
