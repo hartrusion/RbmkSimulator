@@ -89,6 +89,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelEjector2 = new javax.swing.JLabel();
         jLabelEjector3 = new javax.swing.JLabel();
         jLabelEjector4 = new javax.swing.JLabel();
+        jLabelReadingCondensateTempFromHotwell = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(652, 228));
@@ -264,6 +265,14 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
         jLabelEjector4.setText("Bypass");
         add(jLabelEjector4, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 188, 50, -1));
 
+        jLabelReadingCondensateTempFromHotwell.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensateTempFromHotwell.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensateTempFromHotwell.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensateTempFromHotwell.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensateTempFromHotwell.setText("___,_ °C");
+        jLabelReadingCondensateTempFromHotwell.setOpaque(true);
+        add(jLabelReadingCondensateTempFromHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(576, 20, 64, 16));
+
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCondensate.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -279,6 +288,7 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
     private javax.swing.JLabel jLabelReadingCondensate2Flow;
     private javax.swing.JLabel jLabelReadingCondensate2Pressure;
     private javax.swing.JLabel jLabelReadingCondensate2Temperature;
+    private javax.swing.JLabel jLabelReadingCondensateTempFromHotwell;
     private javax.swing.JLabel jLabelReadingEjector1CondensateValve;
     private javax.swing.JLabel jLabelReadingEjector2CondensateValve;
     private javax.swing.JLabel jLabelReadingEjector3CondensateValve;
@@ -456,6 +466,9 @@ public class PanelMnemonicCondensate extends javax.swing.JPanel
             case "EjectorMain3#SteamValve" ->
                 jLabelReadingEjector3CondensateValve.setText(
                         String.format("%3.0f", newValue));
+            case "Condensation#HotwellPumpsOutTemp" ->
+                jLabelReadingCondensateTempFromHotwell.setText(
+                        String.format("%5.1f", newValue) + " °C");
         }
     }
 

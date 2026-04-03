@@ -4490,6 +4490,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getTemperature() - 273.15);
         outputValues.setParameterValue("Condensation#HotwellPumpsPressure",
                 condensationPumpOut.getEffort() / 100000 - 1.0);
+        outputValues.setParameterValue("Condensation#HotwellPumpsOutTemp",
+                condensationPumpOut.getTemperature() - 273.15);
 
         // Make a 0..100 kPa value like in the old sim game with 0 being 
         // 1 barabs and 100 kPa being 0 barabs.
