@@ -310,8 +310,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve[] ejectorMainCondensateValve
             = new HeatValve[3];
     private final HeatValve[] ejectorMainFlowIn = new HeatValve[3];
-    private final HeatSimpleFlowResistance[] ejectorMainFlowReistance
-            = new HeatSimpleFlowResistance[3];
+    private final HeatVolumizedFlowResistance[] ejectorMainFlowReistance
+            = new HeatVolumizedFlowResistance[3];
     private final HeatNode[] ejectorMainFlowReistanceNode = new HeatNode[3];
     private final HeatValve[] ejectorMainFlowOut = new HeatValve[3];
     private final HeatValve ejectorMainBypass;
@@ -926,7 +926,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainFlowIn[idx] = new HeatValve();
             ejectorMainFlowIn[idx].initName(
                     "EjectorMain" + (idx + 1) + "#FlowIn");
-            ejectorMainFlowReistance[idx] = new HeatSimpleFlowResistance();
+            ejectorMainFlowReistance[idx] = new HeatVolumizedFlowResistance();
             ejectorMainFlowReistance[idx].setName(
                     "EjectorMain" + (idx + 1) + "#FlowResistance");
             ejectorMainFlowReistanceNode[idx] = new HeatNode();
@@ -1525,6 +1525,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             ejectorMainFlowIn[idx].getValveElement().connectBetween(
                     condensationPumpOut,
                     ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
+            // Some flow resistance with additional mass for better delay behavior.
             ejectorMainFlowReistance[idx].connectBetween(
                     ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
                     ejectorMainFlowReistanceNode[idx]);
@@ -2040,6 +2041,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // The main ejectors are actually just condensers that condense some
             // steam, the amount of steam is used to determine how much the 
             // vacuum itself is affected by incoming flows from turbine.
+            
+            // Add some mass to delay the temperature.
+            ejectorMainFlowReistance[idx].setInnerThermalMass(300);
 
             // See turbine tap calculation on why this value is 1000.
             ejectorMainSteamValve[idx].initCharacteristicSimple(1000);
@@ -3600,6 +3604,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(10.0, AlarmState.MIN1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+        
+        // Temperatures after Preheaters and ejectors, those will not have any
+        // actions, just some alarm values to point out that something is not
+        // in the desired range.
+        
+        
+        
+        
+        
 
         am = new ValueAlarmMonitor();
         am.setName("ReheaterCondensateTemp");
