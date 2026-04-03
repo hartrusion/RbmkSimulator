@@ -3611,7 +3611,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("MainEjectorCondensateTemp");
         am.addInputProvider(()
-                -> condensationBoosterPumpIn.getTemperature() + 273.15);
+                -> condensationBoosterPumpIn.getTemperature() - 273.15);
         // Design temperature is 32 °C here
         am.defineAlarm(40.0, AlarmState.HIGH1);
         am.defineAlarm(50.0, AlarmState.HIGH2);
@@ -3621,7 +3621,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Reheater1OutTemp");
         am.addInputProvider(()
-                -> preheaterPipingOut[0].getTemperature() + 273.15);
+                -> preheaterPipingOut[0].getTemperature() - 273.15);
         // Design temperature is 65 °C here
         am.defineAlarm(40.0, AlarmState.LOW1);
         am.defineAlarm(73.0, AlarmState.HIGH1);
@@ -3632,7 +3632,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Reheater2OutTemp");
         am.addInputProvider(()
-                -> preheaterPipingOut[1].getTemperature() + 273.15);
+                -> preheaterPipingOut[1].getTemperature() - 273.15);
         // Design temperature is 110 °C here
         am.defineAlarm(80.0, AlarmState.LOW1);
         am.defineAlarm(118.0, AlarmState.HIGH1);
@@ -3643,7 +3643,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Reheater3OutTemp");
         am.addInputProvider(()
-                -> preheaterPipingOut[2].getTemperature() + 273.15);
+                -> preheaterPipingOut[2].getTemperature() - 273.15);
         // Design temperature is 155 °C here
         am.defineAlarm(125.0, AlarmState.LOW1);
         am.defineAlarm(163.0, AlarmState.HIGH1);
