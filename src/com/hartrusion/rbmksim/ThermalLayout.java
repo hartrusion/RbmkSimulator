@@ -1461,7 +1461,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         preheaterPiping[2].connectBetween(
                 preheater[2].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
                 preheaterPipingOut[2]);
-        
+
         // Valve from End of Preheasters to DA
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].getValveElement().connectBetween(
@@ -2015,7 +2015,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         preheaterPiping[0].setResistanceParameter(133);
         preheaterPiping[1].setResistanceParameter(133);
         preheaterPiping[2].setResistanceParameter(133);
-        
+
         // Mass modeled after heat exchanger for delay
         preheaterPiping[0].setInnerThermalMass(600);
         preheaterPiping[1].setInnerThermalMass(600);
@@ -2025,13 +2025,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Todo: This was advanced characteristics here
         hotwellFillValve.initCharacteristicSimple(2000);
         hotwellDrainValve.initCharacteristicSimple(2000);
-        
+
         // Condenser Coolant
         // Condenser gets 1154.36 kg/s from turbine and has to "remove" 
         // 1,541,604 J/kg (see trubine calculation sheet).
         // with 22.0 °C in and a target temperature of 28 °C, this means 
         // 25200 J/kg and that requires 70,617.7 kg/s flow
-        condenserCoolantSource.setOriginTemperature(273.15 + 22.0);     
+        condenserCoolantSource.setOriginTemperature(273.15 + 22.0);
         condenserCoolant.initCharacteristic(70617.7, 5.0);
 
         // Main Ejectors
@@ -2041,7 +2041,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // The main ejectors are actually just condensers that condense some
             // steam, the amount of steam is used to determine how much the 
             // vacuum itself is affected by incoming flows from turbine.
-            
+
             // Add some mass to delay the temperature.
             ejectorMainFlowReistance[idx].setInnerThermalMass(300);
 
@@ -2221,7 +2221,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Reheater 1: 0.0306 bar - Between 1 and 2:  18640 Pa
         preheaterCondensateValve[2].initCharacteristicSimple(200);
         preheaterCondensateValve[1].initCharacteristicSimple(80);
-        
+
         // Set the condensate heights to have about 20 % of the operating 
         // pressure differences. 2-1 has 1.25 bar, 1-0 has 0.18 bar
         // so from 1.25e5 and 1.8e4 we derive 2.5e4 and 3.6e3
@@ -3604,15 +3604,52 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(10.0, AlarmState.MIN1);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         // Temperatures after Preheaters and ejectors, those will not have any
         // actions, just some alarm values to point out that something is not
         // in the desired range.
+        am = new ValueAlarmMonitor();
+        am.setName("MainEjectorCondensateTemp");
+        am.addInputProvider(()
+                -> condensationBoosterPumpIn.getTemperature() + 273.15);
+        // Design temperature is 32 °C here
+        am.defineAlarm(40.0, AlarmState.HIGH1);
+        am.defineAlarm(50.0, AlarmState.HIGH2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
         
+        am = new ValueAlarmMonitor();
+        am.setName("Reheater1OutTemp");
+        am.addInputProvider(()
+                -> preheaterPipingOut[0].getTemperature() + 273.15);
+        // Design temperature is 65 °C here
+        am.defineAlarm(40.0, AlarmState.LOW1);
+        am.defineAlarm(73.0, AlarmState.HIGH1);
+        am.defineAlarm(83.0, AlarmState.HIGH2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
         
+        am = new ValueAlarmMonitor();
+        am.setName("Reheater2OutTemp");
+        am.addInputProvider(()
+                -> preheaterPipingOut[1].getTemperature() + 273.15);
+        // Design temperature is 110 °C here
+        am.defineAlarm(80.0, AlarmState.LOW1);
+        am.defineAlarm(118.0, AlarmState.HIGH1);
+        am.defineAlarm(128.0, AlarmState.HIGH2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
         
-        
-        
+        am = new ValueAlarmMonitor();
+        am.setName("Reheater3OutTemp");
+        am.addInputProvider(()
+                -> preheaterPipingOut[2].getTemperature() + 273.15);
+        // Design temperature is 155 °C here
+        am.defineAlarm(125.0, AlarmState.LOW1);
+        am.defineAlarm(163.0, AlarmState.HIGH1);
+        am.defineAlarm(173.0, AlarmState.HIGH2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
         am.setName("ReheaterCondensateTemp");
@@ -4520,7 +4557,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 preheater[2].getHeatNode(
                         PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
                 - 273.15);
-        
+
         outputValues.setParameterValue("Preheater1#FeedOutTemp",
                 preheaterPipingOut[0].getTemperature() - 273.15);
         outputValues.setParameterValue("Preheater2#FeedOutTemp",
