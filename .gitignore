@@ -14,6 +14,8 @@
 
 # IDE: VS Code
 /.vscode
+.classpath
+.project
 
 # Operating system
 .DS_Store

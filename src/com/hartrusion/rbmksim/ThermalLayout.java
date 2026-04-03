@@ -258,7 +258,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve auxCondValveToHotwell;
     private final HeatNode auxCondValveToHotwellHeatNode;
     private final PhasedHeatFluidConverter auxCondValveToHotwellConverter;
-    private final PhasedNode auxCondValveToHotwellPhasedNode;
+    // private final PhasedNode auxCondValveToHotwellPhasedNode;
     private final HeatValve auxCondValveToDrain;
 
     // Steam Dump
@@ -290,10 +290,20 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     // Main Coolant Loop for Condenser - for now, just a constant flow, 
     // always on, no vacuum stuff for now.
-    private final HeatOrigin condenserCoolantSource;
-    private final HeatNode condenserCoolantSourceNode;
-    private final HeatControlledFlowSource condenserCoolant;
+    private final HeatOrigin condenserCoolantOrigin;
+    private final HeatNode condenserCoolantOriginNode;
+    private final HeatControlledFlowSource condenserCoolantFlowSource;
     private final HeatOrigin condenserCoolantSink;
+    // Instead of letting all kinds of flows going straight into the condenser  
+    // use individual coolers which cool the fluid down first using the main 
+    // coolant flow (heat domain). This allows the TransferSubnet solver to 
+    // view those networks all as separate networks towards the pressure 
+    // defining reservoir part of the hotwell. This will be used for
+    // Ejectors, Reheater Drain, Aux Cond, Preheater condensate
+    private final PhasedHeatExchangerNoMass[] condenserCooler
+            = new PhasedHeatExchangerNoMass[5];
+    private final PhasedNode[] condenserCoolerIn = new PhasedNode[5];
+    private final HeatNode[] condenserCoolerSecondaryNode = new HeatNode[5];
 
     // Ejectors (both startup and main)
     private final PhasedNode ejectorTurbineTapNode;
@@ -317,7 +327,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve ejectorMainBypass;
     private final HeatNode ejectorToHotwellHeatNode;
     private final PhasedHeatFluidConverter ejectorToHotwellConverter;
-    private final PhasedNode ejectorToHotwellPhasedNode;
+    // private final PhasedNode ejectorToHotwellPhasedNode;
 
     private final PhasedCondenserNoMass[] preheater
             = new PhasedCondenserNoMass[3];
@@ -819,8 +829,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondValveToHotwellHeatNode.setName("AuxCond#ToHotwellHeatNode");
         auxCondValveToHotwellConverter = new PhasedHeatFluidConverter(phasedWater);
         auxCondValveToHotwellConverter.setName("AuxCond#ToHotwellConverter");
-        auxCondValveToHotwellPhasedNode = new PhasedNode();
-        auxCondValveToHotwellPhasedNode.setName("AuxCond#ToHotwellPhasedNode");
+        // auxCondValveToHotwellPhasedNode = new PhasedNode();
+        // auxCondValveToHotwellPhasedNode.setName("AuxCond#ToHotwellPhasedNode");
         auxCondValveToDrain = new HeatValve();
         auxCondValveToDrain.initName("AuxCond#ToDrain");
 
@@ -881,14 +891,26 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellDrainValve.registerController(new PIControl());
         hotwellDrainValve.initName("Hotwell#DrainValve");
 
-        condenserCoolantSource = new HeatOrigin();
-        condenserCoolantSource.setName("Condenser#CoolantSource");
-        condenserCoolantSourceNode = new HeatNode();
-        condenserCoolantSourceNode.setName("Condenser#CoolantSourceNode");
-        condenserCoolant = new HeatControlledFlowSource();
-        condenserCoolant.initName("Condenser#Coolant");
+        condenserCoolantOrigin = new HeatOrigin();
+        condenserCoolantOrigin.setName("Condenser#CoolantOrigin");
+        condenserCoolantOriginNode = new HeatNode();
+        condenserCoolantOriginNode.setName("Condenser#CoolantOriginNode");
+        condenserCoolantFlowSource = new HeatControlledFlowSource();
+        condenserCoolantFlowSource.initName("Condenser#CoolantFlowSource");
+
+        for (int idx = 0; idx < 5; idx++) {
+            condenserCooler[idx] = new PhasedHeatExchangerNoMass(phasedWater);
+            condenserCooler[idx].initName(
+                    "Condenser#Cooler" + (idx + 1));
+            condenserCoolerIn[idx] = new PhasedNode();
+            condenserCoolerIn[idx].setName(
+                    "Condenser#Cooler" + (idx + 1) + "#In");
+            condenserCoolerSecondaryNode[idx] = new HeatNode();
+            condenserCoolerSecondaryNode[idx].setName(
+                    "Condenser" + (idx + 1) + "#SecondaryNode");
+        }
         condenserCoolantSink = new HeatOrigin();
-        condenserCoolantSink.setName("Condenser#CoolantSource");
+        condenserCoolantSink.setName("Condenser#CoolantSink");
 
         // Ejectors (both startup and main)
         ejectorTurbineTapNode = new PhasedNode();
@@ -942,8 +964,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         ejectorToHotwellHeatNode.setName("Ejector#ToHotwellHeatNode");
         ejectorToHotwellConverter = new PhasedHeatFluidConverter(phasedWater);
         ejectorToHotwellConverter.setName("Ejector#ToHotwellConverter");
-        ejectorToHotwellPhasedNode = new PhasedNode();
-        ejectorToHotwellPhasedNode.setName("Ejector#ToHotwellPhasedNode");
+        //ejectorToHotwellPhasedNode = new PhasedNode();
+        // ejectorToHotwellPhasedNode.setName("Ejector#ToHotwellPhasedNode");
 
         for (int idx = 0; idx < 3; idx++) {
             preheater[idx] = new PhasedCondenserNoMass(phasedWater);
@@ -1394,9 +1416,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondValveToHotwell.getValveElement().connectBetween(
                 auxCondDistributorNode, auxCondValveToHotwellHeatNode);
         auxCondValveToHotwellConverter.connectBetween(
-                auxCondValveToHotwellHeatNode, auxCondValveToHotwellPhasedNode);
-        hotwell.getPrimarySideReservoir().connectTo(
-                auxCondValveToHotwellPhasedNode);
+                auxCondValveToHotwellHeatNode, condenserCoolerIn[0]);
 
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
@@ -1408,7 +1428,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
         }
 
-        // Condensation: Hotwell to Deaerators
+        // Condensation path: Hotwell to Deaerators
         hotwellOutConverter.connectBetween(
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 hotwellOutNode);
@@ -1488,18 +1508,37 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 condensationPumpOut, makeupStorageDrainCollector);
 
         // Coolant loop, so far just a constant flow source
-        condenserCoolantSource.connectTo(condenserCoolantSourceNode);
-        condenserCoolant.getFlowSource().connectBetween(
-                condenserCoolantSourceNode,
+        condenserCoolantOrigin.connectTo(condenserCoolantOriginNode);
+        condenserCoolantFlowSource.getFlowSource().connectBetween(
+                condenserCoolantOriginNode,
+                condenserCoolerSecondaryNode[0]);
+        // Through all separate modeled cooling elements:
+        for (int idx = 0; idx < condenserCooler.length - 1; idx++) {
+            // No nodes were generated, instead, acces the elements from asm:
+            condenserCooler[idx].getSecondarySide().connectBetween(
+                    condenserCoolerSecondaryNode[idx],
+                    condenserCoolerSecondaryNode[idx + 1]);
+        }
+        // last one
+        condenserCooler[condenserCooler.length - 1].getSecondarySide().connectBetween( // last one
+                condenserCoolerSecondaryNode[condenserCooler.length - 1],
                 hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
         condenserCoolantSink.connectTo(
                 hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT));
-
+        // Steam/Phased side: connect phased nodes and direct the flow into
+        // hotwell reservoir.
+        for (int idx = 0; idx < condenserCooler.length; idx++) {
+            // No nodes were generated, instead, access the elements from asm:
+            condenserCooler[idx].getPrimarySide().connectBetween(
+                    condenserCoolerIn[idx],
+                    hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_INNER));
+        }
+        
         // Startup ejector is modeled as a simple valve to hotwell, exactly 
         // like the main steam bypass.
         for (int idx = 0; idx < 2; idx++) {
             ejectorStartup[idx].getValveElement().connectBetween(mainSteam[idx],
-                    hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+                   condenserCoolerIn[1]);
         }
 
         // Main ejectors: The condensate will be pumped through the secondary 
@@ -1537,9 +1576,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 condensationPumpOut, condensationBoosterPumpIn);
         // use a separate converter back to hotwell for a separate flow path.
         ejectorToHotwellConverter.connectBetween(
-                ejectorToHotwellHeatNode, ejectorToHotwellPhasedNode);
-        hotwell.getPrimarySideReservoir().connectTo(
-                ejectorToHotwellPhasedNode);
+                ejectorToHotwellHeatNode, condenserCoolerIn[2]);
 
         // Low pressure preheaters condensate flow: This is pressure based and
         // the preheater will just push the condensate to the previous one,
@@ -1573,7 +1610,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 preheaterCondensateHeightNode[0]);
         preheaterCondensateHeight[0].connectBetween(
                 preheaterCondensateHeightNode[0],
-                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT));
+                condenserCoolerIn[3]);
 
         // Turbine
         // Turbine valves from steam drums to common collector node
@@ -1658,7 +1695,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // self capacitances then. Otherwise the solver will crash unfortunately
         turbineReheaterCondensateHeight.connectBetween(
                 turbineReheaterCondensateDrainOut,
-                hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
+                condenserCoolerIn[4]);
 
         // Turbine Low pressure path. First, a mass element that is also used
         // for thermal exchange like in the high pressure part
@@ -2031,8 +2068,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // 1,541,604 J/kg (see trubine calculation sheet).
         // with 22.0 °C in and a target temperature of 28 °C, this means 
         // 25200 J/kg and that requires 70,617.7 kg/s flow
-        condenserCoolantSource.setOriginTemperature(273.15 + 22.0);
-        condenserCoolant.initCharacteristic(70617.7, 5.0);
+        condenserCoolantOrigin.setOriginTemperature(273.15 + 22.0);
+        condenserCoolantFlowSource.initCharacteristic(70617.7, 5.0);
 
         // Main Ejectors
         for (int idx = 0; idx < 3; idx++) {
@@ -2330,7 +2367,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwell.initConditions(273.15 + 22.5, 273.15 + 22.5, 0.2);
 
         // start with full hotwell cooling
-        condenserCoolant.initFlow(44000);
+        condenserCoolantFlowSource.initFlow(44000);
 
         // Have some condensate inside the condesate reheaters but everything
         // is cooled down
@@ -3617,7 +3654,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(50.0, AlarmState.HIGH2);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Reheater1OutTemp");
         am.addInputProvider(()
@@ -3628,7 +3665,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(83.0, AlarmState.HIGH2);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Reheater2OutTemp");
         am.addInputProvider(()
@@ -3639,7 +3676,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(128.0, AlarmState.HIGH2);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("Reheater3OutTemp");
         am.addInputProvider(()
