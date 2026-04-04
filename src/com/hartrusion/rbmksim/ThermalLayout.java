@@ -2819,6 +2819,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return turbine.getTurbineSpeedDeviation();
             }
         });
+        ((PIControl) turbineStartupSteamValve[0].getController())
+                .addIntegralAdaptionProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                 return 12.0 * getPosDiffForBalance(
+                                turbineStartupSteamValve[0],
+                                turbineStartupSteamValve[1]);
+            }
+        });
         turbineStartupSteamValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -2826,15 +2836,28 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return turbine.getTurbineSpeedDeviation();
             }
         });
+        ((PIControl) turbineStartupSteamValve[1].getController())
+                .addIntegralAdaptionProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                 return 12.0 * getPosDiffForBalance(
+                                turbineStartupSteamValve[1],
+                                turbineStartupSteamValve[0]);
+            }
+        });
+        // Default parameters worked just fine, keep them here:
         for (int idx = 0; idx < 2; idx++) {
-            ((PIControl) turbineReheaterSteamValve[idx].getController())
-                    .setParameterK(0.05);
-            ((PIControl) turbineReheaterSteamValve[idx].getController())
+            ((PIControl) turbineStartupSteamValve[idx].getController())
+                    .setParameterK(1);
+            ((PIControl) turbineStartupSteamValve[idx].getController())
                     .setParameterTN(10);
         }
 
         // Main Turbine steam valves control the drum pressure so they open
-        // as soon as the pressure rises.
+        // as soon as the pressure rises. Note that they do not have a diff
+        // control on them for equal position value as they are controlling 
+        // the pressure of each drum, not the turbine rpm.
         turbineMainSteamValve[0].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
