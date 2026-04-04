@@ -2913,21 +2913,35 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public double getAsDouble() {
                  return -setpointTurbineReheaterLevel.getOutput()
                         + turbineReheater.getPrimarySideReservoir()
-                                .getFillHeight() * 100
-                        // this should be attached to integral in only.
-                        + 5.0 * getPosDiffForBalance(
+                                .getFillHeight() * 100;
+            }
+        });
+        ((PIControl) turbineReheaterCondensateValve[0].getController())
+                .addIntegralAdaptionProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                 return 15.0 * getPosDiffForBalance(
                                 turbineReheaterCondensateValve[0],
                                 turbineReheaterCondensateValve[1]);
             }
         });
+        
         turbineReheaterCondensateValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
                 return -setpointTurbineReheaterLevel.getOutput()
                         + turbineReheater.getPrimarySideReservoir()
-                                .getFillHeight() * 100
-                        + 5.0 * getPosDiffForBalance(
+                                .getFillHeight() * 100;
+            }
+        });
+        ((PIControl) turbineReheaterCondensateValve[1].getController())
+                .addIntegralAdaptionProvider(
+                new DoubleSupplier() {
+            @Override
+            public double getAsDouble() {
+                 return 15.0 * getPosDiffForBalance(
                                 turbineReheaterCondensateValve[1],
                                 turbineReheaterCondensateValve[0]);
             }
