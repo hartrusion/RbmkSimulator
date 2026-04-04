@@ -2825,14 +2825,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         ((PIControl) turbineStartupSteamValve[0].getController())
                 .addIntegralAdaptionProvider(
-                new DoubleSupplier() {
-            @Override
-            public double getAsDouble() {
-                 return 12.0 * getPosDiffForBalance(
+                        new DoubleSupplier() {
+                    @Override
+                    public double getAsDouble() {
+                        return 12.0 * getPosDiffForBalance(
                                 turbineStartupSteamValve[0],
                                 turbineStartupSteamValve[1]);
-            }
-        });
+                    }
+                });
         turbineStartupSteamValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -2842,14 +2842,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         ((PIControl) turbineStartupSteamValve[1].getController())
                 .addIntegralAdaptionProvider(
-                new DoubleSupplier() {
-            @Override
-            public double getAsDouble() {
-                 return 12.0 * getPosDiffForBalance(
+                        new DoubleSupplier() {
+                    @Override
+                    public double getAsDouble() {
+                        return 12.0 * getPosDiffForBalance(
                                 turbineStartupSteamValve[1],
                                 turbineStartupSteamValve[0]);
-            }
-        });
+                    }
+                });
         // Default parameters worked just fine, keep them here:
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) turbineStartupSteamValve[idx].getController())
@@ -2938,22 +2938,22 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                 return -setpointTurbineReheaterLevel.getOutput()
+                return -setpointTurbineReheaterLevel.getOutput()
                         + turbineReheater.getPrimarySideReservoir()
                                 .getFillHeight() * 100;
             }
         });
         ((PIControl) turbineReheaterCondensateValve[0].getController())
                 .addIntegralAdaptionProvider(
-                new DoubleSupplier() {
-            @Override
-            public double getAsDouble() {
-                 return 15.0 * getPosDiffForBalance(
+                        new DoubleSupplier() {
+                    @Override
+                    public double getAsDouble() {
+                        return 15.0 * getPosDiffForBalance(
                                 turbineReheaterCondensateValve[0],
                                 turbineReheaterCondensateValve[1]);
-            }
-        });
-        
+                    }
+                });
+
         turbineReheaterCondensateValve[1].getController().addInputProvider(
                 new DoubleSupplier() {
             @Override
@@ -2965,14 +2965,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         ((PIControl) turbineReheaterCondensateValve[1].getController())
                 .addIntegralAdaptionProvider(
-                new DoubleSupplier() {
-            @Override
-            public double getAsDouble() {
-                 return 15.0 * getPosDiffForBalance(
+                        new DoubleSupplier() {
+                    @Override
+                    public double getAsDouble() {
+                        return 15.0 * getPosDiffForBalance(
                                 turbineReheaterCondensateValve[1],
                                 turbineReheaterCondensateValve[0]);
-            }
-        });
+                    }
+                });
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) turbineReheaterCondensateValve[idx].getController())
                     .setParameterK(5);
@@ -3843,6 +3843,82 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 -> feedwaterSparePumpInValve[1].getOpening() <= 1.0);
         feedwaterSparePumpInValve[1].addSafeClosedProvider(()
                 -> feedwaterSparePumpInValve[0].getOpening() <= 1.0);
+
+        // Prevent backflow to feedwater pumps on SCRAM if pressure builds up,
+        // this is very uncommon but for simulation of catastrophic events we 
+        // must prevent backflow to DA with this.
+        feedwaterShutoffValve[0][0].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (feedwaterAfterStartupNode[0].effortUpdated()
+                        && feedwaterIntoFlowRegNode[0][0].effortUpdated()) {
+                    return feedwaterAfterStartupNode[0].getEffort()
+                            > feedwaterIntoFlowRegNode[0][0].getEffort();
+                } // fallback
+                return true;
+            }
+        });
+        feedwaterShutoffValve[1][0].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (feedwaterAfterStartupNode[1].effortUpdated()
+                        && feedwaterIntoFlowRegNode[1][0].effortUpdated()) {
+                    return feedwaterAfterStartupNode[1].getEffort()
+                            > feedwaterIntoFlowRegNode[1][0].getEffort();
+                } // fallback
+                return true;
+            }
+        });
+        feedwaterShutoffValve[0][1].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (feedwaterPumpCollectorNodes[0].effortUpdated()
+                        && feedwaterIntoFlowRegNode[0][1].effortUpdated()) {
+                    return feedwaterPumpCollectorNodes[0].getEffort()
+                            > feedwaterIntoFlowRegNode[0][1].getEffort();
+                } // fallback
+                return true;
+            }
+        });
+        feedwaterShutoffValve[0][2].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (feedwaterPumpCollectorNodes[0].effortUpdated()
+                        && feedwaterIntoFlowRegNode[0][2].effortUpdated()) {
+                    return feedwaterPumpCollectorNodes[0].getEffort()
+                            > feedwaterIntoFlowRegNode[0][2].getEffort();
+                } // fallback
+                return true;
+            }
+        });
+        feedwaterShutoffValve[1][1].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (feedwaterPumpCollectorNodes[1].effortUpdated()
+                        && feedwaterIntoFlowRegNode[01][1].effortUpdated()) {
+                    return feedwaterPumpCollectorNodes[1].getEffort()
+                            > feedwaterIntoFlowRegNode[1][1].getEffort();
+                } // fallback
+                return true;
+            }
+        });
+        feedwaterShutoffValve[1][2].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (feedwaterPumpCollectorNodes[1].effortUpdated()
+                        && feedwaterIntoFlowRegNode[1][2].effortUpdated()) {
+                    return feedwaterPumpCollectorNodes[1].getEffort()
+                            > feedwaterIntoFlowRegNode[1][2].getEffort();
+                } // fallback
+                return true;
+            }
+        });
 
         // Close Aux Condensers Drain Valve on low level
         auxCondCondensateValve[0].addSafeClosedProvider(()
