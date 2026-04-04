@@ -122,7 +122,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatVolumizedFlowResistance[] loopDownflow
             = new HeatVolumizedFlowResistance[2];
     private final HeatNode[] loopCollector = new HeatNode[2];
-    private final HeatFluidPump[][] loopAssembly
+    private final HeatFluidPump[][] loopMcpAssembly
             = new HeatFluidPump[2][4];
     private final HeatNode[][] loopTrimNode = new HeatNode[2][4];
     private final HeatValve[][] loopTrimValve = new HeatValve[2][4];
@@ -540,9 +540,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopCollector[idx] = new HeatNode();
             loopCollector[idx].setName("Loop" + (idx + 1) + "#Collector");
             for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx] = new HeatFluidPump();
+                loopMcpAssembly[idx][jdx] = new HeatFluidPump();
                 // Will be named something like Loop1#mcp3DischargeValve
-                loopAssembly[idx][jdx].initName("Loop" + (idx + 1)
+                loopMcpAssembly[idx][jdx].initName("Loop" + (idx + 1)
                         + "#mcp" + (jdx + 1));
                 loopTrimNode[idx][jdx] = new HeatNode();
                 loopTrimNode[idx][jdx].setName("Loop" + (idx + 1)
@@ -1188,9 +1188,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopDownflow[idx].connectTo(loopCollector[idx]);
             // Place 4 MCPs parallel, each has a trim valve after it,
             for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx].getSuctionValve()
+                loopMcpAssembly[idx][jdx].getSuctionValve()
                         .connectTo(loopCollector[idx]);
-                loopAssembly[idx][jdx].getDischargeValve().connectToVia(
+                loopMcpAssembly[idx][jdx].getDischargeValve().connectToVia(
                         loopTrimValve[idx][jdx].getValveElement(),
                         loopTrimNode[idx][jdx]);
                 loopTrimValve[idx][jdx].getValveElement()
@@ -1796,10 +1796,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Assume a pressure of 2.5e6Pa if all valves are closed.
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 4; jdx++) {
-                loopAssembly[idx][jdx].initCharacteristic(
-                        2.5e6, 2.03e6, 1933.3);
+                loopMcpAssembly[idx][jdx].initCharacteristic(
+                        2.8e6, 2.2e6, 2933.3);
                 // Todo: Advanced Characteristic here
-                loopTrimValve[idx][jdx].initCharacteristicSimple(5.51724);
+                loopTrimValve[idx][jdx].initCharacteristicAdvanced(
+                        3000, 2.6e6, 500);
             }
             loopDownflow[idx].setResistanceParameter(12.6);
             loopDownflow[idx].setInnerThermalMass(50); // initial: 100
@@ -2421,7 +2422,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(mainSteamShutoffValve[idx]);
             for (int jdx = 0; jdx < 4; jdx++) {
-                runner.submit(loopAssembly[idx][jdx]);
+                runner.submit(loopMcpAssembly[idx][jdx]);
                 runner.submit(loopTrimValve[idx][jdx]);
             }
             runner.submit(loopBypass[idx]);
@@ -3794,12 +3795,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Safety">
         // Steam Drum Level must be above MIN2 for MCPs to run.
         for (int jdx = 0; jdx < 4; jdx++) {
-            loopAssembly[0][jdx].addSafeOffProvider(()
+            loopMcpAssembly[0][jdx].addSafeOffProvider(()
                     -> !alarmManager.isAlarmActive(
                             "Drum1Level", AlarmState.MIN2));
         }
         for (int jdx = 0; jdx < 4; jdx++) {
-            loopAssembly[1][jdx].addSafeOffProvider(()
+            loopMcpAssembly[1][jdx].addSafeOffProvider(()
                     -> !alarmManager.isAlarmActive(
                             "Drum2Level", AlarmState.MIN2));
         }
@@ -4785,7 +4786,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 if (idx >= 0 && idx <= 3 && jdx >= 0 && jdx <= 3) {
                     String command = ac.getPropertyName()
                             .substring(10, ac.getPropertyName().length());
-                    if (!loopAssembly[idx][jdx].handleAction(ac)) {
+                    if (!loopMcpAssembly[idx][jdx].handleAction(ac)) {
                         loopTrimValve[idx][jdx].handleAction(ac);
                     }
                 }
@@ -4796,7 +4797,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     boolean allowOpening = true;
                     // all 4 mcps must be closed to allow bypass valve to open.
                     for (int idx = 0; idx < 4; idx++) {
-                        if (loopAssembly[0][idx].getDischargeValve()
+                        if (loopMcpAssembly[0][idx].getDischargeValve()
                                 .getOpening() > 1.0) {
                             allowOpening = false;
                             break;
@@ -4814,7 +4815,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     allowOpening = true;
                     // all 4 mcps must be closed to allow bypass valve to open.
                     for (int idx = 0; idx < 4; idx++) {
-                        if (loopAssembly[1][idx].getDischargeValve()
+                        if (loopMcpAssembly[1][idx].getDischargeValve()
                                 .getOpening() > 1.0) {
                             allowOpening = false;
                             break;

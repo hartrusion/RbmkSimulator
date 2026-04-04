@@ -153,8 +153,8 @@ public class PanelMCP extends AbstractPanelWidget
         chornobylGaugeLoop1Temperature.setChornobylUnitText("°C");
         add(chornobylGaugeLoop1Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 64, -1, -1));
 
-        chornobylGaugeLoop1RecircFlow.setChornobylMaximum(8000.0F);
-        chornobylGaugeLoop1RecircFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 5000.0f, 8000.0f});
+        chornobylGaugeLoop1RecircFlow.setChornobylMaximum(7000.0F);
+        chornobylGaugeLoop1RecircFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 5000.0f});
         chornobylGaugeLoop1RecircFlow.setChornobylUnitText("kg/s");
         add(chornobylGaugeLoop1RecircFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 94, -1, -1));
 
@@ -162,8 +162,8 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel8.setText("Loop 1");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 94, 52, 14));
 
-        chornobylGaugeLoop2RecircFlow.setChornobylMaximum(8000.0F);
-        chornobylGaugeLoop2RecircFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 5000.0f, 8000.0f});
+        chornobylGaugeLoop2RecircFlow.setChornobylMaximum(7000.0F);
+        chornobylGaugeLoop2RecircFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 5000.0f});
         chornobylGaugeLoop2RecircFlow.setChornobylUnitText("kg/s");
         add(chornobylGaugeLoop2RecircFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 94, -1, -1));
 

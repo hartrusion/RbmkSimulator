@@ -123,9 +123,9 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeLoop1RecircFlow">
       <Properties>
-        <Property name="chornobylMaximum" type="float" value="8000.0"/>
+        <Property name="chornobylMaximum" type="float" value="7000.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[0.0, 2000.0, 5000.0, 8000.0]"/>
+          <PropertyValue value="[0.0, 2000.0, 5000.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="kg/s"/>
       </Properties>
@@ -152,9 +152,9 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeLoop2RecircFlow">
       <Properties>
-        <Property name="chornobylMaximum" type="float" value="8000.0"/>
+        <Property name="chornobylMaximum" type="float" value="7000.0"/>
         <Property name="chornobylTicks" type="[F" editor="org.netbeans.modules.form.editors.PrimitiveTypeArrayEditor">
-          <PropertyValue value="[0.0, 2000.0, 5000.0, 8000.0]"/>
+          <PropertyValue value="[0.0, 2000.0, 5000.0]"/>
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="kg/s"/>
       </Properties>
