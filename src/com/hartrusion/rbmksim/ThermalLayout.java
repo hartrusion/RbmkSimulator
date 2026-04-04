@@ -2030,16 +2030,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // full condensation flow is 3111,11 kg/s, div by 2 is 1555.56 kg/s
         // Todo: Proper values, those are just made up to have something.
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
-            condensationHotwellPump[idx].initCharacteristic(10e5, 8e5, 1556);
+            condensationHotwellPump[idx].initCharacteristic(14e5, 8e5, 600);
         }
         // same here
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
-            condensationCondensatePump[idx].initCharacteristic(10e5, 6e5, 1556);
+            condensationCondensatePump[idx].initCharacteristic(14e5, 6e5, 600);
         }
         // 3 bar diff on full opening at 1555 kg/s
         // this was 800, reduced to 400 and added 400 on preheater piping.
+        // now replaced with a better calculation:
         for (int idx = 0; idx < 2; idx++) {
-            condensationValveToDA[idx].initCharacteristicSimple(400);
+            condensationValveToDA[idx].initCharacteristicAdvanced(
+                    620, 2e6, 2500); // see ods sheet in docs
         }
 
         // Condenser startup ejectors do actually not use much steam, they will
