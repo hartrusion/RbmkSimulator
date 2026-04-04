@@ -824,6 +824,10 @@ public class PanelFeedwater extends AbstractPanelWidget
                 chornobylGaugeFeed1Flow.setChornobylValue((float) newValue);
             case "Feedwater2#Flow" ->
                 chornobylGaugeFeed2Flow.setChornobylValue((float) newValue);
+            case "Feedwater1#Temperature" ->
+                chornobylGaugeFeed1Temp.setChornobylValue((float) newValue);
+            case "Feedwater2#Temperature" ->
+                chornobylGaugeFeed2Temp.setChornobylValue((float) newValue);
         }
     }
 
