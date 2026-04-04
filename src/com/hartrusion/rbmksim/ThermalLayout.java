@@ -1890,7 +1890,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             deaerator[idx].setBaseArea(40);
 
             // Todo: Proper values for DA valves, just some rough estimates 
-            deaeratorSteamInRegValve[idx].initCharacteristicSimple(1000);
+            deaeratorSteamInRegValve[idx].initCharacteristicSimple(900);
 
             // DA from main steam: Here are some thoughts on how to dimenstion 
             // the valves. We have no low pressure preheater on startup so we
@@ -1913,7 +1913,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // something is left for the regulator valves afterwards and the 
             // valves can be used earlier on startup. That will be R = 
             // 5e6 Pa / 12 kg/s = 4.2e5 Pa*s/kg
-            deaeratorSteamFromMain[idx].initCharacteristicSimple(4.2e5);
+            // - well, reduced afterwards to allow more flow.
+            deaeratorSteamFromMain[idx].initCharacteristicSimple(3.5e5);
             deaeratorDrain[idx].initCharacteristicSimple(50);
         }
 
@@ -2046,9 +2047,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationHotwellPump[idx].initCharacteristic(14e5, 8e5, 600);
         }
-        // same here
+        // this one has slightly higher pressure
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
-            condensationCondensatePump[idx].initCharacteristic(14e5, 6e5, 600);
+            condensationCondensatePump[idx].initCharacteristic(20e5, 9e5, 600);
         }
         // 3 bar diff on full opening at 1555 kg/s
         // this was 800, reduced to 400 and added 400 on preheater piping.
@@ -2118,11 +2119,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // at 3.5 barabs. 42.1 kg/s will be redirected to heat up the deaerator.
         // Total resistance of first HP part is 4554.95 Pa/kg*s, it will be less
         // so the inlet valves form the missing resistance of 1000
-        turbineHighPressureFirst.setResistanceParameter(3554.95);
-        turbineHighPressureSecond.setResistanceParameter(606.40);
+        // CHANGED: Design values are 3554,95 and 606,40 but this is problematic
+        // due to too low pressure towards deaerator. Changed by shifting 200
+        turbineHighPressureFirst.setResistanceParameter(3354.95);
+        turbineHighPressureSecond.setResistanceParameter(0806.40);
 
-        // Todo, just some random number for now.
-        turbineHighPressureTapValve.initCharacteristicSimple(4e3);
+        // This number is not calculated but found by randomly trying.
+        turbineHighPressureTapValve.initCharacteristicSimple(900);
 
         // The model works by setting an out vapour fraction and consuming all
         // of the energy, this will drive the shaft later.
@@ -2150,7 +2153,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // (theres 2 valves to 1 turbine but we calculate as 2 valves on
             // 2 turbines). 
             turbineMainSteamValve[idx].initCharacteristicAdvanced(
-                    620, 6e6, 2500); // Todo
+                    700, 5.3e6, 2800); // Todo
             turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
         }
 
@@ -2272,8 +2275,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Reheater 2: 0.2170 bar - Between 2 and 3: 124710 Pa
         // from 3 and 2 to 1: 155.64 kg/s - 180 kg/s
         // Reheater 1: 0.0306 bar - Between 1 and 2:  18640 Pa
-        preheaterCondensateValve[2].initCharacteristicSimple(200);
-        preheaterCondensateValve[1].initCharacteristicSimple(80);
+        preheaterCondensateValve[2].initCharacteristicSimple(140);
+        preheaterCondensateValve[1].initCharacteristicSimple(60);
 
         // Set the condensate heights to have about 20 % of the operating 
         // pressure differences. 2-1 has 1.25 bar, 1-0 has 0.18 bar
@@ -2295,7 +2298,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // An 8 bar effort source is placed here so the flow from reheater
             // to deaerator is ensured. There should be a pump there otherwise
             // but it would be too much for the user maybe.
-            turbineReheaterToDaCondensateHeight[idx].setEffort(8e5);
+            turbineReheaterToDaCondensateHeight[idx].setEffort(10e5);
             turbineReheaterCondensateValve[idx].initCharacteristicSimple(1800);
         }
         // 1 bar difference towards hotwell to ensure flow
