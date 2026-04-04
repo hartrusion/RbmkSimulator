@@ -258,12 +258,9 @@ public class Turbine extends Subsystem implements Runnable {
         if (generatorSynched) {
             setpointTurbineSpeed.setInput(3000);
             setpointTurbineSpeed.forceOutputValue(3000);
-        } else if (speedSetpointFollowup) {
-            // As long as no turbine control is active, force the setpoint to 
-            // the current speed.
-            setpointTurbineSpeed.setInput(turbineVelocity.getEffort());
-            setpointTurbineSpeed.forceOutputValue(turbineVelocity.getEffort());
         }
+        // Do not force the turbine setpoint to current value to allow it to be
+        // set individually.
 
         runner.invokeAll();
 
