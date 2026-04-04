@@ -464,7 +464,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
                 valveDrain1.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Deaerator2#Drain_Pos" ->
                 valveDrain2.setActive(evt.getNewValue() != ValveState.CLOSED);
-            case "Turbine2#LowPressureTapValve_Pos" ->
+            case "Turbine#HighPressureTapValve_Pos" ->
                 valveTurbineTap.setActive(evt.getNewValue() != ValveState.CLOSED);
                 
             case "Turbine1#ReheaterCondensateValve_Pos" ->
