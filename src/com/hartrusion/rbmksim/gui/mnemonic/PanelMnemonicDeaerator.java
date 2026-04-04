@@ -82,44 +82,49 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabelReadingCondensateFromPreheater1 = new javax.swing.JLabel();
+        jLabelReadingCondensateFromPreheater2 = new javax.swing.JLabel();
         jLabelReadingSteamFlow1 = new javax.swing.JLabel();
         jLabelReadingSteamFlow2 = new javax.swing.JLabel();
+        valveReheaterCondensate1 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
+        valveReheaterCondensate2 = new com.hartrusion.rbmksim.gui.mnemonic.Valve();
         jLabelBackground = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(400, 264));
-        setPreferredSize(new java.awt.Dimension(400, 264));
+        setMaximumSize(new java.awt.Dimension(400, 291));
+        setPreferredSize(new java.awt.Dimension(400, 291));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         valveDrain1.setVertical(true);
-        add(valveDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 211, -1, -1));
+        add(valveDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 238, -1, -1));
 
         valveDrain2.setVertical(true);
-        add(valveDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 211, -1, -1));
+        add(valveDrain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 238, -1, -1));
 
         valveSteamIn1.setControlIndicator(true);
         valveSteamIn1.setVertical(true);
-        add(valveSteamIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 132, -1, -1));
+        add(valveSteamIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 159, -1, -1));
 
         valveSteamFromMain1.setVertical(true);
-        add(valveSteamFromMain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 150, -1, -1));
+        add(valveSteamFromMain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 177, -1, -1));
 
         valveSteamFromMain2.setVertical(true);
-        add(valveSteamFromMain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 150, -1, -1));
+        add(valveSteamFromMain2, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 177, -1, -1));
 
         valveSteamIn2.setControlIndicator(true);
         valveSteamIn2.setVertical(true);
-        add(valveSteamIn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 132, -1, -1));
+        add(valveSteamIn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 159, -1, -1));
 
         valveCondIn1.setControlIndicator(true);
-        add(valveCondIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 76, -1, -1));
+        add(valveCondIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 103, -1, -1));
 
         valveCondIn2.setControlIndicator(true);
-        add(valveCondIn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 76, -1, -1));
-        add(valveVent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 11, -1, -1));
-        add(valveVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 11, -1, -1));
+        add(valveCondIn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 103, -1, -1));
+        add(valveVent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 38, -1, -1));
+        add(valveVent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 38, -1, -1));
 
         valveTurbineTap.setVertical(true);
-        add(valveTurbineTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 208, -1, -1));
+        add(valveTurbineTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 235, -1, -1));
 
         jLabelReadingCondIn1Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondIn1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -127,7 +132,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingCondIn1Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondIn1Valve.setText("___");
         jLabelReadingCondIn1Valve.setOpaque(true);
-        add(jLabelReadingCondIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 66, 24, -1));
+        add(jLabelReadingCondIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 94, 24, -1));
 
         jLabelReadingSteamIn1Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamIn1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -135,7 +140,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingSteamIn1Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamIn1Valve.setText("___");
         jLabelReadingSteamIn1Valve.setOpaque(true);
-        add(jLabelReadingSteamIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 158, 24, -1));
+        add(jLabelReadingSteamIn1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 186, 24, -1));
 
         jLabelReadingSteamFromMain1Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamFromMain1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -143,7 +148,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingSteamFromMain1Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamFromMain1Valve.setText("___");
         jLabelReadingSteamFromMain1Valve.setOpaque(true);
-        add(jLabelReadingSteamFromMain1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 176, 24, -1));
+        add(jLabelReadingSteamFromMain1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 204, 24, -1));
 
         jLabelReadingSteamFromMain2Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamFromMain2Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -151,7 +156,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingSteamFromMain2Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamFromMain2Valve.setText("___");
         jLabelReadingSteamFromMain2Valve.setOpaque(true);
-        add(jLabelReadingSteamFromMain2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 176, 24, -1));
+        add(jLabelReadingSteamFromMain2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 204, 24, -1));
 
         jLabelReadingSteamIn2Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamIn2Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -159,7 +164,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingSteamIn2Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamIn2Valve.setText("___");
         jLabelReadingSteamIn2Valve.setOpaque(true);
-        add(jLabelReadingSteamIn2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 158, 24, -1));
+        add(jLabelReadingSteamIn2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 186, 24, -1));
 
         jLabelReadingTurbineTapValve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingTurbineTapValve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -167,7 +172,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingTurbineTapValve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingTurbineTapValve.setText("___");
         jLabelReadingTurbineTapValve.setOpaque(true);
-        add(jLabelReadingTurbineTapValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 210, 24, -1));
+        add(jLabelReadingTurbineTapValve, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 238, 24, -1));
 
         jLabelReadingDrain1Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDrain1Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -175,7 +180,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDrain1Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDrain1Valve.setText("___");
         jLabelReadingDrain1Valve.setOpaque(true);
-        add(jLabelReadingDrain1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 210, 24, -1));
+        add(jLabelReadingDrain1Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 238, 24, -1));
 
         jLabelReadingDrain2Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDrain2Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -183,7 +188,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDrain2Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDrain2Valve.setText("___");
         jLabelReadingDrain2Valve.setOpaque(true);
-        add(jLabelReadingDrain2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 210, 24, -1));
+        add(jLabelReadingDrain2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 238, 24, -1));
 
         jLabelReadingCondIn2Valve.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondIn2Valve.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
@@ -191,7 +196,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingCondIn2Valve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondIn2Valve.setText("___");
         jLabelReadingCondIn2Valve.setOpaque(true);
-        add(jLabelReadingCondIn2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 66, 24, -1));
+        add(jLabelReadingCondIn2Valve, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 94, 24, -1));
 
         jLabelReadingDA1Pressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA1Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -199,7 +204,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDA1Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDA1Pressure.setText("0,0");
         jLabelReadingDA1Pressure.setOpaque(true);
-        add(jLabelReadingDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 154, 32, 16));
+        add(jLabelReadingDA1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 182, 32, 16));
 
         jLabelReadingDA1Temperature.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA1Temperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -207,7 +212,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDA1Temperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDA1Temperature.setText("000");
         jLabelReadingDA1Temperature.setOpaque(true);
-        add(jLabelReadingDA1Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 172, 32, 16));
+        add(jLabelReadingDA1Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 200, 32, 16));
 
         jLabelReadingDA2Pressure.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA2Pressure.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -215,7 +220,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDA2Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDA2Pressure.setText("0,0");
         jLabelReadingDA2Pressure.setOpaque(true);
-        add(jLabelReadingDA2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 154, 32, 16));
+        add(jLabelReadingDA2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 182, 32, 16));
 
         jLabelReadingDA2Temperature.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA2Temperature.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -223,7 +228,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDA2Temperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDA2Temperature.setText("000");
         jLabelReadingDA2Temperature.setOpaque(true);
-        add(jLabelReadingDA2Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 172, 32, 16));
+        add(jLabelReadingDA2Temperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 200, 32, 16));
 
         jLabelReadingDA2Level.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA2Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -231,7 +236,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDA2Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDA2Level.setText("____ cm");
         jLabelReadingDA2Level.setOpaque(true);
-        add(jLabelReadingDA2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 184, 56, 16));
+        add(jLabelReadingDA2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 212, 56, 16));
 
         jLabelReadingDA1Level.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingDA1Level.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -239,7 +244,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingDA1Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingDA1Level.setText("____");
         jLabelReadingDA1Level.setOpaque(true);
-        add(jLabelReadingDA1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 184, 36, 16));
+        add(jLabelReadingDA1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 212, 36, 16));
 
         jLabelReadingCondFlow1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondFlow1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -247,7 +252,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingCondFlow1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondFlow1.setText("____ kg/s");
         jLabelReadingCondFlow1.setOpaque(true);
-        add(jLabelReadingCondFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 56, 56, 16));
+        add(jLabelReadingCondFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 84, 56, 16));
 
         jLabelReadingCondFlow2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingCondFlow2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -255,63 +260,84 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingCondFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingCondFlow2.setText("____ kg/s");
         jLabelReadingCondFlow2.setOpaque(true);
-        add(jLabelReadingCondFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 54, 56, 16));
+        add(jLabelReadingCondFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 84, 56, 16));
 
         jLabel11.setFont(jLabel11.getFont().deriveFont(jLabel11.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel11.getFont().getSize()-3));
         jLabel11.setForeground(new java.awt.Color(14, 222, 194));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("DA 1");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 40, -1));
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 118, 40, -1));
 
         jLabel12.setFont(jLabel12.getFont().deriveFont(jLabel12.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel12.getFont().getSize()-3));
         jLabel12.setForeground(new java.awt.Color(14, 222, 194));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("DA 2");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 12, 36, -1));
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 120, 36, -1));
 
         jLabel13.setFont(jLabel13.getFont().deriveFont(jLabel13.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel13.getFont().getSize()-3));
         jLabel13.setForeground(new java.awt.Color(14, 222, 194));
         jLabel13.setText("Drain");
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 248, -1, -1));
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 276, -1, -1));
 
         jLabel14.setFont(jLabel14.getFont().deriveFont(jLabel14.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel14.getFont().getSize()-3));
         jLabel14.setForeground(new java.awt.Color(14, 222, 194));
         jLabel14.setText("HP Turbine");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 248, 58, -1));
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 276, 58, -1));
 
         jLabel15.setFont(jLabel15.getFont().deriveFont(jLabel15.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel15.getFont().getSize()-3));
         jLabel15.setForeground(new java.awt.Color(14, 222, 194));
         jLabel15.setText("Drain");
-        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 248, -1, -1));
+        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 276, -1, -1));
 
         jLabel16.setFont(jLabel16.getFont().deriveFont(jLabel16.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel16.getFont().getSize()-3));
         jLabel16.setForeground(new java.awt.Color(14, 222, 194));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Condensate");
-        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 106, 74, -1));
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 134, 74, -1));
 
         jLabel17.setFont(jLabel17.getFont().deriveFont(jLabel17.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel17.getFont().getSize()-3));
         jLabel17.setForeground(new java.awt.Color(14, 222, 194));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Main Steam");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 124, 92, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 152, 92, -1));
 
         jLabel18.setFont(jLabel18.getFont().deriveFont(jLabel18.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel18.getFont().getSize()-3));
         jLabel18.setForeground(new java.awt.Color(14, 222, 194));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Vent");
-        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 12, 38, -1));
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 38, 38, -1));
 
         jLabel19.setFont(jLabel19.getFont().deriveFont(jLabel19.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel19.getFont().getSize()-3));
         jLabel19.setForeground(new java.awt.Color(14, 222, 194));
         jLabel19.setText("Feed 1");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 248, 40, -1));
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 276, 40, -1));
 
         jLabel20.setFont(jLabel20.getFont().deriveFont(jLabel20.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel20.getFont().getSize()-3));
         jLabel20.setForeground(new java.awt.Color(14, 222, 194));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Feed 2");
-        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 248, 38, -1));
+        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 276, 38, -1));
+
+        jLabel21.setFont(jLabel21.getFont().deriveFont(jLabel21.getFont().getStyle() & ~java.awt.Font.BOLD, jLabel21.getFont().getSize()-3));
+        jLabel21.setForeground(new java.awt.Color(14, 222, 194));
+        jLabel21.setText("Reheater");
+        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 22, -1, -1));
+
+        jLabelReadingCondensateFromPreheater1.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensateFromPreheater1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensateFromPreheater1.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensateFromPreheater1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensateFromPreheater1.setText("____ kg/s");
+        jLabelReadingCondensateFromPreheater1.setOpaque(true);
+        add(jLabelReadingCondensateFromPreheater1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 4, 56, 16));
+
+        jLabelReadingCondensateFromPreheater2.setBackground(new java.awt.Color(77, 69, 27));
+        jLabelReadingCondensateFromPreheater2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabelReadingCondensateFromPreheater2.setForeground(new java.awt.Color(231, 255, 166));
+        jLabelReadingCondensateFromPreheater2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingCondensateFromPreheater2.setText("____ kg/s");
+        jLabelReadingCondensateFromPreheater2.setOpaque(true);
+        add(jLabelReadingCondensateFromPreheater2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 4, 56, 16));
 
         jLabelReadingSteamFlow1.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamFlow1.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -319,7 +345,7 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingSteamFlow1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamFlow1.setText("____ kg/s");
         jLabelReadingSteamFlow1.setOpaque(true);
-        add(jLabelReadingSteamFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 108, 56, 16));
+        add(jLabelReadingSteamFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 136, 56, 16));
 
         jLabelReadingSteamFlow2.setBackground(new java.awt.Color(77, 69, 27));
         jLabelReadingSteamFlow2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
@@ -327,7 +353,15 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         jLabelReadingSteamFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingSteamFlow2.setText("____ kg/s");
         jLabelReadingSteamFlow2.setOpaque(true);
-        add(jLabelReadingSteamFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 106, 56, 16));
+        add(jLabelReadingSteamFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 134, 56, 16));
+
+        valveReheaterCondensate1.setControlIndicator(true);
+        valveReheaterCondensate1.setVertical(true);
+        add(valveReheaterCondensate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
+
+        valveReheaterCondensate2.setControlIndicator(true);
+        valveReheaterCondensate2.setVertical(true);
+        add(valveReheaterCondensate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 11, -1, -1));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicDeaerator.png"))); // NOI18N
         add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -345,11 +379,14 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingCondFlow1;
     private javax.swing.JLabel jLabelReadingCondFlow2;
     private javax.swing.JLabel jLabelReadingCondIn1Valve;
     private javax.swing.JLabel jLabelReadingCondIn2Valve;
+    private javax.swing.JLabel jLabelReadingCondensateFromPreheater1;
+    private javax.swing.JLabel jLabelReadingCondensateFromPreheater2;
     private javax.swing.JLabel jLabelReadingDA1Level;
     private javax.swing.JLabel jLabelReadingDA1Pressure;
     private javax.swing.JLabel jLabelReadingDA1Temperature;
@@ -369,6 +406,8 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondIn2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveDrain1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveDrain2;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterCondensate1;
+    private com.hartrusion.rbmksim.gui.mnemonic.Valve valveReheaterCondensate2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSteamFromMain1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSteamFromMain2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveSteamIn1;
@@ -427,6 +466,25 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
                 valveDrain2.setActive(evt.getNewValue() != ValveState.CLOSED);
             case "Turbine2#LowPressureTapValve_Pos" ->
                 valveTurbineTap.setActive(evt.getNewValue() != ValveState.CLOSED);
+                
+            case "Turbine1#ReheaterCondensateValve_Pos" ->
+                valveReheaterCondensate1.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine1#ReheaterCondensateValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveReheaterCondensate1.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveReheaterCondensate1.setControlIndicatorActive(false);
+                }
+            }
+            case "Turbine2#ReheaterCondensateValve_Pos" ->
+                valveReheaterCondensate2.setActive(evt.getNewValue() != ValveState.CLOSED);
+            case "Turbine2#ReheaterCondensateValveControlState" -> {
+                if (evt.getNewValue() == ControlCommand.AUTOMATIC) {
+                    valveReheaterCondensate2.setControlIndicatorActive(true);
+                } else if (evt.getNewValue() == ControlCommand.MANUAL_OPERATION) {
+                    valveReheaterCondensate2.setControlIndicatorActive(false);
+                }
+            }
         }
     }
 
@@ -454,6 +512,16 @@ public class PanelMnemonicDeaerator extends javax.swing.JPanel
         }
         if (propertyName.equals("Condensation2#FlowToDA")) {
             jLabelReadingCondFlow2.setText(
+                    String.format("%.0f", newValue) + " kg/s");
+            return;
+        }
+        if (propertyName.equals("Turbine1#ReheaterToDAFlow")) {
+            jLabelReadingCondensateFromPreheater1.setText(
+                    String.format("%.0f", newValue) + " kg/s");
+            return;
+        }
+        if (propertyName.equals("Turbine2#ReheaterToDAFlow")) {
+            jLabelReadingCondensateFromPreheater2.setText(
                     String.format("%.0f", newValue) + " kg/s");
             return;
         }

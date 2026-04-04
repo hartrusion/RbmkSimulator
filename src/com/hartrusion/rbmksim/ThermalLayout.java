@@ -37,6 +37,7 @@ import com.hartrusion.modeling.automated.HeatValveControlled;
 import com.hartrusion.modeling.assemblies.PhasedCondenserNoMass;
 import com.hartrusion.modeling.assemblies.PhasedHeatExchangerNoMass;
 import com.hartrusion.modeling.assemblies.PhasedSuperheater;
+import com.hartrusion.modeling.automated.BaseAutomatedValve;
 import com.hartrusion.modeling.automated.DummyValve;
 import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.automated.PhasedValveControlled;
@@ -373,6 +374,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedNode turbineRehasterMassOut;
     private final PhasedValveControlled[] turbineReheaterCondensateValve
             = new PhasedValveControlled[2];
+    private final PhasedNode[] turbineReheaterCondensateToHeight
+            = new PhasedNode[2];
+    private final PhasedEffortSource[] turbineReheaterToDaCondensateHeight
+            = new PhasedEffortSource[2];
     private final PhasedNode[] turbineReheaterCondensateNode
             = new PhasedNode[2];
     private final PhasedValveControlled turbineReheaterCondensateDrain;
@@ -1071,6 +1076,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     new PIControl());
             turbineReheaterCondensateValve[idx].initName(
                     "Turbine" + (idx + 1) + "#ReheaterCondensateValve");
+            turbineReheaterCondensateToHeight[idx] = new PhasedNode();
+            turbineReheaterCondensateToHeight[idx].setName(
+                    "Turbine" + (idx + 1) + "#ReheaterCondensateToHeight");
+            turbineReheaterToDaCondensateHeight[idx] = new PhasedEffortSource();
+            turbineReheaterToDaCondensateHeight[idx].setName(
+                    "Turbine" + (idx + 1) + "#ReheaterCondensateHeight");
             turbineReheaterCondensateNode[idx] = new PhasedNode();
             turbineReheaterCondensateNode[idx].setName(
                     "Turbine" + (idx + 1) + "#ReheaterCondensateNode");
@@ -1681,7 +1692,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .connectBetween( // Condensate to hotwell / condenser:
                             turbineReheater.getPhasedNode(
                                     PhasedSuperheater.PRIMARY_OUT),
-                            turbineReheaterCondensateNode[idx]);
+                            turbineReheaterCondensateToHeight[idx]);
+            // cheat some effort as height
+            turbineReheaterToDaCondensateHeight[idx].connectBetween(
+                    turbineReheaterCondensateToHeight[idx],
+                    turbineReheaterCondensateNode[idx]);
             deaerator[idx].connectTo(turbineReheaterCondensateNode[idx]);
         }
         // Drain path from reheater to hotwell, this goes via some effort source
@@ -2276,11 +2291,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
-            turbineReheaterCondensateValve[idx].initCharacteristicSimple(500);
+            // An 8 bar effort source is placed here so the flow from reheater
+            // to deaerator is ensured. There should be a pump there otherwise
+            // but it would be too much for the user maybe.
+            turbineReheaterToDaCondensateHeight[idx].setEffort(8e5);
+            turbineReheaterCondensateValve[idx].initCharacteristicSimple(1800);
         }
         // 1 bar difference towards hotwell to ensure flow
         turbineReheaterCondensateHeight.setEffort(2e5);
-        turbineReheaterCondensateDrain.initCharacteristicSimple(200);
+        turbineReheaterCondensateDrain.initCharacteristicSimple(300);
 
         // </editor-fold>
         turbine.initElementProperties();
@@ -2892,9 +2911,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return -setpointTurbineReheaterLevel.getOutput()
+                 return -setpointTurbineReheaterLevel.getOutput()
                         + turbineReheater.getPrimarySideReservoir()
-                                .getFillHeight() * 100;
+                                .getFillHeight() * 100
+                        // this should be attached to integral in only.
+                        + 5.0 * getPosDiffForBalance(
+                                turbineReheaterCondensateValve[0],
+                                turbineReheaterCondensateValve[1]);
             }
         });
         turbineReheaterCondensateValve[1].getController().addInputProvider(
@@ -2903,7 +2926,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public double getAsDouble() {
                 return -setpointTurbineReheaterLevel.getOutput()
                         + turbineReheater.getPrimarySideReservoir()
-                                .getFillHeight() * 100;
+                                .getFillHeight() * 100
+                        + 5.0 * getPosDiffForBalance(
+                                turbineReheaterCondensateValve[1],
+                                turbineReheaterCondensateValve[0]);
             }
         });
         for (int idx = 0; idx < 2; idx++) {
@@ -3916,19 +3942,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return true;
             }
         });
-        // Same for normal drain vales to Deaerator: Keep them shut if the
-        // pressure in Deaerator is higher than in the reheater itself to 
-        // prevent a reverse flow.
+        // Drain to DA has some additional 8 bar effort source, 
         turbineReheaterCondensateValve[0].addSafeClosedProvider(
                 new BooleanSupplier() {
             @Override
             public boolean getAsBoolean() {
                 if (turbineReheater.getPhasedNode(
                         PhasedSuperheater.PRIMARY_OUT).effortUpdated()
-                        && turbineReheaterCondensateNode[0].effortUpdated()) {
-                    return turbineReheater.getPhasedNode(
-                            PhasedSuperheater.PRIMARY_OUT).getEffort()
-                            > turbineReheaterCondensateNode[0].getEffort();
+                        && turbineReheaterCondensateToHeight[0].effortUpdated()) {
+                    return !alarmManager.isAlarmActive(
+                            "ReheaterCondensateLevel", AlarmState.MIN1)
+                            && turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            > turbineReheaterCondensateToHeight[0].getEffort();
                 }
                 return true;
             }
@@ -3939,10 +3965,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public boolean getAsBoolean() {
                 if (turbineReheater.getPhasedNode(
                         PhasedSuperheater.PRIMARY_OUT).effortUpdated()
-                        && turbineReheaterCondensateNode[1].effortUpdated()) {
-                    return turbineReheater.getPhasedNode(
-                            PhasedSuperheater.PRIMARY_OUT).getEffort()
-                            > turbineReheaterCondensateNode[1].getEffort();
+                        && turbineReheaterCondensateToHeight[1].effortUpdated()) {
+                    return !alarmManager.isAlarmActive(
+                            "ReheaterCondensateLevel", AlarmState.MIN1)
+                            && turbineReheater.getPhasedNode(
+                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
+                            > turbineReheaterCondensateToHeight[1].getEffort();
                 }
                 return true;
             }
@@ -4646,6 +4674,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 turbineHPOutSatTemp
                 + setpointTurbineReheaterSuperheating.getOutput()
                 - 273.15);
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "Turbine" + (idx + 1) + "#ReheaterToDAFlow",
+                    turbineReheaterCondensateValve[idx]
+                            .getValveElement().getFlow());
+        }
 
         outputValues.setParameterValue("Turbine#HighPressureFlow",
                 turbineHighPressureFirst.getFlow());
@@ -4658,6 +4692,39 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     turbineLowPressureStageOut[idx].getEffort() / 100000);
         }
         // </editor-fold>
+    }
+
+    /**
+     * A helper function for control loops. If two parallel valves are on auto
+     * mode, it is preferred for them to be on the same position. This function
+     * can be called from the control loop and it will return a correction value
+     * if both provided valves are on automatic mode.
+     *
+     * @param thisValve The valve for which the control loop is designed
+     * @param otherValve The other valve which position is to be checked.
+     * @return Balance correction factor which can be fed to the controller
+     * input variable. It will return 0.0 if the other valve is in manual mode.
+     * Value is between -1.0 and +1.0
+     */
+    private static double getPosDiffForBalance(BaseAutomatedValve thisValve,
+            BaseAutomatedValve otherValve) {
+        // its sufficient to check the other valve as this valve is only using
+        // this thing when it's in auto mode.
+        boolean otherIsManual = true;
+        // its a bit tricky as we dont have an interface, we need to check what
+        // kind of valve it is and cast it.
+        if (otherValve instanceof PhasedValveControlled) {
+            otherIsManual = ((PhasedValveControlled) otherValve)
+                    .getController().isManualMode();
+        } else if (otherValve instanceof HeatValveControlled) {
+            otherIsManual = ((HeatValveControlled) otherValve)
+                    .getController().isManualMode();
+        }
+        if (otherIsManual) {
+            return 0.0;
+        }
+        // return difference between valves as -1..1 value
+        return (otherValve.getOpening() - thisValve.getOpening()) / 100.0;
     }
 
     @Override
