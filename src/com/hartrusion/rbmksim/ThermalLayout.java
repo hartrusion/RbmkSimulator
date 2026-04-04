@@ -1533,12 +1533,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     condenserCoolerIn[idx],
                     hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_INNER));
         }
-        
+
         // Startup ejector is modeled as a simple valve to hotwell, exactly 
         // like the main steam bypass.
         for (int idx = 0; idx < 2; idx++) {
             ejectorStartup[idx].getValveElement().connectBetween(mainSteam[idx],
-                   condenserCoolerIn[1]);
+                    condenserCoolerIn[1]);
         }
 
         // Main ejectors: The condensate will be pumped through the secondary 
@@ -1921,15 +1921,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // valves per side so it's all in use on full power. The real plant has
         // more valves on the feed side but the simulation core cannot calculate
         // this. So per pump it will be 388.88 kg/s.
-        // Assume another pressure drop on the regulation valves (those include 
-        // the piping in the model) of 10 bar if full opened
+        // For details on the feedwater valves and pump dimensions, take a look
+        // at the spreadsheet in docs folder.
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 2; jdx++) {
-                // Operating pressure is 69 + 10 - 8 = 71 bar = 7.1e6 on 389 kgs
-                feedwaterPump[idx][jdx].initCharacteristic(8e6, 7.1e6, 388.8);
+                feedwaterPump[idx][jdx].initCharacteristic(95e5, 65e5, 388);
             }
         }
-        feedwaterPump3.initCharacteristic(8e6, 6.6e6, 388.8);
+        // spare pump has the same characteristic as the main pumps.
+        feedwaterPump3.initCharacteristic(95e5, 65e5, 388);
         // Shutoff valves do not add a considerable amount of resistance.
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
@@ -1939,18 +1939,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         // Startup valves
         for (int idx = 0; idx < 2; idx++) {
-            // This thing reduces to 100 kg/s at no pressure on startupt so it
-            // has a huge pressure drop of about 6e5 -> 6e3
             feedwaterStartupReductionValve[idx]
-                    .initCharacteristicSimple(6000); // Todo: Adv. Char
-            feedwaterFlowRegulationValve[idx][0]
-                    .initCharacteristicSimple(800); // todo: Adv. Char
+                    .initCharacteristicSimple(4500);
+            feedwaterFlowRegulationValve[idx][0].initCharacteristicAdvanced(
+                    200, 80e5, 4000);
         }
         // Full power valves
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 1; jdx < 3; jdx++) {
                 feedwaterFlowRegulationValve[idx][jdx]
-                        .initCharacteristicSimple(800);
+                        .initCharacteristicAdvanced(1200, 45e5, 3100);
             }
         }
 
