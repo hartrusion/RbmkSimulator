@@ -531,4 +531,22 @@ public class NeutronFluxModel implements Runnable {
         }
         throw new IllegalArgumentException("Provided index not exsisting.");
     }
+    
+    /**
+     * In case of the prompt excursion beeing happening, a fixed neutron rate 
+     * will be generated.
+     * 
+     * @return true, if a disaster is happening.
+     */
+    public boolean isPromptExcursion() {
+        return promptExcursion;
+    }
+
+    /**
+     * Triggers the prompt neutron excursion, used for testing purposes. The 
+     * prompt excursion is usually triggered by too much reactivity.
+     */
+    public void setPromptExcursion() {
+        this.promptExcursion = true;
+    }
 }

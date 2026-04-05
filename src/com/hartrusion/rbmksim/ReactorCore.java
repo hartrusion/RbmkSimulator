@@ -549,6 +549,10 @@ public class ReactorCore extends Subsystem implements Runnable {
             LOGGER.log(Level.INFO, "Received AZ-5 Command");
             return;
         }
+        if (ac.getPropertyName().equals("Reactor#TriggerPromptExcursion")) {
+            neutronFluxModel.setPromptExcursion();
+            return;
+        }
         if (ac.getPropertyName().equals("Reactor#RPS")) {
             // translate boolean on/off into ControlCommand state
             if ((boolean) ac.getValue()) {

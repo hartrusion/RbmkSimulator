@@ -164,6 +164,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
         jMenuItemHowToStart = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemTriggerDisaster = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -389,6 +391,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemHowToStart.setText("How to start");
         jMenuItemHowToStart.addActionListener(this::jMenuItemHowToStartActionPerformed);
         jMenuHelp.add(jMenuItemHowToStart);
+        jMenuHelp.add(jSeparator4);
+
+        jMenuItemTriggerDisaster.setText("Debug: Trigger Disaster");
+        jMenuItemTriggerDisaster.addActionListener(this::jMenuItemTriggerDisasterActionPerformed);
+        jMenuHelp.add(jMenuItemTriggerDisaster);
 
         jMenuBar1.add(jMenuHelp);
 
@@ -1048,6 +1055,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemTurbineReheaterDiagActionPerformed
 
+    private void jMenuItemTriggerDisasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTriggerDisasterActionPerformed
+        controller.userAction(new ActionCommand("Reactor#TriggerPromptExcursion", null));
+    }//GEN-LAST:event_jMenuItemTriggerDisasterActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1223,6 +1234,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
+    private javax.swing.JMenuItem jMenuItemTriggerDisaster;
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenuItem jMenuItemTurbineHPTemperatures;
@@ -1241,6 +1253,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
