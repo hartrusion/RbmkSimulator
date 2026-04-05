@@ -5544,6 +5544,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         save.addRunnerState("thermalLayout",
                 runner.getCurrentAutomationCondition());
         save.setCondenserVacuum(condenserVacuum.getOutput());
+        save.saveCavitationState(mcpCavitaionState);
         save.setBlowdownBalanceActive(
                 !blowdownBalanceControlLoop.isManualMode());
         save.setCoreOnlySimulation(noReactorInput);
@@ -5557,6 +5558,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("thermalLayout"));
         condenserVacuum.forceOutputValue(save.getCondenserVacuum());
+        save.writeCavitationState(mcpCavitaionState);
         blowdownBalanceControlLoop.setManualMode(
                 !save.isBlowdownBalanceActive());
         oldBalanceControlState = null; // reset to refire property change
