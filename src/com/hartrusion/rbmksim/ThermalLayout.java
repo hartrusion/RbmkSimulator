@@ -58,6 +58,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedEffortSource;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedLimitedPhaseSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
+import com.hartrusion.modeling.phasedfluid.PhasedOrigin;
 import com.hartrusion.modeling.phasedfluid.PhasedPropertiesWater;
 import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedThermalExchanger;
@@ -394,6 +395,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedValve[] turbineLowPressureTapValve = new PhasedValve[4];
     private final PhasedNode turbineLowPressureMidOut;
     private final PhasedThermalExchanger turbineLowPressureOutMass;
+
+    private final PhasedClosedSteamedReservoir bubblerPool;
+    private final PhasedNode bubblerPoolIn;
+    private final PhasedValve[] pressureReliefValveToPool = new PhasedValve[2];
+
+    private final PhasedOrigin environmentOrigin;
+    private final PhasedNode environment;
+    private final PhasedValve[] pressureReliefValveToEnvironment
+            = new PhasedValve[2];
 
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
@@ -1120,6 +1130,28 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureOutMass = new PhasedThermalExchanger(phasedWater);
         turbineLowPressureOutMass.setName("Turbine#LowPressureOutMass");
 
+        bubblerPool = new PhasedClosedSteamedReservoir(phasedWater);
+        bubblerPool.setName("BubblerPool");
+        bubblerPoolIn = new PhasedNode();
+        bubblerPoolIn.setName("BubblerPoolIn");
+
+        // The environment to dispose excess steam is modeled as an model origin
+        // boundary. There are people in this world who have such a small mind 
+        // that this actually is the way they think it could work. 
+        environmentOrigin = new PhasedOrigin();
+        environmentOrigin.setName("EnvironmentOrigin");
+        environment = new PhasedNode();
+        environment.setName("Environment");
+
+        for (int idx = 0; idx < 2; idx++) {
+            pressureReliefValveToPool[idx] = new PhasedValve();
+            pressureReliefValveToPool[idx].initName(
+                    "PRV" + (idx + 1) + "#ToPool");
+            pressureReliefValveToEnvironment[idx] = new PhasedValve();
+            pressureReliefValveToEnvironment[idx].initName(
+                    "PRV" + (idx + 1) + "#ToEnvironment");
+        }
+
         //</editor-fold>      
         blowdownBalanceControlLoop.setName("Blowdown#BalanceControl");
         solver.setString("ThermalLayoutMainSolver");
@@ -1426,9 +1458,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // better network simplification and performance.
         auxCondValveToHotwell.getValveElement().connectBetween(
                 auxCondDistributorNode, auxCondValveToHotwellHeatNode);
+        // auxCondValveToHotwellConverter.connectBetween(
+        //          auxCondValveToHotwellHeatNode, condenserCoolerIn[0]);
+        // TODO - there is a fatal model error with this! This illegally 
+        // heats up the hotwell to boiling point! Has to be examined.
+        // so far:
         auxCondValveToHotwellConverter.connectBetween(
-                auxCondValveToHotwellHeatNode, condenserCoolerIn[0]);
-
+                auxCondValveToHotwellHeatNode, hotwell.getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_INNER));
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
                 auxCondDistributorNode, makeupStorageDrainCollector);
@@ -1760,6 +1797,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 preheater[0].getPhasedNode(PhasedCondenserNoMass.PRIMARY_IN));
         turbineLowPressureTapValve[3].getValveElement().connectTo(
                 ejectorTurbineTapNode);
+
+        bubblerPool.connectTo(bubblerPoolIn);
+        environmentOrigin.connectTo(environment);
+        // Safety relief valves to bubbler pools and to environment
+        for (int idx = 0; idx < 2; idx++) {
+            pressureReliefValveToPool[idx].getValveElement().connectBetween(
+                    mainSteamDrumNode[idx], bubblerPoolIn);
+            pressureReliefValveToEnvironment[idx].getValveElement()
+                    .connectBetween(mainSteamDrumNode[idx], environment);
+        }
 
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Element properties">
@@ -2305,6 +2352,31 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterCondensateHeight.setEffort(2e5);
         turbineReheaterCondensateDrain.initCharacteristicSimple(300);
 
+        // Bubbler pool: HUGHE room below the reactor
+        bubblerPool.setAmbientPressure(1e5);
+        bubblerPool.setBaseArea(400); // square meters
+        // as per definition, water fill height is set in initial cond. block
+
+        // Steam drum pressure relieve valves:
+        for (int idx = 0; idx < 2; idx++) {
+            // Both valves will be extremely fast (like the ones from the 
+            // turbine trip)
+            pressureReliefValveToPool[idx]
+                    .getIntegrator().setMaxRate(1000);
+            pressureReliefValveToEnvironment[idx]
+                    .getIntegrator().setMaxRate(1000);
+            // The relief valve to pool opens up at 75 bar (not absolute
+            // pressure) and the relief valve to environment on 76 bar. Both
+            // environment and pool are modeled with ambient pressure also so
+            // the relative pressure is the one that is pushing through the 
+            // safety valve. Reactor SCRAM is triggered with 72 bar.
+            // 
+            pressureReliefValveToPool[idx].initCharacteristicSimple(
+                    7.4e6 / 300);
+            pressureReliefValveToEnvironment[idx].initCharacteristicSimple(
+                    7.9e6 / 400);
+        }
+
         // </editor-fold>
         turbine.initElementProperties();
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
@@ -2404,6 +2476,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 0.5, 0.0);
 
         turbineRehasterMass.initConditions(273.15 + 22.5);
+
+        // Initial fill of the bubbler pool. It is 400 m^2 in size, so with a 
+        // fill height of 30 cm that will be 400 m^2 * 0.3 m = 120 m^3 which 
+        // is 120 tons of water.
+        bubblerPool.setInitialState(120000, 273.15 + 19.0);
 
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
@@ -2527,6 +2604,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
             runner.submit(turbineLowPressureTapValve[idx]);
         }
 
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(pressureReliefValveToPool[idx]);
+            runner.submit(pressureReliefValveToEnvironment[idx]);
+        }
+
         // Add Solo control loops
         runner.submit(blowdownBalanceControlLoop);
 
@@ -2629,9 +2711,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
             ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterK(10.0);
+                    .getController()).setParameterK(15.0);
             ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterTN(30.0);
+                    .getController()).setParameterTN(10.0);
         }
 
         // Pressure Setpoints for Deaerator (the steam in will go for those 
@@ -3147,10 +3229,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return loopNodeDrumFromReactor[0].getEffort() / 100000 - 1.0;
             }
         });
-        am.defineAlarm(75.0, AlarmState.MAX2);
-        am.defineAlarm(74.0, AlarmState.MAX1);
-        am.defineAlarm(72.0, AlarmState.HIGH2);
-        am.defineAlarm(70.0, AlarmState.HIGH1);
+        am.defineAlarm(74.0, AlarmState.MAX2);
+        am.defineAlarm(72.0, AlarmState.MAX1);
+        am.defineAlarm(70.0, AlarmState.HIGH2);
+        am.defineAlarm(68.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
         am.defineAlarm(50.0, AlarmState.LOW2);
         am.defineAlarm(8.0, AlarmState.MIN1);
@@ -3177,10 +3259,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return loopNodeDrumFromReactor[1].getEffort() / 100000 - 1.0;
             }
         });
-        am.defineAlarm(75.0, AlarmState.MAX2);
-        am.defineAlarm(74.0, AlarmState.MAX1);
-        am.defineAlarm(72.0, AlarmState.HIGH2);
-        am.defineAlarm(70.0, AlarmState.HIGH1);
+        am.defineAlarm(74.0, AlarmState.MAX2);
+        am.defineAlarm(72.0, AlarmState.MAX1);
+        am.defineAlarm(70.0, AlarmState.HIGH2);
+        am.defineAlarm(68.0, AlarmState.HIGH1);
         am.defineAlarm(60.0, AlarmState.LOW1);
         am.defineAlarm(50.0, AlarmState.LOW2);
         am.defineAlarm(8.0, AlarmState.MIN1);
@@ -3717,8 +3799,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(()
                 -> condensationBoosterPumpIn.getTemperature() - 273.15);
         // Design temperature is 32 °C here
-        am.defineAlarm(40.0, AlarmState.HIGH1);
-        am.defineAlarm(50.0, AlarmState.HIGH2);
+        am.defineAlarm(44.0, AlarmState.HIGH1);
+        am.defineAlarm(52.0, AlarmState.HIGH2);
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
@@ -3791,9 +3873,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.defineAlarm(50.0, AlarmState.LOW1);
         am.defineAlarm(45.0, AlarmState.LOW2);
         am.defineAlarm(30.0, AlarmState.MIN1);
-
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+
+        // Pressure relieve valves will fire an alarm if they are open, just to
+        // make the situation become more dramatic. Those alarms can be fired 
+        // by the valves themselfes.
+        pressureReliefValveToPool[0].initSafeOpenAlarmMessage(
+                "PRV1toPool", alarmManager);
+        pressureReliefValveToPool[1].initSafeOpenAlarmMessage(
+                "PRV2toPool", alarmManager);
+        pressureReliefValveToEnvironment[0].initSafeOpenAlarmMessage(
+                "PRV1toEnvironment", alarmManager);
+        pressureReliefValveToEnvironment[1].initSafeOpenAlarmMessage(
+                "PRV2toEnvironment", alarmManager);
+
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Safety">
         // Safety is used as an industry term here without actually beeing safe 
@@ -3994,43 +4088,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 && !alarmManager.isAlarmActive(
                         "Preheater1Level", AlarmState.MIN1));
 
-        preheaterCondensateValve[1].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (preheater[0].getPrimarySideReservoir().getEffort()
-                        > preheater[1].getPrimarySideReservoir().getEffort()) {
-                    // Pressure is in wrong direction. Check that this one does
-                    // not flood over max and the OTHER preheater does not get
-                    // drained.
-                    return !alarmManager.isAlarmActive(
-                            "Preheater2Level", AlarmState.MAX1)
-                            && !alarmManager.isAlarmActive(
-                                    "Preheater1Level", AlarmState.MIN1);
-                } // else:
-                return !alarmManager.isAlarmActive(
-                        "Preheater2Level", AlarmState.MIN1);
-            }
-        });
-        preheaterCondensateValve[2].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (preheater[1].getPrimarySideReservoir().getEffort()
-                        > preheater[2].getPrimarySideReservoir().getEffort()) {
-                    // Pressure is in wrong direction. Check that this one does
-                    // not flood over max and the OTHER preheater does not get
-                    // drained.
-                    return !alarmManager.isAlarmActive(
-                            "Preheater3Level", AlarmState.MAX1)
-                            && !alarmManager.isAlarmActive(
-                                    "Preheater2Level", AlarmState.MIN1);
-                } // else:
-                return !alarmManager.isAlarmActive(
-                        "Preheater3Level", AlarmState.MIN1);
-            }
-        });
-
         // Turbine
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].addSafeClosedProvider(()
@@ -4191,11 +4248,117 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
 
+        preheaterCondensateValve[1].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[0].getPrimarySideReservoir().getEffort()
+                        > preheater[1].getPrimarySideReservoir().getEffort()) {
+                    // Pressure is in wrong direction. Check that this one does
+                    // not flood over max and the OTHER preheater does not get
+                    // drained.
+                    return !alarmManager.isAlarmActive(
+                            "Preheater2Level", AlarmState.MAX1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater1Level", AlarmState.MIN1);
+                } // else:
+                return !alarmManager.isAlarmActive(
+                        "Preheater2Level", AlarmState.MIN1);
+            }
+        });
+        preheaterCondensateValve[2].addSafeClosedProvider(
+                new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                if (preheater[1].getPrimarySideReservoir().getEffort()
+                        > preheater[2].getPrimarySideReservoir().getEffort()) {
+                    // Pressure is in wrong direction. Check that this one does
+                    // not flood over max and the OTHER preheater does not get
+                    // drained.
+                    return !alarmManager.isAlarmActive(
+                            "Preheater3Level", AlarmState.MAX1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater2Level", AlarmState.MIN1);
+                } // else:
+                return !alarmManager.isAlarmActive(
+                        "Preheater3Level", AlarmState.MIN1);
+            }
+        });
+
         turbineHighPressureTapValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
 
+        // The safety relief valve will open shortly after the MAX-alarm from 
+        // steam drum is fired. Also note, again, that we have reversed logic
+        // here. It will open when it is not safe to be not open. Note that
+        // we use Pascal absolute here while hte Alarm-Message is using bar 
+        // relative to ambient pressure.
+        // MAX1 Scram is at 72 bar -> 7.3e6 Pa
+        // MAX2 Safety Steam Relief is on 74 bar -> 7.5e6
+        // The valves will close before MAX1 alarm would be cleared by that
+        // action. 
+        pressureReliefValveToPool[0].addSafeOpenProvider(() -> {
+            if (mainSteamDrumNode[0].effortUpdated()) {
+                return (mainSteamDrumNode[0].getEffort() < 7.51e6);
+            } else {
+                return true;
+            }
+        });
+        pressureReliefValveToPool[0].addSafeClosedProvider(() -> {
+            if (mainSteamDrumNode[0].effortUpdated()) {
+                return (mainSteamDrumNode[0].getEffort() > 7.35e6);
+            } else {
+                return true;
+            }
+        });
+        pressureReliefValveToPool[1].addSafeOpenProvider(() -> {
+            if (mainSteamDrumNode[1].effortUpdated()) {
+                return (mainSteamDrumNode[1].getEffort() < 7.51e6);
+            } else {
+                return true;
+            }
+        });
+        pressureReliefValveToPool[1].addSafeClosedProvider(() -> {
+            if (mainSteamDrumNode[1].effortUpdated()) {
+                return (mainSteamDrumNode[1].getEffort() > 7.35e6);
+            } else {
+                return true;
+            }
+        });
+        // Relief valve to ambient will open if the pool valve is not enough
+        // or the pool needs to be shut due to overtemperture (not yet 
+        // implemented, would be set above.)
+        pressureReliefValveToEnvironment[0].addSafeOpenProvider(() -> {
+            if (mainSteamDrumNode[0].effortUpdated()) {
+                return (mainSteamDrumNode[0].getEffort() < 7.91e6);
+            } else {
+                return true;
+            }
+        });
+        pressureReliefValveToEnvironment[0].addSafeClosedProvider(() -> {
+            if (mainSteamDrumNode[0].effortUpdated()) {
+                return (mainSteamDrumNode[0].getEffort() > 7.49e6);
+            } else {
+                return true;
+            }
+        });
+        pressureReliefValveToEnvironment[1].addSafeOpenProvider(() -> {
+            if (mainSteamDrumNode[1].effortUpdated()) {
+                return (mainSteamDrumNode[1].getEffort() < 7.91e6);
+            } else {
+                return true;
+            }
+        });
+        pressureReliefValveToEnvironment[1].addSafeClosedProvider(() -> {
+            if (mainSteamDrumNode[1].effortUpdated()) {
+                return (mainSteamDrumNode[1].getEffort() > 7.49e6);
+            } else {
+                return true;
+            }
+        });
+
         // </editor-fold>
-        // Time ocnstant for condenser
+        // Time condstant for condenser
         condenserVacuum.setMaxOutput(1e5); // 1 bar
         condenserVacuum.setMinOutput(0); // 0 bar
         condenserVacuum.setTi(2e-4);
@@ -4814,6 +4977,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
             outputValues.setParameterValue( // absolute pressure here
                     "Turbine" + (idx + 1) + "#LowPressurePressure",
                     turbineLowPressureStageOut[idx].getEffort() / 100000);
+        }
+
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue(
+                    "PRV" + (idx + 1) + "#ToPoolFlow",
+                    pressureReliefValveToPool[idx]
+                            .getValveElement().getFlow());
+            outputValues.setParameterValue(
+                    "PRV" + (idx + 1) + "#ToEnvironmentFlow",
+                    pressureReliefValveToEnvironment[idx]
+                            .getValveElement().getFlow());
         }
         // </editor-fold>
     }

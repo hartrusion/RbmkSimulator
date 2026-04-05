@@ -155,6 +155,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
         jMenuItemTurbineHPTemperatures = new javax.swing.JMenuItem();
         jMenuItemTurbineReheaterDiag = new javax.swing.JMenuItem();
+        jMenuItemPRV1 = new javax.swing.JMenuItem();
+        jMenuItemPRV2 = new javax.swing.JMenuItem();
         jMenuPresets = new javax.swing.JMenu();
         jMenuItemPresetFull = new javax.swing.JMenuItem();
         jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
@@ -357,6 +359,14 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineReheaterDiag.setText("Turbine Superheater");
         jMenuItemTurbineReheaterDiag.addActionListener(this::jMenuItemTurbineReheaterDiagActionPerformed);
         jMenuDiagrams.add(jMenuItemTurbineReheaterDiag);
+
+        jMenuItemPRV1.setText("Emergency PRV Loop 1");
+        jMenuItemPRV1.addActionListener(this::jMenuItemPRV1ActionPerformed);
+        jMenuDiagrams.add(jMenuItemPRV1);
+
+        jMenuItemPRV2.setText("Emergency PRV Loop 2");
+        jMenuItemPRV2.addActionListener(this::jMenuItemPRV2ActionPerformed);
+        jMenuDiagrams.add(jMenuItemPRV2);
 
         jMenuBar1.add(jMenuDiagrams);
 
@@ -1059,6 +1069,34 @@ public class ControlPanel extends javax.swing.JFrame implements
         controller.userAction(new ActionCommand("Reactor#TriggerPromptExcursion", null));
     }//GEN-LAST:event_jMenuItemTriggerDisasterActionPerformed
 
+    private void jMenuItemPRV2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPRV2ActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Loop 2 PRV")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Loop 2 PRV");
+        DiagramPresets.loopPressureRelievValves(df.getFigure(), plotData, 1);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemPRV2ActionPerformed
+
+    private void jMenuItemPRV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPRV1ActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Loop 1 PRV")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Loop 1 PRV");
+        DiagramPresets.loopPressureRelievValves(df.getFigure(), plotData, 1);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemPRV1ActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1226,6 +1264,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemMnemonicPreheaters;
     private javax.swing.JMenuItem jMenuItemMnemonicTurbine;
     private javax.swing.JMenuItem jMenuItemNewPanel;
+    private javax.swing.JMenuItem jMenuItemPRV1;
+    private javax.swing.JMenuItem jMenuItemPRV2;
     private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemPreheaters;
     private javax.swing.JMenuItem jMenuItemPresetFull;

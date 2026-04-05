@@ -438,4 +438,66 @@ public class DiagramPresets {
         ax.ylabel(1, "Temperature (°C)");
         ax.ylabel(2, "Valve Positions (%)");
     }
+    
+    public static void loopPressureRelievValves(FigureJPane figure, ValueHandler plotData, int loop) {
+        figure.setYRulers(3);
+
+        YYAxes ax = (MYAxes) figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Drum Pressure");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Loop" + loop + "#DrumPressure", 2));
+        ax.addLine(1, l);
+        l.setLineColor(Color.BLUE);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("PRV to Bubbler Pool");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("PRV" + loop + "#ToPool", 2));
+        ax.addLine(2, l);
+        l.setLineColor(new Color(0, 192, 0));
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("PRV to Environment");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("PRV" + loop + "#ToEnvironment", 2));
+        ax.addLine(2, l);
+        l.setLineColor(new Color(0, 255, 0));
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Flow to Bubbler Pool");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("PRV" + loop + "#ToPoolFlow", 2));
+        ax.addLine(3, l);
+        l.setLineColor(new Color(255,0,0));
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Flow into Environment");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("PRV" + loop + "#ToEnvironmentFlow", 2));
+        ax.addLine(3, l);
+        l.setLineColor(new Color(255, 0, 0));
+        
+        ax.yLim(1, 50, 100);
+        ax.yLim(2, 0, 100);
+        ax.yLim(3, 0, 600);
+
+        ax.autoX();
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+
+        ax.ylabel(1, "Drum Pressure (bar)");
+        ax.ylabel(2, "Valve Positions (%)");
+        ax.ylabel(3, "Flow (kg/s)");
+    }
 }
