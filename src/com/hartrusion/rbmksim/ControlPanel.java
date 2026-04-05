@@ -39,6 +39,7 @@ import com.hartrusion.rbmksim.gui.*;
 import com.hartrusion.rbmksim.gui.diagrams.DiagramStartupPressureSetpoint;
 import com.hartrusion.rbmksim.gui.widgets.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
+import com.hartrusion.util.JDesktopPaneEnhanced;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -161,6 +162,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetFull = new javax.swing.JMenuItem();
         jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
         jMenuItemPresetReactorOperator = new javax.swing.JMenuItem();
+        jMenuItemPresetMPC = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
@@ -384,6 +386,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetReactorOperator.setText("Reactor Operator");
         jMenuItemPresetReactorOperator.addActionListener(this::jMenuItemPresetReactorOperatorActionPerformed);
         jMenuPresets.add(jMenuItemPresetReactorOperator);
+
+        jMenuItemPresetMPC.setText("Main Circulation Pumps");
+        jMenuItemPresetMPC.addActionListener(this::jMenuItemPresetMPCActionPerformed);
+        jMenuPresets.add(jMenuItemPresetMPC);
         jMenuPresets.add(jSeparator1);
 
         jMenuItemPresetNone.setText("Clear (close all)");
@@ -435,40 +441,40 @@ public class ControlPanel extends javax.swing.JFrame implements
 
         // Align them in a preset grid layout.
         // 1st row:
-        jDesktopPane1.windowPlaceAtZero(
+        JDesktopPaneEnhanced.windowPlaceAtZero(
                 getControlPanelInstance("Reactor Controls"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Blowdown"),
                 getControlPanelInstance("Reactor Controls"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Turbine"),
                 getControlPanelInstance("Blowdown"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Generator"),
                 getControlPanelInstance("Turbine"));
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getControlPanelInstance("Turbine Bypass"),
                 getControlPanelInstance("Generator"));
 
         // 2nd row:
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getControlPanelInstance("Recirculation"),
                 getControlPanelInstance("Reactor Controls"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Feedwater"),
                 getControlPanelInstance("Recirculation"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Deaerators"),
                 getControlPanelInstance("Feedwater"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Condensation"),
                 getControlPanelInstance("Deaerators"));
 
         // 3rd row:
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getControlPanelInstance("Preheaters"),
                 getControlPanelInstance("Recirculation"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Aux. Condensation"),
                 getControlPanelInstance("Preheaters"));
     }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
@@ -734,7 +740,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         // if not, generate a new diagram and make it known.
         InternalFrameDiagram df = new InternalFrameDiagram();
-        jDesktopPane1.windowSetSize(df, 500, 300);
+        JDesktopPaneEnhanced.windowSetSize(df, 500, 300);
         df.setTitle("Neutron Flux");
         DiagramPresets.neutronFlux(df.getFigure(), plotData);
         initializeDiagram(df);
@@ -840,34 +846,34 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemMnemonicCondensationActionPerformed(null);
         jMenuItemMnemonicPreheatersActionPerformed(null);
 
-        jDesktopPane1.windowPlaceAtZero(
+        JDesktopPaneEnhanced.windowPlaceAtZero(
                 getMnemonicInstance("Loop 1"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Blowdown"),
                 getMnemonicInstance("Loop 1"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Loop 2"),
                 getMnemonicInstance("Blowdown"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Aux Condenser"),
                 getMnemonicInstance("Loop 2"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Turbine"),
                 getMnemonicInstance("Aux Condenser"));
 
         // Below turbine, down:
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getMnemonicInstance("Condensation"),
                 getMnemonicInstance("Turbine"));
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getMnemonicInstance("Preheaters"),
                 getMnemonicInstance("Condensation"));
 
         // Place feedwater and DA below loop 1 and 2, not that pretty:
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getMnemonicInstance("Feedwater Pumps"),
                 getMnemonicInstance("Loop 1"));
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getMnemonicInstance("Deaerator"),
                 getMnemonicInstance("Loop 2"));
     }//GEN-LAST:event_jMenuItemPresetMnemonicsActionPerformed
@@ -1037,22 +1043,22 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuGlobalControlActionPerformed(null);
         
         // Make the control rod panel bigger so it fills the middle
-        jDesktopPane1.windowSetSize(rodPositions, 540, 480);
+        JDesktopPaneEnhanced.windowSetSize(rodPositions, 540, 480);
         // Diagrams can also be sized bigger
-        jDesktopPane1.windowSetSize(getDiagramInstance("Global Control"), 500, 380);
-        jDesktopPane1.windowSetSize(getDiagramInstance("Neutron Flux"), 640, 380);
+        JDesktopPaneEnhanced.windowSetSize(getDiagramInstance("Global Control"), 500, 380);
+        JDesktopPaneEnhanced.windowSetSize(getDiagramInstance("Neutron Flux"), 640, 380);
 
-        jDesktopPane1.windowPlaceAtZero(coreActivity1);
-        jDesktopPane1.windowPlaceRightTo(rodPositions, coreActivity1);
-        jDesktopPane1.windowPlaceRightTo(coreActivity2, rodPositions);
-        jDesktopPane1.windowPlaceRightTo(alarmTable, coreActivity2);
-        jDesktopPane1.windowPlaceBelow(
+        JDesktopPaneEnhanced.windowPlaceAtZero(coreActivity1);
+        JDesktopPaneEnhanced.windowPlaceRightTo(rodPositions, coreActivity1);
+        JDesktopPaneEnhanced.windowPlaceRightTo(coreActivity2, rodPositions);
+        JDesktopPaneEnhanced.windowPlaceRightTo(alarmTable, coreActivity2);
+        JDesktopPaneEnhanced.windowPlaceBelow(
                 getDiagramInstance("Global Control"),
                 coreActivity1);
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Reactor Controls"),
                 getDiagramInstance("Global Control"));
-        jDesktopPane1.windowPlaceRightTo(
+        JDesktopPaneEnhanced.windowPlaceRightTo(
                 getDiagramInstance("Neutron Flux"),
                 getControlPanelInstance("Reactor Controls"));
     }//GEN-LAST:event_jMenuItemPresetReactorOperatorActionPerformed
@@ -1102,6 +1108,42 @@ public class ControlPanel extends javax.swing.JFrame implements
         DiagramPresets.loopPressureRelievValves(df.getFigure(), plotData, 1);
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemPRV1ActionPerformed
+
+    private void jMenuItemPresetMPCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetMPCActionPerformed
+        jMenuItemPresetNoneActionPerformed(null); // close all
+        
+        jMenuItemBlowdownActionPerformed(null);
+        jMenuItemFeedwaterActionPerformed(null);
+        jMenuItemRecirculationActionPerformed(null);
+        
+        jMenuItemMnemonicBlowdownActionPerformed(null);
+        jMenuItemMnemonicLoop1ActionPerformed(null);
+        jMenuItemMnemonicLoop2ActionPerformed(null);
+        
+        jMenuItemViewAlarmListActionPerformed(null);
+        
+        JDesktopPaneEnhanced.windowPlaceAtZero(
+                getControlPanelInstance("Blowdown"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Feedwater"),
+                getControlPanelInstance("Blowdown"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getControlPanelInstance("Recirculation"),
+                getControlPanelInstance("Blowdown"));
+        
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Loop 1"),
+                getControlPanelInstance("Feedwater"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Blowdown"),
+                getMnemonicInstance("Loop 1"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Loop 2"),
+                getMnemonicInstance("Blowdown"));
+        
+        JDesktopPaneEnhanced.windowPlaceRightTo(alarmTable, 
+                getMnemonicInstance("Loop 2"));
+    }//GEN-LAST:event_jMenuItemPresetMPCActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1275,6 +1317,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemPreheaters;
     private javax.swing.JMenuItem jMenuItemPresetFull;
+    private javax.swing.JMenuItem jMenuItemPresetMPC;
     private javax.swing.JMenuItem jMenuItemPresetMnemonics;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
