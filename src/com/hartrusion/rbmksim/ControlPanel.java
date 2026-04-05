@@ -163,6 +163,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
         jMenuItemPresetReactorOperator = new javax.swing.JMenuItem();
         jMenuItemPresetMPC = new javax.swing.JMenuItem();
+        jMenuItemTurbineOperator = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
@@ -390,6 +391,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetMPC.setText("Main Circulation Pumps");
         jMenuItemPresetMPC.addActionListener(this::jMenuItemPresetMPCActionPerformed);
         jMenuPresets.add(jMenuItemPresetMPC);
+
+        jMenuItemTurbineOperator.setText("Turbine Operator");
+        jMenuItemTurbineOperator.addActionListener(this::jMenuItemTurbineOperatorActionPerformed);
+        jMenuPresets.add(jMenuItemTurbineOperator);
         jMenuPresets.add(jSeparator1);
 
         jMenuItemPresetNone.setText("Clear (close all)");
@@ -1041,7 +1046,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemCoreControlActionPerformed(null);
         jMenuNeutronFluxActionPerformed(null);
         jMenuGlobalControlActionPerformed(null);
-        
+
         // Make the control rod panel bigger so it fills the middle
         JDesktopPaneEnhanced.windowSetSize(rodPositions, 540, 480);
         // Diagrams can also be sized bigger
@@ -1111,17 +1116,17 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     private void jMenuItemPresetMPCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetMPCActionPerformed
         jMenuItemPresetNoneActionPerformed(null); // close all
-        
+
         jMenuItemBlowdownActionPerformed(null);
         jMenuItemFeedwaterActionPerformed(null);
         jMenuItemRecirculationActionPerformed(null);
-        
+
         jMenuItemMnemonicBlowdownActionPerformed(null);
         jMenuItemMnemonicLoop1ActionPerformed(null);
         jMenuItemMnemonicLoop2ActionPerformed(null);
-        
+
         jMenuItemViewAlarmListActionPerformed(null);
-        
+
         JDesktopPaneEnhanced.windowPlaceAtZero(
                 getControlPanelInstance("Blowdown"));
         JDesktopPaneEnhanced.windowPlaceRightTo(
@@ -1130,7 +1135,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         JDesktopPaneEnhanced.windowPlaceBelow(
                 getControlPanelInstance("Recirculation"),
                 getControlPanelInstance("Blowdown"));
-        
+
         JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Loop 1"),
                 getControlPanelInstance("Feedwater"));
@@ -1140,10 +1145,58 @@ public class ControlPanel extends javax.swing.JFrame implements
         JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Loop 2"),
                 getMnemonicInstance("Blowdown"));
-        
-        JDesktopPaneEnhanced.windowPlaceRightTo(alarmTable, 
+
+        JDesktopPaneEnhanced.windowPlaceRightTo(alarmTable,
                 getMnemonicInstance("Loop 2"));
     }//GEN-LAST:event_jMenuItemPresetMPCActionPerformed
+
+    private void jMenuItemTurbineOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTurbineOperatorActionPerformed
+        jMenuItemPresetNoneActionPerformed(null); // close all
+
+        jMenuItemCondensationActionPerformed(null);
+        jMenuItemTurbineActionPerformed(null);
+        jMenuItemPreheatersActionPerformed(null);
+        jMenuItemTurbineBypassActionPerformed(null);
+        jMenuItemGeneratorActionPerformed(null);
+
+        jMenuItemMnemonicTurbineActionPerformed(null);
+        jMenuItemMnemonicCondensationActionPerformed(null);
+        jMenuItemMnemonicPreheatersActionPerformed(null);
+
+        jMenuItemViewAlarmListActionPerformed(null);
+        jMenuItemStartupPressureSetpointActionPerformed(null);
+
+        JDesktopPaneEnhanced.windowPlaceAtZero(
+                getControlPanelInstance("Condensation"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Turbine"),
+                getControlPanelInstance("Condensation"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getControlPanelInstance("Preheaters"),
+                getControlPanelInstance("Condensation"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Turbine Bypass"),
+                getControlPanelInstance("Preheaters"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Generator"),
+                getControlPanelInstance("Turbine Bypass"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                alarmTable,
+                getControlPanelInstance("Preheaters"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Preheaters") ,
+                getControlPanelInstance("Generator"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Turbine"),
+                getControlPanelInstance("Turbine"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getMnemonicInstance("Condensation"),
+                getMnemonicInstance("Turbine"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getDiagramInstance("Startup Pressure Setpoint"),
+                getMnemonicInstance("Preheaters"));
+
+    }//GEN-LAST:event_jMenuItemTurbineOperatorActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1327,6 +1380,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemTurbine;
     private javax.swing.JMenuItem jMenuItemTurbineBypass;
     private javax.swing.JMenuItem jMenuItemTurbineHPTemperatures;
+    private javax.swing.JMenuItem jMenuItemTurbineOperator;
     private javax.swing.JMenuItem jMenuItemTurbineReheaterDiag;
     private javax.swing.JMenuItem jMenuItemViewAlarmList;
     private javax.swing.JMenuItem jMenuItemViewCore1;
