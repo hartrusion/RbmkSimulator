@@ -4655,7 +4655,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     // position. Closing the trim valve will make the 
                     // cavitation disapperar, just that simple.
                     mcpCavitaionFactor[idx][jdx]
-                            = Math.min(100, Math.max(0,
+                            = Math.min(100, Math.max(-100,
                                     (mcpCavitaionTemperatureDiff[idx] + 4.5) * 10
                                     - (100 - loopTrimValve[idx][jdx].getOpening())));
                 } else {
@@ -4664,8 +4664,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 }
                 // Integrate to get some kind of time behavior - just for the
                 // feeling that it would take time.
-                mcpCavitaionState[idx][jdx].setInput(
+                if (mcpCavitaionFactor[idx][jdx] >= -0.1) {
+                    mcpCavitaionState[idx][jdx].setInput(
                         mcpCavitaionFactor[idx][jdx]);
+                } else {
+                    // immediately resolve the problem.
+                    mcpCavitaionState[idx][jdx].setInput(-100);
+                }
+                
                 mcpCavitaionState[idx][jdx].run();
             }
         }
