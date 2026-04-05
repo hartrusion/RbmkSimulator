@@ -49,6 +49,7 @@ import com.hartrusion.modeling.general.OpenOrigin;
 import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.heatfluid.HeatEffortSource;
 import com.hartrusion.modeling.heatfluid.HeatFluidTank;
+import com.hartrusion.modeling.heatfluid.HeatNoMassEnergyExchangerResistance;
 import com.hartrusion.modeling.heatfluid.HeatNode;
 import com.hartrusion.modeling.heatfluid.HeatOrigin;
 import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
@@ -1921,6 +1922,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValveRegeneratorToCooler.initCharacteristicSimple(500);
         blowdownCooldownResistance.setResistanceParameter(500); // war: 2000
         blowdownValveTreatmentBypass.initCharacteristicSimple(100);
+        // The threatment is modeled as a volumized resistor here. Its flow 
+        // resistance is significantly higher so we can use the blowdown system
+        // for cooldown with bypass with a high flow rate or we need to push it
+        // through here to treat it, having a low flow.        
+        blowdownTreatment.setResistanceParameter(12000);
+        blowdownTreatment.setInnerThermalMass(600);
         blowdownValveRegeneratedToDrums.initCharacteristicSimple(100);
         blowdownValveDrain.initCharacteristicSimple(400);
         blowdownRegenerator.initCharacteristic(0.8); // default: 0.9
@@ -3367,6 +3374,50 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public void run() {
                 core.triggerAutoShutdown();
                 // Todo: Min2 trigger eccs system operation
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        // This does not fire of any safety stuff but requires the operator to
+        // correctly set the valves, for example, when taking water from the
+        // MCP pressure header, no additional pump should be in place.
+        am = new ValueAlarmMonitor();
+        am.setName("TreatmentFlow");
+        am.addInputProvider(() -> blowdownTreatment.getFlow());
+        am.defineAlarm(155.0, AlarmState.HIGH2);
+        am.defineAlarm(140.0, AlarmState.HIGH1);
+        am.defineAlarm(65.0, AlarmState.LOW1);
+        am.defineAlarm(50.0, AlarmState.LOW2);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("TreatmentTemperature");
+        am.addInputProvider(() -> blowdownTreatment.getHeatHandler()
+                .getTemperature() - 273.15);
+        am.defineAlarm(60.0, AlarmState.HIGH2);
+        am.defineAlarm(40.0, AlarmState.HIGH1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("AftercoolerTemperature");
+        am.addInputProvider(()
+                -> ((HeatNode) blowdownCooldown.getSecondarySide()
+                        .getNode(0)).getTemperature() - 273.5);
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(82.5, AlarmState.HIGH2);
+        am.defineAlarm(75.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                // Close inlet valves on max temp, but no safe logic to 
+                // keep them shut will be used.
+                for (int idx = 0; idx < 2; idx++) {
+                    blowdownValveFromDrum[idx].operateCloseValve();
+                    blowdownValveFromLoop[idx].operateCloseValve();
+                }
             }
         });
         am.registerAlarmManager(alarmManager);
