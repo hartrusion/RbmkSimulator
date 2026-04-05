@@ -4656,7 +4656,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     // cavitation disapperar, just that simple.
                     mcpCavitaionFactor[idx][jdx]
                             = Math.min(100, Math.max(0,
-                                    (mcpCavitaionTemperatureDiff[idx] + 5.5) * 10
+                                    (mcpCavitaionTemperatureDiff[idx] + 4.5) * 10
                                     - (100 - loopTrimValve[idx][jdx].getOpening())));
                 } else {
                     // A shut down pump will immediatelly have no cavitation.
@@ -4669,6 +4669,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 mcpCavitaionState[idx][jdx].run();
             }
         }
+        System.out.println(mcpCavitaionState[0][0].getOutput());
 
         // Get the temperature on the steam reheater out - problem is, that this
         // value directly calculated from other values and highly dependend on
