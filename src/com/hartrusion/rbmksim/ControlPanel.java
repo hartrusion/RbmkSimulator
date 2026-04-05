@@ -734,9 +734,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         // if not, generate a new diagram and make it known.
         InternalFrameDiagram df = new InternalFrameDiagram();
+        jDesktopPane1.windowSetSize(df, 500, 300);
         df.setTitle("Neutron Flux");
         DiagramPresets.neutronFlux(df.getFigure(), plotData);
-
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuNeutronFluxActionPerformed
 
@@ -1035,6 +1035,12 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemCoreControlActionPerformed(null);
         jMenuNeutronFluxActionPerformed(null);
         jMenuGlobalControlActionPerformed(null);
+        
+        // Make the control rod panel bigger so it fills the middle
+        jDesktopPane1.windowSetSize(rodPositions, 540, 480);
+        // Diagrams can also be sized bigger
+        jDesktopPane1.windowSetSize(getDiagramInstance("Global Control"), 500, 380);
+        jDesktopPane1.windowSetSize(getDiagramInstance("Neutron Flux"), 640, 380);
 
         jDesktopPane1.windowPlaceAtZero(coreActivity1);
         jDesktopPane1.windowPlaceRightTo(rodPositions, coreActivity1);
