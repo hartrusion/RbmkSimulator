@@ -479,6 +479,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private boolean startupPressureSetpointActive;
     private boolean oldStartupPressureSetpointActive;
 
+    private final double[][] mcpCavitaionFactor = new double[2][4];
+    private final Integrator[][] mcpCavitaionState = new Integrator[2][4];
+    private final double[] mcpCavitaionTemperatureDiff = new double[2];
+
     ThermalLayout() {
         // calculate linear factor for pressure setpoint y=m(x-x1)+y1
         // with m = (y2-y1)/(x2-x1) with x power and y pressure
@@ -1191,6 +1195,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // </editor-fold>
+        // Generate integrators for cavitation status
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 4; jdx++) {
+                mcpCavitaionState[idx][jdx] = new Integrator();
+            }
+        }
     }
 
     public void init() {
@@ -3379,6 +3389,138 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
+        // MCP Pump cavitation: This uses an aritifial value.
+        am = new ValueAlarmMonitor();
+        am.setName("MCP11Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[0][0].getOutput());
+        am.defineAlarm(40.0, AlarmState.MAX1);
+        am.defineAlarm(10.0, AlarmState.HIGH2);
+        am.defineAlarm(2.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                // set the output to max so the MAX1 error will stay for
+                // some more seconds.
+                mcpCavitaionState[0][0].forceOutputValue(100);
+                loopMcpAssembly[0][0].operateStopPump();
+                loopMcpAssembly[0][0].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP12Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[0][1].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[0][1].forceOutputValue(100);
+                loopMcpAssembly[0][1].operateStopPump();
+                loopMcpAssembly[0][1].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP13Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[0][2].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[0][2].forceOutputValue(100);
+                loopMcpAssembly[0][2].operateStopPump();
+                loopMcpAssembly[0][2].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP14Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[0][3].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[0][3].forceOutputValue(100);
+                loopMcpAssembly[0][3].operateStopPump();
+                loopMcpAssembly[0][3].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP21Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[1][0].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[1][0].forceOutputValue(100);
+                loopMcpAssembly[1][0].operateStopPump();
+                loopMcpAssembly[1][0].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP22Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[1][1].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[1][1].forceOutputValue(100);
+                loopMcpAssembly[1][1].operateStopPump();
+                loopMcpAssembly[1][1].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP23Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[1][2].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[1][2].forceOutputValue(100);
+                loopMcpAssembly[1][2].operateStopPump();
+                loopMcpAssembly[1][2].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+        am = new ValueAlarmMonitor();
+        am.setName("MCP24Cavitation");
+        am.addInputProvider(() -> mcpCavitaionState[1][3].getOutput());
+        am.defineAlarm(95.0, AlarmState.MAX1);
+        am.defineAlarm(20.0, AlarmState.HIGH2);
+        am.defineAlarm(5.0, AlarmState.HIGH1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MAX1) {
+            @Override
+            public void run() {
+                mcpCavitaionState[1][3].forceOutputValue(100);
+                loopMcpAssembly[1][3].operateStopPump();
+                loopMcpAssembly[1][3].operateCloseDischargeValve();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+
         // This does not fire of any safety stuff but requires the operator to
         // correctly set the valves, for example, when taking water from the
         // MCP pressure header, no additional pump should be in place.
@@ -4289,6 +4431,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         condenserVacuum.setMinOutput(0); // 0 bar
         condenserVacuum.setTi(2e-4);
         condenserVacuum.forceOutputValue(1e5); // initialize with ambient press.
+
+        // Initialize MCP cavitation state 
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 4; jdx++) {
+                mcpCavitaionState[idx][jdx].setMaxOutput(100);
+                mcpCavitaionState[idx][jdx].setMinOutput(0);
+                mcpCavitaionState[idx][jdx].setTi(8.0);
+            }
+        }
     }
 
     @Override
@@ -4477,6 +4628,44 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 * ejectorSuctionValve[2].getOpening() / 100
         );
         condenserVacuum.run();
+
+        // MCP pump cavitation: This should only be a problem at startup. Some 
+        // values are modeled by obtaining 
+        for (int idx = 0; idx < 2; idx++) {
+            // Temperature before MCP - SteamSatTemperature gives a temperature 
+            // value how much we're away from cavitation. This value is negative
+            // during operation as we mix cold water into intake.
+            // The blowdown only makes about -1 Kelvin, startup valves mixing
+            // cold feedwater makes another -2. If blowdown system is in 
+            // cooldown mode, we have a diff of around -6.2 on startup 34 % load
+            // Ignore height, we want some trouble here.
+            mcpCavitaionTemperatureDiff[idx]
+                    = loopCollector[idx].getTemperature()
+                    - phasedWater.getSaturationTemperature(
+                            mainSteamDrumNode[idx].getEffort());
+        }
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 4; jdx++) {
+                if (loopMcpAssembly[idx][jdx].isPumpInOperation()) {
+                    // Cavitation for operating pump is calculated by using the
+                    // actual temperature difference and the trim valve
+                    // position. Closing the trim valve will make the 
+                    // cavitation disapperar, just that simple.
+                    mcpCavitaionFactor[idx][jdx]
+                            = Math.min(100, Math.max(0,
+                                    (mcpCavitaionTemperatureDiff[idx] + 5.5) * 10
+                                    - (100 - loopTrimValve[idx][jdx].getOpening())));
+                } else {
+                    // A shut down pump will immediatelly have no cavitation.
+                    mcpCavitaionFactor[idx][jdx] = -100;
+                }
+                // Integrate to get some kind of time behavior - just for the
+                // feeling that it would take time.
+                mcpCavitaionState[idx][jdx].setInput(
+                        mcpCavitaionFactor[idx][jdx]);
+                mcpCavitaionState[idx][jdx].run();
+            }
+        }
 
         // Get the temperature on the steam reheater out - problem is, that this
         // value directly calculated from other values and highly dependend on

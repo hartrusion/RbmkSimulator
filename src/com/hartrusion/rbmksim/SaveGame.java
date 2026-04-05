@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.control.Integrator;
 import com.hartrusion.modeling.initial.AbstractAC;
 import com.hartrusion.modeling.initial.AbstractIC;
 import java.io.Serializable;
@@ -69,6 +70,8 @@ public class SaveGame implements Serializable {
     private double turbineHPOutSatTemp;
     
     private boolean startupPressureSetpointActive;
+    
+    private final double[][] mcpCavitaionState = new double[2][4];
 
     /**
      * Holds the object that describes the state of the turbine component.
@@ -123,6 +126,34 @@ public class SaveGame implements Serializable {
 
     public void setCondenserVacuum(double condenserVacuum) {
         this.condenserVacuum = condenserVacuum;
+    }
+    
+    /**
+     * Gets the cavitation state value from all integrators.
+     * 
+     * @param cavitationState ref to array with integrators
+     */
+    public void saveCavitationState(Integrator[][] cavitationState) {
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 4; jdx++) {
+                mcpCavitaionState[idx][jdx] 
+                        = cavitationState[idx][jdx].getOutput();
+            }
+        }
+    }
+    
+    /**
+     * Writes the saved cavitation state back to the integrators
+     * 
+     * @param cavitationState ref to array with integrators
+     */
+    public void writeCavitationState(Integrator[][] cavitationState) {
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 4; jdx++) {
+                cavitationState[idx][jdx].forceOutputValue(
+                        mcpCavitaionState[idx][jdx]);
+            }
+        }
     }
 
     public boolean isBlowdownBalanceActive() {
