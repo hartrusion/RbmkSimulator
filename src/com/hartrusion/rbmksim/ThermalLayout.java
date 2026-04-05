@@ -3948,78 +3948,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Prevent backflow to feedwater pumps on SCRAM if pressure builds up,
         // this is very uncommon but for simulation of catastrophic events we 
         // must prevent backflow to DA with this.
-        feedwaterShutoffValve[0][0].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (feedwaterPumpCollectorNodes[0].effortUpdated()
-                        && loopFeedwaterIn[0].effortUpdated()) {
-                    return feedwaterPumpCollectorNodes[0].getEffort()
-                            > loopFeedwaterIn[0].getEffort();
-                } // fallback
-                return true;
-            }
-        });
-        feedwaterShutoffValve[1][0].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (feedwaterPumpCollectorNodes[1].effortUpdated()
-                        && loopFeedwaterIn[1].effortUpdated()) {
-                    return feedwaterPumpCollectorNodes[1].getEffort()
-                            > loopFeedwaterIn[1].getEffort();
-                } // fallback
-                return true;
-            }
-        });
-        feedwaterShutoffValve[0][1].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (feedwaterPumpCollectorNodes[0].effortUpdated()
-                        && loopFeedwaterIn[0].effortUpdated()) {
-                    return feedwaterPumpCollectorNodes[0].getEffort()
-                            > loopFeedwaterIn[0].getEffort();
-                } // fallback
-                return true;
-            }
-        });
-        feedwaterShutoffValve[0][2].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (feedwaterPumpCollectorNodes[0].effortUpdated()
-                        && loopFeedwaterIn[0].effortUpdated()) {
-                    return feedwaterPumpCollectorNodes[0].getEffort()
-                            > loopFeedwaterIn[0].getEffort();
-                } // fallback
-                return true;
-            }
-        });
-        feedwaterShutoffValve[1][1].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (feedwaterPumpCollectorNodes[1].effortUpdated()
-                        && loopFeedwaterIn[1].effortUpdated()) {
-                    return feedwaterPumpCollectorNodes[1].getEffort()
-                            > loopFeedwaterIn[1].getEffort();
-                } // fallback
-                return true;
-            }
-        });
-        feedwaterShutoffValve[1][2].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (feedwaterPumpCollectorNodes[1].effortUpdated()
-                        && loopFeedwaterIn[1].effortUpdated()) {
-                    return feedwaterPumpCollectorNodes[1].getEffort()
-                            > loopFeedwaterIn[1].getEffort();
-                } // fallback
-                return true;
-            }
-        });
+        feedwaterShutoffValve[0][0].addSafeClosedProvider(()
+                -> feedwaterPumpCollectorNodes[0].getEffort()
+                > loopFeedwaterIn[0].getEffort());
+        feedwaterShutoffValve[1][0].addSafeClosedProvider(()
+                -> feedwaterPumpCollectorNodes[1].getEffort()
+                > loopFeedwaterIn[1].getEffort());
+        feedwaterShutoffValve[0][1].addSafeClosedProvider(()
+                -> feedwaterPumpCollectorNodes[0].getEffort()
+                > loopFeedwaterIn[0].getEffort());
+        feedwaterShutoffValve[0][2].addSafeClosedProvider(()
+                -> feedwaterPumpCollectorNodes[0].getEffort()
+                > loopFeedwaterIn[0].getEffort());
+        feedwaterShutoffValve[1][1].addSafeClosedProvider(()
+                -> feedwaterPumpCollectorNodes[1].getEffort()
+                > loopFeedwaterIn[1].getEffort());
+        feedwaterShutoffValve[1][2].addSafeClosedProvider(()
+                -> feedwaterPumpCollectorNodes[1].getEffort()
+                > loopFeedwaterIn[1].getEffort());
 
         // Close Aux Condensers Drain Valve on low level
         auxCondCondensateValve[0].addSafeClosedProvider(()
@@ -4107,55 +4053,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Keep condensate drain shut if pressure would result in a reverse
         // flow.
-        turbineReheaterCondensateDrain.addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (turbineReheater.getPhasedNode(
-                        PhasedSuperheater.PRIMARY_OUT).effortUpdated()
-                        && turbineReheaterCondensateDrainOut.effortUpdated()) {
-                    return !alarmManager.isAlarmActive(
-                            "ReheaterCondensateLevel", AlarmState.MIN1)
-                            && turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
-                            > turbineReheaterCondensateDrainOut.getEffort();
-                }
-                return true;
-            }
-        });
+        turbineReheaterCondensateDrain.addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "ReheaterCondensateLevel", AlarmState.MIN1)
+                && turbineReheater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT).getEffort()
+                > turbineReheaterCondensateDrainOut.getEffort());
         // Drain to DA has some additional 8 bar effort source, 
-        turbineReheaterCondensateValve[0].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (turbineReheater.getPhasedNode(
-                        PhasedSuperheater.PRIMARY_OUT).effortUpdated()
-                        && turbineReheaterCondensateToHeight[0].effortUpdated()) {
-                    return !alarmManager.isAlarmActive(
-                            "ReheaterCondensateLevel", AlarmState.MIN1)
-                            && turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
-                            > turbineReheaterCondensateToHeight[0].getEffort();
-                }
-                return true;
-            }
-        });
-        turbineReheaterCondensateValve[1].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (turbineReheater.getPhasedNode(
-                        PhasedSuperheater.PRIMARY_OUT).effortUpdated()
-                        && turbineReheaterCondensateToHeight[1].effortUpdated()) {
-                    return !alarmManager.isAlarmActive(
-                            "ReheaterCondensateLevel", AlarmState.MIN1)
-                            && turbineReheater.getPhasedNode(
-                                    PhasedSuperheater.PRIMARY_OUT).getEffort()
-                            > turbineReheaterCondensateToHeight[1].getEffort();
-                }
-                return true;
-            }
-        });
+        turbineReheaterCondensateValve[0].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "ReheaterCondensateLevel", AlarmState.MIN1)
+                && turbineReheater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT).getEffort()
+                > turbineReheaterCondensateToHeight[0].getEffort());
+        turbineReheaterCondensateValve[1].addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive(
+                        "ReheaterCondensateLevel", AlarmState.MIN1)
+                && turbineReheater.getPhasedNode(
+                        PhasedSuperheater.PRIMARY_OUT).getEffort()
+                > turbineReheaterCondensateToHeight[1].getEffort());
 
         turbineReheaterTripValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
@@ -4164,78 +4080,37 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // are in the wrong direction. This will unfortunately prevent the 
         // spinning of the turbine by evaporation of the condensate (nasty 
         // effect) but makes the simulation more general useable.
-        turbineLowPressureTapValve[0].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (preheater[2].getPhasedNode(
-                        PhasedCondenserNoMass.PRIMARY_IN).effortUpdated()
-                        && turbineLowPressureStageOut[0].effortUpdated()) {
-                    // compare pressure (effort) on both nodes of the valve.
-                    return !turbine.isTpsActive()
-                            && !alarmManager.isAlarmActive(
-                                    "CondenserVacuum", AlarmState.MIN1)
-                            && !alarmManager.isAlarmActive(
-                                    "Preheater3Level", AlarmState.MAX1)
-                            && (preheater[2].getPhasedNode(
-                                    PhasedCondenserNoMass.PRIMARY_IN).getEffort()
-                            < turbineLowPressureStageOut[0].getEffort());
-                }
-                // fallback if model is not properly updated
-                return !turbine.isTpsActive() && !alarmManager.isAlarmActive(
+        turbineLowPressureTapValve[0].addSafeClosedProvider(()
+                -> !turbine.isTpsActive()
+                && !alarmManager.isAlarmActive(
                         "CondenserVacuum", AlarmState.MIN1)
-                        && !alarmManager.isAlarmActive(
-                                "Preheater3Level", AlarmState.MAX1);
-            }
-        });
-        turbineLowPressureTapValve[1].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (preheater[1].getPhasedNode(
-                        PhasedCondenserNoMass.PRIMARY_IN).effortUpdated()
-                        && turbineLowPressureStageOut[0].effortUpdated()) {
-                    // compare pressure (effort) on both nodes of the valve.
-                    return !turbine.isTpsActive()
-                            && !alarmManager.isAlarmActive(
-                                    "CondenserVacuum", AlarmState.MIN1)
-                            && !alarmManager.isAlarmActive(
-                                    "Preheater2Level", AlarmState.MAX1)
-                            && (preheater[1].getPhasedNode(
-                                    PhasedCondenserNoMass.PRIMARY_IN).getEffort()
-                            < turbineLowPressureStageOut[1].getEffort());
-                }
-                // fallback if model is not properly updated
-                return !turbine.isTpsActive() && !alarmManager.isAlarmActive(
+                && !alarmManager.isAlarmActive(
+                        "Preheater3Level", AlarmState.MAX1)
+                && (preheater[2].getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_IN).getEffort()
+                < turbineLowPressureStageOut[0].getEffort()));
+        turbineLowPressureTapValve[1].addSafeClosedProvider(()
+                -> !turbine.isTpsActive()
+                && !alarmManager.isAlarmActive(
                         "CondenserVacuum", AlarmState.MIN1)
-                        && !alarmManager.isAlarmActive(
-                                "Preheater2Level", AlarmState.MAX1);
-            }
-        });
-        turbineLowPressureTapValve[2].addSafeClosedProvider(
-                new BooleanSupplier() {
-            @Override
-            public boolean getAsBoolean() {
-                if (preheater[0].getPhasedNode(
-                        PhasedCondenserNoMass.PRIMARY_IN).effortUpdated()
-                        && turbineLowPressureStageOut[2].effortUpdated()) {
-                    // compare pressure (effort) on both nodes of the valve.
-                    return !turbine.isTpsActive()
-                            && !alarmManager.isAlarmActive(
-                                    "CondenserVacuum", AlarmState.MIN1)
-                            && !alarmManager.isAlarmActive(
-                                    "Preheater1Level", AlarmState.MAX1)
-                            && (preheater[0].getPhasedNode(
-                                    PhasedCondenserNoMass.PRIMARY_IN).getEffort()
-                            < turbineLowPressureStageOut[2].getEffort());
-                }
-                // fallback if model is not properly updated
-                return !turbine.isTpsActive() && !alarmManager.isAlarmActive(
+                && !alarmManager.isAlarmActive(
+                        "Preheater2Level", AlarmState.MAX1)
+                && (preheater[1].getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_IN).getEffort()
+                < turbineLowPressureStageOut[1].getEffort())
+        // compare pressure (effort) on both nodes of the valve.
+        );
+        turbineLowPressureTapValve[2].addSafeClosedProvider(()
+                -> !turbine.isTpsActive()
+                && !alarmManager.isAlarmActive(
                         "CondenserVacuum", AlarmState.MIN1)
-                        && !alarmManager.isAlarmActive(
-                                "Preheater1Level", AlarmState.MAX1);
-            }
-        });
+                && !alarmManager.isAlarmActive(
+                        "Preheater1Level", AlarmState.MAX1)
+                && (preheater[0].getPhasedNode(
+                        PhasedCondenserNoMass.PRIMARY_IN).getEffort()
+                < turbineLowPressureStageOut[2].getEffort())
+        // compare pressure (effort) on both nodes of the valve.
+        );
         // Tap valve 3 has the main ejectors attached, those have individual
         // valves so no level is considered. Just the TPS and vacuum are used.
         turbineLowPressureTapValve[3].addSafeClosedProvider(

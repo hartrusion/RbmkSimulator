@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 
 /**
  * Main cyclic loop that gets called each 100 ms. Holds references to the 
- * simulation subystems and manages loading and saving the state.
+ * simulation subsystems and manages loading and saving the state.
  * 
  * @author Viktor Alexander Hartung
  */
@@ -44,9 +44,9 @@ public class MainLoop implements Runnable, ModelManipulation {
 
     private ModelListener controller;
 
-    private ReactorCore core = new ReactorCore();
-    private ThermalLayout process = new ThermalLayout();
-    private Turbine turbine = new Turbine();
+    private final ReactorCore core = new ReactorCore();
+    private final ThermalLayout process = new ThermalLayout();
+    private final Turbine turbine = new Turbine();
 
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
