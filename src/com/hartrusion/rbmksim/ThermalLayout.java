@@ -4698,6 +4698,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .getNode(1)).getTemperature() - 273.5);
         outputValues.setParameterValue("Blowdown#TreatmentOutTemp",
                 blowdownTreatedOutNode.getTemperature() - 273.5);
+        outputValues.setParameterValue("Blowdown#TreatmentFlow",
+                blowdownTreatment.getFlow());
         outputValues.setParameterValue("Blowdown#RegeneratorSecondaryOutTemp",
                 ((HeatNode) blowdownRegenerator.getPrimarySide()
                         .getNode(1)).getTemperature() - 273.5);

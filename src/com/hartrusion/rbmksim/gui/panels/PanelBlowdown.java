@@ -478,9 +478,10 @@ public class PanelBlowdown extends AbstractPanelWidget {
         add(integralSwitchReturn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 96, -1, -1));
 
         chornobylGaugeFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeFlow.setChornobylMaximum(800.0F);
+        chornobylGaugeFlow.setChornobylMaximum(150.0F);
         chornobylGaugeFlow.setChornobylMinimum(0.0F);
-        chornobylGaugeFlow.setChornobylTicks(new float[] {0.0f, 200.0f, 400.0f, 600.0f});
+        chornobylGaugeFlow.setChornobylTicks(new float[] {0.0f, 50.0f, 100.0f, 150.0f});
+        chornobylGaugeFlow.setChornobylUnitText("kg/s");
         add(chornobylGaugeFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()-2f));
@@ -499,9 +500,9 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabel19.setText("Temp.");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, 52, 14));
 
-        chornobylGaugeTemperature.setChornobylMaximum(150.0F);
+        chornobylGaugeTemperature.setChornobylMaximum(250.0F);
         chornobylGaugeTemperature.setChornobylMinimum(20.0F);
-        chornobylGaugeTemperature.setChornobylTicks(new float[] {20.0f, 50.0f, 100.0f, 150.0f});
+        chornobylGaugeTemperature.setChornobylTicks(new float[] {20.0f, 100.0f, 200.0f});
         chornobylGaugeTemperature.setChornobylUnitText("°C");
         add(chornobylGaugeTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 34, -1, -1));
 
@@ -881,7 +882,7 @@ public class PanelBlowdown extends AbstractPanelWidget {
             return;
         }
         switch (propertyName) {
-            case "Blowdown#SumFlowToDrums" ->
+            case "Blowdown#TreatmentFlow" ->
                 chornobylGaugeFlow.setChornobylValue((float) newValue);
             case "Blowdown#ReturnTemp" ->
                 chornobylGaugeTemperature.setChornobylValue((float) newValue);
