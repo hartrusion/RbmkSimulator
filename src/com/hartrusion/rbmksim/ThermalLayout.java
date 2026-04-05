@@ -3796,6 +3796,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Safety">
+        // Safety is used as an industry term here without actually beeing safe 
+        // at all. This feature is used to ensure some parts do some automatic 
+        // actions that override all user input, either it is to protect some 
+        // of the plants part or to ensure the simulation model will not get 
+        // to a state where the simulation would crash due to illegal conditions
+        // that can no further be simulated. 
+        // *
         // Steam Drum Level must be above MIN2 for MCPs to run.
         for (int jdx = 0; jdx < 4; jdx++) {
             loopMcpAssembly[0][jdx].addSafeOffProvider(()
@@ -3851,10 +3858,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new BooleanSupplier() {
             @Override
             public boolean getAsBoolean() {
-                if (feedwaterAfterStartupNode[0].effortUpdated()
-                        && feedwaterIntoFlowRegNode[0][0].effortUpdated()) {
-                    return feedwaterAfterStartupNode[0].getEffort()
-                            > feedwaterIntoFlowRegNode[0][0].getEffort();
+                if (feedwaterPumpCollectorNodes[0].effortUpdated()
+                        && loopFeedwaterIn[0].effortUpdated()) {
+                    return feedwaterPumpCollectorNodes[0].getEffort()
+                            > loopFeedwaterIn[0].getEffort();
                 } // fallback
                 return true;
             }
@@ -3863,10 +3870,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new BooleanSupplier() {
             @Override
             public boolean getAsBoolean() {
-                if (feedwaterAfterStartupNode[1].effortUpdated()
-                        && feedwaterIntoFlowRegNode[1][0].effortUpdated()) {
-                    return feedwaterAfterStartupNode[1].getEffort()
-                            > feedwaterIntoFlowRegNode[1][0].getEffort();
+                if (feedwaterPumpCollectorNodes[1].effortUpdated()
+                        && loopFeedwaterIn[1].effortUpdated()) {
+                    return feedwaterPumpCollectorNodes[1].getEffort()
+                            > loopFeedwaterIn[1].getEffort();
                 } // fallback
                 return true;
             }
@@ -3876,9 +3883,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public boolean getAsBoolean() {
                 if (feedwaterPumpCollectorNodes[0].effortUpdated()
-                        && feedwaterIntoFlowRegNode[0][1].effortUpdated()) {
+                        && loopFeedwaterIn[0].effortUpdated()) {
                     return feedwaterPumpCollectorNodes[0].getEffort()
-                            > feedwaterIntoFlowRegNode[0][1].getEffort();
+                            > loopFeedwaterIn[0].getEffort();
                 } // fallback
                 return true;
             }
@@ -3888,9 +3895,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public boolean getAsBoolean() {
                 if (feedwaterPumpCollectorNodes[0].effortUpdated()
-                        && feedwaterIntoFlowRegNode[0][2].effortUpdated()) {
+                        && loopFeedwaterIn[0].effortUpdated()) {
                     return feedwaterPumpCollectorNodes[0].getEffort()
-                            > feedwaterIntoFlowRegNode[0][2].getEffort();
+                            > loopFeedwaterIn[0].getEffort();
                 } // fallback
                 return true;
             }
@@ -3900,9 +3907,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public boolean getAsBoolean() {
                 if (feedwaterPumpCollectorNodes[1].effortUpdated()
-                        && feedwaterIntoFlowRegNode[01][1].effortUpdated()) {
+                        && loopFeedwaterIn[1].effortUpdated()) {
                     return feedwaterPumpCollectorNodes[1].getEffort()
-                            > feedwaterIntoFlowRegNode[1][1].getEffort();
+                            > loopFeedwaterIn[1].getEffort();
                 } // fallback
                 return true;
             }
@@ -3912,9 +3919,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             @Override
             public boolean getAsBoolean() {
                 if (feedwaterPumpCollectorNodes[1].effortUpdated()
-                        && feedwaterIntoFlowRegNode[1][2].effortUpdated()) {
+                        && loopFeedwaterIn[1].effortUpdated()) {
                     return feedwaterPumpCollectorNodes[1].getEffort()
-                            > feedwaterIntoFlowRegNode[1][2].getEffort();
+                            > loopFeedwaterIn[1].getEffort();
                 } // fallback
                 return true;
             }
