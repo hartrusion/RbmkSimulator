@@ -1859,6 +1859,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // Todo: Advanced Characteristic here
                 loopTrimValve[idx][jdx].initCharacteristicAdvanced(
                         3000, 2.6e6, 500);
+                // Prevent full closing of trim valves.
+                loopTrimValve[idx][jdx].getIntegrator().setLowerLimit(10);
+
             }
             loopDownflow[idx].setResistanceParameter(12.6);
             loopDownflow[idx].setInnerThermalMass(50); // initial: 100
@@ -2404,8 +2407,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Main circulation - common IC for both cases (there are 2 below...)
         for (int idx = 0; idx <= 1; idx++) { // 2 sides
             for (int jdx = 0; jdx < 4; jdx++) {
-                // All trim valves open az 70 %
-                loopTrimValve[idx][jdx].initOpening(70);
+                // All trim valves are fully opened.
+                loopTrimValve[idx][jdx].initOpening(100);
             }
         }
 
@@ -3333,9 +3336,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return Math.abs(loopChannelFlowResistance[0].getFlow());
             }
         });
-        am.defineAlarm(65000.0, AlarmState.HIGH2);
-        am.defineAlarm(5800.0, AlarmState.HIGH1);
-        am.defineAlarm(4800.0, AlarmState.LOW1);
+        am.defineAlarm(6300.0, AlarmState.HIGH2); // 4 pumps non-trimmed
+        am.defineAlarm(5800.0, AlarmState.HIGH1); // 3 pumps non-trimmed
+        am.defineAlarm(4500.0, AlarmState.LOW1);
         am.defineAlarm(3000.0, AlarmState.LOW2);
         am.defineAlarm(2000.0, AlarmState.MIN1);
         am.defineAlarm(50.0, AlarmState.MIN2);
@@ -3365,9 +3368,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 return Math.abs(loopChannelFlowResistance[1].getFlow());
             }
         });
-        am.defineAlarm(65000.0, AlarmState.HIGH2);
-        am.defineAlarm(5800.0, AlarmState.HIGH1);
-        am.defineAlarm(4800.0, AlarmState.LOW1);
+        am.defineAlarm(6300.0, AlarmState.HIGH2); // 4 pumps non-trimmed
+        am.defineAlarm(5800.0, AlarmState.HIGH1); // 3 pumps non-trimmed
+        am.defineAlarm(4500.0, AlarmState.LOW1);
         am.defineAlarm(3000.0, AlarmState.LOW2);
         am.defineAlarm(2000.0, AlarmState.MIN1);
         am.defineAlarm(50.0, AlarmState.MIN2);
