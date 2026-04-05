@@ -4669,8 +4669,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 mcpCavitaionState[idx][jdx].run();
             }
         }
-        System.out.println(mcpCavitaionState[0][0].getOutput());
-
+        
         // Get the temperature on the steam reheater out - problem is, that this
         // value directly calculated from other values and highly dependend on
         // flows and pressures. It is also not always available due to the 
