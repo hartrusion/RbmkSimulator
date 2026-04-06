@@ -37,6 +37,8 @@ public class PanelGenerator extends AbstractPanelWidget
         initComponents();
     }
 
+    boolean generatorSynced = false;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -509,10 +511,13 @@ public class PanelGenerator extends AbstractPanelWidget
                         speedSetpoint == SpeedSelect.HIGH);
             }
             case "Generator#BreakerClosed" -> {
-                if ((boolean) evt.getNewValue()
-                        && !jToggleButtonBreaker.isSelected()) {
+                generatorSynced = (boolean) evt.getNewValue();
+                if (generatorSynced && !jToggleButtonBreaker.isSelected()) {
                     jToggleButtonBreaker.setSelected(true);
                     jToggleButtonBreaker.setText("↑");
+                }
+                if (!generatorSynced) {
+                    jLabelReadingThermalPower.setText("-----");
                 }
             }
         }
@@ -537,9 +542,12 @@ public class PanelGenerator extends AbstractPanelWidget
             }
             case "Generator#SyncAngle" ->
                 synchroscope1.setChornobylPhiValue((float) newValue);
-            case "Generator#Power" ->
-                jLabelReadingThermalPower.setText(
-                        String.format("%5.0f", newValue));
+            case "Generator#Power" -> {
+                if (generatorSynced) {
+                    jLabelReadingThermalPower.setText(
+                            String.format("%5.0f", newValue));
+                }
+            }
         }
     }
 
