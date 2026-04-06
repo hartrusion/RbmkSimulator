@@ -531,10 +531,9 @@ public class PanelGenerator extends AbstractPanelWidget
     @Override
     public void updateComponent(String propertyName, double newValue) {
         switch (propertyName) {
-            case "Turbine#SpeedSetpoint" ->
+            case "Turbine#SpeedSetpoint" -> {
                 jLabelReadingActiveSpeedSetpoint.setText(
                         String.format("%4.0f", newValue));
-            case "Turbine#SpeedSetpointTarget" -> {
                 lightBulbSpeed2.setActive(newValue >= 745 && newValue <= 755);
                 lightBulbSpeed3.setActive(newValue >= 1495 && newValue <= 1505);
                 lightBulbSpeed4.setActive(newValue >= 2245 && newValue <= 2255);
