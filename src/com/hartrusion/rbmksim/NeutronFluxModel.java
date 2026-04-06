@@ -47,8 +47,8 @@ public class NeutronFluxModel implements Runnable {
     /**
      * Besides decay heat, the core will always produce the set amount of heat.
      * A value of 5.6 MW was decided to be fine, however, this will take a long
-     * time to heat up things even with the way smaller masses here. A higher 
-     * value is chosen to get a better simulation experience. This allows 
+     * time to heat up things even with the way smaller masses here. A higher
+     * value is chosen to get a better simulation experience. This allows
      * pressure buildup to be observed even without any neutron flux.
      */
     public static final double IDLE_HEAT = 48;
@@ -344,15 +344,18 @@ public class NeutronFluxModel implements Runnable {
 
         yNeutronFluxLog = Math.log10(xNeutronFlux / 100);
 
-        // Also limit the total thermal power output to 30.000 Megawatts
+        // Also limit the total thermal power output to 32.000 Megawatts 
+        // without considering idle heat.
         // divided by 200 makes 100 % flux to 1 and divides by 2 for 2 sides.
         // multiplied with full power we get a megawatt number per side here.
-        yThermalPower1 = Math.min(15000,
+        // The limitation to 15 GW + idle heat ensures the maximum power will
+        // be displayed as 30.000 (see other method for that). 
+        yThermalPower1 = Math.min(15000 + IDLE_HEAT/2,
                 xNeutronFlux * (1 - P_DECAY)
                 * (FULL_FLUX_POWER - IDLE_HEAT) / 200 * (1.0 + uSkew)
                 + xDelayedThermalPower
                 + IDLE_HEAT / 2);
-        yThermalPower2 = Math.min(15000,
+        yThermalPower2 = Math.min(15000 + IDLE_HEAT/2,
                 xNeutronFlux * (1 - P_DECAY)
                 * (FULL_FLUX_POWER - IDLE_HEAT) / 200 * (1.0 - uSkew)
                 + xDelayedThermalPower
@@ -435,6 +438,8 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * Thermal power for loop 1, including the decay heat and half idle power.
+     * This is read by the thermal model and used for calculation of the
+     * evaporator element. Includes Idle heat.
      *
      * @return Power in Megawatts.
      */
@@ -444,20 +449,13 @@ public class NeutronFluxModel implements Runnable {
 
     /**
      * Thermal power for loop 2, including the decay heat and half idle power.
-     *
+     * This is read by the thermal model and used for calculation of the
+     * evaporator element. Includes idle heat
+     * 
      * @return Power in Megawatts.
      */
     public double getYThermalPower2() {
         return yThermalPower2;
-    }
-
-    /**
-     * Thermal power (sum), including the decay heat and half idle power.
-     *
-     * @return Power in Megawatts.
-     */
-    public double getYThermalPower() {
-        return yThermalPower;
     }
 
     /**
@@ -531,11 +529,11 @@ public class NeutronFluxModel implements Runnable {
         }
         throw new IllegalArgumentException("Provided index not exsisting.");
     }
-    
+
     /**
-     * In case of the prompt excursion beeing happening, a fixed neutron rate 
+     * In case of the prompt excursion beeing happening, a fixed neutron rate
      * will be generated.
-     * 
+     *
      * @return true, if a disaster is happening.
      */
     public boolean isPromptExcursion() {
@@ -543,7 +541,7 @@ public class NeutronFluxModel implements Runnable {
     }
 
     /**
-     * Triggers the prompt neutron excursion, used for testing purposes. The 
+     * Triggers the prompt neutron excursion, used for testing purposes. The
      * prompt excursion is usually triggered by too much reactivity.
      */
     public void setPromptExcursion() {
