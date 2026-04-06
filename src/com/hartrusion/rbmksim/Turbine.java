@@ -125,6 +125,9 @@ public class Turbine extends Subsystem implements Runnable {
     private boolean generatorSynched = false;
     private boolean oldGeneratorSynched = true;
 
+    /**
+     * Angle between generator and grid, given in value between 0..2*PI
+     */
     private double syncAngle = 0.0;
 
     /**
@@ -276,7 +279,7 @@ public class Turbine extends Subsystem implements Runnable {
             if (tVel >= 2900) {
                 // sum up using discrete steps of 0.1 s
                 syncAngle += tVel * 0.10471975512 * 0.1;
-                // limit between -pi and +pi
+                // limit between 0 and +2pi
                 syncAngle = syncAngle % (2 * Math.PI);
             } else {
                 syncAngle = 0.0;
@@ -415,11 +418,15 @@ public class Turbine extends Subsystem implements Runnable {
                         // Check if the generator breaker can be closed. The
                         // Speed must be in a defined range and the angle 
                         // must be near 0
-                        // Values will be reducet to 2998, 3003 and 0.2 (11.5°)
-                        // as its too hard to sync this with missing controls
-                        if (turbineVelocity.getEffort() >= 2990
-                                && turbineVelocity.getEffort() <= 3020
-                                && Math.abs(syncAngle) <= 0.5) { // 11,5 °
+                        if (turbineVelocity.getEffort() >= 2997
+                                && turbineVelocity.getEffort() <= 3005
+                                // Define which angles are valid in positive
+                                // and negative range.
+                                // Positive:
+                                && (syncAngle <= 0.1 && syncAngle >= 0.0
+                                // Negative:
+                                   || (syncAngle - 2 * Math.PI) >= -0.1
+                                    && (syncAngle - 2 * Math.PI) <= 0.0)) { 
                             generatorSynched = true;
                         } else {
                             LOGGER.log(Level.INFO, "Sync failed.");
