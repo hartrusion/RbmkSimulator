@@ -500,4 +500,66 @@ public class DiagramPresets {
         ax.ylabel(2, "Valve Positions (%)");
         ax.ylabel(3, "Flow (kg/s)");
     }
+    
+    public static void daSteam(FigureJPane figure, ValueHandler plotData, int loop) {
+        figure.setYRulers(3);
+
+        YYAxes ax = (MYAxes) figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Temperature");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Deaerator" + loop + "#Temperature", 5));
+        ax.addLine(1, l);
+        l.setLineColor(Color.BLUE);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Steam Valve");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Deaerator" + loop + "#SteamInRegValve", 5));
+        ax.addLine(2, l);
+        l.setLineColor(new Color(0, 192, 0));
+      
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Steam Flow");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Deaerator" + loop + "#SteamFlow", 5));
+        ax.addLine(3, l);
+        l.setLineColor(new Color(255,0,0));
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Condensate Flow");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Condensation" + loop + "#FlowToDA", 5));
+        ax.addLine(3, l);
+        l.setLineColor(new Color(192, 0, 0));
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Reheater Condensate");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine" + loop + "#ReheaterToDAFlow", 5));
+        ax.addLine(3, l);
+        l.setLineColor(new Color(192, 192, 0));
+
+        ax.yLim(1, 0, 200);
+        ax.yLim(2, 0, 100);
+        ax.yLim(3, 0, 800);
+
+        ax.autoX();
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+
+        ax.ylabel(1, "Temperature (°C)");
+        ax.ylabel(2, "Valve Positions (%)");
+        ax.ylabel(3, "Flow (kg/s)");
+    }
 }

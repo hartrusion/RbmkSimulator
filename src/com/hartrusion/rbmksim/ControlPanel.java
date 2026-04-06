@@ -153,6 +153,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuDrumSeparators = new javax.swing.JMenuItem();
         jMenuItemLoop1LevelControl = new javax.swing.JMenuItem();
         jMenuItemLoop2LevelControl = new javax.swing.JMenuItem();
+        jMenuItemDA1Steam = new javax.swing.JMenuItem();
+        jMenuItemDA2Steam = new javax.swing.JMenuItem();
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
         jMenuItemTurbineHPTemperatures = new javax.swing.JMenuItem();
         jMenuItemTurbineReheaterDiag = new javax.swing.JMenuItem();
@@ -350,6 +352,14 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemLoop2LevelControl.setText("Loop 2 Level Control");
         jMenuItemLoop2LevelControl.addActionListener(this::jMenuItemLoop2LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop2LevelControl);
+
+        jMenuItemDA1Steam.setText("DA 1 Steam");
+        jMenuItemDA1Steam.addActionListener(this::jMenuItemDA1SteamActionPerformed);
+        jMenuDiagrams.add(jMenuItemDA1Steam);
+
+        jMenuItemDA2Steam.setText("DA 2 Steam");
+        jMenuItemDA2Steam.addActionListener(this::jMenuItemDA2SteamActionPerformed);
+        jMenuDiagrams.add(jMenuItemDA2Steam);
 
         jMenuItemStartupPressureSetpoint.setText("Startup Pressure Setpoint");
         jMenuItemStartupPressureSetpoint.addActionListener(this::jMenuItemStartupPressureSetpointActionPerformed);
@@ -1198,6 +1208,34 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     }//GEN-LAST:event_jMenuItemTurbineOperatorActionPerformed
 
+    private void jMenuItemDA1SteamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDA1SteamActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("DA 1 Steam")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("DA 1 Steam");
+        DiagramPresets.daSteam(df.getFigure(), plotData, 1);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemDA1SteamActionPerformed
+
+    private void jMenuItemDA2SteamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDA2SteamActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("DA 2 Steam")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("DA 2 Steam");
+        DiagramPresets.daSteam(df.getFigure(), plotData, 1);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemDA2SteamActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1348,6 +1386,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemCondensation;
     private javax.swing.JMenuItem jMenuItemCoolant;
     private javax.swing.JMenuItem jMenuItemCoreControl;
+    private javax.swing.JMenuItem jMenuItemDA1Steam;
+    private javax.swing.JMenuItem jMenuItemDA2Steam;
     private javax.swing.JMenuItem jMenuItemDeaerators;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
