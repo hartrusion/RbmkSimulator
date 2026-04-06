@@ -185,12 +185,19 @@ public class Turbine extends Subsystem implements Runnable {
 
         // Turbine and Generator Rotor mechanical model
         turbineOrigin = new ClosedOrigin(PhysicalDomain.MECHANICAL);
+        turbineOrigin.setName("Rotor#Origin");
         turbineReference = new GeneralNode(PhysicalDomain.MECHANICAL);
+        turbineReference.setName("Rotor#Reference");
         turbineVelocity = new GeneralNode(PhysicalDomain.MECHANICAL);
+        turbineVelocity.setName("Rotor#Reference");
         turbineMomentum = new FlowSource(PhysicalDomain.MECHANICAL);
+        turbineMomentum.setName("Rotor#Momentum");
         turbineTurningGear = new FlowSource(PhysicalDomain.MECHANICAL);
+        turbineTurningGear.setName("Rotor#TurningGear");
         turbineInertia = new MutualCapacitance(PhysicalDomain.MECHANICAL);
+        turbineInertia.setName("Rotor#Inertia");
         turbineFriction = new LinearDissipator(PhysicalDomain.MECHANICAL);
+        turbineFriction.setName("Rotor#Inertia");
 
         // </editor-fold>
         setpointTurbineSpeed = new Setpoint();
