@@ -49,7 +49,6 @@ import com.hartrusion.modeling.general.OpenOrigin;
 import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.heatfluid.HeatEffortSource;
 import com.hartrusion.modeling.heatfluid.HeatFluidTank;
-import com.hartrusion.modeling.heatfluid.HeatNoMassEnergyExchangerResistance;
 import com.hartrusion.modeling.heatfluid.HeatNode;
 import com.hartrusion.modeling.heatfluid.HeatOrigin;
 import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
@@ -1469,14 +1468,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // better network simplification and performance.
         auxCondValveToHotwell.getValveElement().connectBetween(
                 auxCondDistributorNode, auxCondValveToHotwellHeatNode);
-        // auxCondValveToHotwellConverter.connectBetween(
-        //          auxCondValveToHotwellHeatNode, condenserCoolerIn[0]);
-        // TODO - there is a fatal model error with this! This illegally 
-        // heats up the hotwell to boiling point! Has to be examined.
-        // so far:
         auxCondValveToHotwellConverter.connectBetween(
-                auxCondValveToHotwellHeatNode, hotwell.getPhasedNode(
-                        PhasedCondenserNoMass.PRIMARY_INNER));
+                auxCondValveToHotwellHeatNode, condenserCoolerIn[0]);
         // Drain to cold condensate storage
         auxCondValveToDrain.getValveElement().connectBetween(
                 auxCondDistributorNode, makeupStorageDrainCollector);
@@ -4666,16 +4659,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // feeling that it would take time.
                 if (mcpCavitaionFactor[idx][jdx] >= -0.1) {
                     mcpCavitaionState[idx][jdx].setInput(
-                        mcpCavitaionFactor[idx][jdx]);
+                            mcpCavitaionFactor[idx][jdx]);
                 } else {
                     // immediately resolve the problem.
                     mcpCavitaionState[idx][jdx].setInput(-100);
                 }
-                
+
                 mcpCavitaionState[idx][jdx].run();
             }
         }
-        
+
         // Get the temperature on the steam reheater out - problem is, that this
         // value directly calculated from other values and highly dependend on
         // flows and pressures. It is also not always available due to the 
