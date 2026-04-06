@@ -176,6 +176,13 @@ public class ReactorCore extends Subsystem implements Runnable {
     private ValveState oldAutoRodsPositionState;
 
     private final AutomationRunner runner = new AutomationRunner();
+    
+    /**
+     * After loading a saved state, some calculations will be skipped and the 
+     * saved values which were written are used instead. This is just some bad
+     * workaround to quickly solve the issue.
+     */
+    private boolean useLoadedValues = false;
 
     ReactorCore() {
         globalControl = new PIControl();
@@ -424,18 +431,24 @@ public class ReactorCore extends Subsystem implements Runnable {
         *   issues. 5 * 2.2 % = 11 % roughly by auto rods, lets assume to have
         *   15 % voiding meaning 11 %N so its *0.73
          */
+        if (!useLoadedValues) {
         reactivity = 81.73 // generally present reactivity.
                 - xenonModel.getYXenon() * 0.319
                 - graphiteModel.getYGraphie() * 0.319
                 - Math.min(700, coreTemp) * 7.93e-3
                 + voiding * 0.73;
+        }
 
         // For testing the accident conditions and trigger, set reactivity to
         // 28 instead of 81.73 and remove 25 manual rods (but NOT at the same
         // time!). use auto rods for getting k=1 and press AZ5
         // pass reactivity to and get the neutron flux from state space model.
-        neutronFluxModel.setInputs(rodAbsorption, reactivity);
+        if (!useLoadedValues) {
+            neutronFluxModel.setInputs(rodAbsorption, reactivity);
+        }
         neutronFluxModel.run();
+        
+        useLoadedValues = false;
 
         // Pass neutron flux to xenon model and generate xenon poisoning value.
         // but ony if the reactor is intact.
@@ -1129,5 +1142,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         // write back setpoint object states
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("reactorRunner"));
+        
+        useLoadedValues = true;
     }
 }

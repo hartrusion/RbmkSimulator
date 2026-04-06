@@ -114,32 +114,32 @@ public class DiagramPresets {
 
         l = new Line();
         l.setLabel("Target Flux");
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Reactor#TargetNeutronFlux", 5));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#TargetNeutronFlux", 1));
         l.setLineColor(Color.GRAY);
         ax.addLine(1, l);
         le.addLine(l);
 
         l = new Line();
         l.setLabel("Active Setpoint");
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Reactor#SetpointNeutronFlux", 5));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#SetpointNeutronFlux", 1));
         l.setLineColor(Color.BLACK);
         ax.addLine(1, l);
         le.addLine(l);
 
         l = new Line();
         l.setLabel("Neutron Flux");
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 5));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 1));
         l.setLineColor(Color.BLUE);
         ax.addLine(1, l);
         le.addLine(l);
 
         l = new Line();
         l.setLabel("Avg. Auto Rod Pos. (Y2)");
-        l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("GlobalControl#AvgActiveAutoRodsPos", 5));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("GlobalControl#AvgActiveAutoRodsPos", 1));
         ax.addLine(2, l);
         le.addLine(l);
 
@@ -162,20 +162,20 @@ public class DiagramPresets {
         ax.setHold(true);
         Line l;
         l = new Line();
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 2));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#NeutronFlux", 1));
         ax.addLine(1, l);
         l = new Line();
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Reactor#NeutronFluxLog", 2));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#NeutronFluxLog", 1));
         ax.addLine(2, l);
         l = new Line();
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Reactor#NeutronRate", 2));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#NeutronRate", 1));
         ax.addLine(3, l);
         l = new Line();
-        l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Reactor#Reactivity", 2));
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#Reactivity", 1));
         ax.addLine(4, l);
         l = new Line();
 
