@@ -199,7 +199,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ7.setFont(jLabelCaptionAZ7.getFont().deriveFont(jLabelCaptionAZ7.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ7.getFont().getSize()-2));
         jLabelCaptionAZ7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ7.setText("750");
-        jLabelCaptionAZ7.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ7.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ7.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ7.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -208,7 +207,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ9.setFont(jLabelCaptionAZ9.getFont().deriveFont(jLabelCaptionAZ9.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ9.getFont().getSize()-2));
         jLabelCaptionAZ9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ9.setText("Hold");
-        jLabelCaptionAZ9.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ9.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ9.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ9.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -217,7 +215,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ10.setFont(jLabelCaptionAZ10.getFont().deriveFont(jLabelCaptionAZ10.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ10.getFont().getSize()-2));
         jLabelCaptionAZ10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ10.setText("3000");
-        jLabelCaptionAZ10.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ10.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ10.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -226,7 +223,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ11.setFont(jLabelCaptionAZ11.getFont().deriveFont(jLabelCaptionAZ11.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ11.getFont().getSize()-2));
         jLabelCaptionAZ11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ11.setText("1500");
-        jLabelCaptionAZ11.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ11.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ11.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -235,7 +231,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ12.setFont(jLabelCaptionAZ12.getFont().deriveFont(jLabelCaptionAZ12.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ12.getFont().getSize()-2));
         jLabelCaptionAZ12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ12.setText("2250");
-        jLabelCaptionAZ12.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ12.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ12.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ12.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -244,7 +239,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ13.setFont(jLabelCaptionAZ13.getFont().deriveFont(jLabelCaptionAZ13.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ13.getFont().getSize()-2));
         jLabelCaptionAZ13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ13.setText("Slow");
-        jLabelCaptionAZ13.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ13.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ13.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ13.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -253,7 +247,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ14.setFont(jLabelCaptionAZ14.getFont().deriveFont(jLabelCaptionAZ14.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ14.getFont().getSize()-2));
         jLabelCaptionAZ14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ14.setText("Med");
-        jLabelCaptionAZ14.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ14.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ14.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ14.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -262,7 +255,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ15.setFont(jLabelCaptionAZ15.getFont().deriveFont(jLabelCaptionAZ15.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ15.getFont().getSize()-2));
         jLabelCaptionAZ15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ15.setText("Setpoint");
-        jLabelCaptionAZ15.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ15.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ15.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ15.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -271,7 +263,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ16.setFont(jLabelCaptionAZ16.getFont().deriveFont(jLabelCaptionAZ16.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ16.getFont().getSize()-2));
         jLabelCaptionAZ16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ16.setText("Fast");
-        jLabelCaptionAZ16.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ16.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ16.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ16.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -361,7 +352,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ17.setFont(jLabelCaptionAZ17.getFont().deriveFont(jLabelCaptionAZ17.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ17.getFont().getSize()-2));
         jLabelCaptionAZ17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ17.setText("Close/Open");
-        jLabelCaptionAZ17.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ17.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ17.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ17.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -370,7 +360,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionAZ18.setFont(jLabelCaptionAZ18.getFont().deriveFont(jLabelCaptionAZ18.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ18.getFont().getSize()-2));
         jLabelCaptionAZ18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionAZ18.setText("Valves");
-        jLabelCaptionAZ18.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionAZ18.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ18.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionAZ18.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -379,7 +368,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionBreaker2.setFont(jLabelCaptionBreaker2.getFont().deriveFont(jLabelCaptionBreaker2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBreaker2.getFont().getSize()-2));
         jLabelCaptionBreaker2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionBreaker2.setText("breaker");
-        jLabelCaptionBreaker2.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionBreaker2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker2.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -397,7 +385,6 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionBreaker1.setFont(jLabelCaptionBreaker1.getFont().deriveFont(jLabelCaptionBreaker1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBreaker1.getFont().getSize()-2));
         jLabelCaptionBreaker1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionBreaker1.setText("Generator");
-        jLabelCaptionBreaker1.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionBreaker1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker1.setPreferredSize(new java.awt.Dimension(52, 14));
