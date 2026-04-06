@@ -252,8 +252,11 @@ public class Turbine extends Subsystem implements Runnable {
             generatorPower = 0.0;
         } else {
             turbineInertia.setInitialEffort(-3000); // sync model to 3000
-
-            generatorPower = shaftPower - holdPower;
+            
+            // as values are kind of made up and nothing is really calculated,
+            // we need to add a factor here to make the output exactly 1000 on
+            // 3200 mw thermal
+            generatorPower = (shaftPower - holdPower) * 0.579039;
         }
 
         // Get startup valves auto/manual mode
