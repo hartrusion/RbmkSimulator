@@ -140,6 +140,12 @@ public class Turbine extends Subsystem implements Runnable {
 
     private boolean speedSetpointFollowup;
 
+    /**
+     * State of the turning gear mechanism. 0: offline, 1: ready, 2: active.
+     */
+    private int turningGearState = 2;
+    private int oldTurningGearState = -1;
+
     private final AutomationRunner runner = new AutomationRunner();
 
     Turbine() {
@@ -240,25 +246,39 @@ public class Turbine extends Subsystem implements Runnable {
             oldSetpointSpeedGradient = setpointSpeedGradient;
         }
 
+        if (turningGearState != oldTurningGearState) {
+            controller.propertyChange(new PropertyChangeEvent(this,
+                    "Turbine#TurningGearState",
+                    oldTurningGearState, turningGearState));
+            
+            if (turningGearState == 2) {
+                // Turning gear is modeled as a constant applied momentum.
+                turbineTurningGear.setFlow(0.24); // 20.568 1/min with U=R*I
+            } else {
+                turbineTurningGear.setFlow(0.0);
+            }
+        }
+        oldTurningGearState = turningGearState;
+
         // Calculate current turbine speed as long as the generator breaker
         // is open. We do not model the force of the generator towards the
         // turbine for simplification reasons. Force to exactly 3000.0 as long
         // as the generator is synced.
         if (!generatorSynched) {
-            turbineMomentum.setFlow(shaftPower);
+                turbineMomentum.setFlow(shaftPower);
             rotorSolver.prepareCalculation();
             rotorSolver.doCalculation();
 
             generatorPower = 0.0;
         } else {
             turbineInertia.setInitialEffort(-3000); // sync model to 3000
-            
+
             // as values are kind of made up and nothing is really calculated,
             // we need to add a factor here to make the output exactly 1000 on
             // 3200 mw thermal
             generatorPower = (shaftPower - holdPower) * 0.579039;
         }
-
+        
         // Get startup valves auto/manual mode
         speedSetpointFollowup = !process.isTurbineStartupValveAutomatic();
 
@@ -287,8 +307,18 @@ public class Turbine extends Subsystem implements Runnable {
             } else {
                 syncAngle = 0.0;
             }
+            
+            // auto turn off turning gear on reaching 1000 1/min
+            if (tVel >= 1005) {
+                turningGearState = 0;
+            } else if (turningGearState == 0 && tVel < 5) {
+                // auto-ready on low rpm, this wil later be recplaced with
+                // some logic with oil and so on.
+                turningGearState = 1;
+            }
         } else {
             syncAngle = 0.0;
+            turningGearState = 0;
         }
 
         alarmUpdater.invokeAll();
@@ -379,6 +409,17 @@ public class Turbine extends Subsystem implements Runnable {
                 targetTurbineSpeed = setpointTurbineSpeed.getOutput();
                 setpointTurbineSpeed.setStop();
             }
+            
+            case "Turbine#TurningGear" -> {
+                if ((boolean) ac.getValue()) {
+                    // only switch to active when ready, otherwise ignore.
+                    if (turningGearState == 1) {
+                        turningGearState = 2;
+                    }
+                } else {
+                    turningGearState = 0; // disable
+                }
+            }
 
             case "Turbine#Trip" -> {
                 process.turbineTrip();
@@ -428,8 +469,8 @@ public class Turbine extends Subsystem implements Runnable {
                                 // Positive:
                                 && (syncAngle <= 0.1 && syncAngle >= 0.0
                                 // Negative:
-                                   || (syncAngle - 2 * Math.PI) >= -0.1
-                                    && (syncAngle - 2 * Math.PI) <= 0.0)) { 
+                                || (syncAngle - 2 * Math.PI) >= -0.1
+                                && (syncAngle - 2 * Math.PI) <= 0.0)) {
                             generatorSynched = true;
                         } else {
                             LOGGER.log(Level.INFO, "Sync failed.");
@@ -462,7 +503,7 @@ public class Turbine extends Subsystem implements Runnable {
         // Decide that we need a continuous shaft power of X to hold the 
         // turbine on 3000, this energy will be consumed by the resistor and 
         // defines the working point for the spin up model.
-        double turnResistance = 3000.0 / holdPower;
+        double turnResistance = 3000.0 / holdPower; // 3000/35 = 85.7
         turbineFriction.setResistanceParameter(turnResistance);
 
         // There could be a fancy calculation on how to get the time constand 
@@ -474,8 +515,10 @@ public class Turbine extends Subsystem implements Runnable {
         rotorSolver.addNetwork(turbineVelocity);
 
         // Initial conditions
-        turbineTurningGear.setFlow(0.0);
         turbineMomentum.setFlow(0.0);
+        // This value is calculated by the momentum flow from the intitial
+        // active turbine turning gear.
+        turbineInertia.setInitialEffort(-20.568);
 
         ValueAlarmMonitor am;
 
@@ -561,7 +604,7 @@ public class Turbine extends Subsystem implements Runnable {
             // Those values have to be more tuned:
             thermalResistanceSteamToStator[idx].setConductanceParameter(5e4);
             thermalResistanceSteamToRotor[idx].setConductanceParameter(5e4);
-            
+
             thermalEnvTemperature[idx].setEffort(273.15 + 24.0);
             thermalResistanceStatorToEnv[idx].setConductanceParameter(1e2);
         }
@@ -716,6 +759,7 @@ public class Turbine extends Subsystem implements Runnable {
         ts.setTargetTurbineSpeed(targetTurbineSpeed);
         ts.setTps(tps);
         ts.setTpsActive(tpsActive);
+        ts.setTurningGear(turningGearState);
         save.addTurbineState(ts);
 
         save.addSolverState(rotorSolver.toString(),
@@ -735,6 +779,7 @@ public class Turbine extends Subsystem implements Runnable {
         targetTurbineSpeed = ts.getTargetTurbineSpeed();
         tps = ts.getTps();
         tpsActive = ts.isTpsActive();
+        turningGearState = ts.getTurningGear();
 
         // Reset old values to trigger all related events
         oldSetpointSpeedGradient = null;
@@ -746,7 +791,7 @@ public class Turbine extends Subsystem implements Runnable {
                 save.getSolverState(rotorSolver.toString()));
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("turbineSetpoints"));
-        
+
         if (generatorSynched) {
             // rotor solver will not be called as soon as sync is completed, so
             // the turbineVelocity node still holds the old value.

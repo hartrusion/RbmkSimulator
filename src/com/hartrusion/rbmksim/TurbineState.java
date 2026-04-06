@@ -34,6 +34,7 @@ public class TurbineState implements Serializable {
     private SpeedSelect setpointSpeedGradient;
     private boolean generatorSynched;
     private double syncAngle;
+    private int turningGear;
 
     public boolean isTpsActive() {
         return tpsActive;
@@ -81,5 +82,13 @@ public class TurbineState implements Serializable {
 
     public void setSyncAngle(double syncAngle) {
         this.syncAngle = syncAngle;
+    }
+
+    public int getTurningGear() {
+        return turningGear;
+    }
+
+    public void setTurningGear(int turningGear) {
+        this.turningGear = turningGear;
     }
 }

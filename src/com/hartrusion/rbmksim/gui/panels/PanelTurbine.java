@@ -164,8 +164,8 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionTG1 = new javax.swing.JLabel();
         jLabelCaptionTG2 = new javax.swing.JLabel();
         jToggleButtonTurningGear = new javax.swing.JToggleButton();
-        lightBulbReady4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        lightBulbInService4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbTGReady = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbTGActive = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         setpointControlTemperature = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         jLabelTempSetpoint = new javax.swing.JLabel();
         integralSwitchReheaterSteam = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
@@ -842,7 +842,6 @@ public class PanelTurbine extends AbstractPanelWidget
         add(jLabelCaptionTG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 268, 51, 14));
 
         jToggleButtonTurningGear.setText("←");
-        jToggleButtonTurningGear.setEnabled(false);
         jToggleButtonTurningGear.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonTurningGear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -851,11 +850,11 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         add(jToggleButtonTurningGear, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 294, 20, 20));
 
-        lightBulbReady4.setForeground(new java.awt.Color(0, 255, 0));
-        add(lightBulbReady4, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 286, -1, -1));
+        lightBulbTGReady.setForeground(new java.awt.Color(0, 255, 0));
+        add(lightBulbTGReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 286, -1, -1));
 
-        lightBulbInService4.setForeground(new java.awt.Color(255, 0, 0));
-        add(lightBulbInService4, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 286, -1, -1));
+        lightBulbTGActive.setForeground(new java.awt.Color(255, 0, 0));
+        add(lightBulbTGActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 286, -1, -1));
 
         setpointControlTemperature.setComponent("Turbine#SetpointReheaterTemperature");
         setpointControlTemperature.setFormat("%.0f");
@@ -978,7 +977,13 @@ public class PanelTurbine extends AbstractPanelWidget
     }//GEN-LAST:event_jToggleButtonPump2ActionPerformed
 
     private void jToggleButtonTurningGearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTurningGearActionPerformed
-        // TODO add your handling code here:
+        if (jToggleButtonTurningGear.isSelected()) {
+            jToggleButtonTurningGear.setText("↑");
+            controller.userAction(new ActionCommand("Turbine#TurningGear", true));
+        } else {
+            jToggleButtonTurningGear.setText("←");
+            controller.userAction(new ActionCommand("Turbine#TurningGear", false));
+        }
     }//GEN-LAST:event_jToggleButtonTurningGearActionPerformed
 
 
@@ -1084,11 +1089,11 @@ public class PanelTurbine extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbInService4;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady1;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady2;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbReady4;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbTGActive;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbTGReady;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbTPSLock;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlLevel;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlTemperature;
@@ -1105,6 +1110,30 @@ public class PanelTurbine extends AbstractPanelWidget
                 jToggleButtonTurboSetpoint.setText("↑");
             }
         }
+        
+        if (evt.getPropertyName().equals("Turbine#TurningGearState")) {
+            // State: 0 inactive, 1 ready, 2 in operation
+            int state = (int) evt.getNewValue();
+            if (state == 2 && !jToggleButtonTurningGear.isSelected()) {
+                jToggleButtonTurningGear.setSelected(true);
+                jToggleButtonTurningGear.setText("↑");
+            }
+            switch (state) {
+                case 0:
+                    lightBulbTGReady.setActive(false);
+                    lightBulbTGActive.setActive(false);
+                    break;
+                case 1:
+                    lightBulbTGReady.setActive(true);
+                    lightBulbTGActive.setActive(false);
+                    break;
+                case 2:
+                    lightBulbTGReady.setActive(false);
+                    lightBulbTGActive.setActive(true);
+                    break;
+            }
+        }
+        
         controlLoopStartupValve1.updateComponent(evt);
         controlLoopStartupValve2.updateComponent(evt);
         controlLoopValveReheater1.updateComponent(evt);
