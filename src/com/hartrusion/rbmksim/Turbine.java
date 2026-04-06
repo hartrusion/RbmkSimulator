@@ -743,6 +743,13 @@ public class Turbine extends Subsystem implements Runnable {
                 save.getSolverState(rotorSolver.toString()));
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("turbineSetpoints"));
+        
+        if (generatorSynched) {
+            // rotor solver will not be called as soon as sync is completed, so
+            // the turbineVelocity node still holds the old value.
+            // manually force the model to that state, at least that part.
+            turbineVelocity.setEffort(3000);
+        }
 
         alarmUpdater.clearAlarmUpdaters();
     }
