@@ -469,7 +469,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption6.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption6.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption6.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 186, 54, 14));
+        add(jLabelCaption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 162, 26, 14));
 
         jLabelCaptionSuperheaterControl4.setFont(jLabelCaptionSuperheaterControl4.getFont().deriveFont(jLabelCaptionSuperheaterControl4.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl4.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -497,7 +497,7 @@ public class PanelTurbine extends AbstractPanelWidget
                 jToggleButtonTurboSetpointActionPerformed(evt);
             }
         });
-        add(jToggleButtonTurboSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 160, 20, 20));
+        add(jToggleButtonTurboSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 160, 20, 20));
 
         jLabelCaptionDrains1.setFont(jLabelCaptionDrains1.getFont().deriveFont(jLabelCaptionDrains1.getFont().getSize()-2f));
         jLabelCaptionDrains1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -589,7 +589,7 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaption10.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption10.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption10.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption10, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 142, 54, 14));
+        add(jLabelCaption10, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 142, 46, 14));
 
         jLabelCaptionSuperheaterControl8.setFont(jLabelCaptionSuperheaterControl8.getFont().deriveFont(jLabelCaptionSuperheaterControl8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSuperheaterControl8.getFont().getSize()-2));
         jLabelCaptionSuperheaterControl8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
