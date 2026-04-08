@@ -173,6 +173,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemHowToStart = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemTriggerDisaster = new javax.swing.JMenuItem();
+        jMenuItemDebugDiagramPreheaters = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -427,6 +428,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTriggerDisaster.setText("Debug: Trigger Disaster");
         jMenuItemTriggerDisaster.addActionListener(this::jMenuItemTriggerDisasterActionPerformed);
         jMenuHelp.add(jMenuItemTriggerDisaster);
+
+        jMenuItemDebugDiagramPreheaters.setText("Debug: Preheater Raw Temperatures");
+        jMenuItemDebugDiagramPreheaters.addActionListener(this::jMenuItemDebugDiagramPreheatersActionPerformed);
+        jMenuHelp.add(jMenuItemDebugDiagramPreheaters);
 
         jMenuBar1.add(jMenuHelp);
 
@@ -1236,6 +1241,20 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemDA2SteamActionPerformed
 
+    private void jMenuItemDebugDiagramPreheatersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugDiagramPreheatersActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Preheaters Model Temperatures")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Preheaters Model Temperatures");
+        DiagramPresets.preheaterTemperaturesDebugging(df.getFigure(), plotData);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemDebugDiagramPreheatersActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1389,6 +1408,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemDA1Steam;
     private javax.swing.JMenuItem jMenuItemDA2Steam;
     private javax.swing.JMenuItem jMenuItemDeaerators;
+    private javax.swing.JMenuItem jMenuItemDebugDiagramPreheaters;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemGenerator;

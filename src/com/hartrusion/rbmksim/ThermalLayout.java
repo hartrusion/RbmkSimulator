@@ -335,12 +335,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedCondenserNoMass[3];
     private final PhasedHeatExchangerNoMass[] preheaterCondensateCooler
             = new PhasedHeatExchangerNoMass[2];
+    private final HeatNode preheaterCondensateIn;
     private final PhasedNode[] preheaterCondensateCoolerIn
             = new PhasedNode[2];
     private final HeatVolumizedFlowResistance[] preheaterPiping
             = new HeatVolumizedFlowResistance[3];
     private final HeatNode[] preheaterPipingOut
-            = new HeatNode[3];
+            = new HeatNode[2];
     private final PhasedValveControlled[] preheaterCondensateValve
             = new PhasedValveControlled[3];
     private final PhasedEffortSource[] preheaterCondensateHeight
@@ -998,6 +999,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheaterCondensateCooler[idx].initName("Preheater"
                     + (idx + 1) + "#CondensateCooler");
         }
+        
+        preheaterCondensateIn = new HeatNode();
+        preheaterCondensateIn.setName("preheaterCondensateIn");
+        
         for (int idx = 0; idx < 2; idx++) {
             preheaterCondensateCoolerIn[idx] = new PhasedNode();
             preheaterCondensateCoolerIn[idx].setName("Preheater"
@@ -1008,7 +1013,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheaterPiping[idx].setName("Preheater"
                     + (idx + 1) + "#Piping");
         }
-        for (int idx = 0; idx < 3; idx++) {
+        for (int idx = 0; idx < 2; idx++) {
             preheaterPipingOut[idx] = new HeatNode();
             preheaterPipingOut[idx].setName("Preheater"
                     + (idx + 1) + "#PipingOut");
@@ -1484,60 +1489,81 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellOutConverter.connectBetween(
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 hotwellOutNode);
+        
+        // 3x condensate pump from hotwell to condensationPumpOut node
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationHotwellPump[idx].getSuctionValve().connectTo(
                     hotwellOutNode);
             condensationHotwellPump[idx].getDischargeValve().connectTo(
                     condensationPumpOut);
         }
-
-        // The main ejectors are here between those pumps, but that is handled
-        // a bit later in code.
+        
+        // Condensate flows through 3 parallel main ejectors.
+        for (int idx = 0; idx < 3; idx++) {
+            ejectorMainFlowIn[idx].getValveElement().connectBetween(
+                    condensationPumpOut,
+                    ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
+            // Some flow resistance with additional mass for better delay behavior.
+            ejectorMainFlowReistance[idx].connectBetween(
+                    ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
+                    ejectorMainFlowReistanceNode[idx]);
+            ejectorMainFlowOut[idx].getValveElement().connectBetween(
+                    ejectorMainFlowReistanceNode[idx],
+                    condensationBoosterPumpIn);
+        }
+        ejectorMainBypass.getValveElement().connectBetween(
+                condensationPumpOut, condensationBoosterPumpIn);
+        
+        // After main ejectors, another set of condensate booster pumps will
+        // force the water through the preheaters.
         for (int idx = 0; idx < condensationCondensatePump.length; idx++) {
             condensationCondensatePump[idx].getSuctionValve().connectTo(
                     condensationBoosterPumpIn);
             // Those Booster Pumps pump the condensate to preheaters
             condensationCondensatePump[idx].getDischargeValve().connectTo(
-                    preheater[0].getHeatNode(
-                            PhasedCondenserNoMass.SECONDARY_IN));
+                    preheaterCondensateIn);
         }
-
+        
         // Condensate gets pumped through secondary side of low pressure 
         // preheaters. The elements are in following order, as seen for 
         // condensate flow direction:
-        // - Preheater 0
-        // - Pipe Resistance 0
-        // - Condensate Cooler 0
-        // - Preheater 1
-        // - Pipe Resistance 1
-        // - Condensate Cooler 1
-        // - Preheater 2
+        // - Condensate Cooler [0] (has its dedicated in node)
+        // - Preheater [0]
+        // - Pipe Resistance [0] with Mass
+        // - Condensate Cooler [1]
+        // - Preheater [1]
+        // - Pipe Resistance [1] with Mass
+        // - Preheater [2]
+        // - Pipe Resistance [2] with Mass
         // Preheater 2 drains its condensate into preheater 1 and preheater 1 
         // drains its condensate into preheater 0. The condensate cooler 
         // elements are put in place to model the thermal energy transfer from 
         // preheater condensate to the main condensate flow first before it is
         // then mixed into the reservoir of the preheater where it gets mixed 
         // into the outlet. This models that thermal energy transfer separately.
+        preheaterCondensateCooler[0].getSecondarySide().connectBetween(
+                preheaterCondensateIn,
+                preheater[0].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
         preheaterPiping[0].connectBetween(
                 preheater[0].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
                 preheaterPipingOut[0]);
-        preheaterCondensateCooler[0].getSecondarySide().connectBetween(
+        preheaterCondensateCooler[1].getSecondarySide().connectBetween(
                 preheaterPipingOut[0],
                 preheater[1].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
         preheaterPiping[1].connectBetween(
                 preheater[1].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
-                preheaterPipingOut[1]);
-        preheaterCondensateCooler[1].getSecondarySide().connectBetween(
-                preheaterPipingOut[1],
                 preheater[2].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
         preheaterPiping[2].connectBetween(
                 preheater[2].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
-                preheaterPipingOut[2]);
-
+                preheaterPipingOut[1]);
+        // Note that we do not need a pipingoutnode between preheater [1] and
+        // [2] as we dont have a cooler placed here, we can use the existing
+        // node from the condenser assembly.
+        
         // Valve from End of Preheasters to DA
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].getValveElement().connectBetween(
-                    preheaterPipingOut[2],
+                    preheaterPipingOut[1],
                     condensationValveOut[idx]);
             condensationToDeaeratorConverter[idx].connectBetween(
                     condensationValveOut[idx], deaeratorInNode[idx]);
@@ -1612,20 +1638,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     ejectorMainCondensateUp[idx]);
             ejectorMainCondensateValve[idx].getValveElement().connectBetween(
                     ejectorMainCondensateUp[idx], ejectorToHotwellHeatNode);
-            // Coolant loop is connected between condensate pumps:
-            ejectorMainFlowIn[idx].getValveElement().connectBetween(
-                    condensationPumpOut,
-                    ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
-            // Some flow resistance with additional mass for better delay behavior.
-            ejectorMainFlowReistance[idx].connectBetween(
-                    ejectorMain[idx].getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
-                    ejectorMainFlowReistanceNode[idx]);
-            ejectorMainFlowOut[idx].getValveElement().connectBetween(
-                    ejectorMainFlowReistanceNode[idx],
-                    condensationBoosterPumpIn);
+            // Coolant (secondary) is already handled in ondensate path above.
         }
-        ejectorMainBypass.getValveElement().connectBetween(
-                condensationPumpOut, condensationBoosterPumpIn);
         // use a separate converter back to hotwell for a separate flow path.
         ejectorToHotwellConverter.connectBetween(
                 ejectorToHotwellHeatNode, condenserCoolerIn[2]);
@@ -2335,14 +2349,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Reheater 2: 0.2170 bar - Between 2 and 3: 124710 Pa
         // from 3 and 2 to 1: 155.64 kg/s - 180 kg/s
         // Reheater 1: 0.0306 bar - Between 1 and 2:  18640 Pa
-        preheaterCondensateValve[2].initCharacteristicSimple(140);
-        preheaterCondensateValve[1].initCharacteristicSimple(60);
+        preheaterCondensateValve[2].initCharacteristicSimple(500);
+        preheaterCondensateValve[1].initCharacteristicSimple(70);
 
-        // Set the condensate heights to have about 20 % of the operating 
-        // pressure differences. 2-1 has 1.25 bar, 1-0 has 0.18 bar
-        // so from 1.25e5 and 1.8e4 we derive 2.5e4 and 3.6e3
-        preheaterCondensateHeight[2].setEffort(2.5e4);
-        preheaterCondensateHeight[1].setEffort(3.6e3);
+        // Support condensate flow with 0,1 bar between each condensate valve
+        preheaterCondensateHeight[2].setEffort(1e4);
+        preheaterCondensateHeight[1].setEffort(1e4);
 
         // Total flow: 198.47 kg/s (Reheater 1 + cond sum on 2 and 3)
         // additional difference towards hotwell to ensure flow to hotwell 
@@ -2351,7 +2363,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         preheaterCondensateHeight[0].setEffort(5e4); // 0.5 bar
         // Makes a total pressure diff, theroetically R=2720 but that does 
         // not work at all. use a way lower value for better startup.
-        preheaterCondensateValve[0].initCharacteristicSimple(250);
+        preheaterCondensateValve[0].initCharacteristicSimple(200);
 
         turbineReheater.initCharacteristic(25.0, 200, 6e5, 0.0);
         for (int idx = 0; idx < 2; idx++) {
@@ -3996,7 +4008,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Reheater1OutTemp");
         am.addInputProvider(()
-                -> preheaterPipingOut[0].getTemperature() - 273.15);
+                -> preheaterPiping[0].getHeatHandler().getTemperature() - 273.15);
         // Design temperature is 65 °C here
         am.defineAlarm(40.0, AlarmState.LOW1);
         am.defineAlarm(73.0, AlarmState.HIGH1);
@@ -4007,7 +4019,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Reheater2OutTemp");
         am.addInputProvider(()
-                -> preheaterPipingOut[1].getTemperature() - 273.15);
+                -> preheaterPiping[1].getHeatHandler().getTemperature() - 273.15);
         // Design temperature is 110 °C here
         am.defineAlarm(80.0, AlarmState.LOW1);
         am.defineAlarm(118.0, AlarmState.HIGH1);
@@ -4018,7 +4030,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Reheater3OutTemp");
         am.addInputProvider(()
-                -> preheaterPipingOut[2].getTemperature() - 273.15);
+                -> preheaterPiping[2].getHeatHandler().getTemperature() - 273.15);
         // Design temperature is 155 °C here
         am.defineAlarm(125.0, AlarmState.LOW1);
         am.defineAlarm(163.0, AlarmState.HIGH1);
@@ -4998,14 +5010,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + ejectorMainFlowOut[0].getValveElement().getFlow()
                 + ejectorMainFlowOut[1].getValveElement().getFlow()
                 + ejectorMainFlowOut[2].getValveElement().getFlow());
+        
+        outputValues.setParameterValue("Condensate#TemperatureAfterBoosterPumps",
+                preheaterCondensateIn.getTemperature() - 273.15);
 
         for (int idx = 0; idx < 3; idx++) {
             outputValues.setParameterValue(
-                    "Preheater" + (idx + 1) + "#Level",
+                    "Preheater" + (idx + 1) + "#CondensateLevel",
                     preheater[idx].getPrimarySideReservoir()
                             .getFillHeight() * 100);
             outputValues.setParameterValue(
-                    "Preheater" + (idx + 1) + "#Temperature",
+                    "Preheater" + (idx + 1) + "#CondensateTemperature",
                     preheater[idx].getPrimarySideReservoir()
                             .getTemperature() - 273.15);
         }
@@ -5018,6 +5033,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
         outputValues.setParameterValue("Preheater3#SteamFlow",
                 turbineLowPressureTapValve[0].getValveElement().getFlow());
 
+        // The "official" temperatures from the preheaters are those from the
+        // heated masses, they will have a delay by that.
+        outputValues.setParameterValue("Preheater1#FeedOutTemp",
+                preheaterPiping[0].getHeatHandler().getTemperature() - 273.15);
+        outputValues.setParameterValue("Preheater2#FeedOutTemp",
+                preheaterPiping[1].getHeatHandler().getTemperature() - 273.15);
+        outputValues.setParameterValue("Preheater3#FeedOutTemp",
+                preheaterPiping[2].getHeatHandler().getTemperature() - 273.15);
+        
+        // These are model detail data, only supposed to be used for detail 
+        // investigation of the thermal model.
         outputValues.setParameterValue("Preheater1#DebugHeatExchangerOutTemp",
                 preheater[0].getHeatNode(
                         PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
@@ -5030,13 +5056,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 preheater[2].getHeatNode(
                         PhasedCondenserNoMass.SECONDARY_OUT).getTemperature()
                 - 273.15);
-
-        outputValues.setParameterValue("Preheater1#FeedOutTemp",
-                preheaterPipingOut[0].getTemperature() - 273.15);
-        outputValues.setParameterValue("Preheater2#FeedOutTemp",
-                preheaterPipingOut[1].getTemperature() - 273.15);
-        outputValues.setParameterValue("Preheater3#FeedOutTemp",
-                preheaterPipingOut[2].getTemperature() - 273.15);
+        outputValues.setParameterValue("Preheater1#DebugCondensateCoolerOutTemp",
+                preheater[0].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_IN).getTemperature()
+                - 273.15);
+        outputValues.setParameterValue("Preheater2#DebugCondensateCoolerOutTemp",
+                preheater[1].getHeatNode(
+                        PhasedCondenserNoMass.SECONDARY_IN).getTemperature()
+                - 273.15);
 
         // Flow to turbine and startup ejectors, this is displayed as main flow
         // to turbine system on turbine panel. Includes the steam dump valves.

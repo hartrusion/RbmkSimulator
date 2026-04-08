@@ -348,22 +348,22 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
     @Override
     public void updateComponent(String propertyName, double newValue) {
         switch (propertyName) {
-            case "Preheater1#Temperature" ->
+            case "Preheater1#CondensateTemperature" ->
                 jLabelReadingTemp1.setText(
                         String.format("%3.1f", newValue) + " °C");
-            case "Preheater1#Level" ->
+            case "Preheater1#CondensateLevel" ->
                 jLabelReadingLevel1.setText(
                         String.format("%.0f", newValue) + " cm");
-            case "Preheater2#Temperature" ->
+            case "Preheater2#CondensateTemperature" ->
                 jLabelReadingTemp2.setText(
                         String.format("%3.1f", newValue) + " °C");
-            case "Preheater2#Level" ->
+            case "Preheater2#CondensateLevel" ->
                 jLabelReadingLevel2.setText(
                         String.format("%.0f", newValue) + " cm");
-            case "Preheater3#Temperature" ->
+            case "Preheater3#CondensateTemperature" ->
                 jLabelReadingTemp3.setText(
                         String.format("%3.1f", newValue) + " °C");
-            case "Preheater3#Level" ->
+            case "Preheater3#CondensateLevel" ->
                 jLabelReadingLevel3.setText(
                         String.format("%.0f", newValue) + " cm");
             case "Turbine1#LowPressurePressure" ->

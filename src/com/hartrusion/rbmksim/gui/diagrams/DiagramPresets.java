@@ -562,4 +562,64 @@ public class DiagramPresets {
         ax.ylabel(2, "Valve Positions (%)");
         ax.ylabel(3, "Flow (kg/s)");
     }
+    
+    public static void preheaterTemperaturesDebugging(FigureJPane figure, ValueHandler plotData) {
+        // figure.setYRulers(2);
+        // YYAxes ax = (YYAxes) figure.getLastAxes();
+        Axes ax = figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Booster Pumps");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Condensate#TemperatureAfterBoosterPumps", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Cooler 1 Out");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Preheater1#DebugCondensateCoolerOutTemp", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Preheater 1 Out");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Preheater1#DebugHeatExchangerOutTemp", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Cooler 2 Out");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Preheater2#DebugCondensateCoolerOutTemp", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Preheater 2 Out");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Preheater2#DebugHeatExchangerOutTemp", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Preheater 3 Out");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Preheater3#DebugHeatExchangerOutTemp", 1));
+        ax.addLine(l);
+
+        ax.yLim(0, 300);
+
+        ax.autoX();
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+
+        ax.ylabel("Temperature (°C)");
+    }
 }
