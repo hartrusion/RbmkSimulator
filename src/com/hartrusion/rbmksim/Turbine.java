@@ -66,6 +66,26 @@ public class Turbine extends Subsystem implements Runnable {
     private double lpStatorTemperature;
 
     /**
+     * Length of the High Pressure turbine used for length expansion calculation
+     */
+    private static final double HP_LENGTH = 6.0;
+    
+    /**
+     * Length of the Low Pressure turbine used for length expansion calculation
+     */
+    private static final double LP_LENGTH = 17.0;
+    
+    /**
+     * Length expansion factor that is used to calculate the length difference
+     * from the turbines metal temperature, given in mm/K/m
+     */
+    private static final double EXP_C = 1.2e-2;
+
+    private double hpDiffExpansion;
+    private double lpDiffExpansion;
+    private double statorAbsExpansion;
+
+    /**
      * Reference to the thermal layout process class
      */
     private ThermalLayout process;
@@ -228,6 +248,28 @@ public class Turbine extends Subsystem implements Runnable {
         lpStatorTemperature = (thermalNodeStator[2].getEffort()
                 + thermalNodeStator[3].getEffort()) / 2.0;
 
+        // Rotor and stator lengths are calculated by using the average
+        // temperatures of both and the lengths as follows:
+        // HP: 6 Meters
+        // LP: 17 Meters
+        // This is taken from the actual turbine but adapted to the simplified
+        // turbine that is modeled here. Those lengts are for 20 °C so the 
+        // current length is calculated with the 1.2e-5 1/K coefficient. 
+        double hpRotorLength
+                = HP_LENGTH * (1 + (hpRotorTemperature - 293.15) * EXP_C);
+        double hpStatorLength
+                = HP_LENGTH * (1 + (hpStatorTemperature - 293.15) * EXP_C);
+        double lpRotorLength
+                = LP_LENGTH * (1 + (lpRotorTemperature - 293.15) * EXP_C);
+        double lpStatorLength
+                = LP_LENGTH * (1 + (lpStatorTemperature - 293.15) * EXP_C);
+
+        // Calculate expansions
+        hpDiffExpansion = hpRotorLength - hpStatorLength;
+        lpDiffExpansion = lpRotorLength - lpStatorLength;
+        statorAbsExpansion = hpStatorLength + lpStatorLength
+                - LP_LENGTH - HP_LENGTH;
+
         // Check if speed setpoint gradient was changed, if so, apply it
         // and send it back as a property to controller (to have a light
         // on the panel).
@@ -250,7 +292,7 @@ public class Turbine extends Subsystem implements Runnable {
             controller.propertyChange(new PropertyChangeEvent(this,
                     "Turbine#TurningGearState",
                     oldTurningGearState, turningGearState));
-            
+
             if (turningGearState == 2) {
                 // Turning gear is modeled as a constant applied momentum.
                 turbineTurningGear.setFlow(0.24); // 20.568 1/min with U=R*I
@@ -265,7 +307,7 @@ public class Turbine extends Subsystem implements Runnable {
         // turbine for simplification reasons. Force to exactly 3000.0 as long
         // as the generator is synced.
         if (!generatorSynched) {
-                turbineMomentum.setFlow(shaftPower);
+            turbineMomentum.setFlow(shaftPower);
             rotorSolver.prepareCalculation();
             rotorSolver.doCalculation();
 
@@ -278,7 +320,7 @@ public class Turbine extends Subsystem implements Runnable {
             // 3200 mw thermal
             generatorPower = (shaftPower - holdPower) * 0.579039;
         }
-        
+
         // Get startup valves auto/manual mode
         speedSetpointFollowup = !process.isTurbineStartupValveAutomatic();
 
@@ -307,7 +349,7 @@ public class Turbine extends Subsystem implements Runnable {
             } else {
                 syncAngle = 0.0;
             }
-            
+
             // auto turn off turning gear on reaching 1000 1/min
             if (tVel >= 1005) {
                 turningGearState = 0;
@@ -393,6 +435,14 @@ public class Turbine extends Subsystem implements Runnable {
                 lpRotorTemperature - 273.15);
         outputValues.setParameterValue("Turbine#TemperatureHpStatorAvg",
                 lpStatorTemperature - 273.15);
+
+        outputValues.setParameterValue("Turbine#HPDiffExpansion",
+                hpDiffExpansion);
+        outputValues.setParameterValue("Turbine#LPDiffExpansion",
+                lpDiffExpansion);
+        outputValues.setParameterValue("Turbine#AbsExpansion",
+                statorAbsExpansion);
+
     }
 
     @Override
@@ -409,7 +459,7 @@ public class Turbine extends Subsystem implements Runnable {
                 targetTurbineSpeed = setpointTurbineSpeed.getOutput();
                 setpointTurbineSpeed.setStop();
             }
-            
+
             case "Turbine#TurningGear" -> {
                 if ((boolean) ac.getValue()) {
                     // only switch to active when ready, otherwise ignore.

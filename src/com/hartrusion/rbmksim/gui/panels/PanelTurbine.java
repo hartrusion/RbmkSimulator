@@ -107,13 +107,13 @@ public class PanelTurbine extends AbstractPanelWidget
         chornobylGaugeTempLpStatorIn = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel8 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        chornobylGaugeFeed1Temp1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeTotalExpansion = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        chornobylGaugeFeed2Temp2 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeHPDiffExpansion = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        chornobylGaugeFeed2Temp3 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        chornobylGaugeLPDiffExpansion = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabelCaption4 = new javax.swing.JLabel();
         jLabelCaption5 = new javax.swing.JLabel();
         jLabelCaption6 = new javax.swing.JLabel();
@@ -404,13 +404,12 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabel27.setText("Expans.");
         add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 76, 52, 14));
 
-        chornobylGaugeFeed1Temp1.setChornobylMaximum(50.0F);
-        chornobylGaugeFeed1Temp1.setChornobylMinimum(0.0F);
-        chornobylGaugeFeed1Temp1.setChornobylTicks(new float[] {0.0f, 10.0f, 20.0f, 30.0f, 40.0f});
-        chornobylGaugeFeed1Temp1.setChornobylUnitText("mm");
-        chornobylGaugeFeed1Temp1.setChornobylValue(0.0F);
-        chornobylGaugeFeed1Temp1.setEnabled(false);
-        add(chornobylGaugeFeed1Temp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 64, -1, -1));
+        chornobylGaugeTotalExpansion.setChornobylMaximum(50.0F);
+        chornobylGaugeTotalExpansion.setChornobylMinimum(0.0F);
+        chornobylGaugeTotalExpansion.setChornobylTicks(new float[] {0.0f, 10.0f, 20.0f, 30.0f, 40.0f});
+        chornobylGaugeTotalExpansion.setChornobylUnitText("mm");
+        chornobylGaugeTotalExpansion.setChornobylValue(0.0F);
+        add(chornobylGaugeTotalExpansion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 64, -1, -1));
 
         jLabel28.setFont(jLabel28.getFont().deriveFont(jLabel28.getFont().getSize()-2f));
         jLabel28.setText("HP Diff");
@@ -420,13 +419,12 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabel29.setText("Expans.");
         add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 76, 52, 14));
 
-        chornobylGaugeFeed2Temp2.setChornobylMaximum(4.0F);
-        chornobylGaugeFeed2Temp2.setChornobylMinimum(-2.0F);
-        chornobylGaugeFeed2Temp2.setChornobylTicks(new float[] {-1.0f, 0.0f, 1.0f, 2.0f});
-        chornobylGaugeFeed2Temp2.setChornobylUnitText("mm");
-        chornobylGaugeFeed2Temp2.setChornobylValue(0.0F);
-        chornobylGaugeFeed2Temp2.setEnabled(false);
-        add(chornobylGaugeFeed2Temp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 64, -1, -1));
+        chornobylGaugeHPDiffExpansion.setChornobylMaximum(4.0F);
+        chornobylGaugeHPDiffExpansion.setChornobylMinimum(-2.0F);
+        chornobylGaugeHPDiffExpansion.setChornobylTicks(new float[] {-1.0f, 0.0f, 1.0f, 2.0f});
+        chornobylGaugeHPDiffExpansion.setChornobylUnitText("mm");
+        chornobylGaugeHPDiffExpansion.setChornobylValue(0.0F);
+        add(chornobylGaugeHPDiffExpansion, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 64, -1, -1));
 
         jLabel30.setFont(jLabel30.getFont().deriveFont(jLabel30.getFont().getSize()-2f));
         jLabel30.setText("LP Diff");
@@ -436,13 +434,12 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabel31.setText("Expans.");
         add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 76, 52, 14));
 
-        chornobylGaugeFeed2Temp3.setChornobylMaximum(6.0F);
-        chornobylGaugeFeed2Temp3.setChornobylMinimum(-3.0F);
-        chornobylGaugeFeed2Temp3.setChornobylTicks(new float[] {-2.5f, 0.0f, 2.5f, 5.0f});
-        chornobylGaugeFeed2Temp3.setChornobylUnitText("mm");
-        chornobylGaugeFeed2Temp3.setChornobylValue(0.0F);
-        chornobylGaugeFeed2Temp3.setEnabled(false);
-        add(chornobylGaugeFeed2Temp3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 64, -1, -1));
+        chornobylGaugeLPDiffExpansion.setChornobylMaximum(6.0F);
+        chornobylGaugeLPDiffExpansion.setChornobylMinimum(-3.0F);
+        chornobylGaugeLPDiffExpansion.setChornobylTicks(new float[] {-2.5f, 0.0f, 2.5f, 5.0f});
+        chornobylGaugeLPDiffExpansion.setChornobylUnitText("mm");
+        chornobylGaugeLPDiffExpansion.setChornobylValue(0.0F);
+        add(chornobylGaugeLPDiffExpansion, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 64, -1, -1));
 
         jLabelCaption4.setFont(jLabelCaption4.getFont().deriveFont(jLabelCaption4.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaption4.getFont().getSize()-2));
         jLabelCaption4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -795,9 +792,6 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionSuperheaterControl9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionSuperheaterControl9.setText("Hydraulic");
         jLabelCaptionSuperheaterControl9.setToolTipText("Scrams the reactor by immediately inserting all rods");
-        jLabelCaptionSuperheaterControl9.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterControl9.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSuperheaterControl9.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSuperheaterControl9, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 316, -1, 14));
 
         jLabel32.setFont(jLabel32.getFont().deriveFont(jLabel32.getFont().getSize()-2f));
@@ -988,16 +982,16 @@ public class PanelTurbine extends AbstractPanelWidget
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed1Temp1;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp2;
-    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFeed2Temp3;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeHPDiffExpansion;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeHPFlow;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeLPDiffExpansion;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeOilPressure;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeRotorSpeed;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempHpRotorIn;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempHpStatorIn;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempLpRotorIn;
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTempLpStatorIn;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeTotalExpansion;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopStartupValve1;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopStartupValve2;
     private com.hartrusion.rbmksim.gui.elements.ControlLoopValve controlLoopValve3;
@@ -1207,6 +1201,12 @@ public class PanelTurbine extends AbstractPanelWidget
                 chornobylGaugeTempLpRotorIn.setChornobylValue((float) newValue);
             case "Turbine#TemperatureLpStatorIn" ->
                 chornobylGaugeTempLpStatorIn.setChornobylValue((float) newValue);
+            case "Turbine#HPDiffExpansion" ->
+                chornobylGaugeHPDiffExpansion.setChornobylValue((float) newValue);
+            case "Turbine#LPDiffExpansion" ->
+                chornobylGaugeLPDiffExpansion.setChornobylValue((float) newValue);
+            case "Turbine#AbsExpansion" ->
+                chornobylGaugeTotalExpansion.setChornobylValue((float) newValue);
         }
     }
 

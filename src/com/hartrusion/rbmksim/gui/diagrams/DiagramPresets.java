@@ -279,7 +279,7 @@ public class DiagramPresets {
         le.setLocationInsideAxes(ax);
     }
 
-    public static void turbineHPTemperatures(FigureJPane figure, ValueHandler plotData) {
+    public static void turbineHPTemperatures(FigureJPane figure, ValueHandler plotData, boolean debug) {
         Axes ax = figure.getLastAxes();
         Legend le = new Legend();
         ax.setHold(true);
@@ -314,16 +314,61 @@ public class DiagramPresets {
         le.addLine(l);
         
         // Debugging data
+        if (debug) {
+            l = new Line();
+            l.setLabel("Steam Temp In (Debug)");
+            l.setDataSource(plotData.getTime60(5),
+                    plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 5));
+            ax.addLine(l);
+            le.addLine(l);
+            l = new Line();
+            l.setLabel("Steam Temp Out (Debug)");
+            l.setDataSource(plotData.getTime60(5),
+                    plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 5));
+            ax.addLine(l);
+            le.addLine(l);
+        }
+
+        ax.yLim(0, 300);
+        ax.autoX();
+
+        ax.ylabel("Temperature (°C)");
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+    }
+    
+    public static void turbineLPTemperatures(FigureJPane figure, ValueHandler plotData) {
+        Axes ax = figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+
         l = new Line();
-        l.setLabel("Steam Temp In (Debug)");
+        l.setLabel("Stator In");
         l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 5));
+                plotData.getParameterDoubleSeries("Turbine#TemperatureLpStatorIn", 5));
         ax.addLine(l);
         le.addLine(l);
+
         l = new Line();
-        l.setLabel("Steam Temp Out (Debug)");
+        l.setLabel("Rotor In");
         l.setDataSource(plotData.getTime60(5),
-                plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 5));
+                plotData.getParameterDoubleSeries("Turbine#TemperatureLpRotorIn", 5));
+        ax.addLine(l);
+        le.addLine(l);
+
+        l = new Line();
+        l.setLabel("Stator Out");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#TemperatureLpStatorOut", 5));
+        ax.addLine(l);
+        le.addLine(l);
+
+        l = new Line();
+        l.setLabel("Rotor Out");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Turbine#TemperatureLpRotorOut", 5));
         ax.addLine(l);
         le.addLine(l);
 
@@ -336,34 +381,52 @@ public class DiagramPresets {
         le.setLocationInsideAxes(ax);
     }
 
-    public static void turbineWarmpup(FigureJPane figure, ValueHandler plotData) {
-        Axes ax = figure.getLastAxes();
+    public static void turbineExpansion(FigureJPane figure, ValueHandler plotData) {
+        figure.setYRulers(3);
+        MYAxes ax = (MYAxes) figure.getLastAxes();
         Legend le = new Legend();
         ax.setHold(true);
         Line l;
+        
         l = new Line();
-        l.setLabel("HP In");
+        l.setLabel("HP Diff Exp");
         l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Turbine#DebugHPInTemp", 2));
-        ax.addLine(l);
+                plotData.getParameterDoubleSeries("Turbine#HPDiffExpansion", 2));
+        ax.addLine(1, l);
         le.addLine(l);
+        
         l = new Line();
-        l.setLabel("HP Out");
+        l.setLabel("LP Diff Exp");
         l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Turbine#DebugHPOutTemp", 2));
-        ax.addLine(l);
+                plotData.getParameterDoubleSeries("Turbine#LPDiffExpansion", 2));
+        l.setLineColor(new Color(0, 0, 0));
+        ax.addLine(1, l);
         le.addLine(l);
+        
         l = new Line();
-        l.setLabel("LP In");
+        l.setLabel("Abs. Exp.");
         l.setDataSource(plotData.getTime60(2),
-                plotData.getParameterDoubleSeries("Turbine#DebugLPInTemp", 2));
-        ax.addLine(l);
+                plotData.getParameterDoubleSeries("Turbine#AbsExpansion", 2));
+        l.setLineColor(new Color(0, 192, 0));
+        ax.addLine(2, l);
+        le.addLine(l);
+        
+        l = new Line();
+        l.setLabel("Speed");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Turbine#Speed", 2));
+        l.setLineColor(new Color(255, 0, 0));
+        ax.addLine(3, l);
         le.addLine(l);
 
-        ax.yLim(0, 300);
+        ax.yLim(-5, 5);
+        ax.yLim(2, 0, 45);
+        ax.yLim(3, 0, 3200);
         ax.autoX();
 
-        ax.ylabel("Temperature (°C)");
+        ax.ylabel(1, "Diff. Expansion (mm)");
+        ax.ylabel(2, "Abs. Expansion (mm)");
+        ax.ylabel(3, "Speed (1/min)");
 
         figure.addLegend(le);
         le.setLocationInsideAxes(ax);

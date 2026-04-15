@@ -747,7 +747,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed1Temp1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeTotalExpansion">
       <Properties>
         <Property name="chornobylMaximum" type="float" value="50.0"/>
         <Property name="chornobylMinimum" type="float" value="0.0"/>
@@ -756,7 +756,6 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="mm"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -794,7 +793,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed2Temp2">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeHPDiffExpansion">
       <Properties>
         <Property name="chornobylMaximum" type="float" value="4.0"/>
         <Property name="chornobylMinimum" type="float" value="-2.0"/>
@@ -803,7 +802,6 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="mm"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -841,7 +839,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeFeed2Temp3">
+    <Component class="com.hartrusion.rbmksim.gui.elements.ChornobylGauge" name="chornobylGaugeLPDiffExpansion">
       <Properties>
         <Property name="chornobylMaximum" type="float" value="6.0"/>
         <Property name="chornobylMinimum" type="float" value="-3.0"/>
@@ -850,7 +848,6 @@
         </Property>
         <Property name="chornobylUnitText" type="java.lang.String" value="mm"/>
         <Property name="chornobylValue" type="float" value="0.0"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1753,15 +1750,6 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Hydraulic"/>
         <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[52, 14]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[52, 14]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[52, 14]"/>
-        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
