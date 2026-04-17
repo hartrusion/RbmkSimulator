@@ -116,9 +116,9 @@ public class PanelCondensation extends AbstractPanelWidget {
         chornobylGaugeLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         panelWidgetMakeupPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         panelWidgetMakeupPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        jButtonColdCondensateFillOpen = new javax.swing.JButton();
-        jLabelColdCondensateFill = new javax.swing.JLabel();
         jButtonColdCondensateFillClose = new javax.swing.JButton();
+        jLabelColdCondensateFill = new javax.swing.JLabel();
+        jButtonColdCondensateFillOpen = new javax.swing.JButton();
         jLabelCaptionPump16 = new javax.swing.JLabel();
         jLabelCaptionPump17 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -449,6 +449,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass.setFont(jLabelBypass.getFont().deriveFont(jLabelBypass.getFont().getSize()-2f));
         jLabelBypass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBypass.setText("Bypass");
+        jLabelBypass.setToolTipText("Main Ejector Bypass");
         jLabelBypass.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelBypass.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelBypass.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -456,7 +457,7 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         jButtonEjectorBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjectorBypassClose.setText("C");
-        jButtonEjectorBypassClose.setToolTipText("");
+        jButtonEjectorBypassClose.setToolTipText("Main Ejector Bypass");
         jButtonEjectorBypassClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjectorBypassClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -467,7 +468,7 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         jButtonEjectorBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjectorBypassOpen.setText("O");
-        jButtonEjectorBypassOpen.setToolTipText("");
+        jButtonEjectorBypassOpen.setToolTipText("Main Ejector Bypass");
         jButtonEjectorBypassOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjectorBypassOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -502,35 +503,34 @@ public class PanelCondensation extends AbstractPanelWidget {
 
         jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonColdCondensateDrainClose.setText("C");
-        jButtonColdCondensateDrainClose.setToolTipText("");
-        jButtonColdCondensateDrainClose.setEnabled(false);
+        jButtonColdCondensateDrainClose.setToolTipText("Drains the cold condensate storage tank");
         jButtonColdCondensateDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateDrainClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonColdCondensateDrainCloseActionPerformed(evt);
             }
         });
-        add(jButtonColdCondensateDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 20, 20));
+        add(jButtonColdCondensateDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 20, 20));
 
         jLabelColdCondensateDrain.setFont(jLabelColdCondensateDrain.getFont().deriveFont(jLabelColdCondensateDrain.getFont().getSize()-2f));
         jLabelColdCondensateDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelColdCondensateDrain.setText("Drain");
+        jLabelColdCondensateDrain.setToolTipText("Drains the cold condensate storage tank");
         jLabelColdCondensateDrain.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelColdCondensateDrain.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelColdCondensateDrain.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelColdCondensateDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 96, 52, 14));
+        add(jLabelColdCondensateDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 106, 52, 14));
 
         jButtonColdCondensateDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonColdCondensateDrainOpen.setText("O");
-        jButtonColdCondensateDrainOpen.setToolTipText("");
-        jButtonColdCondensateDrainOpen.setEnabled(false);
+        jButtonColdCondensateDrainOpen.setToolTipText("Drains the cold condensate storage tank");
         jButtonColdCondensateDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateDrainOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonColdCondensateDrainOpenActionPerformed(evt);
             }
         });
-        add(jButtonColdCondensateDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 110, 20, 20));
+        add(jButtonColdCondensateDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 20, 20));
 
         jLabelCaptionPump14.setFont(jLabelCaptionPump14.getFont().deriveFont(jLabelCaptionPump14.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump14.getFont().getSize()-2));
         jLabelCaptionPump14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -562,37 +562,36 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetMakeupPump1.setChornobylPrefix("Makeup1#Pumps");
         add(panelWidgetMakeupPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 68, -1, -1));
 
-        jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonColdCondensateFillOpen.setText("C");
-        jButtonColdCondensateFillOpen.setToolTipText("");
-        jButtonColdCondensateFillOpen.setEnabled(false);
-        jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonColdCondensateFillOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColdCondensateFillOpenActionPerformed(evt);
-            }
-        });
-        add(jButtonColdCondensateFillOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 74, 20, 20));
-
-        jLabelColdCondensateFill.setFont(jLabelColdCondensateFill.getFont().deriveFont(jLabelColdCondensateFill.getFont().getSize()-2f));
-        jLabelColdCondensateFill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelColdCondensateFill.setText("Fill");
-        jLabelColdCondensateFill.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelColdCondensateFill.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelColdCondensateFill.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelColdCondensateFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 60, 52, 14));
-
-        jButtonColdCondensateFillClose.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonColdCondensateFillClose.setText("O");
-        jButtonColdCondensateFillClose.setToolTipText("");
-        jButtonColdCondensateFillClose.setEnabled(false);
+        jButtonColdCondensateFillClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonColdCondensateFillClose.setText("C");
+        jButtonColdCondensateFillClose.setToolTipText("Fills the cold condensate tank with additional demineralized water");
         jButtonColdCondensateFillClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonColdCondensateFillClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonColdCondensateFillCloseActionPerformed(evt);
             }
         });
-        add(jButtonColdCondensateFillClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 74, 20, 20));
+        add(jButtonColdCondensateFillClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 74, 20, 20));
+
+        jLabelColdCondensateFill.setFont(jLabelColdCondensateFill.getFont().deriveFont(jLabelColdCondensateFill.getFont().getSize()-2f));
+        jLabelColdCondensateFill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelColdCondensateFill.setText("Fill");
+        jLabelColdCondensateFill.setToolTipText("Fills the cold condensate tank with additional demineralized water");
+        jLabelColdCondensateFill.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateFill.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateFill.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelColdCondensateFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 60, 52, 14));
+
+        jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonColdCondensateFillOpen.setText("O");
+        jButtonColdCondensateFillOpen.setToolTipText("Fills the cold condensate tank with additional demineralized water");
+        jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateFillOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColdCondensateFillOpenActionPerformed(evt);
+            }
+        });
+        add(jButtonColdCondensateFillOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 74, 20, 20));
 
         jLabelCaptionPump16.setFont(jLabelCaptionPump16.getFont().deriveFont(jLabelCaptionPump16.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump16.getFont().getSize()-2));
         jLabelCaptionPump16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -951,20 +950,20 @@ public class PanelCondensation extends AbstractPanelWidget {
     }//GEN-LAST:event_jButtonEjectorBypassOpenActionPerformed
 
     private void jButtonColdCondensateDrainCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateDrainCloseActionPerformed
-
+        controller.userAction(new ActionCommand("Makeup#DrainValve", false));
     }//GEN-LAST:event_jButtonColdCondensateDrainCloseActionPerformed
 
     private void jButtonColdCondensateDrainOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateDrainOpenActionPerformed
-
+        controller.userAction(new ActionCommand("Makeup#DrainValve", true));
     }//GEN-LAST:event_jButtonColdCondensateDrainOpenActionPerformed
 
-    private void jButtonColdCondensateFillOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateFillOpenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonColdCondensateFillOpenActionPerformed
-
     private void jButtonColdCondensateFillCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateFillCloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Makeup#FillValve", false));
     }//GEN-LAST:event_jButtonColdCondensateFillCloseActionPerformed
+
+    private void jButtonColdCondensateFillOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColdCondensateFillOpenActionPerformed
+        controller.userAction(new ActionCommand("Makeup#FillValve", true));
+    }//GEN-LAST:event_jButtonColdCondensateFillOpenActionPerformed
 
     private void jButtonEjectorTurbineTapCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjectorTurbineTapCloseActionPerformed
         controller.userAction(new ActionCommand("Turbine4#LowPressureTapValve", false));
@@ -1112,6 +1111,12 @@ public class PanelCondensation extends AbstractPanelWidget {
         integralSwitch5.updateComponent(evt);
 
         switch (evt.getPropertyName()) {
+            case "Makeup#DrainValve_Pos" ->
+                setValveButtons(jButtonColdCondensateDrainClose,
+                        jButtonColdCondensateDrainOpen, evt.getNewValue());
+            case "Makeup#FillValve_Pos" ->
+                setValveButtons(jButtonColdCondensateFillClose,
+                        jButtonColdCondensateFillOpen, evt.getNewValue());
             case "EjectorMain1#FlowIn_Pos" ->
                 setValveButtons(jButtonEjector1InClose,
                         jButtonEjector1InOpen, evt.getNewValue());

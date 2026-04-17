@@ -674,6 +674,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Bypass"/>
+        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -696,7 +697,7 @@
           <Color blue="0" green="80" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -716,7 +717,7 @@
           <Color blue="0" green="0" red="80" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="O"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -811,8 +812,7 @@
           <Color blue="0" green="80" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="toolTipText" type="java.lang.String" value="Drains the cold condensate storage tank"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -822,7 +822,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="130" y="110" width="20" height="20"/>
+          <AbsoluteConstraints x="130" y="120" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -835,6 +835,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Drain"/>
+        <Property name="toolTipText" type="java.lang.String" value="Drains the cold condensate storage tank"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -847,7 +848,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="128" y="96" width="52" height="14"/>
+          <AbsoluteConstraints x="130" y="106" width="52" height="14"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -857,8 +858,7 @@
           <Color blue="0" green="0" red="80" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="O"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="toolTipText" type="java.lang.String" value="Drains the cold condensate storage tank"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -868,7 +868,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="158" y="110" width="20" height="20"/>
+          <AbsoluteConstraints x="160" y="120" width="20" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -968,20 +968,19 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonColdCondensateFillOpen">
+    <Component class="javax.swing.JButton" name="jButtonColdCondensateFillClose">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="80" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="toolTipText" type="java.lang.String" value="Fills the cold condensate tank with additional demineralized water"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonColdCondensateFillOpenActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonColdCondensateFillCloseActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -998,6 +997,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Fill"/>
+        <Property name="toolTipText" type="java.lang.String" value="Fills the cold condensate tank with additional demineralized water"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -1014,20 +1014,19 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonColdCondensateFillClose">
+    <Component class="javax.swing.JButton" name="jButtonColdCondensateFillOpen">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="80" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="O"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="toolTipText" type="java.lang.String" value="Fills the cold condensate tank with additional demineralized water"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonColdCondensateFillCloseActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonColdCondensateFillOpenActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

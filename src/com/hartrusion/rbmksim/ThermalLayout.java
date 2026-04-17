@@ -48,6 +48,7 @@ import com.hartrusion.modeling.general.LinearDissipator;
 import com.hartrusion.modeling.general.OpenOrigin;
 import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.heatfluid.HeatEffortSource;
+import com.hartrusion.modeling.heatfluid.HeatFlowSource;
 import com.hartrusion.modeling.heatfluid.HeatFluidTank;
 import com.hartrusion.modeling.heatfluid.HeatNode;
 import com.hartrusion.modeling.heatfluid.HeatOrigin;
@@ -104,6 +105,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatFluidPump[] makeupPumps
             = new HeatFluidPump[2];
     private final HeatNode makeupPumpsOut;
+    private final HeatOrigin makeupOrigin;
+    private final HeatNode makeupOriginNode;
+    private final HeatFlowSource makeupFillDrainSource;
+    private final DummyValve makeupFillValve;
+    private final DummyValve makeupDrainValve;
 
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
@@ -513,6 +519,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         makeupPumpsOut = new HeatNode();
         makeupPumpsOut.setName("Makeup#PumpsOut");
+        makeupOrigin = new HeatOrigin();
+        makeupOrigin.setName("Makeup#Origin");
+        makeupOriginNode = new HeatNode();
+        makeupOriginNode.setName("Makeup#OriginNode");
+        makeupFillDrainSource = new HeatFlowSource();
+        makeupFillDrainSource.setName("Makeup#FillDrainSource");
+        makeupFillValve = new DummyValve();
+        makeupFillValve.initName("Makeup#FillValve");
+        makeupDrainValve = new DummyValve();
+        makeupDrainValve.initName("Makeup#DrainValve");
 
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDrumNode[idx] = new PhasedNode();
@@ -999,10 +1015,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             preheaterCondensateCooler[idx].initName("Preheater"
                     + (idx + 1) + "#CondensateCooler");
         }
-        
+
         preheaterCondensateIn = new HeatNode();
         preheaterCondensateIn.setName("preheaterCondensateIn");
-        
+
         for (int idx = 0; idx < 2; idx++) {
             preheaterCondensateCoolerIn[idx] = new PhasedNode();
             preheaterCondensateCoolerIn[idx].setName("Preheater"
@@ -1213,6 +1229,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Cold condensate storage
         makeupStorage.connectTo(makeupStorageDrainCollector);
         makeupStorage.connectTo(makeupStorageOut);
+        // Fill / Drain is just done with a flow source.
+        makeupOrigin.connectTo(makeupOriginNode);
+        makeupFillDrainSource.connectBetween(makeupOriginNode, makeupStorageOut);
         for (int idx = 0; idx < 2; idx++) {
             makeupPumps[idx].getSuctionValve().connectTo(makeupStorageOut);
             makeupPumps[idx].getDischargeValve()
@@ -1489,7 +1508,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellOutConverter.connectBetween(
                 hotwell.getPhasedNode(PhasedCondenserNoMass.PRIMARY_OUT),
                 hotwellOutNode);
-        
+
         // 3x condensate pump from hotwell to condensationPumpOut node
         for (int idx = 0; idx < condensationHotwellPump.length; idx++) {
             condensationHotwellPump[idx].getSuctionValve().connectTo(
@@ -1497,7 +1516,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationHotwellPump[idx].getDischargeValve().connectTo(
                     condensationPumpOut);
         }
-        
+
         // Condensate flows through 3 parallel main ejectors.
         for (int idx = 0; idx < 3; idx++) {
             ejectorMainFlowIn[idx].getValveElement().connectBetween(
@@ -1513,7 +1532,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         ejectorMainBypass.getValveElement().connectBetween(
                 condensationPumpOut, condensationBoosterPumpIn);
-        
+
         // After main ejectors, another set of condensate booster pumps will
         // force the water through the preheaters.
         for (int idx = 0; idx < condensationCondensatePump.length; idx++) {
@@ -1523,7 +1542,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condensationCondensatePump[idx].getDischargeValve().connectTo(
                     preheaterCondensateIn);
         }
-        
+
         // Condensate gets pumped through secondary side of low pressure 
         // preheaters. The elements are in following order, as seen for 
         // condensate flow direction:
@@ -1559,7 +1578,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Note that we do not need a pipingoutnode between preheater [1] and
         // [2] as we dont have a cooler placed here, we can use the existing
         // node from the condenser assembly.
-        
+
         // Valve from End of Preheasters to DA
         for (int idx = 0; idx < 2; idx++) {
             condensationValveToDA[idx].getValveElement().connectBetween(
@@ -2518,12 +2537,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // and so on).
         // The runner also takes care of assigning the parameter handler and 
         // signal listeners to each element that gets added.
+        // As the runner is of an extended type that handles initital automation
+        // conditions, it also manages savign and loading for those elements.
         runner.setParameterHandler(outputValues);
         runner.setSignalListener(controller);
 
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(makeupPumps[idx]);
         }
+        runner.submit(makeupFillValve);
+        runner.submit(makeupDrainValve);
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(mainSteamShutoffValve[idx]);
             for (int jdx = 0; jdx < 4; jdx++) {
@@ -3163,6 +3186,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // prevents something because certain conditions (like alarm present)
         // are met.
         ValueAlarmMonitor am;
+
+        am = new ValueAlarmMonitor();
+        am.setName("ColdCondensateLevel");
+        // Convert Pascal fill height to meters:
+        am.addInputProvider(() -> makeupStorage.getEffort() * 1.0224e-4);
+        am.defineAlarm(10.0, AlarmState.MAX1);
+        am.defineAlarm(9.0, AlarmState.HIGH2);
+        am.defineAlarm(8.0, AlarmState.HIGH1);
+        am.defineAlarm(2.0, AlarmState.LOW1);
+        am.defineAlarm(0.5, AlarmState.LOW2);
+        am.defineAlarm(0.1, AlarmState.MIN1);
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
 
         // Steam Drum Separator 1 Level
         am = new ValueAlarmMonitor();
@@ -4098,6 +4134,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // to a state where the simulation would crash due to illegal conditions
         // that can no further be simulated. 
         // *
+        makeupFillValve.addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive("ColdCondensateLevel",
+                        AlarmState.MAX1));
+        makeupDrainValve.addSafeClosedProvider(()
+                -> !alarmManager.isAlarmActive("ColdCondensateLevel",
+                        AlarmState.MIN1));
+        for (int idx = 0; idx < 2; idx++) {
+            makeupPumps[idx].addSafeOffProvider(()
+                    -> !alarmManager.isAlarmActive(
+                            "ColdCondensateLevel", AlarmState.MIN1));
+        }
         // Steam Drum Level must be above MIN2 for MCPs to run.
         for (int jdx = 0; jdx < 4; jdx++) {
             loopMcpAssembly[0][jdx].addSafeOffProvider(()
@@ -4508,6 +4555,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 fuelThermalSource[idx].setFlow(0.0); // this will be noticed.
             }
         }
+
+        // Makeup system: Fill, drain or do nothing, according to the dummy 
+        // valve positions
+        makeupFillDrainSource.setFlow(
+                makeupFillValve.getOpening() * 5.0
+                - makeupDrainValve.getOpening() * 3.0);
 
         // Write Control Outputs to model if necessary (some controllers are
         // already integrated into the elements)
@@ -5010,7 +5063,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + ejectorMainFlowOut[0].getValveElement().getFlow()
                 + ejectorMainFlowOut[1].getValveElement().getFlow()
                 + ejectorMainFlowOut[2].getValveElement().getFlow());
-        
+
         outputValues.setParameterValue("Condensate#TemperatureAfterBoosterPumps",
                 preheaterCondensateIn.getTemperature() - 273.15);
 
@@ -5041,7 +5094,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 preheaterPiping[1].getHeatHandler().getTemperature() - 273.15);
         outputValues.setParameterValue("Preheater3#FeedOutTemp",
                 preheaterPiping[2].getHeatHandler().getTemperature() - 273.15);
-        
+
         // These are model detail data, only supposed to be used for detail 
         // investigation of the thermal model.
         outputValues.setParameterValue("Preheater1#DebugHeatExchangerOutTemp",
@@ -5439,6 +5492,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             setpointHotwellLowerLevel.handleAction(ac);
             makeupPumps[0].handleAction(ac);
             makeupPumps[1].handleAction(ac);
+            makeupFillValve.handleAction(ac);
+            makeupDrainValve.handleAction(ac);
 
             preheaterCondensateValve[0].handleAction(ac);
             preheaterCondensateValve[1].handleAction(ac);
