@@ -1,17 +1,41 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Copyright (C) 2026 Viktor Alexander Hartung
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.hartrusion.rbmksim.gui.panels;
 
+import com.hartrusion.mvc.ActionCommand;
+import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
 
 /**
  *
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
 public class PanelCoolant extends AbstractPanelWidget {
+    
+    @Override
+    public void registerActionReceiver(ActionReceiver controller) {
+        super.registerActionReceiver(controller);
+        panelWidgetSmallPump1.registerActionReceiver(controller);
+        panelWidgetSmallPump2.registerActionReceiver(controller);
+        panelWidgetSmallPump3.registerActionReceiver(controller);
+        panelWidgetSmallPump4.registerActionReceiver(controller);
+        panelWidgetSmallPumpAux.registerActionReceiver(controller);
+    }
 
     /**
      * Creates new form PanelCoolant
@@ -29,10 +53,157 @@ public class PanelCoolant extends AbstractPanelWidget {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setMinimumSize(new java.awt.Dimension(200, 130));
-        setPreferredSize(new java.awt.Dimension(200, 130));
+        jLabelCoolantFlow1 = new javax.swing.JLabel();
+        jLabelCoolantFlow2 = new javax.swing.JLabel();
+        chornobylGaugeFlow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        jLabelCoolantTemp1 = new javax.swing.JLabel();
+        jLabelCoolantTemp2 = new javax.swing.JLabel();
+        chornobylGaugeCoolantOutTemp = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
+        panelWidgetSmallPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        panelWidgetSmallPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        panelWidgetSmallPump3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        panelWidgetSmallPump4 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        panelWidgetSmallPumpAux = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        jLabelCaptionPump19 = new javax.swing.JLabel();
+        jLabelCaptionPump20 = new javax.swing.JLabel();
+        jLabelCaptionPump16 = new javax.swing.JLabel();
+        jLabelCaptionPump17 = new javax.swing.JLabel();
+        jLabelCaptionPump18 = new javax.swing.JLabel();
+        jLabelMainTo = new javax.swing.JLabel();
+        jLabelAuxiliary = new javax.swing.JLabel();
+        jButtonMainToAuxOpen = new javax.swing.JButton();
+        jButtonMainToAuxClose = new javax.swing.JButton();
+
+        setMaximumSize(new java.awt.Dimension(380, 130));
+        setMinimumSize(new java.awt.Dimension(380, 130));
+        setPreferredSize(new java.awt.Dimension(380, 130));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelCoolantFlow1.setFont(jLabelCoolantFlow1.getFont().deriveFont(jLabelCoolantFlow1.getFont().getSize()-2f));
+        jLabelCoolantFlow1.setText("Coolant");
+        add(jLabelCoolantFlow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
+
+        jLabelCoolantFlow2.setFont(jLabelCoolantFlow2.getFont().deriveFont(jLabelCoolantFlow2.getFont().getSize()-2f));
+        jLabelCoolantFlow2.setText("Flow");
+        add(jLabelCoolantFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 52, 14));
+
+        chornobylGaugeFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeFlow.setChornobylMaximum(100.0F);
+        chornobylGaugeFlow.setChornobylMinimum(0.0F);
+        chornobylGaugeFlow.setChornobylTicks(new float[] {0.0f, 50.0f, 70.0f, 100.0f});
+        chornobylGaugeFlow.setChornobylUnitText("t/s");
+        chornobylGaugeFlow.setChornobylValue(0.0F);
+        add(chornobylGaugeFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
+
+        jLabelCoolantTemp1.setFont(jLabelCoolantTemp1.getFont().deriveFont(jLabelCoolantTemp1.getFont().getSize()-2f));
+        jLabelCoolantTemp1.setText("Out");
+        add(jLabelCoolantTemp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
+
+        jLabelCoolantTemp2.setFont(jLabelCoolantTemp2.getFont().deriveFont(jLabelCoolantTemp2.getFont().getSize()-2f));
+        jLabelCoolantTemp2.setText("Temp.");
+        add(jLabelCoolantTemp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 52, 14));
+
+        chornobylGaugeCoolantOutTemp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        chornobylGaugeCoolantOutTemp.setChornobylMaximum(50.0F);
+        chornobylGaugeCoolantOutTemp.setChornobylMinimum(20.0F);
+        chornobylGaugeCoolantOutTemp.setChornobylTicks(new float[] {20.0f, 30.0f, 40.0f, 50.0f});
+        chornobylGaugeCoolantOutTemp.setChornobylUnitText("°C");
+        chornobylGaugeCoolantOutTemp.setChornobylValue(22.0F);
+        add(chornobylGaugeCoolantOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
+        add(panelWidgetSmallPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, -1, -1));
+        add(panelWidgetSmallPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 54, -1, -1));
+        add(panelWidgetSmallPump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 54, -1, -1));
+        add(panelWidgetSmallPump4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 54, -1, -1));
+        add(panelWidgetSmallPumpAux, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 54, -1, -1));
+
+        jLabelCaptionPump19.setFont(jLabelCaptionPump19.getFont().deriveFont(jLabelCaptionPump19.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump19.getFont().getSize()-2));
+        jLabelCaptionPump19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump19.setText("Pump 1");
+        jLabelCaptionPump19.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump19.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump19.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump19, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 36, 54, 14));
+
+        jLabelCaptionPump20.setFont(jLabelCaptionPump20.getFont().deriveFont(jLabelCaptionPump20.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump20.getFont().getSize()-2));
+        jLabelCaptionPump20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump20.setText("Pump 2");
+        jLabelCaptionPump20.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump20.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump20.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump20, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 36, 54, 14));
+
+        jLabelCaptionPump16.setFont(jLabelCaptionPump16.getFont().deriveFont(jLabelCaptionPump16.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump16.getFont().getSize()-2));
+        jLabelCaptionPump16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump16.setText("Pump 4");
+        jLabelCaptionPump16.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump16.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump16.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump16, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 36, 54, 14));
+
+        jLabelCaptionPump17.setFont(jLabelCaptionPump17.getFont().deriveFont(jLabelCaptionPump17.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump17.getFont().getSize()-2));
+        jLabelCaptionPump17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump17.setText("Pump 3");
+        jLabelCaptionPump17.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump17.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump17.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump17, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 36, 54, 14));
+
+        jLabelCaptionPump18.setFont(jLabelCaptionPump18.getFont().deriveFont(jLabelCaptionPump18.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump18.getFont().getSize()-2));
+        jLabelCaptionPump18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump18.setText("Aux Pump");
+        jLabelCaptionPump18.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump18.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump18.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump18, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 38, 76, 14));
+
+        jLabelMainTo.setFont(jLabelMainTo.getFont().deriveFont(jLabelMainTo.getFont().getSize()-2f));
+        jLabelMainTo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelMainTo.setText("Main to");
+        jLabelMainTo.setToolTipText("Main Ejector Bypass");
+        jLabelMainTo.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelMainTo.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelMainTo.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelMainTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 56, 52, 14));
+
+        jLabelAuxiliary.setFont(jLabelAuxiliary.getFont().deriveFont(jLabelAuxiliary.getFont().getSize()-2f));
+        jLabelAuxiliary.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelAuxiliary.setText("Auxiliary");
+        jLabelAuxiliary.setToolTipText("Main Ejector Bypass");
+        jLabelAuxiliary.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelAuxiliary.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelAuxiliary.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelAuxiliary, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 68, 52, 14));
+
+        jButtonMainToAuxOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonMainToAuxOpen.setText("O");
+        jButtonMainToAuxOpen.setToolTipText("Main Ejector Bypass");
+        jButtonMainToAuxOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonMainToAuxOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMainToAuxOpenActionPerformed(evt);
+            }
+        });
+        add(jButtonMainToAuxOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 86, 20, 20));
+
+        jButtonMainToAuxClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonMainToAuxClose.setText("C");
+        jButtonMainToAuxClose.setToolTipText("Main Ejector Bypass");
+        jButtonMainToAuxClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonMainToAuxClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMainToAuxCloseActionPerformed(evt);
+            }
+        });
+        add(jButtonMainToAuxClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 86, 20, 20));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonMainToAuxOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainToAuxOpenActionPerformed
+        controller.userAction(new ActionCommand("Coolant#MainToAux", true));
+    }//GEN-LAST:event_jButtonMainToAuxOpenActionPerformed
+
+    private void jButtonMainToAuxCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainToAuxCloseActionPerformed
+        controller.userAction(new ActionCommand("Coolant#MainToAux", false));
+    }//GEN-LAST:event_jButtonMainToAuxCloseActionPerformed
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
@@ -56,5 +227,25 @@ public class PanelCoolant extends AbstractPanelWidget {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeCoolantOutTemp;
+    private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeFlow;
+    private javax.swing.JButton jButtonMainToAuxClose;
+    private javax.swing.JButton jButtonMainToAuxOpen;
+    private javax.swing.JLabel jLabelAuxiliary;
+    private javax.swing.JLabel jLabelCaptionPump16;
+    private javax.swing.JLabel jLabelCaptionPump17;
+    private javax.swing.JLabel jLabelCaptionPump18;
+    private javax.swing.JLabel jLabelCaptionPump19;
+    private javax.swing.JLabel jLabelCaptionPump20;
+    private javax.swing.JLabel jLabelCoolantFlow1;
+    private javax.swing.JLabel jLabelCoolantFlow2;
+    private javax.swing.JLabel jLabelCoolantTemp1;
+    private javax.swing.JLabel jLabelCoolantTemp2;
+    private javax.swing.JLabel jLabelMainTo;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump3;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump4;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPumpAux;
     // End of variables declaration//GEN-END:variables
 }
