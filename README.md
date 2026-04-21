@@ -1,72 +1,34 @@
 # RBMK Simulator
-A simulator app for the chornobyl RBMK reactor. This aims to be a successor for 
-the [Simgenics rxmodel simulator](https://github.com/gdzx/chernobyl-simulator) 
-from about 30 years ago but with a lot more detailed systems and a more 
-accurate representation of the chernobyl plant.
+This is a simulator app for the Chornobyl RBMK Reactor. Heavily inspired by the 
+[Simgenics rxmodel simulator](https://github.com/gdzx/chernobyl-simulator) 
+from about 30 years ago but with a lot more detailed systems and a more accurate 
+representation of the chernobyl plant.
 
-**This is work in progress. Please do NOT expect a working product.**
-
-The app aims to be usable in real time on average to low end computers. It does 
-not require high performance hardware.
+This simulation focuses on the thermo hydraulic systems and the general 
+operation of power plants. It has no accurate neutron simulation and has many 
+systems simplified to allow running even on low end hardware.
 
 ![Example](docs/images/screenshot-preview5.png)
 
 For details on the usage and some rudimentary documentation, refer to the 
-[project page](https://hartrusion.com/en/rbmk-simulator/). 
+[Project Page](https://hartrusion.com/en/rbmk-simulator/) for more details. The 
+manuals are updated from time to time
 
 ## Installation and Usage
-Download latest: 
-[RbmkSimulator-SNAPSHOT.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-snapshot/RbmkSimulator-SNAPSHOT.jar)
+This is a java application so it runs on pretty much every popular operating 
+system. To download the simulator, go to 
+[Latest Release](https://github.com/hartrusion/RbmkSimulator/releases/latest)
+here on Github. If you have no clue about Java and use a Windows computer, 
+download the **RbmkSimulator-Windows-x64.zip** file there. It contains a .exe  
+file that you can just run (no installation needed). If you have a different 
+operating system or a java runtime/jdk already installed, you can download the 
+**RbmkSimulator-SNAPSHOT.jar** file instead which is way smaller.
 
-Using this link downloads the latest automated build (also found in 
-[Releases](https://github.com/hartrusion/RbmkSimulator/releases) as
-_github-ci-snapshot_). It always points to the current development state and 
-will be replaced automatically each time I change something. You might find a 
-new file there from time to time.
+The current development snapshot can be downloaded here: 
+[RbmkSimulator-SNAPSHOT.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-snapshot/RbmkSimulator-SNAPSHOT.jar) 
+This gets updated frequently each time I push changes to github.
 
-Save files are **NOT** compatible with newer versions.
-
-<details>
-  <summary>This is a Java application. Expand this section (just click here) 
-  if you want to read more about this and don't know what to do with 
-  a .jar file.</summary>
-  
-  You need a Java Runtime (at least v17.0.17) to run a .jar file. A jar file 
-  is an archive file that can contain something for java to run.
-
-  To check if you already have java installed and configured on your system, 
-  type
-  ```
-  java -version
-  ```
-  in Command Line or Terminal. It will return which version is installed or an
-  error if there is no java available. In this case you have to download this
-  by yourself.
-
-  Any recent OpenJDK has a Runtime included, you can go for Eclipse Adoptium or
-  the Microsoft Build of OpenJDK or any other of those. Just do not use the 
-  Oracle/Sun Java JRE you will find at java.com as this is the old Version 8.
-  If you're a Linux user, you should not have any issues getting a java runtime 
-  for your distribution.
-
-  To run the Simulator, simply run the. jar with the Java Runtime. You could 
-  open a terminal and run
-  
-      java -jar RbmkSimulator-SNAPSHOT.jar
-  
-  Running in Terminal allows you to see additional log output (which is not 
-  needed for operating the plant).
-
-  **Why this? Why not a simple .exe file?** It is not uncommon to need some kind 
-  of Runtime to run a program, you might also know .NET or Visual Studio Runtime 
-  which are needed for some programs also. Java is a bit different but has the 
-  huge advantage that it works on multiple plattforms with almost the same 
-  behavior. While it had a bad reputation for end users due to some security 
-  issues and a really bad installer behaviour (who the hell installs Toolbars),
-  it is nowadays used a lot for backend server side apps and one of the most 
-  popular programming languages. It gained some reputation with Minecraft at 
-  non programmer end users in the last years.
-</details>
+Please not that save files are **NOT** compatible with newer versions.
 
 ## Getting involved
 Please make yourself familiar with the rather unusual
@@ -79,20 +41,14 @@ section, everything that is listed here is going to be fixed and implemented.
 
 No Z supporters wanted.
 
-## Licencing and usage
+## Licencing
 I decided to publish this simulator with GPLv3 so this thing is free software. 
 As I've also put in lots of thoughts on how to represent the plant with the 
-GUI, I do want to keep the authorship and control over it. You can use and 
-redistribute this software as you like, there are only some limitations if 
-you would like to modify and publish the software again.
+GUI, I do want to keep the authorship and control over it and decided to use 
+this more resticted licence. You can use and redistribute this software as you 
+like, there are only some limitations if you would like to modify and publish 
+the software again.
 
-To make it possible to share the developed technology, large parts of the code 
-in other repositories are published with MIT licence so you're free to reuse 
-those parts for whatever you like without such limitations.
-
-## Modeling engine
-The simulation is based on the PhxNetMod project which implements the theory of 
-having similar linear ordinary differential equations in electronics, mechanics, 
-hydraulics and thermal systems. The methods of network analysis can therefore 
-be applied to other domains. The PhxNetMod core, along with other dependencies,
-are available as separate projects.
+To make it possible to reuse the developed technology, large parts of the code 
+in other repositories are published with the more permissive MIT licence so 
+you're free to reuse those parts for whatever you like without such limitations.
