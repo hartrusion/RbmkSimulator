@@ -111,6 +111,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final DummyValve makeupFillValve;
     private final DummyValve makeupDrainValve;
 
+    // Coolant system
+    private final HeatOrigin coolantOrigin;
+    private final HeatNode coolantOriginNode;
+    private final HeatFluidPumpSimple coolantAuxPump;
+    private final HeatNode coolantAuxNode;
+    private final HeatFluidPumpSimple[] coolantMainPumps
+            = new HeatFluidPumpSimple[4];
+    private final HeatNode coolantMainNode;
+    private final HeatValve coolantMainToAux;
+    private final HeatOrigin coolantSink;
+    private final HeatNode coolantSinkNode;
+
     private final PhasedNode[] mainSteamDrumNode = new PhasedNode[2];
     private final PhasedValve[] mainSteamShutoffValve = new PhasedValve[2];
     private final PhasedNode[] mainSteam = new PhasedNode[2];
@@ -180,11 +192,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatNode blowdownToCooldownNode;
     private final HeatSimpleFlowResistance blowdownCooldownResistance;
     private final HeatExchangerNoMass blowdownCooldown;
-    // There is no coolant loop yet, just a flow source
-    private final HeatOrigin blowdownCoolantSource;
-    private final HeatNode blowdownCoolantSourceNode;
-    private final HeatControlledFlowSource blowdownValveCoolant;
-    private final HeatOrigin blowdownCoolantSink;
+    // Coolant is connected to coolant, just the valve and one node is part
+    // of the blowdown system here
+    private final HeatValve blowdownValveCoolant;
+    private final HeatSimpleFlowResistance blowdownCoolantCollector;
     // water treatment is just a large volume for now
     private final HeatVolumizedFlowResistance blowdownTreatment;
     private final HeatNode blowdownTreatedOutNode;
@@ -244,13 +255,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
     // Auxiliary Condensation
     private final PhasedValveControlled[] auxCondSteamValve
             = new PhasedValveControlled[2];
-    private final PhasedCondenserNoMass[] auxCondensers = new PhasedCondenserNoMass[2];
-    // Coolant flow with simple flow source for now
-    private final HeatOrigin[] auxCondCoolantSource = new HeatOrigin[2];
-    private final HeatNode[] auxCondCoolantSourceNode = new HeatNode[2];
-    private final HeatControlledFlowSource[] auxCondCoolantValve
-            = new HeatControlledFlowSource[2];
-    private final HeatOrigin[] auxCondCoolantSink = new HeatOrigin[2];
+    private final PhasedCondenserNoMass[] auxCondensers
+            = new PhasedCondenserNoMass[2];
+    private final HeatValve[] auxCondCoolantValve
+            = new HeatValve[2];
+    private final HeatSimpleFlowResistance[] auxCondCoolantCollector
+            = new HeatSimpleFlowResistance[2];
     private final PhasedHeatFluidConverter[] auxCondOutConverter
             = new PhasedHeatFluidConverter[2];
     private final HeatNode[] auxCondCondenserOutNode = new HeatNode[2];
@@ -296,12 +306,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValveControlled hotwellFillValve;
     private final HeatValveControlled hotwellDrainValve;
 
-    // Main Coolant Loop for Condenser - for now, just a constant flow, 
-    // always on, no vacuum stuff for now.
-    private final HeatOrigin condenserCoolantOrigin;
-    private final HeatNode condenserCoolantOriginNode;
-    private final HeatControlledFlowSource condenserCoolantFlowSource;
-    private final HeatOrigin condenserCoolantSink;
     // Instead of letting all kinds of flows going straight into the condenser  
     // use individual coolers which cool the fluid down first using the main 
     // coolant flow (heat domain). This allows the TransferSubnet solver to 
@@ -311,7 +315,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedHeatExchangerNoMass[] condenserCooler
             = new PhasedHeatExchangerNoMass[5];
     private final PhasedNode[] condenserCoolerIn = new PhasedNode[5];
-    private final HeatNode[] condenserCoolerSecondaryNode = new HeatNode[5];
+    private final HeatNode[] condenserCoolerSecondaryNode = new HeatNode[4];
+    private final HeatSimpleFlowResistance condenserCoolantCollector;
 
     // Ejectors (both startup and main)
     private final PhasedNode ejectorTurbineTapNode;
@@ -530,6 +535,28 @@ public class ThermalLayout extends Subsystem implements Runnable {
         makeupDrainValve = new DummyValve();
         makeupDrainValve.initName("Makeup#DrainValve");
 
+        coolantOrigin = new HeatOrigin();
+        coolantOrigin.setName("Coolant#Origin");
+        coolantOriginNode = new HeatNode();
+        coolantOriginNode.setName("Coolant#OriginNode");
+        coolantAuxPump = new HeatFluidPumpSimple();
+        coolantAuxPump.initName("Coolant#AuxPump");
+        coolantAuxNode = new HeatNode();
+        coolantAuxNode.setName("Coolant#AuxNode");
+        for (int idx = 0; idx < 4; idx++) {
+            coolantMainPumps[idx] = new HeatFluidPumpSimple();
+            coolantMainPumps[idx].initName("Coolant" + (idx + 1)
+                    + "#MainPump");
+        }
+        coolantMainNode = new HeatNode();
+        coolantMainNode.setName("Coolant#MainNode");
+        coolantMainToAux = new HeatValve();
+        coolantMainToAux.initName("Coolant#MainToAuxValve");
+        coolantSink = new HeatOrigin();
+        coolantSink.setName("Coolant#Sink");
+        coolantSinkNode = new HeatNode();
+        coolantSinkNode.setName("Coolant#SinkNode");
+
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDrumNode[idx] = new PhasedNode();
             mainSteamDrumNode[idx].setName("Main" + (idx + 1)
@@ -690,14 +717,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownCooldown = new HeatExchangerNoMass();
         blowdownCooldown.initGenerateNodes();
         blowdownCooldown.initName("Blowdown#Cooldown");
-        blowdownCoolantSource = new HeatOrigin();
-        blowdownCoolantSource.setName("Blowdown#CoolantSource");
-        blowdownCoolantSourceNode = new HeatNode();
-        blowdownCoolantSourceNode.setName("Blowdown#CoolantSourceNode");
-        blowdownValveCoolant = new HeatControlledFlowSource();
+        blowdownValveCoolant = new HeatValve();
         blowdownValveCoolant.initName("Blowdown#ValveCoolant");
-        blowdownCoolantSink = new HeatOrigin();
-        blowdownCoolantSink.setName("Blowdown#CoolantSink");
+        blowdownCoolantCollector = new HeatSimpleFlowResistance();
+        blowdownCoolantCollector.setName("Blowdown#CoolantCollector");
         blowdownTreatment = new HeatVolumizedFlowResistance();
         blowdownTreatment.setName("Blowdown#Treatment");
         blowdownTreatedOutNode = new HeatNode();
@@ -821,18 +844,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             auxCondensers[idx] = new PhasedCondenserNoMass(phasedWater);
             auxCondensers[idx].initGenerateNodes();
             auxCondensers[idx].initName("AuxCond" + (idx + 1) + "#Condenser");
-            auxCondCoolantSource[idx] = new HeatOrigin();
-            auxCondCoolantSource[idx].setName(
-                    "AuxCond" + (idx + 1) + "#CoolantSource");
-            auxCondCoolantSourceNode[idx] = new HeatNode();
-            auxCondCoolantSourceNode[idx].setName(
-                    "AuxCond" + (idx + 1) + "#CoolantSourceNode");
-            auxCondCoolantValve[idx] = new HeatControlledFlowSource();
+            auxCondCoolantValve[idx] = new HeatValve();
             auxCondCoolantValve[idx].initName(
                     "AuxCond" + (idx + 1) + "#CoolantValve");
-            auxCondCoolantSink[idx] = new HeatOrigin();
-            auxCondCoolantSink[idx].setName(
-                    "AuxCond" + (idx + 1) + "#CoolantSink");
+            auxCondCoolantCollector[idx] = new HeatSimpleFlowResistance();
+            auxCondCoolantCollector[idx].setName(
+                    "AuxCond" + (idx + 1) + "#CoolantCollector");
             auxCondOutConverter[idx]
                     = new PhasedHeatFluidConverter(phasedWater);
             auxCondOutConverter[idx].setName(
@@ -927,13 +944,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellDrainValve.registerController(new PIControl());
         hotwellDrainValve.initName("Hotwell#DrainValve");
 
-        condenserCoolantOrigin = new HeatOrigin();
-        condenserCoolantOrigin.setName("Condenser#CoolantOrigin");
-        condenserCoolantOriginNode = new HeatNode();
-        condenserCoolantOriginNode.setName("Condenser#CoolantOriginNode");
-        condenserCoolantFlowSource = new HeatControlledFlowSource();
-        condenserCoolantFlowSource.initName("Condenser#CoolantFlowSource");
-
         for (int idx = 0; idx < 5; idx++) {
             condenserCooler[idx] = new PhasedHeatExchangerNoMass(phasedWater);
             condenserCooler[idx].initName(
@@ -941,12 +951,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
             condenserCoolerIn[idx] = new PhasedNode();
             condenserCoolerIn[idx].setName(
                     "Condenser#Cooler" + (idx + 1) + "#In");
+        }
+        for (int idx = 0; idx < 4; idx++) {
             condenserCoolerSecondaryNode[idx] = new HeatNode();
             condenserCoolerSecondaryNode[idx].setName(
                     "Condenser" + (idx + 1) + "#SecondaryNode");
         }
-        condenserCoolantSink = new HeatOrigin();
-        condenserCoolantSink.setName("Condenser#CoolantSink");
+        condenserCoolantCollector = new HeatSimpleFlowResistance();
+        condenserCoolantCollector.setName("Condenser#CoolantCollector");
 
         // Ejectors (both startup and main)
         ejectorTurbineTapNode = new PhasedNode();
@@ -1238,6 +1250,26 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .connectTo(makeupPumpsOut);
         }
 
+        // Coolant system: This distributes water to aux cond, aftercooler and
+        // main condenser. 4 Main pumps and one aux pump are available.
+        coolantOrigin.connectTo(coolantOriginNode);
+        coolantAuxPump.getPumpEffortSource().connectTo(coolantOriginNode);
+        coolantAuxPump.getDischargeValve().connectTo(coolantAuxNode);
+        for (int idx = 0; idx < 4; idx++) {
+            coolantMainPumps[idx].getPumpEffortSource()
+                    .connectTo(coolantOriginNode);
+            coolantMainPumps[idx].getDischargeValve()
+                    .connectTo(coolantMainNode);
+        }
+        // A valve can be used to supply the blowdowncooldown or the aux 
+        // condensers from the main pumps.
+        coolantMainToAux.getValveElement().connectBetween(
+                coolantAuxNode, coolantMainNode);
+        
+        // All element connections are made where the elements of that group
+        // are configured. They all end in a sink node.
+        coolantSink.connectTo(coolantSinkNode);
+
         // Define the primary loop from drum through mcps and reactor and back.
         for (int idx = 0; idx < 2; idx++) {
             // Steam Drum Blowdown (will be continued later at blowdown system)
@@ -1358,13 +1390,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Add the drain back to makeup storage
         blowdownValveDrain.getValveElement().connectBetween(
                 blowdownTreatedOutNode, makeupStorageDrainCollector);
-        // Secondary coolant flow, just a flow source for forcing the flow.
-        blowdownCoolantSource.connectTo(blowdownCoolantSourceNode);
-        blowdownValveCoolant.getFlowSource()
-                .connectBetween(blowdownCoolantSourceNode,
-                        blowdownCooldown.getSecondarySide().getNode(1));
-        blowdownCoolantSink.connectTo(
-                blowdownCooldown.getSecondarySide().getNode(0));
+        // Secondary coolant flow
+        blowdownValveCoolant.getValveElement().connectBetween(
+                coolantAuxNode,
+                blowdownCooldown.getSecondarySide().getNode(1));
+        // a simple bridged element is used as we have generated nodes already
+        blowdownCoolantCollector.connectBetween(
+                blowdownCooldown.getSecondarySide().getNode(0),
+                coolantSinkNode);
         // Connect blowdown out valves to the feedwater collector via pipes
         for (int idx = 0; idx < 2; idx++) {
             blowdownReturnValve[idx].getValveElement().connectTo(
@@ -1454,15 +1487,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Auxiliary Condenser
         for (int idx = 0; idx < 2; idx++) {
-            // Build coolant supply: source - flow source - heat exch - sink
-            auxCondCoolantSource[idx].connectToVia(
-                    auxCondCoolantValve[idx].getFlowSource(),
-                    auxCondCoolantSourceNode[idx]);
-            auxCondCoolantValve[idx].getFlowSource().connectTo(
+            // Coolant supply
+            auxCondCoolantValve[idx].getValveElement().connectBetween(
+                    coolantAuxNode,
                     auxCondensers[idx].getHeatNode(
                             PhasedCondenserNoMass.SECONDARY_IN));
-            auxCondCoolantSink[idx].connectTo(auxCondensers[idx].getHeatNode(
-                    PhasedCondenserNoMass.SECONDARY_OUT));
+            auxCondCoolantCollector[idx].connectBetween(auxCondensers[idx]
+                    .getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
+                    coolantSinkNode);
             // Steam into condenser
             auxCondSteamValve[idx].getValveElement().connectBetween(
                     mainSteam[idx],
@@ -1604,24 +1636,23 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellDrainValve.getValveElement().connectBetween(
                 condensationPumpOut, makeupStorageDrainCollector);
 
-        // Coolant loop, so far just a constant flow source
-        condenserCoolantOrigin.connectTo(condenserCoolantOriginNode);
-        condenserCoolantFlowSource.getFlowSource().connectBetween(
-                condenserCoolantOriginNode,
-                condenserCoolerSecondaryNode[0]);
-        // Through all separate modeled cooling elements:
-        for (int idx = 0; idx < condenserCooler.length - 1; idx++) {
+        // Coolant loop: From main coolant pump collector node
+        // Through all separate modeled cooling elements first.
+        condenserCooler[0].getSecondarySide().connectTo(coolantMainNode);
+        condenserCooler[0].getSecondarySide().connectTo(condenserCoolerSecondaryNode[0]);
+        for (int idx = 1; idx < condenserCooler.length - 1; idx++) {
             // No nodes were generated, instead, acces the elements from asm:
             condenserCooler[idx].getSecondarySide().connectBetween(
-                    condenserCoolerSecondaryNode[idx],
-                    condenserCoolerSecondaryNode[idx + 1]);
+                    condenserCoolerSecondaryNode[idx - 1],
+                    condenserCoolerSecondaryNode[idx]);
         }
         // last one
         condenserCooler[condenserCooler.length - 1].getSecondarySide().connectBetween( // last one
-                condenserCoolerSecondaryNode[condenserCooler.length - 1],
+                condenserCoolerSecondaryNode[condenserCooler.length - 2],
                 hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_IN));
-        condenserCoolantSink.connectTo(
-                hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT));
+        condenserCoolantCollector.connectBetween(
+                hotwell.getHeatNode(PhasedCondenserNoMass.SECONDARY_OUT),
+                coolantSinkNode);
         // Steam/Phased side: connect phased nodes and direct the flow into
         // hotwell reservoir.
         for (int idx = 0; idx < condenserCooler.length; idx++) {
@@ -1848,6 +1879,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Element properties">
         makeupStorage.setTimeConstant(100 / 9.81);
+        
+        // Condenser gets 1154.36 kg/s from turbine and has to "remove" 
+        // 1,541,604 J/kg (see trubine calculation sheet).
+        // with 22.0 °C in and a target temperature of 28 °C, this means 
+        // 25200 J/kg and that requires 70,617.7 kg/s flow
+        coolantOrigin.setOriginTemperature(273.15 + 22.0);
+        
+        // See separate sheet for estimation calculation
+        coolantAuxPump.initCharacteristic(12.0e5, 5.0e5, 500);
+        for (int idx = 0; idx < 2; idx++) {
+            coolantMainPumps[idx].initCharacteristic(12.0e5, 5.0e5, 25000);
+        }
+        coolantMainToAux.initCharacteristicSimple(400);
 
         // Makup storage pumps: 4 bar on 200 kg/s
         for (int idx = 0; idx < 2; idx++) {
@@ -1974,8 +2018,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownToRegeneratorSecondResistance.setResistanceParameter(500);
         // make a super-efficient heat exchanger here
         blowdownCooldown.initCharacteristic(8.0);
-        // Flow source for coolant
-        blowdownValveCoolant.initCharacteristic(1000, 6);
+        // Resistances as calculated in separate sheet
+        blowdownValveCoolant.initCharacteristicSimple(300);
+        blowdownCoolantCollector.setBridgedConnection();
 
         // Temperature in Deaerators is supposed to be 165 °C / 8 barabs
         for (int idx = 0; idx < 2; idx++) {
@@ -2100,9 +2145,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // No ambient pressure for condensation, always steam pressure.
             auxCondensers[idx].getPrimarySideReservoir()
                     .setAmbientPressure(0.0);
-            // we use flow source as valve for coolant flow
-            auxCondCoolantSource[idx].setOriginTemperature(273.15 + 21.1);
-            auxCondCoolantValve[idx].initCharacteristic(200, 6);
+            auxCondCoolantValve[idx].initCharacteristicSimple(200);
+            auxCondCoolantCollector[idx].setBridgedConnection();
         }
         // Assume there would be about 15 meters height difference and apply
         // this to the pressure source to allow passive flow. 
@@ -2173,13 +2217,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwellFillValve.initCharacteristicSimple(2000);
         hotwellDrainValve.initCharacteristicSimple(2000);
 
-        // Condenser Coolant
-        // Condenser gets 1154.36 kg/s from turbine and has to "remove" 
-        // 1,541,604 J/kg (see trubine calculation sheet).
-        // with 22.0 °C in and a target temperature of 28 °C, this means 
-        // 25200 J/kg and that requires 70,617.7 kg/s flow
-        condenserCoolantOrigin.setOriginTemperature(273.15 + 22.0);
-        condenserCoolantFlowSource.initCharacteristic(70617.7, 5.0);
+        // Condenser: Has to have a very high flow, resistance is only set to
+        // one of the elements.
+        for (int idx = 0; idx < 5; idx++) {
+            condenserCooler[idx].getSecondarySide().setBridgedConnection();
+        }
+        hotwell.getSecondarysideCondenser().setBridgedConnection();
+        condenserCoolantCollector.setResistanceParameter(7.6);
+        
 
         // Main Ejectors
         for (int idx = 0; idx < 3; idx++) {
@@ -2427,6 +2472,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Makeup storage has 2 meters fill level initially, quite low:
         // ... but use 6.5 as long as there's no fill thing implemented:
         makeupStorage.setInitialEffort(6.5 * 997 * 9.81); // p = h * rho * g
+        
+        // Coolant is supplied only by the one auxiliary pump.
+        coolantAuxPump.setInitialCondition(true, true);
 
         // Main circulation - common IC for both cases (there are 2 below...)
         for (int idx = 0; idx <= 1; idx++) { // 2 sides
@@ -2448,7 +2496,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValvePumpsToCooler.initOpening(100);
         blowdownValveTreatmentBypass.initOpening(100);
         // Set the initial flow through the aftercooler to 600 kg/s
-        blowdownValveCoolant.getSetpointObject().forceOutputValue(600.0);
+        blowdownValveCoolant.initOpening(100);
 
         // Variant 1: Forced Circ. with MPC and no Cooldown Pump:
         /* for (int idx = 0; idx <= 1; idx++) {
@@ -2477,19 +2525,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
-            loopSteamDrum[idx].setInitialState(21000, 84.0 + 273.15);
+            loopSteamDrum[idx].setInitialState(21000, 81.1 + 273.15);
             loopEvaporator[idx].setInitialState(1e5,
-                    273.5 + 52.8, 273.5 + 84.0);
+                    273.5 + 49.9, 273.5 + 81.1);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(273.16 + 52.8);
+                    .setInitialTemperature(273.15 + 49.9);
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(273.5 + 52.8);
+                    .setInitialTemperature(273.15 + 49.9);
 
             blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
-                    52.8 + 273.5);
+                    49.9 + 273.5);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    25.4 + 273.5);
+                    22.1 + 273.5);
         }
         // Blowdown/Cooldown one pump is in operation
         blowdownCooldownPumps[1].setInitialCondition(true, true, true);
@@ -2506,7 +2554,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         hotwell.initConditions(273.15 + 22.5, 273.15 + 22.5, 0.2);
 
         // start with full hotwell cooling
-        condenserCoolantFlowSource.initFlow(44000);
+        // condenserCoolantFlowSource.initFlow(44000);
 
         // Have some condensate inside the condesate reheaters but everything
         // is cooled down
@@ -2547,6 +2595,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         runner.submit(makeupFillValve);
         runner.submit(makeupDrainValve);
+        runner.submit(coolantAuxPump);
+        runner.submit(coolantMainToAux);
+        for (int idx = 0; idx < 4; idx++) {
+            runner.submit(coolantMainPumps[idx]);
+        }
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(mainSteamShutoffValve[idx]);
             for (int jdx = 0; jdx < 4; jdx++) {
@@ -4800,6 +4853,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
         outputValues.setParameterValue("MakeupStorage#Level",
                 makeupStorage.getEffort() * 1.0224e-4); // Pa in meters
+        outputValues.setParameterValue("Coolant#TotalFlow",
+                coolantSinkNode.getFlow(coolantSink));
+        outputValues.setParameterValue("Coolant#OutTemperature",
+                coolantSinkNode.getTemperature() - 273.15);
         for (int idx = 0; idx < 2; idx++) {
             // -20 cm = 0 kg, 0 cm = 10.000 kg - as with RxModel
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumLevel",
@@ -4808,7 +4865,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0);
             outputValues.setParameterValue("Loop" + (idx + 1)
                     + "#DrumTemperature",
-                    loopSteamDrum[idx].getTemperature() - 273.5);
+                    loopSteamDrum[idx].getTemperature() - 273.15);
 
             outputValues.setParameterValue("Main" + (idx + 1)
                     + "#SteamShutoffValve",
@@ -4825,13 +4882,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#McpInTemp",
-                    loopCollector[idx].getTemperature() - 273.5);
+                    loopCollector[idx].getTemperature() - 273.15);
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#McpInPressure",
                     loopCollector[idx].getEffort() / 100000 - 1.0);
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#FuelInTemp",
-                    loopDistributor[idx].getTemperature() - 273.5);
+                    loopDistributor[idx].getTemperature() - 273.15);
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#FuelInPressure",
                     loopDistributor[idx].getEffort() / 100000 - 1.0);
@@ -4864,7 +4921,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // Temperature from thermal system
             outputValues.setParameterValue(
                     "Core" + (idx + 1) + "#Temperature",
-                    fuelThermalOut[idx].getEffort() - 273.5);
+                    fuelThermalOut[idx].getEffort() - 273.15);
 
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#Voiding",
@@ -4963,7 +5020,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ((HeatNode) blowdownCooldown.getSecondarySide()
                         .getNode(0)).getTemperature() - 273.5);
         outputValues.setParameterValue("Blowdown#CoolantOutFlow",
-                blowdownValveCoolant.getFlowSource().getFlow());
+                blowdownValveCoolant.getValveElement().getFlow());
         outputValues.setParameterValue("Blowdown#ValveDrain",
                 blowdownValveDrain.getValveElement().getOpening());
         outputValues.setParameterValue("Blowdown#ValveDrainFlow",
@@ -5232,6 +5289,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
     @Override
     public void handleAction(ActionCommand ac) {
         // <editor-fold defaultstate="collapsed" desc="Receive and process control commands from controller (GUI)">
+        coolantAuxPump.handleAction(ac);
+        coolantMainToAux.handleAction(ac);
+        for (int idx = 0; idx < 4; idx++) {
+            coolantMainPumps[idx].handleAction(ac);
+        }
+        
         if (ac.getPropertyName().startsWith("Loop")) {
             if (setpointDrumPressure.handleAction(ac)) {
                 return;
@@ -5404,57 +5467,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
             deaeratorSteamFromMain[1].handleAction(ac);
 
         } else if (ac.getPropertyName().startsWith("AuxCond")) {
-            if (ac.getPropertyName().equals("AuxCond1#CoolantSource")) {
-                switch ((int) ac.getValue()) {
-                    case -1 ->
-                        auxCondCoolantValve[0].setToMinFlow();
-                    case +1 ->
-                        auxCondCoolantValve[0].setToMaxFlow();
-                    default ->
-                        auxCondCoolantValve[0].setStopAtCurrentFlow();
-                }
-                return;
-            }
-            if (ac.getPropertyName().equals("AuxCond2#CoolantSource")) {
-                switch ((int) ac.getValue()) {
-                    case -1 ->
-                        auxCondCoolantValve[1].setToMinFlow();
-                    case +1 ->
-                        auxCondCoolantValve[1].setToMaxFlow();
-                    default ->
-                        auxCondCoolantValve[1].setStopAtCurrentFlow();
-                }
-                return;
-            }
             for (int idx = 0; idx < 2; idx++) {
                 auxCondSteamValve[idx].handleAction(ac);
                 auxCondCondensateValve[idx].handleAction(ac);
                 auxCondPumps[idx].handleAction(ac);
                 setpointAuxCondLevel[idx].handleAction(ac);
+                auxCondCoolantValve[idx].handleAction(ac);
             }
             auxCondBypass.handleAction(ac);
             auxCondValveToHotwell.handleAction(ac);
             auxCondValveToDrain.handleAction(ac);
-            if (ac.getPropertyName().equals("AuxCond1#CoolantValve")) {
-                switch ((int) ac.getValue()) {
-                    case -1 ->
-                        auxCondCoolantValve[0].setToMinFlow();
-                    case +1 ->
-                        auxCondCoolantValve[0].setToMaxFlow();
-                    default ->
-                        auxCondCoolantValve[0].setStopAtCurrentFlow();
-                }
-            }
-            if (ac.getPropertyName().equals("AuxCond2#CoolantValve")) {
-                switch ((int) ac.getValue()) {
-                    case -1 ->
-                        auxCondCoolantValve[1].setToMinFlow();
-                    case +1 ->
-                        auxCondCoolantValve[1].setToMaxFlow();
-                    default ->
-                        auxCondCoolantValve[1].setStopAtCurrentFlow();
-                }
-            }
         } else if (ac.getPropertyName().startsWith("Condensation")) {
             for (int idx = 0; idx < 3; idx++) {
                 condensationHotwellPump[idx].handleAction(ac);

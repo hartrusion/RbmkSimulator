@@ -22,11 +22,12 @@ import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
 
 /**
- *
+ * For controlling the main and auxiliary coolant flow.
+ * 
  * @author Viktor Alexander Hartung
  */
 public class PanelCoolant extends AbstractPanelWidget {
-    
+
     @Override
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
@@ -110,10 +111,20 @@ public class PanelCoolant extends AbstractPanelWidget {
         chornobylGaugeCoolantOutTemp.setChornobylUnitText("°C");
         chornobylGaugeCoolantOutTemp.setChornobylValue(22.0F);
         add(chornobylGaugeCoolantOutTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
+
+        panelWidgetSmallPump1.setChornobylPrefix("Coolant1#MainPump");
         add(panelWidgetSmallPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, -1, -1));
+
+        panelWidgetSmallPump2.setChornobylPrefix("Coolant2#MainPump");
         add(panelWidgetSmallPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 54, -1, -1));
+
+        panelWidgetSmallPump3.setChornobylPrefix("Coolant3#MainPump");
         add(panelWidgetSmallPump3, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 54, -1, -1));
+
+        panelWidgetSmallPump4.setChornobylPrefix("Coolant4#MainPump");
         add(panelWidgetSmallPump4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 54, -1, -1));
+
+        panelWidgetSmallPumpAux.setChornobylPrefix("Coolant#AuxPump");
         add(panelWidgetSmallPumpAux, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 54, -1, -1));
 
         jLabelCaptionPump19.setFont(jLabelCaptionPump19.getFont().deriveFont(jLabelCaptionPump19.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump19.getFont().getSize()-2));
@@ -159,7 +170,7 @@ public class PanelCoolant extends AbstractPanelWidget {
         jLabelMainTo.setFont(jLabelMainTo.getFont().deriveFont(jLabelMainTo.getFont().getSize()-2f));
         jLabelMainTo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelMainTo.setText("Main to");
-        jLabelMainTo.setToolTipText("Main Ejector Bypass");
+        jLabelMainTo.setToolTipText("Allows supplying aux condensers and blowdown aftercooler from main pumps.");
         jLabelMainTo.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelMainTo.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelMainTo.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -168,7 +179,7 @@ public class PanelCoolant extends AbstractPanelWidget {
         jLabelAuxiliary.setFont(jLabelAuxiliary.getFont().deriveFont(jLabelAuxiliary.getFont().getSize()-2f));
         jLabelAuxiliary.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelAuxiliary.setText("Auxiliary");
-        jLabelAuxiliary.setToolTipText("Main Ejector Bypass");
+        jLabelAuxiliary.setToolTipText("Allows supplying aux condensers and blowdown aftercooler from main pumps.");
         jLabelAuxiliary.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelAuxiliary.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelAuxiliary.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -176,7 +187,7 @@ public class PanelCoolant extends AbstractPanelWidget {
 
         jButtonMainToAuxOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonMainToAuxOpen.setText("O");
-        jButtonMainToAuxOpen.setToolTipText("Main Ejector Bypass");
+        jButtonMainToAuxOpen.setToolTipText("Allows supplying aux condensers and blowdown aftercooler from main pumps.");
         jButtonMainToAuxOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonMainToAuxOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +198,7 @@ public class PanelCoolant extends AbstractPanelWidget {
 
         jButtonMainToAuxClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonMainToAuxClose.setText("C");
-        jButtonMainToAuxClose.setToolTipText("Main Ejector Bypass");
+        jButtonMainToAuxClose.setToolTipText("Allows supplying aux condensers and blowdown aftercooler from main pumps.");
         jButtonMainToAuxClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonMainToAuxClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,31 +209,54 @@ public class PanelCoolant extends AbstractPanelWidget {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMainToAuxOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainToAuxOpenActionPerformed
-        controller.userAction(new ActionCommand("Coolant#MainToAux", true));
+        controller.userAction(new ActionCommand("Coolant#MainToAuxValve", true));
     }//GEN-LAST:event_jButtonMainToAuxOpenActionPerformed
 
     private void jButtonMainToAuxCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainToAuxCloseActionPerformed
-        controller.userAction(new ActionCommand("Coolant#MainToAux", false));
+        controller.userAction(new ActionCommand("Coolant#MainToAuxValve", false));
     }//GEN-LAST:event_jButtonMainToAuxCloseActionPerformed
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
- 
+         if (evt.getPropertyName().equals("Coolant#MainToAuxValve_Pos")) {
+                setValveButtons(jButtonMainToAuxClose,
+                        jButtonMainToAuxOpen, evt.getNewValue());
+             return;
+         }
+        
+        panelWidgetSmallPump1.updateComponent(evt);
+        panelWidgetSmallPump2.updateComponent(evt);
+        panelWidgetSmallPump3.updateComponent(evt);
+        panelWidgetSmallPump4.updateComponent(evt);
+        panelWidgetSmallPumpAux.updateComponent(evt);
     }
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-  
+        panelWidgetSmallPump1.updateComponent(propertyName, newValue);
+        panelWidgetSmallPump2.updateComponent(propertyName, newValue);
+        panelWidgetSmallPump3.updateComponent(propertyName, newValue);
+        panelWidgetSmallPump4.updateComponent(propertyName, newValue);
+        panelWidgetSmallPumpAux.updateComponent(propertyName, newValue);
     }
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-
+        if (!propertyName.startsWith("Coolant")) {
+            return;
+        }
+        switch (propertyName) {
+            case "Coolant#TotalFlow" ->
+                // from kg/s to t/s
+                chornobylGaugeFlow.setChornobylValue(1e-3F * (float) newValue);
+            case "Coolant#OutTemperature" ->
+                chornobylGaugeCoolantOutTemp.setChornobylValue((float) newValue);
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
- 
+
     }
 
 

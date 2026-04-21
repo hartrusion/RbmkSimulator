@@ -132,6 +132,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSmallPump1">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Coolant1#MainPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="6" y="54" width="-1" height="-1"/>
@@ -139,6 +142,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSmallPump2">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Coolant2#MainPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="64" y="54" width="-1" height="-1"/>
@@ -146,6 +152,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSmallPump3">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Coolant3#MainPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="122" y="54" width="-1" height="-1"/>
@@ -153,6 +162,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSmallPump4">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Coolant4#MainPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="180" y="54" width="-1" height="-1"/>
@@ -160,6 +172,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSmallPumpAux">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Coolant#AuxPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="312" y="54" width="-1" height="-1"/>
@@ -300,7 +315,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Main to"/>
-        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
+        <Property name="toolTipText" type="java.lang.String" value="Allows supplying aux condensers and blowdown aftercooler from main pumps."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -326,7 +341,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Auxiliary"/>
-        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
+        <Property name="toolTipText" type="java.lang.String" value="Allows supplying aux condensers and blowdown aftercooler from main pumps."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -349,7 +364,7 @@
           <Color blue="0" green="0" red="80" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="O"/>
-        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
+        <Property name="toolTipText" type="java.lang.String" value="Allows supplying aux condensers and blowdown aftercooler from main pumps."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
@@ -369,7 +384,7 @@
           <Color blue="0" green="80" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
-        <Property name="toolTipText" type="java.lang.String" value="Main Ejector Bypass"/>
+        <Property name="toolTipText" type="java.lang.String" value="Allows supplying aux condensers and blowdown aftercooler from main pumps."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>

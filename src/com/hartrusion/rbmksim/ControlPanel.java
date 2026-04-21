@@ -472,7 +472,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPreheatersActionPerformed(null);
         jMenuItemTurbineActionPerformed(null);
         jMenuItemGeneratorActionPerformed(null);
-        //    jMenuItemCoolantActionPerformed(null);
+        jMenuItemCoolantActionPerformed(null);
 
         // Align them in a preset grid layout.
         // 1st row:
@@ -512,6 +512,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Aux. Condensation"),
                 getControlPanelInstance("Preheaters"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Coolant"),
+                getControlPanelInstance("Aux. Condensation"));
     }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
 
     private void jMenuItemPresetNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetNoneActionPerformed
