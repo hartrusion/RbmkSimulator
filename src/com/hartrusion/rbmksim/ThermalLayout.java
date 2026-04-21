@@ -455,6 +455,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double turbineShaftPower = 0.0;
     private double reheaterOutTemperature = 22.5;
     private double reheaterOutQuality = 0.0;
+    
+    /**
+     * Made up number to decide on the condenser vacuum change.
+     */
+    private double condenserVacuumFactor = 0.0;
 
     /**
      * Holds the vacuum value for the condenser. This is made up from the
@@ -4719,7 +4724,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Todo: Remember to have some initital condition value for this!
         // Make a -100 to 100 % value for integral input to describe the speed
         // of integration.
-        condenserVacuum.setInput(
+        condenserVacuumFactor =
                 // A static value that will make the vacuum disappear if no
                 // ejector is active.
                 0.4
@@ -4729,12 +4734,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // A way smaller factor will be applied to the steam dump, it
                 // does not bring in that much extra air and there is no turbine
                 // tap available to use the main ejectors.
-                + mainSteamDump[0].getValveElement().getFlow() * 2e-3
-                + mainSteamDump[1].getValveElement().getFlow() * 2e-3
+                + mainSteamDump[0].getValveElement().getFlow() * 1.1e-3
+                + mainSteamDump[1].getValveElement().getFlow() * 1.1e-3
                 // Each startup ejector makes 1 kg/s in operation. They should
                 // not be able to compensate for large steam quantities
-                - ejectorStartup[0].getValveElement().getFlow()
-                - ejectorStartup[1].getValveElement().getFlow()
+                - ejectorStartup[0].getValveElement().getFlow() * 1.2
+                - ejectorStartup[1].getValveElement().getFlow() * 1.2
                 // Main ejectors are designed to use about 8.5 kg/s of steam
                 // each
                 - ejectorMainSteamValve[0].getValveElement().getFlow()
@@ -4742,8 +4747,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 - ejectorMainSteamValve[1].getValveElement().getFlow()
                 * ejectorSuctionValve[1].getOpening() / 100
                 - ejectorMainSteamValve[2].getValveElement().getFlow()
-                * ejectorSuctionValve[2].getOpening() / 100
-        );
+                * ejectorSuctionValve[2].getOpening() / 100;
+        // The vacuum will build up very fast but vanish very slow.
+        if (condenserVacuumFactor > 0.0) {
+            condenserVacuum.setInput(condenserVacuumFactor * 0.05);
+        } else {
+            condenserVacuum.setInput(condenserVacuumFactor);
+        }
         condenserVacuum.run();
 
         // MCP pump cavitation: This should only be a problem at startup. Some 
