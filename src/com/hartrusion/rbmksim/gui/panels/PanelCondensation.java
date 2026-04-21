@@ -155,6 +155,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector2CondensateClose = new javax.swing.JButton();
         jButtonEjector3CondensateOpen = new javax.swing.JButton();
         jButtonEjector3CondensateClose = new javax.swing.JButton();
+        jLabelBypass3 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(568, 340));
         setMinimumSize(new java.awt.Dimension(568, 340));
@@ -453,7 +454,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelBypass.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelBypass.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 288, 52, 14));
+        add(jLabelBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 296, 52, 14));
 
         jButtonEjectorBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjectorBypassClose.setText("C");
@@ -464,7 +465,7 @@ public class PanelCondensation extends AbstractPanelWidget {
                 jButtonEjectorBypassCloseActionPerformed(evt);
             }
         });
-        add(jButtonEjectorBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 302, 20, 20));
+        add(jButtonEjectorBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 310, 20, 20));
 
         jButtonEjectorBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjectorBypassOpen.setText("O");
@@ -475,7 +476,7 @@ public class PanelCondensation extends AbstractPanelWidget {
                 jButtonEjectorBypassOpenActionPerformed(evt);
             }
         });
-        add(jButtonEjectorBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 302, 20, 20));
+        add(jButtonEjectorBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 310, 20, 20));
 
         jLabelCaptionEjector3.setFont(jLabelCaptionEjector3.getFont().deriveFont(jLabelCaptionEjector3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionEjector3.getFont().getSize()-2));
         jLabelCaptionEjector3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -704,10 +705,10 @@ public class PanelCondensation extends AbstractPanelWidget {
         add(jLabelCaptionPump25, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 38, 132, 14));
 
         integralSwitch4.setComponent("EjectorStartup1");
-        add(integralSwitch4, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 200, -1, -1));
+        add(integralSwitch4, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 194, -1, -1));
 
         integralSwitch5.setComponent("EjectorStartup2");
-        add(integralSwitch5, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 200, -1, -1));
+        add(integralSwitch5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 194, -1, -1));
 
         chornobylGaugeVacuum.setChornobylMaximum(100.0F);
         chornobylGaugeVacuum.setChornobylMinimum(0.0F);
@@ -730,7 +731,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaption1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 172, 51, 14));
+        add(jLabelCaption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 166, 51, 14));
 
         jLabelCaption2.setFont(jLabelCaption2.getFont().deriveFont(jLabelCaption2.getFont().getSize()-2f));
         jLabelCaption2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -738,7 +739,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaption2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 184, 51, 14));
+        add(jLabelCaption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 178, 51, 14));
 
         jLabelCaption3.setFont(jLabelCaption3.getFont().deriveFont(jLabelCaption3.getFont().getSize()-2f));
         jLabelCaption3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -746,7 +747,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaption3.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 172, 51, 14));
+        add(jLabelCaption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 166, 51, 14));
 
         jLabelCaption4.setFont(jLabelCaption4.getFont().deriveFont(jLabelCaption4.getFont().getSize()-2f));
         jLabelCaption4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -754,7 +755,7 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaption4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaption4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaption4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 184, 51, 14));
+        add(jLabelCaption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 178, 51, 14));
 
         jLabelEjectorCondensate.setFont(jLabelEjectorCondensate.getFont().deriveFont(jLabelEjectorCondensate.getFont().getSize()-2f));
         jLabelEjectorCondensate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -767,40 +768,42 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass1.setFont(jLabelBypass1.getFont().deriveFont(jLabelBypass1.getFont().getSize()-2f));
         jLabelBypass1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBypass1.setText("Ejectors");
+        jLabelBypass1.setToolTipText("Steam Supply for Main Ejectors from Turbine Tap");
         jLabelBypass1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelBypass1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelBypass1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelBypass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 234, 52, 14));
+        add(jLabelBypass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 230, 52, 14));
 
         jButtonEjectorTurbineTapClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjectorTurbineTapClose.setText("C");
-        jButtonEjectorTurbineTapClose.setToolTipText("");
+        jButtonEjectorTurbineTapClose.setToolTipText("Steam Supply for Main Ejectors from Turbine Tap");
         jButtonEjectorTurbineTapClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjectorTurbineTapClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEjectorTurbineTapCloseActionPerformed(evt);
             }
         });
-        add(jButtonEjectorTurbineTapClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 260, 20, 20));
+        add(jButtonEjectorTurbineTapClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 256, 20, 20));
 
         jButtonEjectorTurbineTapOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjectorTurbineTapOpen.setText("O");
-        jButtonEjectorTurbineTapOpen.setToolTipText("");
+        jButtonEjectorTurbineTapOpen.setToolTipText("Steam Supply for Main Ejectors from Turbine Tap");
         jButtonEjectorTurbineTapOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonEjectorTurbineTapOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEjectorTurbineTapOpenActionPerformed(evt);
             }
         });
-        add(jButtonEjectorTurbineTapOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 260, 20, 20));
+        add(jButtonEjectorTurbineTapOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 256, 20, 20));
 
         jLabelBypass2.setFont(jLabelBypass2.getFont().deriveFont(jLabelBypass2.getFont().getSize()-2f));
         jLabelBypass2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBypass2.setText("Turbine Tap");
+        jLabelBypass2.setToolTipText("Steam Supply for Main Ejectors from Turbine Tap");
         jLabelBypass2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelBypass2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelBypass2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 246, 78, 14));
+        add(jLabelBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 242, 78, 14));
 
         jButtonEjector1CondensateClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector1CondensateClose.setText("C");
@@ -867,6 +870,15 @@ public class PanelCondensation extends AbstractPanelWidget {
             }
         });
         add(jButtonEjector3CondensateClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 310, 20, 20));
+
+        jLabelBypass3.setFont(jLabelBypass3.getFont().deriveFont(jLabelBypass3.getFont().getSize()-2f));
+        jLabelBypass3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBypass3.setText("Ejectors");
+        jLabelBypass3.setToolTipText("Main Ejector Bypass");
+        jLabelBypass3.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelBypass3.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelBypass3.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelBypass3, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 284, 76, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEjector1SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1SuctionCloseActionPerformed
@@ -1051,6 +1063,7 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelBypass;
     private javax.swing.JLabel jLabelBypass1;
     private javax.swing.JLabel jLabelBypass2;
+    private javax.swing.JLabel jLabelBypass3;
     private javax.swing.JLabel jLabelCaption1;
     private javax.swing.JLabel jLabelCaption2;
     private javax.swing.JLabel jLabelCaption3;
