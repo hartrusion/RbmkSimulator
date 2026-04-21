@@ -1,0 +1,155 @@
+name: Create Release with Windows Standalone
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release Tag name (like v0.1.2)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-jar:
+    runs-on: ubuntu-latest
+    env:
+      REPOS: "hartrusion/utils,hartrusion/PhxNetMod,hartrusion/PhxNetModExt,hartrusion/JMPLot"
+      NIGHTLY_TAG: "github-ci-snapshot"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download dependencies (Jars and ZIPs)
+        env:
+          TOKEN: ${{ github.token }}
+          REPOS: ${{ env.REPOS }}
+          TAG: ${{ env.NIGHTLY_TAG }}
+        run: |
+          set -euo pipefail
+          IFS=',' read -r -a REPO_ARR <<< "$REPOS"
+          mkdir -p lib
+
+          for repo in "${REPO_ARR[@]}"; do
+            repo=$(echo "$repo" | xargs)
+            [ -n "$repo" ] || continue
+            
+            API="https://api.github.com/repos/${repo}/releases/tags/${TAG}"
+            rel_json=$(curl -sS -H "Authorization: token ${TOKEN}" "$API" || true)
+            
+            mapfile -t urls < <(printf '%s' "$rel_json" | jq -r '.assets[]?.browser_download_url // empty')
+            for url in "${urls[@]}"; do
+              [ -n "$url" ] || continue
+              asset_name=$(basename "${url%%\?*}")
+              
+              case "$asset_name" in
+                *.jar)
+                  curl -fSL -H "Authorization: token ${TOKEN}" -o "lib/${asset_name}" "$url"
+                  ;;
+                *.zip)
+                  tmpzip="$(mktemp -u)/${asset_name}"
+                  mkdir -p "$(dirname "$tmpzip")"
+                  curl -fSL -H "Authorization: token ${TOKEN}" -o "$tmpzip" "$url"
+                  tmpdir=$(mktemp -d)
+                  unzip -q "$tmpzip" -d "$tmpdir" || true
+                  find "$tmpdir" -type f -name '*.jar' -exec cp -f {} lib/ \;
+                  ;;
+              esac
+            done
+          done
+
+      - name: Download AbsoluteLayout
+        run: |
+          mkdir -p lib
+          METADATA_URL="https://repo1.maven.org/maven2/org/netbeans/external/AbsoluteLayout/maven-metadata.xml"
+          meta=$(curl -sSL "$METADATA_URL")
+          VERSION=$(printf '%s' "$meta" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | tail -n1 || true)
+          JAR_URL="https://repo1.maven.org/maven2/org/netbeans/external/AbsoluteLayout/${VERSION}/AbsoluteLayout-${VERSION}.jar"
+          curl -fSL -o "lib/AbsoluteLayout-${VERSION}.jar" "$JAR_URL"
+
+      - name: Run Ant build
+        run: ant -buildfile .github/build.xml fatjar
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-jar
+          path: build/jar/*.jar
+
+  build-windows-exe:
+    needs: build-jar
+    runs-on: windows-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: compiled-jar
+          path: artifact-jar
+
+      - name: Create Windows App Image (jpackage)
+        run: |
+          # Finde den genauen Namen der generierten Jar-Datei heraus
+          $jarPath = Get-ChildItem -Path "artifact-jar" -Filter "*.jar" | Select-Object -First 1
+          
+          if (-not $jarPath) {
+            Write-Error "Keine Jar Datei gefunden!"
+            exit 1
+          }
+
+          # Nutze jpackage um ein App-Image zu erstellen (Ordner mit Exe + Runtime, kein Installer)
+          jpackage --type app-image `
+                   --name RbmkSimulator `
+                   --input artifact-jar `
+                   --main-jar $($jarPath.Name) `
+                   --dest build-win
+
+      - name: Create ZIP from Windows App Image
+        run: |
+          # Zippe den generierten Ordner, um ihn als einzelnes Release-Asset hochzuladen
+          Compress-Archive -Path "build-win\RbmkSimulator\*" -DestinationPath "RbmkSimulator-Windows-x64.zip"
+
+      - name: Upload Windows ZIP Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-zip
+          path: RbmkSimulator-Windows-x64.zip
+
+  create-release:
+    needs: [build-jar, build-windows-exe]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download JAR Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: compiled-jar
+          path: release-assets/
+
+      - name: Download Windows ZIP Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-zip
+          path: release-assets/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag_name }}
+          name: Release ${{ github.event.inputs.tag_name }}
+          files: |
+            release-assets/*.jar
+            release-assets/RbmkSimulator-Windows-x64.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
