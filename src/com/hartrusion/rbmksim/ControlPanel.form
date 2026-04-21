@@ -314,6 +314,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuGlobalControlActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemHotwellDALevels">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hotwell and DA levels"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemHotwellDALevelsActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuDrumSeparators">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Drum Separators"/>
@@ -324,7 +332,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoop1LevelControl">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Loop 1 Level Control"/>
+                <Property name="text" type="java.lang.String" value="Drum 1 Level Control"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoop1LevelControlActionPerformed"/>
@@ -332,7 +340,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoop2LevelControl">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Loop 2 Level Control"/>
+                <Property name="text" type="java.lang.String" value="Drum 2 Level Control"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoop2LevelControlActionPerformed"/>
@@ -427,12 +435,14 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetMnemonics">
               <Properties>
-                <Property name="text" type="java.lang.String" value="All Mnemonics"/>
+                <Property name="text" type="java.lang.String" value="All Mnemonic Displays"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetMnemonicsActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetReactorOperator">
               <Properties>

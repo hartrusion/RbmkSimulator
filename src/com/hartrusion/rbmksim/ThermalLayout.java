@@ -28,7 +28,6 @@ import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
-import com.hartrusion.modeling.automated.HeatControlledFlowSource;
 import com.hartrusion.modeling.assemblies.HeatExchangerNoMass;
 import com.hartrusion.modeling.automated.HeatFluidPump;
 import com.hartrusion.modeling.automated.HeatFluidPumpSimple;
@@ -1880,6 +1879,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Element properties">
         makeupStorage.setTimeConstant(100 / 9.81);
         
+        // Makup storage pumps are actually not much calculated yet
+        for (int idx = 0; idx < 2; idx++) {
+            makeupPumps[idx].initCharacteristic(7e5, 4e5, 800);
+        }
+        
         // Condenser gets 1154.36 kg/s from turbine and has to "remove" 
         // 1,541,604 J/kg (see trubine calculation sheet).
         // with 22.0 °C in and a target temperature of 28 °C, this means 
@@ -1892,11 +1896,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             coolantMainPumps[idx].initCharacteristic(12.0e5, 5.0e5, 25000);
         }
         coolantMainToAux.initCharacteristicSimple(400);
-
-        // Makup storage pumps: 4 bar on 200 kg/s
-        for (int idx = 0; idx < 2; idx++) {
-            makeupPumps[idx].initCharacteristic(5e5, 4e5, 200);
-        }
 
         // The main steam shutoff valve can be seen more as a cheat to keep the
         // model stable, it will be operated automatically. Randomly setting it 
@@ -2214,7 +2213,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // The makup storage pump makes 200 kg/s at 4.0 bars
         // Todo: This was advanced characteristics here
-        hotwellFillValve.initCharacteristicSimple(2000);
+        hotwellFillValve.initCharacteristicSimple(500);
         hotwellDrainValve.initCharacteristicSimple(2000);
 
         // Condenser: Has to have a very high flow, resistance is only set to
@@ -2471,7 +2470,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Set Initial conditions">
         // Makeup storage has 2 meters fill level initially, quite low:
         // ... but use 6.5 as long as there's no fill thing implemented:
-        makeupStorage.setInitialEffort(6.5 * 997 * 9.81); // p = h * rho * g
+        makeupStorage.setInitialEffort(7.1 * 997 * 9.81); // p = h * rho * g
         
         // Coolant is supplied only by the one auxiliary pump.
         coolantAuxPump.setInitialCondition(true, true);
@@ -2525,7 +2524,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Variant 2: Natural Circulation without MCP and cooldown active:
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
-            loopSteamDrum[idx].setInitialState(21000, 81.1 + 273.15);
+            // 21000 is a good value for easy start. reduce this for more things
+            // to do on startup.
+            loopSteamDrum[idx].setInitialState(14000, 81.1 + 273.15);
             loopEvaporator[idx].setInitialState(1e5,
                     273.5 + 49.9, 273.5 + 81.1);
             loopBypass[idx].initOpening(100); // Open Bypass
@@ -2545,7 +2546,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Deaerator
         for (int idx = 0; idx <= 1; idx++) {
             // try to have a fill level of 100 cm (normal level)
-            deaerator[idx].setInitialState(40000, 35 + 273.15);
+            // deaerator[idx].setInitialState(40000, 35 + 273.15);
+            // have less water in here to have the operator start with filling.
+            deaerator[idx].setInitialState(10000, 35 + 273.15);
         }
         // Todo: Something that makes more sense here.
         for (int idx = 0; idx < 2; idx++) {

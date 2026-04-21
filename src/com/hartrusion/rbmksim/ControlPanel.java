@@ -150,6 +150,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuDiagrams = new javax.swing.JMenu();
         jMenuNeutronFlux = new javax.swing.JMenuItem();
         jMenuGlobalControl = new javax.swing.JMenuItem();
+        jMenuItemHotwellDALevels = new javax.swing.JMenuItem();
         jMenuDrumSeparators = new javax.swing.JMenuItem();
         jMenuItemLoop1LevelControl = new javax.swing.JMenuItem();
         jMenuItemLoop2LevelControl = new javax.swing.JMenuItem();
@@ -165,6 +166,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuPresets = new javax.swing.JMenu();
         jMenuItemPresetFull = new javax.swing.JMenuItem();
         jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetReactorOperator = new javax.swing.JMenuItem();
         jMenuItemPresetMPC = new javax.swing.JMenuItem();
         jMenuItemTurbineOperator = new javax.swing.JMenuItem();
@@ -345,15 +347,19 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuGlobalControl.addActionListener(this::jMenuGlobalControlActionPerformed);
         jMenuDiagrams.add(jMenuGlobalControl);
 
+        jMenuItemHotwellDALevels.setText("Hotwell and DA levels");
+        jMenuItemHotwellDALevels.addActionListener(this::jMenuItemHotwellDALevelsActionPerformed);
+        jMenuDiagrams.add(jMenuItemHotwellDALevels);
+
         jMenuDrumSeparators.setText("Drum Separators");
         jMenuDrumSeparators.addActionListener(this::jMenuDrumSeparatorsActionPerformed);
         jMenuDiagrams.add(jMenuDrumSeparators);
 
-        jMenuItemLoop1LevelControl.setText("Loop 1 Level Control");
+        jMenuItemLoop1LevelControl.setText("Drum 1 Level Control");
         jMenuItemLoop1LevelControl.addActionListener(this::jMenuItemLoop1LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop1LevelControl);
 
-        jMenuItemLoop2LevelControl.setText("Loop 2 Level Control");
+        jMenuItemLoop2LevelControl.setText("Drum 2 Level Control");
         jMenuItemLoop2LevelControl.addActionListener(this::jMenuItemLoop2LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop2LevelControl);
 
@@ -401,10 +407,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetFull.addActionListener(this::jMenuItemPresetFullActionPerformed);
         jMenuPresets.add(jMenuItemPresetFull);
 
-        jMenuItemPresetMnemonics.setText("All Mnemonics");
+        jMenuItemPresetMnemonics.setText("All Mnemonic Displays");
         jMenuItemPresetMnemonics.setToolTipText("");
         jMenuItemPresetMnemonics.addActionListener(this::jMenuItemPresetMnemonicsActionPerformed);
         jMenuPresets.add(jMenuItemPresetMnemonics);
+        jMenuPresets.add(jSeparator6);
 
         jMenuItemPresetReactorOperator.setText("Reactor Operator");
         jMenuItemPresetReactorOperator.addActionListener(this::jMenuItemPresetReactorOperatorActionPerformed);
@@ -1315,6 +1322,20 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemTurbineLPTemperaturesActionPerformed
 
+    private void jMenuItemHotwellDALevelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHotwellDALevelsActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Hotwell and DA Levels")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Hotwell and DA Levels");
+        DiagramPresets.hotwellAndDaLevels(df.getFigure(), plotData);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemHotwellDALevelsActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1473,6 +1494,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemGenerator;
+    private javax.swing.JMenuItem jMenuItemHotwellDALevels;
     private javax.swing.JMenuItem jMenuItemHowToStart;
     private javax.swing.JMenuItem jMenuItemLoop1LevelControl;
     private javax.swing.JMenuItem jMenuItemLoop2LevelControl;
@@ -1521,6 +1543,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 

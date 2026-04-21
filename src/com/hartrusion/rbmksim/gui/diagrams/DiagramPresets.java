@@ -626,6 +626,50 @@ public class DiagramPresets {
         ax.ylabel(3, "Flow (kg/s)");
     }
     
+    public static void hotwellAndDaLevels(FigureJPane figure, ValueHandler plotData) {
+        figure.setYRulers(2);
+
+        YYAxes ax = (YYAxes) figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("DA 1");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Deaerator1#Level", 5));
+        l.setLineColor(new Color(0, 0, 192));
+        ax.addLine(1, l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("DA 2");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Deaerator2#Level", 5));
+        l.setLineColor(new Color(192, 0, 192));
+        ax.addLine(1, l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Hotwell");
+        l.setDataSource(plotData.getTime60(5),
+                plotData.getParameterDoubleSeries("Hotwell#Level", 5));
+        l.setLineColor(new Color(0, 128, 0));
+        ax.addLine(2, l);
+
+        ax.yLim(1, 0, 200);
+        ax.yLim(2, 0, 100);
+
+        ax.autoX();
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+
+        ax.ylabel(1, "DA Level (cm)");
+        ax.ylabel(2, "Hotwell Level (cm)");
+    }
+    
     public static void preheaterTemperaturesDebugging(FigureJPane figure, ValueHandler plotData) {
         // figure.setYRulers(2);
         // YYAxes ax = (YYAxes) figure.getLastAxes();
