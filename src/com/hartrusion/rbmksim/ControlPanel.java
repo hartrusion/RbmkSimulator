@@ -168,6 +168,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetMnemonics = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetReactorOperator = new javax.swing.JMenuItem();
+        jMenuItemPresetLevelControl = new javax.swing.JMenuItem();
         jMenuItemPresetMPC = new javax.swing.JMenuItem();
         jMenuItemTurbineOperator = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -416,6 +417,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetReactorOperator.setText("Reactor Operator");
         jMenuItemPresetReactorOperator.addActionListener(this::jMenuItemPresetReactorOperatorActionPerformed);
         jMenuPresets.add(jMenuItemPresetReactorOperator);
+
+        jMenuItemPresetLevelControl.setText("Hotwell/DA/Drum Level");
+        jMenuItemPresetLevelControl.addActionListener(this::jMenuItemPresetLevelControlActionPerformed);
+        jMenuPresets.add(jMenuItemPresetLevelControl);
 
         jMenuItemPresetMPC.setText("Main Circulation Pumps");
         jMenuItemPresetMPC.addActionListener(this::jMenuItemPresetMPCActionPerformed);
@@ -1077,7 +1082,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItemViewCore2ActionPerformed
 
     private void jMenuItemPresetReactorOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetReactorOperatorActionPerformed
-        jMenuItemPresetNoneActionPerformed(null); // close all:
+        jMenuItemPresetNoneActionPerformed(null); // close all
 
         jMenuItemViewRodPositionsActionPerformed(null);
         jMenuItemViewAlarmListActionPerformed(null);
@@ -1224,7 +1229,7 @@ public class ControlPanel extends javax.swing.JFrame implements
                 alarmTable,
                 getControlPanelInstance("Preheaters"));
         JDesktopPaneEnhanced.windowPlaceRightTo(
-                getMnemonicInstance("Preheaters") ,
+                getMnemonicInstance("Preheaters"),
                 getControlPanelInstance("Generator"));
         JDesktopPaneEnhanced.windowPlaceRightTo(
                 getMnemonicInstance("Turbine"),
@@ -1335,6 +1340,65 @@ public class ControlPanel extends javax.swing.JFrame implements
         DiagramPresets.hotwellAndDaLevels(df.getFigure(), plotData);
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemHotwellDALevelsActionPerformed
+
+    private void jMenuItemPresetLevelControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetLevelControlActionPerformed
+        jMenuItemPresetNoneActionPerformed(null); // close all widgets
+
+        jMenuItemFeedwaterActionPerformed(null);
+        jMenuItemDeaeratorsActionPerformed(null);
+        jMenuItemCondensationActionPerformed(null);
+
+        jMenuItemMnemonicDeaeratorsActionPerformed(null);
+        jMenuItemMnemonicFeedwaterActionPerformed(null);
+        jMenuItemMnemonicTurbineActionPerformed(null);
+        jMenuItemMnemonicCondensationActionPerformed(null);
+
+        jMenuItemLoop1LevelControlActionPerformed(null);
+        jMenuItemLoop2LevelControlActionPerformed(null);
+        jMenuItemHotwellDALevelsActionPerformed(null);
+        
+        jMenuItemViewAlarmListActionPerformed(null);
+        
+        JDesktopPaneEnhanced.windowSetSize(alarmTable, 250, 300);
+        JDesktopPaneEnhanced.windowSetSize(
+                getDiagramInstance("Hotwell and DA Levels"), 520, 300);
+
+        JDesktopPaneEnhanced.windowPlaceAtZero(
+                getControlPanelInstance("Feedwater"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Deaerators"),
+                getControlPanelInstance("Feedwater"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Condensation"),
+                getControlPanelInstance("Deaerators"));
+
+        JDesktopPaneEnhanced.windowPlaceBelow(alarmTable,
+                getControlPanelInstance("Feedwater"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getDiagramInstance("Hotwell and DA Levels"),
+                alarmTable);
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Deaerator"),
+                getDiagramInstance("Hotwell and DA Levels"));
+
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getDiagramInstance("Loop 1 Level Control"),
+                alarmTable);
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getDiagramInstance("Loop 2 Level Control"),
+                getDiagramInstance("Loop 1 Level Control"));
+
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getMnemonicInstance("Feedwater Pumps"),
+                getMnemonicInstance("Deaerator"));
+        
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Turbine"),
+                getControlPanelInstance("Condensation"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getMnemonicInstance("Condensation"),
+                getMnemonicInstance("Turbine"));
+    }//GEN-LAST:event_jMenuItemPresetLevelControlActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1513,6 +1577,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPause;
     private javax.swing.JMenuItem jMenuItemPreheaters;
     private javax.swing.JMenuItem jMenuItemPresetFull;
+    private javax.swing.JMenuItem jMenuItemPresetLevelControl;
     private javax.swing.JMenuItem jMenuItemPresetMPC;
     private javax.swing.JMenuItem jMenuItemPresetMnemonics;
     private javax.swing.JMenuItem jMenuItemPresetNone;

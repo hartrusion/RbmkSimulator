@@ -452,6 +452,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetReactorOperatorActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetLevelControl">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hotwell/DA/Drum Level"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPresetLevelControlActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPresetMPC">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Main Circulation Pumps"/>
