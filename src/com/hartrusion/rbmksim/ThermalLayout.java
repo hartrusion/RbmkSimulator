@@ -1998,10 +1998,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
             blowdownReturnValve[idx].initCharacteristicSimple(400);
             blowdownCooldownPumps[idx].initCharacteristic(16e5, 12e5, 900);
         }
-        blowdownValvePassiveFlow.initCharacteristicSimple(3000);
-        blowdownValvePumpsToRegenerator.initCharacteristicSimple(500);
+        blowdownValvePassiveFlow.initCharacteristicSimple(100);
+        blowdownValvePumpsToRegenerator.initCharacteristicSimple(200);
         blowdownValvePumpsToCooler.initCharacteristicSimple(100);
-        blowdownValveRegeneratorToCooler.initCharacteristicSimple(500);
+        blowdownValveRegeneratorToCooler.initCharacteristicSimple(800);
         blowdownCooldownResistance.setResistanceParameter(500); // war: 2000
         blowdownValveTreatmentBypass.initCharacteristicSimple(100);
         // The threatment is modeled as a volumized resistor here. Its flow 
