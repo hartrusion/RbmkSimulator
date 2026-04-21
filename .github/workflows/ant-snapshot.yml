@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Ant and upload the JAR artifact.
 # After a successful run it will delete older artifacts with the same artifact name,
 # so only the newest "Package" artifact remains.
-name: Java CI
+name: Java Ant Snapshot build
 
 on:
   push:
@@ -264,7 +264,7 @@ jobs:
           set -euo pipefail
           echo "Creating release for tag $TAG..."
           create_resp=$(curl -sS -X POST -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" \
-            -d "{\"tag_name\":\"$TAG\",\"name\":\"$TAG\",\"body\":\"Automated nightly build from ${GITHUB_REPOSITORY}@${GITHUB_SHA}\",\"draft\":false,\"prerelease\":false}" \
+            -d "{\"tag_name\":\"$TAG\",\"name\":\"$TAG\",\"body\":\"Automated nightly build from ${GITHUB_REPOSITORY}@${GITHUB_SHA}\",\"draft\":false,\"prerelease\":true}" \
             "$API_URL/releases")
           upload_url=$(printf '%s' "$create_resp" | jq -r '.upload_url // empty')
           release_id=$(printf '%s' "$create_resp" | jq -r '.id // empty')
