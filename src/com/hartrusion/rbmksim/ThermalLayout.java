@@ -422,6 +422,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final Setpoint[] setpointDALevel = new Setpoint[2];
     private final Setpoint[] setpointAuxCondLevel = new Setpoint[2];
     private final Setpoint setpointDrumPressure;
+    private final Setpoint setpointDrumPressureOffset;
     private final Setpoint setpointHotwellUpperLevel;
     private final Setpoint setpointHotwellLowerLevel;
     private final Setpoint setpointTurbineReheaterSuperheating;
@@ -1218,6 +1219,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointHotwellLowerLevel.initName("Hotwell#LowerSetpoint");
         setpointDrumPressure = new Setpoint();
         setpointDrumPressure.initName("LoopPressureSetpoint");
+        setpointDrumPressureOffset = new Setpoint();
+        setpointDrumPressureOffset.initName("Loop#PressureSetpointOffset");
         setpointTurbineReheaterSuperheating = new Setpoint();
         setpointTurbineReheaterSuperheating.initName(
                 "Turbine#SetpointReheaterTemperature");
@@ -2729,6 +2732,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             runner.submit(setpointAuxCondLevel[idx]);
         }
         runner.submit(setpointDrumPressure);
+        runner.submit(setpointDrumPressureOffset);
         runner.submit(setpointHotwellUpperLevel);
         runner.submit(setpointHotwellLowerLevel);
         runner.submit(setpointTurbineReheaterSuperheating);
@@ -2765,6 +2769,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         setpointDrumPressure.setLowerLimit(1.0);
         setpointDrumPressure.setUpperLimit(72.0);
         setpointDrumPressure.setMaxRate(2.0);
+        setpointDrumPressureOffset.setLowerLimit(-5.0);
+        setpointDrumPressureOffset.setUpperLimit(15.0);
+        setpointDrumPressure.setMaxRate(5.0);
 
         // Preheater Levels: Scale is 0..150 cm
         for (int idx = 0; idx < 3; idx++) {
@@ -4592,9 +4599,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // The pressure setpoint does not consider the idle power so the 
             // display value is also used here.
             setpointDrumPressure.setInput(getPressureSetpoint(
-                    core.getNeutronModel().getYThermalPowerDisplayed()));
+                    core.getNeutronModel().getYThermalPowerDisplayed())
+                    + setpointDrumPressureOffset.getOutput());
         } else {
-            setpointDrumPressure.setInput(PRESSURE_SETPOINT_UPPER);
+            setpointDrumPressure.setInput(PRESSURE_SETPOINT_UPPER
+                    + setpointDrumPressureOffset.getOutput());
         }
 
         // Before this run method is invoked from the MainLoop, the controller
@@ -5310,6 +5319,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         
         if (ac.getPropertyName().startsWith("Loop")) {
             if (setpointDrumPressure.handleAction(ac)) {
+                return;
+            }
+            if (setpointDrumPressureOffset.handleAction(ac)) {
                 return;
             }
             // property name is smtn like this: Loop2#mcp3ValveDischarge

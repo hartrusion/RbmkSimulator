@@ -401,11 +401,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelCaptionDrain5">
+    <Component class="javax.swing.JLabel" name="jLabelCaptionDrumPressureOffset2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font bold="true" component="jLabelCaptionDrain5" property="font" relativeSize="true" size="-2"/>
+            <Font bold="true" component="jLabelCaptionDrumPressureOffset2" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -854,11 +854,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelCaptionDrain6">
+    <Component class="javax.swing.JLabel" name="jLabelCaptionDrumPressureOffset1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font bold="true" component="jLabelCaptionDrain6" property="font" relativeSize="true" size="-2"/>
+            <Font bold="true" component="jLabelCaptionDrumPressureOffset1" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -879,9 +879,9 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.hartrusion.rbmksim.gui.elements.SetpointControl" name="setpointControl1">
+    <Component class="com.hartrusion.rbmksim.gui.elements.SetpointControl" name="setpointControlPressureOffset">
       <Properties>
-        <Property name="component" type="java.lang.String" value="LoopPressureSetpointOffset"/>
+        <Property name="component" type="java.lang.String" value="Loop#PressureSetpointOffset"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -889,11 +889,11 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelCaptionPassiveFlow3">
+    <Component class="javax.swing.JLabel" name="jLabelCaptionBar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
-            <Font component="jLabelCaptionPassiveFlow3" property="font" relativeSize="true" size="-2"/>
+            <Font component="jLabelCaptionBar" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
