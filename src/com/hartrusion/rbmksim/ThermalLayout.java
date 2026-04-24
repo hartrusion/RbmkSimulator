@@ -1900,7 +1900,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         
         // See separate sheet for estimation calculation
         coolantAuxPump.initCharacteristic(12.0e5, 5.0e5, 500);
-        for (int idx = 0; idx < 2; idx++) {
+        for (int idx = 0; idx < 4; idx++) {
             coolantMainPumps[idx].initCharacteristic(12.0e5, 5.0e5, 25000);
         }
         coolantMainToAux.initCharacteristicSimple(400);
