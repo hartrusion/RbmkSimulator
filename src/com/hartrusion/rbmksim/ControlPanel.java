@@ -154,6 +154,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuDrumSeparators = new javax.swing.JMenuItem();
         jMenuItemLoop1LevelControl = new javax.swing.JMenuItem();
         jMenuItemLoop2LevelControl = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemDA1Steam = new javax.swing.JMenuItem();
         jMenuItemDA2Steam = new javax.swing.JMenuItem();
         jMenuItemStartupPressureSetpoint = new javax.swing.JMenuItem();
@@ -363,6 +364,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemLoop2LevelControl.setText("Drum 2 Level Control");
         jMenuItemLoop2LevelControl.addActionListener(this::jMenuItemLoop2LevelControlActionPerformed);
         jMenuDiagrams.add(jMenuItemLoop2LevelControl);
+
+        jMenuItem2.setText("Drum Pressures");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenuDiagrams.add(jMenuItem2);
 
         jMenuItemDA1Steam.setText("DA 1 Steam");
         jMenuItemDA1Steam.addActionListener(this::jMenuItemDA1SteamActionPerformed);
@@ -1400,6 +1405,20 @@ public class ControlPanel extends javax.swing.JFrame implements
                 getMnemonicInstance("Turbine"));
     }//GEN-LAST:event_jMenuItemPresetLevelControlActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Drum Pressure")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Drum Pressure");
+        DiagramPresets.drumPressures(df.getFigure(), plotData);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1546,6 +1565,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;

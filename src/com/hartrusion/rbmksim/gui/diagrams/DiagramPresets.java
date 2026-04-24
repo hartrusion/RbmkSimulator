@@ -670,6 +670,42 @@ public class DiagramPresets {
         ax.ylabel(2, "Hotwell Level (cm)");
     }
     
+   public static void drumPressures(FigureJPane figure, ValueHandler plotData) {
+        Axes ax = figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+
+        l = new Line();
+        l.setLabel("Drum 1");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Loop1#DrumPressure", 2));
+        ax.addLine(l);
+        le.addLine(l);
+
+        l = new Line();
+        l.setLabel("Drum 2");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("Loop2#DrumPressure", 2));
+        ax.addLine(l);
+        le.addLine(l);
+        
+        l = new Line();
+        l.setLabel("Setpoint");
+        l.setDataSource(plotData.getTime60(2),
+                plotData.getParameterDoubleSeries("LoopPressureSetpoint", 2));
+        ax.addLine(l);
+        le.addLine(l);
+
+        ax.yLim(0, 80);
+        ax.autoX();
+
+        ax.ylabel("Pressure (bar)");
+
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+    }
+    
     public static void preheaterTemperaturesDebugging(FigureJPane figure, ValueHandler plotData) {
         // figure.setYRulers(2);
         // YYAxes ax = (YYAxes) figure.getLastAxes();
