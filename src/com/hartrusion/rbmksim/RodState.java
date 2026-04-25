@@ -25,13 +25,15 @@ import com.hartrusion.control.ControlCommand;
  */
 public class RodState implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private int rodSpeedIndex;
     private double currentPosition;
     private double targetPosition;
     private ControlCommand autoState;
     private boolean selected;
+    private double controlInputValue;
+    private double controlOutputValue;
 
     public int getRodSpeedIndex() {
         return rodSpeedIndex;
@@ -71,5 +73,21 @@ public class RodState implements java.io.Serializable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+    
+    public double getControlInputValue() {
+        return controlInputValue;
+    }
+
+    public void setControlInputValue(double globalControlInputValue) {
+        this.controlInputValue = globalControlInputValue;
+    }
+
+    public double getControlOutputValue() {
+        return controlOutputValue;
+    }
+
+    public void setControlOutputValue(double globalControlOutputValue) {
+        this.controlOutputValue = globalControlOutputValue;
     }
 }

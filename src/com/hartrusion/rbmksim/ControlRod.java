@@ -17,8 +17,10 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.control.ControlCommand;
+import com.hartrusion.control.PIControl;
 import com.hartrusion.control.SetpointIntegrator;
 import com.hartrusion.util.ArraysExt;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +102,7 @@ public class ControlRod extends ReactorElement implements Runnable {
      */
     private boolean selected = false;
     private boolean oldSelected = true;
-
+    
     private ControlCommand automatic = ControlCommand.MANUAL_OPERATION;
     private ControlCommand oldAutomatic = null;
 
@@ -118,6 +120,16 @@ public class ControlRod extends ReactorElement implements Runnable {
      * Property Change Event description which describes the selection state.
      */
     private final String selectedProperty;
+    
+    /**
+     * A control class for generating movement for this control rod. Its input 
+     * has to be defined by assigning an input provider to it.
+     */
+    private final PIControl controller = new PIControl();
+
+    public PIControl getController() {
+        return controller;
+    }
 
     public ControlRod(int x, int y, ChannelType rodType) {
         super(x, y);
@@ -148,7 +160,13 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     @Override
     public void run() {
+        controller.run();
+        
+        if (isAutomatic()) {
+            swi.setInput(controller.getOutput());
+        }
         swi.run();
+        controller.setFollowUp(swi.getOutput());
         calculateAbsorption();
         calculateDisplacerBoost();
         distributeAffection();
@@ -380,6 +398,12 @@ public class ControlRod extends ReactorElement implements Runnable {
         rodSpeedIndex = rodSpeeds.length - 1;
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
     }
+    
+    @Override
+    public void registerSignalListener(PropertyChangeListener signalListener) {
+        super.registerSignalListener(signalListener);
+        controller.addPropertyChangeListener(signalListener);
+    }
 
     /**
      * Saves the current state of this control rod to a RodState object that is
@@ -393,6 +417,8 @@ public class ControlRod extends ReactorElement implements Runnable {
         rs.setTargetPosition(swi.getInput());
         rs.setSelected(selected);
         rs.setRodSpeedIndex(rodSpeedIndex);
+        rs.setControlInputValue(controller.getInput());
+        rs.setControlOutputValue(controller.getOutput());
     }
 
     /**
@@ -410,6 +436,9 @@ public class ControlRod extends ReactorElement implements Runnable {
         oldSelected = !selected;
         rodSpeedIndex = rs.getRodSpeedIndex();
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+        controller.acSetCondition(
+                rs.getControlInputValue(),
+                rs.getControlOutputValue());
         
         calculateAbsorption();
         calculateDisplacerBoost();

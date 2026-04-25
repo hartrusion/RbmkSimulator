@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class ReactorState implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4L;
     
     private final double[] xNeutronFluxModel = new double[9];
     private final double[] xXenonModel = new double[3];
@@ -40,8 +40,8 @@ public class ReactorState implements java.io.Serializable {
     private boolean globalControlActive;
     private boolean globalControlTransient;
     private boolean globalControlTarget;
-    private double globalControlInputValue;
-    private double globalControlOutputValue;
+    private boolean localControlEnabled;
+    private boolean localControlActive;
     private double coreTemp;
     private double voiding;
 
@@ -118,21 +118,21 @@ public class ReactorState implements java.io.Serializable {
     public void setGlobalControlTarget(boolean globalControlTarget) {
         this.globalControlTarget = globalControlTarget;
     }
-
-    public double getGlobalControlInputValue() {
-        return globalControlInputValue;
+    
+    public boolean isLocalControlEnabled() {
+        return localControlEnabled;
     }
 
-    public void setGlobalControlInputValue(double globalControlInputValue) {
-        this.globalControlInputValue = globalControlInputValue;
+    public void setLocalControlEnabled(boolean localControlEnabled) {
+        this.localControlEnabled = localControlEnabled;
     }
 
-    public double getGlobalControlOutputValue() {
-        return globalControlOutputValue;
+    public boolean isLocalControlActive() {
+        return localControlActive;
     }
 
-    public void setGlobalControlOutputValue(double globalControlOutputValue) {
-        this.globalControlOutputValue = globalControlOutputValue;
+    public void setLocalControlActive(boolean localControlActive) {
+        this.localControlActive = localControlActive;
     }
 
     public double getCoreTemp() {
