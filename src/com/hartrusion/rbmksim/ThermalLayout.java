@@ -144,6 +144,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new HeatFluidPump[2][4];
     private final HeatNode[][] loopTrimNode = new HeatNode[2][4];
     private final HeatValve[][] loopTrimValve = new HeatValve[2][4];
+    private final HeatNode[] loopMcpCollector = new HeatNode[2];
+    private final HeatVolumizedFlowResistance[] loopMcpMass
+            = new HeatVolumizedFlowResistance[2];
     private final HeatValve[] loopBypass = new HeatValve[2];
     private final HeatNode[] loopDistributor = new HeatNode[2]; // to channels
     private final HeatVolumizedFlowResistance[] loopChannelFlowResistance
@@ -456,7 +459,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double turbineShaftPower = 0.0;
     private double reheaterOutTemperature = 22.5;
     private double reheaterOutQuality = 0.0;
-    
+
     /**
      * Made up number to decide on the condenser vacuum change.
      */
@@ -614,6 +617,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].initName("Loop" + (idx + 1)
                         + "#mcp" + (jdx + 1) + "TrimValve");
             }
+            loopMcpCollector[idx] = new HeatNode();
+            loopMcpCollector[idx].setName("Loop" + (idx + 1) + "#McpCollector");
+            loopMcpMass[idx] = new HeatVolumizedFlowResistance();
+            loopMcpMass[idx].setName("Loop" + (idx + 1) + "#McpMass");
             loopBypass[idx] = new HeatValve();
             loopBypass[idx].initName("Loop" + (idx + 1) + "#Bypass");
             loopDistributor[idx] = new HeatNode();
@@ -1272,7 +1279,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // condensers from the main pumps.
         coolantMainToAux.getValveElement().connectBetween(
                 coolantAuxNode, coolantMainNode);
-        
+
         // All element connections are made where the elements of that group
         // are configured. They all end in a sink node.
         coolantSink.connectTo(coolantSinkNode);
@@ -1299,8 +1306,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         loopTrimValve[idx][jdx].getValveElement(),
                         loopTrimNode[idx][jdx]);
                 loopTrimValve[idx][jdx].getValveElement()
-                        .connectTo(loopDistributor[idx]);
+                        .connectTo(loopMcpCollector[idx]);
             }
+            loopMcpMass[idx].connectBetween(loopMcpCollector[idx],
+                    loopDistributor[idx]);
             // Place bypass valve parallel to the MPCs
             loopBypass[idx].getValveElement().connectBetween(
                     loopCollector[idx], loopDistributor[idx]);
@@ -1886,18 +1895,18 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Element properties">
         makeupStorage.setTimeConstant(100 / 9.81);
-        
+
         // Makup storage pumps are actually not much calculated yet
         for (int idx = 0; idx < 2; idx++) {
             makeupPumps[idx].initCharacteristic(7e5, 4e5, 800);
         }
-        
+
         // Condenser gets 1154.36 kg/s from turbine and has to "remove" 
         // 1,541,604 J/kg (see trubine calculation sheet).
         // with 22.0 °C in and a target temperature of 28 °C, this means 
         // 25200 J/kg and that requires 70,617.7 kg/s flow
         coolantOrigin.setOriginTemperature(273.15 + 22.0);
-        
+
         // See separate sheet for estimation calculation
         coolantAuxPump.initCharacteristic(12.0e5, 5.0e5, 500);
         for (int idx = 0; idx < 4; idx++) {
@@ -1940,6 +1949,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].getIntegrator().setLowerLimit(10);
 
             }
+            loopMcpMass[idx].setBridgedConnection();
+            loopMcpMass[idx].setInnerThermalMass(100);
             loopDownflow[idx].setResistanceParameter(12.6);
             loopDownflow[idx].setInnerThermalMass(50); // initial: 100
             loopChannelFlowResistance[idx].setInnerThermalMass(50);
@@ -2231,7 +2242,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         hotwell.getSecondarysideCondenser().setBridgedConnection();
         condenserCoolantCollector.setResistanceParameter(7.6);
-        
 
         // Main Ejectors
         for (int idx = 0; idx < 3; idx++) {
@@ -2479,7 +2489,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Makeup storage has 2 meters fill level initially, quite low:
         // ... but use 6.5 as long as there's no fill thing implemented:
         makeupStorage.setInitialEffort(7.1 * 997 * 9.81); // p = h * rho * g
-        
+
         // Coolant is supplied only by the one auxiliary pump.
         coolantAuxPump.setInitialCondition(true, true);
 
@@ -2537,6 +2547,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopSteamDrum[idx].setInitialState(14000, 81.1 + 273.15);
             loopEvaporator[idx].setInitialState(1e5,
                     273.5 + 49.9, 273.5 + 81.1);
+            loopMcpMass[idx].getHeatHandler()
+                    .setInitialTemperature(273.15 + 40.0);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
                     .setInitialTemperature(273.15 + 49.9);
@@ -2566,7 +2578,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // start with full hotwell cooling
         // condenserCoolantFlowSource.initFlow(44000);
-
         // Have some condensate inside the condesate reheaters but everything
         // is cooled down
         preheater[0].initConditions(273.15 + 22, 273.15 + 22, 0.32);
@@ -4733,8 +4744,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Todo: Remember to have some initital condition value for this!
         // Make a -100 to 100 % value for integral input to describe the speed
         // of integration.
-        condenserVacuumFactor =
-                // A static value that will make the vacuum disappear if no
+        condenserVacuumFactor
+                = // A static value that will make the vacuum disappear if no
                 // ejector is active.
                 0.4
                 // Full flow of 1400 kg/s adds a number of "10" so it is
@@ -5316,7 +5327,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 4; idx++) {
             coolantMainPumps[idx].handleAction(ac);
         }
-        
+
         if (ac.getPropertyName().startsWith("Loop")) {
             if (setpointDrumPressure.handleAction(ac)) {
                 return;
@@ -5343,13 +5354,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 case "Loop1#Bypass":
                     boolean allowOpening = true;
                     // all 4 mcps must be closed to allow bypass valve to open.
-                    for (int idx = 0; idx < 4; idx++) {
+                    /* for (int idx = 0; idx < 4; idx++) {
                         if (loopMcpAssembly[0][idx].getDischargeValve()
                                 .getOpening() > 1.0) {
                             allowOpening = false;
                             break;
                         }
-                    }
+                    } */
+                    // deactivated for more fun, finally it works.
                     if ((boolean) ac.getValue()) {
                         if (allowOpening) {
                             loopBypass[0].handleAction(ac);
@@ -5361,13 +5373,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 case "Loop2#Bypass":
                     allowOpening = true;
                     // all 4 mcps must be closed to allow bypass valve to open.
-                    for (int idx = 0; idx < 4; idx++) {
+                    /* for (int idx = 0; idx < 4; idx++) {
                         if (loopMcpAssembly[1][idx].getDischargeValve()
                                 .getOpening() > 1.0) {
                             allowOpening = false;
                             break;
                         }
-                    }
+                    } */
                     if ((boolean) ac.getValue()) {
                         if (allowOpening) {
                             loopBypass[1].handleAction(ac);
