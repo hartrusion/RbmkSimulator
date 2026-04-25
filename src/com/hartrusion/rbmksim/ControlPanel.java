@@ -1214,7 +1214,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemMnemonicPreheatersActionPerformed(null);
 
         jMenuItemViewAlarmListActionPerformed(null);
-        jMenuItemStartupPressureSetpointActionPerformed(null);
+        jMenuItemTurbineExpansionActionPerformed(null);
 
         JDesktopPaneEnhanced.windowPlaceAtZero(
                 getControlPanelInstance("Condensation"));
@@ -1243,7 +1243,7 @@ public class ControlPanel extends javax.swing.JFrame implements
                 getMnemonicInstance("Condensation"),
                 getMnemonicInstance("Turbine"));
         JDesktopPaneEnhanced.windowPlaceBelow(
-                getDiagramInstance("Startup Pressure Setpoint"),
+                getDiagramInstance("Turbine: Expansion"),
                 getMnemonicInstance("Preheaters"));
 
     }//GEN-LAST:event_jMenuItemTurbineOperatorActionPerformed
