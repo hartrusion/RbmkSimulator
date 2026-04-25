@@ -1230,6 +1230,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         s.setGlobalControlActive(globalControlActive);
         s.setGlobalControlTransient(globalControlTransient);
         s.setGlobalControlTarget(globalControlTarget);
+        s.setLocalControlEnabled(localControlEnabled);
+        s.setLocalControlActive(localControlActive);
         s.setCoreTemp(coreTemp);
         s.setVoiding(voiding);
 
@@ -1267,6 +1269,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControlActive = rs.isGlobalControlActive();
         globalControlTransient = rs.isGlobalControlTransient();
         globalControlTarget = rs.isGlobalControlTarget();
+        localControlEnabled = rs.isLocalControlEnabled();
+        localControlActive = rs.isLocalControlActive();
         // those values get assigned from previous cycle from thermal layout.
         // as there is no previous cycle, we need to restore them.
         coreTemp = rs.getCoreTemp();
@@ -1282,6 +1286,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         oldGlobalControlTarget = !globalControlTarget;
         oldGlobalControlActive = !globalControlActive;
         oldGlobalControlEnabled = !globalControlEnabled;
+        oldLocalControlActive = !localControlActive;
+        oldLocalControlEnabled = !localControlEnabled;
         oldRpsActive = !rpsActive;
         oldRps = null;
         oldAutoRodsPositionAlarmState = null;
