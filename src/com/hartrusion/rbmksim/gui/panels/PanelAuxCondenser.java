@@ -176,9 +176,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionSteamIn.setFont(jLabelCaptionSteamIn.getFont().deriveFont(jLabelCaptionSteamIn.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSteamIn.getFont().getSize()-2));
         jLabelCaptionSteamIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionSteamIn.setText("Steam 2");
-        jLabelCaptionSteamIn.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSteamIn.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSteamIn.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSteamIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 70, 60, 14));
 
         controlLoopCondLevel1.setControlComponent("AuxCond1#CondensateValve");
@@ -291,7 +288,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         integralSwitch2.setToolTipText("From main steam line 2 valve to auxiliary condenser 2");
         add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 86, -1, -1));
 
-        jToggleButtonControl2Enable.setFont(jToggleButtonControl2Enable.getFont().deriveFont(jToggleButtonControl2Enable.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonControl2Enable.setFont(jToggleButtonControl2Enable.getFont().deriveFont(jToggleButtonControl2Enable.getFont().getStyle() & ~java.awt.Font.BOLD));
         jToggleButtonControl2Enable.setText("←");
         jToggleButtonControl2Enable.setToolTipText("Enables valve control by pressure regulator");
         jToggleButtonControl2Enable.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -302,7 +299,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         });
         add(jToggleButtonControl2Enable, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 92, 20, 20));
 
-        jToggleButtonControl1Enable.setFont(jToggleButtonControl1Enable.getFont().deriveFont(jToggleButtonControl1Enable.getFont().getStyle() | java.awt.Font.BOLD));
+        jToggleButtonControl1Enable.setFont(jToggleButtonControl1Enable.getFont().deriveFont(jToggleButtonControl1Enable.getFont().getStyle() & ~java.awt.Font.BOLD));
         jToggleButtonControl1Enable.setText("←");
         jToggleButtonControl1Enable.setToolTipText("Enables valve control by pressure regulator");
         jToggleButtonControl1Enable.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -316,9 +313,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionSteamIn1.setFont(jLabelCaptionSteamIn1.getFont().deriveFont(jLabelCaptionSteamIn1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSteamIn1.getFont().getSize()-2));
         jLabelCaptionSteamIn1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionSteamIn1.setText("Steam 1");
-        jLabelCaptionSteamIn1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSteamIn1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionSteamIn1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSteamIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 64, 14));
         add(lightBulbControl1Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 84, -1, -1));
         add(lightBulbControl2Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 84, -1, -1));
