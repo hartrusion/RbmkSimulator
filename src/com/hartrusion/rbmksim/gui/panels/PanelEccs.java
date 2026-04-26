@@ -23,10 +23,10 @@ import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
 
 /**
- * Separate Panel for the ECCS system. This system is not part of the large 
- * control desk but in the rear of the control room so its design is a bit 
+ * Separate Panel for the ECCS system. This system is not part of the large
+ * control desk but in the rear of the control room so its design is a bit
  * different to the other panels.
- * 
+ *
  * @author Viktor Alexander Hartung
  */
 public class PanelEccs extends AbstractPanelWidget
@@ -323,7 +323,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrainDrum1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 160, 60, 14));
+        add(jLabelCaptionDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 160, 58, 14));
         add(integralSwitchDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 178, -1, -1));
 
         jLabelCaptionDrainDrum2.setFont(jLabelCaptionDrainDrum2.getFont().deriveFont(jLabelCaptionDrainDrum2.getFont().getSize()-2f));
@@ -332,7 +332,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrainDrum2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 160, 60, 14));
+        add(jLabelCaptionDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 160, 58, 14));
 
         jLabelCaptionHeaderPPSPumps.setFont(jLabelCaptionHeaderPPSPumps.getFont().deriveFont(jLabelCaptionHeaderPPSPumps.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionHeaderPPSPumps.getFont().getSize()-2));
         jLabelCaptionHeaderPPSPumps.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -884,7 +884,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionBypass4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 58, 60, 14));
+        add(jLabelCaptionBypass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 58, 58, 14));
         add(integralSwitchDrum2SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 76, -1, -1));
 
         jLabelCaptionBypass5.setFont(jLabelCaptionBypass5.getFont().deriveFont(jLabelCaptionBypass5.getFont().getSize()-2f));
@@ -893,7 +893,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionBypass5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass5, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 58, 60, 14));
+        add(jLabelCaptionBypass5, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 58, 58, 14));
 
         jLabelCaptionDrumDrain8.setFont(jLabelCaptionDrumDrain8.getFont().deriveFont(jLabelCaptionDrumDrain8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain8.getFont().getSize()-2));
         jLabelCaptionDrumDrain8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1187,11 +1187,11 @@ public class PanelEccs extends AbstractPanelWidget
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonToMcpHeader11CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader11CloseActionPerformed
-        controller.userAction(new ActionCommand("Feedwater1#ShutoffValve3", false));
+        controller.userAction(new ActionCommand("ECCS11#FeedValve", false));
     }//GEN-LAST:event_jButtonToMcpHeader11CloseActionPerformed
 
     private void jButtonToMcpHeader11OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader11OpenActionPerformed
-        controller.userAction(new ActionCommand("Feedwater1#ShutoffValve3", true));
+        controller.userAction(new ActionCommand("ECCS11#FeedValve", true));
     }//GEN-LAST:event_jButtonToMcpHeader11OpenActionPerformed
 
     private void jToggleButtonPSP1Feed11AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP1Feed11AutoActionPerformed
@@ -1243,43 +1243,43 @@ public class PanelEccs extends AbstractPanelWidget
     }//GEN-LAST:event_jToggleButtonPV2Feed12AutoActionPerformed
 
     private void jButtonToMcpHeader12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader12CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS12#FeedValve", false));
     }//GEN-LAST:event_jButtonToMcpHeader12CloseActionPerformed
 
     private void jButtonToMcpHeader12OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader12OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS12#FeedValve", true));
     }//GEN-LAST:event_jButtonToMcpHeader12OpenActionPerformed
 
     private void jButtonToMcpHeader13CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader13CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS13#FeedValve", false));
     }//GEN-LAST:event_jButtonToMcpHeader13CloseActionPerformed
 
     private void jButtonToMcpHeader13OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader13OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS13#FeedValve", true));
     }//GEN-LAST:event_jButtonToMcpHeader13OpenActionPerformed
 
     private void jButtonToMcpHeader21CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader21CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS21#FeedValve", false));
     }//GEN-LAST:event_jButtonToMcpHeader21CloseActionPerformed
 
     private void jButtonToMcpHeader21OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader21OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS21#FeedValve", true));
     }//GEN-LAST:event_jButtonToMcpHeader21OpenActionPerformed
 
     private void jButtonToMcpHeader22CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader22CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS22#FeedValve", false));
     }//GEN-LAST:event_jButtonToMcpHeader22CloseActionPerformed
 
     private void jButtonToMcpHeader22OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader22OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS22#FeedValve", true));
     }//GEN-LAST:event_jButtonToMcpHeader22OpenActionPerformed
 
     private void jButtonToMcpHeader23CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader23CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS23#FeedValve", false));
     }//GEN-LAST:event_jButtonToMcpHeader23CloseActionPerformed
 
     private void jButtonToMcpHeader23OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader23OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS23#FeedValve", true));
     }//GEN-LAST:event_jButtonToMcpHeader23OpenActionPerformed
 
     private void jToggleButtonPSP2Feed12AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP2Feed12AutoActionPerformed
@@ -1541,12 +1541,37 @@ public class PanelEccs extends AbstractPanelWidget
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
-        
+        switch (evt.getPropertyName()) {
+            case "ECCS11#FeedValve_Pos":
+                setValveButtons(jButtonToMcpHeader11Close,
+                        jButtonToMcpHeader11Open, evt.getNewValue());
+                break;
+            case "ECCS12#FeedValve_Pos":
+                setValveButtons(jButtonToMcpHeader12Close,
+                        jButtonToMcpHeader12Open, evt.getNewValue());
+                break;
+            case "ECCS13#FeedValve_Pos":
+                setValveButtons(jButtonToMcpHeader13Close,
+                        jButtonToMcpHeader13Open, evt.getNewValue());
+                break;
+            case "ECCS21#FeedValve_Pos":
+                setValveButtons(jButtonToMcpHeader21Close,
+                        jButtonToMcpHeader21Open, evt.getNewValue());
+                break;
+            case "ECCS22#FeedValve_Pos":
+                setValveButtons(jButtonToMcpHeader22Close,
+                        jButtonToMcpHeader22Open, evt.getNewValue());
+                break;
+            case "ECCS23#FeedValve_Pos":
+                setValveButtons(jButtonToMcpHeader23Close,
+                        jButtonToMcpHeader23Open, evt.getNewValue());
+                break;
+        }
     }
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        
+
     }
 
     @Override
@@ -1567,6 +1592,6 @@ public class PanelEccs extends AbstractPanelWidget
 
     @Override
     public void updateComponent(String propertyName, boolean newValue) {
-        
+
     }
 }

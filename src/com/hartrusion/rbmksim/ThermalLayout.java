@@ -419,6 +419,19 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedValve[] pressureReliefValveToEnvironment
             = new PhasedValve[2];
 
+    private final HeatValve[][] eccsFeedValve = new HeatValve[2][3];
+    private final HeatNode[][] eccsFeedIn = new HeatNode[2][3];
+    private final HeatVolumizedFlowResistance[][] eccsFeedLine
+            = new HeatVolumizedFlowResistance[2][3];
+    private final HeatNode[][] eccsFeedLineIn = new HeatNode[2][3];
+    private final HeatValve[][] eccsPspPumpValve = new HeatValve[2][3];
+    private final HeatNode[] eccsPspPumpOut = new HeatNode[3];
+    private final HeatFluidPump[] eccsPspPump = new HeatFluidPump[3];
+    private final HeatExchangerNoMass[] eccsPspCooler
+            = new HeatExchangerNoMass[3];
+    private final HeatValve[] eccsPspCoolantValve = new HeatValve[3];
+    
+
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
     private final Setpoint[] setpointDAPressure = new Setpoint[2];
@@ -1199,6 +1212,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
             pressureReliefValveToEnvironment[idx] = new PhasedValve();
             pressureReliefValveToEnvironment[idx].initName(
                     "PRV" + (idx + 1) + "#ToEnvironment");
+        }
+
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 3; jdx++) {
+                eccsFeedValve[idx][jdx] = new HeatValve();
+                eccsFeedValve[idx][jdx].initName("ECCS"
+                        + (10 * (idx + 1) + jdx + 1) + "#FeedValve");
+            }
         }
 
         //</editor-fold>      
@@ -2070,7 +2091,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // valves can be used earlier on startup. That will be R = 
             // 5e6 Pa / 12 kg/s = 4.2e5 Pa*s/kg
             // - well, reduced afterwards to allow more flow.
-            deaeratorSteamFromMain[idx].initCharacteristicSimple(3.5e5);
+            // deaeratorSteamFromMain[idx].initCharacteristicSimple(3.5e5);
+            // Only used on startup from main: reduce resistance significantly
+            deaeratorSteamFromMain[idx].initCharacteristicSimple(5e4);
             deaeratorDrain[idx].initCharacteristicSimple(50);
         }
 
@@ -2113,9 +2136,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Startup valves
         for (int idx = 0; idx < 2; idx++) {
             feedwaterStartupReductionValve[idx]
-                    .initCharacteristicSimple(4500);
+                    .initCharacteristicSimple(3000);
             feedwaterFlowRegulationValve[idx][0].initCharacteristicAdvanced(
-                    200, 80e5, 4000);
+                    300, 80e5, 4000);
         }
         // Full power valves
         for (int idx = 0; idx < 2; idx++) {
@@ -2514,51 +2537,27 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownValveTreatmentBypass.initOpening(100);
         // Set the initial flow through the aftercooler to 600 kg/s
         blowdownValveCoolant.initOpening(100);
-
-        // Variant 1: Forced Circ. with MPC and no Cooldown Pump:
-        /* for (int idx = 0; idx <= 1; idx++) {
-            loopSteamDrum[idx].setInitialState(40000, 36.6 + 273.15);
-            loopEvaporator[idx].setInitialState(6.0, 1e5,
-                    273.5 + 34.6, 273.5 + 36.9);
-            loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(36.6 + 273.16);
-            loopAssembly[idx][1].setInitialCondition(true, true, true);
-            loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(273.5 + 34.6);
-            blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
-                    36.6 + 273.5);
-            blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    26.1 + 273.5);
-        }
-        blowdownCooldown.getPrimarySide().getHeatHandler()
-                .setInitialTemperature(299.84);
-        blowdownCooldown.getSecondarySide().getHeatHandler()
-                .setInitialTemperature(301.57);
-        // Blowdown/Cooldown one pump is ready but inactive
-        blowdownCooldownPumps[1].setInitialCondition(false, true, false);
-        // Use bypass valves (MPC will push it through):
-        blowdownValvePassiveFlow.initOpening(100);
-        blowdownValvePumpsToRegenerator.initOpening(100); */
-        // Variant 2: Natural Circulation without MCP and cooldown active:
+        
+        // Natural Circulation without MCP and cooldown active
         for (int idx = 0; idx <= 1; idx++) {
             // first value is the mass, it is the base area time 1000
             // 21000 is a good value for easy start. reduce this for more things
             // to do on startup.
-            loopSteamDrum[idx].setInitialState(14000, 81.1 + 273.15);
+            loopSteamDrum[idx].setInitialState(14000, 36.8 + 273.15);
             loopEvaporator[idx].setInitialState(1e5,
-                    273.5 + 49.9, 273.5 + 81.1);
+                    273.5 + 25.3, 273.5 + 36.8);
             loopMcpMass[idx].getHeatHandler()
-                    .setInitialTemperature(273.15 + 40.0);
+                    .setInitialTemperature(273.15 + 22.0);
             loopBypass[idx].initOpening(100); // Open Bypass
             loopDownflow[idx].getHeatHandler()
-                    .setInitialTemperature(273.15 + 49.9);
+                    .setInitialTemperature(273.15 + 25.3);
             loopChannelFlowResistance[idx].getHeatHandler()
-                    .setInitialTemperature(273.15 + 49.9);
+                    .setInitialTemperature(273.15 + 25.3);
 
             blowdownPipeFromMcp[idx].getHeatHandler().setInitialTemperature(
-                    49.9 + 273.5);
+                    25.3 + 273.5);
             blowdownReturn[idx].getHeatHandler().setInitialTemperature(
-                    22.1 + 273.5);
+                    21.7 + 273.5);
         }
         // Blowdown/Cooldown one pump is in operation
         blowdownCooldownPumps[1].setInitialCondition(true, true, true);
@@ -2732,6 +2731,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             runner.submit(pressureReliefValveToEnvironment[idx]);
         }
 
+        for (int idx = 0; idx < 2; idx++) {
+            for (int jdx = 0; jdx < 3; jdx++) {
+                runner.submit(eccsFeedValve[idx][jdx]);
+            }
+        }
+
         // Add Solo control loops
         runner.submit(blowdownBalanceControlLoop);
 
@@ -2838,9 +2843,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
             ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterK(15.0);
+                    .getController()).setParameterK(3.0);
             ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterTN(10.0);
+                    .getController()).setParameterTN(50.0);
         }
 
         // Pressure Setpoints for Deaerator (the steam in will go for those 
@@ -4758,8 +4763,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 + mainSteamDump[1].getValveElement().getFlow() * 1.1e-3
                 // Each startup ejector makes 1 kg/s in operation. They should
                 // not be able to compensate for large steam quantities
-                - ejectorStartup[0].getValveElement().getFlow() * 1.2
-                - ejectorStartup[1].getValveElement().getFlow() * 1.2
+                - ejectorStartup[0].getValveElement().getFlow() * 1.8
+                - ejectorStartup[1].getValveElement().getFlow() * 1.8
                 // Main ejectors are designed to use about 8.5 kg/s of steam
                 // each
                 - ejectorMainSteamValve[0].getValveElement().getFlow()

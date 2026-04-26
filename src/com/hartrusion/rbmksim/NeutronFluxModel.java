@@ -49,9 +49,11 @@ public class NeutronFluxModel implements Runnable {
      * A value of 5.6 MW was decided to be fine, however, this will take a long
      * time to heat up things even with the way smaller masses here. A higher
      * value is chosen to get a better simulation experience. This allows
-     * pressure buildup to be observed even without any neutron flux.
+     * pressure buildup to be observed even without any neutron flux. It was 48
+     * MW at some point but, this also comes with the downside that the aux 
+     * condensers are too small for 48 MW idle heat.
      */
-    public static final double IDLE_HEAT = 48;
+    public static final double IDLE_HEAT = 5.6;
 
     /**
      * Step time in Seconds
