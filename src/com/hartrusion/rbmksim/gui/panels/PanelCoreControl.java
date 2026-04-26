@@ -1630,6 +1630,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         ammeterFluxLog.setBackground(new java.awt.Color(255, 255, 255));
         ammeterFluxLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterFluxLog.setChornobylMaximum(-1.0);
+        ammeterFluxLog.setChornobylMinimum(-6.0);
+        ammeterFluxLog.setChornobylValue(-3.5);
         ammeterFluxLog.setForeground(new java.awt.Color(0, 0, 0));
         ammeterFluxLog.setLeftLabel("-6");
         ammeterFluxLog.setRightLabel("-1");
@@ -1638,6 +1641,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         ammeterRate.setBackground(new java.awt.Color(255, 255, 255));
         ammeterRate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterRate.setChornobylMaximum(2.5);
+        ammeterRate.setChornobylMinimum(-2.5);
         ammeterRate.setForeground(new java.awt.Color(0, 0, 0));
         ammeterRate.setLeftLabel("-2.5");
         ammeterRate.setRightLabel("+2.5");
@@ -2464,7 +2469,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#NeutronFlux" ->
                 jLabelReadingFlux.setText(String.format("%06.2f", newValue));
             case "Reactor#NeutronFluxLog" ->
-                ammeterFluxLog.setChornobylValue(20 * newValue + 120); // -6..1
+                ammeterFluxLog.setChornobylValue(newValue); // -6..1
             case "Reactor#Xenon" ->
                 jLabelReadingXe.setText(
                         String.format("%03d", Math.round(newValue)));
@@ -2474,7 +2479,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
             //.replaceFirst("^\\+", " "));
             case "Reactor#NeutronRate" -> {
                  // -2.5..2.5
-                ammeterRate.setChornobylValue(20 * newValue + 50);
+                ammeterRate.setChornobylValue(newValue);
                 lightBulbNeutronRate.setActive(newValue >= 2.2);
             }
             case "Reactor#ThermalPowerDisplay" ->

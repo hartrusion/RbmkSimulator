@@ -44,6 +44,8 @@ public class Ammeter extends javax.swing.JComponent {
     private float pointerLength;
     private float arcX, arcY, arcD;
     private float lowerHeigt, lowerStart;
+    
+    private double minValue = 0, maxValue = 100, cM = 1.0, cB = 0.0;
 
     private String leftLabel = "0.0";
     private String rightLabel = "100";
@@ -60,16 +62,49 @@ public class Ammeter extends javax.swing.JComponent {
     }
 
     @BeanProperty(preferred = true, visualUpdate = true, description
-            = "Sets the pointer position between 0 and 100")
+            = "Sets the value for pointer position.")
     public void setChornobylValue(double value) {
+        value = cM * value + cB; // make a 0..100  value
+        
         if (value < 0.0) {
             value = 0.0;
         } else if (value > 100) {
             value = 100;
         }
+        
         double old = this.value;
         this.value = value;
         firePropertyChange("chornobylValue", old, value);
+        repaint();
+    }
+    
+    public double getChornobylMaximum() {
+        return maxValue;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Sets the scale end value")
+    public void setChornobylMaximum(double chornobylMaximum) {
+        double old = this.maxValue;
+        this.maxValue = chornobylMaximum;
+        cM = 100 / (maxValue - minValue);
+        cB = -cM * minValue;
+        firePropertyChange("chornobylMaximum", old, chornobylMaximum);
+        repaint();
+    }
+
+    public double getChornobylMinimum() {
+        return minValue;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Sets the scale start value")
+    public void setChornobylMinimum(double chornobylMinimum) {
+        double old = this.minValue;
+        this.minValue = chornobylMinimum;
+        cM = 100 / (maxValue - minValue);
+        cB = -cM * minValue;
+        firePropertyChange("chornobylMinimum", old, chornobylMinimum);
         repaint();
     }
 

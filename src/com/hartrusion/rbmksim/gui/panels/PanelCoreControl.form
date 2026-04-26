@@ -3589,6 +3589,9 @@
                 <LineBorder/>
               </Border>
             </Property>
+            <Property name="chornobylMaximum" type="double" value="-1.0"/>
+            <Property name="chornobylMinimum" type="double" value="-6.0"/>
+            <Property name="chornobylValue" type="double" value="-3.5"/>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
@@ -3616,6 +3619,8 @@
                 <LineBorder/>
               </Border>
             </Property>
+            <Property name="chornobylMaximum" type="double" value="2.5"/>
+            <Property name="chornobylMinimum" type="double" value="-2.5"/>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>

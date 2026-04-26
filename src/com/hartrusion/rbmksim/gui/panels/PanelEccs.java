@@ -49,246 +49,256 @@ public class PanelEccs extends AbstractPanelWidget
     private void initComponents() {
 
         panelWidgetPumpPSP1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        jButtonFeed13Close = new javax.swing.JButton();
-        jButtonFeed13Open = new javax.swing.JButton();
-        jLabelFeed13 = new javax.swing.JLabel();
-        ammeter1 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        ammeter2 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        panelWidgetSmallPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
-        integralSwitch1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitch2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitch7 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable4 = new javax.swing.JToggleButton();
-        lightBulbControl1Active4 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch8 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable5 = new javax.swing.JToggleButton();
-        lightBulbControl1Active5 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonToMcpHeader11Close = new javax.swing.JButton();
+        jButtonToMcpHeader11Open = new javax.swing.JButton();
+        jLabelCaptionToMcp11 = new javax.swing.JLabel();
+        ammeterVessel1Pressure = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        ammeterVessel2Pressure = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        panelWidgetSprinklerPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        integralSwitchPVFill1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitchPVFill2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitchPSP1Feed11 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPSP1Feed11Auto = new javax.swing.JToggleButton();
+        lightBulbPSP1Feed11Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchPSP1Feed21 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPSP1Feed21Auto = new javax.swing.JToggleButton();
+        lightBulbPSP1Feed21Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jLabelCaptionPSPP1 = new javax.swing.JLabel();
         jLabelCaptionPSPP1F21 = new javax.swing.JLabel();
         jLabelCaptionPSPP1F11 = new javax.swing.JLabel();
-        integralSwitch19 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jLabelCaptionBypass2 = new javax.swing.JLabel();
-        integralSwitch20 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jLabelCaptionBypass3 = new javax.swing.JLabel();
-        jLabelCaptionDrumDrain = new javax.swing.JLabel();
-        jButtonFeed13Close1 = new javax.swing.JButton();
-        jButtonFeed13Open1 = new javax.swing.JButton();
-        jLabelFeed14 = new javax.swing.JLabel();
-        jButtonFeed13Close2 = new javax.swing.JButton();
-        jButtonFeed13Open2 = new javax.swing.JButton();
-        jLabelFeed15 = new javax.swing.JLabel();
-        jButtonFeed13Close3 = new javax.swing.JButton();
-        jButtonFeed13Open3 = new javax.swing.JButton();
-        jLabelFeed16 = new javax.swing.JLabel();
+        integralSwitchDrainDrum1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jLabelCaptionDrainDrum1 = new javax.swing.JLabel();
+        integralSwitchDrainDrum2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jLabelCaptionDrainDrum2 = new javax.swing.JLabel();
+        jLabelCaptionHeaderPPSPumps = new javax.swing.JLabel();
+        jButtonDrumDrain1CoolantClose = new javax.swing.JButton();
+        jButtonDrumDrain1CoolantOpen = new javax.swing.JButton();
+        jLabelCaptionDrumDrain1Coolant = new javax.swing.JLabel();
+        jButtonDrumDrain2CoolantClose = new javax.swing.JButton();
+        jButtonDrumDrain2CoolantOpen = new javax.swing.JButton();
+        jLabelCaptionDrumDrain2Coolant = new javax.swing.JLabel();
+        jButtonCoolantPSPP1Close = new javax.swing.JButton();
+        jButtonCoolantPSPP1Open = new javax.swing.JButton();
+        jLabelCaptionPSPPCoolant1 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain1 = new javax.swing.JLabel();
         jLabelCaptionPSPP1F13 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain3 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain4 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F14 = new javax.swing.JLabel();
         jLabelCaptionPSPP1F15 = new javax.swing.JLabel();
-        integralSwitch11 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable8 = new javax.swing.JToggleButton();
-        lightBulbControl1Active8 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch12 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable9 = new javax.swing.JToggleButton();
-        lightBulbControl1Active9 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionPSPP1F23 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F16 = new javax.swing.JLabel();
-        integralSwitch13 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jLabelCaptionPSPP1F24 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F17 = new javax.swing.JLabel();
-        jToggleButtonControl1Enable10 = new javax.swing.JToggleButton();
-        lightBulbControl1Active10 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jToggleButtonControl1Enable11 = new javax.swing.JToggleButton();
-        integralSwitch14 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        lightBulbControl1Active11 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionDrumDrain5 = new javax.swing.JLabel();
-        jButtonFeed13Close4 = new javax.swing.JButton();
-        jButtonFeed13Open4 = new javax.swing.JButton();
-        jLabelFeed17 = new javax.swing.JLabel();
-        jButtonFeed13Close5 = new javax.swing.JButton();
-        jButtonFeed13Open5 = new javax.swing.JButton();
-        jLabelFeed18 = new javax.swing.JLabel();
-        jButtonFeed13Close6 = new javax.swing.JButton();
-        jButtonFeed13Open6 = new javax.swing.JButton();
-        jLabelFeed19 = new javax.swing.JLabel();
-        jButtonFeed13Close7 = new javax.swing.JButton();
-        jButtonFeed13Open7 = new javax.swing.JButton();
-        jLabelFeed20 = new javax.swing.JLabel();
-        jButtonFeed13Close8 = new javax.swing.JButton();
-        jButtonFeed13Open8 = new javax.swing.JButton();
-        jLabelFeed21 = new javax.swing.JLabel();
-        panelWidgetPumpPSP3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        integralSwitch15 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable12 = new javax.swing.JToggleButton();
-        lightBulbControl1Active12 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch16 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitchPV1Feed11 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPV1Feed11Auto = new javax.swing.JToggleButton();
+        lightBulbPV1Feed11Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchPV1Feed21 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPV1Feed21Auto = new javax.swing.JToggleButton();
+        lightBulbPV1Feed21Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelCaptionPV1F21 = new javax.swing.JLabel();
+        jLabelCaptionPV1F11 = new javax.swing.JLabel();
+        integralSwitchPV2Feed22 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jLabelCaptionPV2F22 = new javax.swing.JLabel();
+        jLabelCaptionPV2F12 = new javax.swing.JLabel();
+        jToggleButtonPV2Feed22Auto = new javax.swing.JToggleButton();
+        lightBulbPV2Feed22Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jToggleButtonPV2Feed12Auto = new javax.swing.JToggleButton();
+        integralSwitchPV2Feed12 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        lightBulbPV2Feed12Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelCaptionSprinklerPumps = new javax.swing.JLabel();
+        jButtonToMcpHeader12Close = new javax.swing.JButton();
+        jButtonToMcpHeader12Open = new javax.swing.JButton();
+        jLabelCaptionToMcp12 = new javax.swing.JLabel();
+        jButtonToMcpHeader13Close = new javax.swing.JButton();
+        jButtonToMcpHeader13Open = new javax.swing.JButton();
+        jLabelCaptionToMcp13 = new javax.swing.JLabel();
+        jButtonToMcpHeader21Close = new javax.swing.JButton();
+        jButtonToMcpHeader21Open = new javax.swing.JButton();
+        jLabelCaptionToMcp21 = new javax.swing.JLabel();
+        jButtonToMcpHeader22Close = new javax.swing.JButton();
+        jButtonToMcpHeader22Open = new javax.swing.JButton();
+        jLabelCaptionToMcp22 = new javax.swing.JLabel();
+        jButtonToMcpHeader23Close = new javax.swing.JButton();
+        jButtonToMcpHeader23Open = new javax.swing.JButton();
+        jLabelCaptionToMcp23 = new javax.swing.JLabel();
+        panelWidgetPumpPSP2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        integralSwitchPSP2Feed12 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPSP2Feed12Auto = new javax.swing.JToggleButton();
+        lightBulbPSP2Feed12Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchPSP2Feed22 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jToggleButtonControl1Enable13 = new javax.swing.JToggleButton();
-        lightBulbControl1Active13 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbPSP2Feed22Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelCaptionPSPP2 = new javax.swing.JLabel();
+        jLabelCaptionPSPP2F22 = new javax.swing.JLabel();
+        jLabelCaptionPSPP2F12 = new javax.swing.JLabel();
+        jButtonCoolantPSPP2Close = new javax.swing.JButton();
+        jButtonCoolantPSPP2Open = new javax.swing.JButton();
+        jLabelCaptionPSPPCoolant2 = new javax.swing.JLabel();
+        panelWidgetPumpPSP3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        integralSwitchPSP3Feed13 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPSP3Feed13Auto = new javax.swing.JToggleButton();
+        lightBulbPSP3Feed13Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchPSP3Feed23 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonPSP3Feed23Auto = new javax.swing.JToggleButton();
+        lightBulbPSP3Feed23Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jLabelCaptionPSPP3 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F25 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F18 = new javax.swing.JLabel();
-        jButtonFeed13Close9 = new javax.swing.JButton();
-        jButtonFeed13Open9 = new javax.swing.JButton();
-        jLabelFeed22 = new javax.swing.JLabel();
-        panelWidgetPumpPSP4 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        integralSwitch17 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable14 = new javax.swing.JToggleButton();
-        lightBulbControl1Active14 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch18 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable15 = new javax.swing.JToggleButton();
-        lightBulbControl1Active15 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionPSPP4 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F26 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F19 = new javax.swing.JLabel();
-        jButtonFeed13Close10 = new javax.swing.JButton();
-        jButtonFeed13Open10 = new javax.swing.JButton();
-        jLabelFeed23 = new javax.swing.JLabel();
+        jLabelCaptionPSPP3F23 = new javax.swing.JLabel();
+        jLabelCaptionPSPP3F13 = new javax.swing.JLabel();
+        jButtonCoolantPSPP3Close = new javax.swing.JButton();
+        jButtonCoolantPSPP3Open = new javax.swing.JButton();
+        jLabelCaptionPSPPCoolant3 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain6 = new javax.swing.JLabel();
-        integralSwitch27 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable20 = new javax.swing.JToggleButton();
-        lightBulbControl1Active22 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch28 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable21 = new javax.swing.JToggleButton();
-        lightBulbControl1Active23 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionPSPP8 = new javax.swing.JLabel();
+        integralSwitchP3Feed13 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonP3Feed13Auto = new javax.swing.JToggleButton();
+        lightBulbP3Feed13Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchP3Feed23 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonP3Feed23Auto = new javax.swing.JToggleButton();
+        lightBulbP3Feed23Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jLabelCaptionPSPP1F32 = new javax.swing.JLabel();
         jLabelCaptionPSPP1F33 = new javax.swing.JLabel();
         jLabelCaptionPSPP9 = new javax.swing.JLabel();
-        jButtonFeed13Close11 = new javax.swing.JButton();
-        jButtonFeed13Open11 = new javax.swing.JButton();
-        jLabelFeed24 = new javax.swing.JLabel();
-        panelWidgetSmallPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
-        jButtonFeed13Close12 = new javax.swing.JButton();
-        jButtonFeed13Open12 = new javax.swing.JButton();
-        jLabelFeed25 = new javax.swing.JLabel();
-        jLabelCaptionDrumDrain7 = new javax.swing.JLabel();
-        integralSwitch29 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jButtonSprinklerCoolant1Close = new javax.swing.JButton();
+        jButtonSprinklerCoolant1Open = new javax.swing.JButton();
+        jLabelCaptionSprinklerCoolant1 = new javax.swing.JLabel();
+        panelWidgetSprinklerPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
+        jButtonSprinklerCoolant2Close = new javax.swing.JButton();
+        jButtonSprinklerCoolant2Open = new javax.swing.JButton();
+        jLabelCaptionSprinklerCoolant2 = new javax.swing.JLabel();
+        jLabelCaptionGaugesPSP = new javax.swing.JLabel();
+        integralSwitchDrum1SteamToPool = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelCaptionBypass4 = new javax.swing.JLabel();
-        integralSwitch30 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        integralSwitchDrum2SteamToPool = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelCaptionBypass5 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain8 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain9 = new javax.swing.JLabel();
         jLabelCaptionDrumDrain10 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F34 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F35 = new javax.swing.JLabel();
-        ammeter3 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F36 = new javax.swing.JLabel();
-        ammeter4 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F37 = new javax.swing.JLabel();
-        panelWidgetPumpPSP5 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        integralSwitch21 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable16 = new javax.swing.JToggleButton();
-        lightBulbControl1Active16 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch22 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable17 = new javax.swing.JToggleButton();
-        lightBulbControl1Active17 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionPSPP5 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F27 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F20 = new javax.swing.JLabel();
-        panelWidgetPumpPSP6 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        integralSwitch23 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable18 = new javax.swing.JToggleButton();
-        lightBulbControl1Active18 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch24 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable19 = new javax.swing.JToggleButton();
-        lightBulbControl1Active19 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionPSPP6 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F28 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F29 = new javax.swing.JLabel();
-        panelWidgetPumpPSP7 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        integralSwitch25 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable22 = new javax.swing.JToggleButton();
-        lightBulbControl1Active20 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        integralSwitch26 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        jToggleButtonControl1Enable23 = new javax.swing.JToggleButton();
-        lightBulbControl1Active21 = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        jLabelCaptionPSPP7 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F30 = new javax.swing.JLabel();
-        jLabelCaptionPSPP1F31 = new javax.swing.JLabel();
-        jLabelCaptionDrumDrain11 = new javax.swing.JLabel();
-        jLabelCaptionDrumDrain12 = new javax.swing.JLabel();
-        ammeter5 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F38 = new javax.swing.JLabel();
-        ammeter6 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F39 = new javax.swing.JLabel();
-        panelWidgetPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        jLabelCaptionDrumDrain13 = new javax.swing.JLabel();
-        jLabelCaptionDrumDrain14 = new javax.swing.JLabel();
-        ammeter7 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F40 = new javax.swing.JLabel();
-        ammeter8 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F41 = new javax.swing.JLabel();
-        jLabelCaptionDrumDrain15 = new javax.swing.JLabel();
-        ammeter9 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F42 = new javax.swing.JLabel();
-        ammeter10 = new com.hartrusion.rbmksim.gui.elements.Ammeter();
-        jLabelCaptionPSPP1F43 = new javax.swing.JLabel();
+        jLabelCaptionPVP2 = new javax.swing.JLabel();
+        jLabelCaptionPVP1 = new javax.swing.JLabel();
+        ammeterPSPTemperature = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionPSPTemperature = new javax.swing.JLabel();
+        ammeterPSPLevel = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionPSPLevel = new javax.swing.JLabel();
+        panelWidgetPumpCCSP1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        integralSwitchCCSP1Feed11 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonCCSP1Feed11Auto = new javax.swing.JToggleButton();
+        lightBulbCCSP1Feed11Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchCCSP1Feed21 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonCCSP1Feed21Auto = new javax.swing.JToggleButton();
+        lightBulbCCSP1Feed21Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelCaptionCCSP1 = new javax.swing.JLabel();
+        jLabelCaptionCCSP1F21 = new javax.swing.JLabel();
+        jLabelCaptionCCSP1F11 = new javax.swing.JLabel();
+        panelWidgetPumpCCSP2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        integralSwitchCCSP2Feed12 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonCCSP2Feed12Auto = new javax.swing.JToggleButton();
+        lightBulbCCSP2Feed12Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchCCSP2Feed22 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonCCSP2Feed22Auto = new javax.swing.JToggleButton();
+        lightBulbCCSP2Feed22Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelCaptionCCSP2 = new javax.swing.JLabel();
+        jLabelCaptionCCSP2F22 = new javax.swing.JLabel();
+        jLabelCaptionCCSP2F12 = new javax.swing.JLabel();
+        panelWidgetPumpCCSP3 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        integralSwitchCCSP3Feed13 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonCCSP3Feed13Auto = new javax.swing.JToggleButton();
+        lightBulbCCSP3Feed13Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        integralSwitchCCSP3Feed23 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
+        jToggleButtonCCSP3Feed23Auto = new javax.swing.JToggleButton();
+        lightBulbCCSP3Feed23Auto = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jLabelCaptionCCSP3 = new javax.swing.JLabel();
+        jLabelCaptionCCSP3F23 = new javax.swing.JLabel();
+        jLabelCaptionCCSP3F13 = new javax.swing.JLabel();
+        jLabelCaptionFillPump = new javax.swing.JLabel();
+        jLabelCaptionGaugesCCS = new javax.swing.JLabel();
+        ammeterCCSTemperature = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionCCSTemperature = new javax.swing.JLabel();
+        ammeterCCSLevel = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionCCSLevel = new javax.swing.JLabel();
+        jLabelCaptionGaugesDrum1 = new javax.swing.JLabel();
+        ammeterDrum1Pressure = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionDrum1Pressure = new javax.swing.JLabel();
+        ammeterDrum1Level = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionDrum1Level = new javax.swing.JLabel();
+        jLabelCaptionGaugesDrum2 = new javax.swing.JLabel();
+        ammeterDrum2Pressure = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionDrum2Pressure = new javax.swing.JLabel();
+        ammeterDrum2Level = new com.hartrusion.rbmksim.gui.elements.Ammeter();
+        jLabelCaptionDrum2Level = new javax.swing.JLabel();
+        panelWidgetFillPump = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
 
+        setMaximumSize(new java.awt.Dimension(910, 550));
+        setMinimumSize(new java.awt.Dimension(910, 550));
+        setPreferredSize(new java.awt.Dimension(910, 550));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(panelWidgetPumpPSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 468, -1, -1));
+        add(panelWidgetPumpPSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 398, -1, -1));
 
-        jButtonFeed13Close.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close.setText("C");
-        jButtonFeed13Close.setToolTipText("");
-        jButtonFeed13Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close.addActionListener(this::jButtonFeed13CloseActionPerformed);
-        add(jButtonFeed13Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 308, 20, 20));
+        jButtonToMcpHeader11Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonToMcpHeader11Close.setText("C");
+        jButtonToMcpHeader11Close.setToolTipText("");
+        jButtonToMcpHeader11Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader11Close.addActionListener(this::jButtonToMcpHeader11CloseActionPerformed);
+        add(jButtonToMcpHeader11Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 270, 20, 20));
 
-        jButtonFeed13Open.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open.setText("O");
-        jButtonFeed13Open.setToolTipText("");
-        jButtonFeed13Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open.addActionListener(this::jButtonFeed13OpenActionPerformed);
-        add(jButtonFeed13Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 308, 20, 20));
+        jButtonToMcpHeader11Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonToMcpHeader11Open.setText("O");
+        jButtonToMcpHeader11Open.setToolTipText("");
+        jButtonToMcpHeader11Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader11Open.addActionListener(this::jButtonToMcpHeader11OpenActionPerformed);
+        add(jButtonToMcpHeader11Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 270, 20, 20));
 
-        jLabelFeed13.setFont(jLabelFeed13.getFont().deriveFont(jLabelFeed13.getFont().getSize()-2f));
-        jLabelFeed13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed13.setText("Line 1.1");
-        jLabelFeed13.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed13.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed13.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 294, 52, 14));
+        jLabelCaptionToMcp11.setFont(jLabelCaptionToMcp11.getFont().deriveFont(jLabelCaptionToMcp11.getFont().getSize()-2f));
+        jLabelCaptionToMcp11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionToMcp11.setText("Line 1.1");
+        jLabelCaptionToMcp11.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp11.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp11.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionToMcp11, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 256, 52, 14));
 
-        ammeter1.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 76, 92, 58));
+        ammeterVessel1Pressure.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterVessel1Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterVessel1Pressure.setChornobylMaximum(90.0);
+        ammeterVessel1Pressure.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterVessel1Pressure.setLeftLabel("0 bar");
+        ammeterVessel1Pressure.setRightLabel("90 bar");
+        add(ammeterVessel1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 76, 92, 58));
 
-        ammeter2.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter2, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 76, 92, 58));
-        add(panelWidgetSmallPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 34, -1, -1));
-        add(integralSwitch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 50, -1, -1));
-        add(integralSwitch2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 48, -1, -1));
+        ammeterVessel2Pressure.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterVessel2Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterVessel2Pressure.setChornobylMaximum(90.0);
+        ammeterVessel2Pressure.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterVessel2Pressure.setLeftLabel("0 bar");
+        ammeterVessel2Pressure.setRightLabel("90 bar");
+        add(ammeterVessel2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 76, 92, 58));
+        add(panelWidgetSprinklerPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 256, -1, -1));
+        add(integralSwitchPVFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 46, -1, -1));
+        add(integralSwitchPVFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 44, -1, -1));
 
-        integralSwitch7.setComponent("AuxCond1#SteamValve");
-        integralSwitch7.setControlledValve(true);
-        integralSwitch7.setToolTipText("");
-        add(integralSwitch7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 388, -1, -1));
+        integralSwitchPSP1Feed11.setComponent("AuxCond1#SteamValve");
+        integralSwitchPSP1Feed11.setControlledValve(true);
+        integralSwitchPSP1Feed11.setToolTipText("");
+        add(integralSwitchPSP1Feed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 318, -1, -1));
 
-        jToggleButtonControl1Enable4.setFont(jToggleButtonControl1Enable4.getFont().deriveFont(jToggleButtonControl1Enable4.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable4.setText("←");
-        jToggleButtonControl1Enable4.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable4.addActionListener(this::jToggleButtonControl1Enable4ActionPerformed);
-        add(jToggleButtonControl1Enable4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 392, 20, 20));
-        add(lightBulbControl1Active4, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 398, -1, -1));
+        jToggleButtonPSP1Feed11Auto.setFont(jToggleButtonPSP1Feed11Auto.getFont().deriveFont(jToggleButtonPSP1Feed11Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPSP1Feed11Auto.setText("←");
+        jToggleButtonPSP1Feed11Auto.setToolTipText("Auto Mode");
+        jToggleButtonPSP1Feed11Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPSP1Feed11Auto.addActionListener(this::jToggleButtonPSP1Feed11AutoActionPerformed);
+        add(jToggleButtonPSP1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 322, 20, 20));
+        add(lightBulbPSP1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 328, -1, -1));
 
-        integralSwitch8.setComponent("AuxCond1#SteamValve");
-        integralSwitch8.setControlledValve(true);
-        integralSwitch8.setToolTipText("");
-        add(integralSwitch8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 436, -1, -1));
+        integralSwitchPSP1Feed21.setComponent("AuxCond1#SteamValve");
+        integralSwitchPSP1Feed21.setControlledValve(true);
+        integralSwitchPSP1Feed21.setToolTipText("");
+        add(integralSwitchPSP1Feed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 366, -1, -1));
 
-        jToggleButtonControl1Enable5.setFont(jToggleButtonControl1Enable5.getFont().deriveFont(jToggleButtonControl1Enable5.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable5.setText("←");
-        jToggleButtonControl1Enable5.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable5.addActionListener(this::jToggleButtonControl1Enable5ActionPerformed);
-        add(jToggleButtonControl1Enable5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 440, 20, 20));
-        add(lightBulbControl1Active5, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 446, -1, -1));
+        jToggleButtonPSP1Feed21Auto.setFont(jToggleButtonPSP1Feed21Auto.getFont().deriveFont(jToggleButtonPSP1Feed21Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPSP1Feed21Auto.setText("←");
+        jToggleButtonPSP1Feed21Auto.setToolTipText("Auto Mode");
+        jToggleButtonPSP1Feed21Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPSP1Feed21Auto.addActionListener(this::jToggleButtonPSP1Feed21AutoActionPerformed);
+        add(jToggleButtonPSP1Feed21Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 370, 20, 20));
+        add(lightBulbPSP1Feed21Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 376, -1, -1));
 
         jLabelCaptionPSPP1.setFont(jLabelCaptionPSPP1.getFont().deriveFont(jLabelCaptionPSPP1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP1.getFont().getSize()-2));
         jLabelCaptionPSPP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionPSPP1.setText("Pump 1");
-        add(jLabelCaptionPSPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 354, 76, 14));
+        add(jLabelCaptionPSPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 284, 76, 14));
 
         jLabelCaptionPSPP1F21.setFont(jLabelCaptionPSPP1F21.getFont().deriveFont(jLabelCaptionPSPP1F21.getFont().getSize()-2f));
         jLabelCaptionPSPP1F21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -296,7 +306,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F21.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F21.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F21.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F21, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 420, 72, 14));
+        add(jLabelCaptionPSPP1F21, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 350, 72, 14));
 
         jLabelCaptionPSPP1F11.setFont(jLabelCaptionPSPP1F11.getFont().deriveFont(jLabelCaptionPSPP1F11.getFont().getSize()-2f));
         jLabelCaptionPSPP1F11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -304,101 +314,101 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F11.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F11.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 372, 72, 14));
-        add(integralSwitch19, new org.netbeans.lib.awtextra.AbsoluteConstraints(648, 338, -1, -1));
+        add(jLabelCaptionPSPP1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 302, 72, 14));
+        add(integralSwitchDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 178, -1, -1));
 
-        jLabelCaptionBypass2.setFont(jLabelCaptionBypass2.getFont().deriveFont(jLabelCaptionBypass2.getFont().getSize()-2f));
-        jLabelCaptionBypass2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionBypass2.setText("Drum 1");
-        jLabelCaptionBypass2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionBypass2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionBypass2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 320, 60, 14));
-        add(integralSwitch20, new org.netbeans.lib.awtextra.AbsoluteConstraints(712, 338, -1, -1));
+        jLabelCaptionDrainDrum1.setFont(jLabelCaptionDrainDrum1.getFont().deriveFont(jLabelCaptionDrainDrum1.getFont().getSize()-2f));
+        jLabelCaptionDrainDrum1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrainDrum1.setText("Drum 1");
+        jLabelCaptionDrainDrum1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrainDrum1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrainDrum1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 160, 60, 14));
+        add(integralSwitchDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 178, -1, -1));
 
-        jLabelCaptionBypass3.setFont(jLabelCaptionBypass3.getFont().deriveFont(jLabelCaptionBypass3.getFont().getSize()-2f));
-        jLabelCaptionBypass3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionBypass3.setText("Drum 2");
-        jLabelCaptionBypass3.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionBypass3.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionBypass3.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass3, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 320, 60, 14));
+        jLabelCaptionDrainDrum2.setFont(jLabelCaptionDrainDrum2.getFont().deriveFont(jLabelCaptionDrainDrum2.getFont().getSize()-2f));
+        jLabelCaptionDrainDrum2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrainDrum2.setText("Drum 2");
+        jLabelCaptionDrainDrum2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrainDrum2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrainDrum2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 160, 60, 14));
 
-        jLabelCaptionDrumDrain.setFont(jLabelCaptionDrumDrain.getFont().deriveFont(jLabelCaptionDrumDrain.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain.getFont().getSize()-2));
-        jLabelCaptionDrumDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain.setText("From Pressure Suppresion Pool");
-        add(jLabelCaptionDrumDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 334, 252, 14));
+        jLabelCaptionHeaderPPSPumps.setFont(jLabelCaptionHeaderPPSPumps.getFont().deriveFont(jLabelCaptionHeaderPPSPumps.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionHeaderPPSPumps.getFont().getSize()-2));
+        jLabelCaptionHeaderPPSPumps.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionHeaderPPSPumps.setText("From Pressure Suppresion Pool");
+        add(jLabelCaptionHeaderPPSPumps, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 264, 252, 14));
 
-        jButtonFeed13Close1.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close1.setText("C");
-        jButtonFeed13Close1.setToolTipText("");
-        jButtonFeed13Close1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close1.addActionListener(this::jButtonFeed13Close1ActionPerformed);
-        add(jButtonFeed13Close1, new org.netbeans.lib.awtextra.AbsoluteConstraints(642, 384, 20, 20));
+        jButtonDrumDrain1CoolantClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonDrumDrain1CoolantClose.setText("C");
+        jButtonDrumDrain1CoolantClose.setToolTipText("");
+        jButtonDrumDrain1CoolantClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonDrumDrain1CoolantClose.addActionListener(this::jButtonDrumDrain1CoolantCloseActionPerformed);
+        add(jButtonDrumDrain1CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 224, 20, 20));
 
-        jButtonFeed13Open1.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open1.setText("O");
-        jButtonFeed13Open1.setToolTipText("");
-        jButtonFeed13Open1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open1.addActionListener(this::jButtonFeed13Open1ActionPerformed);
-        add(jButtonFeed13Open1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 384, 20, 20));
+        jButtonDrumDrain1CoolantOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonDrumDrain1CoolantOpen.setText("O");
+        jButtonDrumDrain1CoolantOpen.setToolTipText("");
+        jButtonDrumDrain1CoolantOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonDrumDrain1CoolantOpen.addActionListener(this::jButtonDrumDrain1CoolantOpenActionPerformed);
+        add(jButtonDrumDrain1CoolantOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 224, 20, 20));
 
-        jLabelFeed14.setFont(jLabelFeed14.getFont().deriveFont(jLabelFeed14.getFont().getSize()-2f));
-        jLabelFeed14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed14.setText("Coolant");
-        jLabelFeed14.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed14.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed14.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed14, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 370, 52, 14));
+        jLabelCaptionDrumDrain1Coolant.setFont(jLabelCaptionDrumDrain1Coolant.getFont().deriveFont(jLabelCaptionDrumDrain1Coolant.getFont().getSize()-2f));
+        jLabelCaptionDrumDrain1Coolant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrumDrain1Coolant.setText("Coolant");
+        jLabelCaptionDrumDrain1Coolant.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrumDrain1Coolant.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrumDrain1Coolant.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDrumDrain1Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 210, 52, 14));
 
-        jButtonFeed13Close2.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close2.setText("C");
-        jButtonFeed13Close2.setToolTipText("");
-        jButtonFeed13Close2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close2.addActionListener(this::jButtonFeed13Close2ActionPerformed);
-        add(jButtonFeed13Close2, new org.netbeans.lib.awtextra.AbsoluteConstraints(706, 384, 20, 20));
+        jButtonDrumDrain2CoolantClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonDrumDrain2CoolantClose.setText("C");
+        jButtonDrumDrain2CoolantClose.setToolTipText("");
+        jButtonDrumDrain2CoolantClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonDrumDrain2CoolantClose.addActionListener(this::jButtonDrumDrain2CoolantCloseActionPerformed);
+        add(jButtonDrumDrain2CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 224, 20, 20));
 
-        jButtonFeed13Open2.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open2.setText("O");
-        jButtonFeed13Open2.setToolTipText("");
-        jButtonFeed13Open2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open2.addActionListener(this::jButtonFeed13Open2ActionPerformed);
-        add(jButtonFeed13Open2, new org.netbeans.lib.awtextra.AbsoluteConstraints(734, 384, 20, 20));
+        jButtonDrumDrain2CoolantOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonDrumDrain2CoolantOpen.setText("O");
+        jButtonDrumDrain2CoolantOpen.setToolTipText("");
+        jButtonDrumDrain2CoolantOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonDrumDrain2CoolantOpen.addActionListener(this::jButtonDrumDrain2CoolantOpenActionPerformed);
+        add(jButtonDrumDrain2CoolantOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 224, 20, 20));
 
-        jLabelFeed15.setFont(jLabelFeed15.getFont().deriveFont(jLabelFeed15.getFont().getSize()-2f));
-        jLabelFeed15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed15.setText("Coolant");
-        jLabelFeed15.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed15.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed15.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed15, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 370, 52, 14));
+        jLabelCaptionDrumDrain2Coolant.setFont(jLabelCaptionDrumDrain2Coolant.getFont().deriveFont(jLabelCaptionDrumDrain2Coolant.getFont().getSize()-2f));
+        jLabelCaptionDrumDrain2Coolant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrumDrain2Coolant.setText("Coolant");
+        jLabelCaptionDrumDrain2Coolant.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrumDrain2Coolant.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionDrumDrain2Coolant.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionDrumDrain2Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 210, 52, 14));
 
-        jButtonFeed13Close3.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close3.setText("C");
-        jButtonFeed13Close3.setToolTipText("");
-        jButtonFeed13Close3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close3.addActionListener(this::jButtonFeed13Close3ActionPerformed);
-        add(jButtonFeed13Close3, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 592, 20, 20));
+        jButtonCoolantPSPP1Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonCoolantPSPP1Close.setText("C");
+        jButtonCoolantPSPP1Close.setToolTipText("");
+        jButtonCoolantPSPP1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCoolantPSPP1Close.addActionListener(this::jButtonCoolantPSPP1CloseActionPerformed);
+        add(jButtonCoolantPSPP1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 522, 20, 20));
 
-        jButtonFeed13Open3.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open3.setText("O");
-        jButtonFeed13Open3.setToolTipText("");
-        jButtonFeed13Open3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open3.addActionListener(this::jButtonFeed13Open3ActionPerformed);
-        add(jButtonFeed13Open3, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 592, 20, 20));
+        jButtonCoolantPSPP1Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonCoolantPSPP1Open.setText("O");
+        jButtonCoolantPSPP1Open.setToolTipText("");
+        jButtonCoolantPSPP1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCoolantPSPP1Open.addActionListener(this::jButtonCoolantPSPP1OpenActionPerformed);
+        add(jButtonCoolantPSPP1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 522, 20, 20));
 
-        jLabelFeed16.setFont(jLabelFeed16.getFont().deriveFont(jLabelFeed16.getFont().getSize()-2f));
-        jLabelFeed16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed16.setText("Coolant");
-        jLabelFeed16.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed16.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed16.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed16, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 578, 52, 14));
+        jLabelCaptionPSPPCoolant1.setFont(jLabelCaptionPSPPCoolant1.getFont().deriveFont(jLabelCaptionPSPPCoolant1.getFont().getSize()-2f));
+        jLabelCaptionPSPPCoolant1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPPCoolant1.setText("Coolant");
+        jLabelCaptionPSPPCoolant1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPPCoolant1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPPCoolant1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPPCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 508, 52, 14));
 
         jLabelCaptionDrumDrain1.setFont(jLabelCaptionDrumDrain1.getFont().deriveFont(jLabelCaptionDrumDrain1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain1.getFont().getSize()-2));
         jLabelCaptionDrumDrain1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain1.setText("to CCS");
-        add(jLabelCaptionDrumDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 306, 106, 14));
+        add(jLabelCaptionDrumDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 146, 106, 14));
 
         jLabelCaptionPSPP1F13.setFont(jLabelCaptionPSPP1F13.getFont().deriveFont(jLabelCaptionPSPP1F13.getFont().getSize()-2f));
         jLabelCaptionPSPP1F13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -406,25 +416,17 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F13.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F13.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F13.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F13, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 34, 72, 14));
+        add(jLabelCaptionPSPP1F13, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 30, 72, 14));
 
         jLabelCaptionDrumDrain3.setFont(jLabelCaptionDrumDrain3.getFont().deriveFont(jLabelCaptionDrumDrain3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain3.getFont().getSize()-2));
         jLabelCaptionDrumDrain3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain3.setText("Pressure Vessels");
-        add(jLabelCaptionDrumDrain3, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 16, 146, 14));
+        add(jLabelCaptionDrumDrain3, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 12, 146, 14));
 
         jLabelCaptionDrumDrain4.setFont(jLabelCaptionDrumDrain4.getFont().deriveFont(jLabelCaptionDrumDrain4.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain4.getFont().getSize()-2));
         jLabelCaptionDrumDrain4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain4.setText("MCP Pressure Header");
-        add(jLabelCaptionDrumDrain4, new org.netbeans.lib.awtextra.AbsoluteConstraints(784, 274, 146, 14));
-
-        jLabelCaptionPSPP1F14.setFont(jLabelCaptionPSPP1F14.getFont().deriveFont(jLabelCaptionPSPP1F14.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F14.setText("Vessel 1");
-        jLabelCaptionPSPP1F14.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F14.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F14.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F14, new org.netbeans.lib.awtextra.AbsoluteConstraints(516, 280, 72, 14));
+        add(jLabelCaptionDrumDrain4, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 236, 146, 14));
 
         jLabelCaptionPSPP1F15.setFont(jLabelCaptionPSPP1F15.getFont().deriveFont(jLabelCaptionPSPP1F15.getFont().getSize()-2f));
         jLabelCaptionPSPP1F15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -432,382 +434,377 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F15.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F15.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F15.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F15, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 34, 72, 14));
+        add(jLabelCaptionPSPP1F15, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 30, 72, 14));
 
-        integralSwitch11.setComponent("AuxCond1#SteamValve");
-        integralSwitch11.setControlledValve(true);
-        integralSwitch11.setToolTipText("");
-        add(integralSwitch11, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 176, -1, -1));
+        integralSwitchPV1Feed11.setComponent("AuxCond1#SteamValve");
+        integralSwitchPV1Feed11.setControlledValve(true);
+        integralSwitchPV1Feed11.setToolTipText("");
+        add(integralSwitchPV1Feed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 176, -1, -1));
 
-        jToggleButtonControl1Enable8.setFont(jToggleButtonControl1Enable8.getFont().deriveFont(jToggleButtonControl1Enable8.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable8.setText("←");
-        jToggleButtonControl1Enable8.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable8.addActionListener(this::jToggleButtonControl1Enable8ActionPerformed);
-        add(jToggleButtonControl1Enable8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 20, 20));
-        add(lightBulbControl1Active8, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 186, -1, -1));
+        jToggleButtonPV1Feed11Auto.setFont(jToggleButtonPV1Feed11Auto.getFont().deriveFont(jToggleButtonPV1Feed11Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPV1Feed11Auto.setText("←");
+        jToggleButtonPV1Feed11Auto.setToolTipText("Auto Mode");
+        jToggleButtonPV1Feed11Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPV1Feed11Auto.addActionListener(this::jToggleButtonPV1Feed11AutoActionPerformed);
+        add(jToggleButtonPV1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 20, 20));
+        add(lightBulbPV1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 186, -1, -1));
 
-        integralSwitch12.setComponent("AuxCond1#SteamValve");
-        integralSwitch12.setControlledValve(true);
-        integralSwitch12.setToolTipText("");
-        add(integralSwitch12, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 224, -1, -1));
+        integralSwitchPV1Feed21.setComponent("AuxCond1#SteamValve");
+        integralSwitchPV1Feed21.setControlledValve(true);
+        integralSwitchPV1Feed21.setToolTipText("");
+        add(integralSwitchPV1Feed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 224, -1, -1));
 
-        jToggleButtonControl1Enable9.setFont(jToggleButtonControl1Enable9.getFont().deriveFont(jToggleButtonControl1Enable9.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable9.setText("←");
-        jToggleButtonControl1Enable9.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable9.addActionListener(this::jToggleButtonControl1Enable9ActionPerformed);
-        add(jToggleButtonControl1Enable9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 228, 20, 20));
-        add(lightBulbControl1Active9, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 234, -1, -1));
+        jToggleButtonPV1Feed21Auto.setFont(jToggleButtonPV1Feed21Auto.getFont().deriveFont(jToggleButtonPV1Feed21Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPV1Feed21Auto.setText("←");
+        jToggleButtonPV1Feed21Auto.setToolTipText("Auto Mode");
+        jToggleButtonPV1Feed21Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPV1Feed21Auto.addActionListener(this::jToggleButtonPV1Feed21AutoActionPerformed);
+        add(jToggleButtonPV1Feed21Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 228, 20, 20));
+        add(lightBulbPV1Feed21Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 234, -1, -1));
 
-        jLabelCaptionPSPP1F23.setFont(jLabelCaptionPSPP1F23.getFont().deriveFont(jLabelCaptionPSPP1F23.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F23.setText("Feed 2.1");
-        jLabelCaptionPSPP1F23.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F23.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F23.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 208, 72, 14));
+        jLabelCaptionPV1F21.setFont(jLabelCaptionPV1F21.getFont().deriveFont(jLabelCaptionPV1F21.getFont().getSize()-2f));
+        jLabelCaptionPV1F21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPV1F21.setText("Feed 2.1");
+        jLabelCaptionPV1F21.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV1F21.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV1F21.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPV1F21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 208, 72, 14));
 
-        jLabelCaptionPSPP1F16.setFont(jLabelCaptionPSPP1F16.getFont().deriveFont(jLabelCaptionPSPP1F16.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F16.setText("Feed 1.1");
-        jLabelCaptionPSPP1F16.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F16.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F16.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 72, 14));
+        jLabelCaptionPV1F11.setFont(jLabelCaptionPV1F11.getFont().deriveFont(jLabelCaptionPV1F11.getFont().getSize()-2f));
+        jLabelCaptionPV1F11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPV1F11.setText("Feed 1.1");
+        jLabelCaptionPV1F11.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV1F11.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV1F11.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPV1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 72, 14));
 
-        integralSwitch13.setComponent("AuxCond1#SteamValve");
-        integralSwitch13.setControlledValve(true);
-        integralSwitch13.setToolTipText("");
-        add(integralSwitch13, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 224, -1, -1));
+        integralSwitchPV2Feed22.setComponent("AuxCond1#SteamValve");
+        integralSwitchPV2Feed22.setControlledValve(true);
+        integralSwitchPV2Feed22.setToolTipText("");
+        add(integralSwitchPV2Feed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 224, -1, -1));
 
-        jLabelCaptionPSPP1F24.setFont(jLabelCaptionPSPP1F24.getFont().deriveFont(jLabelCaptionPSPP1F24.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F24.setText("Feed 2.2");
-        jLabelCaptionPSPP1F24.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F24.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F24.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F24, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 208, 72, 14));
+        jLabelCaptionPV2F22.setFont(jLabelCaptionPV2F22.getFont().deriveFont(jLabelCaptionPV2F22.getFont().getSize()-2f));
+        jLabelCaptionPV2F22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPV2F22.setText("Feed 2.2");
+        jLabelCaptionPV2F22.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV2F22.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV2F22.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPV2F22, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 208, 72, 14));
 
-        jLabelCaptionPSPP1F17.setFont(jLabelCaptionPSPP1F17.getFont().deriveFont(jLabelCaptionPSPP1F17.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F17.setText("Feed 1.2");
-        jLabelCaptionPSPP1F17.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F17.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F17.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F17, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 160, 72, 14));
+        jLabelCaptionPV2F12.setFont(jLabelCaptionPV2F12.getFont().deriveFont(jLabelCaptionPV2F12.getFont().getSize()-2f));
+        jLabelCaptionPV2F12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPV2F12.setText("Feed 1.2");
+        jLabelCaptionPV2F12.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV2F12.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPV2F12.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPV2F12, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 160, 72, 14));
 
-        jToggleButtonControl1Enable10.setFont(jToggleButtonControl1Enable10.getFont().deriveFont(jToggleButtonControl1Enable10.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable10.setText("←");
-        jToggleButtonControl1Enable10.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable10.addActionListener(this::jToggleButtonControl1Enable10ActionPerformed);
-        add(jToggleButtonControl1Enable10, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 228, 20, 20));
-        add(lightBulbControl1Active10, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 234, -1, -1));
+        jToggleButtonPV2Feed22Auto.setFont(jToggleButtonPV2Feed22Auto.getFont().deriveFont(jToggleButtonPV2Feed22Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPV2Feed22Auto.setText("←");
+        jToggleButtonPV2Feed22Auto.setToolTipText("Auto Mode");
+        jToggleButtonPV2Feed22Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPV2Feed22Auto.addActionListener(this::jToggleButtonPV2Feed22AutoActionPerformed);
+        add(jToggleButtonPV2Feed22Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 228, 20, 20));
+        add(lightBulbPV2Feed22Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 234, -1, -1));
 
-        jToggleButtonControl1Enable11.setFont(jToggleButtonControl1Enable11.getFont().deriveFont(jToggleButtonControl1Enable11.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable11.setText("←");
-        jToggleButtonControl1Enable11.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable11.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable11.addActionListener(this::jToggleButtonControl1Enable11ActionPerformed);
-        add(jToggleButtonControl1Enable11, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 180, 20, 20));
+        jToggleButtonPV2Feed12Auto.setFont(jToggleButtonPV2Feed12Auto.getFont().deriveFont(jToggleButtonPV2Feed12Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPV2Feed12Auto.setText("←");
+        jToggleButtonPV2Feed12Auto.setToolTipText("Auto Mode");
+        jToggleButtonPV2Feed12Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPV2Feed12Auto.addActionListener(this::jToggleButtonPV2Feed12AutoActionPerformed);
+        add(jToggleButtonPV2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 180, 20, 20));
 
-        integralSwitch14.setComponent("AuxCond1#SteamValve");
-        integralSwitch14.setControlledValve(true);
-        integralSwitch14.setToolTipText("");
-        add(integralSwitch14, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 176, -1, -1));
-        add(lightBulbControl1Active11, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 186, -1, -1));
+        integralSwitchPV2Feed12.setComponent("AuxCond1#SteamValve");
+        integralSwitchPV2Feed12.setControlledValve(true);
+        integralSwitchPV2Feed12.setToolTipText("");
+        add(integralSwitchPV2Feed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 176, -1, -1));
+        add(lightBulbPV2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 186, -1, -1));
 
-        jLabelCaptionDrumDrain5.setFont(jLabelCaptionDrumDrain5.getFont().deriveFont(jLabelCaptionDrumDrain5.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain5.getFont().getSize()-2));
-        jLabelCaptionDrumDrain5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain5.setText("Sprinkler Pumps");
-        add(jLabelCaptionDrumDrain5, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 16, 146, 14));
+        jLabelCaptionSprinklerPumps.setFont(jLabelCaptionSprinklerPumps.getFont().deriveFont(jLabelCaptionSprinklerPumps.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSprinklerPumps.getFont().getSize()-2));
+        jLabelCaptionSprinklerPumps.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionSprinklerPumps.setText("Sprinkler Pumps");
+        add(jLabelCaptionSprinklerPumps, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 238, 146, 14));
 
-        jButtonFeed13Close4.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close4.setText("C");
-        jButtonFeed13Close4.setToolTipText("");
-        jButtonFeed13Close4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close4.addActionListener(this::jButtonFeed13Close4ActionPerformed);
-        add(jButtonFeed13Close4, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 348, 20, 20));
+        jButtonToMcpHeader12Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonToMcpHeader12Close.setText("C");
+        jButtonToMcpHeader12Close.setToolTipText("");
+        jButtonToMcpHeader12Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader12Close.addActionListener(this::jButtonToMcpHeader12CloseActionPerformed);
+        add(jButtonToMcpHeader12Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 310, 20, 20));
 
-        jButtonFeed13Open4.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open4.setText("O");
-        jButtonFeed13Open4.setToolTipText("");
-        jButtonFeed13Open4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open4.addActionListener(this::jButtonFeed13Open4ActionPerformed);
-        add(jButtonFeed13Open4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 348, 20, 20));
+        jButtonToMcpHeader12Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonToMcpHeader12Open.setText("O");
+        jButtonToMcpHeader12Open.setToolTipText("");
+        jButtonToMcpHeader12Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader12Open.addActionListener(this::jButtonToMcpHeader12OpenActionPerformed);
+        add(jButtonToMcpHeader12Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 310, 20, 20));
 
-        jLabelFeed17.setFont(jLabelFeed17.getFont().deriveFont(jLabelFeed17.getFont().getSize()-2f));
-        jLabelFeed17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed17.setText("Line 1.1");
-        jLabelFeed17.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed17.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed17.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed17, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 334, 52, 14));
+        jLabelCaptionToMcp12.setFont(jLabelCaptionToMcp12.getFont().deriveFont(jLabelCaptionToMcp12.getFont().getSize()-2f));
+        jLabelCaptionToMcp12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionToMcp12.setText("Line 1.2");
+        jLabelCaptionToMcp12.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp12.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp12.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionToMcp12, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 296, 52, 14));
 
-        jButtonFeed13Close5.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close5.setText("C");
-        jButtonFeed13Close5.setToolTipText("");
-        jButtonFeed13Close5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close5.addActionListener(this::jButtonFeed13Close5ActionPerformed);
-        add(jButtonFeed13Close5, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 388, 20, 20));
+        jButtonToMcpHeader13Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonToMcpHeader13Close.setText("C");
+        jButtonToMcpHeader13Close.setToolTipText("");
+        jButtonToMcpHeader13Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader13Close.addActionListener(this::jButtonToMcpHeader13CloseActionPerformed);
+        add(jButtonToMcpHeader13Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 350, 20, 20));
 
-        jButtonFeed13Open5.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open5.setText("O");
-        jButtonFeed13Open5.setToolTipText("");
-        jButtonFeed13Open5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open5.addActionListener(this::jButtonFeed13Open5ActionPerformed);
-        add(jButtonFeed13Open5, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 388, 20, 20));
+        jButtonToMcpHeader13Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonToMcpHeader13Open.setText("O");
+        jButtonToMcpHeader13Open.setToolTipText("");
+        jButtonToMcpHeader13Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader13Open.addActionListener(this::jButtonToMcpHeader13OpenActionPerformed);
+        add(jButtonToMcpHeader13Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 350, 20, 20));
 
-        jLabelFeed18.setFont(jLabelFeed18.getFont().deriveFont(jLabelFeed18.getFont().getSize()-2f));
-        jLabelFeed18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed18.setText("Line 1.1");
-        jLabelFeed18.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed18.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed18.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed18, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 374, 52, 14));
+        jLabelCaptionToMcp13.setFont(jLabelCaptionToMcp13.getFont().deriveFont(jLabelCaptionToMcp13.getFont().getSize()-2f));
+        jLabelCaptionToMcp13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionToMcp13.setText("Line 1.3");
+        jLabelCaptionToMcp13.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp13.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp13.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionToMcp13, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 336, 52, 14));
 
-        jButtonFeed13Close6.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close6.setText("C");
-        jButtonFeed13Close6.setToolTipText("");
-        jButtonFeed13Close6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close6.addActionListener(this::jButtonFeed13Close6ActionPerformed);
-        add(jButtonFeed13Close6, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 308, 20, 20));
+        jButtonToMcpHeader21Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonToMcpHeader21Close.setText("C");
+        jButtonToMcpHeader21Close.setToolTipText("");
+        jButtonToMcpHeader21Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader21Close.addActionListener(this::jButtonToMcpHeader21CloseActionPerformed);
+        add(jButtonToMcpHeader21Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 270, 20, 20));
 
-        jButtonFeed13Open6.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open6.setText("O");
-        jButtonFeed13Open6.setToolTipText("");
-        jButtonFeed13Open6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open6.addActionListener(this::jButtonFeed13Open6ActionPerformed);
-        add(jButtonFeed13Open6, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 308, 20, 20));
+        jButtonToMcpHeader21Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonToMcpHeader21Open.setText("O");
+        jButtonToMcpHeader21Open.setToolTipText("");
+        jButtonToMcpHeader21Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader21Open.addActionListener(this::jButtonToMcpHeader21OpenActionPerformed);
+        add(jButtonToMcpHeader21Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 270, 20, 20));
 
-        jLabelFeed19.setFont(jLabelFeed19.getFont().deriveFont(jLabelFeed19.getFont().getSize()-2f));
-        jLabelFeed19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed19.setText("Line 1.1");
-        jLabelFeed19.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed19.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed19.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed19, new org.netbeans.lib.awtextra.AbsoluteConstraints(864, 294, 52, 14));
+        jLabelCaptionToMcp21.setFont(jLabelCaptionToMcp21.getFont().deriveFont(jLabelCaptionToMcp21.getFont().getSize()-2f));
+        jLabelCaptionToMcp21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionToMcp21.setText("Line 2.1");
+        jLabelCaptionToMcp21.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp21.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp21.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionToMcp21, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 256, 52, 14));
 
-        jButtonFeed13Close7.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close7.setText("C");
-        jButtonFeed13Close7.setToolTipText("");
-        jButtonFeed13Close7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close7.addActionListener(this::jButtonFeed13Close7ActionPerformed);
-        add(jButtonFeed13Close7, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 348, 20, 20));
+        jButtonToMcpHeader22Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonToMcpHeader22Close.setText("C");
+        jButtonToMcpHeader22Close.setToolTipText("");
+        jButtonToMcpHeader22Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader22Close.addActionListener(this::jButtonToMcpHeader22CloseActionPerformed);
+        add(jButtonToMcpHeader22Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 310, 20, 20));
 
-        jButtonFeed13Open7.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open7.setText("O");
-        jButtonFeed13Open7.setToolTipText("");
-        jButtonFeed13Open7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open7.addActionListener(this::jButtonFeed13Open7ActionPerformed);
-        add(jButtonFeed13Open7, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 348, 20, 20));
+        jButtonToMcpHeader22Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonToMcpHeader22Open.setText("O");
+        jButtonToMcpHeader22Open.setToolTipText("");
+        jButtonToMcpHeader22Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader22Open.addActionListener(this::jButtonToMcpHeader22OpenActionPerformed);
+        add(jButtonToMcpHeader22Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 310, 20, 20));
 
-        jLabelFeed20.setFont(jLabelFeed20.getFont().deriveFont(jLabelFeed20.getFont().getSize()-2f));
-        jLabelFeed20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed20.setText("Line 1.1");
-        jLabelFeed20.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed20.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed20.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed20, new org.netbeans.lib.awtextra.AbsoluteConstraints(864, 334, 52, 14));
+        jLabelCaptionToMcp22.setFont(jLabelCaptionToMcp22.getFont().deriveFont(jLabelCaptionToMcp22.getFont().getSize()-2f));
+        jLabelCaptionToMcp22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionToMcp22.setText("Line 2.2");
+        jLabelCaptionToMcp22.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp22.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp22.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionToMcp22, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 296, 52, 14));
 
-        jButtonFeed13Close8.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close8.setText("C");
-        jButtonFeed13Close8.setToolTipText("");
-        jButtonFeed13Close8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close8.addActionListener(this::jButtonFeed13Close8ActionPerformed);
-        add(jButtonFeed13Close8, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 388, 20, 20));
+        jButtonToMcpHeader23Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonToMcpHeader23Close.setText("C");
+        jButtonToMcpHeader23Close.setToolTipText("");
+        jButtonToMcpHeader23Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader23Close.addActionListener(this::jButtonToMcpHeader23CloseActionPerformed);
+        add(jButtonToMcpHeader23Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 350, 20, 20));
 
-        jButtonFeed13Open8.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open8.setText("O");
-        jButtonFeed13Open8.setToolTipText("");
-        jButtonFeed13Open8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open8.addActionListener(this::jButtonFeed13Open8ActionPerformed);
-        add(jButtonFeed13Open8, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 388, 20, 20));
+        jButtonToMcpHeader23Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonToMcpHeader23Open.setText("O");
+        jButtonToMcpHeader23Open.setToolTipText("");
+        jButtonToMcpHeader23Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonToMcpHeader23Open.addActionListener(this::jButtonToMcpHeader23OpenActionPerformed);
+        add(jButtonToMcpHeader23Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 350, 20, 20));
 
-        jLabelFeed21.setFont(jLabelFeed21.getFont().deriveFont(jLabelFeed21.getFont().getSize()-2f));
-        jLabelFeed21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed21.setText("Line 1.1");
-        jLabelFeed21.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed21.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed21.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(864, 374, 52, 14));
-        add(panelWidgetPumpPSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 468, -1, -1));
+        jLabelCaptionToMcp23.setFont(jLabelCaptionToMcp23.getFont().deriveFont(jLabelCaptionToMcp23.getFont().getSize()-2f));
+        jLabelCaptionToMcp23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionToMcp23.setText("Line 2.3");
+        jLabelCaptionToMcp23.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp23.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionToMcp23.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionToMcp23, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 336, 52, 14));
+        add(panelWidgetPumpPSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 398, -1, -1));
 
-        integralSwitch15.setComponent("AuxCond1#SteamValve");
-        integralSwitch15.setControlledValve(true);
-        integralSwitch15.setToolTipText("");
-        add(integralSwitch15, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 388, -1, -1));
+        integralSwitchPSP2Feed12.setComponent("AuxCond1#SteamValve");
+        integralSwitchPSP2Feed12.setControlledValve(true);
+        integralSwitchPSP2Feed12.setToolTipText("");
+        add(integralSwitchPSP2Feed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 318, -1, -1));
 
-        jToggleButtonControl1Enable12.setFont(jToggleButtonControl1Enable12.getFont().deriveFont(jToggleButtonControl1Enable12.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable12.setText("←");
-        jToggleButtonControl1Enable12.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable12.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable12.addActionListener(this::jToggleButtonControl1Enable12ActionPerformed);
-        add(jToggleButtonControl1Enable12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 392, 20, 20));
-        add(lightBulbControl1Active12, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 398, -1, -1));
+        jToggleButtonPSP2Feed12Auto.setFont(jToggleButtonPSP2Feed12Auto.getFont().deriveFont(jToggleButtonPSP2Feed12Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPSP2Feed12Auto.setText("←");
+        jToggleButtonPSP2Feed12Auto.setToolTipText("Auto Mode");
+        jToggleButtonPSP2Feed12Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPSP2Feed12Auto.addActionListener(this::jToggleButtonPSP2Feed12AutoActionPerformed);
+        add(jToggleButtonPSP2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 322, 20, 20));
+        add(lightBulbPSP2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 328, -1, -1));
 
-        integralSwitch16.setComponent("AuxCond1#SteamValve");
-        integralSwitch16.setControlledValve(true);
-        integralSwitch16.setToolTipText("");
-        add(integralSwitch16, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 436, -1, -1));
+        integralSwitchPSP2Feed22.setComponent("AuxCond1#SteamValve");
+        integralSwitchPSP2Feed22.setControlledValve(true);
+        integralSwitchPSP2Feed22.setToolTipText("");
+        add(integralSwitchPSP2Feed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 366, -1, -1));
 
         jToggleButtonControl1Enable13.setFont(jToggleButtonControl1Enable13.getFont().deriveFont(jToggleButtonControl1Enable13.getFont().getStyle() & ~java.awt.Font.BOLD));
         jToggleButtonControl1Enable13.setText("←");
         jToggleButtonControl1Enable13.setToolTipText("Auto Mode");
         jToggleButtonControl1Enable13.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonControl1Enable13.addActionListener(this::jToggleButtonControl1Enable13ActionPerformed);
-        add(jToggleButtonControl1Enable13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 20, 20));
-        add(lightBulbControl1Active13, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 446, -1, -1));
+        add(jToggleButtonControl1Enable13, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 370, 20, 20));
+        add(lightBulbPSP2Feed22Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 376, -1, -1));
+
+        jLabelCaptionPSPP2.setFont(jLabelCaptionPSPP2.getFont().deriveFont(jLabelCaptionPSPP2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP2.getFont().getSize()-2));
+        jLabelCaptionPSPP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPP2.setText("Pump 2");
+        add(jLabelCaptionPSPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 284, 76, 14));
+
+        jLabelCaptionPSPP2F22.setFont(jLabelCaptionPSPP2F22.getFont().deriveFont(jLabelCaptionPSPP2F22.getFont().getSize()-2f));
+        jLabelCaptionPSPP2F22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPP2F22.setText("Feed 2.2");
+        jLabelCaptionPSPP2F22.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP2F22.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP2F22.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPP2F22, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 350, 72, 14));
+
+        jLabelCaptionPSPP2F12.setFont(jLabelCaptionPSPP2F12.getFont().deriveFont(jLabelCaptionPSPP2F12.getFont().getSize()-2f));
+        jLabelCaptionPSPP2F12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPP2F12.setText("Feed 1.2");
+        jLabelCaptionPSPP2F12.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP2F12.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP2F12.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPP2F12, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 302, 72, 14));
+
+        jButtonCoolantPSPP2Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonCoolantPSPP2Close.setText("C");
+        jButtonCoolantPSPP2Close.setToolTipText("");
+        jButtonCoolantPSPP2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCoolantPSPP2Close.addActionListener(this::jButtonCoolantPSPP2CloseActionPerformed);
+        add(jButtonCoolantPSPP2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 522, 20, 20));
+
+        jButtonCoolantPSPP2Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonCoolantPSPP2Open.setText("O");
+        jButtonCoolantPSPP2Open.setToolTipText("");
+        jButtonCoolantPSPP2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCoolantPSPP2Open.addActionListener(this::jButtonCoolantPSPP2OpenActionPerformed);
+        add(jButtonCoolantPSPP2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 522, 20, 20));
+
+        jLabelCaptionPSPPCoolant2.setFont(jLabelCaptionPSPPCoolant2.getFont().deriveFont(jLabelCaptionPSPPCoolant2.getFont().getSize()-2f));
+        jLabelCaptionPSPPCoolant2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPPCoolant2.setText("Coolant");
+        jLabelCaptionPSPPCoolant2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPPCoolant2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPPCoolant2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPPCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 508, 52, 14));
+        add(panelWidgetPumpPSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 398, -1, -1));
+
+        integralSwitchPSP3Feed13.setComponent("AuxCond1#SteamValve");
+        integralSwitchPSP3Feed13.setControlledValve(true);
+        integralSwitchPSP3Feed13.setToolTipText("");
+        add(integralSwitchPSP3Feed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 318, -1, -1));
+
+        jToggleButtonPSP3Feed13Auto.setFont(jToggleButtonPSP3Feed13Auto.getFont().deriveFont(jToggleButtonPSP3Feed13Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPSP3Feed13Auto.setText("←");
+        jToggleButtonPSP3Feed13Auto.setToolTipText("Auto Mode");
+        jToggleButtonPSP3Feed13Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPSP3Feed13Auto.addActionListener(this::jToggleButtonPSP3Feed13AutoActionPerformed);
+        add(jToggleButtonPSP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 322, 20, 20));
+        add(lightBulbPSP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 328, -1, -1));
+
+        integralSwitchPSP3Feed23.setComponent("AuxCond1#SteamValve");
+        integralSwitchPSP3Feed23.setControlledValve(true);
+        integralSwitchPSP3Feed23.setToolTipText("");
+        add(integralSwitchPSP3Feed23, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 366, -1, -1));
+
+        jToggleButtonPSP3Feed23Auto.setFont(jToggleButtonPSP3Feed23Auto.getFont().deriveFont(jToggleButtonPSP3Feed23Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonPSP3Feed23Auto.setText("←");
+        jToggleButtonPSP3Feed23Auto.setToolTipText("Auto Mode");
+        jToggleButtonPSP3Feed23Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonPSP3Feed23Auto.addActionListener(this::jToggleButtonPSP3Feed23AutoActionPerformed);
+        add(jToggleButtonPSP3Feed23Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 370, 20, 20));
+        add(lightBulbPSP3Feed23Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 376, -1, -1));
 
         jLabelCaptionPSPP3.setFont(jLabelCaptionPSPP3.getFont().deriveFont(jLabelCaptionPSPP3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP3.getFont().getSize()-2));
         jLabelCaptionPSPP3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP3.setText("Pump 2");
-        add(jLabelCaptionPSPP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 354, 76, 14));
+        jLabelCaptionPSPP3.setText("Pump 3");
+        add(jLabelCaptionPSPP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 284, 76, 14));
 
-        jLabelCaptionPSPP1F25.setFont(jLabelCaptionPSPP1F25.getFont().deriveFont(jLabelCaptionPSPP1F25.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F25.setText("Feed 2.2");
-        jLabelCaptionPSPP1F25.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F25.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F25.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F25, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 72, 14));
+        jLabelCaptionPSPP3F23.setFont(jLabelCaptionPSPP3F23.getFont().deriveFont(jLabelCaptionPSPP3F23.getFont().getSize()-2f));
+        jLabelCaptionPSPP3F23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPP3F23.setText("Feed 2.3");
+        jLabelCaptionPSPP3F23.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP3F23.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP3F23.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPP3F23, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 350, 72, 14));
 
-        jLabelCaptionPSPP1F18.setFont(jLabelCaptionPSPP1F18.getFont().deriveFont(jLabelCaptionPSPP1F18.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F18.setText("Feed 1.2");
-        jLabelCaptionPSPP1F18.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F18.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F18.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 372, 72, 14));
+        jLabelCaptionPSPP3F13.setFont(jLabelCaptionPSPP3F13.getFont().deriveFont(jLabelCaptionPSPP3F13.getFont().getSize()-2f));
+        jLabelCaptionPSPP3F13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPP3F13.setText("Feed 1.3");
+        jLabelCaptionPSPP3F13.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP3F13.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPP3F13.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPP3F13, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 302, 72, 14));
 
-        jButtonFeed13Close9.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close9.setText("C");
-        jButtonFeed13Close9.setToolTipText("");
-        jButtonFeed13Close9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close9.addActionListener(this::jButtonFeed13Close9ActionPerformed);
-        add(jButtonFeed13Close9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 592, 20, 20));
+        jButtonCoolantPSPP3Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonCoolantPSPP3Close.setText("C");
+        jButtonCoolantPSPP3Close.setToolTipText("");
+        jButtonCoolantPSPP3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCoolantPSPP3Close.addActionListener(this::jButtonCoolantPSPP3CloseActionPerformed);
+        add(jButtonCoolantPSPP3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 522, 20, 20));
 
-        jButtonFeed13Open9.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open9.setText("O");
-        jButtonFeed13Open9.setToolTipText("");
-        jButtonFeed13Open9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open9.addActionListener(this::jButtonFeed13Open9ActionPerformed);
-        add(jButtonFeed13Open9, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 592, 20, 20));
+        jButtonCoolantPSPP3Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonCoolantPSPP3Open.setText("O");
+        jButtonCoolantPSPP3Open.setToolTipText("");
+        jButtonCoolantPSPP3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCoolantPSPP3Open.addActionListener(this::jButtonCoolantPSPP3OpenActionPerformed);
+        add(jButtonCoolantPSPP3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 522, 20, 20));
 
-        jLabelFeed22.setFont(jLabelFeed22.getFont().deriveFont(jLabelFeed22.getFont().getSize()-2f));
-        jLabelFeed22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed22.setText("Coolant");
-        jLabelFeed22.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed22.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed22.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 578, 52, 14));
-        add(panelWidgetPumpPSP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 468, -1, -1));
-
-        integralSwitch17.setComponent("AuxCond1#SteamValve");
-        integralSwitch17.setControlledValve(true);
-        integralSwitch17.setToolTipText("");
-        add(integralSwitch17, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 388, -1, -1));
-
-        jToggleButtonControl1Enable14.setFont(jToggleButtonControl1Enable14.getFont().deriveFont(jToggleButtonControl1Enable14.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable14.setText("←");
-        jToggleButtonControl1Enable14.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable14.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable14.addActionListener(this::jToggleButtonControl1Enable14ActionPerformed);
-        add(jToggleButtonControl1Enable14, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 392, 20, 20));
-        add(lightBulbControl1Active14, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 398, -1, -1));
-
-        integralSwitch18.setComponent("AuxCond1#SteamValve");
-        integralSwitch18.setControlledValve(true);
-        integralSwitch18.setToolTipText("");
-        add(integralSwitch18, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 436, -1, -1));
-
-        jToggleButtonControl1Enable15.setFont(jToggleButtonControl1Enable15.getFont().deriveFont(jToggleButtonControl1Enable15.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable15.setText("←");
-        jToggleButtonControl1Enable15.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable15.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable15.addActionListener(this::jToggleButtonControl1Enable15ActionPerformed);
-        add(jToggleButtonControl1Enable15, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 440, 20, 20));
-        add(lightBulbControl1Active15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 446, -1, -1));
-
-        jLabelCaptionPSPP4.setFont(jLabelCaptionPSPP4.getFont().deriveFont(jLabelCaptionPSPP4.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP4.getFont().getSize()-2));
-        jLabelCaptionPSPP4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP4.setText("Pump 3");
-        add(jLabelCaptionPSPP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 354, 76, 14));
-
-        jLabelCaptionPSPP1F26.setFont(jLabelCaptionPSPP1F26.getFont().deriveFont(jLabelCaptionPSPP1F26.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F26.setText("Feed 2.3");
-        jLabelCaptionPSPP1F26.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F26.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F26.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F26, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 420, 72, 14));
-
-        jLabelCaptionPSPP1F19.setFont(jLabelCaptionPSPP1F19.getFont().deriveFont(jLabelCaptionPSPP1F19.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F19.setText("Feed 1.3");
-        jLabelCaptionPSPP1F19.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F19.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F19.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F19, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 372, 72, 14));
-
-        jButtonFeed13Close10.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close10.setText("C");
-        jButtonFeed13Close10.setToolTipText("");
-        jButtonFeed13Close10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close10.addActionListener(this::jButtonFeed13Close10ActionPerformed);
-        add(jButtonFeed13Close10, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 592, 20, 20));
-
-        jButtonFeed13Open10.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open10.setText("O");
-        jButtonFeed13Open10.setToolTipText("");
-        jButtonFeed13Open10.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open10.addActionListener(this::jButtonFeed13Open10ActionPerformed);
-        add(jButtonFeed13Open10, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 592, 20, 20));
-
-        jLabelFeed23.setFont(jLabelFeed23.getFont().deriveFont(jLabelFeed23.getFont().getSize()-2f));
-        jLabelFeed23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed23.setText("Coolant");
-        jLabelFeed23.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed23.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed23.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed23, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 578, 52, 14));
+        jLabelCaptionPSPPCoolant3.setFont(jLabelCaptionPSPPCoolant3.getFont().deriveFont(jLabelCaptionPSPPCoolant3.getFont().getSize()-2f));
+        jLabelCaptionPSPPCoolant3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPPCoolant3.setText("Coolant");
+        jLabelCaptionPSPPCoolant3.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPPCoolant3.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPSPPCoolant3.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPSPPCoolant3, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 508, 52, 14));
 
         jLabelCaptionDrumDrain6.setFont(jLabelCaptionDrumDrain6.getFont().deriveFont(jLabelCaptionDrumDrain6.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain6.getFont().getSize()-2));
         jLabelCaptionDrumDrain6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain6.setText("From Cold Condensate Storage");
-        add(jLabelCaptionDrumDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 334, 258, 14));
+        add(jLabelCaptionDrumDrain6, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 300, 258, 14));
 
-        integralSwitch27.setComponent("AuxCond1#SteamValve");
-        integralSwitch27.setControlledValve(true);
-        integralSwitch27.setToolTipText("");
-        add(integralSwitch27, new org.netbeans.lib.awtextra.AbsoluteConstraints(858, 470, -1, -1));
+        integralSwitchP3Feed13.setComponent("AuxCond1#SteamValve");
+        integralSwitchP3Feed13.setControlledValve(true);
+        integralSwitchP3Feed13.setToolTipText("");
+        add(integralSwitchP3Feed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 176, -1, -1));
 
-        jToggleButtonControl1Enable20.setFont(jToggleButtonControl1Enable20.getFont().deriveFont(jToggleButtonControl1Enable20.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable20.setText("←");
-        jToggleButtonControl1Enable20.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable20.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable20.addActionListener(this::jToggleButtonControl1Enable20ActionPerformed);
-        add(jToggleButtonControl1Enable20, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 474, 20, 20));
-        add(lightBulbControl1Active22, new org.netbeans.lib.awtextra.AbsoluteConstraints(846, 480, -1, -1));
+        jToggleButtonP3Feed13Auto.setFont(jToggleButtonP3Feed13Auto.getFont().deriveFont(jToggleButtonP3Feed13Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonP3Feed13Auto.setText("←");
+        jToggleButtonP3Feed13Auto.setToolTipText("Auto Mode");
+        jToggleButtonP3Feed13Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonP3Feed13Auto.addActionListener(this::jToggleButtonP3Feed13AutoActionPerformed);
+        add(jToggleButtonP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 20, 20));
+        add(lightBulbP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 186, -1, -1));
 
-        integralSwitch28.setComponent("AuxCond1#SteamValve");
-        integralSwitch28.setControlledValve(true);
-        integralSwitch28.setToolTipText("");
-        add(integralSwitch28, new org.netbeans.lib.awtextra.AbsoluteConstraints(858, 518, -1, -1));
+        integralSwitchP3Feed23.setComponent("AuxCond1#SteamValve");
+        integralSwitchP3Feed23.setControlledValve(true);
+        integralSwitchP3Feed23.setToolTipText("");
+        add(integralSwitchP3Feed23, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 224, -1, -1));
 
-        jToggleButtonControl1Enable21.setFont(jToggleButtonControl1Enable21.getFont().deriveFont(jToggleButtonControl1Enable21.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable21.setText("←");
-        jToggleButtonControl1Enable21.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable21.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable21.addActionListener(this::jToggleButtonControl1Enable21ActionPerformed);
-        add(jToggleButtonControl1Enable21, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 522, 20, 20));
-        add(lightBulbControl1Active23, new org.netbeans.lib.awtextra.AbsoluteConstraints(846, 528, -1, -1));
-
-        jLabelCaptionPSPP8.setFont(jLabelCaptionPSPP8.getFont().deriveFont(jLabelCaptionPSPP8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP8.getFont().getSize()-2));
-        jLabelCaptionPSPP8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP8.setText("Feedwater");
-        add(jLabelCaptionPSPP8, new org.netbeans.lib.awtextra.AbsoluteConstraints(818, 420, 76, 14));
+        jToggleButtonP3Feed23Auto.setFont(jToggleButtonP3Feed23Auto.getFont().deriveFont(jToggleButtonP3Feed23Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonP3Feed23Auto.setText("←");
+        jToggleButtonP3Feed23Auto.setToolTipText("Auto Mode");
+        jToggleButtonP3Feed23Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonP3Feed23Auto.addActionListener(this::jToggleButtonP3Feed23AutoActionPerformed);
+        add(jToggleButtonP3Feed23Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 228, 20, 20));
+        add(lightBulbP3Feed23Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 234, -1, -1));
 
         jLabelCaptionPSPP1F32.setFont(jLabelCaptionPSPP1F32.getFont().deriveFont(jLabelCaptionPSPP1F32.getFont().getSize()-2f));
         jLabelCaptionPSPP1F32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -815,7 +812,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F32.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F32.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F32.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F32, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 502, 72, 14));
+        add(jLabelCaptionPSPP1F32, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 208, 72, 14));
 
         jLabelCaptionPSPP1F33.setFont(jLabelCaptionPSPP1F33.getFont().deriveFont(jLabelCaptionPSPP1F33.getFont().getSize()-2f));
         jLabelCaptionPSPP1F33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -823,63 +820,63 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F33.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F33.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F33.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F33, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 454, 72, 14));
+        add(jLabelCaptionPSPP1F33, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 72, 14));
 
         jLabelCaptionPSPP9.setFont(jLabelCaptionPSPP9.getFont().deriveFont(jLabelCaptionPSPP9.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP9.getFont().getSize()-2));
         jLabelCaptionPSPP9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP9.setText("Pump 3");
-        add(jLabelCaptionPSPP9, new org.netbeans.lib.awtextra.AbsoluteConstraints(818, 436, 76, 14));
+        jLabelCaptionPSPP9.setText("Feed Pump 3");
+        add(jLabelCaptionPSPP9, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 142, 76, 14));
 
-        jButtonFeed13Close11.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close11.setText("C");
-        jButtonFeed13Close11.setToolTipText("");
-        jButtonFeed13Close11.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close11.addActionListener(this::jButtonFeed13Close11ActionPerformed);
-        add(jButtonFeed13Close11, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 124, 20, 20));
+        jButtonSprinklerCoolant1Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonSprinklerCoolant1Close.setText("C");
+        jButtonSprinklerCoolant1Close.setToolTipText("");
+        jButtonSprinklerCoolant1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSprinklerCoolant1Close.addActionListener(this::jButtonSprinklerCoolant1CloseActionPerformed);
+        add(jButtonSprinklerCoolant1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(584, 346, 20, 20));
 
-        jButtonFeed13Open11.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open11.setText("O");
-        jButtonFeed13Open11.setToolTipText("");
-        jButtonFeed13Open11.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open11.addActionListener(this::jButtonFeed13Open11ActionPerformed);
-        add(jButtonFeed13Open11, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 124, 20, 20));
+        jButtonSprinklerCoolant1Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonSprinklerCoolant1Open.setText("O");
+        jButtonSprinklerCoolant1Open.setToolTipText("");
+        jButtonSprinklerCoolant1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSprinklerCoolant1Open.addActionListener(this::jButtonSprinklerCoolant1OpenActionPerformed);
+        add(jButtonSprinklerCoolant1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 346, 20, 20));
 
-        jLabelFeed24.setFont(jLabelFeed24.getFont().deriveFont(jLabelFeed24.getFont().getSize()-2f));
-        jLabelFeed24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed24.setText("Coolant");
-        jLabelFeed24.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed24.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed24.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed24, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 110, 52, 14));
-        add(panelWidgetSmallPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 34, -1, -1));
+        jLabelCaptionSprinklerCoolant1.setFont(jLabelCaptionSprinklerCoolant1.getFont().deriveFont(jLabelCaptionSprinklerCoolant1.getFont().getSize()-2f));
+        jLabelCaptionSprinklerCoolant1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionSprinklerCoolant1.setText("Coolant");
+        jLabelCaptionSprinklerCoolant1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionSprinklerCoolant1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionSprinklerCoolant1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionSprinklerCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 332, 52, 14));
+        add(panelWidgetSprinklerPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(654, 256, -1, -1));
 
-        jButtonFeed13Close12.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonFeed13Close12.setText("C");
-        jButtonFeed13Close12.setToolTipText("");
-        jButtonFeed13Close12.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Close12.addActionListener(this::jButtonFeed13Close12ActionPerformed);
-        add(jButtonFeed13Close12, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 124, 20, 20));
+        jButtonSprinklerCoolant2Close.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonSprinklerCoolant2Close.setText("C");
+        jButtonSprinklerCoolant2Close.setToolTipText("");
+        jButtonSprinklerCoolant2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSprinklerCoolant2Close.addActionListener(this::jButtonSprinklerCoolant2CloseActionPerformed);
+        add(jButtonSprinklerCoolant2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(656, 346, 20, 20));
 
-        jButtonFeed13Open12.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonFeed13Open12.setText("O");
-        jButtonFeed13Open12.setToolTipText("");
-        jButtonFeed13Open12.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonFeed13Open12.addActionListener(this::jButtonFeed13Open12ActionPerformed);
-        add(jButtonFeed13Open12, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 124, 20, 20));
+        jButtonSprinklerCoolant2Open.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonSprinklerCoolant2Open.setText("O");
+        jButtonSprinklerCoolant2Open.setToolTipText("");
+        jButtonSprinklerCoolant2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonSprinklerCoolant2Open.addActionListener(this::jButtonSprinklerCoolant2OpenActionPerformed);
+        add(jButtonSprinklerCoolant2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(684, 346, 20, 20));
 
-        jLabelFeed25.setFont(jLabelFeed25.getFont().deriveFont(jLabelFeed25.getFont().getSize()-2f));
-        jLabelFeed25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFeed25.setText("Coolant");
-        jLabelFeed25.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed25.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelFeed25.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelFeed25, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 110, 52, 14));
+        jLabelCaptionSprinklerCoolant2.setFont(jLabelCaptionSprinklerCoolant2.getFont().deriveFont(jLabelCaptionSprinklerCoolant2.getFont().getSize()-2f));
+        jLabelCaptionSprinklerCoolant2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionSprinklerCoolant2.setText("Coolant");
+        jLabelCaptionSprinklerCoolant2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionSprinklerCoolant2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionSprinklerCoolant2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionSprinklerCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(654, 332, 52, 14));
 
-        jLabelCaptionDrumDrain7.setFont(jLabelCaptionDrumDrain7.getFont().deriveFont(jLabelCaptionDrumDrain7.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain7.getFont().getSize()-2));
-        jLabelCaptionDrumDrain7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain7.setText("Pressure Suppresion Pool");
-        add(jLabelCaptionDrumDrain7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 12, 200, 14));
-        add(integralSwitch29, new org.netbeans.lib.awtextra.AbsoluteConstraints(636, 542, -1, -1));
+        jLabelCaptionGaugesPSP.setFont(jLabelCaptionGaugesPSP.getFont().deriveFont(jLabelCaptionGaugesPSP.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGaugesPSP.getFont().getSize()-2));
+        jLabelCaptionGaugesPSP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionGaugesPSP.setText("Pressure Suppresion Pool");
+        add(jLabelCaptionGaugesPSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 12, 200, 14));
+        add(integralSwitchDrum1SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 76, -1, -1));
 
         jLabelCaptionBypass4.setFont(jLabelCaptionBypass4.getFont().deriveFont(jLabelCaptionBypass4.getFont().getSize()-2f));
         jLabelCaptionBypass4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -887,8 +884,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionBypass4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(626, 524, 60, 14));
-        add(integralSwitch30, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 542, -1, -1));
+        add(jLabelCaptionBypass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 58, 60, 14));
+        add(integralSwitchDrum2SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 76, -1, -1));
 
         jLabelCaptionBypass5.setFont(jLabelCaptionBypass5.getFont().deriveFont(jLabelCaptionBypass5.getFont().getSize()-2f));
         jLabelCaptionBypass5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -896,628 +893,650 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionBypass5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 524, 60, 14));
+        add(jLabelCaptionBypass5, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 58, 60, 14));
 
         jLabelCaptionDrumDrain8.setFont(jLabelCaptionDrumDrain8.getFont().deriveFont(jLabelCaptionDrumDrain8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain8.getFont().getSize()-2));
         jLabelCaptionDrumDrain8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain8.setText("suppression pool");
-        add(jLabelCaptionDrumDrain8, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 506, 126, 14));
+        add(jLabelCaptionDrumDrain8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 126, 14));
 
         jLabelCaptionDrumDrain9.setFont(jLabelCaptionDrumDrain9.getFont().deriveFont(jLabelCaptionDrumDrain9.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain9.getFont().getSize()-2));
         jLabelCaptionDrumDrain9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain9.setText("RV to pressure");
-        add(jLabelCaptionDrumDrain9, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 490, 126, 14));
+        add(jLabelCaptionDrumDrain9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 24, 126, 14));
 
         jLabelCaptionDrumDrain10.setFont(jLabelCaptionDrumDrain10.getFont().deriveFont(jLabelCaptionDrumDrain10.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain10.getFont().getSize()-2));
         jLabelCaptionDrumDrain10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain10.setText("Drum Drain");
-        add(jLabelCaptionDrumDrain10, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 290, 106, 14));
+        add(jLabelCaptionDrumDrain10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 106, 14));
 
-        jLabelCaptionPSPP1F34.setFont(jLabelCaptionPSPP1F34.getFont().deriveFont(jLabelCaptionPSPP1F34.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F34.setText("Pressure");
-        jLabelCaptionPSPP1F34.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F34.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F34.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F34, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 134, 72, 14));
+        jLabelCaptionPVP2.setFont(jLabelCaptionPVP2.getFont().deriveFont(jLabelCaptionPVP2.getFont().getSize()-2f));
+        jLabelCaptionPVP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPVP2.setText("Pressure");
+        jLabelCaptionPVP2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPVP2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPVP2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPVP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 134, 72, 14));
 
-        jLabelCaptionPSPP1F35.setFont(jLabelCaptionPSPP1F35.getFont().deriveFont(jLabelCaptionPSPP1F35.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F35.setText("Pressure");
-        jLabelCaptionPSPP1F35.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F35.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F35.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 134, 72, 14));
+        jLabelCaptionPVP1.setFont(jLabelCaptionPVP1.getFont().deriveFont(jLabelCaptionPVP1.getFont().getSize()-2f));
+        jLabelCaptionPVP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPVP1.setText("Pressure");
+        jLabelCaptionPVP1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPVP1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPVP1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPVP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 134, 72, 14));
 
-        ammeter3.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 92, 58));
+        ammeterPSPTemperature.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterPSPTemperature.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterPSPTemperature.setForeground(new java.awt.Color(0, 0, 0));
+        add(ammeterPSPTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 30, 92, 58));
 
-        jLabelCaptionPSPP1F36.setFont(jLabelCaptionPSPP1F36.getFont().deriveFont(jLabelCaptionPSPP1F36.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F36.setText("Temperature");
-        add(jLabelCaptionPSPP1F36, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 92, 14));
+        jLabelCaptionPSPTemperature.setFont(jLabelCaptionPSPTemperature.getFont().deriveFont(jLabelCaptionPSPTemperature.getFont().getSize()-2f));
+        jLabelCaptionPSPTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPTemperature.setText("Temperature");
+        add(jLabelCaptionPSPTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 90, 92, 14));
 
-        ammeter4.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter4, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 30, 92, 58));
+        ammeterPSPLevel.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterPSPLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterPSPLevel.setForeground(new java.awt.Color(0, 0, 0));
+        add(ammeterPSPLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 30, 92, 58));
 
-        jLabelCaptionPSPP1F37.setFont(jLabelCaptionPSPP1F37.getFont().deriveFont(jLabelCaptionPSPP1F37.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F37.setText("Level");
-        add(jLabelCaptionPSPP1F37, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 90, 92, 14));
-        add(panelWidgetPumpPSP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 468, -1, -1));
+        jLabelCaptionPSPLevel.setFont(jLabelCaptionPSPLevel.getFont().deriveFont(jLabelCaptionPSPLevel.getFont().getSize()-2f));
+        jLabelCaptionPSPLevel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPSPLevel.setText("Level");
+        add(jLabelCaptionPSPLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 90, 92, 14));
+        add(panelWidgetPumpCCSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 434, -1, -1));
 
-        integralSwitch21.setComponent("AuxCond1#SteamValve");
-        integralSwitch21.setControlledValve(true);
-        integralSwitch21.setToolTipText("");
-        add(integralSwitch21, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 388, -1, -1));
+        integralSwitchCCSP1Feed11.setComponent("AuxCond1#SteamValve");
+        integralSwitchCCSP1Feed11.setControlledValve(true);
+        integralSwitchCCSP1Feed11.setToolTipText("");
+        add(integralSwitchCCSP1Feed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 354, -1, -1));
 
-        jToggleButtonControl1Enable16.setFont(jToggleButtonControl1Enable16.getFont().deriveFont(jToggleButtonControl1Enable16.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable16.setText("←");
-        jToggleButtonControl1Enable16.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable16.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable16.addActionListener(this::jToggleButtonControl1Enable16ActionPerformed);
-        add(jToggleButtonControl1Enable16, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 392, 20, 20));
-        add(lightBulbControl1Active16, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 398, -1, -1));
+        jToggleButtonCCSP1Feed11Auto.setFont(jToggleButtonCCSP1Feed11Auto.getFont().deriveFont(jToggleButtonCCSP1Feed11Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonCCSP1Feed11Auto.setText("←");
+        jToggleButtonCCSP1Feed11Auto.setToolTipText("Auto Mode");
+        jToggleButtonCCSP1Feed11Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonCCSP1Feed11Auto.addActionListener(this::jToggleButtonCCSP1Feed11AutoActionPerformed);
+        add(jToggleButtonCCSP1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 358, 20, 20));
+        add(lightBulbCCSP1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 364, -1, -1));
 
-        integralSwitch22.setComponent("AuxCond1#SteamValve");
-        integralSwitch22.setControlledValve(true);
-        integralSwitch22.setToolTipText("");
-        add(integralSwitch22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 436, -1, -1));
+        integralSwitchCCSP1Feed21.setComponent("AuxCond1#SteamValve");
+        integralSwitchCCSP1Feed21.setControlledValve(true);
+        integralSwitchCCSP1Feed21.setToolTipText("");
+        add(integralSwitchCCSP1Feed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 402, -1, -1));
 
-        jToggleButtonControl1Enable17.setFont(jToggleButtonControl1Enable17.getFont().deriveFont(jToggleButtonControl1Enable17.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable17.setText("←");
-        jToggleButtonControl1Enable17.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable17.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable17.addActionListener(this::jToggleButtonControl1Enable17ActionPerformed);
-        add(jToggleButtonControl1Enable17, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 440, 20, 20));
-        add(lightBulbControl1Active17, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 446, -1, -1));
+        jToggleButtonCCSP1Feed21Auto.setFont(jToggleButtonCCSP1Feed21Auto.getFont().deriveFont(jToggleButtonCCSP1Feed21Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonCCSP1Feed21Auto.setText("←");
+        jToggleButtonCCSP1Feed21Auto.setToolTipText("Auto Mode");
+        jToggleButtonCCSP1Feed21Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonCCSP1Feed21Auto.addActionListener(this::jToggleButtonCCSP1Feed21AutoActionPerformed);
+        add(jToggleButtonCCSP1Feed21Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 406, 20, 20));
+        add(lightBulbCCSP1Feed21Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 412, -1, -1));
 
-        jLabelCaptionPSPP5.setFont(jLabelCaptionPSPP5.getFont().deriveFont(jLabelCaptionPSPP5.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP5.getFont().getSize()-2));
-        jLabelCaptionPSPP5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP5.setText("Pump 1");
-        add(jLabelCaptionPSPP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 354, 76, 14));
+        jLabelCaptionCCSP1.setFont(jLabelCaptionCCSP1.getFont().deriveFont(jLabelCaptionCCSP1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCCSP1.getFont().getSize()-2));
+        jLabelCaptionCCSP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP1.setText("Pump 1");
+        add(jLabelCaptionCCSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 320, 76, 14));
 
-        jLabelCaptionPSPP1F27.setFont(jLabelCaptionPSPP1F27.getFont().deriveFont(jLabelCaptionPSPP1F27.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F27.setText("Feed 2.1");
-        jLabelCaptionPSPP1F27.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F27.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F27.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F27, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 420, 72, 14));
+        jLabelCaptionCCSP1F21.setFont(jLabelCaptionCCSP1F21.getFont().deriveFont(jLabelCaptionCCSP1F21.getFont().getSize()-2f));
+        jLabelCaptionCCSP1F21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP1F21.setText("Feed 2.1");
+        jLabelCaptionCCSP1F21.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP1F21.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP1F21.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCCSP1F21, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 386, 72, 14));
 
-        jLabelCaptionPSPP1F20.setFont(jLabelCaptionPSPP1F20.getFont().deriveFont(jLabelCaptionPSPP1F20.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F20.setText("Feed 1.1");
-        jLabelCaptionPSPP1F20.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F20.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F20.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F20, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 372, 72, 14));
-        add(panelWidgetPumpPSP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 468, -1, -1));
+        jLabelCaptionCCSP1F11.setFont(jLabelCaptionCCSP1F11.getFont().deriveFont(jLabelCaptionCCSP1F11.getFont().getSize()-2f));
+        jLabelCaptionCCSP1F11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP1F11.setText("Feed 1.1");
+        jLabelCaptionCCSP1F11.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP1F11.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP1F11.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCCSP1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 338, 72, 14));
+        add(panelWidgetPumpCCSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 434, -1, -1));
 
-        integralSwitch23.setComponent("AuxCond1#SteamValve");
-        integralSwitch23.setControlledValve(true);
-        integralSwitch23.setToolTipText("");
-        add(integralSwitch23, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 388, -1, -1));
+        integralSwitchCCSP2Feed12.setComponent("AuxCond1#SteamValve");
+        integralSwitchCCSP2Feed12.setControlledValve(true);
+        integralSwitchCCSP2Feed12.setToolTipText("");
+        add(integralSwitchCCSP2Feed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 354, -1, -1));
 
-        jToggleButtonControl1Enable18.setFont(jToggleButtonControl1Enable18.getFont().deriveFont(jToggleButtonControl1Enable18.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable18.setText("←");
-        jToggleButtonControl1Enable18.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable18.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable18.addActionListener(this::jToggleButtonControl1Enable18ActionPerformed);
-        add(jToggleButtonControl1Enable18, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 392, 20, 20));
-        add(lightBulbControl1Active18, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 398, -1, -1));
+        jToggleButtonCCSP2Feed12Auto.setFont(jToggleButtonCCSP2Feed12Auto.getFont().deriveFont(jToggleButtonCCSP2Feed12Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonCCSP2Feed12Auto.setText("←");
+        jToggleButtonCCSP2Feed12Auto.setToolTipText("Auto Mode");
+        jToggleButtonCCSP2Feed12Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonCCSP2Feed12Auto.addActionListener(this::jToggleButtonCCSP2Feed12AutoActionPerformed);
+        add(jToggleButtonCCSP2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 358, 20, 20));
+        add(lightBulbCCSP2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 364, -1, -1));
 
-        integralSwitch24.setComponent("AuxCond1#SteamValve");
-        integralSwitch24.setControlledValve(true);
-        integralSwitch24.setToolTipText("");
-        add(integralSwitch24, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 436, -1, -1));
+        integralSwitchCCSP2Feed22.setComponent("AuxCond1#SteamValve");
+        integralSwitchCCSP2Feed22.setControlledValve(true);
+        integralSwitchCCSP2Feed22.setToolTipText("");
+        add(integralSwitchCCSP2Feed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 402, -1, -1));
 
-        jToggleButtonControl1Enable19.setFont(jToggleButtonControl1Enable19.getFont().deriveFont(jToggleButtonControl1Enable19.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable19.setText("←");
-        jToggleButtonControl1Enable19.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable19.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable19.addActionListener(this::jToggleButtonControl1Enable19ActionPerformed);
-        add(jToggleButtonControl1Enable19, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 20, 20));
-        add(lightBulbControl1Active19, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 446, -1, -1));
+        jToggleButtonCCSP2Feed22Auto.setFont(jToggleButtonCCSP2Feed22Auto.getFont().deriveFont(jToggleButtonCCSP2Feed22Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonCCSP2Feed22Auto.setText("←");
+        jToggleButtonCCSP2Feed22Auto.setToolTipText("Auto Mode");
+        jToggleButtonCCSP2Feed22Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonCCSP2Feed22Auto.addActionListener(this::jToggleButtonCCSP2Feed22AutoActionPerformed);
+        add(jToggleButtonCCSP2Feed22Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 406, 20, 20));
+        add(lightBulbCCSP2Feed22Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 412, -1, -1));
 
-        jLabelCaptionPSPP6.setFont(jLabelCaptionPSPP6.getFont().deriveFont(jLabelCaptionPSPP6.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP6.getFont().getSize()-2));
-        jLabelCaptionPSPP6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP6.setText("Pump 2");
-        add(jLabelCaptionPSPP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 354, 76, 14));
+        jLabelCaptionCCSP2.setFont(jLabelCaptionCCSP2.getFont().deriveFont(jLabelCaptionCCSP2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCCSP2.getFont().getSize()-2));
+        jLabelCaptionCCSP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP2.setText("Pump 2");
+        add(jLabelCaptionCCSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 320, 76, 14));
 
-        jLabelCaptionPSPP1F28.setFont(jLabelCaptionPSPP1F28.getFont().deriveFont(jLabelCaptionPSPP1F28.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F28.setText("Feed 2.2");
-        jLabelCaptionPSPP1F28.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F28.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F28.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F28, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, 72, 14));
+        jLabelCaptionCCSP2F22.setFont(jLabelCaptionCCSP2F22.getFont().deriveFont(jLabelCaptionCCSP2F22.getFont().getSize()-2f));
+        jLabelCaptionCCSP2F22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP2F22.setText("Feed 2.2");
+        jLabelCaptionCCSP2F22.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP2F22.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP2F22.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCCSP2F22, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 386, 72, 14));
 
-        jLabelCaptionPSPP1F29.setFont(jLabelCaptionPSPP1F29.getFont().deriveFont(jLabelCaptionPSPP1F29.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F29.setText("Feed 1.2");
-        jLabelCaptionPSPP1F29.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F29.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F29.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F29, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 372, 72, 14));
-        add(panelWidgetPumpPSP7, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 468, -1, -1));
+        jLabelCaptionCCSP2F12.setFont(jLabelCaptionCCSP2F12.getFont().deriveFont(jLabelCaptionCCSP2F12.getFont().getSize()-2f));
+        jLabelCaptionCCSP2F12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP2F12.setText("Feed 1.2");
+        jLabelCaptionCCSP2F12.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP2F12.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP2F12.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCCSP2F12, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 338, 72, 14));
+        add(panelWidgetPumpCCSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 434, -1, -1));
 
-        integralSwitch25.setComponent("AuxCond1#SteamValve");
-        integralSwitch25.setControlledValve(true);
-        integralSwitch25.setToolTipText("");
-        add(integralSwitch25, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 388, -1, -1));
+        integralSwitchCCSP3Feed13.setComponent("AuxCond1#SteamValve");
+        integralSwitchCCSP3Feed13.setControlledValve(true);
+        integralSwitchCCSP3Feed13.setToolTipText("");
+        add(integralSwitchCCSP3Feed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 354, -1, -1));
 
-        jToggleButtonControl1Enable22.setFont(jToggleButtonControl1Enable22.getFont().deriveFont(jToggleButtonControl1Enable22.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable22.setText("←");
-        jToggleButtonControl1Enable22.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable22.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable22.addActionListener(this::jToggleButtonControl1Enable22ActionPerformed);
-        add(jToggleButtonControl1Enable22, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 392, 20, 20));
-        add(lightBulbControl1Active20, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 398, -1, -1));
+        jToggleButtonCCSP3Feed13Auto.setFont(jToggleButtonCCSP3Feed13Auto.getFont().deriveFont(jToggleButtonCCSP3Feed13Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonCCSP3Feed13Auto.setText("←");
+        jToggleButtonCCSP3Feed13Auto.setToolTipText("Auto Mode");
+        jToggleButtonCCSP3Feed13Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonCCSP3Feed13Auto.addActionListener(this::jToggleButtonCCSP3Feed13AutoActionPerformed);
+        add(jToggleButtonCCSP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 358, 20, 20));
+        add(lightBulbCCSP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 364, -1, -1));
 
-        integralSwitch26.setComponent("AuxCond1#SteamValve");
-        integralSwitch26.setControlledValve(true);
-        integralSwitch26.setToolTipText("");
-        add(integralSwitch26, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 436, -1, -1));
+        integralSwitchCCSP3Feed23.setComponent("AuxCond1#SteamValve");
+        integralSwitchCCSP3Feed23.setControlledValve(true);
+        integralSwitchCCSP3Feed23.setToolTipText("");
+        add(integralSwitchCCSP3Feed23, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 402, -1, -1));
 
-        jToggleButtonControl1Enable23.setFont(jToggleButtonControl1Enable23.getFont().deriveFont(jToggleButtonControl1Enable23.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jToggleButtonControl1Enable23.setText("←");
-        jToggleButtonControl1Enable23.setToolTipText("Auto Mode");
-        jToggleButtonControl1Enable23.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jToggleButtonControl1Enable23.addActionListener(this::jToggleButtonControl1Enable23ActionPerformed);
-        add(jToggleButtonControl1Enable23, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 440, 20, 20));
-        add(lightBulbControl1Active21, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 446, -1, -1));
+        jToggleButtonCCSP3Feed23Auto.setFont(jToggleButtonCCSP3Feed23Auto.getFont().deriveFont(jToggleButtonCCSP3Feed23Auto.getFont().getStyle() & ~java.awt.Font.BOLD));
+        jToggleButtonCCSP3Feed23Auto.setText("←");
+        jToggleButtonCCSP3Feed23Auto.setToolTipText("Auto Mode");
+        jToggleButtonCCSP3Feed23Auto.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jToggleButtonCCSP3Feed23Auto.addActionListener(this::jToggleButtonCCSP3Feed23AutoActionPerformed);
+        add(jToggleButtonCCSP3Feed23Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 406, 20, 20));
+        add(lightBulbCCSP3Feed23Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 412, -1, -1));
 
-        jLabelCaptionPSPP7.setFont(jLabelCaptionPSPP7.getFont().deriveFont(jLabelCaptionPSPP7.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPSPP7.getFont().getSize()-2));
-        jLabelCaptionPSPP7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP7.setText("Pump 3");
-        add(jLabelCaptionPSPP7, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 354, 76, 14));
+        jLabelCaptionCCSP3.setFont(jLabelCaptionCCSP3.getFont().deriveFont(jLabelCaptionCCSP3.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionCCSP3.getFont().getSize()-2));
+        jLabelCaptionCCSP3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP3.setText("Pump 3");
+        add(jLabelCaptionCCSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 320, 76, 14));
 
-        jLabelCaptionPSPP1F30.setFont(jLabelCaptionPSPP1F30.getFont().deriveFont(jLabelCaptionPSPP1F30.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F30.setText("Feed 2.3");
-        jLabelCaptionPSPP1F30.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F30.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F30.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F30, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 420, 72, 14));
+        jLabelCaptionCCSP3F23.setFont(jLabelCaptionCCSP3F23.getFont().deriveFont(jLabelCaptionCCSP3F23.getFont().getSize()-2f));
+        jLabelCaptionCCSP3F23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP3F23.setText("Feed 2.3");
+        jLabelCaptionCCSP3F23.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP3F23.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP3F23.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCCSP3F23, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 386, 72, 14));
 
-        jLabelCaptionPSPP1F31.setFont(jLabelCaptionPSPP1F31.getFont().deriveFont(jLabelCaptionPSPP1F31.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F31.setText("Feed 1.3");
-        jLabelCaptionPSPP1F31.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F31.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPSPP1F31.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPSPP1F31, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 372, 72, 14));
+        jLabelCaptionCCSP3F13.setFont(jLabelCaptionCCSP3F13.getFont().deriveFont(jLabelCaptionCCSP3F13.getFont().getSize()-2f));
+        jLabelCaptionCCSP3F13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSP3F13.setText("Feed 1.3");
+        jLabelCaptionCCSP3F13.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP3F13.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCCSP3F13.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCCSP3F13, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 338, 72, 14));
 
-        jLabelCaptionDrumDrain11.setFont(jLabelCaptionDrumDrain11.getFont().deriveFont(jLabelCaptionDrumDrain11.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain11.getFont().getSize()-2));
-        jLabelCaptionDrumDrain11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain11.setText("Fill Pump");
-        add(jLabelCaptionDrumDrain11, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 176, 82, 14));
+        jLabelCaptionFillPump.setFont(jLabelCaptionFillPump.getFont().deriveFont(jLabelCaptionFillPump.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionFillPump.getFont().getSize()-2));
+        jLabelCaptionFillPump.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionFillPump.setText("Fill Pump");
+        add(jLabelCaptionFillPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 12, 82, 14));
 
-        jLabelCaptionDrumDrain12.setFont(jLabelCaptionDrumDrain12.getFont().deriveFont(jLabelCaptionDrumDrain12.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain12.getFont().getSize()-2));
-        jLabelCaptionDrumDrain12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain12.setText("Cold condensate storage");
-        add(jLabelCaptionDrumDrain12, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 118, 200, 14));
+        jLabelCaptionGaugesCCS.setFont(jLabelCaptionGaugesCCS.getFont().deriveFont(jLabelCaptionGaugesCCS.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGaugesCCS.getFont().getSize()-2));
+        jLabelCaptionGaugesCCS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionGaugesCCS.setText("Cold condensate storage");
+        add(jLabelCaptionGaugesCCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 118, 200, 14));
 
-        ammeter5.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 136, 92, 58));
+        ammeterCCSTemperature.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterCCSTemperature.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterCCSTemperature.setForeground(new java.awt.Color(0, 0, 0));
+        add(ammeterCCSTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 136, 92, 58));
 
-        jLabelCaptionPSPP1F38.setFont(jLabelCaptionPSPP1F38.getFont().deriveFont(jLabelCaptionPSPP1F38.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F38.setText("Temperature");
-        add(jLabelCaptionPSPP1F38, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 196, 92, 14));
+        jLabelCaptionCCSTemperature.setFont(jLabelCaptionCCSTemperature.getFont().deriveFont(jLabelCaptionCCSTemperature.getFont().getSize()-2f));
+        jLabelCaptionCCSTemperature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSTemperature.setText("Temperature");
+        add(jLabelCaptionCCSTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 196, 92, 14));
 
-        ammeter6.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter6, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 136, 92, 58));
+        ammeterCCSLevel.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterCCSLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterCCSLevel.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterCCSLevel.setLeftLabel("0 m");
+        ammeterCCSLevel.setRightLabel("10 m");
+        add(ammeterCCSLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 136, 92, 58));
 
-        jLabelCaptionPSPP1F39.setFont(jLabelCaptionPSPP1F39.getFont().deriveFont(jLabelCaptionPSPP1F39.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F39.setText("Level");
-        add(jLabelCaptionPSPP1F39, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 196, 92, 14));
-        add(panelWidgetPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 194, -1, -1));
+        jLabelCaptionCCSLevel.setFont(jLabelCaptionCCSLevel.getFont().deriveFont(jLabelCaptionCCSLevel.getFont().getSize()-2f));
+        jLabelCaptionCCSLevel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCCSLevel.setText("Level");
+        add(jLabelCaptionCCSLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 196, 92, 14));
 
-        jLabelCaptionDrumDrain13.setFont(jLabelCaptionDrumDrain13.getFont().deriveFont(jLabelCaptionDrumDrain13.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain13.getFont().getSize()-2));
-        jLabelCaptionDrumDrain13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain13.setText("Pressure Suppresion");
-        add(jLabelCaptionDrumDrain13, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 256, 146, 14));
+        jLabelCaptionGaugesDrum1.setFont(jLabelCaptionGaugesDrum1.getFont().deriveFont(jLabelCaptionGaugesDrum1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGaugesDrum1.getFont().getSize()-2));
+        jLabelCaptionGaugesDrum1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionGaugesDrum1.setText("Steam Drum 1");
+        add(jLabelCaptionGaugesDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 12, 200, 14));
 
-        jLabelCaptionDrumDrain14.setFont(jLabelCaptionDrumDrain14.getFont().deriveFont(jLabelCaptionDrumDrain14.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain14.getFont().getSize()-2));
-        jLabelCaptionDrumDrain14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain14.setText("Steam Drum 1");
-        add(jLabelCaptionDrumDrain14, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 12, 200, 14));
+        ammeterDrum1Pressure.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterDrum1Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterDrum1Pressure.setChornobylMaximum(75.0);
+        ammeterDrum1Pressure.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterDrum1Pressure.setLeftLabel("0 bar");
+        ammeterDrum1Pressure.setRightLabel("75 bar");
+        add(ammeterDrum1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 30, 92, 58));
 
-        ammeter7.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter7, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 30, 92, 58));
+        jLabelCaptionDrum1Pressure.setFont(jLabelCaptionDrum1Pressure.getFont().deriveFont(jLabelCaptionDrum1Pressure.getFont().getSize()-2f));
+        jLabelCaptionDrum1Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrum1Pressure.setText("Pressure");
+        add(jLabelCaptionDrum1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 90, 92, 14));
 
-        jLabelCaptionPSPP1F40.setFont(jLabelCaptionPSPP1F40.getFont().deriveFont(jLabelCaptionPSPP1F40.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F40.setText("Temperature");
-        add(jLabelCaptionPSPP1F40, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 90, 92, 14));
+        ammeterDrum1Level.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterDrum1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterDrum1Level.setChornobylMinimum(-100.0);
+        ammeterDrum1Level.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterDrum1Level.setLeftLabel("-100 cm");
+        ammeterDrum1Level.setRightLabel("100 cm");
+        add(ammeterDrum1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, 92, 58));
 
-        ammeter8.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter8, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 30, 92, 58));
+        jLabelCaptionDrum1Level.setFont(jLabelCaptionDrum1Level.getFont().deriveFont(jLabelCaptionDrum1Level.getFont().getSize()-2f));
+        jLabelCaptionDrum1Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrum1Level.setText("Level");
+        add(jLabelCaptionDrum1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, 92, 14));
 
-        jLabelCaptionPSPP1F41.setFont(jLabelCaptionPSPP1F41.getFont().deriveFont(jLabelCaptionPSPP1F41.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F41.setText("Level");
-        add(jLabelCaptionPSPP1F41, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 90, 92, 14));
+        jLabelCaptionGaugesDrum2.setFont(jLabelCaptionGaugesDrum2.getFont().deriveFont(jLabelCaptionGaugesDrum2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGaugesDrum2.getFont().getSize()-2));
+        jLabelCaptionGaugesDrum2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionGaugesDrum2.setText("Steam Drum 2");
+        add(jLabelCaptionGaugesDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 118, 200, 14));
 
-        jLabelCaptionDrumDrain15.setFont(jLabelCaptionDrumDrain15.getFont().deriveFont(jLabelCaptionDrumDrain15.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain15.getFont().getSize()-2));
-        jLabelCaptionDrumDrain15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumDrain15.setText("Steam Drum 1");
-        add(jLabelCaptionDrumDrain15, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 118, 200, 14));
+        ammeterDrum2Pressure.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterDrum2Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterDrum2Pressure.setChornobylMaximum(75.0);
+        ammeterDrum2Pressure.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterDrum2Pressure.setLeftLabel("0 bar");
+        ammeterDrum2Pressure.setRightLabel("75 bar");
+        add(ammeterDrum2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 136, 92, 58));
 
-        ammeter9.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter9, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 136, 92, 58));
+        jLabelCaptionDrum2Pressure.setFont(jLabelCaptionDrum2Pressure.getFont().deriveFont(jLabelCaptionDrum2Pressure.getFont().getSize()-2f));
+        jLabelCaptionDrum2Pressure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrum2Pressure.setText("Pressure");
+        add(jLabelCaptionDrum2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 196, 92, 14));
 
-        jLabelCaptionPSPP1F42.setFont(jLabelCaptionPSPP1F42.getFont().deriveFont(jLabelCaptionPSPP1F42.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F42.setText("Temperature");
-        add(jLabelCaptionPSPP1F42, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 196, 92, 14));
+        ammeterDrum2Level.setBackground(new java.awt.Color(255, 255, 255));
+        ammeterDrum2Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterDrum2Level.setChornobylMinimum(-100.0);
+        ammeterDrum2Level.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterDrum2Level.setLeftLabel("-100 cm");
+        ammeterDrum2Level.setRightLabel("100 cm");
+        add(ammeterDrum2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 136, 92, 58));
 
-        ammeter10.setBackground(new java.awt.Color(255, 255, 255));
-        add(ammeter10, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 136, 92, 58));
-
-        jLabelCaptionPSPP1F43.setFont(jLabelCaptionPSPP1F43.getFont().deriveFont(jLabelCaptionPSPP1F43.getFont().getSize()-2f));
-        jLabelCaptionPSPP1F43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPSPP1F43.setText("Level");
-        add(jLabelCaptionPSPP1F43, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 196, 92, 14));
+        jLabelCaptionDrum2Level.setFont(jLabelCaptionDrum2Level.getFont().deriveFont(jLabelCaptionDrum2Level.getFont().getSize()-2f));
+        jLabelCaptionDrum2Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionDrum2Level.setText("Level");
+        add(jLabelCaptionDrum2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 196, 92, 14));
+        add(panelWidgetFillPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 32, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonFeed13CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13CloseActionPerformed
+    private void jButtonToMcpHeader11CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader11CloseActionPerformed
         controller.userAction(new ActionCommand("Feedwater1#ShutoffValve3", false));
-    }//GEN-LAST:event_jButtonFeed13CloseActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader11CloseActionPerformed
 
-    private void jButtonFeed13OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13OpenActionPerformed
+    private void jButtonToMcpHeader11OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader11OpenActionPerformed
         controller.userAction(new ActionCommand("Feedwater1#ShutoffValve3", true));
-    }//GEN-LAST:event_jButtonFeed13OpenActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader11OpenActionPerformed
 
-    private void jToggleButtonControl1Enable4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable4ActionPerformed
+    private void jToggleButtonPSP1Feed11AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP1Feed11AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable4ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPSP1Feed11AutoActionPerformed
 
-    private void jToggleButtonControl1Enable5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable5ActionPerformed
+    private void jToggleButtonPSP1Feed21AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP1Feed21AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable5ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPSP1Feed21AutoActionPerformed
 
-    private void jButtonFeed13Close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close1ActionPerformed
+    private void jButtonDrumDrain1CoolantCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrumDrain1CoolantCloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close1ActionPerformed
+    }//GEN-LAST:event_jButtonDrumDrain1CoolantCloseActionPerformed
 
-    private void jButtonFeed13Open1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open1ActionPerformed
+    private void jButtonDrumDrain1CoolantOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrumDrain1CoolantOpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open1ActionPerformed
+    }//GEN-LAST:event_jButtonDrumDrain1CoolantOpenActionPerformed
 
-    private void jButtonFeed13Close2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close2ActionPerformed
+    private void jButtonDrumDrain2CoolantCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrumDrain2CoolantCloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close2ActionPerformed
+    }//GEN-LAST:event_jButtonDrumDrain2CoolantCloseActionPerformed
 
-    private void jButtonFeed13Open2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open2ActionPerformed
+    private void jButtonDrumDrain2CoolantOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrumDrain2CoolantOpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open2ActionPerformed
+    }//GEN-LAST:event_jButtonDrumDrain2CoolantOpenActionPerformed
 
-    private void jButtonFeed13Close3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close3ActionPerformed
+    private void jButtonCoolantPSPP1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP1CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close3ActionPerformed
+    }//GEN-LAST:event_jButtonCoolantPSPP1CloseActionPerformed
 
-    private void jButtonFeed13Open3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open3ActionPerformed
+    private void jButtonCoolantPSPP1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP1OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open3ActionPerformed
+    }//GEN-LAST:event_jButtonCoolantPSPP1OpenActionPerformed
 
-    private void jToggleButtonControl1Enable8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable8ActionPerformed
+    private void jToggleButtonPV1Feed11AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPV1Feed11AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable8ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPV1Feed11AutoActionPerformed
 
-    private void jToggleButtonControl1Enable9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable9ActionPerformed
+    private void jToggleButtonPV1Feed21AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPV1Feed21AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable9ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPV1Feed21AutoActionPerformed
 
-    private void jToggleButtonControl1Enable10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable10ActionPerformed
+    private void jToggleButtonPV2Feed22AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPV2Feed22AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable10ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPV2Feed22AutoActionPerformed
 
-    private void jToggleButtonControl1Enable11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable11ActionPerformed
+    private void jToggleButtonPV2Feed12AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPV2Feed12AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable11ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPV2Feed12AutoActionPerformed
 
-    private void jButtonFeed13Close4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close4ActionPerformed
+    private void jButtonToMcpHeader12CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader12CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close4ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader12CloseActionPerformed
 
-    private void jButtonFeed13Open4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open4ActionPerformed
+    private void jButtonToMcpHeader12OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader12OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open4ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader12OpenActionPerformed
 
-    private void jButtonFeed13Close5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close5ActionPerformed
+    private void jButtonToMcpHeader13CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader13CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close5ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader13CloseActionPerformed
 
-    private void jButtonFeed13Open5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open5ActionPerformed
+    private void jButtonToMcpHeader13OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader13OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open5ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader13OpenActionPerformed
 
-    private void jButtonFeed13Close6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close6ActionPerformed
+    private void jButtonToMcpHeader21CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader21CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close6ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader21CloseActionPerformed
 
-    private void jButtonFeed13Open6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open6ActionPerformed
+    private void jButtonToMcpHeader21OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader21OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open6ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader21OpenActionPerformed
 
-    private void jButtonFeed13Close7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close7ActionPerformed
+    private void jButtonToMcpHeader22CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader22CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close7ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader22CloseActionPerformed
 
-    private void jButtonFeed13Open7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open7ActionPerformed
+    private void jButtonToMcpHeader22OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader22OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open7ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader22OpenActionPerformed
 
-    private void jButtonFeed13Close8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close8ActionPerformed
+    private void jButtonToMcpHeader23CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader23CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close8ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader23CloseActionPerformed
 
-    private void jButtonFeed13Open8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open8ActionPerformed
+    private void jButtonToMcpHeader23OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToMcpHeader23OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open8ActionPerformed
+    }//GEN-LAST:event_jButtonToMcpHeader23OpenActionPerformed
 
-    private void jToggleButtonControl1Enable12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable12ActionPerformed
+    private void jToggleButtonPSP2Feed12AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP2Feed12AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable12ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPSP2Feed12AutoActionPerformed
 
     private void jToggleButtonControl1Enable13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable13ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButtonControl1Enable13ActionPerformed
 
-    private void jButtonFeed13Close9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close9ActionPerformed
+    private void jButtonCoolantPSPP2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP2CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close9ActionPerformed
+    }//GEN-LAST:event_jButtonCoolantPSPP2CloseActionPerformed
 
-    private void jButtonFeed13Open9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open9ActionPerformed
+    private void jButtonCoolantPSPP2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP2OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open9ActionPerformed
+    }//GEN-LAST:event_jButtonCoolantPSPP2OpenActionPerformed
 
-    private void jToggleButtonControl1Enable14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable14ActionPerformed
+    private void jToggleButtonPSP3Feed13AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP3Feed13AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable14ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPSP3Feed13AutoActionPerformed
 
-    private void jToggleButtonControl1Enable15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable15ActionPerformed
+    private void jToggleButtonPSP3Feed23AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP3Feed23AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable15ActionPerformed
+    }//GEN-LAST:event_jToggleButtonPSP3Feed23AutoActionPerformed
 
-    private void jButtonFeed13Close10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close10ActionPerformed
+    private void jButtonCoolantPSPP3CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP3CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close10ActionPerformed
+    }//GEN-LAST:event_jButtonCoolantPSPP3CloseActionPerformed
 
-    private void jButtonFeed13Open10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open10ActionPerformed
+    private void jButtonCoolantPSPP3OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP3OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open10ActionPerformed
+    }//GEN-LAST:event_jButtonCoolantPSPP3OpenActionPerformed
 
-    private void jToggleButtonControl1Enable20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable20ActionPerformed
+    private void jToggleButtonP3Feed13AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonP3Feed13AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable20ActionPerformed
+    }//GEN-LAST:event_jToggleButtonP3Feed13AutoActionPerformed
 
-    private void jToggleButtonControl1Enable21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable21ActionPerformed
+    private void jToggleButtonP3Feed23AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonP3Feed23AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable21ActionPerformed
+    }//GEN-LAST:event_jToggleButtonP3Feed23AutoActionPerformed
 
-    private void jButtonFeed13Close11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close11ActionPerformed
+    private void jButtonSprinklerCoolant1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant1CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close11ActionPerformed
+    }//GEN-LAST:event_jButtonSprinklerCoolant1CloseActionPerformed
 
-    private void jButtonFeed13Open11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open11ActionPerformed
+    private void jButtonSprinklerCoolant1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant1OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open11ActionPerformed
+    }//GEN-LAST:event_jButtonSprinklerCoolant1OpenActionPerformed
 
-    private void jButtonFeed13Close12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Close12ActionPerformed
+    private void jButtonSprinklerCoolant2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant2CloseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Close12ActionPerformed
+    }//GEN-LAST:event_jButtonSprinklerCoolant2CloseActionPerformed
 
-    private void jButtonFeed13Open12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeed13Open12ActionPerformed
+    private void jButtonSprinklerCoolant2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant2OpenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFeed13Open12ActionPerformed
+    }//GEN-LAST:event_jButtonSprinklerCoolant2OpenActionPerformed
 
-    private void jToggleButtonControl1Enable16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable16ActionPerformed
+    private void jToggleButtonCCSP1Feed11AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP1Feed11AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable16ActionPerformed
+    }//GEN-LAST:event_jToggleButtonCCSP1Feed11AutoActionPerformed
 
-    private void jToggleButtonControl1Enable17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable17ActionPerformed
+    private void jToggleButtonCCSP1Feed21AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP1Feed21AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable17ActionPerformed
+    }//GEN-LAST:event_jToggleButtonCCSP1Feed21AutoActionPerformed
 
-    private void jToggleButtonControl1Enable18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable18ActionPerformed
+    private void jToggleButtonCCSP2Feed12AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP2Feed12AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable18ActionPerformed
+    }//GEN-LAST:event_jToggleButtonCCSP2Feed12AutoActionPerformed
 
-    private void jToggleButtonControl1Enable19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable19ActionPerformed
+    private void jToggleButtonCCSP2Feed22AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP2Feed22AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable19ActionPerformed
+    }//GEN-LAST:event_jToggleButtonCCSP2Feed22AutoActionPerformed
 
-    private void jToggleButtonControl1Enable22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable22ActionPerformed
+    private void jToggleButtonCCSP3Feed13AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP3Feed13AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable22ActionPerformed
+    }//GEN-LAST:event_jToggleButtonCCSP3Feed13AutoActionPerformed
 
-    private void jToggleButtonControl1Enable23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonControl1Enable23ActionPerformed
+    private void jToggleButtonCCSP3Feed23AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP3Feed23AutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonControl1Enable23ActionPerformed
+    }//GEN-LAST:event_jToggleButtonCCSP3Feed23AutoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter1;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter10;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter2;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter3;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter4;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter5;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter6;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter7;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter8;
-    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeter9;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch1;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch11;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch12;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch13;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch14;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch15;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch16;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch17;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch18;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch19;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch20;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch21;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch22;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch23;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch24;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch25;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch26;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch27;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch28;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch29;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch30;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch7;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch8;
-    private javax.swing.JButton jButtonFeed13Close;
-    private javax.swing.JButton jButtonFeed13Close1;
-    private javax.swing.JButton jButtonFeed13Close10;
-    private javax.swing.JButton jButtonFeed13Close11;
-    private javax.swing.JButton jButtonFeed13Close12;
-    private javax.swing.JButton jButtonFeed13Close2;
-    private javax.swing.JButton jButtonFeed13Close3;
-    private javax.swing.JButton jButtonFeed13Close4;
-    private javax.swing.JButton jButtonFeed13Close5;
-    private javax.swing.JButton jButtonFeed13Close6;
-    private javax.swing.JButton jButtonFeed13Close7;
-    private javax.swing.JButton jButtonFeed13Close8;
-    private javax.swing.JButton jButtonFeed13Close9;
-    private javax.swing.JButton jButtonFeed13Open;
-    private javax.swing.JButton jButtonFeed13Open1;
-    private javax.swing.JButton jButtonFeed13Open10;
-    private javax.swing.JButton jButtonFeed13Open11;
-    private javax.swing.JButton jButtonFeed13Open12;
-    private javax.swing.JButton jButtonFeed13Open2;
-    private javax.swing.JButton jButtonFeed13Open3;
-    private javax.swing.JButton jButtonFeed13Open4;
-    private javax.swing.JButton jButtonFeed13Open5;
-    private javax.swing.JButton jButtonFeed13Open6;
-    private javax.swing.JButton jButtonFeed13Open7;
-    private javax.swing.JButton jButtonFeed13Open8;
-    private javax.swing.JButton jButtonFeed13Open9;
-    private javax.swing.JLabel jLabelCaptionBypass2;
-    private javax.swing.JLabel jLabelCaptionBypass3;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterCCSLevel;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterCCSTemperature;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterDrum1Level;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterDrum1Pressure;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterDrum2Level;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterDrum2Pressure;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterPSPLevel;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterPSPTemperature;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterVessel1Pressure;
+    private com.hartrusion.rbmksim.gui.elements.Ammeter ammeterVessel2Pressure;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCCSP1Feed11;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCCSP1Feed21;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCCSP2Feed12;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCCSP2Feed22;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCCSP3Feed13;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCCSP3Feed23;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDrainDrum1;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDrainDrum2;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDrum1SteamToPool;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchDrum2SteamToPool;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchP3Feed13;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchP3Feed23;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPSP1Feed11;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPSP1Feed21;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPSP2Feed12;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPSP2Feed22;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPSP3Feed13;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPSP3Feed23;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPV1Feed11;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPV1Feed21;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPV2Feed12;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPV2Feed22;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPVFill1;
+    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPVFill2;
+    private javax.swing.JButton jButtonCoolantPSPP1Close;
+    private javax.swing.JButton jButtonCoolantPSPP1Open;
+    private javax.swing.JButton jButtonCoolantPSPP2Close;
+    private javax.swing.JButton jButtonCoolantPSPP2Open;
+    private javax.swing.JButton jButtonCoolantPSPP3Close;
+    private javax.swing.JButton jButtonCoolantPSPP3Open;
+    private javax.swing.JButton jButtonDrumDrain1CoolantClose;
+    private javax.swing.JButton jButtonDrumDrain1CoolantOpen;
+    private javax.swing.JButton jButtonDrumDrain2CoolantClose;
+    private javax.swing.JButton jButtonDrumDrain2CoolantOpen;
+    private javax.swing.JButton jButtonSprinklerCoolant1Close;
+    private javax.swing.JButton jButtonSprinklerCoolant1Open;
+    private javax.swing.JButton jButtonSprinklerCoolant2Close;
+    private javax.swing.JButton jButtonSprinklerCoolant2Open;
+    private javax.swing.JButton jButtonToMcpHeader11Close;
+    private javax.swing.JButton jButtonToMcpHeader11Open;
+    private javax.swing.JButton jButtonToMcpHeader12Close;
+    private javax.swing.JButton jButtonToMcpHeader12Open;
+    private javax.swing.JButton jButtonToMcpHeader13Close;
+    private javax.swing.JButton jButtonToMcpHeader13Open;
+    private javax.swing.JButton jButtonToMcpHeader21Close;
+    private javax.swing.JButton jButtonToMcpHeader21Open;
+    private javax.swing.JButton jButtonToMcpHeader22Close;
+    private javax.swing.JButton jButtonToMcpHeader22Open;
+    private javax.swing.JButton jButtonToMcpHeader23Close;
+    private javax.swing.JButton jButtonToMcpHeader23Open;
     private javax.swing.JLabel jLabelCaptionBypass4;
     private javax.swing.JLabel jLabelCaptionBypass5;
-    private javax.swing.JLabel jLabelCaptionDrumDrain;
+    private javax.swing.JLabel jLabelCaptionCCSLevel;
+    private javax.swing.JLabel jLabelCaptionCCSP1;
+    private javax.swing.JLabel jLabelCaptionCCSP1F11;
+    private javax.swing.JLabel jLabelCaptionCCSP1F21;
+    private javax.swing.JLabel jLabelCaptionCCSP2;
+    private javax.swing.JLabel jLabelCaptionCCSP2F12;
+    private javax.swing.JLabel jLabelCaptionCCSP2F22;
+    private javax.swing.JLabel jLabelCaptionCCSP3;
+    private javax.swing.JLabel jLabelCaptionCCSP3F13;
+    private javax.swing.JLabel jLabelCaptionCCSP3F23;
+    private javax.swing.JLabel jLabelCaptionCCSTemperature;
+    private javax.swing.JLabel jLabelCaptionDrainDrum1;
+    private javax.swing.JLabel jLabelCaptionDrainDrum2;
+    private javax.swing.JLabel jLabelCaptionDrum1Level;
+    private javax.swing.JLabel jLabelCaptionDrum1Pressure;
+    private javax.swing.JLabel jLabelCaptionDrum2Level;
+    private javax.swing.JLabel jLabelCaptionDrum2Pressure;
     private javax.swing.JLabel jLabelCaptionDrumDrain1;
     private javax.swing.JLabel jLabelCaptionDrumDrain10;
-    private javax.swing.JLabel jLabelCaptionDrumDrain11;
-    private javax.swing.JLabel jLabelCaptionDrumDrain12;
-    private javax.swing.JLabel jLabelCaptionDrumDrain13;
-    private javax.swing.JLabel jLabelCaptionDrumDrain14;
-    private javax.swing.JLabel jLabelCaptionDrumDrain15;
+    private javax.swing.JLabel jLabelCaptionDrumDrain1Coolant;
+    private javax.swing.JLabel jLabelCaptionDrumDrain2Coolant;
     private javax.swing.JLabel jLabelCaptionDrumDrain3;
     private javax.swing.JLabel jLabelCaptionDrumDrain4;
-    private javax.swing.JLabel jLabelCaptionDrumDrain5;
     private javax.swing.JLabel jLabelCaptionDrumDrain6;
-    private javax.swing.JLabel jLabelCaptionDrumDrain7;
     private javax.swing.JLabel jLabelCaptionDrumDrain8;
     private javax.swing.JLabel jLabelCaptionDrumDrain9;
+    private javax.swing.JLabel jLabelCaptionFillPump;
+    private javax.swing.JLabel jLabelCaptionGaugesCCS;
+    private javax.swing.JLabel jLabelCaptionGaugesDrum1;
+    private javax.swing.JLabel jLabelCaptionGaugesDrum2;
+    private javax.swing.JLabel jLabelCaptionGaugesPSP;
+    private javax.swing.JLabel jLabelCaptionHeaderPPSPumps;
+    private javax.swing.JLabel jLabelCaptionPSPLevel;
     private javax.swing.JLabel jLabelCaptionPSPP1;
     private javax.swing.JLabel jLabelCaptionPSPP1F11;
     private javax.swing.JLabel jLabelCaptionPSPP1F13;
-    private javax.swing.JLabel jLabelCaptionPSPP1F14;
     private javax.swing.JLabel jLabelCaptionPSPP1F15;
-    private javax.swing.JLabel jLabelCaptionPSPP1F16;
-    private javax.swing.JLabel jLabelCaptionPSPP1F17;
-    private javax.swing.JLabel jLabelCaptionPSPP1F18;
-    private javax.swing.JLabel jLabelCaptionPSPP1F19;
-    private javax.swing.JLabel jLabelCaptionPSPP1F20;
     private javax.swing.JLabel jLabelCaptionPSPP1F21;
-    private javax.swing.JLabel jLabelCaptionPSPP1F23;
-    private javax.swing.JLabel jLabelCaptionPSPP1F24;
-    private javax.swing.JLabel jLabelCaptionPSPP1F25;
-    private javax.swing.JLabel jLabelCaptionPSPP1F26;
-    private javax.swing.JLabel jLabelCaptionPSPP1F27;
-    private javax.swing.JLabel jLabelCaptionPSPP1F28;
-    private javax.swing.JLabel jLabelCaptionPSPP1F29;
-    private javax.swing.JLabel jLabelCaptionPSPP1F30;
-    private javax.swing.JLabel jLabelCaptionPSPP1F31;
     private javax.swing.JLabel jLabelCaptionPSPP1F32;
     private javax.swing.JLabel jLabelCaptionPSPP1F33;
-    private javax.swing.JLabel jLabelCaptionPSPP1F34;
-    private javax.swing.JLabel jLabelCaptionPSPP1F35;
-    private javax.swing.JLabel jLabelCaptionPSPP1F36;
-    private javax.swing.JLabel jLabelCaptionPSPP1F37;
-    private javax.swing.JLabel jLabelCaptionPSPP1F38;
-    private javax.swing.JLabel jLabelCaptionPSPP1F39;
-    private javax.swing.JLabel jLabelCaptionPSPP1F40;
-    private javax.swing.JLabel jLabelCaptionPSPP1F41;
-    private javax.swing.JLabel jLabelCaptionPSPP1F42;
-    private javax.swing.JLabel jLabelCaptionPSPP1F43;
+    private javax.swing.JLabel jLabelCaptionPSPP2;
+    private javax.swing.JLabel jLabelCaptionPSPP2F12;
+    private javax.swing.JLabel jLabelCaptionPSPP2F22;
     private javax.swing.JLabel jLabelCaptionPSPP3;
-    private javax.swing.JLabel jLabelCaptionPSPP4;
-    private javax.swing.JLabel jLabelCaptionPSPP5;
-    private javax.swing.JLabel jLabelCaptionPSPP6;
-    private javax.swing.JLabel jLabelCaptionPSPP7;
-    private javax.swing.JLabel jLabelCaptionPSPP8;
+    private javax.swing.JLabel jLabelCaptionPSPP3F13;
+    private javax.swing.JLabel jLabelCaptionPSPP3F23;
     private javax.swing.JLabel jLabelCaptionPSPP9;
-    private javax.swing.JLabel jLabelFeed13;
-    private javax.swing.JLabel jLabelFeed14;
-    private javax.swing.JLabel jLabelFeed15;
-    private javax.swing.JLabel jLabelFeed16;
-    private javax.swing.JLabel jLabelFeed17;
-    private javax.swing.JLabel jLabelFeed18;
-    private javax.swing.JLabel jLabelFeed19;
-    private javax.swing.JLabel jLabelFeed20;
-    private javax.swing.JLabel jLabelFeed21;
-    private javax.swing.JLabel jLabelFeed22;
-    private javax.swing.JLabel jLabelFeed23;
-    private javax.swing.JLabel jLabelFeed24;
-    private javax.swing.JLabel jLabelFeed25;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable10;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable11;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable12;
+    private javax.swing.JLabel jLabelCaptionPSPPCoolant1;
+    private javax.swing.JLabel jLabelCaptionPSPPCoolant2;
+    private javax.swing.JLabel jLabelCaptionPSPPCoolant3;
+    private javax.swing.JLabel jLabelCaptionPSPTemperature;
+    private javax.swing.JLabel jLabelCaptionPV1F11;
+    private javax.swing.JLabel jLabelCaptionPV1F21;
+    private javax.swing.JLabel jLabelCaptionPV2F12;
+    private javax.swing.JLabel jLabelCaptionPV2F22;
+    private javax.swing.JLabel jLabelCaptionPVP1;
+    private javax.swing.JLabel jLabelCaptionPVP2;
+    private javax.swing.JLabel jLabelCaptionSprinklerCoolant1;
+    private javax.swing.JLabel jLabelCaptionSprinklerCoolant2;
+    private javax.swing.JLabel jLabelCaptionSprinklerPumps;
+    private javax.swing.JLabel jLabelCaptionToMcp11;
+    private javax.swing.JLabel jLabelCaptionToMcp12;
+    private javax.swing.JLabel jLabelCaptionToMcp13;
+    private javax.swing.JLabel jLabelCaptionToMcp21;
+    private javax.swing.JLabel jLabelCaptionToMcp22;
+    private javax.swing.JLabel jLabelCaptionToMcp23;
+    private javax.swing.JToggleButton jToggleButtonCCSP1Feed11Auto;
+    private javax.swing.JToggleButton jToggleButtonCCSP1Feed21Auto;
+    private javax.swing.JToggleButton jToggleButtonCCSP2Feed12Auto;
+    private javax.swing.JToggleButton jToggleButtonCCSP2Feed22Auto;
+    private javax.swing.JToggleButton jToggleButtonCCSP3Feed13Auto;
+    private javax.swing.JToggleButton jToggleButtonCCSP3Feed23Auto;
     private javax.swing.JToggleButton jToggleButtonControl1Enable13;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable14;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable15;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable16;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable17;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable18;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable19;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable20;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable21;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable22;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable23;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable4;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable5;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable8;
-    private javax.swing.JToggleButton jToggleButtonControl1Enable9;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active10;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active11;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active12;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active13;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active14;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active15;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active16;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active17;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active18;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active19;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active20;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active21;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active22;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active23;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active4;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active5;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active8;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbControl1Active9;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPump1;
+    private javax.swing.JToggleButton jToggleButtonP3Feed13Auto;
+    private javax.swing.JToggleButton jToggleButtonP3Feed23Auto;
+    private javax.swing.JToggleButton jToggleButtonPSP1Feed11Auto;
+    private javax.swing.JToggleButton jToggleButtonPSP1Feed21Auto;
+    private javax.swing.JToggleButton jToggleButtonPSP2Feed12Auto;
+    private javax.swing.JToggleButton jToggleButtonPSP3Feed13Auto;
+    private javax.swing.JToggleButton jToggleButtonPSP3Feed23Auto;
+    private javax.swing.JToggleButton jToggleButtonPV1Feed11Auto;
+    private javax.swing.JToggleButton jToggleButtonPV1Feed21Auto;
+    private javax.swing.JToggleButton jToggleButtonPV2Feed12Auto;
+    private javax.swing.JToggleButton jToggleButtonPV2Feed22Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbCCSP1Feed11Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbCCSP1Feed21Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbCCSP2Feed12Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbCCSP2Feed22Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbCCSP3Feed13Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbCCSP3Feed23Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbP3Feed13Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbP3Feed23Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPSP1Feed11Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPSP1Feed21Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPSP2Feed12Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPSP2Feed22Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPSP3Feed13Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPSP3Feed23Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPV1Feed11Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPV1Feed21Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPV2Feed12Auto;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbPV2Feed22Auto;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetFillPump;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCCSP1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCCSP2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpCCSP3;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP3;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP4;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP5;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP6;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpPSP7;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump1;
-    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSmallPump2;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSprinklerPump1;
+    private com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump panelWidgetSprinklerPump2;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -1532,7 +1551,18 @@ public class PanelEccs extends AbstractPanelWidget
 
     @Override
     public void updateComponent(String propertyName, double newValue) {
-        
+        switch (propertyName) {
+            case "Loop1#DrumLevel" ->
+                ammeterDrum1Level.setChornobylValue(newValue);
+            case "Loop1#DrumPressure" ->
+                ammeterDrum1Pressure.setChornobylValue(newValue);
+            case "Loop2#DrumLevel" ->
+                ammeterDrum2Level.setChornobylValue(newValue);
+            case "Loop2#DrumPressure" ->
+                ammeterDrum1Pressure.setChornobylValue(newValue);
+            case "MakeupStorage#Level" ->
+                ammeterCCSLevel.setChornobylValue(newValue);
+        }
     }
 
     @Override

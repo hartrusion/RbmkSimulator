@@ -39,6 +39,7 @@ import com.hartrusion.rbmksim.gui.*;
 import com.hartrusion.rbmksim.gui.diagrams.DiagramStartupPressureSetpoint;
 import com.hartrusion.rbmksim.gui.widgets.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
+import com.hartrusion.rbmksim.gui.panels.PanelEccs;
 import com.hartrusion.util.JDesktopPaneEnhanced;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
@@ -124,6 +125,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemViewAlarmList = new javax.swing.JMenuItem();
         jMenuItemViewCore1 = new javax.swing.JMenuItem();
         jMenuItemViewCore2 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemViewECCS = new javax.swing.JMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -244,6 +247,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemViewCore2.setText("Core Activity 2");
         jMenuItemViewCore2.addActionListener(this::jMenuItemViewCore2ActionPerformed);
         jMenuView.add(jMenuItemViewCore2);
+        jMenuView.add(jSeparator7);
+
+        jMenuItemViewECCS.setText("Emergency Core Cooling System");
+        jMenuItemViewECCS.addActionListener(this::jMenuItemViewECCSActionPerformed);
+        jMenuView.add(jMenuItemViewECCS);
 
         jMenuBar1.add(jMenuView);
 
@@ -1419,6 +1427,17 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemViewECCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewECCSActionPerformed
+        for (InternalFramePanel pf : panels) {
+            if (pf.getPanelName().equals("Emergency Core Cooling System (ECCS)")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelEccs(), "Emergency Core Cooling System (ECCS)");
+    }//GEN-LAST:event_jMenuItemViewECCSActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1615,6 +1634,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemViewAlarmList;
     private javax.swing.JMenuItem jMenuItemViewCore1;
     private javax.swing.JMenuItem jMenuItemViewCore2;
+    private javax.swing.JMenuItem jMenuItemViewECCS;
     private javax.swing.JMenuItem jMenuItemViewRodPositions;
     private javax.swing.JMenuItem jMenuLoad;
     private javax.swing.JMenu jMenuMnemonics;
@@ -1629,6 +1649,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
