@@ -430,6 +430,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatExchangerNoMass[] eccsPspCooler
             = new HeatExchangerNoMass[3];
     private final HeatValve[] eccsPspCoolantValve = new HeatValve[3];
+    private final HeatValve[][] eccsCcsPumpValve = new HeatValve[2][3];
+    private final HeatNode[] eccsCcsPumpOut = new HeatNode[3];
+    private final HeatFluidPump[] eccsCcsPump = new HeatFluidPump[3];
+    // private final HeatFluidPumpSimple eccsPvFillPump;
+    private final HeatValve[] eccsPvFillValve = new HeatValve[2];
+    private final HeatFluidTank[] eccsPressureVessel = new HeatFluidTank[2];
+    private final HeatNode[] eccsPvNode = new HeatNode[3];
+    private final HeatValve[][] eccsPvValve = new HeatValve[2][2];
+    
     
 
     // </editor-fold>
