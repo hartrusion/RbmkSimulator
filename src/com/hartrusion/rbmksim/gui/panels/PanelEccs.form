@@ -30,6 +30,9 @@
   </Layout>
   <SubComponents>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpPSP1">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS1#PspPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="20" y="398" width="-1" height="-1"/>
@@ -156,6 +159,9 @@
       </Layout>
     </Container>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSprinklerPump1">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Bubbler1#SprinklerPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="582" y="256" width="-1" height="-1"/>
@@ -164,7 +170,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchPVFill1">
       <Properties>
-        <Property name="component" type="java.lang.String" value="ECCS#1PvFillValve"/>
+        <Property name="component" type="java.lang.String" value="ECCS1#PvFillValve"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -174,7 +180,7 @@
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.elements.IntegralSwitch" name="integralSwitchPVFill2">
       <Properties>
-        <Property name="component" type="java.lang.String" value="ECCS#2PvFillValve"/>
+        <Property name="component" type="java.lang.String" value="ECCS2#PvFillValve"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1327,6 +1333,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpPSP2">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS2#PspPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="106" y="398" width="-1" height="-1"/>
@@ -1553,6 +1562,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpPSP3">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS3#PspPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="192" y="398" width="-1" height="-1"/>
@@ -2016,6 +2028,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetSprinklerPump2">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="Bubbler2#SprinklerPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="654" y="256" width="-1" height="-1"/>
@@ -2346,6 +2361,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCCSP1">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS1#CcsPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="298" y="434" width="-1" height="-1"/>
@@ -2507,6 +2525,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCCSP2">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS2#CcsPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="384" y="434" width="-1" height="-1"/>
@@ -2668,6 +2689,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump" name="panelWidgetPumpCCSP3">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS3#CcsPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="470" y="434" width="-1" height="-1"/>
@@ -3147,6 +3171,9 @@
       </Constraints>
     </Component>
     <Component class="com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump" name="panelWidgetFillPump">
+      <Properties>
+        <Property name="chornobylPrefix" type="java.lang.String" value="ECCS#PvFillPump"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="236" y="32" width="-1" height="-1"/>

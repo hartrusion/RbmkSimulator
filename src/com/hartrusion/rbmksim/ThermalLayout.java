@@ -418,6 +418,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedNode environment;
     private final PhasedValve[] pressureReliefValveToEnvironment
             = new PhasedValve[2];
+    
+    private final HeatFluidPump[] bubblerSprinklerPump = new HeatFluidPump[2];
+    private final HeatNode[] bubblerSprinklerPumpOut = new HeatNode[2];
+    private final HeatExchangerNoMass[] bubblerSprinklerCooler 
+            = new HeatExchangerNoMass[2];
+    private final HeatNode[] bubblerSprinklerCoolerIn = new HeatNode[2];
+    private final HeatValve[] bubblerSprinklerCoolerValve = new HeatValve[2];
 
     private final HeatValve[][] eccsFeedValve = new HeatValve[2][3];
     private final HeatNode[][] eccsFeedIn = new HeatNode[2][3];
@@ -1222,6 +1229,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
             pressureReliefValveToEnvironment[idx].initName(
                     "PRV" + (idx + 1) + "#ToEnvironment");
         }
+        
+        for (int idx = 0; idx < 2; idx++) {
+            bubblerSprinklerPump[idx] = new HeatFluidPump();
+            bubblerSprinklerPump[idx].initName("Bubbler"
+                    + (idx + 1) + "#SprinklerPump");
+            bubblerSprinklerPumpOut[idx] = new HeatNode();
+            bubblerSprinklerPumpOut[idx].setName("Bubbler"
+                    + (idx + 1) + "#SprinklerPumpOut");
+            bubblerSprinklerCooler[idx] = new HeatExchangerNoMass();
+            bubblerSprinklerCooler[idx].initName("Bubbler"
+                    + (idx + 1) + "#SprinklerCooler");
+            bubblerSprinklerCoolerIn[idx] = new HeatNode();
+            bubblerSprinklerCoolerIn[idx].setName("Bubbler"
+                    + (idx + 1) + "#SprinklerCoolerIn");
+            bubblerSprinklerCoolerValve[idx] = new HeatValve();
+            bubblerSprinklerCoolerValve[idx].initName("Bubbler"
+                        + (idx + 1) + "#SprinklerCoolerValve");
+        }
 
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
@@ -1272,7 +1297,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     + (idx + 1) + "#CcsPump");
         }
         eccsPvFillPump = new HeatFluidPumpSimple();
-        eccsPvFillPump.initName("ECCS#PvFillPum");
+        eccsPvFillPump.initName("ECCS#PvFillPump");
         eccsPvFillPumpOut = new HeatNode();
         eccsPvFillPumpOut.setName("ECCS#PvFillPumpOut");
         for (int idx = 0; idx < 2; idx++) {
@@ -2794,16 +2819,17 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         runner.submit(turbineReheaterCondensateDrain);
         runner.submit(turbineLowPressureTripValve);
-
         for (int idx = 0; idx < 4; idx++) {
             runner.submit(turbineLowPressureTapValve[idx]);
         }
-
         for (int idx = 0; idx < 2; idx++) {
             runner.submit(pressureReliefValveToPool[idx]);
             runner.submit(pressureReliefValveToEnvironment[idx]);
         }
-
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(bubblerSprinklerPump[idx]);
+            runner.submit(bubblerSprinklerCoolerValve[idx]);
+        }
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
                 runner.submit(eccsFeedValve[idx][jdx]);
@@ -5634,6 +5660,38 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 ejectorSuctionValve[idx].handleAction(ac);
             }
             ejectorMainBypass.handleAction(ac);
+        } else if (ac.getPropertyName().startsWith("Bubbler")) {
+            for (int idx = 0; idx < 2; idx++) {
+                bubblerSprinklerPump[idx].handleAction(ac);
+                bubblerSprinklerCoolerValve[idx].handleAction(ac);
+            }
+        } else if (ac.getPropertyName().startsWith("ECCS")) {
+            for (int idx = 0; idx < 2; idx++) {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    eccsFeedValve[idx][jdx].handleAction(ac);
+                    eccsPspPumpValve[idx][jdx].handleAction(ac);
+                }
+            }
+            for (int idx = 0; idx < 3; idx++) {
+                eccsPspPump[idx].handleAction(ac);
+                eccsPspCoolantValve[idx].handleAction(ac);
+            }
+            for (int idx = 0; idx < 2; idx++) {
+                for (int jdx = 0; jdx < 3; jdx++) {
+                    eccsCcsPumpValve[idx][jdx].handleAction(ac);
+                }
+            }
+            for (int idx = 0; idx < 3; idx++) {
+                eccsCcsPump[idx].handleAction(ac);
+            }
+            eccsPvFillPump.handleAction(ac);
+            for (int idx = 0; idx < 2; idx++) {
+                eccsPvFillValve[idx].handleAction(ac);
+                for (int jdx = 0; jdx < 2; jdx++) {
+                    eccsPvValve[idx][jdx].handleAction(ac);
+                }
+                eccsFPFillValve[idx].handleAction(ac);
+            }
         } else {
             // Main Steam shutoff valve commands from GUI
             switch (ac.getPropertyName()) {

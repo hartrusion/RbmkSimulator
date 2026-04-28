@@ -68,6 +68,16 @@ public class PanelEccs extends AbstractPanelWidget
         integralSwitchPV2Feed22.registerActionReceiver(controller);
         integralSwitchPVFill1.registerActionReceiver(controller);
         integralSwitchPVFill2.registerActionReceiver(controller);
+
+        panelWidgetFillPump.registerActionReceiver(controller);
+        panelWidgetPumpCCSP1.registerActionReceiver(controller);
+        panelWidgetPumpCCSP2.registerActionReceiver(controller);
+        panelWidgetPumpCCSP3.registerActionReceiver(controller);
+        panelWidgetPumpPSP1.registerActionReceiver(controller);
+        panelWidgetPumpPSP2.registerActionReceiver(controller);
+        panelWidgetPumpPSP3.registerActionReceiver(controller);
+        panelWidgetSprinklerPump1.registerActionReceiver(controller);
+        panelWidgetSprinklerPump2.registerActionReceiver(controller);
     }
 
     /**
@@ -259,6 +269,8 @@ public class PanelEccs extends AbstractPanelWidget
         setMinimumSize(new java.awt.Dimension(910, 550));
         setPreferredSize(new java.awt.Dimension(910, 550));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelWidgetPumpPSP1.setChornobylPrefix("ECCS1#PspPump");
         add(panelWidgetPumpPSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 398, -1, -1));
 
         jButtonToMcpHeader11Close.setBackground(new java.awt.Color(0, 128, 0));
@@ -298,12 +310,14 @@ public class PanelEccs extends AbstractPanelWidget
         ammeterVessel2Pressure.setLeftLabel("0 bar");
         ammeterVessel2Pressure.setRightLabel("90 bar");
         add(ammeterVessel2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 76, 92, 58));
+
+        panelWidgetSprinklerPump1.setChornobylPrefix("Bubbler1#SprinklerPump");
         add(panelWidgetSprinklerPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 256, -1, -1));
 
-        integralSwitchPVFill1.setComponent("ECCS#1PvFillValve");
+        integralSwitchPVFill1.setComponent("ECCS1#PvFillValve");
         add(integralSwitchPVFill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 46, -1, -1));
 
-        integralSwitchPVFill2.setComponent("ECCS#2PvFillValve");
+        integralSwitchPVFill2.setComponent("ECCS2#PvFillValve");
         add(integralSwitchPVFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 44, -1, -1));
 
         integralSwitchPSP1Feed11.setComponent("ECCS11#PspPumpValve");
@@ -665,6 +679,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionToMcp23.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionToMcp23.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionToMcp23, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 336, 52, 14));
+
+        panelWidgetPumpPSP2.setChornobylPrefix("ECCS2#PspPump");
         add(panelWidgetPumpPSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 398, -1, -1));
 
         integralSwitchPSP2Feed12.setComponent("ECCS12#PspPumpValve");
@@ -733,6 +749,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPPCoolant2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPPCoolant2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPSPPCoolant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 508, 52, 14));
+
+        panelWidgetPumpPSP3.setChornobylPrefix("ECCS3#PspPump");
         add(panelWidgetPumpPSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 398, -1, -1));
 
         integralSwitchPSP3Feed13.setComponent("ECCS13#PspPumpValve");
@@ -875,6 +893,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionSprinklerCoolant1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSprinklerCoolant1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionSprinklerCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 332, 52, 14));
+
+        panelWidgetSprinklerPump2.setChornobylPrefix("Bubbler2#SprinklerPump");
         add(panelWidgetSprinklerPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(654, 256, -1, -1));
 
         jButtonSprinklerCoolant2Close.setBackground(new java.awt.Color(0, 128, 0));
@@ -972,6 +992,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPLevel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionPSPLevel.setText("Level");
         add(jLabelCaptionPSPLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 90, 92, 14));
+
+        panelWidgetPumpCCSP1.setChornobylPrefix("ECCS1#CcsPump");
         add(panelWidgetPumpCCSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 434, -1, -1));
 
         integralSwitchCCSP1Feed11.setComponent("ECCS11#CcsPumpValve");
@@ -1018,6 +1040,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionCCSP1F11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCCSP1F11.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionCCSP1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 338, 72, 14));
+
+        panelWidgetPumpCCSP2.setChornobylPrefix("ECCS2#CcsPump");
         add(panelWidgetPumpCCSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 434, -1, -1));
 
         integralSwitchCCSP2Feed12.setComponent("ECCS12#CcsPumpValve");
@@ -1064,6 +1088,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionCCSP2F12.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionCCSP2F12.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionCCSP2F12, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 338, 72, 14));
+
+        panelWidgetPumpCCSP3.setChornobylPrefix("ECCS3#CcsPump");
         add(panelWidgetPumpCCSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 434, -1, -1));
 
         integralSwitchCCSP3Feed13.setComponent("ECCS13#CcsPumpValve");
@@ -1204,6 +1230,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrum2Level.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrum2Level.setText("Level");
         add(jLabelCaptionDrum2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 196, 92, 14));
+
+        panelWidgetFillPump.setChornobylPrefix("ECCS#PvFillPump");
         add(panelWidgetFillPump, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 32, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -1248,11 +1276,11 @@ public class PanelEccs extends AbstractPanelWidget
     }//GEN-LAST:event_jButtonDrumDrain2CoolantOpenActionPerformed
 
     private void jButtonCoolantPSPP1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP1CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS1#PspCoolantValve", false));
     }//GEN-LAST:event_jButtonCoolantPSPP1CloseActionPerformed
 
     private void jButtonCoolantPSPP1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP1OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS1#PspCoolantValve", true));
     }//GEN-LAST:event_jButtonCoolantPSPP1OpenActionPerformed
 
     private void jToggleButtonPV1Feed11AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPV1Feed11AutoActionPerformed
@@ -1320,11 +1348,11 @@ public class PanelEccs extends AbstractPanelWidget
     }//GEN-LAST:event_jToggleButtonControl1Enable13ActionPerformed
 
     private void jButtonCoolantPSPP2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP2CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS2#PspCoolantValve", false));
     }//GEN-LAST:event_jButtonCoolantPSPP2CloseActionPerformed
 
     private void jButtonCoolantPSPP2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP2OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS2#PspCoolantValve", true));
     }//GEN-LAST:event_jButtonCoolantPSPP2OpenActionPerformed
 
     private void jToggleButtonPSP3Feed13AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPSP3Feed13AutoActionPerformed
@@ -1336,11 +1364,11 @@ public class PanelEccs extends AbstractPanelWidget
     }//GEN-LAST:event_jToggleButtonPSP3Feed23AutoActionPerformed
 
     private void jButtonCoolantPSPP3CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP3CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS3#PspCoolantValve", false));
     }//GEN-LAST:event_jButtonCoolantPSPP3CloseActionPerformed
 
     private void jButtonCoolantPSPP3OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCoolantPSPP3OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("ECCS3#PspCoolantValve", true));
     }//GEN-LAST:event_jButtonCoolantPSPP3OpenActionPerformed
 
     private void jToggleButtonP3Feed13AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonP3Feed13AutoActionPerformed
@@ -1352,19 +1380,19 @@ public class PanelEccs extends AbstractPanelWidget
     }//GEN-LAST:event_jToggleButtonP3Feed23AutoActionPerformed
 
     private void jButtonSprinklerCoolant1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant1CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Bubbler1#SprinklerCoolerValve", false));
     }//GEN-LAST:event_jButtonSprinklerCoolant1CloseActionPerformed
 
     private void jButtonSprinklerCoolant1OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant1OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Bubbler1#SprinklerCoolerValve", true));
     }//GEN-LAST:event_jButtonSprinklerCoolant1OpenActionPerformed
 
     private void jButtonSprinklerCoolant2CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant2CloseActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Bubbler2#SprinklerCoolerValve", false));
     }//GEN-LAST:event_jButtonSprinklerCoolant2CloseActionPerformed
 
     private void jButtonSprinklerCoolant2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSprinklerCoolant2OpenActionPerformed
-        // TODO add your handling code here:
+        controller.userAction(new ActionCommand("Bubbler2#SprinklerCoolerValve", true));
     }//GEN-LAST:event_jButtonSprinklerCoolant2OpenActionPerformed
 
     private void jToggleButtonCCSP1Feed11AutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCCSP1Feed11AutoActionPerformed
@@ -1596,8 +1624,17 @@ public class PanelEccs extends AbstractPanelWidget
         integralSwitchPV2Feed22.updateComponent(evt);
         integralSwitchPVFill1.updateComponent(evt);
         integralSwitchPVFill2.updateComponent(evt);
-        
-        
+
+        panelWidgetFillPump.updateComponent(evt);
+        panelWidgetPumpCCSP1.updateComponent(evt);
+        panelWidgetPumpCCSP2.updateComponent(evt);
+        panelWidgetPumpCCSP3.updateComponent(evt);
+        panelWidgetPumpPSP1.updateComponent(evt);
+        panelWidgetPumpPSP2.updateComponent(evt);
+        panelWidgetPumpPSP3.updateComponent(evt);
+        panelWidgetSprinklerPump1.updateComponent(evt);
+        panelWidgetSprinklerPump2.updateComponent(evt);
+
         switch (evt.getPropertyName()) {
             case "ECCS11#FeedValve_Pos":
                 setValveButtons(jButtonToMcpHeader11Close,
@@ -1622,6 +1659,26 @@ public class PanelEccs extends AbstractPanelWidget
             case "ECCS23#FeedValve_Pos":
                 setValveButtons(jButtonToMcpHeader23Close,
                         jButtonToMcpHeader23Open, evt.getNewValue());
+                break;
+            case "Bubbler1#SprinklerCoolerValve_Pos":
+                setValveButtons(jButtonSprinklerCoolant1Close,
+                        jButtonSprinklerCoolant1Open, evt.getNewValue());
+                break;
+            case "Bubbler2#SprinklerCoolerValve_Pos":
+                setValveButtons(jButtonSprinklerCoolant2Close,
+                        jButtonSprinklerCoolant2Open, evt.getNewValue());
+                break;
+            case "ECCS1#PspCoolantValve_Pos":
+                setValveButtons(jButtonCoolantPSPP1Close,
+                        jButtonCoolantPSPP1Open, evt.getNewValue());
+                break;
+            case "ECCS2#PspCoolantValve_Pos":
+                setValveButtons(jButtonCoolantPSPP2Close,
+                        jButtonCoolantPSPP2Open, evt.getNewValue());
+                break;
+            case "ECCS3#PspCoolantValve_Pos":
+                setValveButtons(jButtonCoolantPSPP3Close,
+                        jButtonCoolantPSPP3Open, evt.getNewValue());
                 break;
         }
     }
