@@ -16,11 +16,15 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.alarm.AlarmListSnapshot;
 import com.hartrusion.alarm.AlarmManager;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
+import com.hartrusion.mvc.Controller;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
+import com.hartrusion.mvc.net.ClassBlueprints;
+import com.hartrusion.mvc.net.SocketServer;
 import com.hartrusion.rbmksim.gui.ExceptionPopup;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,9 +36,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Main cyclic loop that gets called each 100 ms. Holds references to the 
+ * Main cyclic loop that gets called each 100 ms. Holds references to the
  * simulation subsystems and manages loading and saving the state.
- * 
+ *
  * @author Viktor Alexander Hartung
  */
 public class MainLoop implements Runnable, ModelManipulation {
@@ -107,13 +111,17 @@ public class MainLoop implements Runnable, ModelManipulation {
                 indicator1.run();
                 indicator2.run();
 
-                // Send all measurement data to the GUI by sending a reference.
-                controller.propertyChange("OutputValues", outputValues);
+                // Send all measurement data to the GUI by generating a snapshot
+                // and sending them to the GUI, this will generate a history of
+                // values there (implemented for network view)
+                controller.propertyChange("OutputSnapshot", outputValues.getSnapshot());
                 // Send the core indicator to update the view
-                controller.propertyChange("CoreIndicator#1", indicator1);
-                controller.propertyChange("CoreIndicator#2", indicator2);
-            }
+                controller.propertyChange("CoreIndicator#1", indicator1.getDisplay());
+                controller.propertyChange("CoreIndicator#2", indicator2.getDisplay());
 
+                controller.propertyChange("AlarmListSnapshot",
+                        AlarmListSnapshot.fromAlarmList(alarms.getAlarmList()));
+            }
         } catch (Exception e) {
             pause = true;
             ExceptionPopup.show(e);
@@ -164,6 +172,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             } catch (IOException e) {
                 ExceptionPopup.show(e);
             }
+            return;
         }
 
         if (ac.getPropertyName().equals("LoadSimulationState")) {
@@ -181,6 +190,22 @@ public class MainLoop implements Runnable, ModelManipulation {
             } catch (IOException | ClassNotFoundException e) {
                 ExceptionPopup.show(e);
             }
+            return;
+        }
+        
+        if (ac.getPropertyName().equals("StartServer")) {
+            // Build Server
+            ClassBlueprints registry = CommBlueprints.createCommBlueprints();
+
+            SocketServer netServer = new SocketServer((Controller) controller, registry);
+            new Thread(() -> {
+                try {
+                    netServer.startServer(26486);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+            return;
         }
 
         if (pause) {

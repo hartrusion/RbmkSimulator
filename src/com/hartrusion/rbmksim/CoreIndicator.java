@@ -105,4 +105,16 @@ public class CoreIndicator {
         int ldx = jdx - ChannelData.MIN_NUMBER;
         return active[kdx][ldx];
     }
+    
+    public CoreStatusDisplay getDisplay() {
+        CoreStatusDisplay display = new CoreStatusDisplay();
+
+        for (int idx = 0; idx < 23; idx++) {
+            for (int jdx = 0; jdx < 23; jdx++) {
+                display.setHighlighted(idx, jdx, isHighlited(idx + ChannelData.MIN_NUMBER, jdx +  ChannelData.MIN_NUMBER));
+            }
+        }
+
+        return display;
+    }
 }

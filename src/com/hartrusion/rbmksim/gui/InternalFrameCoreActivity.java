@@ -17,6 +17,7 @@
 package com.hartrusion.rbmksim.gui;
 
 import com.hartrusion.rbmksim.CoreIndicator;
+import com.hartrusion.rbmksim.CoreStatusDisplay;
 
 /**
  * Holds the core activity display.
@@ -32,7 +33,7 @@ public class InternalFrameCoreActivity extends javax.swing.JInternalFrame {
         initComponents();
     }
     
-    public void updateDisplay(CoreIndicator source) {
+    public void updateDisplay(CoreStatusDisplay source) {
         panelCoreActivity1.updateDisplay(source);
     }
 

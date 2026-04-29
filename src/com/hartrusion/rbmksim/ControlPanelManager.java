@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The main GUI manager, manages the creation of ControlPanel windows and 
+ * The main GUI manager, manages the creation of ControlPanel windows and
  * distributes the data towards them.
  *
  * @author Viktor Alexander Hartung
@@ -40,6 +40,8 @@ public class ControlPanelManager implements InteractiveView {
 
     private ValueHandler plotData;
 
+    private boolean isClient;
+
     /**
      * Holds a list of all open control panel windows that are attached to this
      * control room instance directly.
@@ -50,9 +52,9 @@ public class ControlPanelManager implements InteractiveView {
      * Creates new form ControlPanel
      */
     public ControlPanelManager() {
-        
+        plotData = new ValueHandler();
     }
-    
+
     public void displayNewControlPanel() {
         // Generate a new control panel object and register it in the list of 
         // active panels.
@@ -64,6 +66,13 @@ public class ControlPanelManager implements InteractiveView {
             }
         });
         p.registerController(controller);
+        p.setPlotData(plotData);
+        if (alarmList != null) {
+            p.setAlarmList(alarmList);
+        }
+        if (isClient) {
+            p.setAsClient();
+        }
         p.setParent(this);
         p.setVisible(true); // we are on the EDT already
         if (controlPanels.size() == 0) {
@@ -72,12 +81,19 @@ public class ControlPanelManager implements InteractiveView {
         }
         controlPanels.add(p);
     }
-    
+
     public void removeControlPanel(ControlPanel panel) {
         controlPanels.remove(panel);
         if (controlPanels.size() == 0) {
             // last closed control panel terminates the application.
             System.exit(0); // Terminate java vm
+        }
+    }
+
+    public void setAsClient() {
+        this.isClient = true;
+        for (ControlPanel p : controlPanels) {
+            p.setAsClient();
         }
     }
 
@@ -102,9 +118,22 @@ public class ControlPanelManager implements InteractiveView {
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        if (propertyName.equals("OutputValues")) {
-            ((ValueHandler) newValue).fireAllToMvcView(this);
-            plotData = (ValueHandler) newValue;
+        if (propertyName.equals("OutputSnapshot")) {
+            plotData.processSnapshot((com.hartrusion.values.ValueSnapshot) newValue);
+            plotData.fireAllToMvcView(this);
+
+            for (ControlPanel p : controlPanels) {
+                p.updatePlots();
+            }
+            return;
+        }
+        if (propertyName.equals("AlarmListSnapshot")) {
+            alarmList = ((com.hartrusion.alarm.AlarmListSnapshot) newValue).toAlarmList();
+
+            for (ControlPanel p : controlPanels) {
+                p.setAlarmList(alarmList);
+            }
+            return;
         }
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
@@ -115,7 +144,7 @@ public class ControlPanelManager implements InteractiveView {
     public void updateComponent(String propertyName, double newValue) {
         for (UpdateReceiver ur : controlPanels) {
             ur.updateComponent(propertyName, newValue);
-        }        
+        }
     }
 
     @Override
@@ -129,7 +158,7 @@ public class ControlPanelManager implements InteractiveView {
         // Todo: maybe there's a better way of organizing this.
         this.alarmList = alarmList;
     }
-    
+
     public List getAlarmList() {
         return alarmList;
     }

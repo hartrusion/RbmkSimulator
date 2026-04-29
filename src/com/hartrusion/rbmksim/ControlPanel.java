@@ -72,6 +72,24 @@ public class ControlPanel extends javax.swing.JFrame implements
      */
     private ValueHandler plotData;
 
+    public void setPlotData(ValueHandler plotData) {
+        this.plotData = plotData;
+    }
+    
+    public void updatePlots() {
+        for (InternalFrameDiagram df : diagrams) {
+            df.updatePlots();
+        }
+    }
+    
+    public void setAlarmList(List alarmList) {
+        this.alarmList = alarmList;
+
+        if (alarmTable != null) {
+            alarmTable.setAlarms(alarmList);
+        }
+    }
+
     /**
      * Holds a list of all interactive components which are active inside the
      * desktop pane to update them.
@@ -118,6 +136,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuLoad = new javax.swing.JMenuItem();
         jMenuSave = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemStartServer = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuView = new javax.swing.JMenu();
@@ -222,6 +242,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuSave.setActionCommand("Save");
         jMenuSave.addActionListener(this::jMenuSaveActionPerformed);
         jMenuFile.add(jMenuSave);
+        jMenuFile.add(jSeparator8);
+
+        jMenuItemStartServer.setText("Start Server");
+        jMenuItemStartServer.addActionListener(this::jMenuItemStartServerActionPerformed);
+        jMenuFile.add(jMenuItemStartServer);
         jMenuFile.add(jSeparator3);
 
         jMenuItemExit.setText("Exit (Terminate)");
@@ -1438,6 +1463,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeControlPanel(new PanelEccs(), "Emergency Core Cooling System (ECCS)");
     }//GEN-LAST:event_jMenuItemViewECCSActionPerformed
 
+    private void jMenuItemStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartServerActionPerformed
+        controller.userAction(new ActionCommand("StartServer", null));
+    }//GEN-LAST:event_jMenuItemStartServerActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1622,6 +1651,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
     private javax.swing.JMenuItem jMenuItemRecirculation;
+    private javax.swing.JMenuItem jMenuItemStartServer;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTriggerDisaster;
     private javax.swing.JMenuItem jMenuItemTurbine;
@@ -1650,6 +1680,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
@@ -1668,6 +1699,18 @@ public class ControlPanel extends javax.swing.JFrame implements
         // To discuss - to be able to open one panel for the first opened frame
         jMenuItemCoreControlActionPerformed(null);
     }
+    
+    /**
+     * Modifies the instance to make it fit to be a client (disables some 
+     * things that are not available on clients)
+     */
+    public void setAsClient() {
+        jMenuLoad.setEnabled(false);
+        jMenuSave.setEnabled(false);
+        jMenuItemStartServer.setEnabled(false);
+        jMenuItemExit.setText("Exit (Disconnect)");
+        setTitle("RBMK Simulator (Client)");
+    }
 
     @Override
     public void updateComponent(PropertyChangeEvent evt) {
@@ -1685,6 +1728,25 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
+        if (propertyName.equals("OutputSnapshot")) {
+            if (plotData == null) {
+                plotData = new ValueHandler();
+            }
+
+            plotData.processSnapshot((com.hartrusion.values.ValueSnapshot) newValue);
+            plotData.fireAllToMvcView(this);
+
+            for (InternalFrameDiagram df : diagrams) {
+                df.updatePlots();
+            }
+
+            // use this event to update the alarm list also.
+            if (alarmTable != null) {
+                alarmTable.setAlarms(alarmList);
+            }
+            return;
+        }
+        // obsolete:
         if (propertyName.equals("OutputValues")) {
             ((ValueHandler) newValue).fireAllToMvcView(this);
             plotData = (ValueHandler) newValue;
@@ -1700,11 +1762,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
 
         if (coreActivity1 != null && propertyName.equals("CoreIndicator#1")) {
-            coreActivity1.updateDisplay((CoreIndicator) newValue);
+            coreActivity1.updateDisplay((CoreStatusDisplay) newValue);
             return;
         }
         if (coreActivity2 != null && propertyName.equals("CoreIndicator#2")) {
-            coreActivity2.updateDisplay((CoreIndicator) newValue);
+            coreActivity2.updateDisplay((CoreStatusDisplay) newValue);
             return;
         }
 

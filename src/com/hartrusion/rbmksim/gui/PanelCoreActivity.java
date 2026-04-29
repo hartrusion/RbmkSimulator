@@ -19,6 +19,7 @@ package com.hartrusion.rbmksim.gui;
 import com.hartrusion.rbmksim.ChannelData;
 import com.hartrusion.rbmksim.ChannelType;
 import com.hartrusion.rbmksim.CoreIndicator;
+import com.hartrusion.rbmksim.CoreStatusDisplay;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -164,14 +165,14 @@ public class PanelCoreActivity extends JPanel {
                 return null;
         }
     }
-
+    
     /**
      * Updates the panel from the given {@link CoreIndicator}. Only repaints
      * labels whose highlight state has actually changed.
      *
-     * @param source the CoreIndicator providing highlight data
+     * @param status the CoreStatusDisplay providing highlight data
      */
-    public void updateDisplay(CoreIndicator source) {
+    public void updateDisplay(CoreStatusDisplay status) {
         for (int idx = ChannelData.MIN_NUMBER;
                 idx <= ChannelData.MAX_NUMBER; idx++) {
             for (int jdx = ChannelData.MIN_NUMBER;
@@ -184,7 +185,7 @@ public class PanelCoreActivity extends JPanel {
 
                 int kdx = idx - ChannelData.MIN_NUMBER;
                 int ldx = jdx - ChannelData.MIN_NUMBER;
-                boolean toHighlight = source.isHighlited(idx, jdx);
+                boolean toHighlight = status.isHighlighted(kdx, ldx);
 
                 if (toHighlight != highlight[kdx][ldx]) {
                     JLabel label = getLabel(idx, jdx);
