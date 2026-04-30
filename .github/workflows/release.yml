@@ -120,8 +120,8 @@ jobs:
       - name: Create Windows App Images (jpackage)
         shell: pwsh
         run: |
-          $simJar = "artifact-jar\RbmkSimulator-SNAPSHOT.jar"
-          $clientJar = "artifact-jar\RbmkSimulatorClient-SNAPSHOT.jar"
+          $simJar = "artifact-jar\RbmkSimulator.jar"
+          $clientJar = "artifact-jar\RbmkSimulatorClient.jar"
 
           if (-not (Test-Path $simJar)) {
             Write-Error "Missing simulator jar: $simJar"
@@ -136,13 +136,13 @@ jobs:
           jpackage --type app-image `
                    --name RbmkSimulator `
                    --input artifact-jar `
-                   --main-jar RbmkSimulator-SNAPSHOT.jar `
+                   --main-jar RbmkSimulator.jar `
                    --dest build-win
 
           jpackage --type app-image `
                    --name RbmkSimulatorClient `
                    --input artifact-jar `
-                   --main-jar RbmkSimulatorClient-SNAPSHOT.jar `
+                   --main-jar RbmkSimulatorClient.jar `
                    --dest build-win
 
       - name: Merge client launcher into simulator package
