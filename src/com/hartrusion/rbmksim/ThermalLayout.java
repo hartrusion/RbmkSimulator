@@ -4095,7 +4095,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return 1e5 - condenserVacuum.getOutput();
+                // Condenser Vacuum is a value between 0 and 1e5 with 0 beeing
+                // ambient and 1e5 beeing a perfect vacuum.
+                return Math.min( // unnecessary, but look at both
+                        1e5 - hotwell.getPrimarySideReservoir().getEffort(),
+                        1e5 - condenserVacuum.getOutput());
             }
         });
         am.defineAlarm(9e4, AlarmState.LOW1);
