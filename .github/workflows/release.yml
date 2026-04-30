@@ -1,4 +1,4 @@
-name: Release w. Win64 Standalone
+name: Create Release with Windows Standalone
 
 on:
   workflow_dispatch:
@@ -62,6 +62,7 @@ jobs:
                   tmpdir=$(mktemp -d)
                   unzip -q "$tmpzip" -d "$tmpdir" || true
                   find "$tmpdir" -type f -name '*.jar' -exec cp -f {} lib/ \;
+                  rm -rf "$tmpdir" "$tmpzip"
                   ;;
               esac
             done
@@ -126,12 +127,12 @@ jobs:
             Write-Error "Missing simulator jar: $simJar"
             exit 1
           }
+
           if (-not (Test-Path $clientJar)) {
             Write-Error "Missing client jar: $clientJar"
             exit 1
           }
 
-          # Nutze jpackage um ein App-Image zu erstellen (Ordner mit Exe + Runtime, kein Installer)
           jpackage --type app-image `
                    --name RbmkSimulator `
                    --input artifact-jar `
@@ -144,20 +145,55 @@ jobs:
                    --main-jar RbmkSimulatorClient-SNAPSHOT.jar `
                    --dest build-win
 
-      - name: Create ZIPs from Windows App Images
+      - name: Merge client launcher into simulator package
         shell: pwsh
         run: |
-          # Zippe den generierten Ordner, um ihn als einzelnes Release-Asset hochzuladen
+          $simRoot = "build-win\RbmkSimulator"
+          $clientRoot = "build-win\RbmkSimulatorClient"
+
+          if (-not (Test-Path $simRoot)) {
+            Write-Error "Simulator app image not found: $simRoot"
+            exit 1
+          }
+
+          if (-not (Test-Path $clientRoot)) {
+            Write-Error "Client app image not found: $clientRoot"
+            exit 1
+          }
+
+          $clientExe = Join-Path $clientRoot "RbmkSimulatorClient.exe"
+          $clientCfg = Join-Path $clientRoot "app\RbmkSimulatorClient.cfg"
+          $clientJPackageXml = Join-Path $clientRoot "app\.jpackage.xml"
+
+          if (-not (Test-Path $clientExe)) {
+            Write-Error "Missing client exe: $clientExe"
+            exit 1
+          }
+
+          if (-not (Test-Path $clientCfg)) {
+            Write-Error "Missing client config: $clientCfg"
+            exit 1
+          }
+
+          if (-not (Test-Path $clientJPackageXml)) {
+            Write-Error "Missing client .jpackage.xml: $clientJPackageXml"
+            exit 1
+          }
+
+          Copy-Item $clientExe (Join-Path $simRoot "RbmkSimulatorClient.exe") -Force
+          Copy-Item $clientCfg (Join-Path $simRoot "app\RbmkSimulatorClient.cfg") -Force
+          Copy-Item $clientJPackageXml (Join-Path $simRoot "app\.jpackageClient.xml") -Force
+
+      - name: Create ZIP from merged Windows App Image
+        shell: pwsh
+        run: |
           Compress-Archive -Path "build-win\RbmkSimulator\*" -DestinationPath "RbmkSimulator-Windows-x64.zip"
-          Compress-Archive -Path "build-win\RbmkSimulatorClient\*" -DestinationPath "RbmkSimulatorClient-Windows-x64.zip"
 
       - name: Upload Windows ZIP Artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-zip
-          path: |
-            RbmkSimulator-Windows-x64.zip
-            RbmkSimulatorClient-Windows-x64.zip
+          path: RbmkSimulator-Windows-x64.zip
 
   create-release:
     needs: [build-jar, build-windows-exe]
@@ -190,6 +226,5 @@ jobs:
           files: |
             release-assets/*.jar
             release-assets/RbmkSimulator-Windows-x64.zip
-            release-assets/RbmkSimulatorClient-Windows-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
