@@ -1,4 +1,4 @@
-name: Create Release with Windows Standalone
+name: Release w. Win64 Standalone
 
 on:
   workflow_dispatch:
@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 50
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -40,15 +42,15 @@ jobs:
           for repo in "${REPO_ARR[@]}"; do
             repo=$(echo "$repo" | xargs)
             [ -n "$repo" ] || continue
-            
+
             API="https://api.github.com/repos/${repo}/releases/tags/${TAG}"
             rel_json=$(curl -sS -H "Authorization: token ${TOKEN}" "$API" || true)
-            
+
             mapfile -t urls < <(printf '%s' "$rel_json" | jq -r '.assets[]?.browser_download_url // empty')
             for url in "${urls[@]}"; do
               [ -n "$url" ] || continue
               asset_name=$(basename "${url%%\?*}")
-              
+
               case "$asset_name" in
                 *.jar)
                   curl -fSL -H "Authorization: token ${TOKEN}" -o "lib/${asset_name}" "$url"
@@ -77,11 +79,26 @@ jobs:
       - name: Run Ant build
         run: ant -buildfile .github/build.xml fatjar
 
+      - name: Build release changelog
+        run: |
+          {
+            echo "## Changes"
+            echo
+            git log -10 --pretty=format:"- %s (%h)"
+            echo
+          } > RELEASE_NOTES.md
+
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
         with:
           name: compiled-jar
           path: build/jar/*.jar
+
+      - name: Upload release notes artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: RELEASE_NOTES.md
 
   build-windows-exe:
     needs: build-jar
@@ -93,19 +110,24 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Download JAR
+      - name: Download JARs
         uses: actions/download-artifact@v4
         with:
           name: compiled-jar
           path: artifact-jar
 
-      - name: Create Windows App Image (jpackage)
+      - name: Create Windows App Images (jpackage)
+        shell: pwsh
         run: |
-          # Finde den genauen Namen der generierten Jar-Datei heraus
-          $jarPath = Get-ChildItem -Path "artifact-jar" -Filter "*.jar" | Select-Object -First 1
-          
-          if (-not $jarPath) {
-            Write-Error "Keine Jar Datei gefunden!"
+          $simJar = "artifact-jar\RbmkSimulator-SNAPSHOT.jar"
+          $clientJar = "artifact-jar\RbmkSimulatorClient-SNAPSHOT.jar"
+
+          if (-not (Test-Path $simJar)) {
+            Write-Error "Missing simulator jar: $simJar"
+            exit 1
+          }
+          if (-not (Test-Path $clientJar)) {
+            Write-Error "Missing client jar: $clientJar"
             exit 1
           }
 
@@ -113,19 +135,29 @@ jobs:
           jpackage --type app-image `
                    --name RbmkSimulator `
                    --input artifact-jar `
-                   --main-jar $($jarPath.Name) `
+                   --main-jar RbmkSimulator-SNAPSHOT.jar `
                    --dest build-win
 
-      - name: Create ZIP from Windows App Image
+          jpackage --type app-image `
+                   --name RbmkSimulatorClient `
+                   --input artifact-jar `
+                   --main-jar RbmkSimulatorClient-SNAPSHOT.jar `
+                   --dest build-win
+
+      - name: Create ZIPs from Windows App Images
+        shell: pwsh
         run: |
           # Zippe den generierten Ordner, um ihn als einzelnes Release-Asset hochzuladen
           Compress-Archive -Path "build-win\RbmkSimulator\*" -DestinationPath "RbmkSimulator-Windows-x64.zip"
+          Compress-Archive -Path "build-win\RbmkSimulatorClient\*" -DestinationPath "RbmkSimulatorClient-Windows-x64.zip"
 
       - name: Upload Windows ZIP Artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-zip
-          path: RbmkSimulator-Windows-x64.zip
+          path: |
+            RbmkSimulator-Windows-x64.zip
+            RbmkSimulatorClient-Windows-x64.zip
 
   create-release:
     needs: [build-jar, build-windows-exe]
@@ -143,13 +175,21 @@ jobs:
           name: windows-zip
           path: release-assets/
 
+      - name: Download release notes artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-notes
+          path: release-assets/
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag_name }}
           name: Release ${{ github.event.inputs.tag_name }}
+          body_path: release-assets/RELEASE_NOTES.md
           files: |
             release-assets/*.jar
             release-assets/RbmkSimulator-Windows-x64.zip
+            release-assets/RbmkSimulatorClient-Windows-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
