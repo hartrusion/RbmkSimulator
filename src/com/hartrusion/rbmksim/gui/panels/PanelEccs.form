@@ -2290,9 +2290,12 @@
             <LineBorder/>
           </Border>
         </Property>
+        <Property name="chornobylMaximum" type="double" value="50.0"/>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="leftLabel" type="java.lang.String" value="0 &#xb0;C"/>
+        <Property name="rightLabel" type="java.lang.String" value="50 &#xb0;C"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2330,9 +2333,12 @@
             <LineBorder/>
           </Border>
         </Property>
+        <Property name="chornobylMaximum" type="double" value="2.0"/>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="leftLabel" type="java.lang.String" value="0 m"/>
+        <Property name="rightLabel" type="java.lang.String" value="2 m"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2876,7 +2882,7 @@
           </FontInfo>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Cold condensate storage"/>
+        <Property name="text" type="java.lang.String" value="Cold condensate storage (Makeup)"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2894,9 +2900,12 @@
             <LineBorder/>
           </Border>
         </Property>
+        <Property name="chornobylMaximum" type="double" value="50.0"/>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="leftLabel" type="java.lang.String" value="0 &#xb0;C"/>
+        <Property name="rightLabel" type="java.lang.String" value="50 &#xb0;C"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2934,6 +2943,7 @@
             <LineBorder/>
           </Border>
         </Property>
+        <Property name="chornobylMaximum" type="double" value="10.0"/>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>

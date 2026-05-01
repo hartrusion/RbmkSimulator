@@ -975,7 +975,10 @@ public class PanelEccs extends AbstractPanelWidget
 
         ammeterPSPTemperature.setBackground(new java.awt.Color(255, 255, 255));
         ammeterPSPTemperature.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterPSPTemperature.setChornobylMaximum(50.0);
         ammeterPSPTemperature.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterPSPTemperature.setLeftLabel("0 °C");
+        ammeterPSPTemperature.setRightLabel("50 °C");
         add(ammeterPSPTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 30, 92, 58));
 
         jLabelCaptionPSPTemperature.setFont(jLabelCaptionPSPTemperature.getFont().deriveFont(jLabelCaptionPSPTemperature.getFont().getSize()-2f));
@@ -985,7 +988,10 @@ public class PanelEccs extends AbstractPanelWidget
 
         ammeterPSPLevel.setBackground(new java.awt.Color(255, 255, 255));
         ammeterPSPLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterPSPLevel.setChornobylMaximum(2.0);
         ammeterPSPLevel.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterPSPLevel.setLeftLabel("0 m");
+        ammeterPSPLevel.setRightLabel("2 m");
         add(ammeterPSPLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 30, 92, 58));
 
         jLabelCaptionPSPLevel.setFont(jLabelCaptionPSPLevel.getFont().deriveFont(jLabelCaptionPSPLevel.getFont().getSize()-2f));
@@ -1144,12 +1150,15 @@ public class PanelEccs extends AbstractPanelWidget
 
         jLabelCaptionGaugesCCS.setFont(jLabelCaptionGaugesCCS.getFont().deriveFont(jLabelCaptionGaugesCCS.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionGaugesCCS.getFont().getSize()-2));
         jLabelCaptionGaugesCCS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionGaugesCCS.setText("Cold condensate storage");
+        jLabelCaptionGaugesCCS.setText("Cold condensate storage (Makeup)");
         add(jLabelCaptionGaugesCCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 118, 200, 14));
 
         ammeterCCSTemperature.setBackground(new java.awt.Color(255, 255, 255));
         ammeterCCSTemperature.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterCCSTemperature.setChornobylMaximum(50.0);
         ammeterCCSTemperature.setForeground(new java.awt.Color(0, 0, 0));
+        ammeterCCSTemperature.setLeftLabel("0 °C");
+        ammeterCCSTemperature.setRightLabel("50 °C");
         add(ammeterCCSTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 136, 92, 58));
 
         jLabelCaptionCCSTemperature.setFont(jLabelCaptionCCSTemperature.getFont().deriveFont(jLabelCaptionCCSTemperature.getFont().getSize()-2f));
@@ -1159,6 +1168,7 @@ public class PanelEccs extends AbstractPanelWidget
 
         ammeterCCSLevel.setBackground(new java.awt.Color(255, 255, 255));
         ammeterCCSLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ammeterCCSLevel.setChornobylMaximum(10.0);
         ammeterCCSLevel.setForeground(new java.awt.Color(0, 0, 0));
         ammeterCCSLevel.setLeftLabel("0 m");
         ammeterCCSLevel.setRightLabel("10 m");
@@ -1701,6 +1711,12 @@ public class PanelEccs extends AbstractPanelWidget
                 ammeterDrum1Pressure.setChornobylValue(newValue);
             case "MakeupStorage#Level" ->
                 ammeterCCSLevel.setChornobylValue(newValue);
+            case "MakeupStorage#Temperature" ->
+                ammeterCCSTemperature.setChornobylValue(newValue);
+            case "BubblerPool#Level" ->
+                ammeterPSPLevel.setChornobylValue(newValue);
+            case "BubblerPool#Temperature" ->
+                ammeterPSPTemperature.setChornobylValue(newValue);
         }
     }
 

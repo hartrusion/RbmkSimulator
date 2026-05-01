@@ -419,7 +419,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final PhasedValve[] pressureReliefValveToEnvironment
             = new PhasedValve[2];
     
-    private final HeatFluidPump[] bubblerSprinklerPump = new HeatFluidPump[2];
+    private final HeatFluidPumpSimple[] bubblerSprinklerPump 
+            = new HeatFluidPumpSimple[2];
     private final HeatNode[] bubblerSprinklerPumpOut = new HeatNode[2];
     private final HeatExchangerNoMass[] bubblerSprinklerCooler 
             = new HeatExchangerNoMass[2];
@@ -1209,7 +1210,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineLowPressureOutMass.setName("Turbine#LowPressureOutMass");
 
         bubblerPool = new PhasedClosedSteamedReservoir(phasedWater);
-        bubblerPool.setName("BubblerPool");
+        bubblerPool.setName("Bubbler#Pool");
         bubblerPoolIn = new PhasedNode();
         bubblerPoolIn.setName("BubblerPoolIn");
 
@@ -1231,7 +1232,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         
         for (int idx = 0; idx < 2; idx++) {
-            bubblerSprinklerPump[idx] = new HeatFluidPump();
+            bubblerSprinklerPump[idx] = new HeatFluidPumpSimple();
             bubblerSprinklerPump[idx].initName("Bubbler"
                     + (idx + 1) + "#SprinklerPump");
             bubblerSprinklerPumpOut[idx] = new HeatNode();
@@ -2691,7 +2692,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Initial fill of the bubbler pool. It is 400 m^2 in size, so with a 
         // fill height of 30 cm that will be 400 m^2 * 0.3 m = 120 m^3 which 
         // is 120 tons of water.
-        bubblerPool.setInitialState(120000, 273.15 + 19.0);
+        bubblerPool.setInitialState(300000, 273.15 + 19.0);
 
         // </editor-fold>
         // Initialize solver and build model. This is only a small line of code,
@@ -5015,6 +5016,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
         outputValues.setParameterValue("MakeupStorage#Level",
                 makeupStorage.getEffort() * 1.0224e-4); // Pa in meters
+        outputValues.setParameterValue("MakeupStorage#Temperature",
+                makeupStorage.getHeatHandler().getTemperature() - 273.15);
         outputValues.setParameterValue("Coolant#TotalFlow",
                 coolantSinkNode.getFlow(coolantSink));
         outputValues.setParameterValue("Coolant#OutTemperature",
@@ -5407,6 +5410,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     pressureReliefValveToEnvironment[idx]
                             .getValveElement().getFlow());
         }
+        outputValues.setParameterValue("BubblerPool#Level", 
+                bubblerPool.getFillHeight()); // this one uses meters?
+        outputValues.setParameterValue("BubblerPool#Temperature", 
+                bubblerPool.getTemperature() - 273.15);
+        
         // </editor-fold>
     }
 
