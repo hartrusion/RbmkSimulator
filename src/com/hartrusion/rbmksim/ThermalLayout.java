@@ -27,6 +27,7 @@ import com.hartrusion.control.Integrator;
 import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
 import com.hartrusion.control.Setpoint;
+import com.hartrusion.control.TwoPointControl;
 import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.assemblies.HeatExchangerNoMass;
 import com.hartrusion.modeling.automated.HeatFluidPump;
@@ -432,13 +433,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatVolumizedFlowResistance[][] eccsFeedLine
             = new HeatVolumizedFlowResistance[2][3];
     private final HeatNode[][] eccsFeedLineIn = new HeatNode[2][3];
-    private final HeatValve[][] eccsPspPumpValve = new HeatValve[2][3];
+    private final HeatValveControlled[][] eccsPspPumpValve = new HeatValveControlled[2][3];
     private final HeatNode[] eccsPspPumpOut = new HeatNode[3];
     private final HeatFluidPump[] eccsPspPump = new HeatFluidPump[3];
     private final HeatExchangerNoMass[] eccsPspCooler
             = new HeatExchangerNoMass[3];
     private final HeatValve[] eccsPspCoolantValve = new HeatValve[3];
-    private final HeatValve[][] eccsCcsPumpValve = new HeatValve[2][3];
+    private final HeatValveControlled[][] eccsCcsPumpValve = new HeatValveControlled[2][3];
     private final HeatNode[] eccsCcsPumpOut = new HeatNode[3];
     private final HeatFluidPump[] eccsCcsPump = new HeatFluidPump[3];
     private final HeatFluidPumpSimple eccsPvFillPump;
@@ -446,7 +447,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValve[] eccsPvFillValve = new HeatValve[2];
     private final HeatFluidTank[] eccsPressureVessel = new HeatFluidTank[2];
     private final HeatNode[] eccsPvNode = new HeatNode[2];
-    private final HeatValve[][] eccsPvValve = new HeatValve[2][2];
+    private final HeatValveControlled[][] eccsPvValve = new HeatValveControlled[2][2];
     private final HeatValve[] eccsFPFillValve = new HeatValve[2]; // Feed pump   
 
     // </editor-fold>
@@ -1263,7 +1264,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 eccsFeedLineIn[idx][jdx] = new HeatNode();
                 eccsFeedLineIn[idx][jdx].setName("ECCS"
                         + (10 * (idx + 1) + jdx + 1) + "#FeedIn");
-                eccsPspPumpValve[idx][jdx] = new HeatValve();
+                eccsPspPumpValve[idx][jdx] = new HeatValveControlled();
+                eccsPspPumpValve[idx][jdx].registerController(new TwoPointControl());
                 eccsPspPumpValve[idx][jdx].initName("ECCS"
                         + (10 * (idx + 1) + jdx + 1) + "#PspPumpValve");
             }
@@ -1284,7 +1286,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 3; jdx++) {
-                eccsCcsPumpValve[idx][jdx] = new HeatValve();
+                eccsCcsPumpValve[idx][jdx] = new HeatValveControlled();
+                eccsCcsPumpValve[idx][jdx].registerController(new TwoPointControl());
                 eccsCcsPumpValve[idx][jdx].initName("ECCS"
                         + (10 * (idx + 1) + jdx + 1) + "#CcsPumpValve");
             }
@@ -1312,7 +1315,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
             eccsPvNode[idx].setName("ECCS"
                     + (idx + 1) + "#PvNode");
             for (int jdx = 0; jdx < 2; jdx++) {
-                eccsPvValve[idx][jdx] = new HeatValve();
+                eccsPvValve[idx][jdx] = new HeatValveControlled();
+                eccsPvValve[idx][jdx].registerController(new TwoPointControl());
                 eccsPvValve[idx][jdx].initName("ECCS"
                         + (10 * (idx + 1) + jdx + 1) + "#PvValve");
             }
@@ -4623,15 +4627,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // The safety relief valve will open shortly after the MAX-alarm from 
         // steam drum is fired. Also note, again, that we have reversed logic
         // here. It will open when it is not safe to be not open. Note that
-        // we use Pascal absolute here while hte Alarm-Message is using bar 
+        // we use Pascal absolute here while the Alarm-Message is using bar 
         // relative to ambient pressure.
         // MAX1 Scram is at 72 bar -> 7.3e6 Pa
         // MAX2 Safety Steam Relief is on 74 bar -> 7.5e6
         // The valves will close before MAX1 alarm would be cleared by that
         // action. 
+        // We use safety logic instead of 2 point control for this valve as the 
+        // safe logic also allows to have an alarm message by the safe logic
+        // itself.
+        // The drum fill height is also considered so far to not let the drum
+        // run dry, this is so far needed to keep the simulation stable.
         pressureReliefValveToPool[0].addSafeOpenProvider(() -> {
             if (mainSteamDrumNode[0].effortUpdated()) {
-                return (mainSteamDrumNode[0].getEffort() < 7.51e6);
+                return (mainSteamDrumNode[0].getEffort() < 7.51e6
+                        || loopSteamDrum[0].getFillHeight() < 0.2);
             } else {
                 return true;
             }
@@ -4645,7 +4655,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         pressureReliefValveToPool[1].addSafeOpenProvider(() -> {
             if (mainSteamDrumNode[1].effortUpdated()) {
-                return (mainSteamDrumNode[1].getEffort() < 7.51e6);
+                return (mainSteamDrumNode[1].getEffort() < 7.51e6
+                        || loopSteamDrum[0].getFillHeight() < 0.2);
             } else {
                 return true;
             }
@@ -4662,7 +4673,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // implemented, would be set above.)
         pressureReliefValveToEnvironment[0].addSafeOpenProvider(() -> {
             if (mainSteamDrumNode[0].effortUpdated()) {
-                return (mainSteamDrumNode[0].getEffort() < 7.91e6);
+                return (mainSteamDrumNode[0].getEffort() < 7.91e6
+                        || loopSteamDrum[0].getFillHeight() < 0.2);
             } else {
                 return true;
             }
@@ -4676,7 +4688,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         pressureReliefValveToEnvironment[1].addSafeOpenProvider(() -> {
             if (mainSteamDrumNode[1].effortUpdated()) {
-                return (mainSteamDrumNode[1].getEffort() < 7.91e6);
+                return (mainSteamDrumNode[1].getEffort() < 7.91e6
+                        || loopSteamDrum[0].getFillHeight() < 0.2);
             } else {
                 return true;
             }
@@ -4824,11 +4837,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                             turbineReheaterSteamValve[idx].getValveElement());
         }
 
-        // Generate core temperature value (avg deg celsius value)
+        // Generate core temperature value (avg deg celsius value). This is 
+        // used by the neutron flux model for negative temperature coefficient.
         if (!noReactorInput) {
             coreTemp = (fuelThermalOut[0].getEffort()
                     + fuelThermalOut[1].getEffort()) / 2 - 273.5;
         } else {
+            // When only reactor without hydrothermal model is simulated:
+            // An estimation that assumes a temperature from the thermal power
+            // output to have some feedback to the reactor model. The reactor
+            // needs the core temp to have a negative temperature coefficient.
             coreTemp = 0.324 * (thermalPower[0] + thermalPower[1]) / 2 + 50.9;
         }
 

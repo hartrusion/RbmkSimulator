@@ -89,6 +89,7 @@ public class PanelEccs extends AbstractPanelWidget
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         panelWidgetPumpPSP1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
         jButtonToMcpHeader11Close = new javax.swing.JButton();
         jButtonToMcpHeader11Open = new javax.swing.JButton();
@@ -265,6 +266,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
+        jButton1.setText("jButton1");
+
         setMaximumSize(new java.awt.Dimension(910, 550));
         setMinimumSize(new java.awt.Dimension(910, 550));
         setPreferredSize(new java.awt.Dimension(910, 550));
@@ -321,6 +324,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(integralSwitchPVFill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 44, -1, -1));
 
         integralSwitchPSP1Feed11.setComponent("ECCS11#PspPumpValve");
+        integralSwitchPSP1Feed11.setControlledValve(true);
         integralSwitchPSP1Feed11.setToolTipText("");
         add(integralSwitchPSP1Feed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 318, -1, -1));
 
@@ -333,6 +337,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbPSP1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 328, -1, -1));
 
         integralSwitchPSP1Feed21.setComponent("ECCS21#PspPumpValve");
+        integralSwitchPSP1Feed21.setControlledValve(true);
         integralSwitchPSP1Feed21.setToolTipText("");
         add(integralSwitchPSP1Feed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 366, -1, -1));
 
@@ -364,7 +369,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP1F11.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPSPP1F11.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPSPP1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 302, 72, 14));
-        add(integralSwitchDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 178, -1, -1));
+        add(integralSwitchDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 218, -1, -1));
 
         jLabelCaptionDrainDrum1.setFont(jLabelCaptionDrainDrum1.getFont().deriveFont(jLabelCaptionDrainDrum1.getFont().getSize()-2f));
         jLabelCaptionDrainDrum1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -372,8 +377,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrainDrum1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 160, 58, 14));
-        add(integralSwitchDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 178, -1, -1));
+        add(jLabelCaptionDrainDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 58, 14));
+        add(integralSwitchDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 218, -1, -1));
 
         jLabelCaptionDrainDrum2.setFont(jLabelCaptionDrainDrum2.getFont().deriveFont(jLabelCaptionDrainDrum2.getFont().getSize()-2f));
         jLabelCaptionDrainDrum2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -381,7 +386,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrainDrum2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrainDrum2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 160, 58, 14));
+        add(jLabelCaptionDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 200, 58, 14));
 
         jLabelCaptionHeaderPPSPumps.setFont(jLabelCaptionHeaderPPSPumps.getFont().deriveFont(jLabelCaptionHeaderPPSPumps.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionHeaderPPSPumps.getFont().getSize()-2));
         jLabelCaptionHeaderPPSPumps.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -393,14 +398,14 @@ public class PanelEccs extends AbstractPanelWidget
         jButtonDrumDrain1CoolantClose.setToolTipText("");
         jButtonDrumDrain1CoolantClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrumDrain1CoolantClose.addActionListener(this::jButtonDrumDrain1CoolantCloseActionPerformed);
-        add(jButtonDrumDrain1CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 224, 20, 20));
+        add(jButtonDrumDrain1CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 264, 20, 20));
 
         jButtonDrumDrain1CoolantOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumDrain1CoolantOpen.setText("O");
         jButtonDrumDrain1CoolantOpen.setToolTipText("");
         jButtonDrumDrain1CoolantOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrumDrain1CoolantOpen.addActionListener(this::jButtonDrumDrain1CoolantOpenActionPerformed);
-        add(jButtonDrumDrain1CoolantOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 224, 20, 20));
+        add(jButtonDrumDrain1CoolantOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 264, 20, 20));
 
         jLabelCaptionDrumDrain1Coolant.setFont(jLabelCaptionDrumDrain1Coolant.getFont().deriveFont(jLabelCaptionDrumDrain1Coolant.getFont().getSize()-2f));
         jLabelCaptionDrumDrain1Coolant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -408,21 +413,21 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrumDrain1Coolant.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrumDrain1Coolant.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrumDrain1Coolant.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrumDrain1Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 210, 52, 14));
+        add(jLabelCaptionDrumDrain1Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 250, 52, 14));
 
         jButtonDrumDrain2CoolantClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumDrain2CoolantClose.setText("C");
         jButtonDrumDrain2CoolantClose.setToolTipText("");
         jButtonDrumDrain2CoolantClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrumDrain2CoolantClose.addActionListener(this::jButtonDrumDrain2CoolantCloseActionPerformed);
-        add(jButtonDrumDrain2CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 224, 20, 20));
+        add(jButtonDrumDrain2CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 264, 20, 20));
 
         jButtonDrumDrain2CoolantOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumDrain2CoolantOpen.setText("O");
         jButtonDrumDrain2CoolantOpen.setToolTipText("");
         jButtonDrumDrain2CoolantOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrumDrain2CoolantOpen.addActionListener(this::jButtonDrumDrain2CoolantOpenActionPerformed);
-        add(jButtonDrumDrain2CoolantOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 224, 20, 20));
+        add(jButtonDrumDrain2CoolantOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 264, 20, 20));
 
         jLabelCaptionDrumDrain2Coolant.setFont(jLabelCaptionDrumDrain2Coolant.getFont().deriveFont(jLabelCaptionDrumDrain2Coolant.getFont().getSize()-2f));
         jLabelCaptionDrumDrain2Coolant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -430,7 +435,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrumDrain2Coolant.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrumDrain2Coolant.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrumDrain2Coolant.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrumDrain2Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 210, 52, 14));
+        add(jLabelCaptionDrumDrain2Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 250, 52, 14));
 
         jButtonCoolantPSPP1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonCoolantPSPP1Close.setText("C");
@@ -457,7 +462,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrumDrain1.setFont(jLabelCaptionDrumDrain1.getFont().deriveFont(jLabelCaptionDrumDrain1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain1.getFont().getSize()-2));
         jLabelCaptionDrumDrain1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain1.setText("to CCS");
-        add(jLabelCaptionDrumDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 146, 106, 14));
+        add(jLabelCaptionDrumDrain1, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 186, 106, 14));
 
         jLabelCaptionPSPP1F13.setFont(jLabelCaptionPSPP1F13.getFont().deriveFont(jLabelCaptionPSPP1F13.getFont().getSize()-2f));
         jLabelCaptionPSPP1F13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -486,6 +491,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(jLabelCaptionPSPP1F15, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 30, 72, 14));
 
         integralSwitchPV1Feed11.setComponent("ECCS11#PvValve");
+        integralSwitchPV1Feed11.setControlledValve(true);
         integralSwitchPV1Feed11.setToolTipText("");
         add(integralSwitchPV1Feed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 176, -1, -1));
 
@@ -498,6 +504,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbPV1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 186, -1, -1));
 
         integralSwitchPV1Feed21.setComponent("ECCS21#PvValve");
+        integralSwitchPV1Feed21.setControlledValve(true);
         integralSwitchPV1Feed21.setToolTipText("");
         add(integralSwitchPV1Feed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 224, -1, -1));
 
@@ -526,6 +533,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(jLabelCaptionPV1F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 72, 14));
 
         integralSwitchPV2Feed22.setComponent("ECCS22#PvValve");
+        integralSwitchPV2Feed22.setControlledValve(true);
         integralSwitchPV2Feed22.setToolTipText("");
         add(integralSwitchPV2Feed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 224, -1, -1));
 
@@ -561,6 +569,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(jToggleButtonPV2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 180, 20, 20));
 
         integralSwitchPV2Feed12.setComponent("ECCS12#PvValve");
+        integralSwitchPV2Feed12.setControlledValve(true);
         integralSwitchPV2Feed12.setToolTipText("");
         add(integralSwitchPV2Feed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 176, -1, -1));
         add(lightBulbPV2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 186, -1, -1));
@@ -684,6 +693,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(panelWidgetPumpPSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 398, -1, -1));
 
         integralSwitchPSP2Feed12.setComponent("ECCS12#PspPumpValve");
+        integralSwitchPSP2Feed12.setControlledValve(true);
         integralSwitchPSP2Feed12.setToolTipText("");
         add(integralSwitchPSP2Feed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 318, -1, -1));
 
@@ -696,6 +706,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbPSP2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 328, -1, -1));
 
         integralSwitchPSP2Feed22.setComponent("ECCS22#PspPumpValve");
+        integralSwitchPSP2Feed22.setControlledValve(true);
         integralSwitchPSP2Feed22.setToolTipText("");
         add(integralSwitchPSP2Feed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 366, -1, -1));
 
@@ -754,6 +765,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(panelWidgetPumpPSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 398, -1, -1));
 
         integralSwitchPSP3Feed13.setComponent("ECCS13#PspPumpValve");
+        integralSwitchPSP3Feed13.setControlledValve(true);
         integralSwitchPSP3Feed13.setToolTipText("");
         add(integralSwitchPSP3Feed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 318, -1, -1));
 
@@ -766,6 +778,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbPSP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 328, -1, -1));
 
         integralSwitchPSP3Feed23.setComponent("ECCS23#PspPumpValve");
+        integralSwitchPSP3Feed23.setControlledValve(true);
         integralSwitchPSP3Feed23.setToolTipText("");
         add(integralSwitchPSP3Feed23, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 366, -1, -1));
 
@@ -923,7 +936,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionGaugesPSP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionGaugesPSP.setText("Pressure Suppresion Pool");
         add(jLabelCaptionGaugesPSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 12, 200, 14));
-        add(integralSwitchDrum1SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 76, -1, -1));
+        add(integralSwitchDrum1SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 134, -1, -1));
 
         jLabelCaptionBypass4.setFont(jLabelCaptionBypass4.getFont().deriveFont(jLabelCaptionBypass4.getFont().getSize()-2f));
         jLabelCaptionBypass4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -931,8 +944,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionBypass4.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass4.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass4.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 58, 58, 14));
-        add(integralSwitchDrum2SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 76, -1, -1));
+        add(jLabelCaptionBypass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 116, 58, 14));
+        add(integralSwitchDrum2SteamToPool, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 134, -1, -1));
 
         jLabelCaptionBypass5.setFont(jLabelCaptionBypass5.getFont().deriveFont(jLabelCaptionBypass5.getFont().getSize()-2f));
         jLabelCaptionBypass5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -940,22 +953,22 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionBypass5.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass5.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBypass5.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBypass5, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 58, 58, 14));
+        add(jLabelCaptionBypass5, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 116, 58, 14));
 
         jLabelCaptionDrumDrain8.setFont(jLabelCaptionDrumDrain8.getFont().deriveFont(jLabelCaptionDrumDrain8.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain8.getFont().getSize()-2));
         jLabelCaptionDrumDrain8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain8.setText("suppression pool");
-        add(jLabelCaptionDrumDrain8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 126, 14));
+        add(jLabelCaptionDrumDrain8, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 98, 126, 14));
 
         jLabelCaptionDrumDrain9.setFont(jLabelCaptionDrumDrain9.getFont().deriveFont(jLabelCaptionDrumDrain9.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain9.getFont().getSize()-2));
         jLabelCaptionDrumDrain9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain9.setText("RV to pressure");
-        add(jLabelCaptionDrumDrain9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 24, 126, 14));
+        add(jLabelCaptionDrumDrain9, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 82, 126, 14));
 
         jLabelCaptionDrumDrain10.setFont(jLabelCaptionDrumDrain10.getFont().deriveFont(jLabelCaptionDrumDrain10.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumDrain10.getFont().getSize()-2));
         jLabelCaptionDrumDrain10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionDrumDrain10.setText("Drum Drain");
-        add(jLabelCaptionDrumDrain10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 106, 14));
+        add(jLabelCaptionDrumDrain10, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 170, 106, 14));
 
         jLabelCaptionPVP2.setFont(jLabelCaptionPVP2.getFont().deriveFont(jLabelCaptionPVP2.getFont().getSize()-2f));
         jLabelCaptionPVP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1003,6 +1016,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(panelWidgetPumpCCSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 434, -1, -1));
 
         integralSwitchCCSP1Feed11.setComponent("ECCS11#CcsPumpValve");
+        integralSwitchCCSP1Feed11.setControlledValve(true);
         integralSwitchCCSP1Feed11.setToolTipText("");
         add(integralSwitchCCSP1Feed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 354, -1, -1));
 
@@ -1015,6 +1029,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbCCSP1Feed11Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 364, -1, -1));
 
         integralSwitchCCSP1Feed21.setComponent("ECCS21#CcsPumpValve");
+        integralSwitchCCSP1Feed21.setControlledValve(true);
         integralSwitchCCSP1Feed21.setToolTipText("");
         add(integralSwitchCCSP1Feed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 402, -1, -1));
 
@@ -1051,6 +1066,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(panelWidgetPumpCCSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 434, -1, -1));
 
         integralSwitchCCSP2Feed12.setComponent("ECCS12#CcsPumpValve");
+        integralSwitchCCSP2Feed12.setControlledValve(true);
         integralSwitchCCSP2Feed12.setToolTipText("");
         add(integralSwitchCCSP2Feed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 354, -1, -1));
 
@@ -1063,6 +1079,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbCCSP2Feed12Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 364, -1, -1));
 
         integralSwitchCCSP2Feed22.setComponent("ECCS22#CcsPumpValve");
+        integralSwitchCCSP2Feed22.setControlledValve(true);
         integralSwitchCCSP2Feed22.setToolTipText("");
         add(integralSwitchCCSP2Feed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 402, -1, -1));
 
@@ -1099,6 +1116,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(panelWidgetPumpCCSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 434, -1, -1));
 
         integralSwitchCCSP3Feed13.setComponent("ECCS13#CcsPumpValve");
+        integralSwitchCCSP3Feed13.setControlledValve(true);
         integralSwitchCCSP3Feed13.setToolTipText("");
         add(integralSwitchCCSP3Feed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 354, -1, -1));
 
@@ -1111,6 +1129,7 @@ public class PanelEccs extends AbstractPanelWidget
         add(lightBulbCCSP3Feed13Auto, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 364, -1, -1));
 
         integralSwitchCCSP3Feed23.setComponent("ECCS23#CcsPumpValve");
+        integralSwitchCCSP3Feed23.setControlledValve(true);
         integralSwitchCCSP3Feed23.setToolTipText("");
         add(integralSwitchCCSP3Feed23, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 402, -1, -1));
 
@@ -1465,6 +1484,7 @@ public class PanelEccs extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPV2Feed22;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPVFill1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchPVFill2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCoolantPSPP1Close;
     private javax.swing.JButton jButtonCoolantPSPP1Open;
     private javax.swing.JButton jButtonCoolantPSPP2Close;
