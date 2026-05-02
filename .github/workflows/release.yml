@@ -10,18 +10,16 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   build-jar:
     runs-on: ubuntu-latest
-    env:
-      REPOS: "hartrusion/utils,hartrusion/PhxNetMod,hartrusion/PhxNetModExt,hartrusion/JMPLot"
-      NIGHTLY_TAG: "github-ci-snapshot"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 50
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -29,63 +27,68 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Download dependencies (Jars and ZIPs)
+      - name: Configure Maven settings for GitHub Packages
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml << 'EOF'
+          <settings>
+            <servers>
+              <server>
+                <id>github-utils</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+              <server>
+                <id>github-phxnetmod</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+              <server>
+                <id>github-phxnetmodext</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+              <server>
+                <id>github-jmplot</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      - name: Resolve dependencies via Maven into lib/
+        run: |
+          cp .github/pom.xml pom.xml
+          mkdir -p lib
+          mvn -B dependency:copy-dependencies \
+            -DoutputDirectory=lib \
+            -DincludeScope=compile
+          rm -f pom.xml
         env:
-          TOKEN: ${{ github.token }}
-          REPOS: ${{ env.REPOS }}
-          TAG: ${{ env.NIGHTLY_TAG }}
-        run: |
-          set -euo pipefail
-          IFS=',' read -r -a REPO_ARR <<< "$REPOS"
-          mkdir -p lib
-
-          for repo in "${REPO_ARR[@]}"; do
-            repo=$(echo "$repo" | xargs)
-            [ -n "$repo" ] || continue
-
-            API="https://api.github.com/repos/${repo}/releases/tags/${TAG}"
-            rel_json=$(curl -sS -H "Authorization: token ${TOKEN}" "$API" || true)
-
-            mapfile -t urls < <(printf '%s' "$rel_json" | jq -r '.assets[]?.browser_download_url // empty')
-            for url in "${urls[@]}"; do
-              [ -n "$url" ] || continue
-              asset_name=$(basename "${url%%\?*}")
-
-              case "$asset_name" in
-                *.jar)
-                  curl -fSL -H "Authorization: token ${TOKEN}" -o "lib/${asset_name}" "$url"
-                  ;;
-                *.zip)
-                  tmpzip="$(mktemp -u)/${asset_name}"
-                  mkdir -p "$(dirname "$tmpzip")"
-                  curl -fSL -H "Authorization: token ${TOKEN}" -o "$tmpzip" "$url"
-                  tmpdir=$(mktemp -d)
-                  unzip -q "$tmpzip" -d "$tmpdir" || true
-                  find "$tmpdir" -type f -name '*.jar' -exec cp -f {} lib/ \;
-                  rm -rf "$tmpdir" "$tmpzip"
-                  ;;
-              esac
-            done
-          done
-
-      - name: Download AbsoluteLayout
-        run: |
-          mkdir -p lib
-          METADATA_URL="https://repo1.maven.org/maven2/org/netbeans/external/AbsoluteLayout/maven-metadata.xml"
-          meta=$(curl -sSL "$METADATA_URL")
-          VERSION=$(printf '%s' "$meta" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | tail -n1 || true)
-          JAR_URL="https://repo1.maven.org/maven2/org/netbeans/external/AbsoluteLayout/${VERSION}/AbsoluteLayout-${VERSION}.jar"
-          curl -fSL -o "lib/AbsoluteLayout-${VERSION}.jar" "$JAR_URL"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Ant build
         run: ant -buildfile .github/build.xml fatjar
 
       - name: Build release changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          PREV_TAG=$(curl -sS \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
+            | jq -r '.tag_name // empty')
+
           {
             echo "## Changes"
             echo
-            git log -10 --pretty=format:"- %s (%h)"
+            if [ -n "$PREV_TAG" ]; then
+              git log "${PREV_TAG}..HEAD" --pretty=format:"- %s (%h)"
+            else
+              git log -20 --pretty=format:"- %s (%h)"
+            fi
             echo
           } > RELEASE_NOTES.md
 

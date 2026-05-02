@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Maven POM for RbmkSimulator.
+
+  This file lives under .github/pom.xml and is intentionally NOT stored at the
+  repository root, so the Ant-based build path is not hardwired.  Copy it to the
+  repository root when you want to use Maven (CI does this automatically):
+
+    cp .github/pom.xml pom.xml
+    mvn dependency:copy-dependencies -DoutputDirectory=lib -DincludeScope=compile
+
+  GitHub Packages authentication (required for hartrusion/* dependencies):
+  Add server entries in ~/.m2/settings.xml for each repository ID below, e.g.:
+
+    <server>
+      <id>github-utils</id>
+      <username>YOUR_GITHUB_USERNAME</username>
+      <password>YOUR_GITHUB_TOKEN_WITH_read:packages_SCOPE</password>
+    </server>
+
+  Repeat for: github-phxnetmod, github-phxnetmodext, github-jmplot
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.hartrusion</groupId>
+  <artifactId>rbmksimulator</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>RbmkSimulator</name>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!-- Source directory matches the Ant build layout -->
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>github-utils</id>
+      <url>https://maven.pkg.github.com/hartrusion/utils</url>
+    </repository>
+    <repository>
+      <id>github-phxnetmod</id>
+      <url>https://maven.pkg.github.com/hartrusion/PhxNetMod</url>
+    </repository>
+    <repository>
+      <id>github-phxnetmodext</id>
+      <url>https://maven.pkg.github.com/hartrusion/PhxNetModExt</url>
+    </repository>
+    <repository>
+      <id>github-jmplot</id>
+      <url>https://maven.pkg.github.com/hartrusion/jmplot</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.hartrusion</groupId>
+      <artifactId>utils</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.hartrusion</groupId>
+      <artifactId>phxnetmod</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.hartrusion</groupId>
+      <artifactId>phxnetmodext</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.hartrusion</groupId>
+      <artifactId>jmplot</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- AbsoluteLayout from Maven Central (not on GitHub Packages) -->
+    <dependency>
+      <groupId>org.netbeans.external</groupId>
+      <artifactId>AbsoluteLayout</artifactId>
+      <version>RELEASE290</version>
+    </dependency>
+  </dependencies>
+</project>
