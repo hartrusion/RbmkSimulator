@@ -2961,9 +2961,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) { // main valves
             for (int jdx = 1; jdx < 3; jdx++) {
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(2.0);
+                        .getController()).setParameterK(4.0);
                 ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(30.0);
+                        .getController()).setParameterTN(40.0);
             }
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
@@ -3116,9 +3116,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         for (int idx = 0; idx < 2; idx++) {
             ((PIControl) mainSteamDump[idx].getController())
-                    .setParameterK(6.0);
+                    .setParameterK(16.0);
             ((PIControl) mainSteamDump[idx].getController())
-                    .setParameterTN(10);
+                    .setParameterTN(30);
         }
 
         preheaterCondensateValve[0].getController().addInputProvider(
