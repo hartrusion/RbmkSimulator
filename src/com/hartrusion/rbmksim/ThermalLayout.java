@@ -26,6 +26,7 @@ import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.Integrator;
 import com.hartrusion.control.PControl;
 import com.hartrusion.control.PIControl;
+import com.hartrusion.control.PIDControl;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.control.TwoPointControl;
 import com.hartrusion.modeling.PhysicalDomain;
@@ -871,7 +872,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 // Name has to match the designator on the GUI element. like:
                 // Feedwater1#FlowRegulationValve3
                 feedwaterFlowRegulationValve[idx][jdx].registerController(
-                        new PIControl());
+                        new PIDControl());
                 feedwaterFlowRegulationValve[idx][jdx]
                         .initName("Feedwater" + (idx + 1)
                                 + "#FlowRegulationValve" + (jdx + 1));
@@ -933,7 +934,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Steam Dump
         for (int idx = 0; idx < mainSteamDump.length; idx++) {
             mainSteamDump[idx] = new PhasedValveControlled();
-            mainSteamDump[idx].registerController(new PIControl());
+            mainSteamDump[idx].registerController(new PIDControl());
             mainSteamDump[idx].initName(
                     "Main" + (idx + 1) + "#SteamDump");
         }
@@ -2236,12 +2237,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         .initCharacteristicSimple(500);
             }
         }
-        // Startup valves
+        // Startup valves: 300 kg/s for last hold point when full open.
+        // see sheet in docs for calculation. shutoff matches with 500.
         for (int idx = 0; idx < 2; idx++) {
             feedwaterStartupReductionValve[idx]
-                    .initCharacteristicSimple(3000);
+                    .initCharacteristicSimple(4000);
             feedwaterFlowRegulationValve[idx][0].initCharacteristicAdvanced(
-                    300, 80e5, 4000);
+                    430, 35e5, 8000);
         }
         // Full power valves
         for (int idx = 0; idx < 2; idx++) {
@@ -2249,16 +2251,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 feedwaterFlowRegulationValve[idx][jdx]
                         .initCharacteristicAdvanced(1200, 45e5, 3100);
             }
-        }
-
-        // For startup will have an additional valve that will allow to have
-        // up to 200 kg/s on full pressure drop as we do not have any pressure
-        // from the steam on low temperatures. This has to work against max
-        // pump pressure of 8e6 Pa.
-        // 8e6 / 200 = 4e4 -> 180 kg/s reduce to 3e4
-        for (int idx = 0; idx < 2; idx++) {
-            // Todo: Use advanced characteristic here
-            feedwaterStartupReductionValve[idx].initCharacteristicSimple(3e4);
         }
 
         // Those from middle pump do not have much resistance, just a shutoff.
@@ -2315,6 +2307,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // opened to 100 %: 5e6 Pa / 400 kg/s = 12500 Pa/kg*s
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDump[idx].initCharacteristicSimple(12500);
+            // faster: default is 25 %/s (takes 4 s to close/open fully), this 
+            // valve must be able to act a bit faster as the drum is modeled
+            // way smaller than the real one 
+            mainSteamDump[idx].getIntegrator().setMaxRate(70);
         }
 
         // Todo: Get proper values, those are completely made up here
@@ -2958,19 +2954,24 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     });
         }
         // Drum level control parameters (with feedwater valves)
+        // first try: 4 / 40
         for (int idx = 0; idx < 2; idx++) { // main valves
             for (int jdx = 1; jdx < 3; jdx++) {
-                ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(4.0);
-                ((PIControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(40.0);
+                ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
+                        .getController()).setParameterK(15.0);
+                ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
+                        .getController()).setParameterTN(20.0);
+                ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
+                        .getController()).setParameterTV(2.0);
             }
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
-            ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterK(3.0);
-            ((PIControl) feedwaterFlowRegulationValve[idx][0]
-                    .getController()).setParameterTN(50.0);
+            ((PIDControl) feedwaterFlowRegulationValve[idx][0]
+                    .getController()).setParameterK(12.0);
+            ((PIDControl) feedwaterFlowRegulationValve[idx][0]
+                    .getController()).setParameterTN(20.0);
+            ((PIDControl) feedwaterFlowRegulationValve[idx][0]
+                    .getController()).setParameterTV(2.0);
         }
 
         // Pressure Setpoints for Deaerator (the steam in will go for those 
@@ -3115,10 +3116,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
             }
         });
         for (int idx = 0; idx < 2; idx++) {
-            ((PIControl) mainSteamDump[idx].getController())
-                    .setParameterK(16.0);
-            ((PIControl) mainSteamDump[idx].getController())
-                    .setParameterTN(30);
+            ((PIDControl) mainSteamDump[idx].getController())
+                    .setParameterK(10.0); // 18/40 seems fine for small pressure
+            ((PIDControl) mainSteamDump[idx].getController())
+                    .setParameterTN(20);
+            ((PIDControl) mainSteamDump[idx].getController())
+                    .setParameterTV(8);
         }
 
         preheaterCondensateValve[0].getController().addInputProvider(
