@@ -70,20 +70,57 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PREV_TAG=$(curl -sS \
+          # Fetch previous release tag and its publication timestamp
+          PREV_RELEASE=$(curl -sS \
             -H "Authorization: token ${GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
-            | jq -r '.tag_name // empty')
+            "https://api.github.com/repos/${{ github.repository }}/releases/latest")
+          PREV_TAG=$(echo "$PREV_RELEASE" | jq -r '.tag_name // empty')
+          PREV_DATE=$(echo "$PREV_RELEASE" | jq -r '.published_at // empty')
+
+          # Fetch commits from an external repo via the GitHub API.
+          # Uses PREV_DATE as the `since` cutoff to avoid duplicating entries
+          # that were already present at the previous release point.
+          # Note: limited to 100 commits per repository; sufficient for regular releases.
+          fetch_commits() {
+            local repo="$1"
+            local since="$2"
+            local url
+            if [ -n "$since" ]; then
+              url="https://api.github.com/repos/${repo}/commits?since=${since}&per_page=100"
+            else
+              url="https://api.github.com/repos/${repo}/commits?per_page=20"
+            fi
+            curl -sS \
+              -H "Authorization: token ${GITHUB_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "$url" \
+              | jq -r '.[] | "- \(.commit.message | split("\n")[0]) (\(.sha[:7]))"'
+          }
 
           {
-            echo "## Changes"
+            echo "## RbmkSimulator"
             echo
             if [ -n "$PREV_TAG" ]; then
               git log "${PREV_TAG}..HEAD" --pretty=format:"- %s (%h)"
             else
               git log -20 --pretty=format:"- %s (%h)"
             fi
+            echo
+
+            echo "## PhxNetMod"
+            echo
+            fetch_commits "hartrusion/PhxNetMod" "$PREV_DATE"
+            echo
+
+            echo "## utils"
+            echo
+            fetch_commits "hartrusion/utils" "$PREV_DATE"
+            echo
+
+            echo "## jmplot"
+            echo
+            fetch_commits "hartrusion/jmplot" "$PREV_DATE"
             echo
           } > RELEASE_NOTES.md
 
