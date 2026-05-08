@@ -2960,11 +2960,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) { // main valves
             for (int jdx = 1; jdx < 3; jdx++) {
                 ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(15.0);
+                        .getController()).setParameterK(8.0);
                 ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTN(20.0);
+                        .getController()).setParameterTN(25.0);
                 ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterTV(2.0);
+                        .getController()).setParameterTV(1.6);
             }
         }
         for (int idx = 0; idx < 2; idx++) { // startup valves
@@ -3119,11 +3119,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         });
         for (int idx = 0; idx < 2; idx++) {
             ((PIDControl) mainSteamDump[idx].getController())
-                    .setParameterK(10.0); // 18/40 seems fine for small pressure
+                    .setParameterK(8.0); // 18/40 seems fine for small pressure
             ((PIDControl) mainSteamDump[idx].getController())
-                    .setParameterTN(20);
+                    .setParameterTN(25);
             ((PIDControl) mainSteamDump[idx].getController())
-                    .setParameterTV(8);
+                    .setParameterTV(9);
         }
 
         preheaterCondensateValve[0].getController().addInputProvider(
