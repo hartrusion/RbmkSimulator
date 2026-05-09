@@ -4571,6 +4571,15 @@ public class ThermalLayout extends Subsystem implements Runnable {
         turbineReheaterTripValve.addSafeClosedProvider(()
                 -> !turbine.isTpsActive());
 
+        // High Pressure Tap to Deaerators: Require max out of both DA pressures
+        // lower than the pressure in the turbine, otherwise steam from the DA
+        // can flow through the turbine and spin it when scram is initiated.
+        turbineHighPressureTapValve.addSafeClosedProvider(()
+                -> !turbine.isTpsActive()
+                && turbineHighPressureInside.getEffort()
+                > Math.max(deaerator[0].getEffort(),
+                        deaerator[1].getEffort()));
+
         // Preheater: Steam valves are shut close as long as pressure values 
         // are in the wrong direction. This will unfortunately prevent the 
         // spinning of the turbine by evaporation of the condensate (nasty 
@@ -4654,9 +4663,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         "Preheater3Level", AlarmState.MIN1);
             }
         });
-
-        turbineHighPressureTapValve.addSafeClosedProvider(()
-                -> !turbine.isTpsActive());
 
         // The safety relief valve will open shortly after the MAX-alarm from 
         // steam drum is fired. Also note, again, that we have reversed logic
@@ -4770,7 +4776,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.getNeutronModel().getYThermalPower1(), 1e4);
         thermalPower[1] = Math.min(
                 core.getNeutronModel().getYThermalPower1(), 1e4);
-        
+
         // Fire property change update on change of startup pressure setpoint
         // selection.
         if (startupPressureSetpointActive != oldStartupPressureSetpointActive) {
@@ -4860,7 +4866,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Reset and solve (update) the whole thermal layout one cycle.
         solver.prepareCalculation();
         solver.doCalculation();
-        
+
         // Get those values here so we can add them later more easy. We had to
         // simplify the model in a bad, misleading way to keep it stable.
         for (int idx = 0; idx < 2; idx++) {
@@ -5064,7 +5070,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         // Update Alarms
         alarmUpdater.invokeAll();
-
+        
         // <editor-fold defaultstate="collapsed" desc="Gain measurement data and set it to parameter out handler">
         outputValues.setParameterValue("MakeupStorage#Level",
                 makeupStorage.getEffort() * 1.0224e-4); // Pa in meters
