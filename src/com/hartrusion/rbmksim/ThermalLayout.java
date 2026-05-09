@@ -2431,7 +2431,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // (theres 2 valves to 1 turbine but we calculate as 2 valves on
             // 2 turbines). 
             turbineMainSteamValve[idx].initCharacteristicAdvanced(
-                    700, 5.3e6, 2800); // Todo
+                    900, 5.3e6, 2800); // Todo
             // turbineMainSteamValve[idx].getIntegrator().setMaxRate(8);
             // the idea was to have the valve slower to add more realism but as 
             // the whole plant is totally speed up we will use a faster valve
@@ -2964,7 +2964,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) { // main valves
             for (int jdx = 1; jdx < 3; jdx++) {
                 ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
-                        .getController()).setParameterK(8.0);
+                        .getController()).setParameterK(7.0);
                 ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
                         .getController()).setParameterTN(25.0);
                 ((PIDControl) feedwaterFlowRegulationValve[idx][jdx]
@@ -4770,7 +4770,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 core.getNeutronModel().getYThermalPower1(), 1e4);
         thermalPower[1] = Math.min(
                 core.getNeutronModel().getYThermalPower1(), 1e4);
-
+        
         // Fire property change update on change of startup pressure setpoint
         // selection.
         if (startupPressureSetpointActive != oldStartupPressureSetpointActive) {
@@ -4860,7 +4860,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Reset and solve (update) the whole thermal layout one cycle.
         solver.prepareCalculation();
         solver.doCalculation();
-
+        
         // Get those values here so we can add them later more easy. We had to
         // simplify the model in a bad, misleading way to keep it stable.
         for (int idx = 0; idx < 2; idx++) {
