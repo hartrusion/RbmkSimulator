@@ -452,7 +452,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final HeatValveControlled[][] eccsPvValve = new HeatValveControlled[2][2];
     private final HeatValve[] eccsFPFillValve = new HeatValve[2]; // Feed pump
 
-    private final PhasedValve[] channelLeak = new PhasedValve[2];
+    private final PhasedValve[] channelLeakLower = new PhasedValve[2];
+    private final PhasedValve[] channelLeakUpper = new PhasedValve[2];
 
     // </editor-fold>
     private final Setpoint[] setpointDrumLevel = new Setpoint[2];
@@ -536,6 +537,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final double[][] mcpCavitaionFactor = new double[2][4];
     private final Integrator[][] mcpCavitaionState = new Integrator[2][4];
     private final double[] mcpCavitaionTemperatureDiff = new double[2];
+
+    /*
+     * Describes leakage in Percent (0..100) as it's modeled as valve position.
+     */
+    private double channelLeak1Upper, channelLeak2Upper,
+            channelLeak1Lower, channelLeak2Lower;
 
     ThermalLayout() {
         // calculate linear factor for pressure setpoint y=m(x-x1)+y1
@@ -1332,8 +1339,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         for (int idx = 0; idx < 2; idx++) {
-            channelLeak[idx] = new PhasedValve();
-            channelLeak[idx].initName("Channel" + (idx - 1) + "Leak");
+            channelLeakLower[idx] = new PhasedValve();
+            channelLeakLower[idx].initName("Channel" + (idx - 1) + "LeakLower");
+            channelLeakUpper[idx] = new PhasedValve();
+            channelLeakUpper[idx].initName("Channel" + (idx - 1) + "LeakUpper");
         }
 
         //</editor-fold>      
@@ -2029,11 +2038,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     .connectBetween(mainSteamDrumNode[idx], environment);
         }
 
-        // Channel leakage is connected to the bottom of the evaporator and goes
-        // just into the lower bubbler pools so far
+        // Lower Channel leakage is connected to the bottom of the evaporator 
+        // and the upper is connected to the steam drum. It both just goes into 
+        // the lower bubbler pools so far as designed. 
         for (int idx = 0; idx < 2; idx++) {
-            channelLeak[idx].getValveElement().connectBetween(
+            channelLeakLower[idx].getValveElement().connectBetween(
                     loopEvaporatorIn[idx], bubblerPoolIn);
+            channelLeakUpper[idx].getValveElement().connectBetween(
+                    loopNodeDrumWaterOut[idx], bubblerPoolIn);
         }
 
         // </editor-fold>
@@ -2110,7 +2122,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // randomly define 4000 K and 50 MW when running empty, so it is
             // G = P_th / DeltaT = 50e6 J/s / 4000 K = 1.25e4 when almost empty.
             loopEvaporator[idx].setThermalDimension(14.0, 200, 5.5e6,
-                    10000, 1.5e4, 6000);
+                    10000, 1.0e4, 4000);
         }
 
         // Steam Drum: to compare with RXmodel simulator: Experiments show
@@ -2640,7 +2652,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // of leakage with the given characteristic. Worst leakage will be
         // on 64e5 Pa with 500 kg/s: 
         for (int idx = 0; idx < 2; idx++) {
-            channelLeak[idx].initCharacteristicSimple(12800);
+            channelLeakLower[idx].initCharacteristicSimple(12800);
+            channelLeakLower[idx].getIntegrator().setMaxRate(50);
+            channelLeakUpper[idx].initCharacteristicSimple(12800);
+            channelLeakUpper[idx].getIntegrator().setMaxRate(50);
         }
 
         // </editor-fold>
@@ -2897,6 +2912,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 runner.submit(eccsPvValve[idx][jdx]);
             }
             runner.submit(eccsFPFillValve[idx]);
+        }
+
+        for (int idx = 0; idx < 2; idx++) {
+            runner.submit(channelLeakLower[idx]);
+            runner.submit(channelLeakUpper[idx]);
         }
 
         // Add Solo control loops
@@ -5111,6 +5131,60 @@ public class ThermalLayout extends Subsystem implements Runnable {
                     turbineReheater.getPhasedNode(
                             PhasedSuperheater.SECONDARY_IN).getEffort());
         }
+        
+        // Fuel channel rupture: simply break the channels on high temperatures
+        // of the core. No special effects so far.
+        if (fuelThermalOut[0].getEffort() - 273.15 > 1100) {
+            channelLeak1Upper = 60;
+        } else if (fuelThermalOut[0].getEffort() - 273.15 > 1400) {
+            channelLeak1Lower = 40;
+        }
+        if (fuelThermalOut[1].getEffort() - 273.15 > 1100) {
+            channelLeak2Upper = 60;
+        } else if (fuelThermalOut[1].getEffort() - 273.15 > 1400) {
+            channelLeak2Lower = 40;
+        }
+        
+        // Channel leakages are just modeled as valves. It has to be made sure
+        // the drum does not drain empty, otherwise the model would crash so
+        // the percentage value is only written as long as there is fluid in 
+        // the drum
+        if (channelLeak1Lower > 1.0) {
+            if (loopSteamDrum[0].getFillHeight() > 0.15) {
+                channelLeakLower[0].getIntegrator().setInput(channelLeak1Lower);
+            } else {
+                channelLeakLower[0].getIntegrator().setInputMin();
+            }
+        } else {
+            channelLeakLower[0].getIntegrator().setInputMin();
+        }
+        if (channelLeak2Lower > 1.0) {
+            if (loopSteamDrum[1].getFillHeight() > 0.15) {
+                channelLeakLower[1].getIntegrator().setInput(channelLeak2Lower);
+            } else {
+                channelLeakLower[1].getIntegrator().setInputMin();
+            }
+        } else {
+            channelLeakLower[1].getIntegrator().setInputMin();
+        }
+        if (channelLeak1Upper > 1.0) {
+            if (loopSteamDrum[0].getFillHeight() > 0.15) {
+                channelLeakUpper[0].getIntegrator().setInput(channelLeak1Upper);
+            } else {
+                channelLeakUpper[0].getIntegrator().setInputMin();
+            }
+        } else {
+            channelLeakUpper[0].getIntegrator().setInputMin();
+        }
+        if (channelLeak2Lower > 1.0) {
+            if (loopSteamDrum[1].getFillHeight() > 0.15) {
+                channelLeakUpper[1].getIntegrator().setInput(channelLeak2Upper);
+            } else {
+                channelLeakUpper[1].getIntegrator().setInputMin();
+            }
+        } else {
+            channelLeakUpper[1].getIntegrator().setInputMin();
+        }
 
         // Update Alarms
         alarmUpdater.invokeAll();
@@ -5867,6 +5941,25 @@ public class ThermalLayout extends Subsystem implements Runnable {
             for (int idx = 0; idx < 3; idx++) {
                 setpointPreheaterLevel[idx].handleAction(ac);
             }
+
+            if (ac.getPropertyName().equals("DebugSetLeakage")) {
+                switch ((int) ac.getValue()) {
+                    case 0 -> {
+                        channelLeak1Lower = 0.0;
+                        channelLeak1Upper = 0.0;
+                        channelLeak2Lower = 0.0;
+                        channelLeak2Upper = 0.0;
+                    }
+                    case 1 ->
+                        channelLeak1Upper = 60.0;
+                    case 2 ->
+                        channelLeak1Lower = 40.0;
+                    case 3 ->
+                        channelLeak2Upper = 60.0;
+                    case 4 ->
+                        channelLeak2Lower = 40.0;
+                }
+            }
         }
         // </editor-fold>
     }
@@ -5968,6 +6061,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         save.setCoreOnlySimulation(noReactorInput);
         save.setTurbineHPOutSatTemp(turbineHPOutSatTemp);
         save.setStartupPressureSetpointActive(startupPressureSetpointActive);
+
+        save.setChannelLeak1Lower(channelLeak1Lower);
+        save.setChannelLeak1Upper(channelLeak1Upper);
+        save.setChannelLeak2Lower(channelLeak2Lower);
+        save.setChannelLeak2Upper(channelLeak2Upper);
     }
 
     public void load(SaveGame save) {
@@ -5990,6 +6088,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // loading. Alarms will be cleared and as those alarm value monitors 
         // work on monitoring changes only, they need to be triggered here.
         alarmUpdater.clearAlarmUpdaters();
+        
+        channelLeak1Lower = save.getChannelLeak1Lower();
+        channelLeak1Upper = save.getChannelLeak1Upper();
+        channelLeak2Lower = save.getChannelLeak2Lower();
+        channelLeak2Upper = save.getChannelLeak2Upper();
     }
 
     public void registerReactor(ReactorCore core) {

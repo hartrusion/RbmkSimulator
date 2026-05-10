@@ -68,15 +68,18 @@ public class SaveGame implements Serializable {
     private boolean coreOnlySimulation;
 
     private double turbineHPOutSatTemp;
-    
+
     private boolean startupPressureSetpointActive;
-    
+
     private final double[][] mcpCavitaionState = new double[2][4];
 
     /**
      * Holds the object that describes the state of the turbine component.
      */
     private TurbineState turbineState;
+
+    private double channelLeak1Upper, channelLeak2Upper, 
+            channelLeak1Lower, channelLeak2Lower;
 
     public SaveGame() {
         this.timestamp = LocalDateTime.now();
@@ -127,24 +130,24 @@ public class SaveGame implements Serializable {
     public void setCondenserVacuum(double condenserVacuum) {
         this.condenserVacuum = condenserVacuum;
     }
-    
+
     /**
      * Gets the cavitation state value from all integrators.
-     * 
+     *
      * @param cavitationState ref to array with integrators
      */
     public void saveCavitationState(Integrator[][] cavitationState) {
         for (int idx = 0; idx < 2; idx++) {
             for (int jdx = 0; jdx < 4; jdx++) {
-                mcpCavitaionState[idx][jdx] 
+                mcpCavitaionState[idx][jdx]
                         = cavitationState[idx][jdx].getOutput();
             }
         }
     }
-    
+
     /**
      * Writes the saved cavitation state back to the integrators
-     * 
+     *
      * @param cavitationState ref to array with integrators
      */
     public void writeCavitationState(Integrator[][] cavitationState) {
@@ -171,7 +174,7 @@ public class SaveGame implements Serializable {
     public void setCoreOnlySimulation(boolean coreOnlySimulation) {
         this.coreOnlySimulation = coreOnlySimulation;
     }
-    
+
     public double getTurbineHPOutSatTemp() {
         return turbineHPOutSatTemp;
     }
@@ -187,12 +190,44 @@ public class SaveGame implements Serializable {
     public void addTurbineState(TurbineState turbineState) {
         this.turbineState = turbineState;
     }
-    
+
     public boolean isStartupPressureSetpointActive() {
         return startupPressureSetpointActive;
     }
 
     public void setStartupPressureSetpointActive(boolean startupPressureSetpointActive) {
         this.startupPressureSetpointActive = startupPressureSetpointActive;
+    }
+    
+    public double getChannelLeak1Upper() {
+        return channelLeak1Upper;
+    }
+
+    public void setChannelLeak1Upper(double channelLeak1Upper) {
+        this.channelLeak1Upper = channelLeak1Upper;
+    }
+
+    public double getChannelLeak2Upper() {
+        return channelLeak2Upper;
+    }
+
+    public void setChannelLeak2Upper(double channelLeak2Upper) {
+        this.channelLeak2Upper = channelLeak2Upper;
+    }
+
+    public double getChannelLeak1Lower() {
+        return channelLeak1Lower;
+    }
+
+    public void setChannelLeak1Lower(double channelLeak1Lower) {
+        this.channelLeak1Lower = channelLeak1Lower;
+    }
+
+    public double getChannelLeak2Lower() {
+        return channelLeak2Lower;
+    }
+
+    public void setChannelLeak2Lower(double channelLeak2Lower) {
+        this.channelLeak2Lower = channelLeak2Lower;
     }
 }
