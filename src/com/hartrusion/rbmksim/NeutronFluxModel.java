@@ -131,7 +131,7 @@ public class NeutronFluxModel implements Runnable {
      * with a delay.
      */
     private final double T_DELAYED_REACTIVITY = 16.0;
-
+    
     /**
      * Fraction of thermal power that will be delayed as it occurs by delayed
      * decay instead of the uranium fission. This will be the part that is still
@@ -142,7 +142,16 @@ public class NeutronFluxModel implements Runnable {
     /**
      * Time constant (seconds) for the delayed thermal heat production.
      */
-    private final double T_DECAY = 100;
+    private final double T_DECAY = 120;
+    
+    /**
+     * Manipulates the time the decay heat goes down so the decay heat will be 
+     * available much longer. This allows less waiting for full load and at the 
+     * same time causes problems when having a coolant problem accident, making 
+     * the heat not disappear that fast and cooling of the reactor is required
+     * for a way longer period of time.
+     */
+    private final double DECAY_DOWN_MODIFIER = 0.07;
 
     /**
      * Time constant for filtering the neutron rate output, there is a need for
@@ -327,9 +336,15 @@ public class NeutronFluxModel implements Runnable {
         xDelayedCriticality += dXDelayedCriticality * stepTime;
         xDeltaRods += dXDeltaRods * stepTime;
         xFirstDelay += dXFirstDelay * stepTime;
-        if (!promptExcursion) {
-            xDelayedThermalPower += dXDelayedThermalPower * stepTime;
-            // freeze this effect on explosion to stop vales from moving.
+        if (!promptExcursion) {// freeze this effect on explosion
+            if (dXDelayedThermalPower < 0.0) {
+                // decay heat will be present way longer than it takes time 
+                // to build it up.
+                xDelayedThermalPower += dXDelayedThermalPower * stepTime
+                        * DECAY_DOWN_MODIFIER;
+            } else {
+                xDelayedThermalPower += dXDelayedThermalPower * stepTime;
+            }            
         }
         xNeutronRateDelay += dXNeutronRateDelay * stepTime;
 
