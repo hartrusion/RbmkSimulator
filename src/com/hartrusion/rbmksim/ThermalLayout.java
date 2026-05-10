@@ -4454,6 +4454,16 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 -> !alarmManager.isAlarmActive(
                         "Drum2Level", AlarmState.MIN2));
 
+        // Close deaerator steam valves and revoke auto mode if flow goes in
+        // wrong direction (can happen after scram and large pressure 
+        // differences between DAs
+        deaeratorSteamInRegValve[0].addSafeClosedProvider(()
+                -> deaeratorSteamInRegValve[0].getValveElement()
+                        .getFlow() >= -1.0);
+        deaeratorSteamInRegValve[1].addSafeClosedProvider(()
+                -> deaeratorSteamInRegValve[1].getValveElement()
+                        .getFlow() >= -1.0);
+
         // Shut off feedwater pumps on low DA level
         for (int jdx = 0; jdx < 2; jdx++) {
             feedwaterPump[0][jdx].addSafeOffProvider(()
@@ -4564,9 +4574,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].addSafeClosedProvider(()
                     -> !turbine.isTpsActive());
+            turbineStartupSteamValve[idx].addSafeClosedProvider(()
+                    -> !turbine.isTpsActive());
+            turbineMainSteamValve[idx].addSafeClosedProvider(()
+                    -> !turbine.isTpsActive());
             turbineReheaterSteamValve[idx].addSafeClosedProvider(()
-                    -> !alarmManager.isAlarmActive(
-                            "CondenserVacuum", AlarmState.MIN1));
+                    -> !turbine.isTpsActive());
 
             // Turbine: Reheater gets limited by condensate level and the 
             // shut valve also gets limited by condenser vacuum
