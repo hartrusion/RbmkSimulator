@@ -623,7 +623,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             return;
         }
         if (ac.getPropertyName().equals("Reactor#TriggerPromptExcursion")) {
-            neutronFluxModel.setPromptExcursion();
+            neutronFluxModel.setPromptExcursion(true);
             return;
         }
         if (ac.getPropertyName().equals("Reactor#RPS")) {
@@ -1257,6 +1257,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (int idx = 0; idx < 9; idx++) {
             neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
         }
+        neutronFluxModel.setPromptExcursion(false);
         for (int idx = 0; idx < 3; idx++) {
             xenonModel.setStateSpaceVariable(idx, rs.getxXenonModel(idx));
         }

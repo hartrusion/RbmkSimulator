@@ -358,14 +358,15 @@ public class NeutronFluxModel implements Runnable {
         // without considering idle heat.
         // divided by 200 makes 100 % flux to 1 and divides by 2 for 2 sides.
         // multiplied with full power we get a megawatt number per side here.
-        // The limitation to 15 GW + idle heat ensures the maximum power will
-        // be displayed as 30.000 (see other method for that). 
-        yThermalPower1 = Math.min(15000 + IDLE_HEAT/2,
+        // The limitation to 15 GW with the reverse of the manipulation of the
+        // power display and idle heat half will make sure that the power to be 
+        // displayed is excacly 30.000.
+        yThermalPower1 = Math.min((15000 - bDisplay) / mDisplay - IDLE_HEAT/2,
                 xNeutronFlux * (1 - P_DECAY)
                 * (FULL_FLUX_POWER - IDLE_HEAT) / 200 * (1.0 + uSkew)
                 + xDelayedThermalPower
                 + IDLE_HEAT / 2);
-        yThermalPower2 = Math.min(15000 + IDLE_HEAT/2,
+        yThermalPower2 = Math.min((15000 - bDisplay) / mDisplay - IDLE_HEAT/2,
                 xNeutronFlux * (1 - P_DECAY)
                 * (FULL_FLUX_POWER - IDLE_HEAT) / 200 * (1.0 - uSkew)
                 + xDelayedThermalPower
@@ -554,7 +555,7 @@ public class NeutronFluxModel implements Runnable {
      * Triggers the prompt neutron excursion, used for testing purposes. The
      * prompt excursion is usually triggered by too much reactivity.
      */
-    public void setPromptExcursion() {
-        this.promptExcursion = true;
+    public void setPromptExcursion(boolean value) {
+        this.promptExcursion = value;
     }
 }
