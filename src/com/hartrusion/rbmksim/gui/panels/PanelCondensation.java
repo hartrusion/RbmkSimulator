@@ -107,27 +107,16 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionEjector3 = new javax.swing.JLabel();
         jLabelCaptionEjector1 = new javax.swing.JLabel();
         jLabelCaptionEjector2 = new javax.swing.JLabel();
-        jButtonColdCondensateDrainClose = new javax.swing.JButton();
-        jLabelColdCondensateDrain = new javax.swing.JLabel();
-        jButtonColdCondensateDrainOpen = new javax.swing.JButton();
-        jLabelCaptionPump14 = new javax.swing.JLabel();
         jLabelDA1Level1 = new javax.swing.JLabel();
         jLabelDA1Level2 = new javax.swing.JLabel();
         chornobylGaugeLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        panelWidgetMakeupPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        panelWidgetMakeupPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
-        jButtonColdCondensateFillClose = new javax.swing.JButton();
-        jLabelColdCondensateFill = new javax.swing.JLabel();
-        jButtonColdCondensateFillOpen = new javax.swing.JButton();
         jLabelCaptionPump16 = new javax.swing.JLabel();
-        jLabelCaptionPump17 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         chornobylGaugeHotwellLevel = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
         jLabel25 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         chornobylGaugeCondensateFlow = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelCaptionPump18 = new javax.swing.JLabel();
         jLabelCaptionPump19 = new javax.swing.JLabel();
         jLabelCaptionPump20 = new javax.swing.JLabel();
         jLabelCaptionPump21 = new javax.swing.JLabel();
@@ -156,6 +145,17 @@ public class PanelCondensation extends AbstractPanelWidget {
         jButtonEjector3CondensateOpen = new javax.swing.JButton();
         jButtonEjector3CondensateClose = new javax.swing.JButton();
         jLabelBypass3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        panelWidgetMakeupPump2 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        panelWidgetMakeupPump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump();
+        jButtonColdCondensateDrainClose = new javax.swing.JButton();
+        jLabelColdCondensateDrain = new javax.swing.JLabel();
+        jButtonColdCondensateDrainOpen = new javax.swing.JButton();
+        jButtonColdCondensateFillClose = new javax.swing.JButton();
+        jLabelColdCondensateFill = new javax.swing.JLabel();
+        jButtonColdCondensateFillOpen = new javax.swing.JButton();
+        jLabelCaptionPump26 = new javax.swing.JLabel();
+        jLabelCaptionPump17 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(568, 340));
         setMinimumSize(new java.awt.Dimension(568, 340));
@@ -502,45 +502,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionEjector2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionEjector2, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 180, 64, 14));
 
-        jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonColdCondensateDrainClose.setText("C");
-        jButtonColdCondensateDrainClose.setToolTipText("Drains the cold condensate storage tank");
-        jButtonColdCondensateDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonColdCondensateDrainClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColdCondensateDrainCloseActionPerformed(evt);
-            }
-        });
-        add(jButtonColdCondensateDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 20, 20));
-
-        jLabelColdCondensateDrain.setFont(jLabelColdCondensateDrain.getFont().deriveFont(jLabelColdCondensateDrain.getFont().getSize()-2f));
-        jLabelColdCondensateDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelColdCondensateDrain.setText("Drain");
-        jLabelColdCondensateDrain.setToolTipText("Drains the cold condensate storage tank");
-        jLabelColdCondensateDrain.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelColdCondensateDrain.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelColdCondensateDrain.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelColdCondensateDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 106, 52, 14));
-
-        jButtonColdCondensateDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonColdCondensateDrainOpen.setText("O");
-        jButtonColdCondensateDrainOpen.setToolTipText("Drains the cold condensate storage tank");
-        jButtonColdCondensateDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonColdCondensateDrainOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColdCondensateDrainOpenActionPerformed(evt);
-            }
-        });
-        add(jButtonColdCondensateDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 20, 20));
-
-        jLabelCaptionPump14.setFont(jLabelCaptionPump14.getFont().deriveFont(jLabelCaptionPump14.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump14.getFont().getSize()-2));
-        jLabelCaptionPump14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump14.setText("Pump 2");
-        jLabelCaptionPump14.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump14.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump14.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump14, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 50, 48, 14));
-
         jLabelDA1Level1.setFont(jLabelDA1Level1.getFont().deriveFont(jLabelDA1Level1.getFont().getSize()-2f));
         jLabelDA1Level1.setText("Cold Cnd.");
         add(jLabelDA1Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 4, 52, 14));
@@ -557,43 +518,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         chornobylGaugeLevel.setChornobylValue(0.0F);
         add(chornobylGaugeLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, -1));
 
-        panelWidgetMakeupPump2.setChornobylPrefix("Makeup2#Pumps");
-        add(panelWidgetMakeupPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 68, -1, -1));
-
-        panelWidgetMakeupPump1.setChornobylPrefix("Makeup1#Pumps");
-        add(panelWidgetMakeupPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 68, -1, -1));
-
-        jButtonColdCondensateFillClose.setBackground(new java.awt.Color(0, 128, 0));
-        jButtonColdCondensateFillClose.setText("C");
-        jButtonColdCondensateFillClose.setToolTipText("Fills the cold condensate tank with additional demineralized water");
-        jButtonColdCondensateFillClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonColdCondensateFillClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColdCondensateFillCloseActionPerformed(evt);
-            }
-        });
-        add(jButtonColdCondensateFillClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 74, 20, 20));
-
-        jLabelColdCondensateFill.setFont(jLabelColdCondensateFill.getFont().deriveFont(jLabelColdCondensateFill.getFont().getSize()-2f));
-        jLabelColdCondensateFill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelColdCondensateFill.setText("Fill");
-        jLabelColdCondensateFill.setToolTipText("Fills the cold condensate tank with additional demineralized water");
-        jLabelColdCondensateFill.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelColdCondensateFill.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelColdCondensateFill.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelColdCondensateFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 60, 52, 14));
-
-        jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(128, 0, 0));
-        jButtonColdCondensateFillOpen.setText("O");
-        jButtonColdCondensateFillOpen.setToolTipText("Fills the cold condensate tank with additional demineralized water");
-        jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButtonColdCondensateFillOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColdCondensateFillOpenActionPerformed(evt);
-            }
-        });
-        add(jButtonColdCondensateFillOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 74, 20, 20));
-
         jLabelCaptionPump16.setFont(jLabelCaptionPump16.getFont().deriveFont(jLabelCaptionPump16.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump16.getFont().getSize()-2));
         jLabelCaptionPump16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionPump16.setText("Pump 3");
@@ -601,14 +525,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelCaptionPump16.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPump16.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPump16, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 54, 54, 14));
-
-        jLabelCaptionPump17.setFont(jLabelCaptionPump17.getFont().deriveFont(jLabelCaptionPump17.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump17.getFont().getSize()-2));
-        jLabelCaptionPump17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump17.setText("Makeup");
-        jLabelCaptionPump17.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump17.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump17.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump17, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 34, 54, 14));
 
         jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getSize()-2f));
         jLabel24.setText("Hotwell");
@@ -639,14 +555,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         chornobylGaugeCondensateFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 3500.0f});
         chornobylGaugeCondensateFlow.setChornobylUnitText("kg/s");
         add(chornobylGaugeCondensateFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 4, -1, -1));
-
-        jLabelCaptionPump18.setFont(jLabelCaptionPump18.getFont().deriveFont(jLabelCaptionPump18.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump18.getFont().getSize()-2));
-        jLabelCaptionPump18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionPump18.setText("Pump 1");
-        jLabelCaptionPump18.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump18.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionPump18.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPump18, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 50, 54, 14));
 
         jLabelCaptionPump19.setFont(jLabelCaptionPump19.getFont().deriveFont(jLabelCaptionPump19.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump19.getFont().getSize()-2));
         jLabelCaptionPump19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -879,6 +787,95 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass3.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelBypass3.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelBypass3, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 284, 76, 14));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelWidgetMakeupPump2.setChornobylPrefix("Makeup2#Pumps");
+        jPanel1.add(panelWidgetMakeupPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 14, -1, -1));
+
+        panelWidgetMakeupPump1.setChornobylPrefix("Makeup1#Pumps");
+        jPanel1.add(panelWidgetMakeupPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 14, -1, -1));
+
+        jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonColdCondensateDrainClose.setText("C");
+        jButtonColdCondensateDrainClose.setToolTipText("Drains the cold condensate storage tank");
+        jButtonColdCondensateDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateDrainClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColdCondensateDrainCloseActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonColdCondensateDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 84, 20, 20));
+
+        jLabelColdCondensateDrain.setFont(jLabelColdCondensateDrain.getFont().deriveFont(jLabelColdCondensateDrain.getFont().getSize()-2f));
+        jLabelColdCondensateDrain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelColdCondensateDrain.setText("Drain");
+        jLabelColdCondensateDrain.setToolTipText("Drains the cold condensate storage tank");
+        jLabelColdCondensateDrain.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateDrain.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateDrain.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelColdCondensateDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
+
+        jButtonColdCondensateDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonColdCondensateDrainOpen.setText("O");
+        jButtonColdCondensateDrainOpen.setToolTipText("Drains the cold condensate storage tank");
+        jButtonColdCondensateDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateDrainOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColdCondensateDrainOpenActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonColdCondensateDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 84, 20, 20));
+
+        jButtonColdCondensateFillClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonColdCondensateFillClose.setText("C");
+        jButtonColdCondensateFillClose.setToolTipText("Fills the cold condensate tank with additional demineralized water");
+        jButtonColdCondensateFillClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateFillClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColdCondensateFillCloseActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonColdCondensateFillClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 38, 20, 20));
+
+        jLabelColdCondensateFill.setFont(jLabelColdCondensateFill.getFont().deriveFont(jLabelColdCondensateFill.getFont().getSize()-2f));
+        jLabelColdCondensateFill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelColdCondensateFill.setText("Fill");
+        jLabelColdCondensateFill.setToolTipText("Fills the cold condensate tank with additional demineralized water");
+        jLabelColdCondensateFill.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateFill.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelColdCondensateFill.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelColdCondensateFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 24, -1, -1));
+
+        jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonColdCondensateFillOpen.setText("O");
+        jButtonColdCondensateFillOpen.setToolTipText("Fills the cold condensate tank with additional demineralized water");
+        jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonColdCondensateFillOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColdCondensateFillOpenActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonColdCondensateFillOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 38, 20, 20));
+
+        jLabelCaptionPump26.setFont(jLabelCaptionPump26.getFont().deriveFont(jLabelCaptionPump26.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump26.getFont().getSize()-2));
+        jLabelCaptionPump26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump26.setText("Pumps to Hotwell");
+        jLabelCaptionPump26.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump26.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump26.setPreferredSize(new java.awt.Dimension(52, 14));
+        jPanel1.add(jLabelCaptionPump26, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 2, 112, -1));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 176, 126));
+
+        jLabelCaptionPump17.setFont(jLabelCaptionPump17.getFont().deriveFont(jLabelCaptionPump17.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionPump17.getFont().getSize()-2));
+        jLabelCaptionPump17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionPump17.setText("Cold Condensate Storage");
+        jLabelCaptionPump17.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump17.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionPump17.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionPump17, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 36, 170, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEjector1SuctionCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector1SuctionCloseActionPerformed
@@ -1071,10 +1068,8 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionEjector1;
     private javax.swing.JLabel jLabelCaptionEjector2;
     private javax.swing.JLabel jLabelCaptionEjector3;
-    private javax.swing.JLabel jLabelCaptionPump14;
     private javax.swing.JLabel jLabelCaptionPump16;
     private javax.swing.JLabel jLabelCaptionPump17;
-    private javax.swing.JLabel jLabelCaptionPump18;
     private javax.swing.JLabel jLabelCaptionPump19;
     private javax.swing.JLabel jLabelCaptionPump20;
     private javax.swing.JLabel jLabelCaptionPump21;
@@ -1082,6 +1077,7 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionPump23;
     private javax.swing.JLabel jLabelCaptionPump24;
     private javax.swing.JLabel jLabelCaptionPump25;
+    private javax.swing.JLabel jLabelCaptionPump26;
     private javax.swing.JLabel jLabelColdCondensateDrain;
     private javax.swing.JLabel jLabelColdCondensateFill;
     private javax.swing.JLabel jLabelDA1Level1;
@@ -1095,6 +1091,7 @@ public class PanelCondensation extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelHotwellDrain2;
     private javax.swing.JLabel jLabelHotwellFill1;
     private javax.swing.JLabel jLabelHotwellFill2;
+    private javax.swing.JPanel jPanel1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump1;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetMakeupPump2;
     private com.hartrusion.rbmksim.gui.widgets.PanelWidgetPump panelWidgetPumpBoost1;
