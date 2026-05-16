@@ -70,6 +70,7 @@ public class SelsynGauge extends javax.swing.JComponent {
 
     private boolean showIndicator = true;
     private boolean indicatorStatus;
+    private boolean backlightStatus;
     private boolean reverse;
 
     private float phiValue = 0;
@@ -123,6 +124,22 @@ public class SelsynGauge extends javax.swing.JComponent {
         this.indicatorStatus = indicator;
         firePropertyChange("chornobylIndicator", old, indicator);
         repaint();
+    }
+    
+    public boolean getChornobylBacklight() {
+        return backlightStatus;
+    }
+
+    @BeanProperty(preferred = true, visualUpdate = true, description
+            = "Toggles the background color for backlight highlighting")
+    public void setChornobylBacklight(boolean indicator) {
+        boolean old = this.backlightStatus;
+        if (indicator != old) {
+            this.backlightStatus = indicator;
+            gaugeBack = null; // dispose saved background image
+            repaint();
+            firePropertyChange("chornobylBacklight", old, indicator);
+        }
     }
 
     public boolean getChornobylShowIndicator() {
@@ -223,7 +240,12 @@ public class SelsynGauge extends javax.swing.JComponent {
             }
 
             // Draw background
-            g2b.setColor(Color.WHITE);
+            if (backlightStatus) {
+                g2b.setColor(new Color(255, 252, 248));
+            } else {
+                g2b.setColor(new Color(210, 210, 210));
+            }
+            
             circle = new Ellipse2D.Float(
                     halfSize - outerRingRadius,
                     halfSize - outerRingRadius,

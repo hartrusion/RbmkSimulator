@@ -1023,6 +1023,7 @@ public class ControlPanel extends javax.swing.JFrame implements
                     rodPositions = null;
                 }
             });
+            controller.fireLastPropertyChangesTo(rodPositions);
             jDesktopPane1.add(rodPositions);
         }
         try {
