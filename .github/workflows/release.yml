@@ -257,6 +257,7 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.tag_name }}
           name: Release ${{ github.event.inputs.tag_name }}
+          draft: true
           body_path: release-assets/RELEASE_NOTES.md
           files: |
             release-assets/*.jar
