@@ -3,7 +3,7 @@
   Maven POM for RbmkSimulator.
 
   This file lives under .github/pom.xml and is intentionally NOT stored at the
-  repository root, so the Ant-based build path is not hardwired.  Copy it to the
+  repository root, so the repository remains as source-only. Copy it to the
   repository root when you want to use Maven (CI does this automatically):
 
     cp .github/pom.xml pom.xml
@@ -18,7 +18,7 @@
       <password>YOUR_GITHUB_TOKEN_WITH_read:packages_SCOPE</password>
     </server>
 
-  Repeat for: github-phxnetmod, github-phxnetmodext, github-jmplot
+  Repeat for: github-phxnetmod and github-jmplot.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -51,10 +51,6 @@
     <repository>
       <id>github-phxnetmod</id>
       <url>https://maven.pkg.github.com/hartrusion/PhxNetMod</url>
-    </repository>
-    <repository>
-      <id>github-phxnetmodext</id>
-      <url>https://maven.pkg.github.com/hartrusion/PhxNetModExt</url>
     </repository>
     <repository>
       <id>github-jmplot</id>
