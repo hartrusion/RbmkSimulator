@@ -21,12 +21,9 @@ system. To download the simulator, go to
 here on Github. If you have no clue about Java and use a Windows computer, 
 download the **RbmkSimulator-Windows-x64.zip** file there. It contains a .exe 
 file that you can just run (no installation needed). If you have a different 
-operating system or a java runtime/jdk already installed, you can download the 
-**RbmkSimulator.jar** file instead which is way smaller.
-
-A current development snapshot can be downloaded here: 
-[RbmkSimulator-SNAPSHOT.jar](https://github.com/hartrusion/RbmkSimulator/releases/download/github-ci-snapshot/RbmkSimulator-SNAPSHOT.jar). 
-This gets updated more frequently each time I push changes to github.
+operating system or a Java runtime/JDK already installed, you can download the 
+**RbmkSimulator.jar** file instead which is way smaller. Releases are built with 
+Java 17 so you need at least that version.
 
 Please not that save files are **NOT** compatible with newer versions.
 
