@@ -3539,9 +3539,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
         }
 
         // When main steam valves on turbine are in use, automatically close
-        // the steam dump valves by the opening of the main steam valve. This
-        // is done by applying a negative value on the integral part of the 
-        // pid control
+        // the steam dump valves by adding a negative value to the integral. To
+        // open the valve, the P or D part must be bigger than the subtracted
+        // I part.
         ((PIDControl) mainSteamDump[0].getController())
                 .addIntegralAdaptionProvider(
                         new DoubleSupplier() {
@@ -3551,8 +3551,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                                 .getController().isManualMode()) {
                             return 0.0;
                         }
-                        return -0.05 * turbineMainSteamValve[0]
-                                .getValveElement().getOpening();
+                        // also do not prevent the use of the bypass on full
+                        // open main turbine valve
+                        if (turbineMainSteamValve[0]
+                                .getValveElement().getOpening() >= 99) {
+                            return 0.0;
+                        }
+                        return -0.3;
                     }
                 });
         ((PIDControl) mainSteamDump[1].getController())
@@ -3564,8 +3569,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
                                 .getController().isManualMode()) {
                             return 0.0;
                         }
-                        return -0.05 * turbineMainSteamValve[1]
-                                .getValveElement().getOpening();
+                        if (turbineMainSteamValve[1]
+                                .getValveElement().getOpening() >= 99) {
+                            return 0.0;
+                        }
+                        return -0.3;
                     }
                 });
 
