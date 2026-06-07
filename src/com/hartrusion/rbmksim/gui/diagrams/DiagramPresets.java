@@ -338,7 +338,7 @@ public class DiagramPresets {
         le.setLocationInsideAxes(ax);
     }
     
-    public static void turbineLPTemperatures(FigureJPane figure, ValueHandler plotData) {
+    public static void turbineLPTemperatures(FigureJPane figure, ValueHandler plotData, boolean debug) {
         Axes ax = figure.getLastAxes();
         Legend le = new Legend();
         ax.setHold(true);
@@ -371,6 +371,22 @@ public class DiagramPresets {
                 plotData.getParameterDoubleSeries("Turbine#TemperatureLpRotorOut", 5));
         ax.addLine(l);
         le.addLine(l);
+        
+        // Debugging data
+        if (debug) {
+            l = new Line();
+            l.setLabel("Steam Temp In (Debug)");
+            l.setDataSource(plotData.getTime60(5),
+                    plotData.getParameterDoubleSeries("Turbine#DebugLPInTemp", 5));
+            ax.addLine(l);
+            le.addLine(l);
+//            l = new Line();
+//            l.setLabel("Steam Temp Out (Debug)");
+//            l.setDataSource(plotData.getTime60(5),
+//                    plotData.getParameterDoubleSeries("Turbine#DebugLPOutTemp", 5));
+//            ax.addLine(l);
+//            le.addLine(l);
+        }
 
         ax.yLim(0, 300);
         ax.autoX();

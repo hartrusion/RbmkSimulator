@@ -2755,14 +2755,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // steam from 136.7 with X=0.85 at 3.5 barabs and 136.7 °C to 263 °C. 
         // the reheater condensate will be fed back to deaerator.
         turbineReheaterTripValve.getIntegrator().setMaxRate(200);
-        turbineReheaterTripValve.initCharacteristicSimple(9e3);
-        turbineReheaterTrimValve.initCharacteristicSimple(2e3);
+        turbineReheaterTripValve.initCharacteristicSimple(1400);
+        turbineReheaterTrimValve.initCharacteristicAdvanced(230, 6e6, 1.2e4);
 
         // So we have R = 2.2e4 and U = 6e6 Pa describing the system, use the 
         // advanced characteristic on the valve to get a linear behavior.
         for (int idx = 0; idx < 2; idx++) {
             turbineReheaterSteamValve[idx].initCharacteristicAdvanced(
-                    250, 6e6, 1.1e4);
+                    250, 5e6, 1.4e4);
             turbineReheaterSteamValve[idx].getIntegrator().setMaxRate(12);
         }
 
@@ -3696,7 +3696,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return setpointTurbineReheaterTemperature.getOutput()
+                return setpointTurbineReheaterTemperature.getOutput() + 273.15
                         - reheaterOutTemperature;
             }
         });
@@ -3704,7 +3704,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return setpointTurbineReheaterTemperature.getOutput()
+                return setpointTurbineReheaterTemperature.getOutput() + 273.15
                         - reheaterOutTemperature;
             }
         });

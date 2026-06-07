@@ -202,6 +202,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTriggerDisaster = new javax.swing.JMenuItem();
         jMenuItemDebugDiagramPreheaters = new javax.swing.JMenuItem();
         jMenuItemDebugTurbineHPTemp = new javax.swing.JMenuItem();
+        jMenuItemDebugTurbineLPTemp = new javax.swing.JMenuItem();
         jMenuItemDebugCoreTemp = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jMenuLeakage = new javax.swing.JMenu();
@@ -499,6 +500,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemDebugTurbineHPTemp.setText("Turbine HP Temp (all)");
         jMenuItemDebugTurbineHPTemp.addActionListener(this::jMenuItemDebugTurbineHPTempActionPerformed);
         jMenuSecret.add(jMenuItemDebugTurbineHPTemp);
+
+        jMenuItemDebugTurbineLPTemp.setText("Turbine LP Temp (all)");
+        jMenuItemDebugTurbineLPTemp.addActionListener(this::jMenuItemDebugTurbineLPTempActionPerformed);
+        jMenuSecret.add(jMenuItemDebugTurbineLPTemp);
 
         jMenuItemDebugCoreTemp.setText("Core Temperature");
         jMenuItemDebugCoreTemp.addActionListener(this::jMenuItemDebugCoreTempActionPerformed);
@@ -1408,7 +1413,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         // if not, generate a new diagram and make it known.
         InternalFrameDiagram df = new InternalFrameDiagram();
         df.setTitle("Turbine: LP Temperatures");
-        DiagramPresets.turbineLPTemperatures(df.getFigure(), plotData);
+        DiagramPresets.turbineLPTemperatures(df.getFigure(), plotData, false);
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemTurbineLPTemperaturesActionPerformed
 
@@ -1547,6 +1552,20 @@ public class ControlPanel extends javax.swing.JFrame implements
     private void jMenuItemRepairLeaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRepairLeaksActionPerformed
         controller.userAction(new ActionCommand("DebugSetLeakage", (int) 0));
     }//GEN-LAST:event_jMenuItemRepairLeaksActionPerformed
+
+    private void jMenuItemDebugTurbineLPTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugTurbineLPTempActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Turbine: LP Temperatures")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Turbine: LP Temperatures");
+        DiagramPresets.turbineLPTemperatures(df.getFigure(), plotData, true);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemDebugTurbineLPTempActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1705,6 +1724,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemDebugCoreTemp;
     private javax.swing.JMenuItem jMenuItemDebugDiagramPreheaters;
     private javax.swing.JMenuItem jMenuItemDebugTurbineHPTemp;
+    private javax.swing.JMenuItem jMenuItemDebugTurbineLPTemp;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemGenerator;

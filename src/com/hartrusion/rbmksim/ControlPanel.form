@@ -548,6 +548,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDebugTurbineHPTempActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDebugTurbineLPTemp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Turbine LP Temp (all)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDebugTurbineLPTempActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDebugCoreTemp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Core Temperature"/>
