@@ -2366,7 +2366,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopMcpMass[idx].setInnerThermalMass(100);
             loopDownflow[idx].setResistanceParameter(12.6);
             loopDownflow[idx].setInnerThermalMass(150);
-            loopChannelFlowResistance[idx].setResistanceParameter(293.1);
+            // The initial resistance was 293.1 - but for reasons of modeling
+            // and solveabilit, we need a resistance at the thermal lift 
+            // to make it possible to use the nodal solver, so it is just -100
+            // here.
+            loopChannelFlowResistance[idx].setResistanceParameter(193.1);
             // Manipulate the specific heat capacity here to make the heatup 
             // from the MCP circulation much more intense. Default is 4200, the
             // heat increase is delta_p / (density * specHeatCap)
@@ -2379,9 +2383,10 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 loopTrimValve[idx][jdx].getValveElement()
                         .setFrictionHeatupParameters(1000, 1000);
             }
-
             loopChannelMass[idx].setInnerThermalMass(300);
-            loopChannelMass[idx].setBridgedConnection();
+            // And the next 100 is added here, this will be used for solving 
+            // with the nodal solver to be merged with the thermal lift.
+            loopChannelMass[idx].setResistanceParameter(100);
             // 20 m³ volume in evaporator per side is way too slow for 
             // mcp loss accident.
             // Fuel model: Full thermal power per side is 1.6e9 Watts with fuel
