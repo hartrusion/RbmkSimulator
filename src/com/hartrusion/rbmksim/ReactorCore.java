@@ -29,6 +29,7 @@ import com.hartrusion.control.SerialRunner;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.control.ValveState;
 import com.hartrusion.modeling.heatfluid.HeatNode;
+import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
@@ -1069,21 +1070,28 @@ public class ReactorCore extends Subsystem implements Runnable {
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
     }
-    
+
     /**
-     * Makes the connection from the thermal layout class to the dynamic model 
-     * of the thermal hydraulic behavior of the fuel rods. This gets called 
-     * in the initialization of the thermal layout while connecting all those
+     * Makes the connection from the thermal layout class to the dynamic model
+     * of the thermal hydraulic behavior of the fuel rods. This gets called in
+     * the initialization of the thermal layout while connecting all those
      * elements.
-     * 
+     *
      * @param loop Identifies loop number (1 or 2)
      * @param distributorNode
-     * @param drumNode 
+     * @param drumNode
      * @param poolNode To pressure suppression pool (for leaks)
      */
-    public void initConnectLoop(int loop, 
-            HeatNode distributorNode, PhasedNode drumNode, PhasedNode poolNode) {
-        // todo :)
+    public void initConnectLoop(int loop,
+            HeatNode distributorNode, PhasedClosedSteamedReservoir steamDrum,
+            PhasedNode poolNode) {
+        // Iterate through all generated fuel elements and call for those which
+        // loop number matches
+        for (FuelElement f : fuelElements) {
+            if (f.getLoop() == loop) {
+                f.connectTo(distributorNode, steamDrum, poolNode);
+            }
+        }
     }
 
     public ReactorElement getElement(int x, int y) {

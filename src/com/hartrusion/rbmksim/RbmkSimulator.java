@@ -16,6 +16,7 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -59,7 +60,7 @@ public class RbmkSimulator {
         // Initialize Multithreading for SuperPosition solver
         int cores = Runtime.getRuntime().availableProcessors();
         threadPool = Executors.newFixedThreadPool(cores);
-        SuperPosition.setThreadPool(threadPool);
+        DomainAnalogySolver.setThreadPool(threadPool);
 
         mainLoop = new MainLoop();
     }

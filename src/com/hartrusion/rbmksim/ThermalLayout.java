@@ -131,7 +131,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             = new PhasedClosedSteamedReservoir[2];
     private final PhasedNode[] loopNodeDrumWaterOut = new PhasedNode[2];
     private final PhasedNode[] loopNodeDrumBlowdownOut = new PhasedNode[2];
-    private final PhasedNode[] loopNodeDrumFromReactor = new PhasedNode[2];
     private final PhasedHeatFluidConverter[] loopFromDrumConverter
             = new PhasedHeatFluidConverter[2];
     private final PhasedHeatFluidConverter[] loopFromDrumBlowdownConverter
@@ -638,9 +637,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             loopNodeDrumBlowdownOut[idx] = new PhasedNode();
             loopNodeDrumBlowdownOut[idx].setName("Loop" + (idx + 1)
                     + "#NodeDrumBlowdownOut");
-            loopNodeDrumFromReactor[idx] = new PhasedNode();
-            loopNodeDrumFromReactor[idx].setName("Loop" + (idx + 1)
-                    + "#NodeDrumFromReactor");
             loopFromDrumConverter[idx]
                     = new PhasedHeatFluidConverter(Water.INSTANCE);
             loopFromDrumConverter[idx].setName("Loop" + (idx + 1)
@@ -1478,7 +1474,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             // steam drum in and an additional connection to the bubbler pool
             // for leakage simulation.
             core.initConnectLoop(idx + 1,
-                    loopDistributor[idx], loopNodeDrumFromReactor[idx],
+                    loopDistributor[idx], loopSteamDrum[idx],
                     bubblerPoolIn[8 + idx]);
         }
 
@@ -3318,12 +3314,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                if (!loopNodeDrumFromReactor[0].effortUpdated()) {
+                if (!mainSteamDrumNode[0].effortUpdated()) {
                     return 0.0;
                 }
                 // Negative control: Open valve to decrease pressure
                 return -setpointDrumPressure.getOutput()
-                        + (loopNodeDrumFromReactor[0].getEffort()
+                        + (mainSteamDrumNode[0].getEffort()
                         / 100000 - 1.0); // Pa abs to bar rel
             }
         });
@@ -3331,12 +3327,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                if (!loopNodeDrumFromReactor[1].effortUpdated()) {
+                if (!mainSteamDrumNode[1].effortUpdated()) {
                     return 0.0;
                 }
                 // Negative control: Open valve to decrease pressure
                 return -setpointDrumPressure.getOutput()
-                        + (loopNodeDrumFromReactor[1].getEffort()
+                        + (mainSteamDrumNode[1].getEffort()
                         / 100000 - 1.0); // Pa abs to bar rel
             }
         });
@@ -3472,12 +3468,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                if (!loopNodeDrumFromReactor[0].effortUpdated()) {
+                if (!mainSteamDrumNode[0].effortUpdated()) {
                     return 0.0;
                 }
                 // Negative control: Open valve to decrease pressure
                 return -setpointDrumPressure.getOutput()
-                        + (loopNodeDrumFromReactor[0].getEffort()
+                        + (mainSteamDrumNode[0].getEffort()
                         / 100000 - 1.0); // Pa abs to bar rel
             }
         });
@@ -3485,12 +3481,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                if (!loopNodeDrumFromReactor[1].effortUpdated()) {
+                if (!mainSteamDrumNode[1].effortUpdated()) {
                     return 0.0;
                 }
                 // Negative control: Open valve to decrease pressure
                 return -setpointDrumPressure.getOutput()
-                        + (loopNodeDrumFromReactor[1].getEffort()
+                        + (mainSteamDrumNode[1].getEffort()
                         / 100000 - 1.0); // Pa abs to bar rel
             }
         });
@@ -3818,7 +3814,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return loopNodeDrumFromReactor[0].getEffort() / 100000 - 1.0;
+                return mainSteamDrumNode[0].getEffort() / 100000 - 1.0;
             }
         });
         am.defineAlarm(74.0, AlarmState.MAX2);
@@ -3848,7 +3844,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return loopNodeDrumFromReactor[1].getEffort() / 100000 - 1.0;
+                return mainSteamDrumNode[1].getEffort() / 100000 - 1.0;
             }
         });
         am.defineAlarm(74.0, AlarmState.MAX2);
@@ -3878,8 +3874,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.addInputProvider(new DoubleSupplier() {
             @Override
             public double getAsDouble() {
-                return Math.abs(loopNodeDrumFromReactor[1].getEffort()
-                        - loopNodeDrumFromReactor[0].getEffort()) / 100000;
+                return Math.abs(mainSteamDrumNode[1].getEffort()
+                        - mainSteamDrumNode[0].getEffort()) / 100000;
             }
         });
         am.defineAlarm(8.0, AlarmState.MAX1);
@@ -3900,6 +3896,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
 
+        /*
         am = new ValueAlarmMonitor();
         am.setName("Loop1Flow");
         am.addInputProvider(new DoubleSupplier() {
@@ -3951,7 +3948,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public void run() {
                 core.triggerAutoShutdown();
             }
-        });
+        }); */
+        
+        
         // We need both alarms as the initial state can already be min2 and
         // min1 would be skipped that way.
         am.addAlarmAction(new AlarmAction(AlarmState.MIN2) {
@@ -5369,7 +5368,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumLevel",
                     (loopSteamDrum[idx].getFillHeight() - 1.15) * 100);
             outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumPressure",
-                    loopNodeDrumFromReactor[idx].getEffort() / 100000 - 1.0);
+                    mainSteamDrumNode[idx].getEffort() / 100000 - 1.0);
             outputValues.setParameterValue("Loop" + (idx + 1)
                     + "#DrumTemperature",
                     loopSteamDrum[idx].getTemperature() - 273.15);
@@ -5412,25 +5411,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             outputValues.setParameterValue(
                     "Loop" + (idx + 1) + "#DownFlow",
                     loopDownflow[idx].getFlow());
-
-            // This is some thing that should not be necessary anymore
-            if (loopNodeDrumFromReactor[idx].flowUpdated(loopEvaporator[idx])) {
-                outputValues.setParameterValue(
-                        "Loop" + (idx + 1) + "#ReactorOutFlow",
-                        -loopNodeDrumFromReactor[idx].getFlow(
-                                loopEvaporator[idx]));
-            } else {
-                outputValues.setParameterValue(
-                        "Loop" + (idx + 1) + "#ReactorOutFlow",
-                        Double.NaN);
-            }
-
-            outputValues.setParameterValue("Loop" + (idx + 1)
-                    + "#ReactorOutTemperature",
-                    Water.INSTANCE.getTemperature(
-                            loopNodeDrumFromReactor[idx].getHeatEnergy(),
-                            loopNodeDrumFromReactor[idx].getEffort()
-                    ) - 273.15);
 
             outputValues.setParameterValue("Loop" + (idx + 1)
                     + "#BlowdownFlowToFeedwaterIn",
