@@ -176,6 +176,7 @@ public class MainLoop implements Runnable, ModelManipulation {
         }
 
         if (ac.getPropertyName().equals("LoadSimulationState")) {
+            initialIterations = 0; // first iteration will be very long.
             try (ObjectInputStream ois = new ObjectInputStream(
                     new FileInputStream(
                             new File((String) ac.getValue())))) {
