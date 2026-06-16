@@ -322,7 +322,7 @@ public class Turbine extends Subsystem implements Runnable {
             // as values are kind of made up and nothing is really calculated,
             // we need to add a factor here to make the output exactly 1000 on
             // 3200 mw thermal
-            generatorPower = (shaftPower - holdPower) * 0.57144;
+            generatorPower = (shaftPower - holdPower) * 0.57313;
         }
 
         // Get startup valves auto/manual mode
