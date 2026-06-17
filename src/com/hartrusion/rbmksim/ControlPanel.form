@@ -556,67 +556,8 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDebugTurbineLPTempActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDebugCoreTemp">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Core Temperature"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDebugCoreTempActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator10">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenuLeakage">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Channel Leakage"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLeakLoop1Up">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Loop 1 Up"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLeakLoop1UpActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLeakLoop1Down">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Loop 1 Down"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLeakLoop1DownActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLeakLoop2Up">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Loop 2 Up"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLeakLoop2UpActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLeakLoop2Down">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Loop 2 Down"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLeakLoop2DownActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRepairLeaks">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Repar all Leaks"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRepairLeaksActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuHelp">

@@ -203,15 +203,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemDebugDiagramPreheaters = new javax.swing.JMenuItem();
         jMenuItemDebugTurbineHPTemp = new javax.swing.JMenuItem();
         jMenuItemDebugTurbineLPTemp = new javax.swing.JMenuItem();
-        jMenuItemDebugCoreTemp = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
-        jMenuLeakage = new javax.swing.JMenu();
-        jMenuItemLeakLoop1Up = new javax.swing.JMenuItem();
-        jMenuItemLeakLoop1Down = new javax.swing.JMenuItem();
-        jMenuItemLeakLoop2Up = new javax.swing.JMenuItem();
-        jMenuItemLeakLoop2Down = new javax.swing.JMenuItem();
-        jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemRepairLeaks = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
         jMenuItemTurbineHelp = new javax.swing.JMenuItem();
@@ -504,38 +496,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemDebugTurbineLPTemp.setText("Turbine LP Temp (all)");
         jMenuItemDebugTurbineLPTemp.addActionListener(this::jMenuItemDebugTurbineLPTempActionPerformed);
         jMenuSecret.add(jMenuItemDebugTurbineLPTemp);
-
-        jMenuItemDebugCoreTemp.setText("Core Temperature");
-        jMenuItemDebugCoreTemp.addActionListener(this::jMenuItemDebugCoreTempActionPerformed);
-        jMenuSecret.add(jMenuItemDebugCoreTemp);
         jMenuSecret.add(jSeparator10);
-
-        jMenuLeakage.setText("Channel Leakage");
-
-        jMenuItemLeakLoop1Up.setText("Loop 1 Up");
-        jMenuItemLeakLoop1Up.setToolTipText("");
-        jMenuItemLeakLoop1Up.addActionListener(this::jMenuItemLeakLoop1UpActionPerformed);
-        jMenuLeakage.add(jMenuItemLeakLoop1Up);
-
-        jMenuItemLeakLoop1Down.setText("Loop 1 Down");
-        jMenuItemLeakLoop1Down.addActionListener(this::jMenuItemLeakLoop1DownActionPerformed);
-        jMenuLeakage.add(jMenuItemLeakLoop1Down);
-
-        jMenuItemLeakLoop2Up.setText("Loop 2 Up");
-        jMenuItemLeakLoop2Up.addActionListener(this::jMenuItemLeakLoop2UpActionPerformed);
-        jMenuLeakage.add(jMenuItemLeakLoop2Up);
-
-        jMenuItemLeakLoop2Down.setText("Loop 2 Down");
-        jMenuItemLeakLoop2Down.setToolTipText("");
-        jMenuItemLeakLoop2Down.addActionListener(this::jMenuItemLeakLoop2DownActionPerformed);
-        jMenuLeakage.add(jMenuItemLeakLoop2Down);
-        jMenuLeakage.add(jSeparator9);
-
-        jMenuItemRepairLeaks.setText("Repar all Leaks");
-        jMenuItemRepairLeaks.addActionListener(this::jMenuItemRepairLeaksActionPerformed);
-        jMenuLeakage.add(jMenuItemRepairLeaks);
-
-        jMenuSecret.add(jMenuLeakage);
 
         jMenuBar1.add(jMenuSecret);
 
@@ -1519,40 +1480,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         controller.userAction(new ActionCommand("StartServer", null));
     }//GEN-LAST:event_jMenuItemStartServerActionPerformed
 
-    private void jMenuItemDebugCoreTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugCoreTempActionPerformed
-        // Check if there is already an active frame using the desired class
-        for (InternalFrameDiagram df : diagrams) {
-            if (df.getTitle().equals("Core Temperatures")) {
-                return;
-            }
-        }
-        // if not, generate a new diagram and make it known.
-        InternalFrameDiagram df = new InternalFrameDiagram();
-        df.setTitle("Core Temperatures");
-        DiagramPresets.coreTemperaturesDebugging(df.getFigure(), plotData);
-        initializeDiagram(df);
-    }//GEN-LAST:event_jMenuItemDebugCoreTempActionPerformed
-
-    private void jMenuItemLeakLoop1UpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLeakLoop1UpActionPerformed
-        controller.userAction(new ActionCommand("DebugSetLeakage", (int) 1));
-    }//GEN-LAST:event_jMenuItemLeakLoop1UpActionPerformed
-
-    private void jMenuItemLeakLoop1DownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLeakLoop1DownActionPerformed
-        controller.userAction(new ActionCommand("DebugSetLeakage", (int) 2));
-    }//GEN-LAST:event_jMenuItemLeakLoop1DownActionPerformed
-
-    private void jMenuItemLeakLoop2UpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLeakLoop2UpActionPerformed
-        controller.userAction(new ActionCommand("DebugSetLeakage", (int) 3));
-    }//GEN-LAST:event_jMenuItemLeakLoop2UpActionPerformed
-
-    private void jMenuItemLeakLoop2DownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLeakLoop2DownActionPerformed
-        controller.userAction(new ActionCommand("DebugSetLeakage", (int) 4));
-    }//GEN-LAST:event_jMenuItemLeakLoop2DownActionPerformed
-
-    private void jMenuItemRepairLeaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRepairLeaksActionPerformed
-        controller.userAction(new ActionCommand("DebugSetLeakage", (int) 0));
-    }//GEN-LAST:event_jMenuItemRepairLeaksActionPerformed
-
     private void jMenuItemDebugTurbineLPTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugTurbineLPTempActionPerformed
         // Check if there is already an active frame using the desired class
         for (InternalFrameDiagram df : diagrams) {
@@ -1721,7 +1648,6 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemDA1Steam;
     private javax.swing.JMenuItem jMenuItemDA2Steam;
     private javax.swing.JMenuItem jMenuItemDeaerators;
-    private javax.swing.JMenuItem jMenuItemDebugCoreTemp;
     private javax.swing.JMenuItem jMenuItemDebugDiagramPreheaters;
     private javax.swing.JMenuItem jMenuItemDebugTurbineHPTemp;
     private javax.swing.JMenuItem jMenuItemDebugTurbineLPTemp;
@@ -1729,10 +1655,6 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemFeedwater;
     private javax.swing.JMenuItem jMenuItemGenerator;
     private javax.swing.JMenuItem jMenuItemHotwellDALevels;
-    private javax.swing.JMenuItem jMenuItemLeakLoop1Down;
-    private javax.swing.JMenuItem jMenuItemLeakLoop1Up;
-    private javax.swing.JMenuItem jMenuItemLeakLoop2Down;
-    private javax.swing.JMenuItem jMenuItemLeakLoop2Up;
     private javax.swing.JMenuItem jMenuItemLoop1LevelControl;
     private javax.swing.JMenuItem jMenuItemLoop2LevelControl;
     private javax.swing.JMenuItem jMenuItemMnemonicAuxCondenser;
@@ -1756,7 +1678,6 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
     private javax.swing.JMenuItem jMenuItemRecirculation;
-    private javax.swing.JMenuItem jMenuItemRepairLeaks;
     private javax.swing.JMenuItem jMenuItemStartServer;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTriggerDisaster;
@@ -1773,7 +1694,6 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemViewCore2;
     private javax.swing.JMenuItem jMenuItemViewECCS;
     private javax.swing.JMenuItem jMenuItemViewRodPositions;
-    private javax.swing.JMenu jMenuLeakage;
     private javax.swing.JMenuItem jMenuLoad;
     private javax.swing.JMenu jMenuMnemonics;
     private javax.swing.JMenuItem jMenuNeutronFlux;
@@ -1791,7 +1711,6 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
-    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
