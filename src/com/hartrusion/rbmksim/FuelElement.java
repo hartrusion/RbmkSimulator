@@ -259,8 +259,8 @@ public class FuelElement extends ReactorElement {
         // of uranium dioxide: 270 J/kg/K
         // Thermal capacity: m * c = 96000 kg * 270 J/kg/K = 2.6e7 J/K per side
         // Per channel: 138298 J/K
-        thermalCapacity.setTimeConstant(2.6e7);
-        thermalResistance.setResistanceParameter(1.78e-7);
+        thermalCapacity.setTimeConstant(138298);
+        thermalResistance.setResistanceParameter(3.3464e-5);
 
         // 20 m³ volume in evaporator per side is way too slow for 
         // mcp loss accident.
@@ -272,8 +272,12 @@ public class FuelElement extends ReactorElement {
         // and loose its mass. It should met at 2800 °C (3073 K) and we just
         // randomly define 4000 K and 50 MW when running empty, so it is
         // G = P_th / DeltaT = 50e6 J/s / 4000 K = 1.25e4 when almost empty.
-        evaporator.setThermalDimension(14.0, 200, 5.5e6,
-                10000, 1.0e4, 4000);
+        // evaporator.setThermalDimension(14.0, 200, 5.5e6,
+        //        10000, 1.0e4, 4000);
+        // New calculation with 188 fuel channels per side:
+        evaporator.setThermalDimension(0.0745, 1.064, 5.5e6,
+                53.2, 1.0e4, 21.3);
+
 
         // Channel leakage: Represented with a valve to be able to set an amount
         // of leakage with the given characteristic. Worst leakage will be
@@ -396,15 +400,6 @@ public class FuelElement extends ReactorElement {
         return fissionPower;
     }
 
-    /**
-     * Get the temperature on this fuel element.
-     *
-     * @return Temperature in Kelvin
-     */
-    public double getTemperature() {
-        return 298.15;
-    }
-
     public void applyThermalLift() {
         thermalLift.setEffort(5e4); // todo, just a constant for now
     }
@@ -417,9 +412,9 @@ public class FuelElement extends ReactorElement {
      */
     public void updateMeasurementData() {
         outputValues.setParameterValue(
-                propertyTemperature, thermalCapacity.getEffort());
-        outputValues.setParameterValue(
-                propertyLocalAffection, localAffection);
+                propertyTemperature, thermalCapacity.getEffort() - 273.15);
+        // outputValues.setParameterValue(
+        //         propertyLocalAffection, localAffection);
         outputValues.setParameterValue(
                 propertyFissionPower, fissionPower);
     }
@@ -462,6 +457,11 @@ public class FuelElement extends ReactorElement {
 
         rodFlux = localFlux * (1-P_DECAY) + xDelayedPower;
 
+        // Fission power consideres the idle power but does not display it,
+        // it is added as an invisible energy not shown on the power display.
         fissionPower = rodFlux * fluxToPower + localIdlePower;
+
+        // MW to Watt (SI)
+        thermalFlowSource.setFlow(fissionPower * 1e6);
     }
 }

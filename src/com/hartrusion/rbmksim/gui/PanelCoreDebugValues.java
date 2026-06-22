@@ -52,8 +52,6 @@ import javax.swing.JPanel;
 public class PanelCoreDebugValues extends JPanel implements UpdateReceiver {
 
     private static final Color FUEL_BG = new Color(255, 255, 255);
-    private static final Color MANROD_BG = new Color(128, 128, 128);
-    private static final Color AUTOROD_BG = new Color(128, 128, 128);
 
     /**
      * Prefix every fuel parameter name starts with.
@@ -139,7 +137,10 @@ public class PanelCoreDebugValues extends JPanel implements UpdateReceiver {
 
                 ChannelType type = ChannelData.getChannelType(idx, jdx);
 
-                if (type == ChannelType.VOID) {
+                if (type == ChannelType.VOID
+                        || type == ChannelType.AUTOMATIC_CONTROLROD
+                        || type == ChannelType.MANUAL_CONTROLROD
+                        || type == ChannelType.SHORT_CONTROLROD) {
                     // Invisible dummy to keep uniform grid spacing:
                     JLabel dummy = new JLabel();
                     dummy.setVisible(false);
@@ -148,12 +149,12 @@ public class PanelCoreDebugValues extends JPanel implements UpdateReceiver {
                     JLabel label = new JLabel();
                     label.setOpaque(true);
                     label.setHorizontalAlignment(JLabel.CENTER);
-                    label.setBackground(getBackgroundForType(type));
+                    label.setBackground(FUEL_BG);
                     label.setForeground(new Color(0, 0, 0));
                     label.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                     label.setText("");
                     label.setFont(label.getFont().deriveFont(
-                            label.getFont().getSize() - 5F));
+                            label.getFont().getSize() - 3F));
                     // Fixed size of 22
                     label.setMaximumSize(new java.awt.Dimension(22, 22));
                     label.setMinimumSize(new java.awt.Dimension(22, 22));
@@ -182,27 +183,6 @@ public class PanelCoreDebugValues extends JPanel implements UpdateReceiver {
         int row = ChannelData.MAX_NUMBER - idx;
         int col = jdx - ChannelData.MIN_NUMBER;
         return labels[row][col];
-    }
-
-    /**
-     * Returns the static background color for a given reactor element type,
-     * matching the off-state palette used by {@link PanelCoreActivity}.
-     *
-     * @param type the channel type
-     * @return the corresponding background Color, or null for VOID
-     */
-    private static Color getBackgroundForType(ChannelType type) {
-        switch (type) {
-            case FUEL:
-                return FUEL_BG;
-            case MANUAL_CONTROLROD:
-                return MANROD_BG;
-            case AUTOMATIC_CONTROLROD:
-            case SHORT_CONTROLROD:
-                return AUTOROD_BG;
-            default:
-                return null;
-        }
     }
 
     /**

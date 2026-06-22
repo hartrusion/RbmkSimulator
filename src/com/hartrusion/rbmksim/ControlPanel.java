@@ -108,7 +108,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private InternalFrameCoreActivity coreActivity1;
     private InternalFrameCoreActivity coreActivity2;
 
-    private FrameDebugAffection frameDebugAffection;
+    private FrameDebugFuelTemperature frameDebugTemperature;
     private FrameDebugFissionPower frameDebugPower;
 
     /**
@@ -503,11 +503,12 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuSecret.add(jMenuItemDebugTurbineLPTemp);
         jMenuSecret.add(jSeparator9);
 
-        jMenuItem1.setText("Core: Affection Values");
+        jMenuItem1.setText("Fuel Temperatures");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenuSecret.add(jMenuItem1);
 
-        jMenuItem3.setText("Core: Thermal Power");
+        jMenuItem3.setText("Thermal Power");
+        jMenuItem3.setToolTipText("");
         jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
         jMenuSecret.add(jMenuItem3);
 
@@ -1508,15 +1509,15 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItemDebugTurbineLPTempActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        if (frameDebugAffection == null) {
-            frameDebugAffection = new FrameDebugAffection();
+        if (frameDebugTemperature == null) {
+            frameDebugTemperature = new FrameDebugFuelTemperature();
             java.awt.EventQueue.invokeLater(() -> {
-                frameDebugAffection.setVisible(true);
+                frameDebugTemperature.setVisible(true);
             });
-            frameDebugAffection.addWindowListener(new java.awt.event.WindowAdapter() {
+            frameDebugTemperature.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent evt) {
-                    frameDebugAffection = null;
+                    frameDebugTemperature = null;
                 }
             });
         }
@@ -1864,8 +1865,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         if (rodPositions != null) {
             rodPositions.updateComponent(propertyName, newValue);
         }
-        if (frameDebugAffection != null) {
-            frameDebugAffection.updateComponent(propertyName, newValue);
+        if (frameDebugTemperature != null) {
+            frameDebugTemperature.updateComponent(propertyName, newValue);
         }
         if (frameDebugPower != null) {
             frameDebugPower.updateComponent(propertyName, newValue);

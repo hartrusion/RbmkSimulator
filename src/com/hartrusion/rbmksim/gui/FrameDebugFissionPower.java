@@ -48,6 +48,7 @@ public class FrameDebugFissionPower extends javax.swing.JFrame implements Update
         panelCoreDebugValues1.setSuffix("FissionPower");
         panelCoreDebugValues1.setToolTipText("");
         panelCoreDebugValues1.setValueFormat("%.3f");
+        panelCoreDebugValues1.setPreferredSize(new java.awt.Dimension(779, 529));
         getContentPane().add(panelCoreDebugValues1, java.awt.BorderLayout.CENTER);
 
         pack();

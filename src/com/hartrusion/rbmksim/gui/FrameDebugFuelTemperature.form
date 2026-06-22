@@ -26,8 +26,10 @@
   <SubComponents>
     <Component class="com.hartrusion.rbmksim.gui.PanelCoreDebugValues" name="panelCoreDebugValues1">
       <Properties>
-        <Property name="suffix" type="java.lang.String" value="LocalAffection"/>
-        <Property name="valueFormat" type="java.lang.String" value="%.3f"/>
+        <Property name="valueFormat" type="java.lang.String" value="%.1f"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[779, 529]"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

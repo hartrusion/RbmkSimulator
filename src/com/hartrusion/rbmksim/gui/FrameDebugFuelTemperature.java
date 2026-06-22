@@ -23,11 +23,11 @@ import java.beans.PropertyChangeEvent;
  *
  * @author Viktor Alexander Hartung
  */
-public class FrameDebugAffection extends javax.swing.JFrame implements UpdateReceiver {
+public class FrameDebugFuelTemperature extends javax.swing.JFrame implements UpdateReceiver {
     /**
      * Creates new form FrameDebugAffection
      */
-    public FrameDebugAffection() {
+    public FrameDebugFuelTemperature() {
         initComponents();
     }
 
@@ -45,8 +45,8 @@ public class FrameDebugAffection extends javax.swing.JFrame implements UpdateRec
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Local fuel rod affection values");
 
-        panelCoreDebugValues1.setSuffix("LocalAffection");
-        panelCoreDebugValues1.setValueFormat("%.3f");
+        panelCoreDebugValues1.setValueFormat("%.1f");
+        panelCoreDebugValues1.setPreferredSize(new java.awt.Dimension(779, 529));
         getContentPane().add(panelCoreDebugValues1, java.awt.BorderLayout.CENTER);
 
         pack();
