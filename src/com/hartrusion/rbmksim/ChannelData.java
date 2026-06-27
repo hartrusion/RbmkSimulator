@@ -198,7 +198,7 @@ public final class ChannelData {
             return 2;
         }
         // else: Center row: decide with odd or even.
-        if (jdx % 2 == 0) {
+        if (idx % 2 == 0) {
             return 1;
         } else {
             return 2;
