@@ -630,14 +630,18 @@ public class ReactorCore extends Subsystem implements Runnable {
      * the calculations of voding and average core temperature is done here.
      */
     public void runProcessResults() {
+        double avgVoiding = 0.0;
+        double avgTemperature = 0.0;
+        
         for (FuelElement f : fuelElements) {
             f.runProcessResults();
             
-
-            
+            avgVoiding += f.getSteamVoiding();
+            avgTemperature += f.getFuelTemperature();
         }
         
-        
+        voiding = avgVoiding / fuelElements.size();
+        coreTemp = avgTemperature / fuelElements.size();
     }
 
     /**
