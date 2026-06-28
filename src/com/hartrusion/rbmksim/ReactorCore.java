@@ -110,6 +110,8 @@ public class ReactorCore extends Subsystem implements Runnable {
      * temperature coefficient.
      */
     private double coreTemp = 80;
+    
+    private double thermalPowerDisplay;
 
     private final double downcomerTemperature[] = new double[2];
 
@@ -526,7 +528,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         FuelElement.applyAverageAffection(
                 totalAffection / fuelElements.size());
 
-        double thermalPowerDisplay = 0.0;
+        thermalPowerDisplay = 0.0;
         for (FuelElement f : fuelElements) {
             f.applyNeutronFlux(neutronFluxModel.getYNeutronFlux());
             f.calculationStepPowerModel();
@@ -1141,6 +1143,15 @@ public class ReactorCore extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+    }
+    
+    /**
+     * A value that does not show the idle heat but goes from 0 to 3200.
+     * 
+     * @return value in Megawatts
+     */
+    public double getThermalPowerDisplayed() {
+        return thermalPowerDisplay;
     }
 
     /**

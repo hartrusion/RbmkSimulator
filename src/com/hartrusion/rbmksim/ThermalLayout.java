@@ -29,7 +29,6 @@ import com.hartrusion.control.PIControl;
 import com.hartrusion.control.PIDControl;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.control.TwoPointControl;
-import com.hartrusion.modeling.PhysicalDomain;
 import com.hartrusion.modeling.assemblies.HeatExchangerNoMass;
 import com.hartrusion.modeling.automated.HeatFluidPump;
 import com.hartrusion.modeling.automated.HeatFluidPumpSimple;
@@ -43,23 +42,16 @@ import com.hartrusion.modeling.automated.DummyValve;
 import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.automated.PhasedValveControlled;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
-import com.hartrusion.modeling.general.FlowSource;
-import com.hartrusion.modeling.general.GeneralNode;
-import com.hartrusion.modeling.general.LinearDissipator;
-import com.hartrusion.modeling.general.OpenOrigin;
-import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.heatfluid.HeatClosedFluidTank;
 import com.hartrusion.modeling.heatfluid.HeatEffortSource;
 import com.hartrusion.modeling.heatfluid.HeatFlowSource;
 import com.hartrusion.modeling.heatfluid.HeatFluidTank;
-import com.hartrusion.modeling.heatfluid.HeatFrictionedFlowResistance;
 import com.hartrusion.modeling.heatfluid.HeatNode;
 import com.hartrusion.modeling.heatfluid.HeatOrigin;
 import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
 import com.hartrusion.modeling.heatfluid.HeatVolumizedFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedEffortSource;
-import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedTurbineStage;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.modeling.phasedfluid.PhasedOrigin;
@@ -5096,8 +5088,8 @@ public class ThermalLayout extends Subsystem implements Runnable {
         if (startupPressureSetpointActive) {
             // The pressure setpoint does not consider the idle power so the 
             // display value is also used here.
-            setpointDrumPressure.setInput(getPressureSetpoint(0) // 0 ersetzen!
-                    // core.getYThermalPowerDisplayed())
+            setpointDrumPressure.setInput(getPressureSetpoint(
+                    core.getThermalPowerDisplayed())
                     + setpointDrumPressureOffset.getOutput());
         } else {
             setpointDrumPressure.setInput(PRESSURE_SETPOINT_UPPER
