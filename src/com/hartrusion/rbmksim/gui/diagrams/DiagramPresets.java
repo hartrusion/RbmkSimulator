@@ -781,4 +781,52 @@ public class DiagramPresets {
 
         ax.ylabel("Temperature (°C)");
     }
+    
+    public static void coreReactivityComponents(FigureJPane figure, ValueHandler plotData) {
+        Axes ax = figure.getLastAxes();
+        Legend le = new Legend();
+        ax.setHold(true);
+        Line l;
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Xenon");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityXenon", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Graphite");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityGraphite", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Temperature");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityTemperature", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Voiding");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityVoding", 1));
+        ax.addLine(l);
+        
+        l = new Line();
+        le.addLine(l);
+        l.setLabel("Rod Absorption");
+        l.setDataSource(plotData.getTime60(1),
+                plotData.getParameterDoubleSeries("Reactor#RodAbsorption", 1));
+        ax.addLine(l);
+        
+        ax.yLim(-200, 200);
+        ax.autoX();
+        figure.addLegend(le);
+        le.setLocationInsideAxes(ax);
+        ax.ylabel("Reactivity");
+    }
 }

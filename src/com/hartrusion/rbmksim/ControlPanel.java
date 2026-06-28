@@ -203,19 +203,22 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineOperator = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuAbout = new javax.swing.JMenuItem();
+        jMenuItemTurbineHelp = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenuSecret = new javax.swing.JMenu();
         jMenuItemTriggerDisaster = new javax.swing.JMenuItem();
         jMenuItemDebugDiagramPreheaters = new javax.swing.JMenuItem();
         jMenuItemDebugTurbineHPTemp = new javax.swing.JMenuItem();
         jMenuItemDebugTurbineLPTemp = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuHelp = new javax.swing.JMenu();
-        jMenuAbout = new javax.swing.JMenuItem();
-        jMenuItemTurbineHelp = new javax.swing.JMenuItem();
+        jMenuItemDebugFuelTemperatures = new javax.swing.JMenuItem();
+        jMenuItemDebugThermalPower = new javax.swing.JMenuItem();
+        jMenuItemDebugSteamVoiding = new javax.swing.JMenuItem();
+        jMenuItemDebugFlow = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemDebugReactivity = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -487,6 +490,17 @@ public class ControlPanel extends javax.swing.JFrame implements
 
         jMenuBar1.add(jMenuPresets);
 
+        jMenuHelp.setText("Help");
+
+        jMenuAbout.setText("About");
+        jMenuAbout.addActionListener(this::jMenuAboutActionPerformed);
+        jMenuHelp.add(jMenuAbout);
+
+        jMenuItemTurbineHelp.setText("Turbine Startup Setpoints");
+        jMenuItemTurbineHelp.addActionListener(this::jMenuItemTurbineHelpActionPerformed);
+        jMenuHelp.add(jMenuItemTurbineHelp);
+        jMenuHelp.add(jSeparator11);
+
         jMenuSecret.setText("Secret");
         jMenuSecret.setToolTipText("Features that should be hidden from end user");
 
@@ -507,34 +521,29 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuSecret.add(jMenuItemDebugTurbineLPTemp);
         jMenuSecret.add(jSeparator9);
 
-        jMenuItem1.setText("Fuel Temperatures");
-        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
-        jMenuSecret.add(jMenuItem1);
+        jMenuItemDebugFuelTemperatures.setText("Fuel Temperatures");
+        jMenuItemDebugFuelTemperatures.addActionListener(this::jMenuItemDebugFuelTemperaturesActionPerformed);
+        jMenuSecret.add(jMenuItemDebugFuelTemperatures);
 
-        jMenuItem3.setText("Thermal Power");
-        jMenuItem3.setToolTipText("");
-        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
-        jMenuSecret.add(jMenuItem3);
+        jMenuItemDebugThermalPower.setText("Thermal Power");
+        jMenuItemDebugThermalPower.setToolTipText("");
+        jMenuItemDebugThermalPower.addActionListener(this::jMenuItemDebugThermalPowerActionPerformed);
+        jMenuSecret.add(jMenuItemDebugThermalPower);
 
-        jMenuItem4.setText("Steam Voiding");
-        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
-        jMenuSecret.add(jMenuItem4);
+        jMenuItemDebugSteamVoiding.setText("Steam Voiding");
+        jMenuItemDebugSteamVoiding.addActionListener(this::jMenuItemDebugSteamVoidingActionPerformed);
+        jMenuSecret.add(jMenuItemDebugSteamVoiding);
 
-        jMenuItem5.setText("Flow");
-        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
-        jMenuSecret.add(jMenuItem5);
+        jMenuItemDebugFlow.setText("Flow");
+        jMenuItemDebugFlow.addActionListener(this::jMenuItemDebugFlowActionPerformed);
+        jMenuSecret.add(jMenuItemDebugFlow);
+        jMenuSecret.add(jSeparator10);
 
-        jMenuBar1.add(jMenuSecret);
+        jMenuItemDebugReactivity.setText("Reactor Reactivity Components");
+        jMenuItemDebugReactivity.addActionListener(this::jMenuItemDebugReactivityActionPerformed);
+        jMenuSecret.add(jMenuItemDebugReactivity);
 
-        jMenuHelp.setText("Help");
-
-        jMenuAbout.setText("About");
-        jMenuAbout.addActionListener(this::jMenuAboutActionPerformed);
-        jMenuHelp.add(jMenuAbout);
-
-        jMenuItemTurbineHelp.setText("Turbine Startup Setpoints");
-        jMenuItemTurbineHelp.addActionListener(this::jMenuItemTurbineHelpActionPerformed);
-        jMenuHelp.add(jMenuItemTurbineHelp);
+        jMenuHelp.add(jMenuSecret);
 
         jMenuBar1.add(jMenuHelp);
 
@@ -1520,7 +1529,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemDebugTurbineLPTempActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemDebugFuelTemperaturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugFuelTemperaturesActionPerformed
         if (frameDebugTemperature == null) {
             frameDebugTemperature = new FrameDebugFuelTemperature();
             java.awt.EventQueue.invokeLater(() -> {
@@ -1533,9 +1542,9 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemDebugFuelTemperaturesActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItemDebugThermalPowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugThermalPowerActionPerformed
         if (frameDebugPower == null) {
             frameDebugPower = new FrameDebugFissionPower();
             java.awt.EventQueue.invokeLater(() -> {
@@ -1548,9 +1557,9 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItemDebugThermalPowerActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItemDebugSteamVoidingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugSteamVoidingActionPerformed
         if (frameDebugVoiding == null) {
             frameDebugVoiding = new FrameDebugVoiding();
             java.awt.EventQueue.invokeLater(() -> {
@@ -1563,9 +1572,9 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jMenuItemDebugSteamVoidingActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItemDebugFlowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugFlowActionPerformed
         if (frameDebugFlow == null) {
             frameDebugFlow = new FrameDebugFlow();
             java.awt.EventQueue.invokeLater(() -> {
@@ -1578,7 +1587,21 @@ public class ControlPanel extends javax.swing.JFrame implements
                 }
             });
         }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuItemDebugFlowActionPerformed
+
+    private void jMenuItemDebugReactivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugReactivityActionPerformed
+        // Check if there is already an active frame using the desired class
+        for (InternalFrameDiagram df : diagrams) {
+            if (df.getTitle().equals("Reactor Reactivity Components")) {
+                return;
+            }
+        }
+        // if not, generate a new diagram and make it known.
+        InternalFrameDiagram df = new InternalFrameDiagram();
+        df.setTitle("Reactor Reactivity Components");
+        DiagramPresets.coreReactivityComponents(df.getFigure(), plotData);
+        initializeDiagram(df);
+    }//GEN-LAST:event_jMenuItemDebugReactivityActionPerformed
 
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
@@ -1725,11 +1748,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuGlobalControl;
     private javax.swing.JMenu jMenuHelp;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItemAuxCond;
     private javax.swing.JMenuItem jMenuItemBlowdown;
     private javax.swing.JMenuItem jMenuItemCondensation;
@@ -1739,6 +1758,11 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemDA2Steam;
     private javax.swing.JMenuItem jMenuItemDeaerators;
     private javax.swing.JMenuItem jMenuItemDebugDiagramPreheaters;
+    private javax.swing.JMenuItem jMenuItemDebugFlow;
+    private javax.swing.JMenuItem jMenuItemDebugFuelTemperatures;
+    private javax.swing.JMenuItem jMenuItemDebugReactivity;
+    private javax.swing.JMenuItem jMenuItemDebugSteamVoiding;
+    private javax.swing.JMenuItem jMenuItemDebugThermalPower;
     private javax.swing.JMenuItem jMenuItemDebugTurbineHPTemp;
     private javax.swing.JMenuItem jMenuItemDebugTurbineLPTemp;
     private javax.swing.JMenuItem jMenuItemExit;
@@ -1793,6 +1817,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuView;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator4;

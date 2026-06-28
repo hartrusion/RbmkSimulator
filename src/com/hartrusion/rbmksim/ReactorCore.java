@@ -200,6 +200,12 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private boolean useLoadedValues = false;
 
+    private static final double REACTIVITY_BASE = 81.73;
+    private static final double REACTIVITY_XENON = 0.319;
+    private static final double REACTIVITY_GRAPHITE = 0.319;
+    private static final double REACTIVITY_TEMPERATURE = 7.93e-3;
+    private static final double REACTIVITY_VOIDING = 0.73;
+
     ReactorCore() {
         setpointTargetNeutronFlux = new Setpoint();
         setpointTargetNeutronFlux.initName("Reactor#TargetNeutronFlux");
@@ -483,11 +489,11 @@ public class ReactorCore extends Subsystem implements Runnable {
         *   15 % voiding meaning 11 %N so its *0.73
          */
         if (!useLoadedValues) {
-            reactivity = 81.73 // generally present reactivity.
-                    - xenonModel.getYXenon() * 0.319
-                    - graphiteModel.getYGraphie() * 0.319
-                    - Math.min(700, coreTemp) * 7.93e-3
-                    + voiding * 0.73;
+            reactivity = REACTIVITY_BASE // generally present reactivity.
+                    - xenonModel.getYXenon() * REACTIVITY_XENON
+                    - graphiteModel.getYGraphie() * REACTIVITY_GRAPHITE
+                    - Math.min(700, coreTemp) * REACTIVITY_TEMPERATURE
+                    + voiding * REACTIVITY_VOIDING;
         }
 
         // For testing the accident conditions and trigger, set reactivity to
@@ -600,8 +606,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYNeutronRate());
         outputValues.setParameterValue("Reactor#AvgRodPos",
                 avgRodPosition);
-        //    outputValues.setParameterValue("Reactor#RodAbsorption",
-        //            rodAbsorption);
         outputValues.setParameterValue("Reactor#Xenon",
                 xenonModel.getYXenon());
         outputValues.setParameterValue("Reactor#ThermalPowerDisplay",
@@ -613,8 +617,23 @@ public class ReactorCore extends Subsystem implements Runnable {
         outputValues.setParameterValue("Reactor#Graphite",
                 graphiteModel.getYGraphie());
 
+        outputValues.setParameterValue("Reactor#Voiding", voiding);
+        outputValues.setParameterValue("Reactor#CoreTemperature", coreTemp);
+
         outputValues.setParameterValue("GlobalControl#AvgActiveAutoRodsPos",
                 avgPositionActiveAutomatic);
+
+        // Values designed for debug only:
+        outputValues.setParameterValue("Reactor#ReactivityXenon",
+                xenonModel.getYXenon() * REACTIVITY_XENON);
+        outputValues.setParameterValue("Reactor#ReactivityGraphite",
+                graphiteModel.getYGraphie() * REACTIVITY_GRAPHITE);
+        outputValues.setParameterValue("Reactor#ReactivityTemperature",
+                Math.min(700, coreTemp) * REACTIVITY_TEMPERATURE);
+        outputValues.setParameterValue("Reactor#ReactivityVoding",
+                voiding * REACTIVITY_VOIDING);
+        outputValues.setParameterValue("Reactor#RodAbsorption",
+                    REACTIVITY_BASE - rodAbsorption);
 
         oldGlobalControlTarget = globalControlTarget;
     }
@@ -625,21 +644,21 @@ public class ReactorCore extends Subsystem implements Runnable {
      * send the model data which is obtained from the dynamic model of the
      * thermal hydraulic behavior.
      * <p>
-     * Also, as this is called after the thermal layouts update (which includes 
-     * the calculation step of each single control rods fuel thermal model),
-     * the calculations of voding and average core temperature is done here.
+     * Also, as this is called after the thermal layouts update (which includes
+     * the calculation step of each single control rods fuel thermal model), the
+     * calculations of voiding and average core temperature is done here.
      */
     public void runProcessResults() {
         double avgVoiding = 0.0;
         double avgTemperature = 0.0;
-        
+
         for (FuelElement f : fuelElements) {
             f.runProcessResults();
-            
+
             avgVoiding += f.getSteamVoiding();
             avgTemperature += f.getFuelTemperature();
         }
-        
+
         voiding = avgVoiding / fuelElements.size();
         coreTemp = avgTemperature / fuelElements.size();
     }
