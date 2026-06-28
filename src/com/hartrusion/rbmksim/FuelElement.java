@@ -153,6 +153,15 @@ public class FuelElement extends ReactorElement {
      */
     private double fissionPowerDisplay;
 
+    /**
+     * Steam void, saved as variable to have only one call on the calculation of
+     * the voiding (it is a bit expensive). Will be updated after the thermal
+     * layout is calculated by the runProcessResults call.
+     */
+    private double voiding;
+
+    private double thermalLiftPressure;
+
     // Network part for the hydraulic part
     private final HeatFrictionedFlowResistance flowResistance
             = new HeatFrictionedFlowResistance();
@@ -271,7 +280,7 @@ public class FuelElement extends ReactorElement {
         // This has to be split onto two elements to have the nodal analysis
         // work with norton transform.
         flowResistance.setResistanceParameter(25102.8);
-        channelMass.setInnerThermalMass(300);
+        channelMass.setInnerThermalMass(100);
         channelMass.setResistanceParameter(30000);
         // Manipulate the specific heat capacity here to make the heatup 
         // from the MCP circulation much more intense. Default is 4200, the
@@ -431,21 +440,20 @@ public class FuelElement extends ReactorElement {
         return fissionPower;
     }
 
-    public void applyThermalLift() {
-        thermalLift.setEffort(5e4); // todo, just a constant for now
-    }
-
     public void setDowncomerTemperatureReference(double[] temperature) {
         downcomerTemperature = temperature;
     }
 
     /**
-     * Gains data from the model, saves them to class fields and sends the
-     * values to the parameter handler for further use. This is called right
-     * after the model was called in the thermal layout as it's related to the
-     * thermal part.
+     * This is called on each fuel rod after the thermal layout has finished its
+     * calculations and the temperature and flow data is available. All elements
+     * are updated now.
      */
-    public void updateMeasurementData() {
+    public void runProcessResults() {
+        voiding = evapHandler.getVoiding(1e5);
+
+        // Send per fuel rod values - those are intended to be debugging
+        // only as they are not available in such a detail in the real plant.
         outputValues.setParameterValue(
                 propertyTemperature, thermalCapacity.getEffort() - 273.15);
         outputValues.setParameterValue(
@@ -453,19 +461,41 @@ public class FuelElement extends ReactorElement {
         outputValues.setParameterValue(
                 propertyFissionPower, fissionPower);
         outputValues.setParameterValue(
-                propertyVoiding, evapHandler.getVoiding(1e5));
+                propertyVoiding, voiding);
 
-        thermalLift.setEffort(
-                (evaporator.getTemperature()
+        thermalLiftPressure = (evaporator.getTemperature()
                 - downcomerTemperature[loop - 1])
-                * 2000); // try-and-error obtained number
+                * 2000; // try-and-error obtained number
+
+        thermalLift.setEffort(thermalLiftPressure);
 
     }
 
     /**
-     * Called from the reactor core for each rod after the model was called, it
-     * will do the calculations for the power model, which is the part that
-     * generates the heat.
+     * Access to the fuel elements temperature, this describes the temperature
+     * of the inner material of the fuel, not the evaporator.
+     *
+     * @return Temperature of the fuel in Kelvin
+     */
+    public double getFuelTemperature() {
+        return thermalCapacity.getEffort();
+    }
+
+    /**
+     * Acess to the current voiding of the steam surrounding the fuel element.
+     * Note that this returns only a saved variable to keep the call as cheap as
+     * possible.
+     *
+     * @return
+     */
+    public double getSteamVoiding() {
+        return voiding;
+    }
+
+    /**
+     * Called from the reactor core for each rod after the core model was
+     * called, it will do the calculations for the power model, which is the
+     * part that generates the heat.
      * <p>
      * Called from RectorCore.run() which is invoked BEFORE the thermal layout
      * is calculated.
@@ -518,5 +548,29 @@ public class FuelElement extends ReactorElement {
 
     public double getFissionPowerForDisplay() {
         return fissionPowerDisplay;
+    }
+
+    /**
+     * Saves the current state of this fuel element to a FuelState object that
+     * is provided as an argument.
+     *
+     * @param fs FuelState object
+     */
+    public void writeToFuelStateObject(FuelState fs) {
+        fs.setThermalLiftPressure(thermalLiftPressure);
+        fs.setXFirstDelay(xFirstDelay);
+        fs.setXDelayedPower(xDelayedPower);
+    }
+
+    /**
+     * Sets this fuel element to the provided state for loading the simulation
+     * state.
+     *
+     * @param fs FuelState object
+     */
+    public void applyFuelState(FuelState fs) {
+        thermalLiftPressure = fs.getThermalLiftPressure();
+        xFirstDelay = fs.getXFirstDelay();
+        xDelayedPower = fs.getXDelayedPower();
     }
 }

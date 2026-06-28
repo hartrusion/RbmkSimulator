@@ -485,9 +485,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     private final double[] steamOutToTurbine = new double[2];
 
-    private double voiding = 0;
-    private double coreTemp = 200;
-
     private double turbineDebugHPInTemp;
     private double turbineDebugHPOutTemp;
     private double turbineDebugLPInTemp;
@@ -6107,19 +6104,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             turbineReheaterSteamValve[idx].getController().setManualMode(true);
             turbineReheaterSteamValve[idx].operateCloseValve();
         }
-    }
-
-    /**
-     * Returns the last void value from steam generation.
-     *
-     * @return Value between 0..100 %
-     */
-    public double getVoiding() {
-        return voiding;
-    }
-
-    public double getCoreTemp() {
-        return coreTemp;
     }
 
     /**

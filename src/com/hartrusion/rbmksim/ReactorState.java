@@ -46,6 +46,7 @@ public class ReactorState implements java.io.Serializable {
     private double voiding;
 
     private final List<RodState> rodStates = new ArrayList<>();
+    private final List<FuelState> fuelStates = new ArrayList<>();
 
     public double getxNeutronFluxModel(int idx) {
         return xNeutronFluxModel[idx];
@@ -159,6 +160,16 @@ public class ReactorState implements java.io.Serializable {
      */
     public ArrayList<RodState> getRodStates() {
         return (ArrayList<RodState>) rodStates;
+    }
+    
+    /**
+     * Access the list of rod states, this is a sorted array list that matches
+     * the controlRods list in the reactor class.
+     *
+     * @return ArrayList object of type RodStates
+     */
+    public ArrayList<FuelState> getFuelStates() {
+        return (ArrayList<FuelState>) fuelStates;
     }
 
 }

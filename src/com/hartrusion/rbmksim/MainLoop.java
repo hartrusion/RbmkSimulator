@@ -102,12 +102,20 @@ public class MainLoop implements Runnable, ModelManipulation {
             controller.fireActions();
 
             if (!pause) {
-                // Feedback from process to reactor core model (previous cycle)
-                core.setCoreTemp(process.getCoreTemp());
-                core.setVoiding(process.getVoiding());
                 core.run();
                 process.run();
+                // process.run has updated the whole dynamic model by 1 cycle,
+                // the data of all the fuel cells is organized in the core so 
+                // we call it from there:
+                core.runProcessResults();
                 turbine.run();
+
+                // So far, core indicators are fixed objects that are linked
+                // to the power plant and not in the gui process. This is a 
+                // reference to the way the skala computer was built in the
+                // power plant and had to be programmed on the console, there 
+                // is no object orientation in that design, so the display is 
+                // part of the plant.
                 indicator1.run();
                 indicator2.run();
 
@@ -127,7 +135,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             ExceptionPopup.show(e);
             // System.exit(0);
         }
-
+        
         stopTime = System.nanoTime();
         if (stopTime - startTime > maxTime) {
             if (initialIterations > 2) {

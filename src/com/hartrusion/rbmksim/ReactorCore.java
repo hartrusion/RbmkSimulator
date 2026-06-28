@@ -104,13 +104,13 @@ public class ReactorCore extends Subsystem implements Runnable {
      * calculated by using the density in the evaporator elements.
      */
     private double voiding = 0;
-    
+
     /**
      * Core temperature in degrees Celsius, used to generate the negative
      * temperature coefficient.
      */
     private double coreTemp = 80;
-    
+
     private final double downcomerTemperature[] = new double[2];
 
     private final NeutronFluxModel neutronFluxModel = new NeutronFluxModel();
@@ -509,7 +509,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             graphiteModel.setInputs(neutronFluxModel.getYNeutronFlux());
             graphiteModel.run();
         }
-        
+
         // Compute the true average affection over all fuel elements and make
         // it available so each element can normalize its affection based
         // fission power distribution.
@@ -617,6 +617,27 @@ public class ReactorCore extends Subsystem implements Runnable {
                 avgPositionActiveAutomatic);
 
         oldGlobalControlTarget = globalControlTarget;
+    }
+
+    /**
+     * Called after the thermal layout has finished its calculations and the
+     * temperature and flow data is available. Calls all fuel rods and lets them
+     * send the model data which is obtained from the dynamic model of the
+     * thermal hydraulic behavior.
+     * <p>
+     * Also, as this is called after the thermal layouts update (which includes 
+     * the calculation step of each single control rods fuel thermal model),
+     * the calculations of voding and average core temperature is done here.
+     */
+    public void runProcessResults() {
+        for (FuelElement f : fuelElements) {
+            f.runProcessResults();
+            
+
+            
+        }
+        
+        
     }
 
     /**
@@ -1039,13 +1060,13 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (ControlRod rod : controlRods) {
             rod.initAffection(fuelElements);
         }
-        
+
         // Make the temperature of the downcomers available to all fuel elements
         // by passing the reference to the array to the fuel elements.
         for (FuelElement fuel : fuelElements) {
             fuel.setDowncomerTemperatureReference(downcomerTemperature);
         }
-        
+
         downcomerTemperature[0] = 260;
         downcomerTemperature[1] = 260;
 
@@ -1141,14 +1162,6 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     }
 
-    public void setVoiding(double voiding) {
-        this.voiding = voiding;
-    }
-
-    public void setCoreTemp(double coreTemp) {
-        this.coreTemp = coreTemp;
-    }
-
     /**
      * Can be invoked by this or externally, this is the RPS (reactor protection
      * system) shutdown command that is supposed to turn off the reactor. It can
@@ -1195,20 +1208,10 @@ public class ReactorCore extends Subsystem implements Runnable {
     }
 
     /**
-     * Calls all fuel rods and lets them send the model data which is obtained 
-     * from the dynamic model of the thermal hydraulic behavior.
-     */
-    public void updateFuelMeasurementData() {
-        for (FuelElement f : fuelElements) {
-            f.updateMeasurementData();
-        }
-    }
-    
-    /**
      * Called from the thermal layout as soon as the temperature in the down
      * pipes from drum to MCPs is known, will be used by all the fuel cells to
      * determine the thermal lift.
-     * 
+     *
      * @param value Temperature in K
      * @param loopIndex 0: Loop 1, 1: Loop 2
      */
@@ -1321,6 +1324,13 @@ public class ReactorCore extends Subsystem implements Runnable {
             s.getRodStates().add(rs);
         }
 
+        for (FuelElement f : fuelElements) {
+            // generate FuelElement object and pass it to each fuel rod.
+            FuelState fs = new FuelState();
+            f.writeToFuelStateObject(fs);
+            s.getFuelStates().add(fs);
+        }
+
         save.addReactorState(s);
 
         // Add setpoint object properties
@@ -1359,6 +1369,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (int idx = 0; idx < controlRods.size(); idx++) {
             // get RodState object and pass it to each control rod.
             controlRods.get(idx).applyRodState(rs.getRodStates().get(idx));
+        }
+
+        for (int idx = 0; idx < fuelElements.size(); idx++) {
+            fuelElements.get(idx).applyFuelState(rs.getFuelStates().get(idx));
         }
 
         // sot old-variables to trigger all those property change events.
