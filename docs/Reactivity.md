@@ -1,29 +1,29 @@
 # Reactivity
 
-The simulation consideres various effects for reactivity. It simply sums up all
-the effects an that is the input value for the neutron flux model. As the focus 
-is on the dynamic behavior and influence of each effect on the system, no 
-calculation of neutrons is done, instead, effects are made with readable values 
-between 0 and 100 %.
+The simulation considers various effects on reactivity. It simply sums all
+effects, and the result is the input value for the neutron flux model. Because
+the focus is on the dynamic behavior and influence of each effect on the
+system, no neutron calculation is performed. Instead, the effects are expressed
+as readable values between 0 and 100 %.
 
-## Control Rod absorption
+## Control Rod Absorption
 
-An absorption value is generated that is between 0 and 100 % depending on the
-control rods positions.
+An absorption value is generated between 0 and 100 %, depending on the control
+rod positions.
 
-Short Rods: 6.78 %
-Auto Rods: 14.12 %
-Manual Rods: 76.23 % fully withdrawn
+* 4 Short Rods: 6.78 %
+* 5 Auto Rods: 14.12 % (2.82 % per Rod)
+* 28 Manual Rods: 76.23 % total
 
-Note that the sum of this is only 97.13, the remaining 2.87 % come from a rod
-tip effect. A fully removed manual control rod makes 2.74 %.
+Note that the total is only 97.13 %; the remaining 2.87 % come from a rod tip
+effect. **A fully withdrawn manual control rod contributes 2.74 %.**
 
 ## Voiding
 
-Voiding is given as a percentage that compares the mass present in the fuel 
-channels with the mass at boiling point on a reference pressure (which is 1 
-barabs and 100 °C here). 0 % means no voids, 100 % would be empty. The value is
-generated as an average on all fuel chanels
+Voiding is given as a percentage that compares the mass present in the fuel
+channels with the mass at the boiling point at a reference pressure, which is 1
+bar abs and 100 °C here. 0 % means no voids, and 100 % means empty channels.
+The value is generated as an average across all fuel channels.
 
 * Shutdown state: 0.0 %
 * Full load with 1 MCP: 24.11 %V
@@ -33,83 +33,110 @@ generated as an average on all fuel chanels
 * Startup before Turbine, 3 MPC on 40 %, 16.4 bar: 5.17 %V 
 * 800 MWth, 3 MCP on 40 %: 19.3 %V
 
-The voiding will be modified with a function to have a more agressive effect
-beginning from 15 %V, below that, there is no voding effect. It will be 
+The voiding is modified with a function to make the effect more aggressive
+starting at 12.5 %V. Below that, there is no voiding effect. It is defined as
 
 kV = 1.2 * (v - 12.5)^2
 
-so on the full load with 3 MCP the kV will be 100 %. Switching off one MCP will
-ramp up to roughly kV = 115 %.
+so at full load with 3 MCP, kV will be 100 %. Switching off one MCP will ramp it
+up to roughly kV = 115 %.
 
 ## Xenon
 
-Xenon is given as mass percentage related to full load equilibrium. On full 
-load, 16 % will decay to Iodine-135 and 84 % is burned off. Due the non linear
-state space model, the static values are also non linear. On full load, Xenon 
-will be 100 %Xe, on 50 % load it will be still go to 86 %Xe as steady state. 5 % 
-load has a steady state of about 24 %Xe.
+Xenon is given as a mass percentage relative to full-load equilibrium. At full
+load, 16 % will decay to Iodine-135 and 84 % is burned off. Due to the
+nonlinear state-space model, the static values are also nonlinear. At full load,
+Xenon will be 100 %Xe. At 50 % load, it will still settle at 86 %Xe in steady
+state. At 5 % load, the steady state is about 24 %Xe.
 
-The Xenon is modified with a linear function y = 8/9 x - 100/3 beginning from 
-60 %Xe so the output on full load is y(100%Xe) = 55.555 %. Below 60%Xe, a 3rd
-degree polyom is used that goes through 0/0 with a gradient of 0 and meets at 
-60 %Xe with same gradient, it is described as y(x) = x^3 / 16200 + x^2 / 540.
-This function removes the xenon impact on lower power and during startup and 
-makes a 150 %Xe value to be y(150 %Xe) = 100 %. When running down on low load, 
-y will go grom 56 % on full load to 83 % which is the iodine pit.
+Xenon is modified with a linear function, y = 8/9 x - 100/3, starting from
+60 %Xe, so the output at full load is y(100%Xe) = 55.555 %. Below 60 %Xe, a
+third-degree polynomial is used that passes through 0/0 with a gradient of 0
+and meets 60 %Xe with the same gradient. It is described as
+y(x) = x^3 / 16200 + x^2 / 540.
+
+This function removes the xenon impact at lower power and during startup, and
+it maps 150 %Xe to y(150 %Xe) = 100 %. When running down at low load, y will
+go from 56 % on full load to 83 %, which is the iodine pit.
 
 ## Graphite effect
 
-As xenon itself would not be sufficient to force the reactor operator to have a
-massive drop in reactivity and the Xenon was also not a key factor during the 
-incident, the simulation here does have an artificial effect included that is 
-called the graphite effect. The graphite stack temperature and gas composition 
-played a major role in the behavior so the effect is named after that. 
+Xenon alone would not be sufficient to force the reactor operator to face a
+massive drop in reactivity, and xenon was also not a key factor during the
+incident. Therefore, the simulation includes an artificial effect called the
+graphite effect. The graphite stack temperature and gas composition played a
+major role in the behavior, so the effect is named after that.
 
-* The graphite effect only happens on neutron flux below 40 %. 
+* The graphite effect only happens when neutron flux is below 40 %.
 * A hidden value is accumulated when running the reactor between 20 % and 70 %
-  power. 
+  power.
 * The hidden value vanishes on power levels above 40 % with a fast time constant
-  but between 0.1 and 20 % load, no decay of the hidden value will happen.
+  but, between 0.1 and 20 % load, no decay of the hidden value will happen.
 
-Having the reactor run on 40 % load will make the value accumulate, raising 
-power again or shutting the reactor off completely will decay the value quite 
-fast. However, holding the power on low level after a long period on half load,
-the effect will kick in after the Xenon is decayed and eat all the reactivitiy, 
-almost terminating the chain reaction. The time constants are quite similar.
+Running the reactor at 40 % load will make the value accumulate. Raising power
+again or shutting the reactor off completely will decay the value quite fast.
+However, if the reactor is held at a low level after a long period at half
+load, the effect will kick in after the xenon has decayed and consume most of
+the reactivity, almost terminating the chain reaction. The time constants are
+quite similar.
 
-Running on 50 % Load for long time, the Graphite Effect will be present on a 
-level of around 30 % after the xenon decays. Going up, the effect will vanish 
-fast, so be careful when rasing power. But going down to 1 % power will make 
-the effect rise up to 110 %, this can be used to terminate the chain reaction 
-until the reactor recovers itself. It will be difficult to raise the power from
-that level.
+Running at 50 % load for a long time, the graphite effect will remain at around
+30 % after the xenon decays. Going up, the effect will vanish quickly, so be
+careful when raising power. But going down to 1 % power will make the effect
+rise to 110 %, which can be used to terminate the chain reaction until the
+reactor recovers. It will be difficult to raise power from that level.
 
 ## Temperature
 
-The temperature of the core model outputs those values:
+The core model outputs the following temperatures:
 * 310.8 K on cold start
 * 490.5 K on turbine warmup start
 * 848.0 K on full power with 3 MCP
 
-To have a small effect on startup only, an exponential function is used as 
+To have only a small effect during startup, an exponential function is used as
 follows:
 
 kT = 100 * (1 - e^(-(T-310) / 100))
 
-This will be at 80 % on 470 K already and have only minor effects on full load 
-so the temperature coefficent will only be present on startup.
+This will already be at 80 % at 470 K and have only minor effects on full
+load, so the temperature coefficient will only be present during startup.
+
+## Caclulation of contribution factors
+
+The negative temperature coefficient shall consume 3 manual control rods in 
+total so it is 2.87 % * 3 / 100 % = 0.0841. This consumes 8.41 % reactivity on 
+full load.
+
+The positive void coefficient shall indroduce a movement of one automatic rod 
+rods (2.82 %) when switching off an MPC on full power. This makes the kV value 
+jump by about 15 %. So it is 2.82 % / 15 % = 0.188. This means, on full load, 
+the voiding will **add** 18.8 % which is equvalent of 6.8 manual control rods.
+
+For first startup and to somehow allow a save shutdown even with the voiding 
+happening, we will require 4 manual rods withdrawn and 4 automatic rods on
+about 1/3 of their position. Here, we also consider the short rods inserted on 
+half of their length which is kind of the operating state when using them on 
+auto mode. This will be a RodAbsorption of 82.7 %. Since no other effects are in 
+place, this is the so called base reactivity.
+
+We now know the rod equivalent for each effect on full load: 3 for temperature,
+6.8 for steam voids and 4 are unavailable as they are the save shutdown margin.
+It is then 28 - 3 + 6.8 - 4 = 27.8 which sounds pretty balanced. That means, 
+27.8 rods can be used to tackle the graphite effect and the xenon effect, so the
+reactivity of both those effects is 27.8 * 2.74 = 75.34 %. 
+
 
 ## Triggering the accident
 
-Even though a rod tip effect is included, the rod tip effect will not be the 
-major effect making the reactor explode. It was there an noticeable by operators 
-but could be handled by control systems as well as the positive voiding 
-coefficient. Those effects are only present to make you handle the control rods 
-in a certain way to maintain power level and simulate positive feedback effects.
+Even though a rod tip effect is included, it will not be the main effect that
+causes the reactor to explode. It was noticeable to operators, but it could be
+handled by control systems as well as the positive voiding coefficient. Those
+effects are only present to encourage a certain way of handling the control
+rods in order to maintain power levels and simulate positive feedback effects.
 
 The accident itself is triggered by inserting a large number of manual rods by
-pressing the AZ-5 switch in a situation that required all the rods to be 
-removed. This will trigger another effect called the displacer boost, this ramps 
-up the reactivity to a value that can't be handled anymore. The effect is a 
-function of position of a rod and added for all rods, they all have to spike 
-this at the same time to go over a certain value.
+pressing the AZ-5 switch in a situation that requires all rods to be removed.
+This triggers another effect called the displacer boost, which ramps up the
+reactivity to a value that can no longer be handled. The effect is a function
+of rod position and is added for all rods, so they all have to spike at the
+same time to exceed a certain value.
