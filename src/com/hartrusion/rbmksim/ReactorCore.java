@@ -106,10 +106,22 @@ public class ReactorCore extends Subsystem implements Runnable {
     private double voiding = 0;
 
     /**
-     * Core temperature in degrees Celsius, used to generate the negative
-     * temperature coefficient.
+     * Core temperature in Kelvin, used to generate the negative temperature 
+     * effect, it's the average of all fuel rods.
      */
-    private double coreTemp = 80;
+    private double coreTemp = 305;
+
+    /**
+     * A value between 0..100 % that describes the contribution of temperature 
+     * to the reactivity.
+     */
+    private double temperatureReactivity = 0;
+
+    /**
+     * A value between 0..100 % that describes the contribution of steam voids 
+     * to the reactivity.
+     */
+    private double voidingReactivity = 0;
     
     private double thermalPowerDisplay;
 
@@ -202,11 +214,11 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private boolean useLoadedValues = false;
 
-    private static final double REACTIVITY_BASE = 81.73;
-    private static final double REACTIVITY_XENON = 0.319;
-    private static final double REACTIVITY_GRAPHITE = 0.319;
-    private static final double REACTIVITY_TEMPERATURE = 7.93e-3;
-    private static final double REACTIVITY_VOIDING = 0.73;
+    private static final double REACTIVITY_BASE = 82.7;
+    private static final double REACTIVITY_XENON = 0.65;
+    private static final double REACTIVITY_GRAPHITE = 0.75;
+    private static final double REACTIVITY_TEMPERATURE = 0.0841;
+    private static final double REACTIVITY_VOIDING = 0.188;
 
     ReactorCore() {
         setpointTargetNeutronFlux = new Setpoint();
@@ -469,22 +481,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         *   and 25 manual rods out (accident conditions) is 21.7 %
         * - Short control rods absorp 6.78 % if they are fully withdrawn (note 
         *   that they have an opposite direction!
-        * - One manual control rod gives about 2.26 %N of absorption.
-        * - coreTemp is given in °C and rises up to 570 °C in normal operation.
-        *   A negative temperature coefficient is wanted with 2 rods so we'll
-        *   have 2 * 2.26%N / 570 °C = 7.93e-3 %N/°C. However, it will be 
-        *   limited to a certain value to not prevent a meltdown too much.
-        * - There is a 5.5 % reduction of reactivity by the temperature 
-        *   coefficient in thot reactor state
+
         *   81.73 % - 5.5 % = 76.23 % reactivity remaining with hot core
-        * - On scheduled power drops (down to 50 % and down to almost 0) there
-        *   will be about 135 % Xenon peak value.
-        * - The graphite effect will go to 25 % and stay there on 50 % power. It
-        *   will ramp up to almost 100 % on shutdown or when trying to reach the
-        *   700 MW after a long period on 50 %.
-        * - Therefore, 135 %Xe and 100 %Gr should consume 75 % of reactivity to
-        *   make it possible to stall/choke the reactor, lets use those numbers
-        *   equally and have a 235 % value for 75 % reactivity. 75/235 = 0.319
+
         * - There is a total of 28 manual control rods.
         * - Steam voiding should be tackled by the automatic rods without bigger
         *   issues. 5 * 2.2 % = 11 % roughly by auto rods, lets assume to have
@@ -492,10 +491,10 @@ public class ReactorCore extends Subsystem implements Runnable {
          */
         if (!useLoadedValues) {
             reactivity = REACTIVITY_BASE // generally present reactivity.
-                    - xenonModel.getYXenon() * REACTIVITY_XENON
+                    - xenonModel.getYXenonContribution() * REACTIVITY_XENON
                     - graphiteModel.getYGraphie() * REACTIVITY_GRAPHITE
-                    - Math.min(700, coreTemp) * REACTIVITY_TEMPERATURE
-                    + voiding * REACTIVITY_VOIDING;
+                    - temperatureReactivity * REACTIVITY_TEMPERATURE
+                    + voidingReactivity * REACTIVITY_VOIDING;
         }
 
         // For testing the accident conditions and trigger, set reactivity to
@@ -529,8 +528,9 @@ public class ReactorCore extends Subsystem implements Runnable {
                 totalAffection / fuelElements.size());
 
         thermalPowerDisplay = 0.0;
+        // flux is global for all so it's static
+        FuelElement.applyNeutronFlux(neutronFluxModel.getYNeutronFlux());
         for (FuelElement f : fuelElements) {
-            f.applyNeutronFlux(neutronFluxModel.getYNeutronFlux());
             f.calculationStepPowerModel();
             thermalPowerDisplay += f.getFissionPowerForDisplay();
         }
@@ -627,15 +627,15 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Values designed for debug only:
         outputValues.setParameterValue("Reactor#ReactivityXenon",
-                xenonModel.getYXenon() * REACTIVITY_XENON);
+                xenonModel.getYXenonContribution());
         outputValues.setParameterValue("Reactor#ReactivityGraphite",
-                graphiteModel.getYGraphie() * REACTIVITY_GRAPHITE);
+                graphiteModel.getYGraphie());
         outputValues.setParameterValue("Reactor#ReactivityTemperature",
-                Math.min(700, coreTemp) * REACTIVITY_TEMPERATURE);
+                temperatureReactivity);
         outputValues.setParameterValue("Reactor#ReactivityVoding",
-                voiding * REACTIVITY_VOIDING);
+                voidingReactivity);
         outputValues.setParameterValue("Reactor#RodAbsorption",
-                    REACTIVITY_BASE - rodAbsorption);
+                    rodAbsorption);
 
         oldGlobalControlTarget = globalControlTarget;
     }
@@ -662,7 +662,30 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
 
         voiding = avgVoiding / fuelElements.size();
+        updateVoidingReactivity();
         coreTemp = avgTemperature / fuelElements.size();
+        updateTemperatureReactivity();
+    }
+
+    /**
+     * Calculates temperatureReactivity, is a separate function as it' also 
+     * called when loading a state.
+     */
+    private void updateTemperatureReactivity() {
+        // kT = 100 * (1 - e^(-(T-310) / 100))
+        temperatureReactivity = 100 * (1 - Math.exp((310-coreTemp)/100));
+    }
+
+    /**
+     * Calculates the void contribution (0..100 %) from the raw voiding value,
+     * this is a separate function as it's also called when loading a state.
+     */
+    private void updateVoidingReactivity() {
+        if (voiding <= 12.5) {
+            voidingReactivity = 0.0;
+        } else {
+            voidingReactivity = 1.2 * (voiding - 12.5) * (voiding - 12.5);
+        }
     }
 
     /**
@@ -1398,7 +1421,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         // those values get assigned from previous cycle from thermal layout.
         // as there is no previous cycle, we need to restore them.
         coreTemp = rs.getCoreTemp();
+        updateTemperatureReactivity(); // writes temperatureReactivity
         voiding = rs.getVoiding();
+        updateVoidingReactivity();
 
         for (int idx = 0; idx < controlRods.size(); idx++) {
             // get RodState object and pass it to each control rod.

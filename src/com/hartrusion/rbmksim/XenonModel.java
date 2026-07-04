@@ -51,6 +51,7 @@ public class XenonModel implements Runnable {
 
     private double yXenon;
     private double yIodine;
+    private double yXenonContribution;
 
     public void setInititalState(double xIodine135, double xXenon135) {
         this.xIodine135 = xIodine135;
@@ -81,10 +82,40 @@ public class XenonModel implements Runnable {
         // Update Output variables
         yIodine = xIodine135;
         yXenon = xXenon135;
+
+        updateXenonContribution();
+    }
+
+    /**
+     * Calculates the xenon contribution (0..100 %) from the raw xenon value,
+     * this is a separate function as it's also called when loading a state.
+     */
+    private void updateXenonContribution() {
+        // Calculate xenon contribution modifier
+        if (yXenon <= 0.0) {
+            yXenonContribution = 0.0;
+        } else if (yXenon <= 60.0) {
+            // poly 3rd degree for smooth transition
+            yXenonContribution = yXenon * yXenon * yXenon / 16200
+                + yXenon * yXenon / 540;
+        } else {
+            yXenonContribution = 8 * yXenon / 9 - 100 / 3;  
+        }
     }
 
     public double getYXenon() {
         return yXenon;
+    }
+
+    /**
+     * Returns a value that modifies the xenon contribution by removing the 
+     * effect on lower percentages, this will remove the effect during startup 
+     * and provide a value between 0 and 100 %.
+     * 
+     * @return Xenon reactivity contribution modifier between 0 and 100
+     */
+    public double getYXenonContribution() {
+        return yXenonContribution;
     }
 
     public double getYIodine() {
@@ -102,6 +133,7 @@ public class XenonModel implements Runnable {
             case 1 -> {
                 xXenon135 = x;
                 yXenon = x;
+                updateXenonContribution();
             }
             case 2 ->
                 uNeutronFlux = x;

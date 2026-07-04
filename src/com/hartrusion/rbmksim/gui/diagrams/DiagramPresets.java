@@ -788,42 +788,44 @@ public class DiagramPresets {
         ax.setHold(true);
         Line l;
         
+        int timeDiv = 10;
+        
         l = new Line();
         le.addLine(l);
         l.setLabel("Xenon");
-        l.setDataSource(plotData.getTime60(1),
-                plotData.getParameterDoubleSeries("Reactor#ReactivityXenon", 1));
+        l.setDataSource(plotData.getTime60(timeDiv),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityXenon", timeDiv));
         ax.addLine(l);
         
         l = new Line();
         le.addLine(l);
         l.setLabel("Graphite");
-        l.setDataSource(plotData.getTime60(1),
-                plotData.getParameterDoubleSeries("Reactor#ReactivityGraphite", 1));
+        l.setDataSource(plotData.getTime60(timeDiv),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityGraphite", timeDiv));
         ax.addLine(l);
         
         l = new Line();
         le.addLine(l);
         l.setLabel("Temperature");
-        l.setDataSource(plotData.getTime60(1),
-                plotData.getParameterDoubleSeries("Reactor#ReactivityTemperature", 1));
+        l.setDataSource(plotData.getTime60(timeDiv),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityTemperature", timeDiv));
         ax.addLine(l);
         
         l = new Line();
         le.addLine(l);
         l.setLabel("Voiding");
-        l.setDataSource(plotData.getTime60(1),
-                plotData.getParameterDoubleSeries("Reactor#ReactivityVoding", 1));
+        l.setDataSource(plotData.getTime60(10),
+                plotData.getParameterDoubleSeries("Reactor#ReactivityVoding", timeDiv));
         ax.addLine(l);
         
         l = new Line();
         le.addLine(l);
         l.setLabel("Rod Absorption");
-        l.setDataSource(plotData.getTime60(1),
-                plotData.getParameterDoubleSeries("Reactor#RodAbsorption", 1));
+        l.setDataSource(plotData.getTime60(10),
+                plotData.getParameterDoubleSeries("Reactor#RodAbsorption", timeDiv));
         ax.addLine(l);
         
-        ax.yLim(-200, 200);
+        ax.yLim(0, 100);
         ax.autoX();
         figure.addLegend(le);
         le.setLocationInsideAxes(ax);

@@ -123,7 +123,14 @@ We now know the rod equivalent for each effect on full load: 3 for temperature,
 6.8 for steam voids and 4 are unavailable as they are the save shutdown margin.
 It is then 28 - 3 + 6.8 - 4 = 27.8 which sounds pretty balanced. That means, 
 27.8 rods can be used to tackle the graphite effect and the xenon effect, so the
-reactivity of both those effects is 27.8 * 2.74 = 75.34 %. 
+reactivity of both those effects is 27.8 * 2.74 = 75.34 %. Xenon has 55 % on
+full load, 20 % on half load but the peak will be 100 % after decreasing power.
+The graphite effect will rise to 28 % after the 100 % peak of the xenon goes 
+down to 20 % when holding power on half load. But, if power will be lowered 
+after a long hold on half load, the graphite effect can go up to 100 %. So the
+coefficients will be chosen in a way that 100 % of Xenon will be 65 % and 
+100 % of Graphite will be 75 %, the graphite effect will kill the chain reaction
+that way for a short period. That means, coefficients are 0.65 and 0.75
 
 
 ## Triggering the accident
