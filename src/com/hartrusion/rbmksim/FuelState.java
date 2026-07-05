@@ -26,8 +26,8 @@ public class FuelState  implements java.io.Serializable {
     
     private double thermalLiftPressure;
     private double xFirstDelay;
-
     private double xDelayedPower;
+    private boolean ruptured;
 
     public double getThermalLiftPressure() {
         return thermalLiftPressure;
@@ -51,5 +51,13 @@ public class FuelState  implements java.io.Serializable {
 
     public void setXDelayedPower(double xDelayedPower) {
         this.xDelayedPower = xDelayedPower;
+    }
+    
+    public boolean isRuptured() {
+        return ruptured;
+    }
+
+    public void setRuptured(boolean ruptured) {
+        this.ruptured = ruptured;
     }
 }

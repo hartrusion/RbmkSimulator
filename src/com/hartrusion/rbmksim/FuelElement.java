@@ -33,6 +33,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedEffortSource;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalVolumeHandler;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
+import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.Water;
 
 /**
@@ -163,6 +164,8 @@ public class FuelElement extends ReactorElement {
     private double flow;
 
     private double thermalLiftPressure;
+    
+    private boolean ruptured;
 
     // Network part for the hydraulic part
     private final HeatFrictionedFlowResistance flowResistance
@@ -178,7 +181,8 @@ public class FuelElement extends ReactorElement {
     private final PhasedExpandingThermalExchanger evaporator;
     private final PhasedNode evapToDrumNode = new PhasedNode();
 
-    private final PhasedValve channelLeak = new PhasedValve();
+    private final PhasedSimpleFlowResistance channelLeak
+            = new PhasedSimpleFlowResistance();
     private final PhasedNode channelLeakNode = new PhasedNode();
     private final PhasedEffortSource channelLeakGravity
             = new PhasedEffortSource();
@@ -265,8 +269,7 @@ public class FuelElement extends ReactorElement {
         toReactorConverter.connectBetween(afterThermalLift, evaporatorIn);
         evaporator.initComponent();
         evaporator.connectTo(evaporatorIn);
-        channelLeak.getValveElement().connectBetween(
-                evaporatorIn, channelLeakNode);
+        channelLeak.connectBetween(evaporatorIn, channelLeakNode);
         channelLeakGravity.connectTo(channelLeakNode);
 
         // Connections of the thermal part
@@ -325,11 +328,11 @@ public class FuelElement extends ReactorElement {
                 29255, 53.191, // Full Conductance
                 54, 21.3); // Empty conductance
 
-        // Channel leakage: Represented with a valve to be able to set an amount
-        // of leakage with the given characteristic. Worst leakage will be
-        // on 64e5 Pa with 500 kg/s: 
-        channelLeak.initCharacteristicSimple(12800);
-        channelLeak.getIntegrator().setMaxRate(50);
+        // Channel leakage: On 64e5 Pa, leakage will be 12 kg/s per fuel rod, 
+        // which is already pretty excessive. This means the resistance value
+        // will be 5.3e5 when channel is ruptured, this will be set if the 
+        // rupture did happen.
+        channelLeak.setOpenConnection();
         channelLeakGravity.setEffort(1e5);
 
         // Initial State
@@ -488,6 +491,12 @@ public class FuelElement extends ReactorElement {
                 * 2000)); // try-and-error obtained number
 
         thermalLift.setEffort(thermalLiftPressure);
+        
+        if (ruptured) {
+            channelLeak.setResistanceParameter(5.3e5);
+        } else {
+            channelLeak.setOpenConnection();
+        }
     }
 
     /**
@@ -588,6 +597,7 @@ public class FuelElement extends ReactorElement {
         fs.setThermalLiftPressure(thermalLiftPressure);
         fs.setXFirstDelay(xFirstDelay);
         fs.setXDelayedPower(xDelayedPower);
+        fs.setRuptured(ruptured);
     }
 
     /**
@@ -600,5 +610,6 @@ public class FuelElement extends ReactorElement {
         thermalLiftPressure = fs.getThermalLiftPressure();
         xFirstDelay = fs.getXFirstDelay();
         xDelayedPower = fs.getXDelayedPower();
+        ruptured = fs.isRuptured();
     }
 }
