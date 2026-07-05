@@ -47,7 +47,7 @@ public class FrameDebugVoiding extends javax.swing.JFrame implements UpdateRecei
 
         panelCoreDebugValues1.setSuffix("Voiding");
         panelCoreDebugValues1.setToolTipText("");
-        panelCoreDebugValues1.setValueFormat("%.4f");
+        panelCoreDebugValues1.setValueFormat("%.1f");
         panelCoreDebugValues1.setPreferredSize(new java.awt.Dimension(779, 529));
         getContentPane().add(panelCoreDebugValues1, java.awt.BorderLayout.CENTER);
 

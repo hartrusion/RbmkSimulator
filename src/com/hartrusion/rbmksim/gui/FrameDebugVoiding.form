@@ -28,7 +28,7 @@
       <Properties>
         <Property name="suffix" type="java.lang.String" value="Voiding"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="valueFormat" type="java.lang.String" value="%.4f"/>
+        <Property name="valueFormat" type="java.lang.String" value="%.1f"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[779, 529]"/>
         </Property>
