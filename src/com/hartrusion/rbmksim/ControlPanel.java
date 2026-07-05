@@ -205,6 +205,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetNone = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
+        jMenuWords = new javax.swing.JMenuItem();
         jMenuItemTurbineHelp = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenuSecret = new javax.swing.JMenu();
@@ -495,6 +496,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuAbout.setText("About");
         jMenuAbout.addActionListener(this::jMenuAboutActionPerformed);
         jMenuHelp.add(jMenuAbout);
+
+        jMenuWords.setText("Words from the author");
+        jMenuWords.addActionListener(this::jMenuWordsActionPerformed);
+        jMenuHelp.add(jMenuWords);
 
         jMenuItemTurbineHelp.setText("Turbine Startup Setpoints");
         jMenuItemTurbineHelp.addActionListener(this::jMenuItemTurbineHelpActionPerformed);
@@ -1603,6 +1608,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemDebugReactivityActionPerformed
 
+    private void jMenuWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuWordsActionPerformed
+        AuthorDialog dialog = new AuthorDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuWordsActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1815,6 +1825,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JMenu jMenuSecret;
     private javax.swing.JMenu jMenuView;
+    private javax.swing.JMenuItem jMenuWords;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;

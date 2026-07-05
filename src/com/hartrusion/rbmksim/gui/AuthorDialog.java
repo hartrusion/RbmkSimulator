@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Viktor Alexander Hartung
+ * Copyright (C) 2026 Viktor Alexander Hartung
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,16 @@ package com.hartrusion.rbmksim.gui;
 
 /**
  * 
- * @author viktor
+ * @author Viktor Alexander Hartung
  */
-public class AboutDialog extends javax.swing.JDialog {
+public class AuthorDialog extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AboutDialog.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AuthorDialog.class.getName());
 
     /**
      * Creates new form AboutDialog
      */
-    public AboutDialog(java.awt.Frame parent, boolean modal) {
+    public AuthorDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -45,17 +45,16 @@ public class AboutDialog extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("About");
-        setMinimumSize(new java.awt.Dimension(360, 300));
+        setTitle("Words from the author");
+        setMinimumSize(new java.awt.Dimension(480, 400));
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(360, 300));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Chornobyl RBMK Simulator\n\nCopyright (C) 2026 Viktor Alexander Hartung\n\nProject Page: https://hartrusion.com/en/rbmk-simulator/\n\nSee https://github.com/hartrusion/RbmkSimulator for more infos on the project or report problems. You're welcome to report bugs or leave feedback there in the issues section.\n\nThis program is free software and licensed under GPLv3.");
+        jTextArea1.setText("I built this program because I'm free to think and create as I choose. This freedom and peace is not available for all mankind, unfortunately.\n\nWar rarely starts with evil. It requires people choosing what's easy for them. Freedom asks something of us: To think for ourselves, weigh the cost of our choices honestly and take responsibility for our choices. That's way harder than looking for someone to blame. Simple worldviews, clear enemies, and sometimes just the assumption that others mean us harm are comfortable. They let us skip that hard part, and let someone else pay the price.\n\nI'm not asking anyone to feel guilty for their own past or ancestry. I'm not requiring anyone to be a history expert. I'm asking that we look honestly at the patterns of thought that made violence easier to accept, in ourselves and in others, and ask if this is really the future we want to shape.\n\nBodily integrity should never be up for negotiation, and blaming victims for the violence done to them is something I can't accept. Nothing justifies the war against Ukraine.\n\nThank you for reading, now go back to the control room and get to work.");
         jTextArea1.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextArea1);
 

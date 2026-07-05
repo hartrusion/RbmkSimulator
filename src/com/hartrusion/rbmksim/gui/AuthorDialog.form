@@ -3,14 +3,11 @@
 <Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="About"/>
+    <Property name="title" type="java.lang.String" value="Words from the author"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[360, 300]"/>
+      <Dimension value="[480, 400]"/>
     </Property>
     <Property name="modal" type="boolean" value="true"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[360, 300]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -26,7 +23,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,44,0,0,1,104"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-112,0,0,1,-32"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
@@ -44,7 +41,7 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Chornobyl RBMK Simulator&#xa;&#xa;Copyright (C) 2026 Viktor Alexander Hartung&#xa;&#xa;Project Page: https://hartrusion.com/en/rbmk-simulator/&#xa;&#xa;See https://github.com/hartrusion/RbmkSimulator for more infos on the project or report problems. You&apos;re welcome to report bugs or leave feedback there in the issues section.&#xa;&#xa;This program is free software and licensed under GPLv3."/>
+            <Property name="text" type="java.lang.String" value="I built this program because I&apos;m free to think and create as I choose. This freedom and peace is not available for all mankind, unfortunately.&#xa;&#xa;War rarely starts with evil. It requires people choosing what&apos;s easy for them. Freedom asks something of us: To think for ourselves, weigh the cost of our choices honestly and take responsibility for our choices. That&apos;s way harder than looking for someone to blame. Simple worldviews, clear enemies, and sometimes just the assumption that others mean us harm are comfortable. They let us skip that hard part, and let someone else pay the price.&#xa;&#xa;I&apos;m not asking anyone to feel guilty for their own past or ancestry. I&apos;m not requiring anyone to be a history expert. I&apos;m asking that we look honestly at the patterns of thought that made violence easier to accept, in ourselves and in others, and ask if this is really the future we want to shape.&#xa;&#xa;Bodily integrity should never be up for negotiation, and blaming victims for the violence done to them is something I can&apos;t accept. Nothing justifies the war against Ukraine.&#xa;&#xa;Thank you for reading, now go back to the control room and get to work."/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
         </Component>
