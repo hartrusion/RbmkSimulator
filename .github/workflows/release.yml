@@ -66,6 +66,15 @@ jobs:
       - name: Run Ant build
         run: ant -buildfile .github/build.xml fatjar
 
+      - name: Package external dependency jars
+        run: |
+          mkdir -p dependency-jars
+          cp lib/utils-*.jar dependency-jars/
+          cp lib/phxnetmod-*.jar dependency-jars/
+          cp lib/jmplot-*.jar dependency-jars/
+          cd dependency-jars
+          zip -j ../Libraries.zip *.jar
+
       - name: Build release changelog
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -135,6 +144,12 @@ jobs:
         with:
           name: release-notes
           path: RELEASE_NOTES.md
+
+      - name: Upload dependency jars artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-jars
+          path: Libraries.zip
 
   build-windows-exe:
     needs: build-jar
@@ -252,6 +267,12 @@ jobs:
           name: release-notes
           path: release-assets/
 
+      - name: Download dependency jars artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dependency-jars
+          path: release-assets/
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -262,5 +283,6 @@ jobs:
           files: |
             release-assets/*.jar
             release-assets/RbmkSimulator-Windows-x64.zip
+            release-assets/Libraries.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
