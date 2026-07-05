@@ -474,7 +474,7 @@ public class FuelElement extends ReactorElement {
         // Send per fuel rod values - those are intended to be debugging
         // only as they are not available in such a detail in the real plant.
         outputValues.setParameterValue(
-                propertyTemperature, thermalOutNode.getEffort() - 273.15);
+                propertyTemperature, thermalCapacityNode.getEffort() - 273.15);
         outputValues.setParameterValue(
                 propertyFlow, flow);
         outputValues.setParameterValue(
@@ -491,6 +491,11 @@ public class FuelElement extends ReactorElement {
                 * 2000)); // try-and-error obtained number
 
         thermalLift.setEffort(thermalLiftPressure);
+        
+        // Very simple so far.
+        if (thermalCapacityNode.getEffort() - 273.15 >= 1600) {
+            ruptured = true;
+        }
         
         if (ruptured) {
             channelLeak.setResistanceParameter(5.3e5);
