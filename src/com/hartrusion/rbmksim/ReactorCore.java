@@ -106,23 +106,23 @@ public class ReactorCore extends Subsystem implements Runnable {
     private double voiding = 0;
 
     /**
-     * Core temperature in Kelvin, used to generate the negative temperature 
+     * Core temperature in Kelvin, used to generate the negative temperature
      * effect, it's the average of all fuel rods.
      */
     private double coreTemp = 305;
 
     /**
-     * A value between 0..100 % that describes the contribution of temperature 
+     * A value between 0..100 % that describes the contribution of temperature
      * to the reactivity.
      */
     private double temperatureReactivity = 0;
 
     /**
-     * A value between 0..100 % that describes the contribution of steam voids 
+     * A value between 0..100 % that describes the contribution of steam voids
      * to the reactivity.
      */
     private double voidingReactivity = 0;
-    
+
     private double thermalPowerDisplay;
 
     private final double downcomerTemperature[] = new double[2];
@@ -635,7 +635,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         outputValues.setParameterValue("Reactor#ReactivityVoding",
                 voidingReactivity);
         outputValues.setParameterValue("Reactor#RodAbsorption",
-                    rodAbsorption);
+                rodAbsorption);
 
         oldGlobalControlTarget = globalControlTarget;
     }
@@ -653,27 +653,42 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void runProcessResults() {
         double avgVoiding = 0.0;
         double avgTemperature = 0.0;
+        double loop1Flow = 0.0;
+        double loop2Flow = 0.0;
 
         for (FuelElement f : fuelElements) {
             f.runProcessResults();
 
             avgVoiding += f.getSteamVoiding();
             avgTemperature += f.getFuelTemperature();
+
+            switch (f.getLoop()) {
+                case 1 ->
+                    loop1Flow += f.getFlow();
+                case 2 ->
+                    loop2Flow += f.getFlow();
+            }
         }
 
         voiding = avgVoiding / fuelElements.size();
         updateVoidingReactivity();
         coreTemp = avgTemperature / fuelElements.size();
         updateTemperatureReactivity();
+
+        outputValues.setParameterValue("Loop1#ReactorOutFlow",
+                loop1Flow);
+        outputValues.setParameterValue("Loop2#ReactorOutFlow",
+                loop2Flow);
+
     }
 
     /**
-     * Calculates temperatureReactivity, is a separate function as it' also 
+     * Calculates temperatureReactivity, is a separate function as it' also
      * called when loading a state.
      */
     private void updateTemperatureReactivity() {
         // kT = 100 * (1 - e^(-(T-310) / 100))
-        temperatureReactivity = 100 * (1 - Math.exp((310-coreTemp)/100));
+        temperatureReactivity = 100 * (1 - Math.exp((310 - coreTemp) / 100));
     }
 
     /**
@@ -1167,10 +1182,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
     }
-    
+
     /**
      * A value that does not show the idle heat but goes from 0 to 3200.
-     * 
+     *
      * @return value in Megawatts
      */
     public double getThermalPowerDisplayed() {

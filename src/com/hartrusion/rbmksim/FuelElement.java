@@ -160,6 +160,8 @@ public class FuelElement extends ReactorElement {
      */
     private double voiding;
 
+    private double flow;
+
     private double thermalLiftPressure;
 
     // Network part for the hydraulic part
@@ -319,7 +321,7 @@ public class FuelElement extends ReactorElement {
         // of 570 °C (843 K) and recirc out temp of 284°/557 K
         // Resistance: R = DeltaT / P_th = 286 / 8525531 - G = 1/R = 29809.5
         // But, more simple: Just all the values divided by 188
-        evaporator.setThermalDimension(0.0745, 1.064, 
+        evaporator.setThermalDimension(0.0745, 1.064,
                 29255, 53.191, // Full Conductance
                 54, 21.3); // Empty conductance
 
@@ -396,6 +398,11 @@ public class FuelElement extends ReactorElement {
         return evaporator;
     }
 
+    /**
+     * Side of the reactor this fuel element belongs to
+     *
+     * @return 1 or 2
+     */
     public int getLoop() {
         return loop;
     }
@@ -459,24 +466,28 @@ public class FuelElement extends ReactorElement {
      */
     public void runProcessResults() {
         voiding = evapHandler.getVoiding(1e5);
+        flow = toReactorConverter.getFlow();
 
         // Send per fuel rod values - those are intended to be debugging
         // only as they are not available in such a detail in the real plant.
         outputValues.setParameterValue(
                 propertyTemperature, thermalOutNode.getEffort() - 273.15);
         outputValues.setParameterValue(
-                propertyFlow, toReactorConverter.getFlow());
+                propertyFlow, flow);
         outputValues.setParameterValue(
                 propertyFissionPower, fissionPower);
         outputValues.setParameterValue(
                 propertyVoiding, voiding);
 
-        thermalLiftPressure = (evaporator.getTemperature()
+        // Limit the thermal loop to always have a minimum flow and not exceed 
+        // a certain limit - due to the nature of the model it is otherwise 
+        // possible that the flow goes reversed, there is no real gravity.
+        thermalLiftPressure = Math.min(1.8e5, Math.max(1.2e4,
+                (evaporator.getTemperature()
                 - downcomerTemperature[loop - 1])
-                * 2000; // try-and-error obtained number
+                * 2000)); // try-and-error obtained number
 
         thermalLift.setEffort(thermalLiftPressure);
-
     }
 
     /**
@@ -498,6 +509,15 @@ public class FuelElement extends ReactorElement {
      */
     public double getSteamVoiding() {
         return voiding;
+    }
+
+    /**
+     * Upward flow in channel
+     *
+     * @return kg/s
+     */
+    public double getFlow() {
+        return flow;
     }
 
     /**
