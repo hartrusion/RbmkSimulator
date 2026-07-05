@@ -215,10 +215,10 @@ public class ReactorCore extends Subsystem implements Runnable {
     private boolean useLoadedValues = false;
 
     private static final double REACTIVITY_BASE = 82.7;
-    private static final double REACTIVITY_XENON = 0.65;
-    private static final double REACTIVITY_GRAPHITE = 0.75;
+    private static final double REACTIVITY_XENON = 0.55;
+    private static final double REACTIVITY_GRAPHITE = 0.65;
     private static final double REACTIVITY_TEMPERATURE = 0.0841;
-    private static final double REACTIVITY_VOIDING = 0.188;
+    private static final double REACTIVITY_VOIDING = 0.094;
 
     ReactorCore() {
         setpointTargetNeutronFlux = new Setpoint();
@@ -681,10 +681,10 @@ public class ReactorCore extends Subsystem implements Runnable {
      * this is a separate function as it's also called when loading a state.
      */
     private void updateVoidingReactivity() {
-        if (voiding <= 12.5) {
+        if (voiding <= 8.0) {
             voidingReactivity = 0.0;
         } else {
-            voidingReactivity = 1.2 * (voiding - 12.5) * (voiding - 12.5);
+            voidingReactivity = 0.541 * (voiding - 8.0) * (voiding - 8.0);
         }
     }
 
