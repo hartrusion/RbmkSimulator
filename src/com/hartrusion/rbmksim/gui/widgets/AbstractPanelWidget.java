@@ -42,6 +42,8 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     protected static final Color YELLOW = new Color(208, 208, 0);
     protected static final Color WHITE = new Color(255, 255, 255);
     protected static final Color GRAY = new Color(128, 128, 128);
+    protected static final Color LIGHTGRAY = new Color(208, 208, 208);
+    protected static final Color DARKGRAY = new Color(92, 92, 92);
 
     protected ActionReceiver controller;
 
@@ -79,6 +81,37 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
             }
         }
     }
+    
+    /**
+     * Updates a set of two buttons when receiving a property change event that
+     * contains a ValveState. This gets created in ValveActuatorMonitor and this
+     * method can be called to process the event to display the new valves state
+     * with an open and close button (gray and green). Its named "less" as it 
+     * is less colorful, was not intended in initial architecture.
+     *
+     * @param buttonClose Gray Close-Button
+     * @param buttonOpen Red Open-Button
+     * @param newState Object that can be casted to ValveState
+     */
+    protected void setValveButtonsLess(JButton buttonClose, JButton buttonOpen,
+            Object newState) {
+        if (newState instanceof ValveState) {
+            switch ((ValveState) newState) {
+                case CLOSED:
+                    setGrayButtonColor(buttonClose, true);
+                    setRedButtonColor(buttonOpen, false);
+                    break;
+                case OPEN:
+                    setGrayButtonColor(buttonClose, false);
+                    setRedButtonColor(buttonOpen, true);
+                    break;
+                case INTERMEDIATE:
+                    setGrayButtonColor(buttonClose, false);
+                    setRedButtonColor(buttonOpen, false);
+                    break;
+            }
+        }
+    }
 
     /**
      * Used to set green buttons either to highlight or non-highlited state.
@@ -91,6 +124,20 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
             button.setBackground(LIME);
         } else {
             button.setBackground(GREEN);
+        }
+    }
+    
+    /**
+     * Used to set gray buttons either to highlight or non-highlited state.
+     *
+     * @param button
+     * @param val
+     */
+    protected void setGrayButtonColor(JButton button, boolean val) {
+        if (val) {
+            button.setBackground(LIGHTGRAY);
+        } else {
+            button.setBackground(DARKGRAY);
         }
     }
 

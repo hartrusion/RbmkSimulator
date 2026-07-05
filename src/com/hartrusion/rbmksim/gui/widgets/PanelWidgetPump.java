@@ -82,7 +82,7 @@ public class PanelWidgetPump extends AbstractPanelWidget {
         setPreferredSize(new java.awt.Dimension(52, 109));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonDischargeClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonDischargeClose.setBackground(new java.awt.Color(92, 92, 92));
         jButtonDischargeClose.setText("C");
         jButtonDischargeClose.setToolTipText("");
         jButtonDischargeClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -112,7 +112,7 @@ public class PanelWidgetPump extends AbstractPanelWidget {
         jLabelDischarge.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelDischarge, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 52, 14));
 
-        jButtonSuctionClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonSuctionClose.setBackground(new java.awt.Color(92, 92, 92));
         jButtonSuctionClose.setText("C");
         jButtonSuctionClose.setToolTipText("");
         jButtonSuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -204,11 +204,11 @@ public class PanelWidgetPump extends AbstractPanelWidget {
         String component = evt.getPropertyName().substring(prefix.length());
         switch (component) {
             case "SuctionValve_Pos":
-                setValveButtons(jButtonSuctionClose, 
+                setValveButtonsLess(jButtonSuctionClose, 
                         jButtonSuctionOpen,evt.getNewValue());
                 break;
             case "DischargeValve_Pos":
-                setValveButtons(jButtonDischargeClose, 
+                setValveButtonsLess(jButtonDischargeClose, 
                         jButtonDischargeOpen,evt.getNewValue());
                 break;
             case "Pump_State":

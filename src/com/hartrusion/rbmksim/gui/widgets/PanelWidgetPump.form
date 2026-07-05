@@ -29,7 +29,7 @@
     <Component class="javax.swing.JButton" name="jButtonDischargeClose">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="80" red="0" type="rgb"/>
+          <Color blue="5c" green="5c" red="5c" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -94,7 +94,7 @@
     <Component class="javax.swing.JButton" name="jButtonSuctionClose">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="80" red="0" type="rgb"/>
+          <Color blue="5c" green="5c" red="5c" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
