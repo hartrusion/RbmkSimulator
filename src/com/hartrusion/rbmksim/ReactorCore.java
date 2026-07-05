@@ -216,7 +216,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private static final double REACTIVITY_BASE = 82.7;
     private static final double REACTIVITY_XENON = 0.55;
-    private static final double REACTIVITY_GRAPHITE = 0.65;
+    private static final double REACTIVITY_GRAPHITE = 0.45; // reduced
     private static final double REACTIVITY_TEMPERATURE = 0.0841;
     private static final double REACTIVITY_VOIDING = 0.094;
 
