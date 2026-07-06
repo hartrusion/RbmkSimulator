@@ -162,7 +162,12 @@ public class ControlRod extends ReactorElement implements Runnable {
     public void run() {
         controller.run();
         
-        if (isAutomatic()) {
+        // Only let the controller drive the position setpoint while it is
+        // actually regulating. When the controller is in manual/followup mode
+        // (e.g. the operator is holding the override, or moving the rod by
+        // hand) the position setpoint is being commanded externally and must
+        // not be overwritten with the followed-up controller output.
+        if (isAutomatic() && !controller.isManualMode()) {
             swi.setInput(controller.getOutput());
         }
         swi.run();

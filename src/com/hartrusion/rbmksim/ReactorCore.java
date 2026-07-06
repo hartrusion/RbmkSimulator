@@ -347,7 +347,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (ControlRod cRod : controlRods) {
             if (cRod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD) {
                 cRod.getController().setManualMode(
-                        !globalControlActive && globalControlOverride
+                        globalControlActive && globalControlOverride
                         || !cRod.isAutomatic());
             } else if (cRod.getRodType() == ChannelType.SHORT_CONTROLROD) {
                 cRod.getController().setManualMode(!localControlActive
@@ -365,14 +365,19 @@ public class ReactorCore extends Subsystem implements Runnable {
             int x = f.getX();
             int y = f.getY();
 
-            if (x >= 20 && x <= 30 && y >= 20 && y <= 30) {
-                localAffections[0] += f.getAffection(); // Links Unten
-            } else if (x >= 32 && x <= 42 && y >= 20 && y <= 30) {
-                localAffections[1] += f.getAffection(); // Links Oben
-            } else if (x >= 20 && x <= 30 && y >= 32 && y <= 42) {
-                localAffections[2] += f.getAffection(); // Rechts Unten
+            // Partition the whole core [20,42] x [20,42] into four quadrants
+            // around the centre (31). The centre row/column (x==31 / y==31) is
+            // assigned to the low side so no fuel element is dropped from the
+            // balance reference. Quadrant index matches the short rod that
+            // regulates it: [0]=(28,28) [1]=(34,28) [2]=(28,34) [3]=(34,34).
+            if (x >= 20 && x <= 31 && y >= 20 && y <= 31) {
+                localAffections[0] += f.getAffection(); // x-low,  y-low  -> rod (28,28)
+            } else if (x >= 32 && x <= 42 && y >= 20 && y <= 31) {
+                localAffections[1] += f.getAffection(); // x-high, y-low  -> rod (34,28)
+            } else if (x >= 20 && x <= 31 && y >= 32 && y <= 42) {
+                localAffections[2] += f.getAffection(); // x-low,  y-high -> rod (28,34)
             } else if (x >= 32 && x <= 42 && y >= 32 && y <= 42) {
-                localAffections[3] += f.getAffection(); // Rechts Oben
+                localAffections[3] += f.getAffection(); // x-high, y-high -> rod (34,34)
             }
         }
 
@@ -922,11 +927,23 @@ public class ReactorCore extends Subsystem implements Runnable {
                     LOGGER.log(Level.INFO, "Command refused due to RPS active");
                     return;
                 }
-                // This command stops all selected control rods 
+                // This command stops all selected control rods
                 for (ControlRod cRod : controlRods) {
                     if (cRod.isSelected()) {
                         cRod.getSwi().setStop();
                     }
+                }
+                break;
+            case "Reactor#AllRodStop":
+                if (rpsActive) {
+                    LOGGER.log(Level.INFO, "Command refused due to RPS active");
+                    return;
+                }
+                // Stop every control rod at its current position, regardless of
+                // selection. This is the "Stop all" button; previously no
+                // handler existed for it so the button did nothing.
+                for (ControlRod cRod : controlRods) {
+                    cRod.getSwi().setStop();
                 }
                 break;
             case "Reactor#RodManualUp":

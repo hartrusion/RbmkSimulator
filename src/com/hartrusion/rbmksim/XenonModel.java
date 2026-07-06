@@ -99,7 +99,7 @@ public class XenonModel implements Runnable {
             yXenonContribution = yXenon * yXenon * yXenon / 16200
                 + yXenon * yXenon / 540;
         } else {
-            yXenonContribution = 8 * yXenon / 9 - 100 / 3;  
+            yXenonContribution = 8.0 * yXenon / 9.0 - 100.0 / 3.0;
         }
     }
 

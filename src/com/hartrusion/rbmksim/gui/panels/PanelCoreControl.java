@@ -2282,90 +2282,70 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#RPSState":
                 // Set the initial position of the switch button, this will be
                 // received when opening the panel.
-                if (ControlCommand.AUTOMATIC
-                        == (ControlCommand) evt.getNewValue()
-                        && !jToggleButtonRPS.isSelected()) {
-                    jToggleButtonRPS.setSelected(true);
-                    jToggleButtonRPS.setText("↑");
-                }
-                /* else if (ControlCommand.MANUAL_OPERATION
-                        == (ControlCommand) evt.getNewValue()
-                        && jToggleButtonRPS.isSelected()) {
-                    jToggleButtonRPS.setSelected(true);
-                    jToggleButtonRPS.setText("←");
-                } */
+                // Sync the switch in BOTH directions so a model-forced state
+                // change (e.g. RPS clearing) does not leave the button stuck.
+                boolean rpsOn = ControlCommand.AUTOMATIC
+                        == (ControlCommand) evt.getNewValue();
+                jToggleButtonRPS.setSelected(rpsOn);
+                jToggleButtonRPS.setText(rpsOn ? "↑" : "←");
                 break;
-            case "Reactor#RodControl3731":
-                lightBulb3731.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton3731.isSelected()) {
-                    jToggleButton3731.setSelected(true);
-                    jToggleButton3731.setText("↑");
-                }
+            case "Reactor#RodControl3731": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb3731.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton3731.setSelected(auto);
+                jToggleButton3731.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl3125":
-                lightBulb3125.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton3125.isSelected()) {
-                    jToggleButton3125.setSelected(true);
-                    jToggleButton3125.setText("↑");
-                }
+            }
+            case "Reactor#RodControl3125": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb3125.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton3125.setSelected(auto);
+                jToggleButton3125.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl3131":
-                lightBulb3131.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton3131.isSelected()) {
-                    jToggleButton3131.setSelected(true);
-                    jToggleButton3131.setText("↑");
-                }
+            }
+            case "Reactor#RodControl3131": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb3131.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton3131.setSelected(auto);
+                jToggleButton3131.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl3137":
-                lightBulb3137.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton3137.isSelected()) {
-                    jToggleButton3137.setSelected(true);
-                    jToggleButton3137.setText("↑");
-                }
+            }
+            case "Reactor#RodControl3137": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb3137.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton3137.setSelected(auto);
+                jToggleButton3137.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl2531":
-                lightBulb2531.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton2531.isSelected()) {
-                    jToggleButton2531.setSelected(true);
-                    jToggleButton2531.setText("↑");
-                }
+            }
+            case "Reactor#RodControl2531": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb2531.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton2531.setSelected(auto);
+                jToggleButton2531.setText(auto ? "↑" : "←");
                 break;
+            }
             case "Reactor#GlobalControlEnabled":
                 globalControlEnabled = (boolean) evt.getNewValue();
                 lightBulbGlobalEnabled.setActive(globalControlEnabled);
                 
-                // Initialize the position of the switch button:
-                if (globalControlEnabled
-                        && !jToggleButtonGlobalEnable.isSelected()) {
-                    jToggleButtonGlobalEnable.setSelected(true);
-                    jToggleButtonGlobalEnable.setText("↑");
-                }
-                
+                // Keep the switch in sync with the model in BOTH directions,
+                // otherwise a model-forced-off (e.g. after a scram) leaves the
+                // button visually selected and the next click sends the wrong
+                // direction.
+                jToggleButtonGlobalEnable.setSelected(globalControlEnabled);
+                jToggleButtonGlobalEnable.setText(
+                        globalControlEnabled ? "↑" : "←");
+
                 // clear the setpoint display
                 if (!globalControlEnabled) {
                     jLabelReadingActiveSetpoint.setText("---,-");
@@ -2375,85 +2355,67 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 lightBulbGlobalActive.setActive((boolean) evt.getNewValue());
                 break;
             case "Reactor#GlobalControlTransient":
-                lightBulbGlobalTransient.setActive((boolean) evt.getNewValue());
-                // Initialize the position of the switch button:
-                if ((boolean) evt.getNewValue()
-                        && !jToggleButtonGlobalTransient.isSelected()) {
-                    jToggleButtonGlobalTransient.setSelected(true);
-                    jToggleButtonGlobalTransient.setText("↑");
-                }
+                boolean transientOn = (boolean) evt.getNewValue();
+                lightBulbGlobalTransient.setActive(transientOn);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButtonGlobalTransient.setSelected(transientOn);
+                jToggleButtonGlobalTransient.setText(transientOn ? "↑" : "←");
                 break;
             case "Reactor#GlobalControlTarget":
-                lightBulbGlobalTarget.setActive((boolean) evt.getNewValue());
-                // Initialize the position of the switch button:
-                if ((boolean) evt.getNewValue()
-                        && !jToggleButtonGlobalTarget.isSelected()) {
-                    jToggleButtonGlobalTarget.setSelected(true);
-                    jToggleButtonGlobalTarget.setText("↑");
-                }
+                boolean targetOn = (boolean) evt.getNewValue();
+                lightBulbGlobalTarget.setActive(targetOn);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButtonGlobalTarget.setSelected(targetOn);
+                jToggleButtonGlobalTarget.setText(targetOn ? "↑" : "←");
                 break;
             case "Reactor#LocalControlEnabled":
                 boolean localControlEnabled = (boolean) evt.getNewValue();
                 lightBulbLocalEnabled.setActive(localControlEnabled);
-                
-                // Initialize the position of the switch button:
-                if (localControlEnabled
-                        && !jToggleButtonLocalEnable.isSelected()) {
-                    jToggleButtonLocalEnable.setSelected(true);
-                    jToggleButtonLocalEnable.setText("↑");
-                }
+
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButtonLocalEnable.setSelected(localControlEnabled);
+                jToggleButtonLocalEnable.setText(
+                        localControlEnabled ? "↑" : "←");
                 break;
             case "Reactor#LocalControlActive":
                 lightBulbLocalActive.setActive((boolean) evt.getNewValue());
                 break;
-            case "Reactor#RodControl3428":
-                lightBulb3428.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton3428.isSelected()) {
-                    jToggleButton3428.setSelected(true);
-                    jToggleButton3428.setText("↑");
-                }
+            case "Reactor#RodControl3428": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb3428.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton3428.setSelected(auto);
+                jToggleButton3428.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl3434":
-                lightBulb3434.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton3434.isSelected()) {
-                    jToggleButton3434.setSelected(true);
-                    jToggleButton3434.setText("↑");
-                }
+            }
+            case "Reactor#RodControl3434": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb3434.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton3434.setSelected(auto);
+                jToggleButton3434.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl2828":
-                lightBulb2828.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton2828.isSelected()) {
-                    jToggleButton2828.setSelected(true);
-                    jToggleButton2828.setText("↑");
-                }
+            }
+            case "Reactor#RodControl2828": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb2828.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton2828.setSelected(auto);
+                jToggleButton2828.setText(auto ? "↑" : "←");
                 break;
-            case "Reactor#RodControl2834":
-                lightBulb2834.setActive(
-                        ((ControlCommand) evt.getNewValue())
-                                .equals(ControlCommand.AUTOMATIC));
-                // Initialize the position of the switch button:
-                if (((ControlCommand) evt.getNewValue())
-                        .equals(ControlCommand.AUTOMATIC)
-                        && !jToggleButton2834.isSelected()) {
-                    jToggleButton2834.setSelected(true);
-                    jToggleButton2834.setText("↑");
-                }
+            }
+            case "Reactor#RodControl2834": {
+                boolean auto = ((ControlCommand) evt.getNewValue())
+                        .equals(ControlCommand.AUTOMATIC);
+                lightBulb2834.setActive(auto);
+                // Sync the switch in both directions (see GlobalControlEnabled).
+                jToggleButton2834.setSelected(auto);
+                jToggleButton2834.setText(auto ? "↑" : "←");
                 break;
+            }
         }
         integralSwitchGlobalOverride.updateComponent(evt);
     }
