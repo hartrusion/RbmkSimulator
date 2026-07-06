@@ -196,7 +196,15 @@ public class MainLoop implements Runnable, ModelManipulation {
                 LOGGER.log(Level.INFO, "Simulation state loaded from: "
                         + ac.getValue() + " (saved at: "
                         + save.getTimestamp() + ")");
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (Exception e) {
+                // A malformed or version-incompatible save file makes
+                // core/process/turbine load() throw a RuntimeException, not just
+                // IOException/ClassNotFoundException. Catch everything here so a
+                // failed load is reported to the user but does NOT propagate to
+                // the main-loop catch in run(), which sets pause=true and locks
+                // out every control until the application is restarted.
+                LOGGER.log(Level.WARNING, "Failed to load simulation state from "
+                        + ac.getValue(), e);
                 ExceptionPopup.show(e);
             }
             return;

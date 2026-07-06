@@ -1431,6 +1431,23 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void load(SaveGame save) {
         ReactorState rs = save.getReactorState();
 
+        // Reject incompatible / corrupt saves up front, before any state is
+        // applied. A save written by a different version can deserialize with
+        // null per-rod / per-fuel-element lists (field initialisers do not run
+        // during Java deserialization), which previously caused a raw
+        // NullPointerException deep inside load() and left the core state
+        // half-applied. Failing here keeps load() all-or-nothing.
+        if (rs == null
+                || rs.getRodStates() == null
+                || rs.getRodStates().size() != controlRods.size()
+                || rs.getFuelStates() == null
+                || rs.getFuelStates().size() != fuelElements.size()) {
+            throw new IllegalStateException("Incompatible or corrupt save file: "
+                    + "it does not contain matching per-rod / per-fuel-element "
+                    + "state (most likely saved by a different version). Save "
+                    + "files are not compatible across versions.");
+        }
+
         coreOnlySimulation = save.isCoreOnlySimulation();
         for (int idx = 0; idx < 7; idx++) {
             neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
