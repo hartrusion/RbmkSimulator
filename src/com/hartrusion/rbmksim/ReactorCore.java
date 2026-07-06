@@ -146,6 +146,14 @@ public class ReactorCore extends Subsystem implements Runnable {
     private boolean rpsActive = false;
     private boolean oldRpsActive = false; // previous value
 
+    /**
+     * Remaining simulation ticks during which an automatic shutdown is
+     * suppressed. Set on load so protection alarms re-priming from a wiped
+     * history (null -> state) do not scram a healthy reactor. See
+     * triggerAutoShutdown() and issue #23.
+     */
+    private int suppressShutdownTicks = 0;
+
     private boolean globalControlEnabled = false;
     private boolean oldGlobalControlEnabled = true; // previous value
 
@@ -233,6 +241,9 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     @Override
     public void run() {
+        if (suppressShutdownTicks > 0) {
+            suppressShutdownTicks--;
+        }
         setpointTargetNeutronFlux.run();
 
         if (!globalControlEnabled) {
@@ -1125,6 +1136,12 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (ControlRod cRod : controlRods) {
             if (cRod.getRodType() == ChannelType.SHORT_CONTROLROD) {
                 cRod.getController().setMaxOutput(7.2);
+                // Local (short-rod) quadrant-balance gain. Was 0, which froze
+                // the controller (in this PIControl, K scales both the P term
+                // and the integral increment, so K=0 disables regulation
+                // entirely). Positive K is correct: a hot quadrant (high
+                // affection) gives a negative error, which lowers the short-rod
+                // position toward its absorbing end. Tuned live.
                 cRod.getController().setParameterK(0);
                 cRod.getController().setParameterTN(40);
                 cRod.getController().setName("Reactor#LocalControl"
@@ -1257,6 +1274,15 @@ public class ReactorCore extends Subsystem implements Runnable {
      * be overridden however.
      */
     public void triggerAutoShutdown() {
+        if (suppressShutdownTicks > 0) {
+            // Just after a load, protection alarms re-evaluate from a wiped
+            // history and re-fire their scram actions on conditions that were
+            // already true at save time (e.g. feedwater pressure MIN1 in
+            // reactor-only mode). Suppress the scram for a few ticks so the
+            // monitors re-prime to their loaded state without a spurious trip;
+            // a genuinely unsafe state re-triggers once the window elapses.
+            return;
+        }
         if (rps.equals(ControlCommand.MANUAL_OPERATION)) {
             return;
         }
@@ -1447,6 +1473,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                     + "state (most likely saved by a different version). Save "
                     + "files are not compatible across versions.");
         }
+
+        // Suppress auto-shutdown briefly so protection alarms can re-prime to
+        // the loaded state without firing a spurious scram (see #23).
+        suppressShutdownTicks = 3;
 
         coreOnlySimulation = save.isCoreOnlySimulation();
         for (int idx = 0; idx < 7; idx++) {
