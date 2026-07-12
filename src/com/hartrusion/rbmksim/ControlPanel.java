@@ -138,7 +138,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemNewPanel = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPause = new javax.swing.JMenuItem();
-        jCheckBoxMenuOnlyCore = new javax.swing.JCheckBoxMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuLoad = new javax.swing.JMenuItem();
         jMenuSave = new javax.swing.JMenuItem();
@@ -243,10 +242,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPause.setText("Pause Simulation");
         jMenuItemPause.addActionListener(this::jMenuItemPauseActionPerformed);
         jMenuFile.add(jMenuItemPause);
-
-        jCheckBoxMenuOnlyCore.setText("Simulate reactor only");
-        jCheckBoxMenuOnlyCore.addActionListener(this::jCheckBoxMenuOnlyCoreActionPerformed);
-        jMenuFile.add(jCheckBoxMenuOnlyCore);
         jMenuFile.add(jSeparator2);
 
         jMenuLoad.setText("Load");
@@ -1064,11 +1059,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         controller.userAction(new ActionCommand("PauseSimulation", null));
     }//GEN-LAST:event_jMenuItemPauseActionPerformed
 
-    private void jCheckBoxMenuOnlyCoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuOnlyCoreActionPerformed
-        controller.userAction(new ActionCommand("SetCoreOnly", null));
-        jCheckBoxMenuOnlyCore.setEnabled(false);
-    }//GEN-LAST:event_jCheckBoxMenuOnlyCoreActionPerformed
-
     private void jMenuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLoadActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter(
@@ -1748,7 +1738,6 @@ public class ControlPanel extends javax.swing.JFrame implements
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuOnlyCore;
     private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;

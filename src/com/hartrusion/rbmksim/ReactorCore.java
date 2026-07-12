@@ -53,8 +53,6 @@ public class ReactorCore extends Subsystem implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(
             ReactorCore.class.getName());
 
-    private boolean coreOnlySimulation = false;
-
     /**
      * Target neutron flux value to which the reactor should be driven to, this
      * value is likely to be set only once and that's it. The gradient is more
@@ -717,9 +715,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         } else if (setpointPowerGradient.handleAction(ac)) {
             return;
         }
-        if (ac.getPropertyName().equals("SetCoreOnly")) {
-            coreOnlySimulation = true;
-        }
         if (!ac.getPropertyName().startsWith("Reactor#")) {
             return;
         }
@@ -1300,25 +1295,23 @@ public class ReactorCore extends Subsystem implements Runnable {
      * @return true if everything is fine.
      */
     private boolean checkRpsDisengage() {
-        if (!coreOnlySimulation) {
-            if (alarmManager.isAlarmActive("Loop1Flow", AlarmState.MIN1)) {
-                return false;
-            }
-            if (alarmManager.isAlarmActive("Loop2Flow", AlarmState.MIN1)) {
-                return false;
-            }
-            if (alarmManager.isAlarmActive("Feed1Pressure", AlarmState.MIN1)) {
-                return false;
-            }
-            if (alarmManager.isAlarmActive("Feed2Pressure", AlarmState.MIN1)) {
-                return false;
-            }
-            if (alarmManager.isAlarmActive("Drum1Pressure", AlarmState.MAX1)) {
-                return false;
-            }
-            if (alarmManager.isAlarmActive("Drum2Pressure", AlarmState.MAX1)) {
-                return false;
-            }
+        if (alarmManager.isAlarmActive("Loop1Flow", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Loop2Flow", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Feed1Pressure", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Feed2Pressure", AlarmState.MIN1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Drum1Pressure", AlarmState.MAX1)) {
+            return false;
+        }
+        if (alarmManager.isAlarmActive("Drum2Pressure", AlarmState.MAX1)) {
+            return false;
         }
         // Checks that will only be performed when not switchting the RPS back 
         // on during already running operator. Those are designed to make sure
@@ -1414,7 +1407,6 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void load(SaveGame save) {
         ReactorState rs = save.getReactorState();
 
-        coreOnlySimulation = save.isCoreOnlySimulation();
         for (int idx = 0; idx < 7; idx++) {
             neutronFluxModel.setStateSpaceVariable(idx, rs.getxNeutronFluxModel(idx));
         }

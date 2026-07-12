@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class SaveGame implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8L;
 
     private final LocalDateTime timestamp;
 
@@ -64,8 +64,6 @@ public class SaveGame implements Serializable {
     private double condenserVacuum;
 
     private boolean blowdownBalanceActive;
-
-    private boolean coreOnlySimulation;
 
     private double turbineHPOutSatTemp;
 
@@ -165,14 +163,6 @@ public class SaveGame implements Serializable {
 
     public void setBlowdownBalanceActive(boolean blowdownBalanceActive) {
         this.blowdownBalanceActive = blowdownBalanceActive;
-    }
-
-    public boolean isCoreOnlySimulation() {
-        return coreOnlySimulation;
-    }
-
-    public void setCoreOnlySimulation(boolean coreOnlySimulation) {
-        this.coreOnlySimulation = coreOnlySimulation;
     }
 
     public double getTurbineHPOutSatTemp() {

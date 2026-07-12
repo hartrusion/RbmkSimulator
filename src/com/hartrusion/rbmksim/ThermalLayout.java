@@ -505,13 +505,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
      */
     private final Integrator condenserVacuum = new Integrator();
 
-    /**
-     * Setting this to true will disconnect the thermal loop simulation,
-     * allowing to operate the reactor without feedback from the thermal system.
-     * There will be no voiding and the temperature will be set estimated.
-     */
-    private boolean noReactorInput;
-
     private ControlCommand balanceControlState;
     private ControlCommand oldBalanceControlState;
 
@@ -6041,10 +6034,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             setpointTurbineReheaterTemperature.handleAction(ac);
             setpointTurbineReheaterLevel.handleAction(ac);
 
-            if (ac.getPropertyName().equals("SetCoreOnly")) {
-                noReactorInput = true;
-            }
-
             if (ac.getPropertyName().equals("Main#StartupPressureSetpoint")) {
                 startupPressureSetpointActive = (boolean) ac.getValue();
             }
@@ -6160,7 +6149,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         save.saveCavitationState(mcpCavitaionState);
         save.setBlowdownBalanceActive(
                 !blowdownBalanceControlLoop.isManualMode());
-        save.setCoreOnlySimulation(noReactorInput);
         save.setTurbineHPOutSatTemp(turbineHPOutSatTemp);
         save.setStartupPressureSetpointActive(startupPressureSetpointActive);
 
@@ -6180,7 +6168,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         blowdownBalanceControlLoop.setManualMode(
                 !save.isBlowdownBalanceActive());
         oldBalanceControlState = null; // reset to refire property change
-        noReactorInput = save.isCoreOnlySimulation();
         turbineHPOutSatTemp = save.getTurbineHPOutSatTemp();
         startupPressureSetpointActive = save.isStartupPressureSetpointActive();
         // force property change event with this:

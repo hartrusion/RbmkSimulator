@@ -35,7 +35,6 @@ import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
-import static com.hartrusion.rbmksim.SpeedSelect.LOW;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Level;
@@ -53,12 +52,6 @@ public class Turbine extends Subsystem implements Runnable {
 
     private static final Logger LOGGER = Logger.getLogger(
             Turbine.class.getName());
-
-    /**
-     * To convert 1/min to rad/second the number can be multiplied with 2pi/60 =
-     * pi/30.
-     */
-    private static final double RPM_TO_RAD = 0.10471975512;
 
     private double hpRotorTemperature;
     private double hpStatorTemperature;
