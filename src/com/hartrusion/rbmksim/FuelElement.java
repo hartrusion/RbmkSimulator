@@ -17,7 +17,6 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.modeling.PhysicalDomain;
-import com.hartrusion.modeling.automated.PhasedValve;
 import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
 import com.hartrusion.modeling.general.FlowSource;
 import com.hartrusion.modeling.general.GeneralNode;
@@ -27,13 +26,12 @@ import com.hartrusion.modeling.general.SelfCapacitance;
 import com.hartrusion.modeling.heatfluid.HeatEffortSource;
 import com.hartrusion.modeling.heatfluid.HeatFrictionedFlowResistance;
 import com.hartrusion.modeling.heatfluid.HeatNode;
+import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
 import com.hartrusion.modeling.heatfluid.HeatVolumizedFlowResistance;
 import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
-import com.hartrusion.modeling.phasedfluid.PhasedEffortSource;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalVolumeHandler;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
-import com.hartrusion.modeling.phasedfluid.PhasedSimpleFlowResistance;
 import com.hartrusion.modeling.phasedfluid.Water;
 
 /**
@@ -164,7 +162,7 @@ public class FuelElement extends ReactorElement {
     private double flow;
 
     private double thermalLiftPressure;
-    
+
     private boolean ruptured;
 
     // Network part for the hydraulic part
@@ -177,15 +175,18 @@ public class FuelElement extends ReactorElement {
     private final HeatEffortSource thermalLift = new HeatEffortSource();
     private final HeatNode afterThermalLift = new HeatNode();
     private final PhasedHeatFluidConverter toReactorConverter;
+    private final PhasedHeatFluidConverter toPoolConverter;
     private final PhasedNode evaporatorIn = new PhasedNode();
     private final PhasedExpandingThermalExchanger evaporator;
     private final PhasedNode evapToDrumNode = new PhasedNode();
 
-    private final PhasedSimpleFlowResistance channelLeak
-            = new PhasedSimpleFlowResistance();
+    private final HeatSimpleFlowResistance channelLeak
+            = new HeatSimpleFlowResistance();
     private final PhasedNode channelLeakNode = new PhasedNode();
-    private final PhasedEffortSource channelLeakGravity
-            = new PhasedEffortSource();
+    private final HeatEffortSource channelLeakGravity
+            = new HeatEffortSource();
+    private final HeatNode leakOut = new HeatNode();
+    private final HeatNode leakOutGrav = new HeatNode();
 
     // Thermal system describing the fuel thermal heat flow
     private final GeneralNode thermalGroundNode = new GeneralNode(PhysicalDomain.THERMAL);
@@ -241,6 +242,7 @@ public class FuelElement extends ReactorElement {
 
         // Generate instances
         toReactorConverter = new PhasedHeatFluidConverter(Water.INSTANCE);
+        toPoolConverter = new PhasedHeatFluidConverter(Water.INSTANCE);
         evaporator = new PhasedExpandingThermalExchanger(Water.INSTANCE);
 
         // Naming
@@ -251,6 +253,7 @@ public class FuelElement extends ReactorElement {
         thermalLift.setName("FuelChannelHydraulic" + x + "-" + y + "#ThermalLift");
         afterThermalLift.setName("FuelChannelHydraulic" + x + "-" + y + "#AfterThermalLift");
         toReactorConverter.setName("FuelChannelHydraulic" + x + "-" + y + "#ToReactorConverter");
+        toPoolConverter.setName("FuelChannelHydraulic" + x + "-" + y + "#ToPoolConverter");
         evaporatorIn.setName("FuelChannelHydraulic" + x + "-" + y + "#EvaporatorIn");
         evaporator.setName("FuelChannelHydraulic" + x + "-" + y + "#Evaporator");
 
@@ -262,15 +265,7 @@ public class FuelElement extends ReactorElement {
         thermalResistance.setName("FuelChannelThermal" + x + "-" + y + "#Resistance");
         thermalOutNode.setName("FuelChannelThermal" + x + "-" + y + "#OutNode");
 
-        // Connections of the hydraulic part
-        flowResistance.connectTo(afterResistance);
-        channelMass.connectBetween(afterResistance, afterChannelMass);
-        thermalLift.connectBetween(afterChannelMass, afterThermalLift);
-        toReactorConverter.connectBetween(afterThermalLift, evaporatorIn);
-        evaporator.initComponent();
-        evaporator.connectTo(evaporatorIn);
-        channelLeak.connectBetween(evaporatorIn, channelLeakNode);
-        channelLeakGravity.connectTo(channelLeakNode);
+        connectHydraulicModel();
 
         // Connections of the thermal part
         thermalGround.connectTo(thermalGroundNode);
@@ -283,10 +278,12 @@ public class FuelElement extends ReactorElement {
         // There is 188 Channels per side. The total resistance for one loop
         // is 293.1 so per Channel it will be 55102.8.
         // This has to be split onto two elements to have the nodal analysis
-        // work with norton transform.
-        flowResistance.setResistanceParameter(25102.8);
+        // work with norton transform. The split between 10000 and 45102.8 is 
+        // designed in a way we get a decent flow out on channel rupture on 
+        // idle as well as in full load conditions.
+        flowResistance.setResistanceParameter(45102.8);
         channelMass.setInnerThermalMass(100);
-        channelMass.setResistanceParameter(30000);
+        channelMass.setResistanceParameter(10000);
         // Manipulate the specific heat capacity here to make the heatup 
         // from the MCP circulation much more intense. Default is 4200, the
         // heat increase is delta_p / (density * specHeatCap)
@@ -347,6 +344,49 @@ public class FuelElement extends ReactorElement {
         evapHandler = (PhasedExpandingThermalVolumeHandler) evaporator.getPhasedHandler();
 
         thermalLift.setEffort(5e4);
+    }
+
+    /**
+     * Connects the hydraulic elements and nodes and sets some properties of the
+     * hydraulic part.
+     *
+     * <pre>
+     *     |
+     *    | |
+     *    | |  evaporator
+     *    | |
+     *     |
+     *     o evaporatorIn (PhasedFluid)
+     *     |
+     *    [ ] toReactorConverter
+     *     |
+     *     o afterThermalLift (HeatFluid)
+     *     |
+     *    (|) thermalLift
+     *     |
+     *     o
+     *     |
+     *    | | channelMass - HeatVolumizedFlowResistance
+     *     |
+     * aft | channelLeak  gravity  toPoolConverter
+     * res o----___----o---(-)--o---[ ]----
+     *     |         leakOut  leakOutGrav
+     *     |
+     *    | | flowResistance - HeatFrictionedFlowResistance
+     *     |
+     * </pre>
+     */
+    private void connectHydraulicModel() {
+        // Connections of the hydraulic part
+        flowResistance.connectTo(afterResistance);
+        channelMass.connectBetween(afterResistance, afterChannelMass);
+        thermalLift.connectBetween(afterChannelMass, afterThermalLift);
+        toReactorConverter.connectBetween(afterThermalLift, evaporatorIn);
+        evaporator.initComponent();
+        evaporator.connectTo(evaporatorIn);
+        channelLeak.connectBetween(afterResistance, leakOut);
+        channelLeakGravity.connectBetween(leakOut, leakOutGrav);
+        toPoolConverter.connectTo(leakOutGrav);
     }
 
     /**
@@ -423,7 +463,7 @@ public class FuelElement extends ReactorElement {
             PhasedClosedSteamedReservoir steamDrum, PhasedNode poolNode) {
         flowResistance.connectTo(distributorNode);
         evaporator.connectToVia(steamDrum, evapToDrumNode);
-        channelLeakGravity.connectTo(poolNode);
+        toPoolConverter.connectTo(poolNode);
     }
 
     /**
@@ -491,14 +531,17 @@ public class FuelElement extends ReactorElement {
                 * 2000)); // try-and-error obtained number
 
         thermalLift.setEffort(thermalLiftPressure);
-        
+
         // Very simple so far.
         if (thermalCapacityNode.getEffort() - 273.15 >= 1600) {
             ruptured = true;
         }
-        
+
         if (ruptured) {
-            channelLeak.setResistanceParameter(5.3e5);
+            // This will generate a flow of 0.37 kg/s on idle and roughly 
+            // 30 kg/s on full load so the flow also comes drom the steam drum 
+            // and the evaporator operates in reverse flow mode.
+            channelLeak.setResistanceParameter(2e5);
         } else {
             channelLeak.setOpenConnection();
         }
