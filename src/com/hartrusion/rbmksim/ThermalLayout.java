@@ -491,7 +491,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private double turbineHPOutSatTemp;
 
     private double turbineShaftPower = 0.0;
-    private double reheaterOutTemperature = 22.5;
+    private double reheaterOutTemperature = 22.5 + 273.15;
     private double reheaterOutQuality = 0.0;
 
     /**
@@ -2855,7 +2855,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Turbine: Reheater
         turbineReheater.initConditions(273.15 + 22.5,
                 (273.15 + 22.5) * Water.INSTANCE.getSpecificHeatCapacity(),
-                0.5, 0.0);
+                0.5, 1e5);
 
         turbineRehasterMass.initConditions(273.15 + 22.5);
 
