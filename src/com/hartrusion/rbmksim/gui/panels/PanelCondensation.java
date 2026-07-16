@@ -995,7 +995,7 @@ public class PanelCondensation extends AbstractPanelWidget {
     }//GEN-LAST:event_jButtonEjector2CondensateOpenActionPerformed
 
     private void jButtonEjector2CondensateCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector2CondensateCloseActionPerformed
-        controller.userAction(new ActionCommand("EjectorMain1#CondensateValve", false));
+        controller.userAction(new ActionCommand("EjectorMain2#CondensateValve", false));
     }//GEN-LAST:event_jButtonEjector2CondensateCloseActionPerformed
 
     private void jButtonEjector3CondensateOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjector3CondensateOpenActionPerformed
