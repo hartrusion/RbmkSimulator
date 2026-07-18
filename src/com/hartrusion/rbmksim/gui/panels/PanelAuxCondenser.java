@@ -37,12 +37,10 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         // of this Panel so they can send their actions to it directly.
         controlLoopCondLevel1.registerActionReceiver(controller);
         controlLoopCondLevel2.registerActionReceiver(controller);
-        integralSwitchToHotwell.registerActionReceiver(controller);
         integralSwitchCoolant1.registerActionReceiver(controller);
         integralSwitchCoolant2.registerActionReceiver(controller);
         integralSwitch1.registerActionReceiver(controller);
         integralSwitch2.registerActionReceiver(controller);
-        integralSwitchToDrain.registerActionReceiver(controller);
         panelCondensatePump1.registerActionReceiver(controller);
         panelCondensatePump2.registerActionReceiver(controller);
     }
@@ -67,8 +65,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         panelCondensatePump1 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetSmallPump();
         jButtonBypassClose = new javax.swing.JButton();
         jButtonBypassOpen = new javax.swing.JButton();
-        integralSwitchToHotwell = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
-        integralSwitchToDrain = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchCoolant1 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         integralSwitchCoolant2 = new com.hartrusion.rbmksim.gui.elements.IntegralSwitch();
         jLabelCaptionDrain = new javax.swing.JLabel();
@@ -99,6 +95,11 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionSteamIn1 = new javax.swing.JLabel();
         lightBulbControl1Active = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbControl2Active = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        jButtonCondToHotwellClose = new javax.swing.JButton();
+        jButtonCondToHotwellOpen = new javax.swing.JButton();
+        jButtonCondToDrainClose = new javax.swing.JButton();
+        jButtonCondToDrainOpen = new javax.swing.JButton();
+        jLabelCaptionCond1 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(574, 130));
         setMinimumSize(new java.awt.Dimension(574, 130));
@@ -133,14 +134,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         });
         add(jButtonBypassOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 54, 20, 20));
 
-        integralSwitchToHotwell.setComponent("AuxCond#ToHotwell");
-        integralSwitchToHotwell.setToolTipText("Condensate to Hotwell");
-        add(integralSwitchToHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 94, -1, -1));
-
-        integralSwitchToDrain.setComponent("AuxCond#ToDrain");
-        integralSwitchToDrain.setToolTipText("Condensate to clean condensate container");
-        add(integralSwitchToDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 94, -1, -1));
-
         integralSwitchCoolant1.setComponent("AuxCond1#CoolantValve");
         integralSwitchCoolant1.setToolTipText("Condeser 1 Cooland Flow");
         add(integralSwitchCoolant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 96, -1, -1));
@@ -155,7 +148,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionDrain.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionDrain.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 102, 42, 16));
+        add(jLabelCaptionDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 88, 42, 16));
 
         jLabelCaptionHotwell.setFont(jLabelCaptionHotwell.getFont().deriveFont(jLabelCaptionHotwell.getFont().getSize()-2f));
         jLabelCaptionHotwell.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -163,7 +156,7 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         jLabelCaptionHotwell.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionHotwell.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionHotwell.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 102, 42, 16));
+        add(jLabelCaptionHotwell, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 88, 42, 16));
 
         jLabelCaptionBypass.setFont(jLabelCaptionBypass.getFont().deriveFont(jLabelCaptionBypass.getFont().getSize()-2f));
         jLabelCaptionBypass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -316,6 +309,58 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         add(jLabelCaptionSteamIn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 64, 14));
         add(lightBulbControl1Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 84, -1, -1));
         add(lightBulbControl2Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 84, -1, -1));
+
+        jButtonCondToHotwellClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonCondToHotwellClose.setText("C");
+        jButtonCondToHotwellClose.setToolTipText("");
+        jButtonCondToHotwellClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCondToHotwellClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCondToHotwellCloseActionPerformed(evt);
+            }
+        });
+        add(jButtonCondToHotwellClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 104, 20, 20));
+
+        jButtonCondToHotwellOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonCondToHotwellOpen.setText("O");
+        jButtonCondToHotwellOpen.setToolTipText("");
+        jButtonCondToHotwellOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCondToHotwellOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCondToHotwellOpenActionPerformed(evt);
+            }
+        });
+        add(jButtonCondToHotwellOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 104, 20, 20));
+
+        jButtonCondToDrainClose.setBackground(new java.awt.Color(0, 128, 0));
+        jButtonCondToDrainClose.setText("C");
+        jButtonCondToDrainClose.setToolTipText("");
+        jButtonCondToDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCondToDrainClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCondToDrainCloseActionPerformed(evt);
+            }
+        });
+        add(jButtonCondToDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 104, 20, 20));
+
+        jButtonCondToDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonCondToDrainOpen.setText("O");
+        jButtonCondToDrainOpen.setToolTipText("");
+        jButtonCondToDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonCondToDrainOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCondToDrainOpenActionPerformed(evt);
+            }
+        });
+        add(jButtonCondToDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 104, 20, 20));
+
+        jLabelCaptionCond1.setFont(jLabelCaptionCond1.getFont().deriveFont(jLabelCaptionCond1.getFont().getSize()-2f));
+        jLabelCaptionCond1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionCond1.setText("Cond.");
+        jLabelCaptionCond1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCond1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionCond1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionCond1, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 108, 52, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBypassCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBypassCloseActionPerformed
@@ -346,6 +391,22 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         }
     }//GEN-LAST:event_jToggleButtonControl1EnableActionPerformed
 
+    private void jButtonCondToHotwellCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCondToHotwellCloseActionPerformed
+        controller.userAction(new ActionCommand("AuxCond#ToHotwell", false));
+    }//GEN-LAST:event_jButtonCondToHotwellCloseActionPerformed
+
+    private void jButtonCondToHotwellOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCondToHotwellOpenActionPerformed
+        controller.userAction(new ActionCommand("AuxCond#ToHotwell", true));
+    }//GEN-LAST:event_jButtonCondToHotwellOpenActionPerformed
+
+    private void jButtonCondToDrainCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCondToDrainCloseActionPerformed
+        controller.userAction(new ActionCommand("AuxCond#ToDrain", false));
+    }//GEN-LAST:event_jButtonCondToDrainCloseActionPerformed
+
+    private void jButtonCondToDrainOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCondToDrainOpenActionPerformed
+        controller.userAction(new ActionCommand("AuxCond#ToDrain", true));
+    }//GEN-LAST:event_jButtonCondToDrainOpenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.elements.ChornobylGauge chornobylGaugeCondTemperature;
@@ -357,15 +418,18 @@ public class PanelAuxCondenser extends AbstractPanelWidget
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitch2;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant1;
     private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchCoolant2;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToDrain;
-    private com.hartrusion.rbmksim.gui.elements.IntegralSwitch integralSwitchToHotwell;
     private javax.swing.JButton jButtonBypassClose;
     private javax.swing.JButton jButtonBypassOpen;
+    private javax.swing.JButton jButtonCondToDrainClose;
+    private javax.swing.JButton jButtonCondToDrainOpen;
+    private javax.swing.JButton jButtonCondToHotwellClose;
+    private javax.swing.JButton jButtonCondToHotwellOpen;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCaptionBypass;
+    private javax.swing.JLabel jLabelCaptionCond1;
     private javax.swing.JLabel jLabelCaptionDrain;
     private javax.swing.JLabel jLabelCaptionGaugeNeutronRate2;
     private javax.swing.JLabel jLabelCaptionGaugeNeutronRate3;
@@ -395,16 +459,20 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         panelCondensatePump2.updateComponent(evt);
         controlLoopCondLevel1.updateComponent(evt);
         controlLoopCondLevel2.updateComponent(evt);
-        integralSwitchToHotwell.updateComponent(evt);
         integralSwitchCoolant1.updateComponent(evt);
         integralSwitchCoolant2.updateComponent(evt);
         integralSwitch1.updateComponent(evt);
         integralSwitch2.updateComponent(evt);
-        integralSwitchToDrain.updateComponent(evt);
         switch (evt.getPropertyName()) {
             case "AuxCond#Bypass_Pos" ->
                 setValveButtons(jButtonBypassClose,
                         jButtonBypassOpen, evt.getNewValue());
+            case "AuxCond#ToHotwell_Pos" ->
+                setValveButtons(jButtonCondToHotwellClose,
+                        jButtonCondToHotwellOpen, evt.getNewValue());
+            case "AuxCond#ToDrain_Pos" ->
+                setValveButtons(jButtonCondToDrainClose,
+                        jButtonCondToDrainOpen, evt.getNewValue());
             case "AuxCond1#SteamValveControlState" -> {
                 // Set the initial position of the switch button, this will be
                 // received when opening the panel.

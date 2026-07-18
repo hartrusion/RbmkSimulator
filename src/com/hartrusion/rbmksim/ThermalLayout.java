@@ -4761,6 +4761,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 || alarmManager.isAlarmActive(
                         "AuxCond2Temp", AlarmState.MAX1))
         );
+        // Make sure only one condensate flow path is available, so only
+        // one valve can be opened at a time.
+        auxCondValveToHotwell.addSafeClosedProvider(()
+                -> auxCondValveToDrain.getOpening() < 1.0);
+        auxCondValveToDrain.addSafeClosedProvider(()
+                -> auxCondValveToHotwell.getOpening() < 1.0);
+
 
         // Nothing gets into condenser if no vacuum is available.
         for (int idx = 0; idx < 2; idx++) {
