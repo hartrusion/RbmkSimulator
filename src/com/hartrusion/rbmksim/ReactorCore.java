@@ -93,6 +93,12 @@ public class ReactorCore extends Subsystem implements Runnable {
     private double avgRodPosition = 7.3;
 
     private double rodAbsorption = 100.0;
+    
+    /**
+     * Operation Reactivity margin, calculated from rod absorption without 
+     * considering the rod tip effect.
+     */
+    private double orm;
 
     /**
      * Positive reactivity in 0..100 % which has same dimension as
@@ -397,10 +403,12 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Calculate total absorption and average rod position
         double absorption = 0.0;
+        double ormAbsorption = 0.0;
         double totalPosition = 0.0;
         double displacerBoost = 0.0;
         for (ControlRod rod : controlRods) {
             absorption += rod.getAbsorption();
+            ormAbsorption += rod.getAbsorptionOrm();
             if (rod.getRodType() == ChannelType.SHORT_CONTROLROD) {
                 totalPosition += (7.3 - rod.getSwi().getOutput());
             } else {
@@ -414,6 +422,10 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Generate a 0..100 % value from total rod absorption first
         rodAbsorption = absorption / maxAbsorption * 100;
+        
+        // Make a ORM value out of this percentage value before the displacer
+        // boost is added. Scale with the number of control rods (37)
+        orm = ormAbsorption / maxAbsorption * 37;
 
         // To trigger the accident, a displacer boost value is obtained from 
         // the control rods. The accident is represented by having too many 
@@ -577,6 +589,7 @@ public class ReactorCore extends Subsystem implements Runnable {
                 neutronFluxModel.getYReactivity());
         outputValues.setParameterValue("Reactor#Graphite",
                 graphiteModel.getYGraphie());
+        outputValues.setParameterValue("Reactor#ORM", orm);
 
         outputValues.setParameterValue("Reactor#Voiding", voiding);
         outputValues.setParameterValue("Reactor#CoreTemperature", coreTemp);

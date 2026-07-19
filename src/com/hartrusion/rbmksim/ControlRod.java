@@ -34,7 +34,18 @@ import java.util.List;
  */
 public class ControlRod extends ReactorElement implements Runnable {
 
+    /**
+     * The absoption of neutrons of this control rod as a value between 0 and 1.
+     */
     private double absorption;
+    
+    /**
+     * The same as the regular absoption value but this does not consider the
+     * rod tip effect on the manual control rods. Its value is a bit off to hide 
+     * the effect on the ORM display on purpose. The field is only used for the
+     * manual control rods, the other rods do not have this effect.
+     */
+    private double ormAbsoption; 
 
     private double displacerBoost;
 
@@ -210,6 +221,13 @@ public class ControlRod extends ReactorElement implements Runnable {
     public double getAbsorption() {
         return absorption;
     }
+    
+    public double getAbsorptionOrm() {
+        if (rodType == ChannelType.MANUAL_CONTROLROD) {
+            return ormAbsoption;
+        }
+        return absorption;
+    }
 
     /**
      * The displacer boost is a value that is used to trigger the accident. It
@@ -250,16 +268,22 @@ public class ControlRod extends ReactorElement implements Runnable {
                 // dangerous area: this goes into wrong direction when inserting
                 // until we hit pos meters. interpolate between 0/0.03 and pos/0
                 absorption = 0.03 - position * (0.03 / 0.4);
-                return;
-            }
-            if (position >= 7.3) {
+            } else if (position >= 7.3) {
                 absorption = 1.0; // full insert
-                return;
+            } else {
+                // interp 0.4/0 and 7.3/1
+                // y = (y2-y1) / (x2-x1) * (x-x1) + y1);
+                absorption = 1.0 / (7.3 - 0.4) * (position - 0.4);
             }
-            // interp 0.4/0 and 7.3/1
-            // y = (y2-y1) / (x2-x1) * (x-x1) + y1);
-            absorption = 1.0 / (7.3 - 0.4) * (position - 0.4);
-            return;
+            // Separate function for calculating the wrong orm absorption value
+            if (position <= 0.0) {
+                ormAbsoption = 0.0;
+            } else if (position >= 7.3) {
+                ormAbsoption = 1.0;
+            } else {
+                ormAbsoption = 1.0 / 7.3 * position; // no tip effect here
+            }
+            
         }
         if (rodType == ChannelType.AUTOMATIC_CONTROLROD) {
             // Those auto control rods do not have that effect, otherwise the
