@@ -30,7 +30,7 @@ import com.hartrusion.rbmksim.ChannelType;
  */
 @SuppressWarnings("UnnecessaryBoxing")
 public class PanelCoreControl extends AbstractPanelWidget {
-    
+
     /**
      * Used to switch the digit display of the setpoint only.
      */
@@ -2101,7 +2101,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     public void updateComponent(PropertyChangeEvent evt) {
         int identifier, x, y;
         ChannelType rodType;
-        
+
         if (evt.getPropertyName().length() == 24) {
             if (evt.getPropertyName().startsWith("Reactor#RodSelection")) {
                 x = Integer.parseInt(evt.getPropertyName().substring(20, 22));
@@ -2122,12 +2122,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
                 return;
             }
         }
-        
+
         switch (evt.getPropertyName()) {
             case "Reactor#ProtectionLock":
                 lightBulbRPSLock.setActive((boolean) evt.getNewValue());
                 break;
-            
+
             case "Reactor#RPSState":
                 // Set the initial position of the switch button, this will be
                 // received when opening the panel.
@@ -2207,14 +2207,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#GlobalControlEnabled":
                 globalControlEnabled = (boolean) evt.getNewValue();
                 lightBulbGlobalEnabled.setActive(globalControlEnabled);
-                
+
                 // Initialize the position of the switch button:
                 if (globalControlEnabled
                         && !jToggleButtonGlobalEnable.isSelected()) {
                     jToggleButtonGlobalEnable.setSelected(true);
                     jToggleButtonGlobalEnable.setText("↑");
                 }
-                
+
                 // clear the setpoint display
                 if (!globalControlEnabled) {
                     jLabelReadingActiveSetpoint.setText("---,-");
@@ -2244,7 +2244,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#LocalControlEnabled":
                 boolean localControlEnabled = (boolean) evt.getNewValue();
                 lightBulbLocalEnabled.setActive(localControlEnabled);
-                
+
                 // Initialize the position of the switch button:
                 if (localControlEnabled
                         && !jToggleButtonLocalEnable.isSelected()) {
@@ -2327,7 +2327,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
                         String.format("%+.5f", newValue));
             //.replaceFirst("^\\+", " "));
             case "Reactor#NeutronRate" -> {
-                 // -2.5..2.5
+                // -2.5..2.5
                 ammeterRate.setChornobylValue(newValue);
                 lightBulbNeutronRate.setActive(newValue >= 2.2);
             }
@@ -2343,6 +2343,10 @@ public class PanelCoreControl extends AbstractPanelWidget {
                     jLabelReadingActiveSetpoint.setText("---,-");
                 }
             }
+            case "Reactor#ORM" ->
+                jLabelReadingORM.setText(
+                        String.format("%03.1f", newValue));
+
         }
         setpointControlNeutronFlux.updateComponent(propertyName, newValue);
         setpointControlGradient.updateComponent(propertyName, newValue);
