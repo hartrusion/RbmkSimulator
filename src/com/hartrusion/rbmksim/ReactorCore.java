@@ -1058,6 +1058,10 @@ public class ReactorCore extends Subsystem implements Runnable {
             rod.initAffection(fuelElements);
         }
 
+        // Initialize the static radial power distribution weights so the core
+        // center generates more power than the edges.
+        FuelElement.initRadialWeights(fuelElements);
+
         // Make the temperature of the downcomers available to all fuel elements
         // by passing the reference to the array to the fuel elements.
         for (FuelElement fuel : fuelElements) {

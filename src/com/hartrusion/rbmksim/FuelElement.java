@@ -33,6 +33,7 @@ import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
 import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalVolumeHandler;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.modeling.phasedfluid.Water;
+import java.util.List;
 
 /**
  * Has an affection which is a value how much this fuel rod is affected by
@@ -77,6 +78,25 @@ public class FuelElement extends ReactorElement {
      * fraction of the power without changing the overall amount.
      */
     private static final double DISTRIBUTED_FLUX = 0.3;
+
+    /**
+     * Weight factor applied to the fuel elements located within
+     * {@link #RADIAL_INNER_RADIUS} of the core center. Inside this radius every
+     * element receives this same (maximum) weight; from the radius outwards the
+     * weight decreases linearly towards the core edge (reaching 1.0 at the
+     * outermost element before normalization). A value of 1.0 disables the
+     * radial peaking and results in a flat radial distribution, larger values
+     * concentrate more power in the center of the core.
+     */
+    private static final double RADIAL_INNER_WEIGHT = 1.6;
+
+    /**
+     * Inner radius (in channel pitch units, i.e. channel numbers) around the
+     * core center within which the radial weight stays constant at
+     * {@link #RADIAL_INNER_WEIGHT}. Outside of it the weight decreases linearly
+     * towards the outermost fuel element.
+     */
+    private static final double RADIAL_INNER_RADIUS = 3.0;
 
     /**
      * Manipulates the time the decay heat goes down so the decay heat will be
@@ -135,6 +155,14 @@ public class FuelElement extends ReactorElement {
      * static variable is used.
      */
     private static double averageAffection;
+
+    /**
+     * Static, geometry based weight that redistributes fission power towards the
+     * core center. Normalized over all fuel elements so its average equals 1.0,
+     * which keeps the overall power unchanged and only reshapes the radial
+     * distribution. Initialized by {@link #initRadialWeights(java.util.List)}.
+     */
+    private double radialWeight = 1.0;
 
     private double xFirstDelay;
 
@@ -489,6 +517,64 @@ public class FuelElement extends ReactorElement {
     }
 
     /**
+     * Euclidean distance of this fuel element to the core center in channel
+     * pitch units.
+     *
+     * @return distance to the core center
+     */
+    private double getDistanceToCenter() {
+        double dx = getX() - ChannelData.CENTER;
+        double dy = getY() - ChannelData.CENTER;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    /**
+     * Computes the raw (not yet normalized) radial weight of this fuel element.
+     * Elements within {@link #RADIAL_INNER_RADIUS} receive
+     * {@link #RADIAL_INNER_WEIGHT}, from there the weight drops linearly to 1.0
+     * at the outermost fuel element.
+     *
+     * @param maxRadius distance of the outermost fuel element to the center
+     * @return raw radial weight
+     */
+    private double computeRawRadialWeight(double maxRadius) {
+        double d = getDistanceToCenter();
+        if (d <= RADIAL_INNER_RADIUS || maxRadius <= RADIAL_INNER_RADIUS) {
+            return RADIAL_INNER_WEIGHT;
+        }
+        if (d >= maxRadius) {
+            return 1.0;
+        }
+        return RADIAL_INNER_WEIGHT - (RADIAL_INNER_WEIGHT - 1.0)
+                * (d - RADIAL_INNER_RADIUS) / (maxRadius - RADIAL_INNER_RADIUS);
+    }
+
+    /**
+     * Initializes the static radial power weights for all fuel elements. The
+     * weights are normalized so their average equals 1.0, which ensures the
+     * overall fission power stays unchanged and the radial profile only
+     * redistributes power towards the core center. Has to be called once after
+     * all fuel elements have been created.
+     *
+     * @param elements list of all fuel elements
+     */
+    public static void initRadialWeights(List<FuelElement> elements) {
+        double maxRadius = 0.0;
+        for (FuelElement f : elements) {
+            maxRadius = Math.max(maxRadius, f.getDistanceToCenter());
+        }
+        double sum = 0.0;
+        for (FuelElement f : elements) {
+            f.radialWeight = f.computeRawRadialWeight(maxRadius);
+            sum += f.radialWeight;
+        }
+        double average = sum / elements.size();
+        for (FuelElement f : elements) {
+            f.radialWeight /= average;
+        }
+    }
+
+    /**
      * Current fission power of this fuel element, given in % in the same unit
      * as the neutron flux and already considering the affection distribution.
      *
@@ -599,8 +685,14 @@ public class FuelElement extends ReactorElement {
         // There are 376 fuel elements in the core. Calculate the flux on this
         // fuel element considering the number of rods and the current 
         // distribution.
+        // In addition to the affection based redistribution, a static radial
+        // weight concentrates power towards the core center. As radialWeight is
+        // normalized to an average of 1.0, the (radialWeight - 1.0) term sums
+        // to zero over all elements and therefore only redistributes power
+        // without changing the overall amount produced by the flux.
         localFlux = (globalFlux * (1.0 - DISTRIBUTED_FLUX)
-                + globalFlux * DISTRIBUTED_FLUX * localAffection) / 376.0;
+                + globalFlux * DISTRIBUTED_FLUX * localAffection
+                + globalFlux * (radialWeight - 1.0)) / 376.0;
 
         dXFirstDelay = (localFlux * P_DECAY - xFirstDelay) / T_DECAY;
 
