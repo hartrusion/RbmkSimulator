@@ -39,7 +39,6 @@ public class ReactorState implements java.io.Serializable {
     private boolean globalControlEnabled;
     private boolean globalControlActive;
     private boolean globalControlTransient;
-    private boolean globalControlTarget;
     private boolean localControlEnabled;
     private boolean localControlActive;
     private double coreTemp;
@@ -110,14 +109,6 @@ public class ReactorState implements java.io.Serializable {
 
     public void setGlobalControlTransient(boolean globalControlTransient) {
         this.globalControlTransient = globalControlTransient;
-    }
-
-    public boolean isGlobalControlTarget() {
-        return globalControlTarget;
-    }
-
-    public void setGlobalControlTarget(boolean globalControlTarget) {
-        this.globalControlTarget = globalControlTarget;
     }
     
     public boolean isLocalControlEnabled() {

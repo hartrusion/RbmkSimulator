@@ -102,7 +102,7 @@ public class ControlRod extends ReactorElement implements Runnable {
      */
     private boolean selected = false;
     private boolean oldSelected = true;
-    
+
     private ControlCommand automatic = ControlCommand.MANUAL_OPERATION;
     private ControlCommand oldAutomatic = null;
 
@@ -120,12 +120,12 @@ public class ControlRod extends ReactorElement implements Runnable {
      * Property Change Event description which describes the selection state.
      */
     private final String selectedProperty;
-    
+
     /**
-     * A control class for generating movement for this control rod. Its input 
+     * A control class for generating movement for this control rod. Its input
      * has to be defined by assigning an input provider to it.
      */
-    private final PIControl controller = new PIControl();
+    private PIControl controller;
 
     public PIControl getController() {
         return controller;
@@ -139,6 +139,13 @@ public class ControlRod extends ReactorElement implements Runnable {
             maxAbsorption = 0.6;
         } else {
             maxAbsorption = 1.0;
+        }
+
+        if (rodType == ChannelType.AUTOMATIC_CONTROLROD
+                || rodType == ChannelType.SHORT_CONTROLROD) {
+            controller = new PIControl();
+            controller.addFollowUpProvider(()
+                    -> swi.getOutput());
         }
 
         // initialize fully inserted
@@ -160,13 +167,13 @@ public class ControlRod extends ReactorElement implements Runnable {
 
     @Override
     public void run() {
-        controller.run();
-        
-        if (isAutomatic()) {
-            swi.setInput(controller.getOutput());
+        if (controller != null) {
+            controller.run();
+            if (isAutomatic()) {
+                swi.setInput(controller.getOutput());
+            }
         }
         swi.run();
-        controller.setFollowUp(swi.getOutput());
         calculateAbsorption();
         calculateDisplacerBoost();
         distributeAffection();
@@ -186,6 +193,10 @@ public class ControlRod extends ReactorElement implements Runnable {
             pcs.firePropertyChange(selectedProperty,
                     oldSelected, selected);
             oldSelected = selected;
+        }
+
+        if (controller != null) {
+            controller.setFollowUp(swi.getOutput());
         }
     }
 
@@ -374,8 +385,15 @@ public class ControlRod extends ReactorElement implements Runnable {
             this.automatic = ControlCommand.AUTOMATIC;
             rodSpeedIndex = 2; // allow fast speed for auto
             swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
+            if (controller != null) {
+                controller.setManualMode(false);
+            }
         } else {
             this.automatic = ControlCommand.MANUAL_OPERATION;
+            if (controller != null) {
+                controller.setManualMode(true);
+            }
+            swi.setStop();
         }
 
     }
@@ -398,11 +416,13 @@ public class ControlRod extends ReactorElement implements Runnable {
         rodSpeedIndex = rodSpeeds.length - 1;
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
     }
-    
+
     @Override
     public void registerSignalListener(PropertyChangeListener signalListener) {
         super.registerSignalListener(signalListener);
-        controller.addPropertyChangeListener(signalListener);
+        if (controller != null) {
+            controller.addPropertyChangeListener(signalListener);
+        }
     }
 
     /**
@@ -417,8 +437,10 @@ public class ControlRod extends ReactorElement implements Runnable {
         rs.setTargetPosition(swi.getInput());
         rs.setSelected(selected);
         rs.setRodSpeedIndex(rodSpeedIndex);
-        rs.setControlInputValue(controller.getInput());
-        rs.setControlOutputValue(controller.getOutput());
+        if (controller != null) {
+            rs.setControlInputValue(controller.getInput());
+            rs.setControlOutputValue(controller.getOutput());
+        }
     }
 
     /**
@@ -436,11 +458,13 @@ public class ControlRod extends ReactorElement implements Runnable {
         oldSelected = !selected;
         rodSpeedIndex = rs.getRodSpeedIndex();
         swi.setMaxRate(rodSpeeds[rodSpeedIndex]);
-        controller.acSetCondition(
-                rs.getControlInputValue(),
-                rs.getControlOutputValue());
-        
-        calculateAbsorption();
+        if (controller != null) {
+            controller.acSetCondition(
+                    rs.getControlInputValue(),
+                    rs.getControlOutputValue());
+            controller.setManualMode(!automatic.equals(ControlCommand.AUTOMATIC));
+        }
+        calculateAbsorption(); // those have to be updated on loading
         calculateDisplacerBoost();
     }
 }

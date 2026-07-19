@@ -54,22 +54,25 @@ public class ReactorCore extends Subsystem implements Runnable {
             ReactorCore.class.getName());
 
     /**
-     * Target neutron flux value to which the reactor should be driven to, this
-     * value is likely to be set only once and that's it. The gradient is more
-     * of a feedback to the user to have a speed for the input that is visible
-     * on the GUI.
+     * Target neutron flux value to which the reactor should be driven to. This
+     * value is displayed with a setpoint widget on the GUI. Its gradient is
+     * only a feedback to the user to have a speed for the input that is visible
+     * on the GUI. It will always keep its value.
      */
     private final Setpoint setpointTargetNeutronFlux;
 
     /**
      * Gradient for the setpointNeutronFlux, the setpointNeutronFlux will run to
-     * the setpointTargetNeutronFlux with the gradient that is set here.
+     * the setpointTargetNeutronFlux with the gradient that is set here. This
+     * setpoint is itself only an element providing the gradient as a value.
      */
     private final Setpoint setpointPowerGradient;
 
     /**
-     * Setpoint value for the control elements, this will ramp up to target and
-     * the controllers have this set as a setpoint value.
+     * Setpoint value for the control elements, this setpoint is used by the
+     * control loop and will use the gradient provided from the powerGradient
+     * setpoint object. It will be cleared when disabling the automatic
+     * regulators.
      */
     private final Setpoint setpointNeutronFlux;
 
@@ -164,15 +167,6 @@ public class ReactorCore extends Subsystem implements Runnable {
     private boolean globalControlTransient = false;
     private boolean oldGlobalControlTransient = true; // previous value
 
-    private boolean globalControlTarget = false;
-    private boolean oldGlobalControlTarget;
-
-    /**
-     * Active while button is pressed.
-     */
-    private boolean globalControlOverride = false;
-    private boolean globalControlOverridePositive = false;
-
     private int selectedAutoRods = 0;
 
     private AlarmState autoRodsPositionAlarmState;
@@ -239,23 +233,18 @@ public class ReactorCore extends Subsystem implements Runnable {
             // after enabling
             globalControlTransient = false;
             globalControlActive = false;
-            globalControlTarget = false;
-            globalControlOverride = false;
         } else {
-            if (globalControlTarget) {
-                setpointNeutronFlux.setInput(
-                        setpointTargetNeutronFlux.getOutput());
-            } else if (!globalControlActive || oldGlobalControlTarget) {
-                // As long as control is off, set setpoint to current flux.
-                // Also in case of global control is switched no longer to 
-                // target, force the setpoint once to run back to the current
-                // value.
+            // On enabling, force the currect setpoint once to the current 
+            // neutron flux value. After that, run to the target setpoint.
+            if (!oldGlobalControlEnabled) {
                 setpointNeutronFlux.forceOutputValue(
                         neutronFluxModel.getYNeutronFlux());
-            }
-
-            // Transient switch: Stops the setpoint integrator.
-            if (globalControlTransient) {
+            } else {
+                setpointNeutronFlux.setInput(
+                        setpointTargetNeutronFlux.getOutput());
+            }          
+            // Transient switch: Stops or continues the setpoint integrator.
+            if (globalControlTransient && globalControlActive) {
                 setpointNeutronFlux.setMaxRate(
                         setpointPowerGradient.getOutput());
             } else {
@@ -322,36 +311,25 @@ public class ReactorCore extends Subsystem implements Runnable {
         }
 
         // Position lights on GUI:
-        if (selectedAutoRods >= 1 && globalControlEnabled) {
-            if (avgPositionActiveAutomatic < 1.4) {
-                autoRodsPositionState = ValveState.OPEN;
-            } else if (avgPositionActiveAutomatic > 6.0) {
-                autoRodsPositionState = ValveState.CLOSED;
-            } else {
-                autoRodsPositionState = ValveState.INTERMEDIATE;
-            }
-        } else {
-            autoRodsPositionState = ValveState.INTERMEDIATE;
-        }
-        // send a fake valve position enumeration for the indicator lights
-        if (oldAutoRodsPositionState != autoRodsPositionState) {
-            controller.propertyChange(new PropertyChangeEvent(
-                    this, "Reactor#AutoRodControl_Pos",
-                    oldAutoRodsPositionState, autoRodsPositionState));
-            oldAutoRodsPositionState = autoRodsPositionState;
-        }
-
-        // Set all global control rods to manual if override is pressed
-        for (ControlRod cRod : controlRods) {
-            if (cRod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD) {
-                cRod.getController().setManualMode(
-                        !globalControlActive && globalControlOverride
-                        || !cRod.isAutomatic());
-            } else if (cRod.getRodType() == ChannelType.SHORT_CONTROLROD) {
-                cRod.getController().setManualMode(!localControlActive
-                        || !cRod.isAutomatic());
-            }
-        }
+        // Todo - replace this somehow with a different thing.
+//        if (selectedAutoRods >= 1 && globalControlEnabled) {
+//            if (avgPositionActiveAutomatic < 1.4) {
+//                autoRodsPositionState = ValveState.OPEN;
+//            } else if (avgPositionActiveAutomatic > 6.0) {
+//                autoRodsPositionState = ValveState.CLOSED;
+//            } else {
+//                autoRodsPositionState = ValveState.INTERMEDIATE;
+//            }
+//        } else {
+//            autoRodsPositionState = ValveState.INTERMEDIATE;
+//        }
+//        // send a fake valve position enumeration for the indicator lights
+//        if (oldAutoRodsPositionState != autoRodsPositionState) {
+//            controller.propertyChange(new PropertyChangeEvent(
+//                    this, "Reactor#AutoRodControl_Pos",
+//                    oldAutoRodsPositionState, autoRodsPositionState));
+//            oldAutoRodsPositionState = autoRodsPositionState;
+//        } 
 
         // Reinit array
         for (int i = 0; i < 4; i++) {
@@ -384,26 +362,15 @@ public class ReactorCore extends Subsystem implements Runnable {
             f.prepareAffectionCalculation();
         }
 
-        // Write all controller outputs to the rods if they're in auto mode
-        // and finally call run for all rods to update their positions (this is
-        // the actual movement).
+        // Calling run at the end of this loop will make the control rods 
+        // controller "grab" the values by the defined lambda expression from
+        // the init part.
+        // The Rods are also disabled here if the control loop gets disabled.
+        // The enable is handled in the retrieval of the GUI commands below.
+        // Note that "enabling" does not mean active.
         for (ControlRod rod : controlRods) {
             // control of selected rods by the global control
-            if (globalControlActive
-                    && rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
-                    && rod.isAutomatic()) {
-                if (globalControlOverride) {
-                    // The press of the override button will move the rods
-                    // with current speed while this button is held down, the 
-                    // controller will be in followup mode and set to the 
-                    // position output.
-                    if (globalControlOverridePositive) {
-                        rod.getSwi().setInput(0);
-                    } else {
-                        rod.getSwi().setInput(7.4);
-                    }
-                }
-            } else if (!globalControlEnabled
+            if (!globalControlEnabled
                     && rod.getRodType() == ChannelType.AUTOMATIC_CONTROLROD
                     && rod.isAutomatic()) {
                 // disable automatic mode selection for all rods when
@@ -576,12 +543,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                     oldGlobalControlTransient, globalControlTransient));
             oldGlobalControlTransient = globalControlTransient;
         }
-        if (globalControlTarget != oldGlobalControlTarget) {
-            controller.propertyChange(new PropertyChangeEvent(
-                    this, "Reactor#GlobalControlTarget",
-                    oldGlobalControlTarget, globalControlTarget));
-            oldGlobalControlTarget = globalControlTarget;
-        }
 
         // local control
         if (localControlEnabled != oldLocalControlEnabled) {
@@ -634,8 +595,6 @@ public class ReactorCore extends Subsystem implements Runnable {
                 voidingReactivity);
         outputValues.setParameterValue("Reactor#RodAbsorption",
                 rodAbsorption);
-
-        oldGlobalControlTarget = globalControlTarget;
     }
 
     /**
@@ -784,28 +743,6 @@ public class ReactorCore extends Subsystem implements Runnable {
             } else {
                 LOGGER.log(Level.INFO, "Command refused (Global Control not "
                         + "enabled.");
-            }
-            return;
-        }
-        if (ac.getPropertyName().equals("Reactor#GlobalControlTarget")) {
-            // do not accept enabling without enabled system, so its sure it 
-            // never starts with transient.
-            if (globalControlEnabled) {
-                globalControlTarget = (boolean) ac.getValue();
-                LOGGER.log(Level.INFO, "Global Control Target: "
-                        + globalControlTarget);
-            } else {
-                LOGGER.log(Level.INFO, "Command refused (Global Control not "
-                        + "enabled.");
-            }
-            return;
-        }
-        if (ac.getPropertyName().equals("Reactor#AutoRodControl")) {
-            // do not accept enabling without enabled system, so its sure it 
-            // never starts with transient.
-            if (globalControlEnabled && globalControlActive) {
-                globalControlOverride = 0 != (int) ac.getValue();
-                globalControlOverridePositive = 1 == (int) ac.getValue();
             }
             return;
         }
@@ -1028,8 +965,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                 cRod.getController().addInputProvider(new DoubleSupplier() {
                     @Override
                     public double getAsDouble() {
-                        if (!globalControlActive || !globalControlTransient) {
-                            // just hold the output of the controller.
+                        if (!globalControlActive) {
+                            // just hold the output of the controller. The rod
+                            // is still in auto mode and manual override is 
+                            // not possible.
                             return 0.0;
                         }
                         return - // Limit negative neutron rate
@@ -1129,7 +1068,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         downcomerTemperature[1] = 260;
 
         setpointPowerGradient.setUpperLimit(0.35);
-        setpointPowerGradient.setMaxRate(0.1);
+        setpointPowerGradient.setMaxRate(0.06);
         setpointPowerGradient.forceOutputValue(0.2); // initial value
 
         runner.submit(setpointPowerGradient);
@@ -1376,7 +1315,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         s.setGlobalControlEnabled(globalControlEnabled);
         s.setGlobalControlActive(globalControlActive);
         s.setGlobalControlTransient(globalControlTransient);
-        s.setGlobalControlTarget(globalControlTarget);
         s.setLocalControlEnabled(localControlEnabled);
         s.setLocalControlActive(localControlActive);
         s.setCoreTemp(coreTemp);
@@ -1422,7 +1360,6 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControlEnabled = rs.isGlobalControlEnabled();
         globalControlActive = rs.isGlobalControlActive();
         globalControlTransient = rs.isGlobalControlTransient();
-        globalControlTarget = rs.isGlobalControlTarget();
         localControlEnabled = rs.isLocalControlEnabled();
         localControlActive = rs.isLocalControlActive();
         // those values get assigned from previous cycle from thermal layout.
@@ -1443,7 +1380,6 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // sot old-variables to trigger all those property change events.
         oldGlobalControlTransient = !globalControlTransient;
-        oldGlobalControlTarget = !globalControlTarget;
         oldGlobalControlActive = !globalControlActive;
         oldGlobalControlEnabled = !globalControlEnabled;
         oldLocalControlActive = !localControlActive;
