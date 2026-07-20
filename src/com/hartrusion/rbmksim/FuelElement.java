@@ -88,7 +88,7 @@ public class FuelElement extends ReactorElement {
      * radial peaking and results in a flat radial distribution, larger values
      * concentrate more power in the center of the core.
      */
-    private static final double RADIAL_INNER_WEIGHT = 1.6;
+    private static final double RADIAL_INNER_WEIGHT = 1.2;
 
     /**
      * Inner radius (in channel pitch units, i.e. channel numbers) around the
