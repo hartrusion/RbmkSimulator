@@ -1,17 +1,27 @@
 # Contributing
 Thank you for going that far reading this and your will to assist in the 
 project. I try to use the [Issue](https://github.com/hartrusion/RbmkSimulator/issues) 
-section as a main development roadmap and overview. Everything you find there is 
-likely to be implemented sooner or later.
+section to track the projects issues in a limited scope, but besides that, 
+there's no public development milestone thingy.
+
+## A few words on interaction and working together
+Open Source means open source code. While I enjoy the company of nice and 
+friendly people and really do like to interact with such, I won't spend my 
+limited time with toxic people which I can't stand. This thing is already a few 
+hundred hours of unpaid work and I do not own anything to anyone. There's a 
+[Code of Conduct](./CODE_OF_CONDUCT.md) that states things that are very 
+important to me.
 
 ## Non-coding contributions
-There are things you can contribute to the project:
+The far best thing you can contribute to the project is using it and report back
+anything that does not work for you or things you do not understand. This helps 
+me shape the simulator towards a better end-user experience.
 
 * Testing: Besides known bugs listed in the issues section, the simulation 
   should be stable in all conditions. Reports on how to crash the simulation 
-  with a safe file attached are very welcome
+  with a safe file attached are very welcome!
 * Operators feedback: If you encounter things that never ever under no 
-  circumstances would be operated like this, please also report them
+  circumstances would be operated like this, please report them.
 * Suggestions and ideas: If you have some ideas on how to use the project but 
   you find some things missing, feel free to open an issue with a feature 
   request.

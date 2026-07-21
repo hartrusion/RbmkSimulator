@@ -4,11 +4,14 @@ This is a simulator app for the Chornobyl RBMK Reactor. Heavily inspired by the
 from about 30 years ago but with a lot more detailed systems and a more accurate 
 representation of the chernobyl plant.
 
-This simulation focuses on the thermo hydraulic systems and the general 
+This simulation focuses on the thermo-hydraulic systems and the general 
 operation of power plants. It has no accurate neutron simulation and has many 
-systems simplified to allow running even on low end hardware.
+systems simplified to allow running even on low end hardware. The general 
+approach is to show the connection between various systems, not an exact replica 
+of the plant itself. This is about generating steam, condensing it and doing a 
+turbine warmup with sync and ramp up to full power.
 
-![Example](docs/images/screenshot-preview5.png)
+![Example](docs/images/screenshot-preview6.png)
 
 For details on the usage and some rudimentary documentation, refer to the 
 [Project Page](https://hartrusion.com/en/rbmk-simulator/) for more details. The 
