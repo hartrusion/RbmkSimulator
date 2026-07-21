@@ -196,10 +196,10 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGradient = new javax.swing.JLabel();
         setpointControlGradient = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
         jLabelReadingMaxP = new javax.swing.JLabel();
-        jLabelReadingVoidR = new javax.swing.JLabel();
+        jLabelReadingMCPR = new javax.swing.JLabel();
         jLabelReadingORM = new javax.swing.JLabel();
         jLabelCaptionORM = new javax.swing.JLabel();
-        jLabelCaptionVoidR = new javax.swing.JLabel();
+        jLabelCaptionMCPR = new javax.swing.JLabel();
         jLabelCaptionMaxP = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(574, 340));
@@ -1022,7 +1022,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionLocalControl.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalControl.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionLocalControl.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionLocalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 278, 106, 14));
+        add(jLabelCaptionLocalControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 278, 102, 14));
 
         setpointControlNeutronFlux.setComponent("Reactor#TargetNeutronFlux");
         add(setpointControlNeutronFlux, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 54, -1, -1));
@@ -1520,7 +1520,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingMaxP.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingMaxP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingMaxP.setText("___,_");
-        jLabelReadingMaxP.setToolTipText("");
+        jLabelReadingMaxP.setToolTipText("Highest thermal power in a single fuel channel");
         jLabelReadingMaxP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabelReadingMaxP.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingMaxP.setMinimumSize(new java.awt.Dimension(52, 18));
@@ -1528,25 +1528,25 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingMaxP.setPreferredSize(new java.awt.Dimension(52, 18));
         add(jLabelReadingMaxP, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 220, 48, 18));
 
-        jLabelReadingVoidR.setBackground(new java.awt.Color(51, 51, 51));
-        jLabelReadingVoidR.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingVoidR.setForeground(new java.awt.Color(0, 255, 153));
-        jLabelReadingVoidR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelReadingVoidR.setText("___,_");
-        jLabelReadingVoidR.setToolTipText("");
-        jLabelReadingVoidR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabelReadingVoidR.setMaximumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingVoidR.setMinimumSize(new java.awt.Dimension(52, 18));
-        jLabelReadingVoidR.setOpaque(true);
-        jLabelReadingVoidR.setPreferredSize(new java.awt.Dimension(52, 18));
-        add(jLabelReadingVoidR, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 244, 48, 18));
+        jLabelReadingMCPR.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingMCPR.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelReadingMCPR.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingMCPR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReadingMCPR.setText("___,_");
+        jLabelReadingMCPR.setToolTipText("Minimum Critical Power Ratio");
+        jLabelReadingMCPR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelReadingMCPR.setMaximumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingMCPR.setMinimumSize(new java.awt.Dimension(52, 18));
+        jLabelReadingMCPR.setOpaque(true);
+        jLabelReadingMCPR.setPreferredSize(new java.awt.Dimension(52, 18));
+        add(jLabelReadingMCPR, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 244, 48, 18));
 
         jLabelReadingORM.setBackground(new java.awt.Color(51, 51, 51));
         jLabelReadingORM.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         jLabelReadingORM.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingORM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingORM.setText("___,_");
-        jLabelReadingORM.setToolTipText("");
+        jLabelReadingORM.setToolTipText("Operational Reactivity Margin as number of equal control rods");
         jLabelReadingORM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabelReadingORM.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingORM.setMinimumSize(new java.awt.Dimension(52, 18));
@@ -1557,22 +1557,25 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionORM.setFont(jLabelCaptionORM.getFont().deriveFont(jLabelCaptionORM.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionORM.getFont().getSize()-2));
         jLabelCaptionORM.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelCaptionORM.setText("ORM");
+        jLabelCaptionORM.setToolTipText("Operational Reactivity Margin as number of equal control rods");
         jLabelCaptionORM.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionORM.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionORM.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionORM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 198, 60, 14));
 
-        jLabelCaptionVoidR.setFont(jLabelCaptionVoidR.getFont().deriveFont(jLabelCaptionVoidR.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionVoidR.getFont().getSize()-2));
-        jLabelCaptionVoidR.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionVoidR.setText("Void,-R");
-        jLabelCaptionVoidR.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionVoidR.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionVoidR.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionVoidR, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 246, 60, 14));
+        jLabelCaptionMCPR.setFont(jLabelCaptionMCPR.getFont().deriveFont(jLabelCaptionMCPR.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionMCPR.getFont().getSize()-2));
+        jLabelCaptionMCPR.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelCaptionMCPR.setText("Min. CPR");
+        jLabelCaptionMCPR.setToolTipText("Minimum Critical Power Ratio");
+        jLabelCaptionMCPR.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionMCPR.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionMCPR.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionMCPR, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 246, 60, 14));
 
         jLabelCaptionMaxP.setFont(jLabelCaptionMaxP.getFont().deriveFont(jLabelCaptionMaxP.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionMaxP.getFont().getSize()-2));
         jLabelCaptionMaxP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCaptionMaxP.setText("Max. P");
+        jLabelCaptionMaxP.setText("Max. P_th");
+        jLabelCaptionMaxP.setToolTipText("Highest thermal power in a single fuel channel");
         jLabelCaptionMaxP.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionMaxP.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionMaxP.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -2027,6 +2030,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionLocalControl;
     private javax.swing.JLabel jLabelCaptionLocalEnable;
     private javax.swing.JLabel jLabelCaptionLocalRest;
+    private javax.swing.JLabel jLabelCaptionMCPR;
     private javax.swing.JLabel jLabelCaptionMaxP;
     private javax.swing.JLabel jLabelCaptionORM;
     private javax.swing.JLabel jLabelCaptionRPS;
@@ -2047,15 +2051,14 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerCorrection;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
-    private javax.swing.JLabel jLabelCaptionVoidR;
     private javax.swing.JLabel jLabelCaptionXe;
     private javax.swing.JLabel jLabelReadingActiveSetpoint;
     private javax.swing.JLabel jLabelReadingFlux;
+    private javax.swing.JLabel jLabelReadingMCPR;
     private javax.swing.JLabel jLabelReadingMaxP;
     private javax.swing.JLabel jLabelReadingORM;
     private javax.swing.JLabel jLabelReadingReactivity;
     private javax.swing.JLabel jLabelReadingThermalPower;
-    private javax.swing.JLabel jLabelReadingVoidR;
     private javax.swing.JLabel jLabelReadingXe;
     private javax.swing.JLabel jLabelRodControl;
     private javax.swing.JPanel jPanel4;
@@ -2346,6 +2349,11 @@ public class PanelCoreControl extends AbstractPanelWidget {
             case "Reactor#ORM" ->
                 jLabelReadingORM.setText(
                         String.format("%03.1f", newValue));
+            case "Reactor#MinimumCriticalPowerRatio" ->
+                jLabelReadingMCPR.setText(
+                            String.format("%3.2f", newValue));
+            case "Reactor#MaximumFuelThermalPower" -> 
+                jLabelReadingMaxP.setText(String.format("%05.2f", newValue));
 
         }
         setpointControlNeutronFlux.updateComponent(propertyName, newValue);

@@ -77,7 +77,7 @@ public class FuelElement extends ReactorElement {
      * the affection. The affection is therefore only used to redistribute this
      * fraction of the power without changing the overall amount.
      */
-    private static final double DISTRIBUTED_FLUX = 0.3;
+    private static final double DISTRIBUTED_FLUX = 0.15;
 
     /**
      * Weight factor applied to the fuel elements located within
@@ -88,7 +88,7 @@ public class FuelElement extends ReactorElement {
      * radial peaking and results in a flat radial distribution, larger values
      * concentrate more power in the center of the core.
      */
-    private static final double RADIAL_INNER_WEIGHT = 1.2;
+    private static final double RADIAL_INNER_WEIGHT = 1.4;
 
     /**
      * Inner radius (in channel pitch units, i.e. channel numbers) around the
@@ -157,9 +157,9 @@ public class FuelElement extends ReactorElement {
     private static double averageAffection;
 
     /**
-     * Static, geometry based weight that redistributes fission power towards the
-     * core center. Normalized over all fuel elements so its average equals 1.0,
-     * which keeps the overall power unchanged and only reshapes the radial
+     * Static, geometry based weight that redistributes fission power towards
+     * the core center. Normalized over all fuel elements so its average equals
+     * 1.0, which keeps the overall power unchanged and only reshapes the radial
      * distribution. Initialized by {@link #initRadialWeights(java.util.List)}.
      */
     private double radialWeight = 1.0;
@@ -188,6 +188,8 @@ public class FuelElement extends ReactorElement {
     private double voiding;
 
     private double flow;
+
+    private double criticalPowerRatio;
 
     private double thermalLiftPressure;
 
@@ -236,8 +238,9 @@ public class FuelElement extends ReactorElement {
     private final String propertyTemperature;
     private final String propertyFlow;
     private final String propertyVoiding;
-    private final String propertyLocalAffection;
+    // private final String propertyLocalAffection;
     private final String propertyFissionPower;
+    private final String propertyCpr;
 
     /**
      * Reference to the array that holds the temperature of the downcomers which
@@ -256,9 +259,9 @@ public class FuelElement extends ReactorElement {
         propertyTemperature = "Fuel" + (100 * x + y) + "#Temperature";
         propertyFlow = "Fuel" + (100 * x + y) + "#Flow";
         propertyVoiding = "Fuel" + (100 * x + y) + "#Voiding";
-        propertyLocalAffection = "Fuel" + (100 * x + y) + "#LocalAffection";
+        // propertyLocalAffection = "Fuel" + (100 * x + y) + "#LocalAffection";
         propertyFissionPower = "Fuel" + (100 * x + y) + "#FissionPower";
-        //propertyFlow = "Fuel" + x + "-" + y + "#Flow";
+        propertyCpr = "Fuel" + x + "-" + y + "#CriticalPowerRatio";
 
         // Assign loop by given coordinates.
         loop = ChannelData.getLoop(x, y);
@@ -601,12 +604,9 @@ public class FuelElement extends ReactorElement {
         // only as they are not available in such a detail in the real plant.
         outputValues.setParameterValue(
                 propertyTemperature, thermalCapacityNode.getEffort() - 273.15);
-        outputValues.setParameterValue(
-                propertyFlow, flow);
-        outputValues.setParameterValue(
-                propertyFissionPower, fissionPower);
-        outputValues.setParameterValue(
-                propertyVoiding, voiding);
+        outputValues.setParameterValue(propertyFlow, flow);
+        outputValues.setParameterValue(propertyFissionPower, fissionPower);
+        outputValues.setParameterValue(propertyVoiding, voiding);
 
         // Limit the thermal loop to always have a minimum flow and not exceed 
         // a certain limit - due to the nature of the model it is otherwise 
@@ -631,6 +631,38 @@ public class FuelElement extends ReactorElement {
         } else {
             channelLeak.setOpenConnection();
         }
+
+        // Calculate the Critical Power Ratio - this is Skala code
+        // K4N0000 according to Choronobyl Family. This describes a factor of
+        // thermal power and a power that would lead to dryout.
+        // K = flow * (deltaH_subcooling + X_crit * r) / Q_thermalPower
+        // With X_crit = 0.25 and r = 2100000 (Water-Model)
+        if (thermalFlowSource.getFlow() > localIdlePower) {
+            double deltaT_subcooling
+                    = (Water.INSTANCE.getSaturationTemperature(evapToDrumNode.getEffort())
+                    - ((HeatNode) flowResistance.getNode(1)).getTemperature());
+            double deltaH_subcooling = deltaT_subcooling * Water.INSTANCE.getSpecificHeatCapacity();
+
+            criticalPowerRatio = Math.min(-evapToDrumNode.getFlow(evaporator)
+                    * (deltaH_subcooling + 0.25 * Water.INSTANCE.getVaporizationHeatEnergy())
+                    / thermalFlowSource.getFlow(), 9.990);
+        } else {
+            criticalPowerRatio = 9.990;
+        }
+
+        // Send this also
+        outputValues.setParameterValue(propertyCpr, criticalPowerRatio);
+    }
+
+    /**
+     * Minimum Critical Power Ratio (K4N0000) of this fuel Channel. This is a
+     * value that describes the ratio of maximum allowed power before dry buling
+     * and the current power. It needs to stay above 1.0
+     *
+     * @return
+     */
+    public double getCriticalPowerRatio() {
+        return criticalPowerRatio;
     }
 
     /**

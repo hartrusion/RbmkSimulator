@@ -93,9 +93,9 @@ public class ReactorCore extends Subsystem implements Runnable {
     private double avgRodPosition = 7.3;
 
     private double rodAbsorption = 100.0;
-    
+
     /**
-     * Operation Reactivity margin, calculated from rod absorption without 
+     * Operation Reactivity margin, calculated from rod absorption without
      * considering the rod tip effect.
      */
     private double orm;
@@ -248,7 +248,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             } else {
                 setpointNeutronFlux.setInput(
                         setpointTargetNeutronFlux.getOutput());
-            }          
+            }
             // Transient switch: Stops or continues the setpoint integrator.
             if (globalControlTransient && globalControlActive) {
                 setpointNeutronFlux.setMaxRate(
@@ -336,7 +336,6 @@ public class ReactorCore extends Subsystem implements Runnable {
 //                    oldAutoRodsPositionState, autoRodsPositionState));
 //            oldAutoRodsPositionState = autoRodsPositionState;
 //        } 
-
         // Reinit array
         for (int i = 0; i < 4; i++) {
             localAffections[i] = 0.0;
@@ -422,7 +421,7 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Generate a 0..100 % value from total rod absorption first
         rodAbsorption = absorption / maxAbsorption * 100;
-        
+
         // Make a ORM value out of this percentage value before the displacer
         // boost is added. Scale with the number of control rods (37)
         orm = ormAbsorption / maxAbsorption * 37;
@@ -625,12 +624,22 @@ public class ReactorCore extends Subsystem implements Runnable {
         double avgTemperature = 0.0;
         double loop1Flow = 0.0;
         double loop2Flow = 0.0;
+        double minCpr = 9.990;
+        double maxPth = 0.0;
 
         for (FuelElement f : fuelElements) {
             f.runProcessResults();
 
             avgVoiding += f.getSteamVoiding();
             avgTemperature += f.getFuelTemperature();
+
+            // Minimum on all channels
+            if (f.getCriticalPowerRatio() < minCpr) {
+                minCpr = f.getCriticalPowerRatio();
+            }
+            if (f.getFissionPowerForDisplay() > maxPth) {
+                maxPth = f.getFissionPowerForDisplay();
+            }
 
             switch (f.getLoop()) {
                 case 1 ->
@@ -650,6 +659,11 @@ public class ReactorCore extends Subsystem implements Runnable {
         outputValues.setParameterValue("Loop2#ReactorOutFlow",
                 loop2Flow);
 
+        outputValues.setParameterValue("Reactor#MinimumCriticalPowerRatio",
+                minCpr);
+
+        outputValues.setParameterValue("Reactor#MaximumFuelThermalPower",
+                maxPth);
     }
 
     /**
