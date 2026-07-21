@@ -300,8 +300,8 @@ public class PanelMCP extends AbstractPanelWidget
         add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 4, 52, 14));
 
         chornobylGaugeLoop1Cooldown.setChornobylMaximum(5.0F);
-        chornobylGaugeLoop1Cooldown.setChornobylMinimum(-30.0F);
-        chornobylGaugeLoop1Cooldown.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
+        chornobylGaugeLoop1Cooldown.setChornobylMinimum(-15.0F);
+        chornobylGaugeLoop1Cooldown.setChornobylTicks(new float[] {-15.0f, -10.0f, -5.0f, 0.0f});
         chornobylGaugeLoop1Cooldown.setChornobylUnitText("K");
         chornobylGaugeLoop1Cooldown.setChornobylValue(-10.0F);
         add(chornobylGaugeLoop1Cooldown, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 124, -1, -1));
@@ -311,8 +311,8 @@ public class PanelMCP extends AbstractPanelWidget
         add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 124, 52, 14));
 
         chornobylGaugeLoop2Cooldown.setChornobylMaximum(5.0F);
-        chornobylGaugeLoop2Cooldown.setChornobylMinimum(-30.0F);
-        chornobylGaugeLoop2Cooldown.setChornobylTicks(new float[] {-30.0f, -20.0f, -10.0f, 0.0f});
+        chornobylGaugeLoop2Cooldown.setChornobylMinimum(-15.0F);
+        chornobylGaugeLoop2Cooldown.setChornobylTicks(new float[] {-15.0f, -10.0f, -5.0f, 0.0f});
         chornobylGaugeLoop2Cooldown.setChornobylUnitText("K");
         chornobylGaugeLoop2Cooldown.setChornobylValue(-10.0F);
         add(chornobylGaugeLoop2Cooldown, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 124, -1, -1));
