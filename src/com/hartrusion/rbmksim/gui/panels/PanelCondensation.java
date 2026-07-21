@@ -550,9 +550,9 @@ public class PanelCondensation extends AbstractPanelWidget {
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 16, 36, 14));
 
         chornobylGaugeCondensateFlow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        chornobylGaugeCondensateFlow.setChornobylMaximum(4000.0F);
+        chornobylGaugeCondensateFlow.setChornobylMaximum(1100.0F);
         chornobylGaugeCondensateFlow.setChornobylMinimum(0.0F);
-        chornobylGaugeCondensateFlow.setChornobylTicks(new float[] {0.0f, 2000.0f, 3500.0f});
+        chornobylGaugeCondensateFlow.setChornobylTicks(new float[] {0.0f, 200.0f, 600.0f, 1000.0f});
         chornobylGaugeCondensateFlow.setChornobylUnitText("kg/s");
         add(chornobylGaugeCondensateFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 4, -1, -1));
 
@@ -1186,6 +1186,8 @@ public class PanelCondensation extends AbstractPanelWidget {
                 chornobylGaugeHotwellLevel.setChornobylValue((float) newValue);
             case "Condenser#Vacuum" ->
                 chornobylGaugeVacuum.setChornobylValue((float) newValue);
+             case "EjectorMain#FeedwaterFlow" ->
+                chornobylGaugeCondensateFlow.setChornobylValue((float) newValue);
         }
         controlLoopHotwellFill.updateComponent(propertyName, newValue);
         controlLoopHotwellDrain.updateComponent(propertyName, newValue);
