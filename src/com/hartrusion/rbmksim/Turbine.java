@@ -403,9 +403,9 @@ public class Turbine extends Subsystem implements Runnable {
                 syncAngle = 0.0;
             }
 
-            // auto turn off turning gear on reaching 100 1/min - also place
-            // a condition here to not allow it when there is no lube oil
-            if (tVel >= 105 || oilPressure.getEffort() < 1.5e5) {
+            // Turning gear requires Lube oil and it can't be engaged when the
+            // turbine is already running
+            if (tVel >= 25 || oilPressure.getEffort() < 1.5e5) {
                 turningGearState = 0;
             } else if (turningGearState == 0 && tVel < 50) {
                 // auto-ready on low rpm
@@ -939,6 +939,10 @@ public class Turbine extends Subsystem implements Runnable {
             if (turbineVelocity.getEffort() > 500) {
                 return false; // turbine needs to spin down first
             }
+        }
+        
+        if (turningGearState == 2) {
+            return false; // turning gear must be disengaged
         }
         return true;
     }
