@@ -1874,7 +1874,12 @@ public class ControlPanel extends javax.swing.JFrame implements
         for (InternalFrameMnemonic mf : mnemonics) {
             mf.updateComponent(evt);
         }
-
+        if (coreActivity1 != null) {
+            coreActivity1.updateComponent(evt);
+        }
+        if (coreActivity2 != null) {
+            coreActivity2.updateComponent(evt);
+        }
         if (rodPositions != null) {
             rodPositions.updateComponent(evt);
         }
@@ -1902,13 +1907,11 @@ public class ControlPanel extends javax.swing.JFrame implements
             return;
         }
         
-        if (coreActivity1 != null && propertyName.equals("CoreIndicator#1")) {
-            coreActivity1.updateDisplay((CoreStatusDisplay) newValue);
-            return;
+        if (coreActivity1 != null) {
+            coreActivity1.updateComponent(propertyName, newValue);
         }
-        if (coreActivity2 != null && propertyName.equals("CoreIndicator#2")) {
-            coreActivity2.updateDisplay((CoreStatusDisplay) newValue);
-            return;
+        if (coreActivity2 != null) {
+            coreActivity2.updateComponent(propertyName, newValue);
         }
 
         for (InternalFramePanel pf : panels) {
@@ -1929,6 +1932,12 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         if (rodPositions != null) {
             rodPositions.updateComponent(propertyName, newValue);
+        }
+        if (coreActivity1 != null) {
+            coreActivity1.updateComponent(propertyName, newValue);
+        }
+        if (coreActivity2 != null) {
+            coreActivity2.updateComponent(propertyName, newValue);
         }
         if (frameDebugTemperature != null) {
             frameDebugTemperature.updateComponent(propertyName, newValue);

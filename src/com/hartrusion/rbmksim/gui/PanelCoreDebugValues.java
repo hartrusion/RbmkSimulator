@@ -31,7 +31,7 @@ import javax.swing.JPanel;
 
 /**
  * Debug-only display in the same style as {@link PanelCoreActivity}, but instead
- * of visualizing a {@link com.hartrusion.rbmksim.CoreIndicator}, it parses
+ * of visualizing data with boolean values (lights) it parses
  * incoming parameters such as {@code "Fuel3237#Temperature"} and writes the
  * formatted double value onto the label that corresponds to the reactor
  * coordinate (in this example the tile formerly labeled {@code "32-37"}).

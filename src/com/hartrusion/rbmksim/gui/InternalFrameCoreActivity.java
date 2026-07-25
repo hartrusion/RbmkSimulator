@@ -16,15 +16,16 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.rbmksim.CoreIndicator;
-import com.hartrusion.rbmksim.CoreStatusDisplay;
+import com.hartrusion.mvc.UpdateReceiver;
+import java.beans.PropertyChangeEvent;
 
 /**
  * Holds the core activity display.
  * 
  * @author Viktor Alexander Hartung
  */
-public class InternalFrameCoreActivity extends javax.swing.JInternalFrame {
+public class InternalFrameCoreActivity extends javax.swing.JInternalFrame 
+        implements UpdateReceiver {
 
     /**
      * Creates new form InternalFrameCoreActivity
@@ -33,9 +34,6 @@ public class InternalFrameCoreActivity extends javax.swing.JInternalFrame {
         initComponents();
     }
     
-    public void updateDisplay(CoreStatusDisplay source) {
-        panelCoreActivity1.updateDisplay(source);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,4 +60,24 @@ public class InternalFrameCoreActivity extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.PanelCoreActivity panelCoreActivity1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+        panelCoreActivity1.updateComponent(evt);
+    }
+
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+        panelCoreActivity1.updateComponent(propertyName, newValue);
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        panelCoreActivity1.updateComponent(propertyName, newValue);
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+        panelCoreActivity1.updateComponent(propertyName, newValue);
+    }
 }

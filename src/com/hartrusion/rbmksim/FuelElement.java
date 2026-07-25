@@ -238,7 +238,7 @@ public class FuelElement extends ReactorElement {
     private final String propertyTemperature;
     private final String propertyFlow;
     private final String propertyVoiding;
-    // private final String propertyLocalAffection;
+    private final String propertyAffectionValue;
     private final String propertyFissionPower;
     private final String propertyCpr;
 
@@ -259,7 +259,7 @@ public class FuelElement extends ReactorElement {
         propertyTemperature = "Fuel" + (100 * x + y) + "#Temperature";
         propertyFlow = "Fuel" + (100 * x + y) + "#Flow";
         propertyVoiding = "Fuel" + (100 * x + y) + "#Voiding";
-        // propertyLocalAffection = "Fuel" + (100 * x + y) + "#LocalAffection";
+        propertyAffectionValue = "Fuel" + (100 * x + y) + "#Affection";
         propertyFissionPower = "Fuel" + (100 * x + y) + "#FissionPower";
         propertyCpr = "Fuel" + x + "-" + y + "#CriticalPowerRatio";
 
@@ -456,6 +456,8 @@ public class FuelElement extends ReactorElement {
      */
     public void finalizeAffection() {
         affection = sumOfAffections / maxSumOfAffections;
+        // Send as soon as calculation is done
+        outputValues.setParameterValue(propertyAffectionValue, affection);
     }
 
     /**

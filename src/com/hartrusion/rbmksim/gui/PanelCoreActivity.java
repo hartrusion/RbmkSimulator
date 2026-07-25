@@ -16,13 +16,13 @@
  */
 package com.hartrusion.rbmksim.gui;
 
+import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.rbmksim.ChannelData;
 import com.hartrusion.rbmksim.ChannelType;
-import com.hartrusion.rbmksim.CoreIndicator;
-import com.hartrusion.rbmksim.CoreStatusDisplay;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.beans.PropertyChangeEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,10 +36,12 @@ import javax.swing.JPanel;
  * Coordinate system: idx (Y) runs from bottom (20) to top (42), jdx (X) runs
  * from left (20) to right (42). On screen, idx=42 is at the top (gridy=0) and
  * idx=20 is at the bottom (gridy=22).
+ * <p>
+ * This was generated with some LLM help from Claude
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelCoreActivity extends JPanel {
+public class PanelCoreActivity extends JPanel implements UpdateReceiver {
 
     private static final Color FUEL_OFF = new Color(128, 128, 128);
     private static final Color FUEL_ON = new Color(255, 255, 255);
@@ -47,6 +49,19 @@ public class PanelCoreActivity extends JPanel {
     private static final Color MANROD_ON = new Color(255, 255, 0);
     private static final Color AUTOROD_OFF = new Color(0, 0, 128);
     private static final Color AUTOROD_ON = new Color(0, 0, 255);
+    
+    private String prefix = "Fuel";
+    
+    /**
+     * The parameter suffix this panel listens for, e.g. {@code "Temperature"}.
+     */
+    private String suffix = "Affection";
+    
+    /**
+     * The full suffix token a property name must end with, e.g.
+     * {@code "#Temperature"}. Kept in sync with {@link #suffix}.
+     */
+    private String suffixToken = "#" + suffix;
 
     /**
      * Stores references to the JLabel for each grid position. Index [row][col]
@@ -167,35 +182,69 @@ public class PanelCoreActivity extends JPanel {
     }
     
     /**
-     * Updates the panel from the given {@link CoreIndicator}. Only repaints
-     * labels whose highlight state has actually changed.
+     * Parses a fuel parameter name of the form {@code "Fuel<coord>#<suffix>"}
+     * and writes the formatted value to the matching label. Property names that
+     * do not start with {@code "Fuel"} or that do not carry the configured
+     * suffix are ignored.
      *
-     * @param status the CoreStatusDisplay providing highlight data
+     * @param propertyName the full parameter name, e.g. {@code "Fuel3237#Temperature"}
+     * @param newValue the value to display
      */
-    public void updateDisplay(CoreStatusDisplay status) {
-        for (int idx = ChannelData.MIN_NUMBER;
-                idx <= ChannelData.MAX_NUMBER; idx++) {
-            for (int jdx = ChannelData.MIN_NUMBER;
-                    jdx <= ChannelData.MAX_NUMBER; jdx++) {
+    private void handleFuelValue(String propertyName, double newValue) {
+        if (propertyName == null || !propertyName.startsWith(prefix)) {
+            return;
+        }
+        if (!propertyName.endsWith(suffixToken)) {
+            return;
+        }
 
-                ChannelType type = ChannelData.getChannelType(idx, jdx);
-                if (type == ChannelType.VOID) {
-                    continue;
+        // The coordinate number is everything between "Fuel" and "#suffix".
+        String coord = propertyName.substring(
+                prefix.length(),
+                propertyName.length() - suffixToken.length());
+
+        int encoded;
+        try {
+            encoded = Integer.parseInt(coord);
+        } catch (NumberFormatException ex) {
+            return;
+        }
+
+        // Coordinate is encoded as (100 * idx + jdx), see FuelElement.
+        int idx = encoded / 100;
+        int jdx = encoded % 100;
+
+        JLabel label = getLabel(idx, jdx);
+        if (label != null) {
+            boolean toHighlight = newValue > 0.24;
+
+            if (toHighlight != highlight[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER]) {
+                if (label != null) {
+                    label.setBackground(
+                            getColorForType(ChannelType.FUEL, toHighlight));
                 }
-
-                int kdx = idx - ChannelData.MIN_NUMBER;
-                int ldx = jdx - ChannelData.MIN_NUMBER;
-                boolean toHighlight = status.isHighlighted(kdx, ldx);
-
-                if (toHighlight != highlight[kdx][ldx]) {
-                    JLabel label = getLabel(idx, jdx);
-                    if (label != null) {
-                        label.setBackground(
-                                getColorForType(type, toHighlight));
-                    }
-                    highlight[kdx][ldx] = toHighlight;
-                }
+                highlight[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = toHighlight;
             }
         }
+    }
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+        
+    }
+
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+        
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        handleFuelValue(propertyName, newValue);
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+        
     }
 }

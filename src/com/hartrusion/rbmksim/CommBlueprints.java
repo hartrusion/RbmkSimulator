@@ -69,6 +69,5 @@ public final class CommBlueprints {
     private static void registerProjectTypes(ClassBlueprints registry) {
         ValueSnapshot.registerToRegistry(registry);
         AlarmListSnapshot.registerToRegistry(registry);
-        CoreStatusDisplay.registerToRegistry(registry);
     }
 }

@@ -55,12 +55,6 @@ public class MainLoop implements Runnable, ModelManipulation {
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
 
-    /**
-     * An instance for the core indicator panel.
-     */
-    private final CoreIndicator indicator1 = new CoreIndicator();
-    private final CoreIndicator indicator2 = new CoreIndicator();
-
     private boolean pause;
 
     long maxTime;
@@ -85,11 +79,6 @@ public class MainLoop implements Runnable, ModelManipulation {
         turbine.init();
         turbine.registerParameterOutput(outputValues);
         turbine.registerController(controller);
-
-        indicator1.setCore(core);
-        indicator1.setMode(0);
-        indicator2.setCore(core);
-        indicator2.setMode(1);
     }
 
     @Override
@@ -109,23 +98,12 @@ public class MainLoop implements Runnable, ModelManipulation {
                 // we call it from there:
                 core.runProcessResults();
                 turbine.run();
-                
-                // So far, core indicators are fixed objects that are linked
-                // to the power plant and not in the gui process. This is a 
-                // reference to the way the skala computer was built in the
-                // power plant and had to be programmed on the console, there 
-                // is no object orientation in that design, so the display is 
-                // part of the plant.
-                indicator1.run();
-                indicator2.run();
 
                 // Send all measurement data to the GUI by generating a snapshot
                 // and sending them to the GUI, this will generate a history of
                 // values there (implemented for network view)
-                controller.propertyChange("OutputSnapshot", outputValues.getSnapshot());
-                // Send the core indicator to update the view
-                controller.propertyChange("CoreIndicator#1", indicator1.getDisplay());
-                controller.propertyChange("CoreIndicator#2", indicator2.getDisplay());
+                controller.propertyChange("OutputSnapshot",
+                        outputValues.getSnapshot());
 
                 controller.propertyChange("AlarmListSnapshot",
                         AlarmListSnapshot.fromAlarmList(alarms.getAlarmList()));
@@ -135,7 +113,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             ExceptionPopup.show(e);
             // System.exit(0);
         }
-        
+
         stopTime = System.nanoTime();
         if (stopTime - startTime > maxTime) {
             if (initialIterations > 2) {
@@ -201,7 +179,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             }
             return;
         }
-        
+
         if (ac.getPropertyName().equals("StartServer")) {
             // Build Server
             ClassBlueprints registry = CommBlueprints.createCommBlueprints();
