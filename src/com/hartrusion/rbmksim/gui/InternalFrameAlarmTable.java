@@ -36,6 +36,8 @@ public class InternalFrameAlarmTable extends javax.swing.JInternalFrame {
      */
     public InternalFrameAlarmTable() {
         initComponents();
+        // Reflect the current global mute state (selected == muted).
+        jToggleButton1.setSelected(!AlarmSound.isSoundEnabled());
     }
 
     /**
@@ -46,22 +48,43 @@ public class InternalFrameAlarmTable extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         alarmTablePanel1 = new com.hartrusion.rbmksim.gui.AlarmTablePanel();
         jButtonAcknowledge = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setTitle("Alarms");
         setPreferredSize(new java.awt.Dimension(250, 340));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         alarmTablePanel1.setPreferredSize(new java.awt.Dimension(250, 316));
-        getContentPane().add(alarmTablePanel1, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(alarmTablePanel1, gridBagConstraints);
 
         jButtonAcknowledge.setText("Acknowledge");
         jButtonAcknowledge.addActionListener(this::jButtonAcknowledgeActionPerformed);
-        getContentPane().add(jButtonAcknowledge, java.awt.BorderLayout.SOUTH);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        getContentPane().add(jButtonAcknowledge, gridBagConstraints);
+
+        jToggleButton1.setText("Silent");
+        jToggleButton1.setToolTipText("Mute the alarm sound");
+        jToggleButton1.addActionListener(this::jToggleButton1ActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        getContentPane().add(jToggleButton1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -69,6 +92,11 @@ public class InternalFrameAlarmTable extends javax.swing.JInternalFrame {
     private void jButtonAcknowledgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcknowledgeActionPerformed
         controller.userAction(new ActionCommand("AcknowledgeAlarms", null));
     }//GEN-LAST:event_jButtonAcknowledgeActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // "Silent" pressed in == muted.
+        AlarmSound.setSoundEnabled(!jToggleButton1.isSelected());
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     // redirect to panel
     public void setAlarms(List<AlarmObject> alarms) {
@@ -82,5 +110,6 @@ public class InternalFrameAlarmTable extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hartrusion.rbmksim.gui.AlarmTablePanel alarmTablePanel1;
     private javax.swing.JButton jButtonAcknowledge;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

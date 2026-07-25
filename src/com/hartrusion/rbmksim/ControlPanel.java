@@ -82,12 +82,20 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
     }
 
+    /**
+     * Called each time from the controller via some whatever call stack, 
+     * the alarms are sent as a list of alarms. Can be either a reference 
+     * or a new list each time (when using network)
+     * 
+     * @param alarmList 
+     */
     public void setAlarmList(List alarmList) {
         this.alarmList = alarmList;
 
         if (alarmTable != null) {
             alarmTable.setAlarms(alarmList);
         }
+        AlarmSound.update(alarmList);
     }
 
     /**
@@ -1890,23 +1898,10 @@ public class ControlPanel extends javax.swing.JFrame implements
             if (alarmTable != null) {
                 alarmTable.setAlarms(alarmList);
             }
+            AlarmSound.update(alarmList);
             return;
         }
-        // obsolete:
-        if (propertyName.equals("OutputValues")) {
-            ((ValueHandler) newValue).fireAllToMvcView(this);
-            plotData = (ValueHandler) newValue;
-
-            for (InternalFrameDiagram df : diagrams) {
-                df.updatePlots();
-            }
-
-            // use this event to update the alarm list also.
-            if (alarmTable != null) {
-                alarmTable.setAlarms(alarmList);
-            }
-        }
-
+        
         if (coreActivity1 != null && propertyName.equals("CoreIndicator#1")) {
             coreActivity1.updateDisplay((CoreStatusDisplay) newValue);
             return;

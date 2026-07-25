@@ -127,9 +127,10 @@ public class ControlPanelManager implements InteractiveView {
             }
             return;
         }
+        // Alarms are getting sent each cycle as a list of alarms. This also 
+        // allows recceivin them via network.
         if (propertyName.equals("AlarmListSnapshot")) {
             alarmList = ((com.hartrusion.alarm.AlarmListSnapshot) newValue).toAlarmList();
-
             for (ControlPanel p : controlPanels) {
                 p.setAlarmList(alarmList);
             }
