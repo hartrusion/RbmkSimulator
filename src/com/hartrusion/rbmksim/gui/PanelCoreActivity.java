@@ -233,6 +233,12 @@ public class PanelCoreActivity extends JPanel implements UpdateReceiver {
         }
     }
     
+    /**
+     * Sets which parameters are to be analyzed and displayed on the panel.
+     * 
+     * @param suffix - For example With Fuel2134#Temperature it would be "Temperature"
+     * @param threshold - The value on which the label will light up
+     */
     public void initMode(String suffix, double threshold) {
         this.suffix = suffix;
         suffixToken = "#" + suffix;
