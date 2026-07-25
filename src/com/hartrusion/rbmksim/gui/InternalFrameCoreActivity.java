@@ -34,6 +34,10 @@ public class InternalFrameCoreActivity extends javax.swing.JInternalFrame
         initComponents();
     }
     
+    public void initMode(String suffix, double threshold) {
+        panelCoreActivity1.initMode(suffix, threshold);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

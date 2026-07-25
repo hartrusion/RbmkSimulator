@@ -62,6 +62,11 @@ public class PanelCoreActivity extends JPanel implements UpdateReceiver {
      * {@code "#Temperature"}. Kept in sync with {@link #suffix}.
      */
     private String suffixToken = "#" + suffix;
+    
+    /**
+     * Value that has to be reached to make the display glow up
+     */
+    double threshold = 0.1;
 
     /**
      * Stores references to the JLabel for each grid position. Index [row][col]
@@ -216,7 +221,7 @@ public class PanelCoreActivity extends JPanel implements UpdateReceiver {
 
         JLabel label = getLabel(idx, jdx);
         if (label != null) {
-            boolean toHighlight = newValue > 0.24;
+            boolean toHighlight = newValue > threshold;
 
             if (toHighlight != highlight[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER]) {
                 if (label != null) {
@@ -226,6 +231,12 @@ public class PanelCoreActivity extends JPanel implements UpdateReceiver {
                 highlight[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = toHighlight;
             }
         }
+    }
+    
+    public void initMode(String suffix, double threshold) {
+        this.suffix = suffix;
+        suffixToken = "#" + suffix;
+        this.threshold = threshold;
     }
 
     @Override

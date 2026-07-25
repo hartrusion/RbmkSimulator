@@ -1152,6 +1152,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private void jMenuItemViewCore2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewCore2ActionPerformed
         if (coreActivity2 == null) {
             coreActivity2 = new InternalFrameCoreActivity();
+            coreActivity2.initMode("FissionPower", 0.15);
             coreActivity2.setTitle("Core Activity 2");
             coreActivity2.setVisible(true);
             coreActivity2.addInternalFrameListener(new InternalFrameAdapter() {
