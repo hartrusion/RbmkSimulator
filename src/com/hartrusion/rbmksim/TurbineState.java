@@ -34,7 +34,10 @@ public class TurbineState implements Serializable {
     private SpeedSelect setpointSpeedGradient;
     private boolean generatorSynched;
     private double syncAngle;
-    private int turningGear;
+    private int turningGear; // state as int
+    private double lubeOilPressue;
+    private double turnResistance;
+    private double shaftOilPumpFlow;
 
     public boolean isTpsActive() {
         return tpsActive;
@@ -90,5 +93,29 @@ public class TurbineState implements Serializable {
 
     public void setTurningGear(int turningGear) {
         this.turningGear = turningGear;
+    }
+    
+    public double getLubeOilPressue() {
+        return lubeOilPressue;
+    }
+
+    public void setLubeOilPressue(double lubeOilPressue) {
+        this.lubeOilPressue = lubeOilPressue;
+    }
+
+    public double getTurnResistance() {
+        return turnResistance;
+    }
+
+    public void setTurnResistance(double turnResistance) {
+        this.turnResistance = turnResistance;
+    }
+
+    public double getShaftOilPumpFlow() {
+        return shaftOilPumpFlow;
+    }
+
+    public void setShaftOilPumpFlow(double shaftOilPumpFlow) {
+        this.shaftOilPumpFlow = shaftOilPumpFlow;
     }
 }

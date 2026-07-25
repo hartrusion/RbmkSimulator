@@ -4768,7 +4768,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         auxCondValveToDrain.addSafeClosedProvider(()
                 -> auxCondValveToHotwell.getOpening() < 1.0);
 
-
         // Nothing gets into condenser if no vacuum is available.
         for (int idx = 0; idx < 2; idx++) {
             mainSteamDump[idx].addSafeClosedProvider(()
@@ -4812,16 +4811,21 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 && !alarmManager.isAlarmActive(
                         "Preheater1Level", AlarmState.MIN1));
 
-        // Turbine
+        // Turbine: Valves are locked by requiring the TPS system to allow 
+        // turbine operation and some valves require the turbine hydraulic 
+        // pump to provide pressure.
         for (int idx = 0; idx < 2; idx++) {
             turbineTripValve[idx].addSafeClosedProvider(()
-                    -> !turbine.isTpsActive());
+                    -> !turbine.isTpsActive()
+                    && turbine.valveHydraulicAvailable());
             turbineStartupSteamValve[idx].addSafeClosedProvider(()
                     -> !turbine.isTpsActive());
             turbineMainSteamValve[idx].addSafeClosedProvider(()
-                    -> !turbine.isTpsActive());
+                    -> !turbine.isTpsActive()
+                    && turbine.valveHydraulicAvailable());
             turbineReheaterSteamValve[idx].addSafeClosedProvider(()
-                    -> !turbine.isTpsActive());
+                    -> !turbine.isTpsActive()
+                    && turbine.valveHydraulicAvailable());
 
             // Turbine: Reheater gets limited by condensate level and the 
             // shut valve also gets limited by condenser vacuum

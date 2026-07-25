@@ -24,6 +24,7 @@ import com.hartrusion.control.AutomationRunner;
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.control.Setpoint;
 import com.hartrusion.modeling.PhysicalDomain;
+import com.hartrusion.modeling.automated.DummyValve;
 import com.hartrusion.modeling.general.ClosedOrigin;
 import com.hartrusion.modeling.general.EffortSource;
 import com.hartrusion.modeling.general.FlowSource;
@@ -62,12 +63,12 @@ public class Turbine extends Subsystem implements Runnable {
      * Length of the High Pressure turbine used for length expansion calculation
      */
     private static final double HP_LENGTH = 6.0;
-    
+
     /**
      * Length of the Low Pressure turbine used for length expansion calculation
      */
     private static final double LP_LENGTH = 17.0;
-    
+
     /**
      * Length expansion factor that is used to calculate the length difference
      * from the turbines metal temperature, given in mm/K/m
@@ -105,6 +106,14 @@ public class Turbine extends Subsystem implements Runnable {
     private final FlowSource turbineTurningGear;
     private final MutualCapacitance turbineInertia;
     private final LinearDissipator turbineFriction;
+
+    private final FlowSource[] oilPump = new FlowSource[2];
+    private final FlowSource oilPumpTurbine;
+    private final LinearDissipator oilFlow;
+    private final GeneralNode oilGnd;
+    private final ClosedOrigin oilOrigin;
+    private final GeneralNode oilPressure;
+    private final MutualCapacitance oilPressureDelay;
 
     // </editor-fold>
     private double targetTurbineSpeed = 0.0;
@@ -147,7 +156,7 @@ public class Turbine extends Subsystem implements Runnable {
      * Power from the steam part that is required to spin the turbine exactly at
      * 3000 1/min.
      */
-    private final double holdPower = 35.0;
+    private final double HOLD_POWER = 35.0;
 
     private double generatorPower = 0.0;
 
@@ -158,6 +167,19 @@ public class Turbine extends Subsystem implements Runnable {
      */
     private int turningGearState = 2;
     private int oldTurningGearState = -1;
+
+    /**
+     * Represents the state of the hydraulic control pumps, just a switch. The
+     * valve state is used to determine the pump state on the GUI.
+     */
+    private DummyValve hydraulic;
+
+    /**
+     * Represents the state of two auxiliary oil pumps for lube oil.
+     */
+    private DummyValve[] lubeOilPump = new DummyValve[2];
+
+    private final DomainAnalogySolver oilSolver = new DomainAnalogySolver();
 
     private final AutomationRunner runner = new AutomationRunner();
 
@@ -221,9 +243,27 @@ public class Turbine extends Subsystem implements Runnable {
         turbineFriction = new LinearDissipator(PhysicalDomain.MECHANICAL);
         turbineFriction.setName("Rotor#Inertia");
 
+        for (int idx = 0; idx < 2; idx++) {
+            oilPump[idx] = new FlowSource(PhysicalDomain.HYDRAULIC);
+            oilPump[idx].setName("Oil" + (idx + 1) + "#Pump");
+        }
+        oilPumpTurbine = new FlowSource(PhysicalDomain.HYDRAULIC);
+        oilPumpTurbine.setName("Oil#PumpTurbine");
+        oilFlow = new LinearDissipator(PhysicalDomain.HYDRAULIC);
+        oilFlow.setName("Oil#Flow");
+        oilGnd = new GeneralNode(PhysicalDomain.HYDRAULIC);
+        oilGnd.setName("Oil#Gnd");
+        oilOrigin = new ClosedOrigin(PhysicalDomain.HYDRAULIC);
+        oilOrigin.setName("Oil#Origin");
+        oilPressure = new GeneralNode(PhysicalDomain.HYDRAULIC);
+        oilPressure.setName("Oil#Pressure");
+        oilPressureDelay = new MutualCapacitance(PhysicalDomain.HYDRAULIC);
+        oilPressureDelay.setName("Oil#PressureDelay");
+
         // </editor-fold>
         setpointTurbineSpeed = new Setpoint();
         rotorSolver.setString("TurbineRotorSolver");
+        oilSolver.setString("TurbineOilSolver");
     }
 
     @Override
@@ -263,7 +303,7 @@ public class Turbine extends Subsystem implements Runnable {
         // circuit) but for now those numbers were taken from steady state using
         // debugging. 
         hpDiffExpansion = hpRotorLength - hpStatorLength * 1.03980254387591;
-        lpDiffExpansion = lpRotorLength - lpStatorLength* 1.03397295439119;
+        lpDiffExpansion = lpRotorLength - lpStatorLength * 1.03397295439119;
         statorAbsExpansion = hpStatorLength + lpStatorLength
                 - LP_LENGTH - HP_LENGTH;
 
@@ -299,6 +339,8 @@ public class Turbine extends Subsystem implements Runnable {
         }
         oldTurningGearState = turningGearState;
 
+        runLubeOil();
+
         // Calculate current turbine speed as long as the generator breaker
         // is open. We do not model the force of the generator towards the
         // turbine for simplification reasons. Force to exactly 3000.0 as long
@@ -315,7 +357,13 @@ public class Turbine extends Subsystem implements Runnable {
             // as values are kind of made up and nothing is really calculated,
             // we need to add a factor here to make the output exactly 1000 on
             // 3200 mw thermal
-            generatorPower = (shaftPower - holdPower) * 0.57313;
+            if (oilPressure.getEffort() < 1.6e5) {
+                // Model bearing lube oil missing here
+                generatorPower = (shaftPower - HOLD_POWER * 10.0) * 0.57313;
+            } else {
+                generatorPower = (shaftPower - HOLD_POWER) * 0.57313;
+            }
+
         }
 
         // Get startup valves auto/manual mode
@@ -333,7 +381,7 @@ public class Turbine extends Subsystem implements Runnable {
         }
         // Do not force the turbine setpoint to current value to allow it to be
         // set individually.
-        
+
         // In case of backwards energy flow and turbine ventilation, open the
         // generator breaker. This must be done in a better way with some alarm
         if (generatorSynched) {
@@ -355,12 +403,12 @@ public class Turbine extends Subsystem implements Runnable {
                 syncAngle = 0.0;
             }
 
-            // auto turn off turning gear on reaching 1000 1/min
-            if (tVel >= 1005) {
+            // auto turn off turning gear on reaching 100 1/min - also place
+            // a condition here to not allow it when there is no lube oil
+            if (tVel >= 105 || oilPressure.getEffort() < 1.5e5) {
                 turningGearState = 0;
-            } else if (turningGearState == 0 && tVel < 5) {
-                // auto-ready on low rpm, this wil later be recplaced with
-                // some logic with oil and so on.
+            } else if (turningGearState == 0 && tVel < 50) {
+                // auto-ready on low rpm
                 turningGearState = 1;
             }
         } else {
@@ -447,7 +495,6 @@ public class Turbine extends Subsystem implements Runnable {
                 lpDiffExpansion);
         outputValues.setParameterValue("Turbine#AbsExpansion",
                 statorAbsExpansion);
-
     }
 
     @Override
@@ -470,6 +517,9 @@ public class Turbine extends Subsystem implements Runnable {
                     // only switch to active when ready, otherwise ignore.
                     if (turningGearState == 1) {
                         turningGearState = 2;
+                    } else {
+                        LOGGER.log(Level.INFO, "Turbine Turning Gear not "
+                                + "ready, command refused.");
                     }
                 } else {
                     turningGearState = 0; // disable
@@ -537,6 +587,9 @@ public class Turbine extends Subsystem implements Runnable {
             }
         }
         setpointTurbineSpeed.handleAction(ac);
+        hydraulic.handleAction(ac);
+        lubeOilPump[0].handleAction(ac);
+        lubeOilPump[1].handleAction(ac);
     }
 
     public void init() {
@@ -558,7 +611,9 @@ public class Turbine extends Subsystem implements Runnable {
         // Decide that we need a continuous shaft power of X to hold the 
         // turbine on 3000, this energy will be consumed by the resistor and 
         // defines the working point for the spin up model.
-        double turnResistance = 3000.0 / holdPower; // 3000/35 = 85.7
+        // this is only an initial value for first step, it will be overwritten
+        // by the lube oil system as soon as its there
+        double turnResistance = 3000.0 / HOLD_POWER; // 3000/35 = 85.7
         turbineFriction.setResistanceParameter(turnResistance);
 
         // There could be a fancy calculation on how to get the time constand 
@@ -574,6 +629,56 @@ public class Turbine extends Subsystem implements Runnable {
         // This value is calculated by the momentum flow from the intitial
         // active turbine turning gear.
         turbineInertia.setInitialEffort(-20.568);
+
+        // Set up and generate the auxiliary turbine systems, they are mostly
+        // very simplified fakes. 
+        hydraulic = new DummyValve();
+        hydraulic.initName("Turbine#Hydraulic");
+        runner.submit(hydraulic);
+        for (int idx = 0; idx < lubeOilPump.length; idx++) {
+            lubeOilPump[idx] = new DummyValve();
+            lubeOilPump[idx].initName("Turbine" + (idx + 1) + "#LubeOilPump");
+            // Valves could close down to -5 but we need a clean 0.0 as lower
+            // limit as we use the valve percentage to generate flow values.
+            lubeOilPump[idx].getIntegrator().setLowerLimit(0.0);
+            runner.submit(lubeOilPump[idx]);
+        }
+
+        // Build a network that describes the oil pressure. Each of the pump 
+        // is represented as flow source and the turbine itself is also a flow
+        // source as the turbine has it's own oil pump. At least some turbines
+        // do this, I have no clue if its the same here.
+        //
+        //      .-------------------------o-------
+        //      |        |        |       |      |
+        //      |        |        |       X      |
+        //  p1 (-)   p2 (-)   trb(-)      X     ===
+        //      |        |        |       X      |
+        //      |        |        |       |      |
+        //      o---------------------------------
+        //      |
+        //     _|_
+        oilOrigin.connectTo(oilGnd);
+        oilPump[0].connectBetween(oilGnd, oilPressure);
+        oilPump[1].connectBetween(oilGnd, oilPressure);
+        oilPumpTurbine.connectBetween(oilGnd, oilPressure);
+        oilFlow.connectBetween(oilGnd, oilPressure);
+        oilPressureDelay.connectBetween(oilGnd, oilPressure);
+
+        oilSolver.addNetwork(oilGnd);
+
+        // Assumptions:
+        // Full speed turbine: 2.7 bar (2.7e5 Pa) with 40 kg/s flow
+        // so it is R = 2.7e5 / 40 = 6750 to get that 2.7 bar
+        // one pump: 1.8 bar: I = 1.8e5 / 6750 = 27 kg/s as pump value
+        oilFlow.setResistanceParameter(6750);
+        oilPressureDelay.setTimeConstant(0.0001); // try and error
+
+        // initial conditions: One Pump is running and turbine spinning
+        lubeOilPump[0].initOpening(100);
+        oilPump[0].setFlow(27.0);
+        oilPump[1].setFlow(0.0);
+        oilPressureDelay.setInitialEffort(-182250);
 
         ValueAlarmMonitor am;
 
@@ -593,7 +698,7 @@ public class Turbine extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         // Expansion for HP and LP with trip 
         am = new ValueAlarmMonitor();
         am.setName("DiffExpansionHPTurbine");
@@ -609,7 +714,7 @@ public class Turbine extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
-        
+
         am = new ValueAlarmMonitor();
         am.setName("DiffExpansionLPTurbine");
         am.addInputProvider(() -> Math.abs(lpDiffExpansion));
@@ -624,6 +729,54 @@ public class Turbine extends Subsystem implements Runnable {
         });
         am.registerAlarmManager(alarmManager);
         alarmUpdater.submit(am);
+
+        am = new ValueAlarmMonitor();
+        am.setName("TurbineLubeOilPressure");
+        am.addInputProvider(() -> oilPressure.getEffort() * 1e-5);
+        am.defineAlarm(2.8, AlarmState.HIGH1);
+        am.defineAlarm(1.6, AlarmState.MIN1);
+        am.addAlarmAction(new AlarmAction(AlarmState.MIN1) {
+            @Override
+            public void run() {
+                triggerTurbineTrip();
+            }
+        });
+        am.registerAlarmManager(alarmManager);
+        alarmUpdater.submit(am);
+    }
+
+    public void runLubeOil() {
+        // Set pump flow values from turbine speed (turbine has its own pump
+        // driven by main shaft) and the auxiliary pumps, those pumps states 
+        // are represented by dummy valve objects which generate a 0..100 %
+        // value.
+        for (int idx = 0; idx < 2; idx++) {
+            oilPump[idx].setFlow(27.0 * lubeOilPump[idx].getOpening() / 100.0);
+        }
+
+        // The velocity is not available on first run and will be skipped. 
+        // loading a save will hard-write the value.
+        if (turbineVelocity.effortUpdated()) {
+            oilPumpTurbine.setFlow(
+                    40.0 * turbineVelocity.getEffort() / 3000.0);
+        } else {
+            oilPumpTurbine.setFlow(0.0);
+        }
+
+        // run one cycle
+        oilSolver.prepareCalculation();
+        oilSolver.doCalculation();
+
+        // Manipulate the turbines turn resistance in case of low oil pressure
+        // to show fatal bearin failure.
+        double turnResistance = 3000.0 / HOLD_POWER; // 3000/35 = 85.7
+        if (oilPressure.getEffort() < 1.6e5) {
+            turnResistance = turnResistance / 8.0; // its not R, its friction
+        }
+        turbineFriction.setResistanceParameter(turnResistance);
+
+        outputValues.setParameterValue("Turbine#LubeOilPressure",
+                oilPressure.getEffort() * 1e-5);
     }
 
     /**
@@ -753,6 +906,10 @@ public class Turbine extends Subsystem implements Runnable {
         return tpsActive;
     }
 
+    public boolean valveHydraulicAvailable() {
+        return hydraulic.getOpening() > 99;
+    }
+
     /**
      * Checks the plant state that it is in a state where it allows the TPS to
      * be cleared. Note that the Alarm system is a trigger-event only
@@ -772,6 +929,9 @@ public class Turbine extends Subsystem implements Runnable {
         if (alarmManager.isAlarmActive("Drum2Pressure", AlarmState.MIN1)) {
             return false;
         }
+        if (alarmManager.isAlarmActive("TurbineLubeOilPressure", AlarmState.MIN1)) {
+            return false;
+        }
         // Checks that will only be performed when not switchting the RPS back 
         // on during already running operator. Those are designed to make sure
         // some other state must be reached first befroe able to reset the RPS
@@ -788,7 +948,7 @@ public class Turbine extends Subsystem implements Runnable {
         // Will be called after init() - note that it is the other way round in
         // the ThermalLayout!
         super.registerController(controller);
-        // Todo for whatever elements
+        runner.setSignalListener(controller);
     }
 
     @Override
@@ -845,12 +1005,21 @@ public class Turbine extends Subsystem implements Runnable {
         ts.setTps(tps);
         ts.setTpsActive(tpsActive);
         ts.setTurningGear(turningGearState);
+
+        // Lube oil system needs some more data as it is always dependend on
+        // the previous cycle and would have old results otherwise.
+        ts.setLubeOilPressue(oilPressure.getEffort());
+        ts.setTurnResistance(turbineFriction.getResistance());
+        ts.setShaftOilPumpFlow(oilPumpTurbine.getFlow());
+
         save.addTurbineState(ts);
 
         save.addSolverState(rotorSolver.toString(),
                 rotorSolver.getCurrentNetworkCondition());
         save.addRunnerState("turbineSetpoints",
                 runner.getCurrentAutomationCondition());
+        save.addSolverState(oilSolver.toString(),
+                oilSolver.getCurrentNetworkCondition());
 
     }
 
@@ -866,6 +1035,10 @@ public class Turbine extends Subsystem implements Runnable {
         tpsActive = ts.isTpsActive();
         turningGearState = ts.getTurningGear();
 
+        oilPressure.setEffort(ts.getLubeOilPressue());
+        turbineFriction.setResistanceParameter(ts.getTurnResistance());
+        oilPumpTurbine.setFlow(ts.getShaftOilPumpFlow());
+
         // Reset old values to trigger all related events
         oldSetpointSpeedGradient = null;
         oldTps = null;
@@ -874,6 +1047,8 @@ public class Turbine extends Subsystem implements Runnable {
 
         rotorSolver.setNetworkInitialCondition(
                 save.getSolverState(rotorSolver.toString()));
+        oilSolver.setNetworkInitialCondition(
+                save.getSolverState(oilSolver.toString()));
         runner.setRunnablesAutomationCondition(
                 save.getRunnerState("turbineSetpoints"));
 

@@ -109,7 +109,7 @@ public class MainLoop implements Runnable, ModelManipulation {
                 // we call it from there:
                 core.runProcessResults();
                 turbine.run();
-
+                
                 // So far, core indicators are fixed objects that are linked
                 // to the power plant and not in the gui process. This is a 
                 // reference to the way the skala computer was built in the
