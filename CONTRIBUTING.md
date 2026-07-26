@@ -45,43 +45,39 @@ information that might be outdated soon, so please, be patient.
 ## Coding contributions
 As this is a full scale dynamic simulation, certain things in code might not be
 the way you would expect them to be. For most things, there are reasons or some 
-things might be the way they are cause I do not know any better. Some general 
-rules I would like you to follow if you want to contribute code:
+things might be the way they are cause I do not know any better.
 
-1. No external dependencies. This is a personal thing, I do not like this 
-   project to become a blackbox mess of libraries. Yes, there are great charts 
-   that are way better than my used JMPlot package.
-2. Code must be easy to read and understand. A lot of class fields might be 
-   unnecessary and can be considered obsolete, however, sometimes they also 
-   serve as a description of what is actually going on or JavaDoc is used on 
-   class fields. It also helps during debugging. The main thermal layout serves 
-   not only as a java class but also as a documentation on how the plant is 
-   modeled.
-3. Please try to keep the short line length limit. It allows to have two pages 
-   of code next to each other on a 1080p screen.
+The code style is matched to the concept of having a cyclic run full dynamic 
+model simulation with a GUI connected, this might be very different from other 
+applications out there.
    
-If you find obvious wrong things or you can fix an issue or bug yourself, you 
-can try to create a pull request directly but I do recommend to create an issue 
-first so it can be discussed.
+I require coding contributions to absolutely match into the project. Full LLM 
+generated code usually works as those LLM tools also read the extensive comments 
+all around the code but they still fail to scale it in the proper way.
+
+Best thing however is not to contribute code. It is open source, not open for 
+all contributions. 
 
 ## Source code and build
 To build the simulator from source, you need the source code from this repo
 and some additional code that is released on different repositories:
 * [PhxNetMod](https://github.com/hartrusion/PhxNetMod) Simulation engine with
-control loops and automation classes
+  control loops and automation classes. This is the simulation core an holds 
+  most of the actual source code.
 * [Utils](https://github.com/hartrusion/utils) Some commonly used classes
 * [JMPLot](https://github.com/hartrusion/jmplot) A Matlab-like line plot library
 * [AbsoluteLayout](https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout)
 GUI Layout extension for Swing (this comes packed with NetBeans)
 
 Currently, those 3 packages have github actions that gerate unversioned 
-snapshot builds and publish those as github maven packages. The simulator here 
-uses maven to resolve those dependencies and an ant script to build the 
-project. To build it yourself, you need to either import those dependencies 
-by using the supplied pom.xml file in .github folder or you put the project 
-together in any IDE and just compile it with javac if you're fine with that. 
-There is no build chain required and so there is none hardwired into the code 
-here on github.
+snapshot builds and publish those as github maven packages. The release action
+here uses maven to resolve those dependencies and an ant script to build the 
+project.
+
+There's a setup script available that automatically generates a VS Code multi
+project workspace. You can clone this repository in a folder, for example 
+SimulatorWorkspace/RbmkSimulator and run the setup_vsc_workspace.ps1/sh script. 
+It will set up the SimulatorWorkspace as a workspace with all sources.
 
 The GUI is designed using NetBeans GUI builder, those classes can be used 
 with different IDEs but once edited outside of NetBeans, they propably won't
