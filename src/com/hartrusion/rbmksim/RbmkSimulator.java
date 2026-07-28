@@ -30,6 +30,7 @@ import com.hartrusion.mvc.AwtUpdater;
 import com.hartrusion.mvc.Controller;
 import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
 import com.hartrusion.util.SimpleLogOut;
+// import com.formdev.flatlaf.FlatDarkLaf;
 
 /**
  *
@@ -65,6 +66,8 @@ public class RbmkSimulator {
     }
 
     private void run() {
+//        FlatDarkLaf.setup();
+        
         /* Set the Chornobyl look and feel */
         try {
             for (UIManager.LookAndFeelInfo info
