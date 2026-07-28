@@ -624,8 +624,10 @@ public class ReactorCore extends Subsystem implements Runnable {
         double avgTemperature = 0.0;
         double loop1Flow = 0.0;
         double loop2Flow = 0.0;
+        double maxCpr = 0.0;
         double minCpr = 9.990;
         double maxPth = 0.0;
+        double minPth = 1000.0;
 
         for (FuelElement f : fuelElements) {
             f.runProcessResults();
@@ -633,12 +635,17 @@ public class ReactorCore extends Subsystem implements Runnable {
             avgVoiding += f.getSteamVoiding();
             avgTemperature += f.getFuelTemperature();
 
-            // Minimum on all channels
-            if (f.getCriticalPowerRatio() < minCpr) {
+            // Get min and max values from all channels
+            if (f.getCriticalPowerRatio() > maxCpr) {
+                maxCpr = f.getCriticalPowerRatio();
+            } else if (f.getCriticalPowerRatio() < minCpr) {
                 minCpr = f.getCriticalPowerRatio();
             }
+            
             if (f.getFissionPowerForDisplay() > maxPth) {
                 maxPth = f.getFissionPowerForDisplay();
+            } else if (f.getFissionPowerForDisplay() < minPth) {
+                minPth = f.getFissionPowerForDisplay();
             }
 
             switch (f.getLoop()) {
@@ -661,7 +668,10 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         outputValues.setParameterValue("Reactor#MinimumCriticalPowerRatio",
                 minCpr);
-
+        outputValues.setParameterValue("Reactor#MaximumCriticalPowerRatio",
+                maxCpr);
+        outputValues.setParameterValue("Reactor#MinimumFuelThermalPower",
+                minPth);
         outputValues.setParameterValue("Reactor#MaximumFuelThermalPower",
                 maxPth);
     }
