@@ -194,6 +194,15 @@ public class FuelElement extends ReactorElement {
     private double criticalPowerRatio;
 
     private double thermalLiftPressure;
+    
+    /**
+     * Saves the value of the fuel temperature as the value from the previous
+     * cycle is used here to determine if the thermal power has to be limited
+     * to have the fuel rod melt, but not evaporate.
+     * <p>
+     * Given in Degrees Celsius.
+     */
+    private double fuelTemperature;
 
     private boolean ruptured;
 
@@ -603,11 +612,11 @@ public class FuelElement extends ReactorElement {
     public void runProcessResults() {
         voiding = evapHandler.getVoiding(1e5);
         flow = toReactorConverter.getFlow();
+        fuelTemperature = thermalCapacityNode.getEffort() - 273.15;
 
         // Send per fuel rod values - those are intended to be debugging
         // only as they are not available in such a detail in the real plant.
-        outputValues.setParameterValue(
-                propertyTemperature, thermalCapacityNode.getEffort() - 273.15);
+        outputValues.setParameterValue(propertyTemperature, fuelTemperature);
         outputValues.setParameterValue(propertyFlow, flow);
         outputValues.setParameterValue(propertyFissionPower, fissionPower);
         outputValues.setParameterValue(propertyVoiding, voiding);
@@ -751,8 +760,14 @@ public class FuelElement extends ReactorElement {
         // it is added as an invisible energy not shown on the power display.
         fissionPower = rodHeatGeneration * fluxToPower + localIdlePower;
 
-        // MW to Watt (SI)
-        thermalFlowSource.setFlow(fissionPower * 1e6);
+        if (fuelTemperature > 7000) {
+            // Limit the possible fuel temperature and do not add any more heat
+            // to keep the model in a state that still can be calculated.
+            thermalFlowSource.setFlow(0.0);
+        } else {
+            // MW to Watt (SI)
+            thermalFlowSource.setFlow(fissionPower * 1e6);
+        }
 
         // The displayed fission power will not include the idle heat and show a
         // wrong 3200 MW display for 100 %
