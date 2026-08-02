@@ -510,6 +510,11 @@ public class ReactorCore extends Subsystem implements Runnable {
             f.calculationStepPowerModel();
             thermalPowerDisplay += f.getFissionPowerForDisplay();
         }
+        // Limit to some max value (only active on reactor explosion) to have
+        // the value displayed that can be found in wiki
+        if (thermalPowerDisplay > 30000.0) {
+            thermalPowerDisplay = 30000.0;
+        }
 
         alarmUpdater.invokeAll();
 

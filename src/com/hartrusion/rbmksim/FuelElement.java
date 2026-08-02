@@ -131,6 +131,8 @@ public class FuelElement extends ReactorElement {
     /**
      * Global neutron flux value, it is the same for all fuel elements so a
      * static variable is used. From 0 to 100 %
+     * <p>
+     * Gets set from ReactorCore to value neutronFluxModel.getYNeutronFlux()
      */
     private static double globalFlux;
 

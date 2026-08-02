@@ -274,13 +274,16 @@ public class NeutronFluxModel implements Runnable {
         // Update Output variables
         if (!promptExcursion) {
             yReactivity = reactivity;
-            yK = - 1 / (reactivity - 1);
-            // Those values are freezed to their last value on prompt neutron
-            // excursion.
+        } else {
+            yReactivity = 0.007;
         }
+        
+        yK = - 1 / (yReactivity - 1);
 
-        yNeutronFlux = Math.min(xNeutronFlux, 937.5); // put old limit here
-
+        // Limit to display value (the limit is only active when reactor 
+        // explodes).
+        yNeutronFlux = Math.min(xNeutronFlux, 999.990);
+        
         // Neutron Rate is given in 10%/s
         if (zeroPower) {
             yNeutronRate = 0;
