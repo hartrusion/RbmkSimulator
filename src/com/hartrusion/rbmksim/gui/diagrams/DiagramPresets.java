@@ -814,14 +814,14 @@ public class DiagramPresets {
         l = new Line();
         le.addLine(l);
         l.setLabel("Voiding");
-        l.setDataSource(plotData.getTime60(10),
+        l.setDataSource(plotData.getTime60(timeDiv),
                 plotData.getParameterDoubleSeries("Reactor#ReactivityVoding", timeDiv));
         ax.addLine(l);
         
         l = new Line();
         le.addLine(l);
         l.setLabel("Rod Absorption");
-        l.setDataSource(plotData.getTime60(10),
+        l.setDataSource(plotData.getTime60(timeDiv),
                 plotData.getParameterDoubleSeries("Reactor#RodAbsorption", timeDiv));
         ax.addLine(l);
         
