@@ -24,9 +24,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.beans.BeanProperty;
+import javax.swing.ToolTipManager;
 
 /**
  * An ampere meter, used to display some value with a pointer that is fixed in
@@ -38,46 +41,78 @@ import java.beans.BeanProperty;
  */
 public class Ammeter extends javax.swing.JComponent {
 
+    private double position; // 0..100
     private double value;
     private int width, height;
     private float centerY, centerX;
     private float pointerLength;
     private float arcX, arcY, arcD;
     private float lowerHeigt, lowerStart;
-    
+
     private double minValue = 0, maxValue = 100, cM = 1.0, cB = 0.0;
 
     private String leftLabel = "0.0";
     private String rightLabel = "100";
 
     /**
+     * Reference to the tooltip object if it is present.
+     */
+    private javax.swing.JToolTip activeToolTip;
+
+    /**
      * Creates new form Ammeter
      */
     public Ammeter() {
+        // Get the default tooltip display duration in miliseconds.
+        final int defaultDismissDelay
+                = ToolTipManager.sharedInstance().getDismissDelay();
+
+        // Mouse listener to manipulate tooltip duration
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // set to a duration of 60 secodnds
+                ToolTipManager.sharedInstance().setDismissDelay(
+                        60000);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // on leaving the mouse, we will restore the default setting 
+                // to have the standard behavior on other elements.
+                ToolTipManager.sharedInstance().setDismissDelay(
+                        defaultDismissDelay);
+            }
+        });
         initComponents();
+        updateTooltipText();
     }
 
     public double getChornobylValue() {
-        return value;
+        return position;
     }
 
     @BeanProperty(preferred = true, visualUpdate = true, description
             = "Sets the value for pointer position.")
     public void setChornobylValue(double value) {
-        value = cM * value + cB; // make a 0..100  value
-        
-        if (value < 0.0) {
-            value = 0.0;
+        double position;
+        position = cM * value + cB; // make a 0..100  value
+
+        if (position < 0.0) { // Limit between 0 and 100
+            position = 0.0;
         } else if (value > 100) {
-            value = 100;
+            position = 100;
         }
+        this.position = position;
         
-        double old = this.value;
+        
+        double oldValue = this.value;
         this.value = value;
-        firePropertyChange("chornobylValue", old, value);
+        firePropertyChange("chornobylValue", oldValue, value);
+        updateTooltipText();
         repaint();
     }
-    
+
     public double getChornobylMaximum() {
         return maxValue;
     }
@@ -151,6 +186,18 @@ public class Ammeter extends javax.swing.JComponent {
         setLayout(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateTooltipText() {
+        String tooltip = String.format("%.1f", this.value);
+        setToolTipText(tooltip);
+
+        // If the tooltip is active and shown, force a repaint of its text
+        // to allow a live view of the data.
+        if (activeToolTip != null && activeToolTip.isShowing()) {
+            activeToolTip.setTipText(tooltip);
+            activeToolTip.repaint();
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -179,7 +226,7 @@ public class Ammeter extends javax.swing.JComponent {
         // Draw the Pointer line. Clip the lower part away
         Shape oldClip = g2d.getClip();
         g2d.setClip(0, 0, width, (int) lowerStart);
-        float phi = (float) (value * 0.01570796326795);
+        float phi = (float) (position * 0.01570796326795);
         Line2D.Float line = new Line2D.Float(centerX, centerY,
                 getXCoordinate(pointerLength, phi),
                 getYCoordinate(pointerLength, phi));
@@ -246,6 +293,13 @@ public class Ammeter extends javax.swing.JComponent {
     private float getYCoordinate(float r, float phi) {
         phi = phi - 0.78539816339745F; // +pi/4
         return centerY - (float) Math.cos((double) phi) * r;
+    }
+
+    @Override
+    public javax.swing.JToolTip createToolTip() {
+        // get the reference on the tooltip as it is created.
+        activeToolTip = super.createToolTip();
+        return activeToolTip;
     }
 
 
