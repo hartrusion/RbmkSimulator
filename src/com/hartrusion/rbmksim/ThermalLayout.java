@@ -4719,24 +4719,38 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // Prevent backflow to feedwater pumps on SCRAM if pressure builds up,
         // this is very uncommon but for simulation of catastrophic events we 
         // must prevent backflow to DA with this.
+        // 1 Startup Valves: [Loop][0]
         feedwaterShutoffValve[0][0].addSafeClosedProvider(()
-                -> feedwaterPumpCollectorNodes[0].getEffort()
-                > loopFeedwaterIn[0].getEffort());
+                -> (feedwaterPumpCollectorNodes[0].getEffort()
+                > loopFeedwaterIn[0].getEffort()
+                && feedwaterShutoffValve[0][0].getValveElement()
+                        .getFlow() > -1.0));
         feedwaterShutoffValve[1][0].addSafeClosedProvider(()
-                -> feedwaterPumpCollectorNodes[1].getEffort()
-                > loopFeedwaterIn[1].getEffort());
+                -> (feedwaterPumpCollectorNodes[1].getEffort()
+                > loopFeedwaterIn[1].getEffort()
+                && feedwaterShutoffValve[1][0].getValveElement()
+                        .getFlow() > -1.0));
+        // 2 Main Valves: [Loop][1] and [Loop][2]
         feedwaterShutoffValve[0][1].addSafeClosedProvider(()
-                -> feedwaterPumpCollectorNodes[0].getEffort()
-                > loopFeedwaterIn[0].getEffort());
+                -> (feedwaterPumpCollectorNodes[0].getEffort()
+                > loopFeedwaterIn[0].getEffort()
+                && feedwaterShutoffValve[0][1].getValveElement()
+                        .getFlow() > -1.0));
         feedwaterShutoffValve[0][2].addSafeClosedProvider(()
-                -> feedwaterPumpCollectorNodes[0].getEffort()
-                > loopFeedwaterIn[0].getEffort());
+                -> (feedwaterPumpCollectorNodes[0].getEffort()
+                > loopFeedwaterIn[0].getEffort()
+                && feedwaterShutoffValve[0][2].getValveElement()
+                        .getFlow() > -1.0));
         feedwaterShutoffValve[1][1].addSafeClosedProvider(()
-                -> feedwaterPumpCollectorNodes[1].getEffort()
-                > loopFeedwaterIn[1].getEffort());
+                -> (feedwaterPumpCollectorNodes[1].getEffort()
+                > loopFeedwaterIn[1].getEffort()
+                && feedwaterShutoffValve[1][1].getValveElement()
+                        .getFlow() > -1.0));
         feedwaterShutoffValve[1][2].addSafeClosedProvider(()
-                -> feedwaterPumpCollectorNodes[1].getEffort()
-                > loopFeedwaterIn[1].getEffort());
+                -> (feedwaterPumpCollectorNodes[1].getEffort()
+                > loopFeedwaterIn[1].getEffort()
+                && feedwaterShutoffValve[1][2].getValveElement()
+                        .getFlow() > -1.0));
 
         // Close Aux Condensers Drain Valve on low level
         auxCondCondensateValve[0].addSafeClosedProvider(()
