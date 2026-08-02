@@ -100,7 +100,7 @@ public class Ammeter extends javax.swing.JComponent {
 
         if (position < 0.0) { // Limit between 0 and 100
             position = 0.0;
-        } else if (value > 100) {
+        } else if (position > 100) {
             position = 100;
         }
         this.position = position;
