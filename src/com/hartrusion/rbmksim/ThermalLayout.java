@@ -524,6 +524,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
     private boolean startupPressureSetpointActive;
     private boolean oldStartupPressureSetpointActive;
+    private boolean startupPressureSetpointAlarmFired;
 
     private final double[][] mcpCavitaionFactor = new double[2][4];
     private final Integrator[][] mcpCavitaionState = new Integrator[2][4];
@@ -3694,7 +3695,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // prevents something because certain conditions (like alarm present)
         // are met.
         ValueAlarmMonitor am;
-
+        
         am = new ValueAlarmMonitor();
         am.setName("ColdCondensateLevel");
         // Convert Pascal fill height to meters:
@@ -5109,9 +5110,26 @@ public class ThermalLayout extends Subsystem implements Runnable {
             setpointDrumPressure.setInput(getPressureSetpoint(
                     core.getThermalPowerDisplayed())
                     + setpointDrumPressureOffset.getOutput());
+            // A reminder alarm to turn off the startup pressure setpoint mode
+            // as this would result in a relief of all pressure on any mistake
+            // after startup is sucessful.
+            if (!startupPressureSetpointAlarmFired
+                    && core.getThermalPowerDisplayed()
+                    > PRESSURE_SETPOINT_POWER_END + 100) {
+                alarmManager.fireAlarm("StartupPressureSetpoint",
+                        AlarmState.ACTIVE, false);
+                startupPressureSetpointAlarmFired = true;
+            }
         } else {
             setpointDrumPressure.setInput(PRESSURE_SETPOINT_UPPER
                     + setpointDrumPressureOffset.getOutput());
+            // clear alarm if the alarm is active and the condition was 
+            // cleared
+            if (startupPressureSetpointAlarmFired) {
+                alarmManager.fireAlarm("StartupPressureSetpoint",
+                        AlarmState.NONE, false);
+                startupPressureSetpointAlarmFired = false;
+            }
         }
 
         // Before this run method is invoked from the MainLoop, the controller
@@ -6197,6 +6215,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         startupPressureSetpointActive = save.isStartupPressureSetpointActive();
         // force property change event with this:
         oldStartupPressureSetpointActive = !startupPressureSetpointActive;
+        startupPressureSetpointAlarmFired = false;
 
         // Reset all alarm value monitors so they will re-fire their alarms on
         // loading. Alarms will be cleared and as those alarm value monitors 
