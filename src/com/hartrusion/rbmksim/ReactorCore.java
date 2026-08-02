@@ -213,8 +213,8 @@ public class ReactorCore extends Subsystem implements Runnable {
     private boolean useLoadedValues = false;
 
     private static final double REACTIVITY_BASE = 82.7;
-    private static final double REACTIVITY_XENON = 0.55;
-    private static final double REACTIVITY_GRAPHITE = 0.45; // reduced
+    private static final double REACTIVITY_XENON = 0.50;
+    private static final double REACTIVITY_GRAPHITE = 0.41; // reduced
     private static final double REACTIVITY_TEMPERATURE = 0.0841;
     private static final double REACTIVITY_VOIDING = 0.094;
 
@@ -682,7 +682,7 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private void updateTemperatureReactivity() {
         // kT = 100 * (1 - e^(-(T-310) / 100))
-        temperatureReactivity = 100 * (1 - Math.exp((310 - coreTemp) / 100));
+        temperatureReactivity = 100.0 * (1.0 - Math.exp((310.0 - coreTemp) / 100.0));
     }
 
     /**

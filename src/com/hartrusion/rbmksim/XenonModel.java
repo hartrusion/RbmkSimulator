@@ -96,10 +96,10 @@ public class XenonModel implements Runnable {
             yXenonContribution = 0.0;
         } else if (yXenon <= 60.0) {
             // poly 3rd degree for smooth transition
-            yXenonContribution = yXenon * yXenon * yXenon / 16200
-                + yXenon * yXenon / 540;
+            yXenonContribution = yXenon * yXenon * yXenon / 16200.0
+                + yXenon * yXenon / 540.0;
         } else {
-            yXenonContribution = 8 * yXenon / 9 - 100 / 3;  
+            yXenonContribution = 8.0 * yXenon / 9.0 - 33.333333;  
         }
     }
 
