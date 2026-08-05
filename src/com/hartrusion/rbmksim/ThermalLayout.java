@@ -5858,6 +5858,22 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 case "Loop2#DrumLevelSetpoint":
                     setpointDrumLevel[1].handleAction(ac);
                     break;
+                case "Loop#TrimAllMcp":
+                    // This command shuts all trim valves from all active MCP
+                    // to 40 % immediately. Used to avoid caviation in 
+                    // emergency situations. It could be done manually but this
+                    // takes too much time and usually there would be more 
+                    // people in a control room to handle this, so we have a 
+                    // helpful command for this issue.
+                    for (int idx = 0; idx < 2; idx++) {
+                        for (int jdx = 0; jdx < 4; jdx++) {
+                            if (loopMcpAssembly[idx][jdx].isPumpInOperation()
+                                    && loopTrimValve[idx][jdx].getOpening()
+                                    > 41.0) {
+                                loopTrimValve[idx][jdx].operateSetOpening(40.0);
+                            }
+                        }
+                    }
             }
         } else if (ac.getPropertyName().startsWith("Blowdown")) {
             for (int idx = 0; idx < 2; idx++) {

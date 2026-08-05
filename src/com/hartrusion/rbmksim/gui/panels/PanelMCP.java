@@ -113,6 +113,9 @@ public class PanelMCP extends AbstractPanelWidget
         controlPanelMCPPumpColumn11 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetTrimmablePump();
         controlPanelMCPPumpColumn12 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetTrimmablePump();
         jLabel12 = new javax.swing.JLabel();
+        jButtonTrimAll = new javax.swing.JButton();
+        jLabelCaptionTrimAll2 = new javax.swing.JLabel();
+        jLabelCaptionTrimAll1 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(480, 340));
         setMinimumSize(new java.awt.Dimension(480, 340));
@@ -184,7 +187,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop1CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 94, 20, 20));
+        add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 24, 20, 20));
 
         jButtonLoop1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop1Open.setText("O");
@@ -195,7 +198,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop1OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 94, 20, 20));
+        add(jButtonLoop1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 24, 20, 20));
 
         jLabelCaptionPassiveFlow2.setFont(jLabelCaptionPassiveFlow2.getFont().deriveFont(jLabelCaptionPassiveFlow2.getFont().getSize()-2f));
         jLabelCaptionPassiveFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,7 +206,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabelCaptionPassiveFlow2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 80, 68, 14));
+        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 10, 68, 14));
 
         jButtonLoop2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close.setText("C");
@@ -214,7 +217,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop2CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 134, 20, 20));
+        add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 64, 20, 20));
 
         jButtonLoop2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open.setText("O");
@@ -225,7 +228,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop2OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 134, 20, 20));
+        add(jButtonLoop2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 64, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler2.setFont(jLabeljLabelCaptionRegenToCooler2.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler2.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -233,7 +236,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 120, 68, 14));
+        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 50, 68, 14));
 
         chornobylGaugeLoop2Pressure1.setChornobylTicks(new float[] {0.0f, 20.0f, 70.0f, 100.0f});
         chornobylGaugeLoop2Pressure1.setChornobylUnitText("bar");
@@ -386,6 +389,35 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel12.setText("MCP 2.4");
         jLabel12.setToolTipText("");
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 168, 52, -1));
+
+        jButtonTrimAll.setFont(jButtonTrimAll.getFont().deriveFont(jButtonTrimAll.getFont().getSize()-2f));
+        jButtonTrimAll.setText("●");
+        jButtonTrimAll.setToolTipText("Immediately trims all active MCP trim valves to 40 %. Use to prevent cavitation in emergency situations.");
+        jButtonTrimAll.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonTrimAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTrimAllActionPerformed(evt);
+            }
+        });
+        add(jButtonTrimAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 128, 20, 20));
+
+        jLabelCaptionTrimAll2.setFont(jLabelCaptionTrimAll2.getFont().deriveFont(jLabelCaptionTrimAll2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionTrimAll2.getFont().getSize()-2));
+        jLabelCaptionTrimAll2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionTrimAll2.setText("MCP valves");
+        jLabelCaptionTrimAll2.setToolTipText("Immediately trims all active MCP trim valves to 40 %. Use to prevent cavitation in emergency situations.");
+        jLabelCaptionTrimAll2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionTrimAll2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionTrimAll2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionTrimAll2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 80, 14));
+
+        jLabelCaptionTrimAll1.setFont(jLabelCaptionTrimAll1.getFont().deriveFont(jLabelCaptionTrimAll1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionTrimAll1.getFont().getSize()-2));
+        jLabelCaptionTrimAll1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionTrimAll1.setText("Trim all");
+        jLabelCaptionTrimAll1.setToolTipText("Immediately trims all active MCP trim valves to 40 %. Use to prevent cavitation in emergency situations.");
+        jLabelCaptionTrimAll1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionTrimAll1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionTrimAll1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionTrimAll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 96, 80, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLoop1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop1CloseActionPerformed
@@ -403,6 +435,10 @@ public class PanelMCP extends AbstractPanelWidget
     private void jButtonLoop2OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop2OpenActionPerformed
         controller.userAction(new ActionCommand("Loop2#Bypass", true));
     }//GEN-LAST:event_jButtonLoop2OpenActionPerformed
+
+    private void jButtonTrimAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrimAllActionPerformed
+        controller.userAction(new ActionCommand("Loop#TrimAllMcp", true));
+    }//GEN-LAST:event_jButtonTrimAllActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -428,6 +464,7 @@ public class PanelMCP extends AbstractPanelWidget
     private javax.swing.JButton jButtonLoop1Open;
     private javax.swing.JButton jButtonLoop2Close;
     private javax.swing.JButton jButtonLoop2Open;
+    private javax.swing.JButton jButtonTrimAll;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -457,6 +494,8 @@ public class PanelMCP extends AbstractPanelWidget
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCaptionPassiveFlow2;
+    private javax.swing.JLabel jLabelCaptionTrimAll1;
+    private javax.swing.JLabel jLabelCaptionTrimAll2;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler2;
     // End of variables declaration//GEN-END:variables
 
