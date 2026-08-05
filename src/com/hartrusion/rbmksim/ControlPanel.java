@@ -40,6 +40,7 @@ import com.hartrusion.rbmksim.gui.diagrams.DiagramStartupPressureSetpoint;
 import com.hartrusion.rbmksim.gui.widgets.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.rbmksim.gui.panels.PanelEccs;
+import com.hartrusion.rbmksim.gui.panels.PanelPressureSetpoint;
 import com.hartrusion.util.JDesktopPaneEnhanced;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
@@ -163,6 +164,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
+        jMenuItemPressureSetpoint = new javax.swing.JMenuItem();
         jMenuItemBlowdown = new javax.swing.JMenuItem();
         jMenuItemDeaerators = new javax.swing.JMenuItem();
         jMenuItemFeedwater = new javax.swing.JMenuItem();
@@ -308,6 +310,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemRecirculation.setText("Recirculation");
         jMenuItemRecirculation.addActionListener(this::jMenuItemRecirculationActionPerformed);
         jMenuControls.add(jMenuItemRecirculation);
+
+        jMenuItemPressureSetpoint.setText("Pressure Setpoint");
+        jMenuItemPressureSetpoint.addActionListener(this::jMenuItemPressureSetpointActionPerformed);
+        jMenuControls.add(jMenuItemPressureSetpoint);
 
         jMenuItemBlowdown.setText("Blowdown");
         jMenuItemBlowdown.addActionListener(this::jMenuItemBlowdownActionPerformed);
@@ -578,6 +584,8 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineActionPerformed(null);
         jMenuItemGeneratorActionPerformed(null);
         jMenuItemCoolantActionPerformed(null);
+        jMenuItemPressureSetpointActionPerformed(null);
+        jMenuItemViewAlarmListActionPerformed(null);
 
         // Align them in a preset grid layout.
         // 1st row:
@@ -595,6 +603,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         JDesktopPaneEnhanced.windowPlaceBelow(
                 getControlPanelInstance("Turbine Bypass"),
                 getControlPanelInstance("Generator"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                alarmTable,
+                getControlPanelInstance("Generator"));
+        
 
         // 2nd row:
         JDesktopPaneEnhanced.windowPlaceBelow(
@@ -620,6 +632,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         JDesktopPaneEnhanced.windowPlaceRightTo(
                 getControlPanelInstance("Coolant"),
                 getControlPanelInstance("Aux. Condensation"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Pressure Setpoint"),
+                getControlPanelInstance("Coolant"));
     }//GEN-LAST:event_jMenuItemPresetFullActionPerformed
 
     private void jMenuItemPresetNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetNoneActionPerformed
@@ -1612,6 +1627,17 @@ public class ControlPanel extends javax.swing.JFrame implements
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuWordsActionPerformed
 
+    private void jMenuItemPressureSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPressureSetpointActionPerformed
+        for (InternalFramePanel pf : panels) {
+            if (pf.getPanelName().equals("Pressure Setpoint")) {
+                pf.toFront();
+                return;
+            }
+        }
+        // if theres no active frame, generate it and make it known here.
+        initializeControlPanel(new PanelPressureSetpoint(), "Pressure Setpoint");
+    }//GEN-LAST:event_jMenuItemPressureSetpointActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1799,6 +1825,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPresetMnemonics;
     private javax.swing.JMenuItem jMenuItemPresetNone;
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
+    private javax.swing.JMenuItem jMenuItemPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemStartServer;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;

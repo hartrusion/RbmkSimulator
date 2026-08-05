@@ -29,11 +29,10 @@ import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 public class PanelMCP extends AbstractPanelWidget
         implements UpdateReceiver {
 
-
     @Override
     public void registerActionReceiver(ActionReceiver controller) {
         super.registerActionReceiver(controller);
-        
+
         // Make action receiver interface from controller available to elements
         // of this Panel so they can send their actions to it directly.
         controlPanelMCPPumpColumn1.registerActionReceiver(controller);
@@ -44,7 +43,6 @@ public class PanelMCP extends AbstractPanelWidget
         controlPanelMCPPumpColumn3.registerActionReceiver(controller);
         controlPanelMCPPumpColumn4.registerActionReceiver(controller);
         controlPanelMCPPumpColumn9.registerActionReceiver(controller);
-        setpointControlPressureOffset.registerActionReceiver(controller);
     }
 
     /**
@@ -85,7 +83,6 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         chornobylGaugeLoop2Level1 = new com.hartrusion.rbmksim.gui.elements.ChornobylGauge();
-        jLabelCaptionDrumPressureOffset2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -116,9 +113,6 @@ public class PanelMCP extends AbstractPanelWidget
         controlPanelMCPPumpColumn11 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetTrimmablePump();
         controlPanelMCPPumpColumn12 = new com.hartrusion.rbmksim.gui.widgets.PanelWidgetTrimmablePump();
         jLabel12 = new javax.swing.JLabel();
-        jLabelCaptionDrumPressureOffset1 = new javax.swing.JLabel();
-        setpointControlPressureOffset = new com.hartrusion.rbmksim.gui.elements.SetpointControl();
-        jLabelCaptionBar = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(480, 340));
         setMinimumSize(new java.awt.Dimension(480, 340));
@@ -190,7 +184,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop1CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 100, 20, 20));
+        add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 94, 20, 20));
 
         jButtonLoop1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop1Open.setText("O");
@@ -201,7 +195,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop1OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 100, 20, 20));
+        add(jButtonLoop1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 94, 20, 20));
 
         jLabelCaptionPassiveFlow2.setFont(jLabelCaptionPassiveFlow2.getFont().deriveFont(jLabelCaptionPassiveFlow2.getFont().getSize()-2f));
         jLabelCaptionPassiveFlow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -209,7 +203,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabelCaptionPassiveFlow2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionPassiveFlow2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 86, 51, 14));
+        add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 80, 68, 14));
 
         jButtonLoop2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close.setText("C");
@@ -220,7 +214,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop2CloseActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 140, 20, 20));
+        add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 134, 20, 20));
 
         jButtonLoop2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open.setText("O");
@@ -231,7 +225,7 @@ public class PanelMCP extends AbstractPanelWidget
                 jButtonLoop2OpenActionPerformed(evt);
             }
         });
-        add(jButtonLoop2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 140, 20, 20));
+        add(jButtonLoop2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 134, 20, 20));
 
         jLabeljLabelCaptionRegenToCooler2.setFont(jLabeljLabelCaptionRegenToCooler2.getFont().deriveFont(jLabeljLabelCaptionRegenToCooler2.getFont().getSize()-2f));
         jLabeljLabelCaptionRegenToCooler2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -239,7 +233,7 @@ public class PanelMCP extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabeljLabelCaptionRegenToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 126, 51, 14));
+        add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 120, 68, 14));
 
         chornobylGaugeLoop2Pressure1.setChornobylTicks(new float[] {0.0f, 20.0f, 70.0f, 100.0f});
         chornobylGaugeLoop2Pressure1.setChornobylUnitText("bar");
@@ -258,14 +252,6 @@ public class PanelMCP extends AbstractPanelWidget
         chornobylGaugeLoop2Level1.setChornobylMinimum(-70.0F);
         chornobylGaugeLoop2Level1.setChornobylTicks(new float[] {-60.0f, -30.0f, 0.0f, 30.0f, 60.0f});
         add(chornobylGaugeLoop2Level1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 4, -1, -1));
-
-        jLabelCaptionDrumPressureOffset2.setFont(jLabelCaptionDrumPressureOffset2.getFont().deriveFont(jLabelCaptionDrumPressureOffset2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumPressureOffset2.getFont().getSize()-2));
-        jLabelCaptionDrumPressureOffset2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumPressureOffset2.setText("setpoint offset");
-        jLabelCaptionDrumPressureOffset2.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionDrumPressureOffset2.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionDrumPressureOffset2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrumPressureOffset2, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 20, 86, 14));
 
         jLabel13.setFont(jLabel13.getFont().deriveFont(jLabel13.getFont().getSize()-2f));
         jLabel13.setText("Rc. Flow");
@@ -400,25 +386,6 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel12.setText("MCP 2.4");
         jLabel12.setToolTipText("");
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 168, 52, -1));
-
-        jLabelCaptionDrumPressureOffset1.setFont(jLabelCaptionDrumPressureOffset1.getFont().deriveFont(jLabelCaptionDrumPressureOffset1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionDrumPressureOffset1.getFont().getSize()-2));
-        jLabelCaptionDrumPressureOffset1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionDrumPressureOffset1.setText("Drum pressure");
-        jLabelCaptionDrumPressureOffset1.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionDrumPressureOffset1.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionDrumPressureOffset1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionDrumPressureOffset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(386, 6, 86, 14));
-
-        setpointControlPressureOffset.setComponent("Loop#PressureSetpointOffset");
-        add(setpointControlPressureOffset, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 38, -1, -1));
-
-        jLabelCaptionBar.setFont(jLabelCaptionBar.getFont().deriveFont(jLabelCaptionBar.getFont().getSize()-2f));
-        jLabelCaptionBar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionBar.setText("bar");
-        jLabelCaptionBar.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionBar.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionBar.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 62, 51, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLoop1CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoop1CloseActionPerformed
@@ -489,12 +456,8 @@ public class PanelMCP extends AbstractPanelWidget
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelCaptionBar;
-    private javax.swing.JLabel jLabelCaptionDrumPressureOffset1;
-    private javax.swing.JLabel jLabelCaptionDrumPressureOffset2;
     private javax.swing.JLabel jLabelCaptionPassiveFlow2;
     private javax.swing.JLabel jLabeljLabelCaptionRegenToCooler2;
-    private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlPressureOffset;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -507,15 +470,14 @@ public class PanelMCP extends AbstractPanelWidget
         controlPanelMCPPumpColumn3.updateComponent(evt);
         controlPanelMCPPumpColumn4.updateComponent(evt);
         controlPanelMCPPumpColumn9.updateComponent(evt);
-        setpointControlPressureOffset.updateComponent(evt);
-        
+
         switch (evt.getPropertyName()) {
             case "Loop1#Bypass_Pos":
-                setValveButtons(jButtonLoop1Close, jButtonLoop1Open, 
+                setValveButtons(jButtonLoop1Close, jButtonLoop1Open,
                         evt.getNewValue());
                 break;
             case "Loop2#Bypass_Pos":
-                setValveButtons(jButtonLoop2Close, jButtonLoop2Open, 
+                setValveButtons(jButtonLoop2Close, jButtonLoop2Open,
                         evt.getNewValue());
                 break;
         }
@@ -523,7 +485,7 @@ public class PanelMCP extends AbstractPanelWidget
 
     @Override
     public void updateComponent(String propertyName, Object newValue) {
-        
+
     }
 
     @Override
@@ -549,9 +511,8 @@ public class PanelMCP extends AbstractPanelWidget
                 chornobylGaugeLoop2Pressure1.setChornobylValue((float) newValue);
             case "Loop2#McpCooldown" ->
                 chornobylGaugeLoop2Cooldown.setChornobylValue((float) newValue);
-                
+
         }
-        setpointControlPressureOffset.updateComponent(propertyName, newValue);
     }
 
     @Override
@@ -564,6 +525,5 @@ public class PanelMCP extends AbstractPanelWidget
         controlPanelMCPPumpColumn3.updateComponent(propertyName, newValue);
         controlPanelMCPPumpColumn4.updateComponent(propertyName, newValue);
         controlPanelMCPPumpColumn9.updateComponent(propertyName, newValue);
-        setpointControlPressureOffset.updateComponent(propertyName, newValue);
     }
 }
