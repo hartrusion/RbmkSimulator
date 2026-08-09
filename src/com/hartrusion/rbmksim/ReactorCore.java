@@ -78,8 +78,15 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     private final int[][] rodIndex = new int[ChannelData.LENGTH][ChannelData.LENGTH];
     private final int[][] fuelIndex = new int[ChannelData.LENGTH][ChannelData.LENGTH];
+    private final int[][] evaporatorIndex = new int[ChannelData.LENGTH][ChannelData.LENGTH];
 
+    /**
+     * Holds all fuel elements - including those which do the evaporation
+     */
     private final List<FuelElement> fuelElements = new ArrayList<>();
+
+    private final List<EvaporatorElement> evaporatorElements = new ArrayList<>();
+
     private final List<ControlRod> controlRods = new ArrayList<>();
 
     /**
@@ -637,34 +644,37 @@ public class ReactorCore extends Subsystem implements Runnable {
         for (FuelElement f : fuelElements) {
             f.runProcessResults();
 
-            avgVoiding += f.getSteamVoiding();
             avgTemperature += f.getFuelTemperature();
-
-            // Get min and max values from all channels
-            if (f.getCriticalPowerRatio() > maxCpr) {
-                maxCpr = f.getCriticalPowerRatio();
-            } else if (f.getCriticalPowerRatio() < minCpr) {
-                minCpr = f.getCriticalPowerRatio();
-            }
-            
             if (f.getFissionPowerForDisplay() > maxPth) {
                 maxPth = f.getFissionPowerForDisplay();
             } else if (f.getFissionPowerForDisplay() < minPth) {
                 minPth = f.getFissionPowerForDisplay();
             }
-
-            switch (f.getLoop()) {
-                case 1 ->
-                    loop1Flow += f.getFlow();
-                case 2 ->
-                    loop2Flow += f.getFlow();
-            }
         }
-
-        voiding = avgVoiding / fuelElements.size();
-        updateVoidingReactivity();
         coreTemp = avgTemperature / fuelElements.size();
         updateTemperatureReactivity();
+
+        for (EvaporatorElement evp : evaporatorElements) {
+            // runProcessResults was already called above as each evp is 
+            // also a FuelElement.
+
+            avgVoiding += evp.getSteamVoiding();
+
+            // Get min and max values from all channels
+            if (evp.getCriticalPowerRatio() > maxCpr) {
+                maxCpr = evp.getCriticalPowerRatio();
+            } else if (evp.getCriticalPowerRatio() < minCpr) {
+                minCpr = evp.getCriticalPowerRatio();
+            }
+            switch (evp.getLoop()) {
+                case 1 ->
+                    loop1Flow += evp.getFlow();
+                case 2 ->
+                    loop2Flow += evp.getFlow();
+            }
+        }
+        voiding = avgVoiding / evaporatorElements.size();
+        updateVoidingReactivity();
 
         outputValues.setParameterValue("Loop1#ReactorOutFlow",
                 loop1Flow);
@@ -946,6 +956,9 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     public void init() {
         int idx, jdx;
+        int evapId, evapX, evapY;
+        FuelElement fe;
+        EvaporatorElement evp;
 
         neutronFluxModel.setInitialConditions(100, 80.144, 0);
 
@@ -964,6 +977,7 @@ public class ReactorCore extends Subsystem implements Runnable {
             for (jdx = 0; jdx < ChannelData.LENGTH; jdx++) {
                 rodIndex[idx][jdx] = -1;
                 fuelIndex[idx][jdx] = -1;
+                evaporatorIndex[idx][jdx] = -1;
             }
         }
 
@@ -972,8 +986,18 @@ public class ReactorCore extends Subsystem implements Runnable {
             for (jdx = ChannelData.MIN_NUMBER; jdx <= ChannelData.MAX_NUMBER; jdx++) {
                 switch (ChannelData.getChannelType(idx, jdx)) {
                     case FUEL -> {
+                        // Not all fuel elements do have an evaporator, it is 
+                        // defined in ChannelData class which channels are also
+                        // used by the water/steam logic.
+                        if (ChannelData.isEvaporatorChannel(idx, jdx)) {
+                            fe = new EvaporatorElement(idx, jdx);
+                            evaporatorIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = evaporatorElements.size();
+                            evaporatorElements.add((EvaporatorElement) fe);
+                        } else {
+                            fe = new FuelElement(idx, jdx);
+                        }
                         fuelIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = fuelElements.size();
-                        fuelElements.add(new FuelElement(idx, jdx));
+                        fuelElements.add(fe);
                     }
                     case AUTOMATIC_CONTROLROD -> {
                         rodIndex[idx - ChannelData.MIN_NUMBER][jdx - ChannelData.MIN_NUMBER] = controlRods.size();
@@ -995,6 +1019,32 @@ public class ReactorCore extends Subsystem implements Runnable {
                     }
                 }
             }
+        }
+
+        // Iterate over all created fuel channels and connect them with the 
+        // corresponding evaporator.
+        for (FuelElement f : fuelElements) {
+            // Get the corresponding evaporator channel
+            evapId = ChannelData.getEvaporatorChannel(f.getX(), f.getY());
+            evapX = evapId / 100;
+            evapY = evapId % 100;
+            System.out.println("EvapX " + evapX + " EvapY " + evapY);
+            if (evapId == 0) {
+                evapId = 0;
+            }
+            idx = evaporatorIndex[evapX - ChannelData.MIN_NUMBER][evapY - ChannelData.MIN_NUMBER];
+            evp = evaporatorElements.get(idx);
+            
+            // make the evaporator element konwn to the fuel element.
+            evp.addFuelElementToEvaporator(f);
+            
+            f.connectToEvaporator(evp.getEvapInNode());
+        }
+        
+        // After links between evaporator and surrounding elements are set,
+        // the steam/water part can be set up with its values
+        for (EvaporatorElement evap : evaporatorElements) {
+            evap.initEvaporator();
         }
 
         // Define controler input for automatic rods. e = -(setpoing - flux)
@@ -1106,8 +1156,8 @@ public class ReactorCore extends Subsystem implements Runnable {
 
         // Make the temperature of the downcomers available to all fuel elements
         // by passing the reference to the array to the fuel elements.
-        for (FuelElement fuel : fuelElements) {
-            fuel.setDowncomerTemperatureReference(downcomerTemperature);
+        for (EvaporatorElement evap : evaporatorElements) {
+            evap.setDowncomerTemperatureReference(downcomerTemperature);
         }
 
         downcomerTemperature[0] = 260;
@@ -1188,9 +1238,9 @@ public class ReactorCore extends Subsystem implements Runnable {
             PhasedNode poolNode) {
         // Iterate through all generated fuel elements and call for those which
         // loop number matches
-        for (FuelElement f : fuelElements) {
-            if (f.getLoop() == loop) {
-                f.connectTo(distributorNode, steamDrum, poolNode);
+        for (EvaporatorElement evp : evaporatorElements) {
+            if (evp.getLoop() == loop) {
+                evp.connectTo(distributorNode, steamDrum, poolNode);
             }
         }
     }

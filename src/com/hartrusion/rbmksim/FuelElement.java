@@ -17,32 +17,24 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.modeling.PhysicalDomain;
-import com.hartrusion.modeling.converters.PhasedHeatFluidConverter;
 import com.hartrusion.modeling.general.FlowSource;
 import com.hartrusion.modeling.general.GeneralNode;
 import com.hartrusion.modeling.general.LinearDissipator;
 import com.hartrusion.modeling.general.OpenOrigin;
 import com.hartrusion.modeling.general.SelfCapacitance;
-import com.hartrusion.modeling.heatfluid.HeatEffortSource;
-import com.hartrusion.modeling.heatfluid.HeatFrictionedFlowResistance;
-import com.hartrusion.modeling.heatfluid.HeatNode;
-import com.hartrusion.modeling.heatfluid.HeatSimpleFlowResistance;
-import com.hartrusion.modeling.heatfluid.HeatVolumizedFlowResistance;
-import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
-import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalExchanger;
-import com.hartrusion.modeling.phasedfluid.PhasedExpandingThermalVolumeHandler;
-import com.hartrusion.modeling.phasedfluid.PhasedNode;
-import com.hartrusion.modeling.phasedfluid.Water;
 import java.util.List;
 
 /**
  * Has an affection which is a value how much this fuel rod is affected by
  * nearby control rods.
  * <p>
- * Manages the thermal model that generates the thermal energy and the modeling
- * of the evaporation. Serves as some kind of container which has the elements
- * and some nodes, they get connected from this in the thermal model on
- * initialization there.
+ * Manages the thermal model that generates the thermal energy. Serves as some
+ * kind of container which has the elements and some nodes, they get connected
+ * from this in the thermal model on initialization there.
+ * <p>
+ * Note that the private property of fields here is explicitly used to shield
+ * the fuel thermal part from the evaporator part which is an extension of this
+ * class.
  *
  * @author Viktor Alexander Hartung
  */
@@ -68,7 +60,7 @@ public class FuelElement extends ReactorElement {
 
     private double fluxToPower;
     private double fluxToDisplayPower;
-    private double localIdlePower;
+    protected double localIdlePower;
 
     /**
      * Fraction of the neutron flux that is distributed among the fuel elements
@@ -183,51 +175,15 @@ public class FuelElement extends ReactorElement {
     private double fissionPowerDisplay;
 
     /**
-     * Steam void, saved as variable to have only one call on the calculation of
-     * the voiding (it is a bit expensive). Will be updated after the thermal
-     * layout is calculated by the runProcessResults call.
-     */
-    private double voiding;
-
-    private double flow;
-
-    private double criticalPowerRatio;
-
-    private double thermalLiftPressure;
-    
-    /**
      * Saves the value of the fuel temperature as the value from the previous
-     * cycle is used here to determine if the thermal power has to be limited
-     * to have the fuel rod melt, but not evaporate.
+     * cycle is used here to determine if the thermal power has to be limited to
+     * have the fuel rod melt, but not evaporate.
      * <p>
      * Given in Degrees Celsius.
      */
     private double fuelTemperature;
 
     private boolean ruptured;
-
-    // Network part for the hydraulic part
-    private final HeatFrictionedFlowResistance flowResistance
-            = new HeatFrictionedFlowResistance();
-    private final HeatNode afterResistance = new HeatNode();
-    private final HeatVolumizedFlowResistance channelMass
-            = new HeatVolumizedFlowResistance();
-    private final HeatNode afterChannelMass = new HeatNode();
-    private final HeatEffortSource thermalLift = new HeatEffortSource();
-    private final HeatNode afterThermalLift = new HeatNode();
-    private final PhasedHeatFluidConverter toReactorConverter;
-    private final PhasedHeatFluidConverter toPoolConverter;
-    private final PhasedNode evaporatorIn = new PhasedNode();
-    private final PhasedExpandingThermalExchanger evaporator;
-    private final PhasedNode evapToDrumNode = new PhasedNode();
-
-    private final HeatSimpleFlowResistance channelLeak
-            = new HeatSimpleFlowResistance();
-    private final PhasedNode channelLeakNode = new PhasedNode();
-    private final HeatEffortSource channelLeakGravity
-            = new HeatEffortSource();
-    private final HeatNode leakOut = new HeatNode();
-    private final HeatNode leakOutGrav = new HeatNode();
 
     // Thermal system describing the fuel thermal heat flow
     private final GeneralNode thermalGroundNode = new GeneralNode(PhysicalDomain.THERMAL);
@@ -237,43 +193,29 @@ public class FuelElement extends ReactorElement {
             = new SelfCapacitance(PhysicalDomain.THERMAL);
     private final GeneralNode thermalCapacityNode
             = new GeneralNode(PhysicalDomain.THERMAL);
-    private final LinearDissipator thermalResistance
+    private final LinearDissipator thermalInnerResistance
             = new LinearDissipator(PhysicalDomain.THERMAL);
-    private final GeneralNode thermalOutNode = new GeneralNode(PhysicalDomain.THERMAL);
+    private final GeneralNode thermalCoreNode = new GeneralNode(PhysicalDomain.THERMAL);
+    private final LinearDissipator thermalToEvapResistance
+            = new LinearDissipator(PhysicalDomain.THERMAL);
 
     /**
      * Coolant loop this channel belongs to (1 or 2).
      */
-    private int loop;
+    protected int loop;
 
     private final String propertyTemperature;
-    private final String propertyFlow;
-    private final String propertyVoiding;
+
     private final String propertyAffectionValue;
     private final String propertyFissionPower;
-    private final String propertyCpr;
-
-    /**
-     * Reference to the array that holds the temperature of the downcomers which
-     * is used to generate the thermal lift value.
-     */
-    private double[] downcomerTemperature;
-
-    /**
-     * The calculation element used in the evaporator element.
-     */
-    private PhasedExpandingThermalVolumeHandler evapHandler;
 
     public FuelElement(int x, int y) {
         super(x, y);
 
         propertyTemperature = "Fuel" + (100 * x + y) + "#Temperature";
-        propertyFlow = "Fuel" + (100 * x + y) + "#Flow";
-        propertyVoiding = "Fuel" + (100 * x + y) + "#Voiding";
+
         propertyAffectionValue = "Fuel" + (100 * x + y) + "#Affection";
         propertyFissionPower = "Fuel" + (100 * x + y) + "#FissionPower";
-        propertyCpr = "Fuel" + x + "-" + y + "#CriticalPowerRatio";
-
         // Assign loop by given coordinates.
         loop = ChannelData.getLoop(x, y);
 
@@ -282,54 +224,25 @@ public class FuelElement extends ReactorElement {
         fluxToDisplayPower = FULL_FLUX_POWER / 100;
         localIdlePower = IDLE_HEAT / 376;
 
-        // Generate instances
-        toReactorConverter = new PhasedHeatFluidConverter(Water.INSTANCE);
-        toPoolConverter = new PhasedHeatFluidConverter(Water.INSTANCE);
-        evaporator = new PhasedExpandingThermalExchanger(Water.INSTANCE);
-
-        // Naming
-        flowResistance.setName("FuelChannelHydraulic" + x + "-" + y + "#FlowResistance");
-        afterResistance.setName("FuelChannelHydraulic" + x + "-" + y + "#AfterResistance");
-        channelMass.setName("FuelChannelHydraulic" + x + "-" + y + "#ChannelMass");
-        afterChannelMass.setName("FuelChannelHydraulic" + x + "-" + y + "#AfterChannelMass");
-        thermalLift.setName("FuelChannelHydraulic" + x + "-" + y + "#ThermalLift");
-        afterThermalLift.setName("FuelChannelHydraulic" + x + "-" + y + "#AfterThermalLift");
-        toReactorConverter.setName("FuelChannelHydraulic" + x + "-" + y + "#ToReactorConverter");
-        toPoolConverter.setName("FuelChannelHydraulic" + x + "-" + y + "#ToPoolConverter");
-        evaporatorIn.setName("FuelChannelHydraulic" + x + "-" + y + "#EvaporatorIn");
-        evaporator.setName("FuelChannelHydraulic" + x + "-" + y + "#Evaporator");
-
         thermalGroundNode.setName("FuelChannelThermal" + x + "-" + y + "Fuel#GroundNode");
         thermalGround.setName("FuelChannelThermal" + x + "-" + y + "#Ground");
         thermalFlowSource.setName("FuelChannelThermal" + x + "-" + y + "#FlowSource");
         thermalCapacity.setName("FuelChannelThermal" + x + "-" + y + "#Capacity");
         thermalCapacityNode.setName("FuelChannelThermal" + x + "-" + y + "#CapacityNode");
-        thermalResistance.setName("FuelChannelThermal" + x + "-" + y + "#Resistance");
-        thermalOutNode.setName("FuelChannelThermal" + x + "-" + y + "#OutNode");
-
-        connectHydraulicModel();
-
+        thermalInnerResistance.setName("FuelChannelThermal" + x + "-" + y + "#InnerResistance");
+        thermalCoreNode.setName("FuelChannelThermal" + x + "-" + y + "#CoreNode");
+        thermalToEvapResistance.setName("FuelChannelThermal" + x + "-" + y + "#EvapResistance");
+        
         // Connections of the thermal part
         thermalGround.connectTo(thermalGroundNode);
-        thermalFlowSource.connectBetween(thermalGroundNode, thermalOutNode);
+        thermalFlowSource.connectBetween(thermalGroundNode, thermalCoreNode);
         // Add a capacitance for modeling the fuels thermal capacity
         thermalCapacity.connectTo(thermalCapacityNode);
-        thermalResistance.connectBetween(thermalCapacityNode, thermalOutNode);
-        evaporator.getInnerThermalResistanceElement().connectTo(thermalOutNode);
-
-        // There is 188 Channels per side. The total resistance for one loop
-        // is 293.1 so per Channel it will be 55102.8.
-        // This has to be split onto two elements to have the nodal analysis
-        // work with norton transform. The split between 10000 and 45102.8 is 
-        // designed in a way we get a decent flow out on channel rupture on 
-        // idle as well as in full load conditions.
-        flowResistance.setResistanceParameter(45102.8);
-        channelMass.setInnerThermalMass(100);
-        channelMass.setResistanceParameter(10000);
-        // Manipulate the specific heat capacity here to make the heatup 
-        // from the MCP circulation much more intense. Default is 4200, the
-        // heat increase is delta_p / (density * specHeatCap)
-        flowResistance.setFrictionHeatupParameters(1000, 2000);
+        thermalInnerResistance.connectBetween(thermalCapacityNode, thermalCoreNode);
+        
+        // Only one side gets connected here, the other will be the node that 
+        // already exists in the evaporator element.
+        thermalToEvapResistance.connectTo(thermalCoreNode);
 
         // 192 Tons (96 per side) of fuel in reactor. Specific heat capacity
         // of uranium dioxide: 270 J/kg/K
@@ -340,95 +253,22 @@ public class FuelElement extends ReactorElement {
         // do Tau = R * C to R = Tau/C to get a fancy time constant that 
         // gets the dynamics we want. Lets use Tau of 10 s so it will be 
         // R = 10/138298
-        thermalResistance.setResistanceParameter(7.2e-5);
-
-        // Side note here: The temperature of the fuel in the previous two-
-        // evaporator model was 38 °C when starting the sim, with a very low
-        // flow of about 25 kg/s through one side when blowdown is shut. The 
-        // flow was driven by the temperature diff between downcomer and evap
-        // element.         
-        // 20 m³ volume in evaporator per side is way too slow for 
-        // mcp loss accident.        
-        // For loss of circulation: The evaporator will slowly start to boil
-        // and loose its mass. It should met at 2800 °C (3073 K) and we just
-        // randomly define 4000 K and 50 MW when running empty, so it is
-        // G = P_th / DeltaT = 50e6 J/s / 4000 K = 1.25e4 when almost empty.
-        // evaporator.setThermalDimension(14.0, 200, 
-        //        5.5e6, 10000,
-        //        1.0e4, 4000);
-        // New calculation with 188 fuel channels per side:
-        // Each of the 376 channels transfers a certain amount of heat, on full
-        // load that will  be 8525531 Watts.
-        // On full load, there shall be a fuel temperature of
-        // of 570 °C (843 K) and recirc out temp of 284°/557 K
-        // Resistance: R = DeltaT / P_th = 286 / 8525531 - G = 1/R = 29809.5
-        // But, more simple: Just all the values divided by 188
-        evaporator.setThermalDimension(0.0745, 1.064,
-                29255, 53.191, // Full Conductance
-                54, 21.3); // Empty conductance
-
-        // Channel leakage: On 64e5 Pa, leakage will be 12 kg/s per fuel rod, 
-        // which is already pretty excessive. This means the resistance value
-        // will be 5.3e5 when channel is ruptured, this will be set if the 
-        // rupture did happen.
-        channelLeak.setOpenConnection();
-        channelLeakGravity.setEffort(1e5);
+        thermalInnerResistance.setResistanceParameter(7.2e-5);
 
         // Initial State
         thermalCapacity.setInitialEffort(273.15 + 38);
-
-        evaporator.setInitialState(1e5,
-                273.5 + 25.3, 273.5 + 36.8);
-
-        channelMass.getHeatHandler()
-                .setInitialTemperature(273.15 + 25.3);
-
-        evapHandler = (PhasedExpandingThermalVolumeHandler) evaporator.getPhasedHandler();
-
-        thermalLift.setEffort(5e4);
     }
-
+    
     /**
-     * Connects the hydraulic elements and nodes and sets some properties of the
-     * hydraulic part.
+     * Used to connect the thermal models from corresponding fuel elements to
+     * the evaporator. Called during model building, for each fuel thermal model
+     * part (even for the the part that is extended in this class).
      *
-     * <pre>
-     *     |
-     *    | |
-     *    | |  evaporator
-     *    | |
-     *     |
-     *     o evaporatorIn (PhasedFluid)
-     *     |
-     *    [ ] toReactorConverter
-     *     |
-     *     o afterThermalLift (HeatFluid)
-     *     |
-     *    (|) thermalLift
-     *     |
-     *     o
-     *     |
-     *    | | channelMass - HeatVolumizedFlowResistance
-     *     |
-     * aft | channelLeak  gravity  toPoolConverter
-     * res o----___----o---(-)--o---[ ]----
-     *     |         leakOut  leakOutGrav
-     *     |
-     *    | | flowResistance - HeatFrictionedFlowResistance
-     *     |
-     * </pre>
+     * @param evapElementInNode The outNode of the evaporator (thermal) from 
+     * the EvaporatorElement
      */
-    private void connectHydraulicModel() {
-        // Connections of the hydraulic part
-        flowResistance.connectTo(afterResistance);
-        channelMass.connectBetween(afterResistance, afterChannelMass);
-        thermalLift.connectBetween(afterChannelMass, afterThermalLift);
-        toReactorConverter.connectBetween(afterThermalLift, evaporatorIn);
-        evaporator.initComponent();
-        evaporator.connectTo(evaporatorIn);
-        channelLeak.connectBetween(afterResistance, leakOut);
-        channelLeakGravity.connectBetween(leakOut, leakOutGrav);
-        toPoolConverter.connectTo(leakOutGrav);
+    public void connectToEvaporator(GeneralNode evapElementInNode) {
+        thermalToEvapResistance.connectTo(evapElementInNode);
     }
 
     /**
@@ -481,10 +321,6 @@ public class FuelElement extends ReactorElement {
         return affection;
     }
 
-    public PhasedExpandingThermalExchanger getEvaporator() {
-        return evaporator;
-    }
-
     /**
      * Side of the reactor this fuel element belongs to
      *
@@ -492,22 +328,6 @@ public class FuelElement extends ReactorElement {
      */
     public int getLoop() {
         return loop;
-    }
-
-    /**
-     * Called from the thermal layout during the network setup process, requires
-     * this fuel element to be initialized already. It connects the elements to
-     * the thermal network.
-     *
-     * @param distributorNode
-     * @param drumNode
-     * @param poolNode
-     */
-    public void connectTo(HeatNode distributorNode,
-            PhasedClosedSteamedReservoir steamDrum, PhasedNode poolNode) {
-        flowResistance.connectTo(distributorNode);
-        evaporator.connectToVia(steamDrum, evapToDrumNode);
-        toPoolConverter.connectTo(poolNode);
     }
 
     /**
@@ -591,17 +411,13 @@ public class FuelElement extends ReactorElement {
     }
 
     /**
-     * Current fission power of this fuel element, given in % in the same unit
+     * Current fission power of this fuel element, given in MW in the same unit
      * as the neutron flux and already considering the affection distribution.
      *
-     * @return Fission power in %
+     * @return Fission power in Megawatts
      */
     public double getFissionPower() {
         return fissionPower;
-    }
-
-    public void setDowncomerTemperatureReference(double[] temperature) {
-        downcomerTemperature = temperature;
     }
 
     /**
@@ -610,72 +426,19 @@ public class FuelElement extends ReactorElement {
      * are updated now.
      */
     public void runProcessResults() {
-        voiding = evapHandler.getVoiding(1e5);
-        flow = toReactorConverter.getFlow();
+
         fuelTemperature = thermalCapacityNode.getEffort() - 273.15;
 
         // Send per fuel rod values - those are intended to be debugging
         // only as they are not available in such a detail in the real plant.
         outputValues.setParameterValue(propertyTemperature, fuelTemperature);
-        outputValues.setParameterValue(propertyFlow, flow);
         outputValues.setParameterValue(propertyFissionPower, fissionPower);
-        outputValues.setParameterValue(propertyVoiding, voiding);
-
-        // Limit the thermal loop to always have a minimum flow and not exceed 
-        // a certain limit - due to the nature of the model it is otherwise 
-        // possible that the flow goes reversed, there is no real gravity.
-        thermalLiftPressure = Math.min(1.8e5, Math.max(1.2e4,
-                (evaporator.getTemperature()
-                - downcomerTemperature[loop - 1])
-                * 2000)); // try-and-error obtained number
-
-        thermalLift.setEffort(thermalLiftPressure);
 
         // Very simple so far.
         if (thermalCapacityNode.getEffort() - 273.15 >= 1600) {
             ruptured = true;
         }
 
-        if (ruptured) {
-            // This will generate a flow of 0.37 kg/s on idle and roughly 
-            // 30 kg/s on full load so the flow also comes drom the steam drum 
-            // and the evaporator operates in reverse flow mode.
-            channelLeak.setResistanceParameter(2e5);
-        } else {
-            channelLeak.setOpenConnection();
-        }
-
-        // Calculate the Critical Power Ratio - this is Skala code
-        // K4N0000 according to Choronobyl Family. This describes a factor of
-        // thermal power and a power that would lead to dryout.
-        // K = flow * (deltaH_subcooling + X_crit * r) / Q_thermalPower
-        // With X_crit = 0.25 and r = 2100000 (Water-Model)
-        if (thermalFlowSource.getFlow() > localIdlePower) {
-            double deltaT_subcooling
-                    = (Water.INSTANCE.getSaturationTemperature(evapToDrumNode.getEffort())
-                    - ((HeatNode) flowResistance.getNode(1)).getTemperature());
-            double deltaH_subcooling = deltaT_subcooling * Water.INSTANCE.getSpecificHeatCapacity();
-
-            criticalPowerRatio = Math.min(-evapToDrumNode.getFlow(evaporator)
-                    * (deltaH_subcooling + 0.25 * Water.INSTANCE.getVaporizationHeatEnergy())
-                    / thermalFlowSource.getFlow(), 9.990);
-        } else {
-            criticalPowerRatio = 9.990;
-        }
-
-        // Send this also
-        outputValues.setParameterValue(propertyCpr, criticalPowerRatio);
-    }
-
-    /**
-     * Minimum Critical Power Ratio (K4N0000) of this fuel Channel. This is a
-     * value that describes the ratio of maximum allowed power before dry buling
-     * and the current power. It needs to stay above 1.0
-     *
-     * @return
-     */
-    public double getCriticalPowerRatio() {
-        return criticalPowerRatio;
     }
 
     /**
@@ -685,27 +448,7 @@ public class FuelElement extends ReactorElement {
      * @return Temperature of the fuel in Kelvin
      */
     public double getFuelTemperature() {
-        return thermalOutNode.getEffort();
-    }
-
-    /**
-     * Acess to the current voiding of the steam surrounding the fuel element.
-     * Note that this returns only a saved variable to keep the call as cheap as
-     * possible.
-     *
-     * @return
-     */
-    public double getSteamVoiding() {
-        return voiding;
-    }
-
-    /**
-     * Upward flow in channel
-     *
-     * @return kg/s
-     */
-    public double getFlow() {
-        return flow;
+        return thermalCoreNode.getEffort();
     }
 
     /**
@@ -785,7 +528,6 @@ public class FuelElement extends ReactorElement {
      * @param fs FuelState object
      */
     public void writeToFuelStateObject(FuelState fs) {
-        fs.setThermalLiftPressure(thermalLiftPressure);
         fs.setXFirstDelay(xFirstDelay);
         fs.setXDelayedPower(xDelayedPower);
         fs.setRuptured(ruptured);
@@ -798,7 +540,6 @@ public class FuelElement extends ReactorElement {
      * @param fs FuelState object
      */
     public void applyFuelState(FuelState fs) {
-        thermalLiftPressure = fs.getThermalLiftPressure();
         xFirstDelay = fs.getXFirstDelay();
         xDelayedPower = fs.getXDelayedPower();
         ruptured = fs.isRuptured();
