@@ -243,6 +243,10 @@ public class FuelElement extends ReactorElement {
         // Only one side gets connected here, the other will be the node that 
         // already exists in the evaporator element.
         thermalToEvapResistance.connectTo(thermalCoreNode);
+        
+        // See notes in EvaporatorElement.java for details on how this was
+        // calculated.
+        thermalToEvapResistance.setConductanceParameter(1e5);
 
         // 192 Tons (96 per side) of fuel in reactor. Specific heat capacity
         // of uranium dioxide: 270 J/kg/K

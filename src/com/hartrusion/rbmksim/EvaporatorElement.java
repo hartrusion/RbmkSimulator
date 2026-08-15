@@ -276,10 +276,26 @@ public class EvaporatorElement extends FuelElement {
         //         29255, 53.191, // Full Conductance
         //         54, 21.3); // Empty conductance
         // =====================================================================
-        // New approach that uses multiple fuel elements per evaporator: 
-        // 1 / 29255 = 3.4182e-5 so we split this to have 1e-5 on the new
-        // resistor which is in fuel element (1/1e-5 = 10000) and 2.418e-5
-        // will be G = 41354
+        // New approach that uses multiple fuel elements per evaporator.
+        //     
+        //  Each fuel elements own
+        //  conductance (FuelElement.java):
+        //
+        //      ----XXXXX----o---------XXXXX--------o
+        //                   |        variable      |   Thermal Source in 
+        //      ----XXXXX----o        conductance  (|)  evaporator (steam/water
+        //                   |        inside        |   temperature)
+        //      ----XXXXX-----        evaporator    |
+        //     (these are new)                     _|_
+        //       
+        // From the previous per-fuel-channel simulation we had one resistor
+        // for thermal energy transfer only (the variable one) which was set
+        // to G = 29255 on normal operation. Now, multiple fuel elements are
+        // conencted to one evaportor.
+        // R = 1 / 29255 = 3.4182e-5 in total, so we split this to have 
+        // R = 1e-5 on the new resistor which is in fuel element and set as
+        // G = 1/1e-5 = 100000) and the rest, R = 2.418e-5 will be G = 41354 
+        // on the variable conductance here.
         double totalVolume = 0.0745 * sizeFactor;
         double staticMass = 1.064 * sizeFactor;
         double fullConductance = 41354 * sizeFactor;
