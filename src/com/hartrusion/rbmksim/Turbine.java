@@ -182,6 +182,11 @@ public class Turbine extends Subsystem implements Runnable {
     private final DomainAnalogySolver oilSolver = new DomainAnalogySolver();
 
     private final AutomationRunner runner = new AutomationRunner();
+    
+    /**
+     * Flow in kg/s for each active auxiliary lube oil pump
+     */
+    private static final double OIL_FLOW_AUX = 13.5;
 
     Turbine() {
         // <editor-fold defaultstate="collapsed" desc="Model elements instantiation">
@@ -674,10 +679,11 @@ public class Turbine extends Subsystem implements Runnable {
         oilFlow.setResistanceParameter(6750);
         oilPressureDelay.setTimeConstant(0.0001); // try and error
 
-        // initial conditions: One Pump is running and turbine spinning
+        // initial conditions: Both pumps running, turbine is already spinning
         lubeOilPump[0].initOpening(100);
-        oilPump[0].setFlow(27.0);
-        oilPump[1].setFlow(0.0);
+        lubeOilPump[1].initOpening(100);
+        oilPump[0].setFlow(OIL_FLOW_AUX);
+        oilPump[1].setFlow(OIL_FLOW_AUX);
         oilPressureDelay.setInitialEffort(-182250);
 
         ValueAlarmMonitor am;
@@ -751,7 +757,7 @@ public class Turbine extends Subsystem implements Runnable {
         // are represented by dummy valve objects which generate a 0..100 %
         // value.
         for (int idx = 0; idx < 2; idx++) {
-            oilPump[idx].setFlow(27.0 * lubeOilPump[idx].getOpening() / 100.0);
+            oilPump[idx].setFlow(OIL_FLOW_AUX * lubeOilPump[idx].getOpening() / 100.0);
         }
 
         // The velocity is not available on first run and will be skipped. 
