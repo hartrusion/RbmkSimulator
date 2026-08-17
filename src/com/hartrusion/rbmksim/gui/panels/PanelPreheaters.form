@@ -227,7 +227,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlPreHeater1Condensate">
       <Properties>
         <Property name="controlComponent" type="java.lang.String" value="Preheater1#CondensateValve"/>
-        <Property name="feedbackComponent" type="java.lang.String" value="Preheater1#Level"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Preheater1#CondensateLevel"/>
         <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Preheater1#LevelSetpoint"/>
@@ -272,7 +272,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlPreHeater2Condensate">
       <Properties>
         <Property name="controlComponent" type="java.lang.String" value="Preheater2#CondensateValve"/>
-        <Property name="feedbackComponent" type="java.lang.String" value="Preheater2#Level"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Preheater2#CondensateLevel"/>
         <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Preheater2#LevelSetpoint"/>
@@ -317,7 +317,7 @@
     <Component class="com.hartrusion.rbmksim.gui.elements.ControlLoop" name="loopControlPreHeater3Condensate">
       <Properties>
         <Property name="controlComponent" type="java.lang.String" value="Preheater3#CondensateValve"/>
-        <Property name="feedbackComponent" type="java.lang.String" value="Preheater3#Level"/>
+        <Property name="feedbackComponent" type="java.lang.String" value="Preheater3#CondensateLevel"/>
         <Property name="maxValue" type="double" value="150.0"/>
         <Property name="setpoint" type="double" value="8.0"/>
         <Property name="setpointComponent" type="java.lang.String" value="Preheater3#LevelSetpoint"/>

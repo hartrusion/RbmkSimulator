@@ -168,7 +168,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 46, 58, 14));
 
         loopControlPreHeater1Condensate.setControlComponent("Preheater1#CondensateValve");
-        loopControlPreHeater1Condensate.setFeedbackComponent("Preheater1#Level");
+        loopControlPreHeater1Condensate.setFeedbackComponent("Preheater1#CondensateLevel");
         loopControlPreHeater1Condensate.setMaxValue(150.0);
         loopControlPreHeater1Condensate.setSetpoint(8.0);
         loopControlPreHeater1Condensate.setSetpointComponent("Preheater1#LevelSetpoint");
@@ -184,7 +184,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         add(jLabelDA1Press2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 26, 36, 14));
 
         loopControlPreHeater2Condensate.setControlComponent("Preheater2#CondensateValve");
-        loopControlPreHeater2Condensate.setFeedbackComponent("Preheater2#Level");
+        loopControlPreHeater2Condensate.setFeedbackComponent("Preheater2#CondensateLevel");
         loopControlPreHeater2Condensate.setMaxValue(150.0);
         loopControlPreHeater2Condensate.setSetpoint(8.0);
         loopControlPreHeater2Condensate.setSetpointComponent("Preheater2#LevelSetpoint");
@@ -200,7 +200,7 @@ public class PanelPreheaters extends AbstractPanelWidget
         add(jLabelDA1Press4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 66, 36, 14));
 
         loopControlPreHeater3Condensate.setControlComponent("Preheater3#CondensateValve");
-        loopControlPreHeater3Condensate.setFeedbackComponent("Preheater3#Level");
+        loopControlPreHeater3Condensate.setFeedbackComponent("Preheater3#CondensateLevel");
         loopControlPreHeater3Condensate.setMaxValue(150.0);
         loopControlPreHeater3Condensate.setSetpoint(8.0);
         loopControlPreHeater3Condensate.setSetpointComponent("Preheater3#LevelSetpoint");
