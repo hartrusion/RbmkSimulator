@@ -2848,10 +2848,12 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // start with full hotwell cooling
         // condenserCoolantFlowSource.initFlow(44000);
         // Have some condensate inside the condesate reheaters but everything
-        // is cooled down
-        preheater[0].initConditions(273.15 + 22, 273.15 + 22, 0.32);
-        preheater[1].initConditions(273.15 + 22, 273.15 + 22, 0.27);
-        preheater[2].initConditions(273.15 + 22, 273.15 + 22, 0.31);
+        // is cooled down.
+        // Note that the condensates measurement display is 0 cm on 70 cm
+        // Level so it can get negative.
+        preheater[0].initConditions(273.15 + 22, 273.15 + 22, 0.32 + 0.7);
+        preheater[1].initConditions(273.15 + 22, 273.15 + 22, 0.27 + 0.7);
+        preheater[2].initConditions(273.15 + 22, 273.15 + 22, 0.31 + 0.7);
 
         // Turbine: Reheater
         turbineReheater.initConditions(273.15 + 22.5,
@@ -3372,7 +3374,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public double getAsDouble() {
                 return -setpointPreheaterLevel[0].getOutput()
                         + preheater[0].getPrimarySideReservoir()
-                                .getFillHeight() * 100;
+                                .getFillHeight() * 100 - 70;
             }
         });
         preheaterCondensateValve[1].getController().addInputProvider(
@@ -3381,7 +3383,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public double getAsDouble() {
                 return -setpointPreheaterLevel[1].getOutput()
                         + preheater[1].getPrimarySideReservoir()
-                                .getFillHeight() * 100;
+                                .getFillHeight() * 100 - 70;
             }
         });
         preheaterCondensateValve[2].getController().addInputProvider(
@@ -3390,7 +3392,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             public double getAsDouble() {
                 return -setpointPreheaterLevel[2].getOutput()
                         + preheater[2].getPrimarySideReservoir()
-                                .getFillHeight() * 100;
+                                .getFillHeight() * 100 - 70;
             }
         });
         for (int idx = 0; idx < 3; idx++) {
@@ -3695,7 +3697,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // prevents something because certain conditions (like alarm present)
         // are met.
         ValueAlarmMonitor am;
-        
+
         am = new ValueAlarmMonitor();
         am.setName("ColdCondensateLevel");
         // Convert Pascal fill height to meters:
@@ -4505,8 +4507,11 @@ public class ThermalLayout extends Subsystem implements Runnable {
 
         am = new ValueAlarmMonitor();
         am.setName("Preheater1Level");
+        // Note that preheater condensate has a base level of 70 cm which is 
+        // used as "0 cm", so negative values are possible without simulation
+        // crash.
         am.addInputProvider(() -> preheater[0].getPrimarySideReservoir()
-                .getFillHeight() * 100);
+                .getFillHeight() * 100 - 70);
         am.defineAlarm(150.0, AlarmState.MAX1);
         am.defineAlarm(120.0, AlarmState.HIGH2);
         am.defineAlarm(100.0, AlarmState.HIGH1);
@@ -4519,7 +4524,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Preheater2Level");
         am.addInputProvider(() -> preheater[1].getPrimarySideReservoir()
-                .getFillHeight() * 100);
+                .getFillHeight() * 100 - 70);
         am.defineAlarm(150.0, AlarmState.MAX1);
         am.defineAlarm(120.0, AlarmState.HIGH2);
         am.defineAlarm(100.0, AlarmState.HIGH1);
@@ -4532,7 +4537,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         am = new ValueAlarmMonitor();
         am.setName("Preheater3Level");
         am.addInputProvider(() -> preheater[2].getPrimarySideReservoir()
-                .getFillHeight() * 100);
+                .getFillHeight() * 100 - 70);
         am.defineAlarm(150.0, AlarmState.MAX1);
         am.defineAlarm(120.0, AlarmState.HIGH2);
         am.defineAlarm(100.0, AlarmState.HIGH1);
@@ -4556,7 +4561,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
-        am.setName("Reheater1OutTemp");
+        am.setName("Preheater1OutTemp");
         am.addInputProvider(()
                 -> preheaterPiping[0].getHeatHandler().getTemperature() - 273.15);
         // Design temperature is 65 °C here
@@ -4567,7 +4572,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
-        am.setName("Reheater2OutTemp");
+        am.setName("Preheater2OutTemp");
         am.addInputProvider(()
                 -> preheaterPiping[1].getHeatHandler().getTemperature() - 273.15);
         // Design temperature is 110 °C here
@@ -4578,7 +4583,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         alarmUpdater.submit(am);
 
         am = new ValueAlarmMonitor();
-        am.setName("Reheater3OutTemp");
+        am.setName("Preheater3OutTemp");
         am.addInputProvider(()
                 -> preheaterPiping[2].getHeatHandler().getTemperature() - 273.15);
         // Design temperature is 155 °C here
@@ -4940,11 +4945,13 @@ public class ThermalLayout extends Subsystem implements Runnable {
                         > preheater[1].getPrimarySideReservoir().getEffort()) {
                     // Pressure is in wrong direction. Check that this one does
                     // not flood over max and the OTHER preheater does not get
-                    // drained.
+                    // drained.                    
                     return !alarmManager.isAlarmActive(
                             "Preheater2Level", AlarmState.MAX1)
                             && !alarmManager.isAlarmActive(
-                                    "Preheater1Level", AlarmState.MIN1);
+                                    "Preheater1Level", AlarmState.MIN1)
+                            && !alarmManager.isAlarmActive(
+                                    "Preheater2Level", AlarmState.MIN1);
                 } // else:
                 return !alarmManager.isAlarmActive(
                         "Preheater2Level", AlarmState.MIN1);
@@ -5616,7 +5623,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
             outputValues.setParameterValue(
                     "Preheater" + (idx + 1) + "#CondensateLevel",
                     preheater[idx].getPrimarySideReservoir()
-                            .getFillHeight() * 100);
+                            .getFillHeight() * 100 - 70);
             outputValues.setParameterValue(
                     "Preheater" + (idx + 1) + "#CondensateTemperature",
                     preheater[idx].getPrimarySideReservoir()
