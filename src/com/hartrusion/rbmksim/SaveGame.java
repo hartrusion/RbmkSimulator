@@ -76,9 +76,6 @@ public class SaveGame implements Serializable {
      */
     private TurbineState turbineState;
 
-    private double channelLeak1Upper, channelLeak2Upper, 
-            channelLeak1Lower, channelLeak2Lower;
-
     public SaveGame() {
         this.timestamp = LocalDateTime.now();
         this.networkIC = new LinkedHashMap<>();
@@ -187,37 +184,5 @@ public class SaveGame implements Serializable {
 
     public void setStartupPressureSetpointActive(boolean startupPressureSetpointActive) {
         this.startupPressureSetpointActive = startupPressureSetpointActive;
-    }
-    
-    public double getChannelLeak1Upper() {
-        return channelLeak1Upper;
-    }
-
-    public void setChannelLeak1Upper(double channelLeak1Upper) {
-        this.channelLeak1Upper = channelLeak1Upper;
-    }
-
-    public double getChannelLeak2Upper() {
-        return channelLeak2Upper;
-    }
-
-    public void setChannelLeak2Upper(double channelLeak2Upper) {
-        this.channelLeak2Upper = channelLeak2Upper;
-    }
-
-    public double getChannelLeak1Lower() {
-        return channelLeak1Lower;
-    }
-
-    public void setChannelLeak1Lower(double channelLeak1Lower) {
-        this.channelLeak1Lower = channelLeak1Lower;
-    }
-
-    public double getChannelLeak2Lower() {
-        return channelLeak2Lower;
-    }
-
-    public void setChannelLeak2Lower(double channelLeak2Lower) {
-        this.channelLeak2Lower = channelLeak2Lower;
     }
 }

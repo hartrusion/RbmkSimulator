@@ -530,12 +530,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
     private final Integrator[][] mcpCavitaionState = new Integrator[2][4];
     private final double[] mcpCavitaionTemperatureDiff = new double[2];
 
-    /*
-     * Describes leakage in Percent (0..100) as it's modeled as valve position.
-     */
-    private double channelLeak1Upper, channelLeak2Upper,
-            channelLeak1Lower, channelLeak2Lower;
-
     ThermalLayout() {
         // calculate linear factor for pressure setpoint y=m(x-x1)+y1
         // with m = (y2-y1)/(x2-x1) with x power and y pressure
@@ -6107,25 +6101,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
             for (int idx = 0; idx < 3; idx++) {
                 setpointPreheaterLevel[idx].handleAction(ac);
             }
-
-            if (ac.getPropertyName().equals("DebugSetLeakage")) {
-                switch ((int) ac.getValue()) {
-                    case 0 -> {
-                        channelLeak1Lower = 0.0;
-                        channelLeak1Upper = 0.0;
-                        channelLeak2Lower = 0.0;
-                        channelLeak2Upper = 0.0;
-                    }
-                    case 1 ->
-                        channelLeak1Upper = 60.0;
-                    case 2 ->
-                        channelLeak1Lower = 40.0;
-                    case 3 ->
-                        channelLeak2Upper = 60.0;
-                    case 4 ->
-                        channelLeak2Lower = 40.0;
-                }
-            }
         }
         // </editor-fold>
     }
@@ -6217,13 +6192,9 @@ public class ThermalLayout extends Subsystem implements Runnable {
                 !blowdownBalanceControlLoop.isManualMode());
         save.setTurbineHPOutSatTemp(turbineHPOutSatTemp);
         save.setStartupPressureSetpointActive(startupPressureSetpointActive);
-
-        save.setChannelLeak1Lower(channelLeak1Lower);
-        save.setChannelLeak1Upper(channelLeak1Upper);
-        save.setChannelLeak2Lower(channelLeak2Lower);
-        save.setChannelLeak2Upper(channelLeak2Upper);
     }
 
+    @Override
     public void load(SaveGame save) {
         solver.setNetworkInitialCondition(
                 save.getSolverState(solver.toString()));
@@ -6244,11 +6215,6 @@ public class ThermalLayout extends Subsystem implements Runnable {
         // loading. Alarms will be cleared and as those alarm value monitors 
         // work on monitoring changes only, they need to be triggered here.
         alarmUpdater.clearAlarmUpdaters();
-
-        channelLeak1Lower = save.getChannelLeak1Lower();
-        channelLeak1Upper = save.getChannelLeak1Upper();
-        channelLeak2Lower = save.getChannelLeak2Lower();
-        channelLeak2Upper = save.getChannelLeak2Upper();
     }
 
     public void registerReactor(ReactorCore core) {
