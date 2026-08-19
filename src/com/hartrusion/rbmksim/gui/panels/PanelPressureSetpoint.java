@@ -91,7 +91,6 @@ public class PanelPressureSetpoint extends AbstractPanelWidget
         jLabelCaptionSelection2.setFont(jLabelCaptionSelection2.getFont().deriveFont(jLabelCaptionSelection2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSelection2.getFont().getSize()-2));
         jLabelCaptionSelection2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionSelection2.setText("Selection");
-        jLabelCaptionSelection2.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionSelection2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelection2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelection2.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -100,7 +99,6 @@ public class PanelPressureSetpoint extends AbstractPanelWidget
         jLabelCaptionFull.setFont(jLabelCaptionFull.getFont().deriveFont(jLabelCaptionFull.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionFull.getFont().getSize()-2));
         jLabelCaptionFull.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionFull.setText("Full");
-        jLabelCaptionFull.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionFull.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFull.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionFull.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -115,7 +113,6 @@ public class PanelPressureSetpoint extends AbstractPanelWidget
         jLabelCaptionStartup.setFont(jLabelCaptionStartup.getFont().deriveFont(jLabelCaptionStartup.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionStartup.getFont().getSize()-2));
         jLabelCaptionStartup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionStartup.setText("Startup");
-        jLabelCaptionStartup.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionStartup.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionStartup.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionStartup.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -126,7 +123,7 @@ public class PanelPressureSetpoint extends AbstractPanelWidget
         jLabelReadingActiveSetpoint.setForeground(new java.awt.Color(0, 255, 153));
         jLabelReadingActiveSetpoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingActiveSetpoint.setText("___,_");
-        jLabelReadingActiveSetpoint.setToolTipText("Active setpoint which the global control is currently using");
+        jLabelReadingActiveSetpoint.setToolTipText("Active pressure setpoint for steam drums");
         jLabelReadingActiveSetpoint.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabelReadingActiveSetpoint.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReadingActiveSetpoint.setMinimumSize(new java.awt.Dimension(52, 18));
@@ -145,7 +142,6 @@ public class PanelPressureSetpoint extends AbstractPanelWidget
         jLabelCaptionSelection1.setFont(jLabelCaptionSelection1.getFont().deriveFont(jLabelCaptionSelection1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionSelection1.getFont().getSize()-2));
         jLabelCaptionSelection1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionSelection1.setText("Setpoint");
-        jLabelCaptionSelection1.setToolTipText("Scrams the reactor by immediately inserting all rods");
         jLabelCaptionSelection1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelection1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionSelection1.setPreferredSize(new java.awt.Dimension(52, 14));

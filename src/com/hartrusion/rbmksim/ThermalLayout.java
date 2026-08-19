@@ -3675,6 +3675,7 @@ public class ThermalLayout extends Subsystem implements Runnable {
         for (int idx = 0; idx < 2; idx++) {
             setpointDALevel[idx].forceOutputValue(100);
         }
+        setpointDrumPressure.forceOutputValue(PRESSURE_SETPOINT_LOWER);
         setpointTurbineReheaterTemperature.forceOutputValue(263);
         setpointTurbineReheaterLevel.forceOutputValue(60);
         for (int idx = 0; idx < 3; idx++) {

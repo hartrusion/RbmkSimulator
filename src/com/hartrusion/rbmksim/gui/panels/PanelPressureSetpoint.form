@@ -97,7 +97,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Selection"/>
-        <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -123,7 +122,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Full"/>
-        <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -166,7 +164,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Startup"/>
-        <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
@@ -196,7 +193,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="___,_"/>
-        <Property name="toolTipText" type="java.lang.String" value="Active setpoint which the global control is currently using"/>
+        <Property name="toolTipText" type="java.lang.String" value="Active pressure setpoint for steam drums"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -253,7 +250,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Setpoint"/>
-        <Property name="toolTipText" type="java.lang.String" value="Scrams the reactor by immediately inserting all rods"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[52, 14]"/>
         </Property>
