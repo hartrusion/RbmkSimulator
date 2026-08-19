@@ -438,11 +438,12 @@ public class FuelElement extends ReactorElement {
         outputValues.setParameterValue(propertyTemperature, fuelTemperature);
         outputValues.setParameterValue(propertyFissionPower, fissionPower);
 
-        // Very simple so far.
-        if (thermalCapacityNode.getEffort() - 273.15 >= 1600) {
+        // The fuel will be set as ruptured if temperature hits 850 °C. The 
+        // maximum operation temperature is usually below 730 °C so it only 
+        // happens if something goes very wrong.
+        if (thermalCapacityNode.getEffort() - 273.15 >= 850) {
             ruptured = true;
         }
-
     }
 
     /**
@@ -547,5 +548,21 @@ public class FuelElement extends ReactorElement {
         xFirstDelay = fs.getXFirstDelay();
         xDelayedPower = fs.getXDelayedPower();
         ruptured = fs.isRuptured();
+    }
+    
+    /**
+     * Get the rupture state of the fuel channel.
+     * 
+     * @return true if the channel is ruptured
+     */
+    public boolean isRuptured() {
+        return ruptured;
+    }
+    
+    /**
+     * Sets the rupture state to false.
+     */
+    public void repair() {
+        ruptured = false;
     }
 }

@@ -147,6 +147,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemNewPanel = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPause = new javax.swing.JMenuItem();
+        jMenuItemRepair = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuLoad = new javax.swing.JMenuItem();
         jMenuSave = new javax.swing.JMenuItem();
@@ -235,7 +236,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RBMK Simulator - Control Panel");
         setMinimumSize(new java.awt.Dimension(500, 300));
-        setPreferredSize(new java.awt.Dimension(680, 500));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane1.setViewportView(jDesktopPane1);
@@ -252,6 +252,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPause.setText("Pause Simulation");
         jMenuItemPause.addActionListener(this::jMenuItemPauseActionPerformed);
         jMenuFile.add(jMenuItemPause);
+
+        jMenuItemRepair.setText("Repair Ruptured Channels");
+        jMenuItemRepair.addActionListener(this::jMenuItemRepairActionPerformed);
+        jMenuFile.add(jMenuItemRepair);
         jMenuFile.add(jSeparator2);
 
         jMenuLoad.setText("Load");
@@ -1638,6 +1642,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeControlPanel(new PanelPressureSetpoint(), "Pressure Setpoint");
     }//GEN-LAST:event_jMenuItemPressureSetpointActionPerformed
 
+    private void jMenuItemRepairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRepairActionPerformed
+        controller.userAction(new ActionCommand("RepairAllChannels", null));
+    }//GEN-LAST:event_jMenuItemRepairActionPerformed
+
     /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
@@ -1827,6 +1835,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
     private javax.swing.JMenuItem jMenuItemPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemRecirculation;
+    private javax.swing.JMenuItem jMenuItemRepair;
     private javax.swing.JMenuItem jMenuItemStartServer;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTriggerDisaster;

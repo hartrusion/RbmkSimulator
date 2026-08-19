@@ -113,6 +113,11 @@ public class EvaporatorElement extends FuelElement {
      */
     private final List<FuelElement> fuelElements = new ArrayList<>();
 
+    /**
+     * Reference to the steam drum where this evaporator is connected to
+     */
+    private PhasedClosedSteamedReservoir steamDrum;
+
     public EvaporatorElement(int x, int y) {
         super(x, y);
 
@@ -199,12 +204,13 @@ public class EvaporatorElement extends FuelElement {
      * this fuel element to be initialized already. It connects the elements to
      * the thermal network.
      *
-     * @param distributorNode
-     * @param drumNode
-     * @param poolNode
+     * @param distributorNode Flow in node from MCPs
+     * @param steamDrum Steam drum where this evaporator is connected to
+     * @param poolNode A node to the bubbler pool for leakage
      */
     public void connectTo(HeatNode distributorNode,
             PhasedClosedSteamedReservoir steamDrum, PhasedNode poolNode) {
+        this.steamDrum = steamDrum;
         flowResistance.connectTo(distributorNode);
         evaporator.connectToVia(steamDrum, evapToDrumNode);
         toPoolConverter.connectTo(poolNode);
@@ -235,7 +241,7 @@ public class EvaporatorElement extends FuelElement {
      */
     public void initEvaporator() {
         double sizeFactor = (double) fuelElements.size();
-                
+
         // There is 188 Channels per side. The total resistance for one loop
         // is 293.1 so per Channel it will be 55102.8.
         // This has to be split onto two elements to have the nodal analysis
@@ -296,15 +302,17 @@ public class EvaporatorElement extends FuelElement {
         // R = 1e-5 on the new resistor which is in fuel element and set as
         // G = 1/1e-5 = 100000) and the rest, R = 2.418e-5 will be G = 41354 
         // on the variable conductance here.
+        // Reduce to 32000 to have a more conveniant temperature (about 730 °C
+        // inside the fuel elements) during operation.
         double totalVolume = 0.0745 * sizeFactor;
         double staticMass = 1.064 * sizeFactor;
-        double fullConductance = 41354 * sizeFactor;
+        double fullConductance = 32000 * sizeFactor;
         double fullMass = 53.191 * sizeFactor;
         double emptyConductance = 54 * sizeFactor;
         double emptyMass = 21.3 * sizeFactor;
         evaporator.setThermalDimension(totalVolume, staticMass,
-                 fullConductance, fullMass, // Full Conductance
-                 emptyConductance, emptyMass); // Empty conductance
+                fullConductance, fullMass, // Full Conductance
+                emptyConductance, emptyMass); // Empty conductance
 
         // Channel leakage: On 64e5 Pa, leakage will be 12 kg/s per fuel rod, 
         // which is already pretty excessive. This means the resistance value
@@ -340,15 +348,27 @@ public class EvaporatorElement extends FuelElement {
 
         thermalLift.setEffort(thermalLiftPressure);
 
-        // TODO replace with number of ruptured channels
-//        if (ruptured) {
-//            // This will generate a flow of 0.37 kg/s on idle and roughly 
-//            // 30 kg/s on full load so the flow also comes drom the steam drum 
-//            // and the evaporator operates in reverse flow mode.
-//            channelLeak.setResistanceParameter(2e5);
-//        } else {
-//            channelLeak.setOpenConnection();
-//        }
+        // How many fuel channels asisgned to this evaporator are in a ruptured
+        // state?
+        int rupturedChannels = 0;
+        for (FuelElement f : fuelElements) {
+            if (f.isRuptured()) {
+                rupturedChannels++;
+            }
+        }
+        if (steamDrum.getFillHeight() < 0.15 || rupturedChannels == 0) {
+            // Drain protection: No more leakage below -100 cm or simulation
+            // will end.
+            channelLeak.setOpenConnection();
+        } else {
+            // This will generate a flow of 0.37 kg/s on idle and roughly 
+            // 30 kg/s on full load per ruptured channel, so the flow also comes 
+            // drom the steam drum and the evaporator operates in reverse flow 
+            // mode at some point.
+            channelLeak.setConductanceParameter(
+                    5e-6 * (double) rupturedChannels);
+        }
+
         // get power from all control rods connected to this evaporator group
         double groupFissionPower = 0.0;
         for (FuelElement f : fuelElements) {
@@ -433,5 +453,8 @@ public class EvaporatorElement extends FuelElement {
     public void applyFuelState(FuelState fs) {
         super.applyFuelState(fs);
         thermalLiftPressure = fs.getThermalLiftPressure();
+        // Disable the leakage - it won't be an issue if its not there for the
+        // first cycle.
+        channelLeak.setOpenConnection();
     }
 }

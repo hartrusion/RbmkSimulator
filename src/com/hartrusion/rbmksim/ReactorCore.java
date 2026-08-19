@@ -726,6 +726,11 @@ public class ReactorCore extends Subsystem implements Runnable {
         } else if (setpointPowerGradient.handleAction(ac)) {
             return;
         }
+        if (ac.getPropertyName().equals("RepairAllChannels")) {
+            for (FuelElement f : fuelElements) {
+                f.repair();
+            }
+        }
         if (!ac.getPropertyName().startsWith("Reactor#")) {
             return;
         }
