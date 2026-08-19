@@ -138,8 +138,10 @@ public class GraphiteEffectModel implements Runnable {
     private double outputWeighting(double flux) {
         if (flux <= 15) {
             return 1.0;
-        } else if (flux > 15 && flux < 64) {
-            return -0.0204081632653061 * flux + 1.30612244897959;
+//        } else if (flux > 15 && flux < 64) {
+//            return -0.0204081632653061 * flux + 1.30612244897959;
+        } else if (flux > 15 && flux < 44) {
+            return -0.03448275862 * flux + 1.51724137931;
         }
         return 0;
     }
