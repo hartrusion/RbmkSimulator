@@ -48,6 +48,7 @@ import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -84,11 +85,11 @@ public class ControlPanel extends javax.swing.JFrame implements
     }
 
     /**
-     * Called each time from the controller via some whatever call stack, 
-     * the alarms are sent as a list of alarms. Can be either a reference 
-     * or a new list each time (when using network)
-     * 
-     * @param alarmList 
+     * Called each time from the controller via some whatever call stack, the
+     * alarms are sent as a list of alarms. Can be either a reference or a new
+     * list each time (when using network)
+     *
+     * @param alarmList
      */
     public void setAlarmList(List alarmList) {
         this.alarmList = alarmList;
@@ -610,7 +611,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         JDesktopPaneEnhanced.windowPlaceRightTo(
                 alarmTable,
                 getControlPanelInstance("Generator"));
-        
 
         // 2nd row:
         JDesktopPaneEnhanced.windowPlaceBelow(
@@ -1943,7 +1943,7 @@ public class ControlPanel extends javax.swing.JFrame implements
             AlarmSound.update(alarmList);
             return;
         }
-        
+
         if (coreActivity1 != null) {
             coreActivity1.updateComponent(propertyName, newValue);
         }
@@ -1956,6 +1956,26 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         for (InternalFrameMnemonic mf : mnemonics) {
             mf.updateComponent(propertyName, newValue);
+        }
+
+        if (propertyName.equals("Explosion")) {
+            // Silence alarms, the lights are off and so are the alarms.
+            AlarmSound.setSoundEnabled(false);
+            // Show a simple popup and leave everything else to imagination.
+            JOptionPane pane = new JOptionPane(
+                    "Out of nowhere, you hear a terrifying, shattering "
+                    + "explosion.\n"
+                    + "It feels like the shockwave is all around you and "
+                    + "you're inside of it.\n"
+                    + "Three seconds later, you witness a second, more "
+                    + "powerful explosion.\n"
+                    + "Dust comes out of the air ducts and the air smells "
+                    + "strange.",
+                    JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = pane.createDialog(this, "What just happened?");
+            dialog.setModal(false);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
         }
     }
 

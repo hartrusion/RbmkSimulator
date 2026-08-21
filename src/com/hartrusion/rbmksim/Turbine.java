@@ -1002,6 +1002,15 @@ public class Turbine extends Subsystem implements Runnable {
                     - turbineVelocity.getEffort();
         }
     }
+    
+    /**
+     * Called from reactor core on explosion, after the explosion the thermal
+     * layout will no longer be updated so this is used to make certain set
+     * operations.
+     */
+    public void reactorExplosion() {
+        shaftPower = 0.0;
+    }
 
     @Override
     public void saveTo(SaveGame save) {

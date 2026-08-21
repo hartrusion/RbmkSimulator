@@ -33,6 +33,8 @@ import com.hartrusion.modeling.phasedfluid.PhasedClosedSteamedReservoir;
 import com.hartrusion.modeling.phasedfluid.PhasedNode;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ModelListener;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.function.DoubleSupplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -224,6 +226,25 @@ public class ReactorCore extends Subsystem implements Runnable {
     private static final double REACTIVITY_GRAPHITE = 0.41; // reduced
     private static final double REACTIVITY_TEMPERATURE = 0.0841;
     private static final double REACTIVITY_VOIDING = 0.094;
+
+    /**
+     * Will be true after the prompt neutron excursion and defines the end of
+     * the simulation.
+     */
+    private boolean exploded;
+
+    /**
+     * Will be set to current time except if the excursion happens, then its
+     * last value will be used for obtaining the time since excursion start.
+     */
+    private Instant excursionStartTime;
+
+    // Reference to the turbine class that holds the network elements and 
+    // controls for the turbine that are not part of the reactor core. So far
+    // only used for accident sequence
+    private Turbine turbine;
+    
+    private ThermalLayout process;
 
     ReactorCore() {
         setpointTargetNeutronFlux = new Setpoint();
@@ -533,6 +554,22 @@ public class ReactorCore extends Subsystem implements Runnable {
             thermalPowerDisplay = 30000.0;
         }
 
+        // The explosion is happening after a certain, fixed time on the prompt
+        // neutron excursion.
+        Instant now = Instant.now(); // get current time
+        if (!neutronFluxModel.isReactorIntact() && !exploded) {
+            if (Duration.between(excursionStartTime, now).toMillis() >= 2500) {
+                reactorExplosion();
+                exploded = true;
+                controller.propertyChange("Explosion", null);
+                // Events from turbine and thermal model
+                turbine.reactorExplosion();
+                process.reactorExplosion();
+            }
+        } else {
+            excursionStartTime = now;
+        }
+
         alarmUpdater.invokeAll();
 
         // Send the RPS state to controller
@@ -589,6 +626,10 @@ public class ReactorCore extends Subsystem implements Runnable {
                     this, "Reactor#LocalControlActive",
                     oldLocalControlActive, localControlActive));
             oldLocalControlActive = localControlActive;
+        }
+
+        if (exploded) {
+            return;
         }
 
         // Send the neutron values to the gui
@@ -720,6 +761,22 @@ public class ReactorCore extends Subsystem implements Runnable {
         } else {
             voidingReactivity = 0.541 * (voiding - 8.0) * (voiding - 8.0);
         }
+    }
+
+    /**
+     * Called from run() on explosion event once. It's a separate method to keep
+     * the method that is already way too long a bit shorter.
+     */
+    private void reactorExplosion() {
+        outputValues.setParameterValue("Reactor#NeutronFlux", 0.0);
+        outputValues.setParameterValue("Reactor#NeutronFluxLog", -6.0);
+        outputValues.setParameterValue("Reactor#NeutronRate", 0.0);
+        outputValues.setParameterValue("Reactor#Xenon", 0.0);
+        outputValues.setParameterValue("Reactor#ThermalPowerDisplay", Double.NaN);
+        outputValues.setParameterValue("Reactor#k", 1.0);
+        outputValues.setParameterValue("Reactor#Reactivity", 0.0);
+        outputValues.setParameterValue("Reactor#Graphite", 0.0);
+        outputValues.setParameterValue("Reactor#CoreTemperature", 273.15);
     }
 
     /**
@@ -1049,13 +1106,13 @@ public class ReactorCore extends Subsystem implements Runnable {
             }
             idx = evaporatorIndex[evapX - ChannelData.MIN_NUMBER][evapY - ChannelData.MIN_NUMBER];
             evp = evaporatorElements.get(idx);
-            
+
             // make the evaporator element konwn to the fuel element.
             evp.addFuelElementToEvaporator(f);
-            
+
             f.connectToEvaporator(evp.getEvapInNode());
         }
-        
+
         // After links between evaporator and surrounding elements are set,
         // the steam/water part can be set up with its values
         for (EvaporatorElement evap : evaporatorElements) {
@@ -1377,6 +1434,16 @@ public class ReactorCore extends Subsystem implements Runnable {
         return true;
     }
 
+    /**
+     * Get the state of the reactor. This must never be true as RBMKs can not
+     * explode.
+     *
+     * @return true after disaster happened
+     */
+    public boolean isExploded() {
+        return exploded;
+    }
+
     @Override
     public void registerController(ModelListener controller) {
         // Will be called after init() - note that it is the other way round in
@@ -1403,6 +1470,14 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     public NeutronFluxModel getNeutronModel() {
         return neutronFluxModel;
+    }
+
+    public void registerTurbine(Turbine turbine) {
+        this.turbine = turbine;
+    }
+    
+    public void registerThermalLayout(ThermalLayout process) {
+        this.process = process;
     }
 
     @Override
@@ -1454,6 +1529,8 @@ public class ReactorCore extends Subsystem implements Runnable {
 
     @Override
     public void load(SaveGame save) {
+        exploded = false;
+        
         ReactorState rs = save.getReactorState();
 
         for (int idx = 0; idx < 7; idx++) {

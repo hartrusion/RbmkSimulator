@@ -5748,6 +5748,47 @@ public class ThermalLayout extends Subsystem implements Runnable {
     }
 
     /**
+     * Called from reactor core on explosion, after the explosion the thermal
+     * layout will no longer be updated so this is used to make certain set
+     * operations.
+     */
+    public void reactorExplosion() {
+        for (int idx = 0; idx < 2; idx++) {
+            outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumLevel",
+                    - 115);
+            outputValues.setParameterValue("Loop" + (idx + 1) + "#DrumPressure",
+                    0.0);
+            outputValues.setParameterValue("Main" + (idx + 1)
+                    + "#SteamFromDrumFlow",0.0);
+            outputValues.setParameterValue(
+                    "Loop" + (idx + 1) + "#McpInPressure", 0.0);
+            outputValues.setParameterValue(
+                    "Loop" + (idx + 1) + "#FuelInPressure", 0.0);
+            outputValues.setParameterValue(
+                    "Loop" + (idx + 1) + "#McpCooldown", 0.0);
+            outputValues.setParameterValue(
+                    "Loop" + (idx + 1) + "#DownFlow", 0.0);
+            outputValues.setParameterValue("Loop" + (idx + 1)
+                    + "#BlowdownFlowToFeedwaterIn", 0.0);
+            outputValues.setParameterValue("Feedwater" + (idx + 1) + "#Flow",
+                    0.0);
+            outputValues.setParameterValue(
+                    "Deaerator" + (idx + 1) + "#Pressure", 0.0);
+            outputValues.setParameterValue("Deaerator" + (idx + 1)
+                    + "#FeedFlow", 0.0);
+            outputValues.setParameterValue("Deaerator" + (idx + 1)
+                    + "#SteamFlow", 0.0);
+        }
+    }
+
+    /**
+     * After core explosion, some components remain available.
+     */
+    public void runAftermath() {
+
+    }
+
+    /**
      * A helper function for control loops. If two parallel valves are on auto
      * mode, it is preferred for them to be on the same position. This function
      * can be called from the control loop and it will return a correction value

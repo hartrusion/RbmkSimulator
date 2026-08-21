@@ -61,6 +61,8 @@ public class MainLoop implements Runnable, ModelManipulation {
     long initialIterations = 0;
 
     public void init() {
+        core.registerTurbine(turbine);
+        core.registerThermalLayout(process);
         core.registerAlarmManager(alarms);
         core.init();
         core.registerParameterOutput(outputValues);
@@ -89,16 +91,17 @@ public class MainLoop implements Runnable, ModelManipulation {
         try {
             // Get all the values and GUI commands first.
             controller.fireActions();
-
             if (!pause) {
                 core.run();
-                process.run();
-                // process.run has updated the whole dynamic model by 1 cycle,
-                // the data of all the fuel cells is organized in the core so 
-                // we call it from there:
-                core.runProcessResults();
+                if (!core.isExploded()) {
+                    process.run();
+                    // process.run has updated the whole dynamic model by 1 
+                    // cycle, the data of all the fuel cells is organized in the 
+                    // core so we call it from there:
+                    core.runProcessResults();
+                }
+                
                 turbine.run();
-
                 // Send all measurement data to the GUI by generating a snapshot
                 // and sending them to the GUI, this will generate a history of
                 // values there (implemented for network view)
