@@ -441,16 +441,26 @@ public class ReactorCore extends Subsystem implements Runnable {
         // was there but the automatic regulators did take care of this and 
         // before AZ-5 was pressed, nothing happend and everything was calm.
         // We implement this by having the displacerBoost value from the rods
-        // but the effect of this will ony be used if more than 18 of the 28 
-        // manual rods are withdrawn. The effect will be visible with 18 rods 
+        // but the effect of this will ony be used if more than 16 of the 28 
+        // manual rods are withdrawn. The effect will be visible with 16 rods 
         // and be fully fatal at 25 rods. The boost is 1.0 max per rod, so we 
-        // hide a value of 18.0 and cap it. 7 rods then will then result in 16 %
+        // hide a value of 16.0 and cap it. 7 rods then will then result in 16 %
         // absorption decrease so it's 16/7=2.3 as a factor. This is not adding
         // reactivity but removing the absorption as we have a DT1-part in the
         // neturon flux model that will help to kick the prompt neutron 
         // excursion that way. The factor 3.0 was modified afterwards to make 
         // it more sure the excursion happens.
-        rodAbsorption -= Math.max(0.0, displacerBoost - 18.0) * 3.0;
+        // To make sure the AZ-5 works also during half load and during normal
+        // shutdown procedure, the effect will further be limited by the neutron
+        // flux itself.
+        double fluxMult = 0.0;
+        if (neutronFluxModel.getYNeutronFlux() <= 5.0) {
+            fluxMult = 1.0;
+        } else if (neutronFluxModel.getYNeutronFlux() <= 10.0) {
+            // linear thorugh 5.0|1.0 and 10.0|0.0
+            fluxMult = -0.2 * neutronFluxModel.getYNeutronFlux() + 2;
+        }
+        rodAbsorption -= Math.max(0.0, displacerBoost * fluxMult - 16.0) * 3.5;
 
         /* This magic formula sets how the whole thing behaves. The reactivity
         * is given in same unit and dimension as the rods absorption, the 

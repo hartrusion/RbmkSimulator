@@ -47,7 +47,7 @@ public class GraphiteEffectModel implements Runnable {
     /**
      * The output value will get a T1 behavior with this time constant applied.
      */
-    private static final double T_OUT = 20;
+    private static final double T_OUT = 40;
 
     private double uNeutronFlux;
     private double xHidden;
