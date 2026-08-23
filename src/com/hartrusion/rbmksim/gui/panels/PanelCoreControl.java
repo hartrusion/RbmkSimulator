@@ -174,7 +174,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionGlobalAuto1 = new javax.swing.JLabel();
         lightBulbGlobalEnabled = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalTransient = new com.hartrusion.rbmksim.gui.elements.LightBulb();
-        lightBulbGlobalTarget = new com.hartrusion.rbmksim.gui.elements.LightBulb();
+        lightBulbThermalPowerCorrection = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbGlobalActive = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         lightBulbRPSLock = new com.hartrusion.rbmksim.gui.elements.LightBulb();
         jPanelCoreInstrument = new javax.swing.JPanel();
@@ -864,6 +864,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionThermalPowerCorrection.setFont(jLabelCaptionThermalPowerCorrection.getFont().deriveFont(jLabelCaptionThermalPowerCorrection.getFont().getSize()-2f));
         jLabelCaptionThermalPowerCorrection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCaptionThermalPowerCorrection.setText("Th. Corr");
+        jLabelCaptionThermalPowerCorrection.setToolTipText("Makes a target setpoint of 100 % match the actual 3200 MW and sets the active \\n\nsetpoint accordingly. ");
         jLabelCaptionThermalPowerCorrection.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPowerCorrection.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionThermalPowerCorrection.setPreferredSize(new java.awt.Dimension(52, 14));
@@ -1333,8 +1334,7 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
         jToggleButtonThermalPowerCorr.setFont(jToggleButtonThermalPowerCorr.getFont().deriveFont(jToggleButtonThermalPowerCorr.getFont().getStyle() | java.awt.Font.BOLD));
         jToggleButtonThermalPowerCorr.setText("←");
-        jToggleButtonThermalPowerCorr.setToolTipText("");
-        jToggleButtonThermalPowerCorr.setEnabled(false);
+        jToggleButtonThermalPowerCorr.setToolTipText("Makes a target setpoint of 100 % match the actual 3200 MW and sets the active \\n\nsetpoint accordingly. ");
         jToggleButtonThermalPowerCorr.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jToggleButtonThermalPowerCorr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1363,7 +1363,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         add(jLabelCaptionGlobalAuto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 144, 40, 14));
         add(lightBulbGlobalEnabled, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 168, -1, -1));
         add(lightBulbGlobalTransient, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 168, -1, -1));
-        add(lightBulbGlobalTarget, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 106, -1, -1));
+
+        lightBulbThermalPowerCorrection.setToolTipText("Makes a target setpoint of 100 % match the actual 3200 MW and sets the active \\n\nsetpoint accordingly. ");
+        add(lightBulbThermalPowerCorrection, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 106, -1, -1));
         add(lightBulbGlobalActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 166, -1, -1));
 
         lightBulbRPSLock.setForeground(new java.awt.Color(255, 0, 0));
@@ -1934,9 +1936,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
 
     private void jToggleButtonThermalPowerCorrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonThermalPowerCorrActionPerformed
         if (toggleButtonChange(evt)) {
-            controller.userAction(new ActionCommand("Reactor#GlobalControlTarget", true));
+            controller.userAction(new ActionCommand("Reactor#ThermalPowerCorrection", true));
         } else {
-            controller.userAction(new ActionCommand("Reactor#GlobalControlTarget", false));
+            controller.userAction(new ActionCommand("Reactor#ThermalPowerCorrection", false));
         }
     }//GEN-LAST:event_jToggleButtonThermalPowerCorrActionPerformed
 
@@ -2088,12 +2090,12 @@ public class PanelCoreControl extends AbstractPanelWidget {
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulb3731;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalActive;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalEnabled;
-    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalTarget;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbGlobalTransient;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbLocalActive;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbLocalEnabled;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbNeutronRate;
     private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbRPSLock;
+    private com.hartrusion.rbmksim.gui.elements.LightBulb lightBulbThermalPowerCorrection;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlGradient;
     private com.hartrusion.rbmksim.gui.elements.SetpointControl setpointControlNeutronFlux;
     // End of variables declaration//GEN-END:variables
@@ -2233,8 +2235,8 @@ public class PanelCoreControl extends AbstractPanelWidget {
                     jToggleButtonGlobalTransient.setText("↑");
                 }
                 break;
-            case "Reactor#GlobalControlTarget":
-                lightBulbGlobalTarget.setActive((boolean) evt.getNewValue());
+            case "Reactor#ThermalPowerCorrection":
+                lightBulbThermalPowerCorrection.setActive((boolean) evt.getNewValue());
                 // Initialize the position of the switch button:
                 if ((boolean) evt.getNewValue()
                         && !jToggleButtonThermalPowerCorr.isSelected()) {

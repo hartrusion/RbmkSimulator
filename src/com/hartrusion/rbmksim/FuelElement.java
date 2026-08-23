@@ -50,6 +50,8 @@ public class FuelElement extends ReactorElement {
      * pressure buildup to be observed even without any neutron flux. It was 48
      * MW at some point but, this also comes with the downside that the aux
      * condensers are too small for 48 MW idle heat.
+     * <p>
+     * This number is for the full core, given in Megawatts.
      */
     public static final double IDLE_HEAT = 5.6;
 
@@ -58,9 +60,22 @@ public class FuelElement extends ReactorElement {
      */
     public static final double FULL_FLUX_POWER = 3200;
 
-    private double fluxToPower;
-    private double fluxToDisplayPower;
-    protected double localIdlePower;
+    /**
+     * Conversion factor from flux (0..100 %N) to thermal power in MWth
+     */
+    private final double FLUX_TO_POWER;
+
+    /**
+     * Conversion factor from flux (0..100 %N) to thermal power in MWth, but
+     * only for displayed power. The display shall hide the idle power that is
+     * not from decay heat.
+     */
+    private final double FLUX_TO_DISPLAY_POWER;
+    
+    /**
+     * Idle heat (in Megawatts) produced by this specific fuel element.
+     */
+    protected final double LOCAL_IDLE_POWER;
 
     /**
      * Fraction of the neutron flux that is distributed among the fuel elements
@@ -97,14 +112,14 @@ public class FuelElement extends ReactorElement {
      * the heat not disappear that fast and cooling of the reactor is required
      * for a way longer period of time.
      */
-    private final double DECAY_DOWN_MODIFIER = 0.07;
+    private static final double DECAY_DOWN_MODIFIER = 0.07;
 
     /**
      * Fraction of thermal power that will be delayed as it occurs by delayed
      * decay instead of the uranium fission. This will be the part that is still
      * there and slowly decays after scram.
      */
-    private final double P_DECAY = 0.062;
+    public static final double P_DECAY = 0.062;
 
     /**
      * Time constant (seconds) for the delayed thermal heat production.
@@ -220,9 +235,9 @@ public class FuelElement extends ReactorElement {
         loop = ChannelData.getLoop(x, y);
 
         // Calculate factors for megawatt out of flux.
-        fluxToPower = (FULL_FLUX_POWER - IDLE_HEAT) / 100;
-        fluxToDisplayPower = FULL_FLUX_POWER / 100;
-        localIdlePower = IDLE_HEAT / 376;
+        FLUX_TO_POWER = (FULL_FLUX_POWER - IDLE_HEAT) / 100;
+        FLUX_TO_DISPLAY_POWER = FULL_FLUX_POWER / 100;
+        LOCAL_IDLE_POWER = IDLE_HEAT / 376;
 
         thermalGroundNode.setName("FuelChannelThermal" + x + "-" + y + "Fuel#GroundNode");
         thermalGround.setName("FuelChannelThermal" + x + "-" + y + "#Ground");
@@ -232,18 +247,18 @@ public class FuelElement extends ReactorElement {
         thermalInnerResistance.setName("FuelChannelThermal" + x + "-" + y + "#InnerResistance");
         thermalCoreNode.setName("FuelChannelThermal" + x + "-" + y + "#CoreNode");
         thermalToEvapResistance.setName("FuelChannelThermal" + x + "-" + y + "#EvapResistance");
-        
+
         // Connections of the thermal part
         thermalGround.connectTo(thermalGroundNode);
         thermalFlowSource.connectBetween(thermalGroundNode, thermalCoreNode);
         // Add a capacitance for modeling the fuels thermal capacity
         thermalCapacity.connectTo(thermalCapacityNode);
         thermalInnerResistance.connectBetween(thermalCapacityNode, thermalCoreNode);
-        
+
         // Only one side gets connected here, the other will be the node that 
         // already exists in the evaporator element.
         thermalToEvapResistance.connectTo(thermalCoreNode);
-        
+
         // See notes in EvaporatorElement.java for details on how this was
         // calculated.
         thermalToEvapResistance.setConductanceParameter(1e5);
@@ -262,14 +277,14 @@ public class FuelElement extends ReactorElement {
         // Initial State
         thermalCapacity.setInitialEffort(273.15 + 38);
     }
-    
+
     /**
      * Used to connect the thermal models from corresponding fuel elements to
      * the evaporator. Called during model building, for each fuel thermal model
      * part (even for the the part that is extended in this class).
      *
-     * @param evapElementInNode The outNode of the evaporator (thermal) from 
-     * the EvaporatorElement
+     * @param evapElementInNode The outNode of the evaporator (thermal) from the
+     * EvaporatorElement
      */
     public void connectToEvaporator(GeneralNode evapElementInNode) {
         thermalToEvapResistance.connectTo(evapElementInNode);
@@ -506,7 +521,8 @@ public class FuelElement extends ReactorElement {
 
         // Fission power consideres the idle power but does not display it,
         // it is added as an invisible energy not shown on the power display.
-        fissionPower = rodHeatGeneration * fluxToPower + localIdlePower;
+        // It's the value that will be set towards the thermal steam model.
+        fissionPower = rodHeatGeneration * FLUX_TO_POWER + LOCAL_IDLE_POWER;
 
         if (fuelTemperature > 7000) {
             // Limit the possible fuel temperature and do not add any more heat
@@ -519,11 +535,31 @@ public class FuelElement extends ReactorElement {
 
         // The displayed fission power will not include the idle heat and show a
         // wrong 3200 MW display for 100 %
-        fissionPowerDisplay = rodHeatGeneration * fluxToDisplayPower;
+        fissionPowerDisplay = rodHeatGeneration * FLUX_TO_DISPLAY_POWER;
     }
 
     public double getFissionPowerForDisplay() {
         return fissionPowerDisplay;
+    }
+    
+    /**
+     * Combines actual flux value (considers affection) and delayed heat 
+     * generation. Describes the part that generates the heat from the nuclear
+     * reaction, but without idle power.
+     * 
+     * @return Value in same unigs as Neutron Flux (0..100 %N)
+     */
+    public double getRodHeatGeneration() {
+        return rodHeatGeneration;
+    }
+    
+    /**
+     * Delayed power produced by this fuel element.
+     * 
+     * @return Value in same unigs as Neutron Flux (0..100 %N)
+     */
+    public double getDelayedPower() {
+        return xDelayedPower;
     }
 
     /**
@@ -549,16 +585,16 @@ public class FuelElement extends ReactorElement {
         xDelayedPower = fs.getXDelayedPower();
         ruptured = fs.isRuptured();
     }
-    
+
     /**
      * Get the rupture state of the fuel channel.
-     * 
+     *
      * @return true if the channel is ruptured
      */
     public boolean isRuptured() {
         return ruptured;
     }
-    
+
     /**
      * Sets the rupture state to false.
      */

@@ -381,7 +381,7 @@ public class EvaporatorElement extends FuelElement {
         // thermal power and a power that would lead to dryout.
         // K = flow * (deltaH_subcooling + X_crit * r) / Q_thermalPower
         // With X_crit = 0.25 and r = 2100000 (Water-Model)
-        if (groupFissionPower > localIdlePower * 1e6 * fuelElements.size()) {
+        if (groupFissionPower > LOCAL_IDLE_POWER * 1e6 * fuelElements.size()) {
             double deltaT_subcooling
                     = (Water.INSTANCE.getSaturationTemperature(evapToDrumNode.getEffort())
                     - ((HeatNode) flowResistance.getNode(1)).getTemperature());

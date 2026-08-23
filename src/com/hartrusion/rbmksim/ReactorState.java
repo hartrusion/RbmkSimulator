@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class ReactorState implements java.io.Serializable {
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 8L;
     
     // state space variables saved in arrays
     private final double[] xNeutronFluxModel = new double[9];
@@ -48,6 +48,9 @@ public class ReactorState implements java.io.Serializable {
 
     private final List<RodState> rodStates = new ArrayList<>();
     private final List<FuelState> fuelStates = new ArrayList<>();
+    
+    private double thermalPowerCorrection;
+    private boolean thermalPowerCorrectionEnabled;
 
     public double getxNeutronFluxModel(int idx) {
         return xNeutronFluxModel[idx];
@@ -164,5 +167,20 @@ public class ReactorState implements java.io.Serializable {
     public ArrayList<FuelState> getFuelStates() {
         return (ArrayList<FuelState>) fuelStates;
     }
+    
+    public double getThermalPowerCorrection() {
+        return thermalPowerCorrection;
+    }
 
+    public void setThermalPowerCorrection(double thermalPowerCorrection) {
+        this.thermalPowerCorrection = thermalPowerCorrection;
+    }
+
+    public boolean isThermalPowerCorrectionEnabled() {
+        return thermalPowerCorrectionEnabled;
+    }
+
+    public void setThermalPowerCorrectionEnabled(boolean thermalPowerCorrectionEnabled) {
+        this.thermalPowerCorrectionEnabled = thermalPowerCorrectionEnabled;
+    }
 }

@@ -78,6 +78,14 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private final Setpoint setpointNeutronFlux;
 
+    /**
+     * Value that gets added to the setpointNeutronFlux inputs in units of
+     * neutron flux. The value is obtained at the end of a cycle, thus the
+     * previous value is used on each cycle. This also means the value is
+     * included in the save file.
+     */
+    private double thermalPowerCorrection;
+
     private final int[][] rodIndex = new int[ChannelData.LENGTH][ChannelData.LENGTH];
     private final int[][] fuelIndex = new int[ChannelData.LENGTH][ChannelData.LENGTH];
     private final int[][] evaporatorIndex = new int[ChannelData.LENGTH][ChannelData.LENGTH];
@@ -140,6 +148,19 @@ public class ReactorCore extends Subsystem implements Runnable {
     private double voidingReactivity = 0;
 
     private double thermalPowerDisplay;
+    
+    /**
+     * Total delayed power generation (in %N) from all fuel elements. Given in 
+     * same unit as neutron flux.
+     */
+    private double delayedPowerN;
+    
+    /**
+     * Sum of all netron flux from all fuel elements that generate the heat. 
+     * Given in 0..100%N value. This is a sum of currently active neutron flux
+     * and the delayed power generation.
+     */
+    private double actualHeatGenerationN;
 
     private final double downcomerTemperature[] = new double[2];
 
@@ -175,6 +196,9 @@ public class ReactorCore extends Subsystem implements Runnable {
      */
     private boolean globalControlActive = false;
     private boolean oldGlobalControlActive = true; // previous value
+
+    private boolean thermalPowerCorrectionEnabled = false;
+    private boolean oldThermalPowerCorrectionEnabled = true; // previous value
 
     /**
      * setpointNeutronFlux is following towards the target value
@@ -243,7 +267,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     // controls for the turbine that are not part of the reactor core. So far
     // only used for accident sequence
     private Turbine turbine;
-    
+
     private ThermalLayout process;
 
     ReactorCore() {
@@ -275,7 +299,8 @@ public class ReactorCore extends Subsystem implements Runnable {
                         neutronFluxModel.getYNeutronFlux());
             } else {
                 setpointNeutronFlux.setInput(
-                        setpointTargetNeutronFlux.getOutput());
+                        setpointTargetNeutronFlux.getOutput()
+                        + thermalPowerCorrection);
             }
             // Transient switch: Stops or continues the setpoint integrator.
             if (globalControlTransient && globalControlActive) {
@@ -542,16 +567,37 @@ public class ReactorCore extends Subsystem implements Runnable {
                 totalAffection / fuelElements.size());
 
         thermalPowerDisplay = 0.0;
+        delayedPowerN = 0.0;
+        actualHeatGenerationN = 0.0;
         // flux is global for all so it's static
         FuelElement.applyNeutronFlux(neutronFluxModel.getYNeutronFlux());
+        // Call calculation part which calculates heat generation and so on
+        // in preparation for ThermalLayout. Also sum up some values in this 
+        // loop as the values become available now.
         for (FuelElement f : fuelElements) {
             f.calculationStepPowerModel();
+            delayedPowerN += f.getDelayedPower();
+            actualHeatGenerationN += f.getRodHeatGeneration();
             thermalPowerDisplay += f.getFissionPowerForDisplay();
         }
         // Limit to some max value (only active on reactor explosion) to have
         // the value displayed that can be found in wiki
         if (thermalPowerDisplay > 30000.0) {
             thermalPowerDisplay = 30000.0;
+        }
+
+        // Calculate a thermal power correction factor - it will correct by the 
+        // missing power from the delayed power generation. It could also be
+        // some kind of control loop but I have chosen not to make it that 
+        // complicated.
+        if (thermalPowerCorrectionEnabled) {
+            // Calculate the expeced delayed heat value and the actual one, 
+            // this is the missing power that will be used for correction.
+            thermalPowerCorrection = 
+                    (neutronFluxModel.getYNeutronFlux() * FuelElement.P_DECAY
+                    - delayedPowerN) * 1.065; // whatever correction is this?
+        } else {
+            thermalPowerCorrection = 0.0;
         }
 
         // The explosion is happening after a certain, fixed time on the prompt
@@ -626,6 +672,13 @@ public class ReactorCore extends Subsystem implements Runnable {
                     this, "Reactor#LocalControlActive",
                     oldLocalControlActive, localControlActive));
             oldLocalControlActive = localControlActive;
+        }
+        if (thermalPowerCorrectionEnabled != oldThermalPowerCorrectionEnabled) {
+            controller.propertyChange(new PropertyChangeEvent(
+                    this, "Reactor#ThermalPowerCorrection",
+                    oldThermalPowerCorrectionEnabled,
+                    thermalPowerCorrectionEnabled));
+            oldThermalPowerCorrectionEnabled = thermalPowerCorrectionEnabled;
         }
 
         if (exploded) {
@@ -840,6 +893,9 @@ public class ReactorCore extends Subsystem implements Runnable {
         if (ac.getPropertyName().equals("Reactor#GlobalControlEnabled")) {
             if (!rpsActive) {
                 globalControlEnabled = (boolean) ac.getValue();
+                if (!globalControlEnabled) { // also switch off TPC
+                    thermalPowerCorrectionEnabled = false;
+                }
             } else if ((boolean) ac.getValue()) {
                 // rps is present and trying to switch on global control:
                 LOGGER.log(Level.INFO, "Command refused due to RPS active");
@@ -886,6 +942,30 @@ public class ReactorCore extends Subsystem implements Runnable {
                 LOGGER.log(Level.INFO, "Local Control activated.");
             } else {
                 LOGGER.log(Level.INFO, "Command refused (not enabled yet).");
+            }
+            return;
+        }
+        if (ac.getPropertyName().equals("Reactor#ThermalPowerCorrection")) {
+            // Button press to start control operation
+            if (globalControlActive) {
+                if ((boolean) ac.getValue()) {
+                    if (!thermalPowerCorrectionEnabled
+                            && neutronFluxModel.getYNeutronFlux() > 10.0) {
+                        thermalPowerCorrectionEnabled = true;
+                        LOGGER.log(Level.INFO, "Thermal Power Correction "
+                                + "enabled.");
+                    } else if (!thermalPowerCorrectionEnabled) {
+                        LOGGER.log(Level.INFO, "Command refused, not available "
+                                + "on low neutron flux level.");
+                    }
+                } else if (thermalPowerCorrectionEnabled) {
+                    thermalPowerCorrectionEnabled = false;
+                    LOGGER.log(Level.INFO, "Thermal Power Correction "
+                            + "sucessfully deactivated.");
+                }
+            } else {
+                LOGGER.log(Level.INFO, "Command refused, global control is "
+                        + "not active but required.");
             }
             return;
         }
@@ -1362,6 +1442,11 @@ public class ReactorCore extends Subsystem implements Runnable {
             LOGGER.log(Level.INFO, "Deactivated Local Control (Shutdown)");
         }
         localControlEnabled = false;
+        if (thermalPowerCorrectionEnabled) {
+            LOGGER.log(Level.INFO, "Deactivated Thermal Power Correction"
+                    + " (Shutdown)");
+        }
+        thermalPowerCorrectionEnabled = false;
         for (ControlRod c : controlRods) {
             c.setAutomatic(false);
             c.rodSpeedMax();
@@ -1475,7 +1560,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     public void registerTurbine(Turbine turbine) {
         this.turbine = turbine;
     }
-    
+
     public void registerThermalLayout(ThermalLayout process) {
         this.process = process;
     }
@@ -1503,6 +1588,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         s.setGlobalControlTransient(globalControlTransient);
         s.setLocalControlEnabled(localControlEnabled);
         s.setLocalControlActive(localControlActive);
+        s.setThermalPowerCorrectionEnabled(thermalPowerCorrectionEnabled);
+        s.setThermalPowerCorrection(thermalPowerCorrection);
         s.setCoreTemp(coreTemp);
         s.setVoiding(voiding);
 
@@ -1530,7 +1617,7 @@ public class ReactorCore extends Subsystem implements Runnable {
     @Override
     public void load(SaveGame save) {
         exploded = false;
-        
+
         ReactorState rs = save.getReactorState();
 
         for (int idx = 0; idx < 7; idx++) {
@@ -1550,6 +1637,8 @@ public class ReactorCore extends Subsystem implements Runnable {
         globalControlTransient = rs.isGlobalControlTransient();
         localControlEnabled = rs.isLocalControlEnabled();
         localControlActive = rs.isLocalControlActive();
+        thermalPowerCorrectionEnabled = rs.isThermalPowerCorrectionEnabled();
+        thermalPowerCorrection = rs.getThermalPowerCorrection();
         // those values get assigned from previous cycle from thermal layout.
         // as there is no previous cycle, we need to restore them.
         coreTemp = rs.getCoreTemp();
@@ -1572,6 +1661,7 @@ public class ReactorCore extends Subsystem implements Runnable {
         oldGlobalControlEnabled = !globalControlEnabled;
         oldLocalControlActive = !localControlActive;
         oldLocalControlEnabled = !localControlEnabled;
+        oldThermalPowerCorrectionEnabled = !thermalPowerCorrectionEnabled;
         oldRpsActive = !rpsActive;
         oldRps = null;
         oldAutoRodsPositionAlarmState = null;
