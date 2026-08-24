@@ -80,14 +80,15 @@ public class PanelGenerator extends AbstractPanelWidget
         jButtonSpeedValvesMinus = new javax.swing.JButton();
         jButtonSpeedValvesPlus = new javax.swing.JButton();
         synchroscope1 = new com.hartrusion.rbmksim.gui.elements.Synchroscope();
-        jLabelCaptionAZ17 = new javax.swing.JLabel();
-        jLabelCaptionAZ18 = new javax.swing.JLabel();
+        jLabelCaptionStartupValvesOpenClose = new javax.swing.JLabel();
+        jLabelCaptionStartupValves1 = new javax.swing.JLabel();
+        jLabelCaptionStartupValves2 = new javax.swing.JLabel();
         jLabelCaptionBreaker2 = new javax.swing.JLabel();
         jToggleButtonBreaker = new javax.swing.JToggleButton();
         jLabelCaptionBreaker1 = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(190, 190));
-        setPreferredSize(new java.awt.Dimension(190, 190));
+        setMinimumSize(new java.awt.Dimension(190, 185));
+        setPreferredSize(new java.awt.Dimension(190, 185));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonSpeed1.setFont(jButtonSpeed1.getFont().deriveFont(jButtonSpeed1.getFont().getSize()-2f));
@@ -319,7 +320,7 @@ public class PanelGenerator extends AbstractPanelWidget
                 jButtonSpeedValvesMinusActionPerformed(evt);
             }
         });
-        add(jButtonSpeedValvesMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 148, 20, 20));
+        add(jButtonSpeedValvesMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 146, 20, 20));
 
         jButtonSpeedValvesPlus.setFont(jButtonSpeedValvesPlus.getFont().deriveFont(jButtonSpeedValvesPlus.getFont().getSize()-2f));
         jButtonSpeedValvesPlus.setText("↓");
@@ -333,7 +334,7 @@ public class PanelGenerator extends AbstractPanelWidget
                 jButtonSpeedValvesPlusMouseReleased(evt);
             }
         });
-        add(jButtonSpeedValvesPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 148, 20, 20));
+        add(jButtonSpeedValvesPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 146, 20, 20));
 
         synchroscope1.setBackground(new java.awt.Color(255, 255, 255));
         synchroscope1.setForeground(new java.awt.Color(0, 0, 0));
@@ -349,23 +350,28 @@ public class PanelGenerator extends AbstractPanelWidget
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        add(synchroscope1, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 136, 50, 50));
+        add(synchroscope1, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 128, 50, 50));
 
-        jLabelCaptionAZ17.setFont(jLabelCaptionAZ17.getFont().deriveFont(jLabelCaptionAZ17.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ17.getFont().getSize()-2));
-        jLabelCaptionAZ17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ17.setText("Close/Open");
-        jLabelCaptionAZ17.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ17.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ17.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAZ17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 172, 64, -1));
+        jLabelCaptionStartupValvesOpenClose.setFont(jLabelCaptionStartupValvesOpenClose.getFont().deriveFont(jLabelCaptionStartupValvesOpenClose.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionStartupValvesOpenClose.getFont().getSize()-2));
+        jLabelCaptionStartupValvesOpenClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionStartupValvesOpenClose.setText("Close/Open");
+        add(jLabelCaptionStartupValvesOpenClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 168, 64, -1));
 
-        jLabelCaptionAZ18.setFont(jLabelCaptionAZ18.getFont().deriveFont(jLabelCaptionAZ18.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionAZ18.getFont().getSize()-2));
-        jLabelCaptionAZ18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCaptionAZ18.setText("Valves");
-        jLabelCaptionAZ18.setMaximumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ18.setMinimumSize(new java.awt.Dimension(52, 14));
-        jLabelCaptionAZ18.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionAZ18, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 132, 64, -1));
+        jLabelCaptionStartupValves1.setFont(jLabelCaptionStartupValves1.getFont().deriveFont(jLabelCaptionStartupValves1.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionStartupValves1.getFont().getSize()-2));
+        jLabelCaptionStartupValves1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionStartupValves1.setText("Startup");
+        jLabelCaptionStartupValves1.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionStartupValves1.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionStartupValves1.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionStartupValves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 118, 64, -1));
+
+        jLabelCaptionStartupValves2.setFont(jLabelCaptionStartupValves2.getFont().deriveFont(jLabelCaptionStartupValves2.getFont().getStyle() & ~java.awt.Font.BOLD, jLabelCaptionStartupValves2.getFont().getSize()-2));
+        jLabelCaptionStartupValves2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCaptionStartupValves2.setText("Valves");
+        jLabelCaptionStartupValves2.setMaximumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionStartupValves2.setMinimumSize(new java.awt.Dimension(52, 14));
+        jLabelCaptionStartupValves2.setPreferredSize(new java.awt.Dimension(52, 14));
+        add(jLabelCaptionStartupValves2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 130, 64, -1));
 
         jLabelCaptionBreaker2.setFont(jLabelCaptionBreaker2.getFont().deriveFont(jLabelCaptionBreaker2.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBreaker2.getFont().getSize()-2));
         jLabelCaptionBreaker2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -373,7 +379,7 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionBreaker2.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker2.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker2.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBreaker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 132, 72, 14));
+        add(jLabelCaptionBreaker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 136, 72, 14));
 
         jToggleButtonBreaker.setText("←");
         jToggleButtonBreaker.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -382,7 +388,7 @@ public class PanelGenerator extends AbstractPanelWidget
                 jToggleButtonBreakerActionPerformed(evt);
             }
         });
-        add(jToggleButtonBreaker, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 156, 20, 20));
+        add(jToggleButtonBreaker, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 156, 20, 20));
 
         jLabelCaptionBreaker1.setFont(jLabelCaptionBreaker1.getFont().deriveFont(jLabelCaptionBreaker1.getFont().getStyle() | java.awt.Font.BOLD, jLabelCaptionBreaker1.getFont().getSize()-2));
         jLabelCaptionBreaker1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -390,7 +396,7 @@ public class PanelGenerator extends AbstractPanelWidget
         jLabelCaptionBreaker1.setMaximumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker1.setMinimumSize(new java.awt.Dimension(52, 14));
         jLabelCaptionBreaker1.setPreferredSize(new java.awt.Dimension(52, 14));
-        add(jLabelCaptionBreaker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 120, 72, 14));
+        add(jLabelCaptionBreaker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 124, 72, 14));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSpeed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpeed1ActionPerformed
@@ -476,12 +482,13 @@ public class PanelGenerator extends AbstractPanelWidget
     private javax.swing.JLabel jLabelCaptionAZ14;
     private javax.swing.JLabel jLabelCaptionAZ15;
     private javax.swing.JLabel jLabelCaptionAZ16;
-    private javax.swing.JLabel jLabelCaptionAZ17;
-    private javax.swing.JLabel jLabelCaptionAZ18;
     private javax.swing.JLabel jLabelCaptionAZ7;
     private javax.swing.JLabel jLabelCaptionAZ9;
     private javax.swing.JLabel jLabelCaptionBreaker1;
     private javax.swing.JLabel jLabelCaptionBreaker2;
+    private javax.swing.JLabel jLabelCaptionStartupValves1;
+    private javax.swing.JLabel jLabelCaptionStartupValves2;
+    private javax.swing.JLabel jLabelCaptionStartupValvesOpenClose;
     private javax.swing.JLabel jLabelCaptionThermalPower1;
     private javax.swing.JLabel jLabelCaptionThermalPower2;
     private javax.swing.JLabel jLabelCaptionThermalPowerUnit;
