@@ -17,6 +17,7 @@
 package com.hartrusion.rbmksim;
 
 import com.hartrusion.modeling.solvers.DomainAnalogySolver;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -103,8 +104,10 @@ public class RbmkSimulator {
         // Build and initialize the model
         mainLoop.init();
         
-        // make the alarm list model of the alarm manager known to the GUI
-        view.setAlarmList(mainLoop.alarms.getAlarmList());
+        // Dirty workaround to not have an ConcurrentModificationException - 
+        // this has to be reworked at some point. propably the whole alarm thing 
+        // is not done very good.
+        view.setAlarmList(new ArrayList<>(mainLoop.alarms.getAlarmList()));
 
         // Start the GUI
         java.awt.EventQueue.invokeLater(() -> {
