@@ -30,7 +30,7 @@ import java.beans.BeanProperty;
  * with the exact same size, it was made scaleable. It can be placed vertically
  * or horizontally, changing this will automatically resize the element.
  *
- * @author vikto
+ * @author Viktor Alexander Hartung
  */
 public class Valve extends javax.swing.JComponent {
 
