@@ -64,7 +64,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingNeutronFlux = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabelReadingGraphite = new javax.swing.JLabel();
-        jLabelBackground = new javax.swing.JLabel();
+        mnemonicBackground = new com.hartrusion.rbmksim.gui.mnemonic.MnemonicCoreBackground();
 
         setMaximumSize(new java.awt.Dimension(228, 176));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -177,8 +177,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
         jLabelReadingGraphite.setOpaque(true);
         add(jLabelReadingGraphite, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 66, 48, 16));
 
-        jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicCore.png"))); // NOI18N
-        add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(mnemonicBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -191,7 +190,6 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingFuelTemp1;
     private javax.swing.JLabel jLabelReadingFuelTemp2;
     private javax.swing.JLabel jLabelReadingGraphite;
@@ -200,6 +198,7 @@ public class PanelMnemonicCore extends javax.swing.JPanel implements UpdateRecei
     private javax.swing.JLabel jLabelReadingVoid1;
     private javax.swing.JLabel jLabelReadingVoid2;
     private javax.swing.JLabel jLabelReadingXenon;
+    private com.hartrusion.rbmksim.gui.mnemonic.MnemonicCoreBackground mnemonicBackground;
     // End of variables declaration//GEN-END:variables
 
     @Override

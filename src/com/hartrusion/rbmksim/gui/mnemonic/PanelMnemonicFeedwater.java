@@ -72,7 +72,7 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jLabelBackground = new javax.swing.JLabel();
+        mnemonicBackground = new com.hartrusion.rbmksim.gui.mnemonic.MnemonicFeedwaterBackground();
 
         setMaximumSize(new java.awt.Dimension(400, 208));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -207,8 +207,7 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
         jLabel22.setText("Drum 2");
         add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 154, 38, -1));
 
-        jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicFeedwater.png"))); // NOI18N
-        add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(mnemonicBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -217,13 +216,13 @@ public class PanelMnemonicFeedwater extends javax.swing.JPanel implements Update
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingFlow1;
     private javax.swing.JLabel jLabelReadingFlow2;
     private javax.swing.JLabel jLabelReadingPressure1;
     private javax.swing.JLabel jLabelReadingPressure2;
     private javax.swing.JLabel jLabelReadingTemperature1;
     private javax.swing.JLabel jLabelReadingTemperature2;
+    private com.hartrusion.rbmksim.gui.mnemonic.MnemonicFeedwaterBackground mnemonicBackground;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump11;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump12;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump21;

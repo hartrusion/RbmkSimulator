@@ -71,7 +71,7 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingReheater1SteamFlow = new javax.swing.JLabel();
         jLabelReadingReheater2SteamFlow = new javax.swing.JLabel();
         jLabelReadingReheater3SteamFlow = new javax.swing.JLabel();
-        jLabelBackground = new javax.swing.JLabel();
+        mnemonicBackground = new com.hartrusion.rbmksim.gui.mnemonic.MnemonicPreheatersBackground();
 
         setMaximumSize(new java.awt.Dimension(480, 180));
         setMinimumSize(new java.awt.Dimension(480, 180));
@@ -264,8 +264,7 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
         jLabelReadingReheater3SteamFlow.setOpaque(true);
         add(jLabelReadingReheater3SteamFlow, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 32, 64, 16));
 
-        jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicPreheaters.png"))); // NOI18N
-        add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(mnemonicBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -274,7 +273,6 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
     private javax.swing.JLabel jLabe3;
     private javax.swing.JLabel jLabe4;
     private javax.swing.JLabel jLabe5;
-    private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelReadingCondensateValve1;
     private javax.swing.JLabel jLabelReadingCondensateValve2;
     private javax.swing.JLabel jLabelReadingCondensateValve3;
@@ -293,6 +291,7 @@ public class PanelMnemonicPreheaters extends javax.swing.JPanel implements Updat
     private javax.swing.JLabel jLabelReadingTurbineLPTap1Pressure;
     private javax.swing.JLabel jLabelReadingTurbineLPTap2Pressure;
     private javax.swing.JLabel jLabelReadingTurbineLPTap3Pressure;
+    private com.hartrusion.rbmksim.gui.mnemonic.MnemonicPreheatersBackground mnemonicBackground;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensate1;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensate2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCondensate3;

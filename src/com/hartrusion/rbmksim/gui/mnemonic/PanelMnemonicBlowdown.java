@@ -89,7 +89,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelToDrum7 = new javax.swing.JLabel();
         jLabelToDrum8 = new javax.swing.JLabel();
         jLabelToDrum9 = new javax.swing.JLabel();
-        jLabelBackground = new javax.swing.JLabel();
+        mnemonicBackground = new com.hartrusion.rbmksim.gui.mnemonic.MnemonicBlowdownBackground();
 
         setMaximumSize(new java.awt.Dimension(324, 460));
         setMinimumSize(new java.awt.Dimension(324, 460));
@@ -327,13 +327,11 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
         jLabelToDrum9.setText("Drain");
         add(jLabelToDrum9, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 110, 34, -1));
 
-        jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hartrusion/rbmksim/gui/mnemonic/MnemonicBlowdown.png"))); // NOI18N
-        add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(mnemonicBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelCoolerSecondaryFlow;
     private javax.swing.JLabel jLabelCoolerSecondaryOutTemp;
     private javax.swing.JLabel jLabelReadingCoolantValve;
@@ -359,6 +357,7 @@ public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateR
     private javax.swing.JLabel jLabelToDrum7;
     private javax.swing.JLabel jLabelToDrum8;
     private javax.swing.JLabel jLabelToDrum9;
+    private com.hartrusion.rbmksim.gui.mnemonic.MnemonicBlowdownBackground mnemonicBackground;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump1;
     private com.hartrusion.rbmksim.gui.mnemonic.Pump pump2;
     private com.hartrusion.rbmksim.gui.mnemonic.Valve valveCoolantIn;

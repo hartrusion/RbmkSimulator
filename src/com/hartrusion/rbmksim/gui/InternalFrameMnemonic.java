@@ -17,6 +17,7 @@
 package com.hartrusion.rbmksim.gui;
 
 import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.rbmksim.gui.mnemonic.MnemonicColors;
 import java.beans.PropertyChangeEvent;
 
 /**
@@ -37,7 +38,10 @@ public class InternalFrameMnemonic extends javax.swing.JInternalFrame
     }
     
     /**
-     * Initializes a control panel Element by adding the Panel
+     * Initializes a control panel Element by adding the Panel. The
+     * AbsoluteLayout of the panel gets replaced by a ScaleableAbsoluteLayout,
+     * resizing or maximizing the frame zooms the panel content. The packed
+     * size of the frame is the size at a scale factor of 1.0.
      *
      * @param panel The mnemonic display panel object
      * @param title Title of the Internal Frame
@@ -45,6 +49,10 @@ public class InternalFrameMnemonic extends javax.swing.JInternalFrame
     public void initPanel(javax.swing.JPanel panel, String title) {
         child = (UpdateReceiver) panel;
         setTitle(title);
+        // Visible as border around the content if the aspect ratio of the
+        // frame does not match the one of the panel.
+        panel.setBackground(MnemonicColors.getBackground());
+        ScaleableAbsoluteLayout.install(panel);
         getContentPane().add(panel, java.awt.BorderLayout.CENTER);
         pack();
     }
@@ -69,6 +77,8 @@ public class InternalFrameMnemonic extends javax.swing.JInternalFrame
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
