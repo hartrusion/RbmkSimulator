@@ -128,6 +128,29 @@ public class ControlPanel extends javax.swing.JFrame implements
      */
     public ControlPanel() {
         initComponents();
+        selectActiveThemeMenuItem();
+    }
+
+    /**
+     * Marks the GUI theme that is installed while this control panel is
+     * created in the theme menu. Because a theme switch recreates all control
+     * panels, the selection only has to be set once on construction.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private void selectActiveThemeMenuItem() {
+        switch (GuiTheme.getActiveTheme()) {
+            case FLATLAF_DARK:
+                jRadioButtonMenuItemThemeFlatLafDark.setSelected(true);
+                break;
+            case FLATLAF_LIGHT:
+                jRadioButtonMenuItemThemeFlatLafLight.setSelected(true);
+                break;
+            case CHORNOBYL_METAL:
+            default:
+                jRadioButtonMenuItemThemeChornobylMetal.setSelected(true);
+                break;
+        }
     }
 
     /**
@@ -141,6 +164,7 @@ public class ControlPanel extends javax.swing.JFrame implements
 
         jTextField1 = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
+        buttonGroupTheme = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jDesktopPane1 = new com.hartrusion.util.JDesktopPaneEnhanced();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -163,6 +187,11 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemViewCore2 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenuItemViewECCS = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        jMenuTheme = new javax.swing.JMenu();
+        jRadioButtonMenuItemThemeChornobylMetal = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItemThemeFlatLafDark = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItemThemeFlatLafLight = new javax.swing.JRadioButtonMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -303,6 +332,26 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemViewECCS.setText("Emergency Core Cooling System");
         jMenuItemViewECCS.addActionListener(this::jMenuItemViewECCSActionPerformed);
         jMenuView.add(jMenuItemViewECCS);
+        jMenuView.add(jSeparator12);
+
+        jMenuTheme.setText("Theme");
+
+        buttonGroupTheme.add(jRadioButtonMenuItemThemeChornobylMetal);
+        jRadioButtonMenuItemThemeChornobylMetal.setText("Chornobyl Metal");
+        jRadioButtonMenuItemThemeChornobylMetal.addActionListener(this::jRadioButtonMenuItemThemeChornobylMetalActionPerformed);
+        jMenuTheme.add(jRadioButtonMenuItemThemeChornobylMetal);
+
+        buttonGroupTheme.add(jRadioButtonMenuItemThemeFlatLafDark);
+        jRadioButtonMenuItemThemeFlatLafDark.setText("FlatLaf Dark");
+        jRadioButtonMenuItemThemeFlatLafDark.addActionListener(this::jRadioButtonMenuItemThemeFlatLafDarkActionPerformed);
+        jMenuTheme.add(jRadioButtonMenuItemThemeFlatLafDark);
+
+        buttonGroupTheme.add(jRadioButtonMenuItemThemeFlatLafLight);
+        jRadioButtonMenuItemThemeFlatLafLight.setText("FlatLaf Light");
+        jRadioButtonMenuItemThemeFlatLafLight.addActionListener(this::jRadioButtonMenuItemThemeFlatLafLightActionPerformed);
+        jMenuTheme.add(jRadioButtonMenuItemThemeFlatLafLight);
+
+        jMenuView.add(jMenuTheme);
 
         jMenuBar1.add(jMenuView);
 
@@ -1534,6 +1583,18 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeControlPanel(new PanelEccs(), "Emergency Core Cooling System (ECCS)");
     }//GEN-LAST:event_jMenuItemViewECCSActionPerformed
 
+    private void jRadioButtonMenuItemThemeChornobylMetalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeChornobylMetalActionPerformed
+        parentControlRoom.switchTheme(GuiTheme.CHORNOBYL_METAL);
+    }//GEN-LAST:event_jRadioButtonMenuItemThemeChornobylMetalActionPerformed
+
+    private void jRadioButtonMenuItemThemeFlatLafDarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeFlatLafDarkActionPerformed
+        parentControlRoom.switchTheme(GuiTheme.FLATLAF_DARK);
+    }//GEN-LAST:event_jRadioButtonMenuItemThemeFlatLafDarkActionPerformed
+
+    private void jRadioButtonMenuItemThemeFlatLafLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeFlatLafLightActionPerformed
+        parentControlRoom.switchTheme(GuiTheme.FLATLAF_LIGHT);
+    }//GEN-LAST:event_jRadioButtonMenuItemThemeFlatLafLightActionPerformed
+
     private void jMenuItemStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartServerActionPerformed
         controller.userAction(new ActionCommand("StartServer", null));
     }//GEN-LAST:event_jMenuItemStartServerActionPerformed
@@ -1781,6 +1842,7 @@ public class ControlPanel extends javax.swing.JFrame implements
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupTheme;
     private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1858,12 +1920,17 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuPresets;
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JMenu jMenuSecret;
+    private javax.swing.JMenu jMenuTheme;
     private javax.swing.JMenu jMenuView;
     private javax.swing.JMenuItem jMenuWords;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeChornobylMetal;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeFlatLafDark;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeFlatLafLight;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator4;

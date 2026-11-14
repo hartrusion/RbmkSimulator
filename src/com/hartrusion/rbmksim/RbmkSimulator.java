@@ -23,15 +23,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 import com.hartrusion.mvc.AwtUpdater;
 import com.hartrusion.mvc.Controller;
-import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
+import com.hartrusion.rbmksim.gui.GuiTheme;
 import com.hartrusion.util.SimpleLogOut;
-// import com.formdev.flatlaf.FlatDarkLaf;
 
 /**
  *
@@ -67,25 +62,8 @@ public class RbmkSimulator {
     }
 
     private void run() {
-//        FlatDarkLaf.setup();
-        
-        /* Set the Chornobyl look and feel */
-        try {
-            for (UIManager.LookAndFeelInfo info
-                    : UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
-                    MetalLookAndFeel.setCurrentTheme(new ChornobylMetalTheme());
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException
-                | InstantiationException
-                | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(RbmkSimulator.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
+        // Install the initial GUI theme before any window is created.
+        GuiTheme.DEFAULT_THEME.apply();
 
         // Create control panel instance
         ControlPanelManager view = new ControlPanelManager();

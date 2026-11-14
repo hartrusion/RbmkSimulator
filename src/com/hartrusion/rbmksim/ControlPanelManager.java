@@ -16,11 +16,13 @@
  */
 package com.hartrusion.rbmksim;
 
+import java.awt.Window;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
+import com.hartrusion.rbmksim.gui.GuiTheme;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -88,6 +90,32 @@ public class ControlPanelManager implements InteractiveView {
             // last closed control panel terminates the application.
             System.exit(0); // Terminate java vm
         }
+    }
+
+    /**
+     * Switches the GUI to another GUI theme. Swing only applies a look and feel
+     * to newly created components, so all windows of the application (control
+     * panels, debug frames and dialogs) are disposed and a single new control
+     * panel is opened afterwards, which receives the simulation data like the
+     * first one did on startup. Disposing does not fire the windowClosing
+     * event, so the closing of the last control panel does not terminate the
+     * application here. If the GUI theme cannot be installed, the windows are
+     * kept open. Called from the theme menu of ControlPanel on the event
+     * dispatch thread.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @param theme GUI theme to switch to
+     */
+    public void switchTheme(GuiTheme theme) {
+        if (!theme.apply()) {
+            return;
+        }
+        controlPanels.clear();
+        for (Window window : Window.getWindows()) {
+            window.dispose();
+        }
+        displayNewControlPanel();
     }
 
     public void setAsClient() {
