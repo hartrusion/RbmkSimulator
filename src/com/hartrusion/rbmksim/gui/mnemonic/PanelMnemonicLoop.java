@@ -26,7 +26,7 @@ import com.hartrusion.mvc.UpdateReceiver;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicLoop extends javax.swing.JPanel implements UpdateReceiver {
+public class PanelMnemonicLoop extends com.hartrusion.util.JPanelScaleable implements UpdateReceiver {
 
     private int loop = 0;
 

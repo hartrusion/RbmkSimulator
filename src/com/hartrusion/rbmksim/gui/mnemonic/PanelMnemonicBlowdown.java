@@ -26,7 +26,7 @@ import com.hartrusion.mvc.UpdateReceiver;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicBlowdown extends javax.swing.JPanel implements UpdateReceiver {
+public class PanelMnemonicBlowdown extends com.hartrusion.util.JPanelScaleable implements UpdateReceiver {
 
     /**
      * Creates new form PanelMnemonicBlowdown

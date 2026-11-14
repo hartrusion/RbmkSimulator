@@ -25,7 +25,7 @@ import java.beans.PropertyChangeEvent;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicDeaerator extends javax.swing.JPanel
+public class PanelMnemonicDeaerator extends com.hartrusion.util.JPanelScaleable
         implements UpdateReceiver {
 
     /**

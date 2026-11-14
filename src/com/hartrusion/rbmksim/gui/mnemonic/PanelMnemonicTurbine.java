@@ -26,7 +26,7 @@ import java.beans.PropertyChangeEvent;
  *
  * @author viktor
  */
-public class PanelMnemonicTurbine extends javax.swing.JPanel
+public class PanelMnemonicTurbine extends com.hartrusion.util.JPanelScaleable
         implements UpdateReceiver {
 
     /**

@@ -38,10 +38,10 @@ public class InternalFrameMnemonic extends javax.swing.JInternalFrame
     }
     
     /**
-     * Initializes a control panel Element by adding the Panel. The
-     * AbsoluteLayout of the panel gets replaced by a ScaleableAbsoluteLayout,
-     * resizing or maximizing the frame zooms the panel content. The packed
-     * size of the frame is the size at a scale factor of 1.0.
+     * Initializes a control panel Element by adding the Panel. The mnemonic
+     * panels extend JPanelScaleable, so resizing or maximizing the frame zooms
+     * the panel content. The packed size of the frame is the size at a scale
+     * factor of 1.0.
      *
      * @param panel The mnemonic display panel object
      * @param title Title of the Internal Frame
@@ -52,7 +52,6 @@ public class InternalFrameMnemonic extends javax.swing.JInternalFrame
         // Visible as border around the content if the aspect ratio of the
         // frame does not match the one of the panel.
         panel.setBackground(MnemonicColors.getBackground());
-        ScaleableAbsoluteLayout.install(panel);
         getContentPane().add(panel, java.awt.BorderLayout.CENTER);
         pack();
     }

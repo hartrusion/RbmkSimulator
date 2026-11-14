@@ -25,7 +25,7 @@ import java.beans.PropertyChangeEvent;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicPreheaters extends javax.swing.JPanel implements UpdateReceiver {
+public class PanelMnemonicPreheaters extends com.hartrusion.util.JPanelScaleable implements UpdateReceiver {
 
     /**
      * Creates new form PanelMnemonicPreheaters

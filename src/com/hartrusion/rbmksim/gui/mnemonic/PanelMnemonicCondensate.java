@@ -30,7 +30,7 @@ import java.beans.PropertyChangeEvent;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicCondensate extends javax.swing.JPanel
+public class PanelMnemonicCondensate extends com.hartrusion.util.JPanelScaleable
         implements UpdateReceiver {
 
     /**

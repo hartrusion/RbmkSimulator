@@ -27,7 +27,7 @@ import com.hartrusion.mvc.UpdateReceiver;
  *
  * @author Viktor Alexander Hartung
  */
-public class PanelMnemonicAuxiliaryCondenser extends javax.swing.JPanel
+public class PanelMnemonicAuxiliaryCondenser extends com.hartrusion.util.JPanelScaleable
         implements UpdateReceiver {
 
     /**

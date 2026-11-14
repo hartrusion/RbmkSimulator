@@ -25,7 +25,7 @@ import java.beans.PropertyChangeEvent;
  *
  * @author viktor
  */
-public class PanelMnemonicFeedwater extends javax.swing.JPanel implements UpdateReceiver {
+public class PanelMnemonicFeedwater extends com.hartrusion.util.JPanelScaleable implements UpdateReceiver {
 
     /**
      * Creates new form PanelMnemonicFeedwater
