@@ -38,6 +38,10 @@ Swing only applies a look and feel to components that are created after it was i
 
 The new enumeration com.hartrusion.rbmksim.gui.GuiTheme lists the GUI themes CHORNOBYL_METAL, FLATLAF_DARK and FLATLAF_LIGHT, installs them with apply() and remembers the active GUI theme. RbmkSimulator and RbmkSimulatorClient install GuiTheme.DEFAULT_THEME instead of their own Metal setup code. ControlPanelManager got switchTheme(GuiTheme), and ControlPanel got a submenu "Theme" at the end of the View menu with three JRadioButtonMenuItems in the ButtonGroup buttonGroupTheme, which was added to ControlPanel.form with the netbeans-matisse-gui skill and passes its validator. The constructor of ControlPanel marks the active GUI theme in this menu. FlatLaf was already on javac.classpath as file.reference.flatlaf-3.6.2.jar, which points to the jar inside the NetBeans installation (/usr/lib/apache-netbeans/platform/modules/ext). FrameRodPositions still contains an unused import of ChornobylMetalTheme and was left unchanged.
 
-### 3.3 Verification
+### 3.3 Rejected Additional FlatLaf Themes
+
+The FlatLaf core themes FlatIntelliJLaf, FlatDarculaLaf, FlatMacLightLaf and FlatMacDarkLaf were added to the theme menu on request and removed again with a revert commit, because the user found that they do not look good with the simulator GUI. The selection stays with Chornobyl Metal, FlatLaf Dark and FlatLaf Light.
+
+### 3.4 Verification
 
 The project was compiled without errors with javac of the NetBeans JDK and the jars of utils, jmplot, PhxNetMod, AbsoluteLayout and FlatLaf. The application was not started, so the switch itself and the appearance of the custom painted components (mnemonics, panels, diagrams) under FlatLaf have to be checked by the user.
