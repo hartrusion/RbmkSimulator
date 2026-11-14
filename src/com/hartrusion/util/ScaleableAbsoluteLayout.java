@@ -216,15 +216,43 @@ public class ScaleableAbsoluteLayout extends AbsoluteLayout {
      * NetBeans GUI editor) defines it; otherwise it is the size that the
      * AbsoluteLayout itself would need for the constraints. The base size is
      * determined again after components were added or removed, which happens
-     * normally only once in initComponents() before the first layout. The
-     * constraints with width or height -1 then use the preferred sizes of
-     * the components at their current, possibly already scaled, fonts.
+     * normally only once in initComponents() before the first layout.
+     *
+     * <p>
+     * Before that, every constraint with width or height -1 (preferred size)
+     * is replaced by a constraint with the current preferred size of its
+     * component. This happens before any scaling, so these sizes belong to a
+     * scale factor of 1.0 and are scaled like all other constraints. Without
+     * this, such components would keep their unscaled preferred size, which
+     * only grows for components whose preferred size depends on the scaled
+     * font, like JLabels. A component added after the first layout uses its
+     * preferred size at the then current font.
      *
      * @param parent The container using this layout.
      */
     private void updateBaseSize(Container parent) {
         if (baseSizeValid) {
             return;
+        }
+        for (Component component : parent.getComponents()) {
+            Object value = constraints.get(component);
+            if (!(value instanceof AbsoluteConstraints)) {
+                continue;
+            }
+            AbsoluteConstraints constraint = (AbsoluteConstraints) value;
+            if (constraint.width == -1 || constraint.height == -1) {
+                Dimension preferredSize = component.getPreferredSize();
+                int width = constraint.width;
+                int height = constraint.height;
+                if (width == -1) {
+                    width = preferredSize.width;
+                }
+                if (height == -1) {
+                    height = preferredSize.height;
+                }
+                constraints.put(component, new AbsoluteConstraints(
+                        constraint.x, constraint.y, width, height));
+            }
         }
         Dimension size;
         if (parent.isPreferredSizeSet()) {
