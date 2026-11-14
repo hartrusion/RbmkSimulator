@@ -146,18 +146,6 @@ public class ControlPanel extends javax.swing.JFrame implements
             case FLATLAF_LIGHT:
                 jRadioButtonMenuItemThemeFlatLafLight.setSelected(true);
                 break;
-            case INTELLIJ:
-                jRadioButtonMenuItemThemeIntelliJ.setSelected(true);
-                break;
-            case DARCULA:
-                jRadioButtonMenuItemThemeDarcula.setSelected(true);
-                break;
-            case MAC_LIGHT:
-                jRadioButtonMenuItemThemeMacLight.setSelected(true);
-                break;
-            case MAC_DARK:
-                jRadioButtonMenuItemThemeMacDark.setSelected(true);
-                break;
             case CHORNOBYL_METAL:
             default:
                 jRadioButtonMenuItemThemeChornobylMetal.setSelected(true);
@@ -204,10 +192,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         jRadioButtonMenuItemThemeChornobylMetal = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItemThemeFlatLafDark = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItemThemeFlatLafLight = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItemThemeIntelliJ = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItemThemeDarcula = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItemThemeMacLight = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItemThemeMacDark = new javax.swing.JRadioButtonMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -366,26 +350,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         jRadioButtonMenuItemThemeFlatLafLight.setText("FlatLaf Light");
         jRadioButtonMenuItemThemeFlatLafLight.addActionListener(this::jRadioButtonMenuItemThemeFlatLafLightActionPerformed);
         jMenuTheme.add(jRadioButtonMenuItemThemeFlatLafLight);
-
-        buttonGroupTheme.add(jRadioButtonMenuItemThemeIntelliJ);
-        jRadioButtonMenuItemThemeIntelliJ.setText("IntelliJ");
-        jRadioButtonMenuItemThemeIntelliJ.addActionListener(this::jRadioButtonMenuItemThemeIntelliJActionPerformed);
-        jMenuTheme.add(jRadioButtonMenuItemThemeIntelliJ);
-
-        buttonGroupTheme.add(jRadioButtonMenuItemThemeDarcula);
-        jRadioButtonMenuItemThemeDarcula.setText("Darcula");
-        jRadioButtonMenuItemThemeDarcula.addActionListener(this::jRadioButtonMenuItemThemeDarculaActionPerformed);
-        jMenuTheme.add(jRadioButtonMenuItemThemeDarcula);
-
-        buttonGroupTheme.add(jRadioButtonMenuItemThemeMacLight);
-        jRadioButtonMenuItemThemeMacLight.setText("macOS Light");
-        jRadioButtonMenuItemThemeMacLight.addActionListener(this::jRadioButtonMenuItemThemeMacLightActionPerformed);
-        jMenuTheme.add(jRadioButtonMenuItemThemeMacLight);
-
-        buttonGroupTheme.add(jRadioButtonMenuItemThemeMacDark);
-        jRadioButtonMenuItemThemeMacDark.setText("macOS Dark");
-        jRadioButtonMenuItemThemeMacDark.addActionListener(this::jRadioButtonMenuItemThemeMacDarkActionPerformed);
-        jMenuTheme.add(jRadioButtonMenuItemThemeMacDark);
 
         jMenuView.add(jMenuTheme);
 
@@ -1631,22 +1595,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         parentControlRoom.switchTheme(GuiTheme.FLATLAF_LIGHT);
     }//GEN-LAST:event_jRadioButtonMenuItemThemeFlatLafLightActionPerformed
 
-    private void jRadioButtonMenuItemThemeIntelliJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeIntelliJActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.INTELLIJ);
-    }//GEN-LAST:event_jRadioButtonMenuItemThemeIntelliJActionPerformed
-
-    private void jRadioButtonMenuItemThemeDarculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeDarculaActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.DARCULA);
-    }//GEN-LAST:event_jRadioButtonMenuItemThemeDarculaActionPerformed
-
-    private void jRadioButtonMenuItemThemeMacLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeMacLightActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.MAC_LIGHT);
-    }//GEN-LAST:event_jRadioButtonMenuItemThemeMacLightActionPerformed
-
-    private void jRadioButtonMenuItemThemeMacDarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeMacDarkActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.MAC_DARK);
-    }//GEN-LAST:event_jRadioButtonMenuItemThemeMacDarkActionPerformed
-
     private void jMenuItemStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartServerActionPerformed
         controller.userAction(new ActionCommand("StartServer", null));
     }//GEN-LAST:event_jMenuItemStartServerActionPerformed
@@ -1976,12 +1924,8 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuView;
     private javax.swing.JMenuItem jMenuWords;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeChornobylMetal;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeDarcula;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeFlatLafDark;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeFlatLafLight;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeIntelliJ;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeMacDark;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeMacLight;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;

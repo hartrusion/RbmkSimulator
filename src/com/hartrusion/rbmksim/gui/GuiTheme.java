@@ -16,12 +16,8 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,9 +30,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * Lists the GUI themes that the simulator can be displayed with and installs
  * them as the Swing look and feel. A GUI theme is the combination of a look and
  * feel class and, for the Metal look and feel, the Metal theme that colors it,
- * so that the ChornobylMetalTheme and the FlatLaf themes (including the
- * FlatLaf variants in the style of IntelliJ and macOS) can be handled the same
- * way.
+ * so that the ChornobylMetalTheme and the FlatLaf themes can be handled the
+ * same way.
  * <p>
  * Swing only applies a look and feel to components that are created after it
  * was installed. The simulator therefore does not update existing windows,
@@ -65,25 +60,7 @@ public enum GuiTheme {
     /**
      * Light theme of the FlatLaf library.
      */
-    FLATLAF_LIGHT("FlatLaf Light"),
-    /**
-     * Light theme of the FlatLaf library that resembles the IntelliJ Light
-     * theme of the IntelliJ platform.
-     */
-    INTELLIJ("IntelliJ"),
-    /**
-     * Dark theme of the FlatLaf library that resembles the Darcula theme of
-     * the IntelliJ platform.
-     */
-    DARCULA("Darcula"),
-    /**
-     * Light theme of the FlatLaf library in the style of macOS.
-     */
-    MAC_LIGHT("macOS Light"),
-    /**
-     * Dark theme of the FlatLaf library in the style of macOS.
-     */
-    MAC_DARK("macOS Dark");
+    FLATLAF_LIGHT("FlatLaf Light");
 
     /**
      * The GUI theme that is installed by default on startup.
@@ -139,18 +116,6 @@ public enum GuiTheme {
                 break;
             case FLATLAF_LIGHT:
                 lookAndFeel = new FlatLightLaf();
-                break;
-            case INTELLIJ:
-                lookAndFeel = new FlatIntelliJLaf();
-                break;
-            case DARCULA:
-                lookAndFeel = new FlatDarculaLaf();
-                break;
-            case MAC_LIGHT:
-                lookAndFeel = new FlatMacLightLaf();
-                break;
-            case MAC_DARK:
-                lookAndFeel = new FlatMacDarkLaf();
                 break;
             case CHORNOBYL_METAL:
             default:
