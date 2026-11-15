@@ -1596,7 +1596,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jRadioButtonMenuItemThemeFlatLafLightActionPerformed
 
     private void jMenuItemStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartServerActionPerformed
-        controller.userAction(new ActionCommand("StartServer", null));
+        parentControlRoom.startServer();
     }//GEN-LAST:event_jMenuItemStartServerActionPerformed
 
     private void jMenuItemDebugTurbineLPTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDebugTurbineLPTempActionPerformed

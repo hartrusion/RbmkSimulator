@@ -20,11 +20,8 @@ import com.hartrusion.alarm.AlarmListSnapshot;
 import com.hartrusion.alarm.AlarmManager;
 import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.ActionCommand;
-import com.hartrusion.mvc.Controller;
 import com.hartrusion.mvc.ModelListener;
 import com.hartrusion.mvc.ModelManipulation;
-import com.hartrusion.mvc.net.ClassBlueprints;
-import com.hartrusion.mvc.net.SocketServer;
 import com.hartrusion.rbmksim.gui.ExceptionPopup;
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,7 +52,19 @@ public class MainLoop implements Runnable, ModelManipulation {
     private ValueHandler outputValues = new ValueHandler();
     public AlarmManager alarms = new AlarmManager(); // temporary public
 
-    private boolean pause;
+    /**
+     * True while the simulation is paused, either by the user or because a
+     * cycle failed with an exception. Volatile because the status of the
+     * simulation is read by ServerView.
+     */
+    private volatile boolean pause;
+
+    /**
+     * Set when a cycle failed with an exception, which leaves the model in an
+     * undefined state. Such a MainLoop can only be replaced by a new instance
+     * with the restart function of the server.
+     */
+    private volatile boolean crashed;
 
     long maxTime;
     long initialIterations = 0;
@@ -113,6 +122,7 @@ public class MainLoop implements Runnable, ModelManipulation {
             }
         } catch (Exception e) {
             pause = true;
+            crashed = true;
             ExceptionPopup.show(e);
             // System.exit(0);
         }
@@ -183,27 +193,30 @@ public class MainLoop implements Runnable, ModelManipulation {
             return;
         }
 
-        if (ac.getPropertyName().equals("StartServer")) {
-            // Build Server
-            ClassBlueprints registry = CommBlueprints.createCommBlueprints();
-
-            SocketServer netServer = new SocketServer((Controller) controller, registry);
-            new Thread(() -> {
-                try {
-                    netServer.startServer(26486);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).start();
-            return;
-        }
-
         if (pause) {
             return; // irgnore commands during pause
         }
         core.handleAction(ac);
         process.handleAction(ac);
         turbine.handleAction(ac);
+    }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return true while the simulation is paused
+     */
+    public boolean isPaused() {
+        return pause;
+    }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return true if a cycle failed with an exception
+     */
+    public boolean isCrashed() {
+        return crashed;
     }
 
     @Override // called on initialization
