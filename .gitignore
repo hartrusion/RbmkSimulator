@@ -24,3 +24,10 @@ Thumbs.db
 # Claude Code files
 /.claude
 /CLAUDE.md
+
+# LLM documentation and probe scripts (kept local only)
+/LLM-GLOSSARY.md
+/LLM-HISTORY.md
+/probes/
+/probe-scripts/
+/probe_scripts/
