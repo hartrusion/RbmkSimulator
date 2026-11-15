@@ -22,6 +22,7 @@ import com.hartrusion.values.ValueHandler;
 import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
+import com.hartrusion.rbmksim.gui.AlarmSound;
 import com.hartrusion.rbmksim.gui.GuiTheme;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,12 @@ public class ControlPanelManager implements InteractiveView {
 
     public void removeControlPanel(ControlPanel panel) {
         controlPanels.remove(panel);
+        if (controlPanels.isEmpty()) {
+            // The alarm sound is only updated by the control panels, so it
+            // would keep sounding without one. It is started again by the
+            // next control panel that receives the alarm list.
+            AlarmSound.update(null);
+        }
         // A started server keeps the application running for its network
         // clients, it is then terminated from the ServerView.
         if (controlPanels.size() == 0 && !isServerStarted()) {

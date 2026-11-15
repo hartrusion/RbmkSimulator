@@ -271,6 +271,11 @@ public class RbmkSimulator {
         }
         if (serverView == null) {
             serverView = new ServerView(this);
+            // The ServerView displays values of the model, which it receives
+            // as a view of its own on the event dispatch thread.
+            AwtUpdater serverViewUpdater = new AwtUpdater();
+            serverViewUpdater.registerView(serverView);
+            controller.registerUpdater(serverViewUpdater);
         }
         serverView.setVisible(true);
         serverView.toFront();

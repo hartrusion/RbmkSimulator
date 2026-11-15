@@ -69,6 +69,13 @@ public class MainLoop implements Runnable, ModelManipulation {
     long maxTime;
     long initialIterations = 0;
 
+    /**
+     * Minimum, maximum and average cycle time over a window of cycles, which
+     * are sent to the GUI with the output values.
+     */
+    private final CycleTimeStatistics cycleTimeStatistics
+            = new CycleTimeStatistics(outputValues);
+
     public void init() {
         core.registerTurbine(turbine);
         core.registerThermalLayout(process);
@@ -128,6 +135,7 @@ public class MainLoop implements Runnable, ModelManipulation {
         }
 
         stopTime = System.nanoTime();
+        cycleTimeStatistics.addCycle(stopTime - startTime);
         if (stopTime - startTime > maxTime) {
             if (initialIterations > 2) {
                 maxTime = stopTime - startTime;

@@ -16,6 +16,10 @@
  */
 package com.hartrusion.rbmksim;
 
+import com.hartrusion.mvc.InteractiveView;
+import com.hartrusion.mvc.ViewerController;
+import com.hartrusion.values.ValueSnapshot;
+import java.beans.PropertyChangeEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -37,11 +41,17 @@ import javax.swing.JOptionPane;
  * is meant for the case that the simulation crashed, while the controller and
  * all network connections stay open.
  * <p>
+ * In addition, the window is an MVC view of its own, which RbmkSimulator
+ * registers with an AwtUpdater at the controller. From the updates it only
+ * evaluates the output snapshot of the model, from which it displays the
+ * minimum, average and maximum cycle time that CycleTimeStatistics of the
+ * MainLoop adds to the output values.
+ * <p>
  * LLM code generated with Claude Opus 5.5
  *
  * @author Viktor Alexander Hartung
  */
-public class ServerView extends javax.swing.JFrame {
+public class ServerView extends javax.swing.JFrame implements InteractiveView {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ServerView.class.getName());
 
@@ -95,6 +105,8 @@ public class ServerView extends javax.swing.JFrame {
         jLabelSimulation = new javax.swing.JLabel();
         jLabelRestartsCaption = new javax.swing.JLabel();
         jLabelRestarts = new javax.swing.JLabel();
+        jLabelCycleTimeCaption = new javax.swing.JLabel();
+        jLabelCycleTime = new javax.swing.JLabel();
         jLabelClientCountCaption = new javax.swing.JLabel();
         jLabelClientCount = new javax.swing.JLabel();
         jScrollPaneClients = new javax.swing.JScrollPane();
@@ -186,10 +198,28 @@ public class ServerView extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 12);
         getContentPane().add(jLabelRestarts, gridBagConstraints);
 
-        jLabelClientCountCaption.setText("Connected clients:");
+        jLabelCycleTimeCaption.setText("Cycle time (min / avg / max):");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 6, 6);
+        getContentPane().add(jLabelCycleTimeCaption, gridBagConstraints);
+
+        jLabelCycleTime.setText("-");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 12);
+        getContentPane().add(jLabelCycleTime, gridBagConstraints);
+
+        jLabelClientCountCaption.setText("Connected clients:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 12, 6, 6);
         getContentPane().add(jLabelClientCountCaption, gridBagConstraints);
@@ -197,7 +227,7 @@ public class ServerView extends javax.swing.JFrame {
         jLabelClientCount.setText("-");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -211,7 +241,7 @@ public class ServerView extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
@@ -235,7 +265,7 @@ public class ServerView extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
@@ -357,12 +387,68 @@ public class ServerView extends javax.swing.JFrame {
         return "Running";
     }
 
+    @Override
+    public void registerController(ViewerController controller) {
+        // This view sends no actions, so the controller is not needed.
+    }
+
+    @Override
+    public void updateComponent(PropertyChangeEvent evt) {
+        // Only the output snapshot is evaluated.
+    }
+
+    /**
+     * Receives the object updates of the model on the event dispatch thread
+     * and displays the cycle times from the output snapshot.
+     *
+     * @param propertyName name of the updated property
+     * @param newValue new value of the property
+     */
+    @Override
+    public void updateComponent(String propertyName, Object newValue) {
+        if (propertyName.equals("OutputSnapshot")) {
+            updateCycleTime((ValueSnapshot) newValue);
+        }
+    }
+
+    @Override
+    public void updateComponent(String propertyName, double newValue) {
+        // Only the output snapshot is evaluated.
+    }
+
+    @Override
+    public void updateComponent(String propertyName, boolean newValue) {
+        // Only the output snapshot is evaluated.
+    }
+
+    /**
+     * Displays minimum, average and maximum cycle time of the last completed
+     * window of CycleTimeStatistics. The values are missing in the snapshot
+     * until the first window of the MainLoop is complete.
+     *
+     * @param snapshot output snapshot of the model
+     */
+    private void updateCycleTime(ValueSnapshot snapshot) {
+        Double min = snapshot.doubleValues.get(CycleTimeStatistics.PARAMETER_MIN);
+        Double average = snapshot.doubleValues.get(
+                CycleTimeStatistics.PARAMETER_AVERAGE);
+        Double max = snapshot.doubleValues.get(CycleTimeStatistics.PARAMETER_MAX);
+        if (min == null || average == null || max == null) {
+            jLabelCycleTime.setText("-");
+            return;
+        }
+        jLabelCycleTime.setText(String.format("%.2f / %.2f / %.2f ms",
+                min, average, max));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOpenControlPanel;
     private javax.swing.JButton jButtonRestart;
     private javax.swing.JButton jButtonShutdown;
     private javax.swing.JLabel jLabelClientCount;
     private javax.swing.JLabel jLabelClientCountCaption;
+    private javax.swing.JLabel jLabelCycleTime;
+    private javax.swing.JLabel jLabelCycleTimeCaption;
     private javax.swing.JLabel jLabelPort;
     private javax.swing.JLabel jLabelPortCaption;
     private javax.swing.JLabel jLabelRestarts;
