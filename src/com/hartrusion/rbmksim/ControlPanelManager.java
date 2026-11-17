@@ -209,6 +209,7 @@ public class ControlPanelManager implements InteractiveView {
 
             for (ControlPanel p : controlPanels) {
                 p.updatePlots();
+                p.updateSnapshot((com.hartrusion.values.ValueSnapshot) newValue);
             }
             return;
         }

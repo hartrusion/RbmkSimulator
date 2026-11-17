@@ -85,6 +85,24 @@ public class ControlPanel extends javax.swing.JFrame implements
     }
 
     /**
+     * Forwards the output snapshot to the SimulationCoreInfo window if it is
+     * open, because the window evaluates the whole snapshot to find the
+     * solvers of the model instead of single values. Called from
+     * ControlPanelManager for each received output snapshot, because the
+     * manager receives the snapshot and only forwards the single values to the
+     * control panels.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @param snapshot output snapshot of the model
+     */
+    public void updateSnapshot(com.hartrusion.values.ValueSnapshot snapshot) {
+        if (simulationCoreInfo != null) {
+            simulationCoreInfo.updateSnapshot(snapshot);
+        }
+    }
+
+    /**
      * Called each time from the controller via some whatever call stack, the
      * alarms are sent as a list of alarms. Can be either a reference or a new
      * list each time (when using network)
@@ -2036,13 +2054,6 @@ public class ControlPanel extends javax.swing.JFrame implements
                 alarmTable.setAlarms(alarmList);
             }
             AlarmSound.update(alarmList);
-
-            // The simulation core info evaluates the whole snapshot, because
-            // it also needs the int values and the names of the solvers.
-            if (simulationCoreInfo != null) {
-                simulationCoreInfo.updateSnapshot(
-                        (com.hartrusion.values.ValueSnapshot) newValue);
-            }
             return;
         }
 

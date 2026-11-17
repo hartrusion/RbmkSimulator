@@ -16,9 +16,6 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.rbmksim.CycleTimeStatistics;
-import com.hartrusion.rbmksim.JvmStatisticsOutput;
-import com.hartrusion.rbmksim.SolverStatistics;
 import com.hartrusion.values.ValueSnapshot;
 import java.util.ArrayList;
 import java.util.List;
@@ -433,8 +430,8 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
     /**
      * Fills the solver table with all solvers that are found in the int
      * values of the snapshot. A solver is recognized by its node count
-     * parameter, whose name consists of the solver prefix, the name of the
-     * solver and the node suffix. The rows are sorted by the solver name and
+     * parameter, whose name consists of "Solver#", the name of the solver and
+     * "#Nodes". The rows are sorted by the solver name and
      * only rebuilt if the set of solvers changed, because the values of a
      * solver do not change after the model was built.
      *
@@ -442,7 +439,7 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
      */
     private void updateSolverTable(Map<String, Integer> intValues) {
         Integer poolSize = intValues.get(
-                SolverStatistics.PARAMETER_THREAD_POOL_SIZE);
+                "SolverPool#ThreadPoolSize");
         if (poolSize == null) {
             jLabelThreadPool.setText(NOT_AVAILABLE);
         } else if (poolSize == 0) {
@@ -455,12 +452,12 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
 
         TreeSet<String> solverNames = new TreeSet<>();
         for (String parameter : intValues.keySet()) {
-            if (parameter.startsWith(SolverStatistics.PARAMETER_PREFIX)
-                    && parameter.endsWith(SolverStatistics.SUFFIX_NODES)) {
+            if (parameter.startsWith("Solver#")
+                    && parameter.endsWith("#Nodes")) {
                 solverNames.add(parameter.substring(
-                        SolverStatistics.PARAMETER_PREFIX.length(),
+                        "Solver#".length(),
                         parameter.length()
-                        - SolverStatistics.SUFFIX_NODES.length()));
+                        - "#Nodes".length()));
             }
         }
         List<String> sortedNames = new ArrayList<>(solverNames);
@@ -472,15 +469,15 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableSolvers.getModel();
         model.setRowCount(0);
         for (String solverName : sortedNames) {
-            String baseName = SolverStatistics.PARAMETER_PREFIX + solverName;
+            String baseName = "Solver#" + solverName;
             model.addRow(new Object[]{solverName,
-                intValues.get(baseName + SolverStatistics.SUFFIX_NODES),
-                intValues.get(baseName + SolverStatistics.SUFFIX_ELEMENTS),
+                intValues.get(baseName + "#Nodes"),
+                intValues.get(baseName + "#Elements"),
                 intValues.get(baseName
-                + SolverStatistics.SUFFIX_PARALLEL_TASKS),
+                + "#ParallelTasks"),
                 intValues.get(baseName
-                + SolverStatistics.SUFFIX_SERIAL_NETWORKS),
-                intValues.get(baseName + SolverStatistics.SUFFIX_THREADS)});
+                + "#SerialNetworks"),
+                intValues.get(baseName + "#Threads")});
         }
     }
 
@@ -492,11 +489,11 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
      */
     private void updateCycleTimes(Map<String, Double> doubleValues) {
         jLabelCycleTimeMin.setText(formatOrNotAvailable(CYCLE_TIME_FORMAT,
-                doubleValues.get(CycleTimeStatistics.PARAMETER_MIN)));
+                doubleValues.get("MainLoop#CycleTimeMin")));
         jLabelCycleTimeAverage.setText(formatOrNotAvailable(CYCLE_TIME_FORMAT,
-                doubleValues.get(CycleTimeStatistics.PARAMETER_AVERAGE)));
+                doubleValues.get("MainLoop#CycleTimeAverage")));
         jLabelCycleTimeMax.setText(formatOrNotAvailable(CYCLE_TIME_FORMAT,
-                doubleValues.get(CycleTimeStatistics.PARAMETER_MAX)));
+                doubleValues.get("MainLoop#CycleTimeMax")));
     }
 
     /**
@@ -512,11 +509,11 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
     private void updateJvmValues(Map<String, Double> doubleValues,
             Map<String, Integer> intValues) {
         Double heapUsed = doubleValues.get(
-                JvmStatisticsOutput.PARAMETER_HEAP_USED);
+                "Jvm#HeapUsed");
         Double heapCommitted = doubleValues.get(
-                JvmStatisticsOutput.PARAMETER_HEAP_COMMITTED);
+                "Jvm#HeapCommitted");
         Double heapMax = doubleValues.get(
-                JvmStatisticsOutput.PARAMETER_HEAP_MAX);
+                "Jvm#HeapMax");
         if (heapUsed == null || heapCommitted == null || heapMax == null) {
             // The JVM was not sampled yet, all other values are missing too.
             return;
@@ -532,22 +529,22 @@ public class SimulationCoreInfo extends javax.swing.JFrame {
         jLabelHeapCommitted.setText(String.format(MEMORY_FORMAT,
                 heapCommitted));
         jLabelNonHeap.setText(formatOrNotAvailable(MEMORY_FORMAT,
-                doubleValues.get(JvmStatisticsOutput.PARAMETER_NON_HEAP_USED)));
+                doubleValues.get("Jvm#NonHeapUsed")));
 
         jLabelThreads.setText(String.format("%d / %d / %d",
-                intValues.get(JvmStatisticsOutput.PARAMETER_THREAD_COUNT),
-                intValues.get(JvmStatisticsOutput.PARAMETER_PEAK_THREAD_COUNT),
+                intValues.get("Jvm#ThreadCount"),
+                intValues.get("Jvm#PeakThreadCount"),
                 intValues.get(
-                        JvmStatisticsOutput.PARAMETER_DAEMON_THREAD_COUNT)));
+                        "Jvm#DaemonThreadCount")));
         jLabelCpuLoad.setText(formatLoad(doubleValues.get(
-                JvmStatisticsOutput.PARAMETER_PROCESS_CPU_LOAD))
+                "Jvm#ProcessCpuLoad"))
                 + " / " + formatLoad(doubleValues.get(
-                        JvmStatisticsOutput.PARAMETER_SYSTEM_CPU_LOAD)));
+                        "Jvm#SystemCpuLoad")));
         jLabelProcessors.setText(String.valueOf(intValues.get(
-                JvmStatisticsOutput.PARAMETER_AVAILABLE_PROCESSORS)));
+                "Jvm#AvailableProcessors")));
         jLabelGarbageCollection.setText(String.format("%d (%d ms in total)",
-                intValues.get(JvmStatisticsOutput.PARAMETER_GC_COUNT),
-                intValues.get(JvmStatisticsOutput.PARAMETER_GC_TIME)));
+                intValues.get("Jvm#GcCount"),
+                intValues.get("Jvm#GcTime")));
     }
 
     /**

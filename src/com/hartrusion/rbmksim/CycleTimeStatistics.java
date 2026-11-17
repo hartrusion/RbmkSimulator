@@ -39,24 +39,6 @@ import com.hartrusion.values.ValueReceiver;
 public class CycleTimeStatistics {
 
     /**
-     * Output parameter name of the shortest cycle time of the recorded cycles
-     * in milliseconds.
-     */
-    public static final String PARAMETER_MIN = "MainLoop#CycleTimeMin";
-
-    /**
-     * Output parameter name of the longest cycle time of the recorded cycles
-     * in milliseconds.
-     */
-    public static final String PARAMETER_MAX = "MainLoop#CycleTimeMax";
-
-    /**
-     * Output parameter name of the average cycle time of the recorded cycles
-     * in milliseconds.
-     */
-    public static final String PARAMETER_AVERAGE = "MainLoop#CycleTimeAverage";
-
-    /**
      * Number of cycles that the ring buffer holds.
      */
     public static final int BUFFER_CYCLES = 100;
@@ -116,11 +98,11 @@ public class CycleTimeStatistics {
             maxNanos = Math.max(maxNanos, cycleNanos[idx]);
             sumNanos += cycleNanos[idx];
         }
-        output.setParameterValue(PARAMETER_MIN,
+        output.setParameterValue("MainLoop#CycleTimeMin",
                 minNanos / NANOSECONDS_PER_MILLISECOND);
-        output.setParameterValue(PARAMETER_MAX,
+        output.setParameterValue("MainLoop#CycleTimeMax",
                 maxNanos / NANOSECONDS_PER_MILLISECOND);
-        output.setParameterValue(PARAMETER_AVERAGE,
+        output.setParameterValue("MainLoop#CycleTimeAverage",
                 sumNanos / (double) validCount / NANOSECONDS_PER_MILLISECOND);
     }
 }

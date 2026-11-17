@@ -44,64 +44,6 @@ public class JvmStatisticsOutput {
     public static final int SAMPLE_INTERVAL_CYCLES = 10;
 
     /**
-     * Output parameter name of the used heap memory in MiB.
-     */
-    public static final String PARAMETER_HEAP_USED = "Jvm#HeapUsed";
-
-    /**
-     * Output parameter name of the heap memory in MiB that the JVM has
-     * reserved from the operating system.
-     */
-    public static final String PARAMETER_HEAP_COMMITTED = "Jvm#HeapCommitted";
-
-    /**
-     * Output parameter name of the maximum heap memory in MiB, which is -1 if
-     * the heap is not limited.
-     */
-    public static final String PARAMETER_HEAP_MAX = "Jvm#HeapMax";
-
-    /**
-     * Output parameter name of the used memory outside of the heap in MiB.
-     */
-    public static final String PARAMETER_NON_HEAP_USED = "Jvm#NonHeapUsed";
-
-    /**
-     * Output parameter name of the CPU load of the JVM process in percent of
-     * all processors, which is negative if it is not available.
-     */
-    public static final String PARAMETER_PROCESS_CPU_LOAD
-            = "Jvm#ProcessCpuLoad";
-
-    /**
-     * Output parameter name of the CPU load of the whole system in percent of
-     * all processors, which is negative if it is not available.
-     */
-    public static final String PARAMETER_SYSTEM_CPU_LOAD = "Jvm#SystemCpuLoad";
-
-    public static final String PARAMETER_THREAD_COUNT = "Jvm#ThreadCount";
-
-    public static final String PARAMETER_PEAK_THREAD_COUNT
-            = "Jvm#PeakThreadCount";
-
-    public static final String PARAMETER_DAEMON_THREAD_COUNT
-            = "Jvm#DaemonThreadCount";
-
-    public static final String PARAMETER_AVAILABLE_PROCESSORS
-            = "Jvm#AvailableProcessors";
-
-    /**
-     * Output parameter name of the number of garbage collections since the
-     * start of the JVM.
-     */
-    public static final String PARAMETER_GC_COUNT = "Jvm#GcCount";
-
-    /**
-     * Output parameter name of the accumulated time of all garbage
-     * collections since the start of the JVM in milliseconds.
-     */
-    public static final String PARAMETER_GC_TIME = "Jvm#GcTime";
-
-    /**
      * Receiver of the values, which is the output ValueHandler of MainLoop.
      */
     private final ValueReceiver output;
@@ -134,33 +76,33 @@ public class JvmStatisticsOutput {
         cyclesSinceSample = 0;
         jvmStatistics.sample();
 
-        output.setParameterValue(PARAMETER_HEAP_USED,
+        output.setParameterValue("Jvm#HeapUsed",
                 jvmStatistics.getHeapUsedMiB());
-        output.setParameterValue(PARAMETER_HEAP_COMMITTED,
+        output.setParameterValue("Jvm#HeapCommitted",
                 jvmStatistics.getHeapCommittedMiB());
-        output.setParameterValue(PARAMETER_HEAP_MAX,
+        output.setParameterValue("Jvm#HeapMax",
                 jvmStatistics.getHeapMaxMiB());
-        output.setParameterValue(PARAMETER_NON_HEAP_USED,
+        output.setParameterValue("Jvm#NonHeapUsed",
                 jvmStatistics.getNonHeapUsedMiB());
-        output.setParameterValue(PARAMETER_PROCESS_CPU_LOAD,
+        output.setParameterValue("Jvm#ProcessCpuLoad",
                 jvmStatistics.getProcessCpuLoad());
-        output.setParameterValue(PARAMETER_SYSTEM_CPU_LOAD,
+        output.setParameterValue("Jvm#SystemCpuLoad",
                 jvmStatistics.getSystemCpuLoad());
-        output.setParameterValue(PARAMETER_THREAD_COUNT,
+        output.setParameterValue("Jvm#ThreadCount",
                 jvmStatistics.getThreadCount());
-        output.setParameterValue(PARAMETER_PEAK_THREAD_COUNT,
+        output.setParameterValue("Jvm#PeakThreadCount",
                 jvmStatistics.getPeakThreadCount());
-        output.setParameterValue(PARAMETER_DAEMON_THREAD_COUNT,
+        output.setParameterValue("Jvm#DaemonThreadCount",
                 jvmStatistics.getDaemonThreadCount());
-        output.setParameterValue(PARAMETER_AVAILABLE_PROCESSORS,
+        output.setParameterValue("Jvm#AvailableProcessors",
                 jvmStatistics.getAvailableProcessors());
         // The snapshot only transports int values, which is sufficient for
         // the number of collections and the time in milliseconds for about
         // 24 days of pure garbage collection.
-        output.setParameterValue(PARAMETER_GC_COUNT,
+        output.setParameterValue("Jvm#GcCount",
                 (int) Math.min(jvmStatistics.getGarbageCollectionCount(),
                         Integer.MAX_VALUE));
-        output.setParameterValue(PARAMETER_GC_TIME,
+        output.setParameterValue("Jvm#GcTime",
                 (int) Math.min(jvmStatistics.getGarbageCollectionTimeMillis(),
                         Integer.MAX_VALUE));
     }

@@ -31,8 +31,8 @@ import com.hartrusion.values.ValueReceiver;
  * in the same way as all other measured values, where SimulationCoreInfo
  * displays them as a table.
  * <p>
- * The parameter names are built from PARAMETER_PREFIX, the name of the solver
- * and one of the suffixes, so that SimulationCoreInfo can find all solvers in
+ * The parameter names are built from "Solver#", the name of the solver and a
+ * suffix such as "#Nodes", so that SimulationCoreInfo can find all solvers in
  * the snapshot without knowing them in advance. The names of the solvers must
  * therefore be unique, which is given by setString() of each solver.
  * <p>
@@ -41,41 +41,6 @@ import com.hartrusion.values.ValueReceiver;
  * @author Viktor Alexander Hartung
  */
 public class SolverStatistics {
-
-    /**
-     * Prefix of all solver parameter names, which is followed by the name of
-     * the solver and one of the suffixes.
-     */
-    public static final String PARAMETER_PREFIX = "Solver#";
-
-    /**
-     * Output parameter name of the size of the thread pool that all solvers
-     * share, which is 0 if the solvers do not calculate in parallel.
-     */
-    public static final String PARAMETER_THREAD_POOL_SIZE
-            = "SolverPool#ThreadPoolSize";
-
-    public static final String SUFFIX_NODES = "#Nodes";
-
-    public static final String SUFFIX_ELEMENTS = "#Elements";
-
-    /**
-     * Suffix of the number of networks that the solver hands to the thread
-     * pool in each cycle.
-     */
-    public static final String SUFFIX_PARALLEL_TASKS = "#ParallelTasks";
-
-    /**
-     * Suffix of the number of networks that the solver calculates in series
-     * on the thread of MainLoop.
-     */
-    public static final String SUFFIX_SERIAL_NETWORKS = "#SerialNetworks";
-
-    /**
-     * Suffix of the number of threads that the solver keeps busy at the same
-     * time, including the thread of MainLoop.
-     */
-    public static final String SUFFIX_THREADS = "#Threads";
 
     /**
      * Receiver of the values, which is the output ValueHandler of MainLoop.
@@ -98,18 +63,18 @@ public class SolverStatistics {
      * @param solver solver with a unique name set by setString()
      */
     public void addSolver(DomainAnalogySolver solver) {
-        String baseName = PARAMETER_PREFIX + solver.toString();
-        output.setParameterValue(baseName + SUFFIX_NODES,
+        String baseName = "Solver#" + solver.toString();
+        output.setParameterValue(baseName + "#Nodes",
                 solver.getNodeCount());
-        output.setParameterValue(baseName + SUFFIX_ELEMENTS,
+        output.setParameterValue(baseName + "#Elements",
                 solver.getElementCount());
-        output.setParameterValue(baseName + SUFFIX_PARALLEL_TASKS,
+        output.setParameterValue(baseName + "#ParallelTasks",
                 solver.getParallelTaskCount());
-        output.setParameterValue(baseName + SUFFIX_SERIAL_NETWORKS,
+        output.setParameterValue(baseName + "#SerialNetworks",
                 solver.getSerialNetworkCount());
-        output.setParameterValue(baseName + SUFFIX_THREADS,
+        output.setParameterValue(baseName + "#Threads",
                 solver.getUsedThreadCount());
-        output.setParameterValue(PARAMETER_THREAD_POOL_SIZE,
+        output.setParameterValue("SolverPool#ThreadPoolSize",
                 DomainAnalogySolver.getThreadPoolSize());
     }
 }

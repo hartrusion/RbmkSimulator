@@ -430,10 +430,10 @@ public class ServerView extends javax.swing.JFrame implements InteractiveView {
      * @param snapshot output snapshot of the model
      */
     private void updateCycleTime(ValueSnapshot snapshot) {
-        Double min = snapshot.doubleValues.get(CycleTimeStatistics.PARAMETER_MIN);
+        Double min = snapshot.doubleValues.get("MainLoop#CycleTimeMin");
         Double average = snapshot.doubleValues.get(
-                CycleTimeStatistics.PARAMETER_AVERAGE);
-        Double max = snapshot.doubleValues.get(CycleTimeStatistics.PARAMETER_MAX);
+                "MainLoop#CycleTimeAverage");
+        Double max = snapshot.doubleValues.get("MainLoop#CycleTimeMax");
         if (min == null || average == null || max == null) {
             jLabelCycleTime.setText("-");
             return;
