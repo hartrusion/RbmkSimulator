@@ -2036,6 +2036,13 @@ public class ControlPanel extends javax.swing.JFrame implements
                 alarmTable.setAlarms(alarmList);
             }
             AlarmSound.update(alarmList);
+
+            // The simulation core info evaluates the whole snapshot, because
+            // it also needs the int values and the names of the solvers.
+            if (simulationCoreInfo != null) {
+                simulationCoreInfo.updateSnapshot(
+                        (com.hartrusion.values.ValueSnapshot) newValue);
+            }
             return;
         }
 
@@ -2102,9 +2109,6 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         if (frameDebugFlow != null) {
             frameDebugFlow.updateComponent(propertyName, newValue);
-        }
-        if (simulationCoreInfo != null) {
-            simulationCoreInfo.updateComponent(propertyName, newValue);
         }
     }
 

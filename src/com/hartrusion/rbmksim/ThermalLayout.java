@@ -6266,4 +6266,14 @@ public class ThermalLayout extends Subsystem implements Runnable {
     public void registerTurbine(Turbine turbine) {
         this.turbine = turbine;
     }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return solver of the whole thermal layout, used for the solver
+     * statistics
+     */
+    DomainAnalogySolver getSolver() {
+        return solver;
+    }
 }

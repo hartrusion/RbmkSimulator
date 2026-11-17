@@ -1080,4 +1080,22 @@ public class Turbine extends Subsystem implements Runnable {
 
         alarmUpdater.clearAlarmUpdaters();
     }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return solver of the rotor model, used for the solver statistics
+     */
+    DomainAnalogySolver getRotorSolver() {
+        return rotorSolver;
+    }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return solver of the lube oil model, used for the solver statistics
+     */
+    DomainAnalogySolver getOilSolver() {
+        return oilSolver;
+    }
 }

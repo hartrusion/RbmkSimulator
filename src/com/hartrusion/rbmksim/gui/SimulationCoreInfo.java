@@ -16,30 +16,43 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.rbmksim.CycleTimeStatistics;
-import java.beans.PropertyChangeEvent;
+import com.hartrusion.rbmksim.JvmStatisticsOutput;
+import com.hartrusion.rbmksim.SolverStatistics;
+import com.hartrusion.values.ValueSnapshot;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Window that shows information about the simulation core, which is the
- * MainLoop that runs the model on the server. It is opened from the help menu
- * of the ControlPanel and is meant to grow with further values about the state
- * of the simulation in the future. For now it displays the minimum, average and
- * maximum cycle time of the last cycles, which CycleTimeStatistics of the
- * MainLoop writes into the output values, so that it can be observed live how
- * much of the cycle period the simulation needs on the machine that runs it.
+ * MainLoop that runs the model, and about the Java virtual machine in which it
+ * runs, so that it can be observed whether the machine that runs the
+ * simulation has enough processing power and memory. It is opened from the
+ * help menu of the ControlPanel.
  * <p>
- * The window receives the values from the ControlPanel that opened it, which
- * forwards the double value updates of the output snapshot, because the values
- * arrive there in the same way as all other measured values of the simulator,
- * including the operation as a network client.
+ * The window displays three groups of values. The solver table lists each
+ * DomainAnalogySolver of the model with the number of nodes and elements, the
+ * number of networks that it solves in parallel on the shared thread pool or
+ * in series and the number of threads it keeps busy, which SolverStatistics
+ * writes once after the model was built. The cycle times are the minimum,
+ * average and maximum of the last cycles, which CycleTimeStatistics writes
+ * after each cycle. The JVM values are memory, threads, CPU load and garbage
+ * collection, which JvmStatisticsOutput samples once per second.
+ * <p>
+ * All values are taken from the output snapshot, which the ControlPanel that
+ * opened the window forwards, because the snapshot arrives in the same way in
+ * standalone mode and as network client. The displayed values therefore
+ * always describe the machine and the JVM that run the simulation, which is
+ * the server when the window is used on a network client.
  * <p>
  * LLM code generated with Claude Opus 5.5
  *
  * @author Viktor Alexander Hartung
  */
-public class SimulationCoreInfo extends javax.swing.JFrame implements
-        UpdateReceiver {
+public class SimulationCoreInfo extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SimulationCoreInfo.class.getName());
 
@@ -49,6 +62,24 @@ public class SimulationCoreInfo extends javax.swing.JFrame implements
      * stays at the same position in the monospaced labels.
      */
     private static final String CYCLE_TIME_FORMAT = "%7.1f ms";
+
+    /**
+     * Format of memory sizes in MiB without decimal places.
+     */
+    private static final String MEMORY_FORMAT = "%5.0f MiB";
+
+    /**
+     * Text of a value that is not yet received or not available on the
+     * platform of the simulation.
+     */
+    private static final String NOT_AVAILABLE = "-";
+
+    /**
+     * Names of the solvers that are currently shown in the solver table, in
+     * the order of the rows, so that the table is only rebuilt when another
+     * set of solvers is received, for example after a restart of the server.
+     */
+    private List<String> displayedSolverNames = new ArrayList<>();
 
     /**
      * Creates new form SimulationCoreInfo
@@ -67,24 +98,118 @@ public class SimulationCoreInfo extends javax.swing.JFrame implements
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanelSolvers = new javax.swing.JPanel();
+        jLabelThreadPoolCaption = new javax.swing.JLabel();
+        jLabelThreadPool = new javax.swing.JLabel();
+        jScrollPaneSolvers = new javax.swing.JScrollPane();
+        jTableSolvers = new javax.swing.JTable();
+        jPanelCycleTime = new javax.swing.JPanel();
         jLabelCycleTimeMinCaption = new javax.swing.JLabel();
         jLabelCycleTimeMin = new javax.swing.JLabel();
         jLabelCycleTimeAverageCaption = new javax.swing.JLabel();
         jLabelCycleTimeAverage = new javax.swing.JLabel();
         jLabelCycleTimeMaxCaption = new javax.swing.JLabel();
         jLabelCycleTimeMax = new javax.swing.JLabel();
+        jPanelJvm = new javax.swing.JPanel();
+        jLabelHeapUsedCaption = new javax.swing.JLabel();
+        jProgressBarHeapUsed = new javax.swing.JProgressBar();
+        jLabelHeapCommittedCaption = new javax.swing.JLabel();
+        jLabelHeapCommitted = new javax.swing.JLabel();
+        jLabelNonHeapCaption = new javax.swing.JLabel();
+        jLabelNonHeap = new javax.swing.JLabel();
+        jLabelThreadsCaption = new javax.swing.JLabel();
+        jLabelThreads = new javax.swing.JLabel();
+        jLabelCpuLoadCaption = new javax.swing.JLabel();
+        jLabelCpuLoad = new javax.swing.JLabel();
+        jLabelProcessorsCaption = new javax.swing.JLabel();
+        jLabelProcessors = new javax.swing.JLabel();
+        jLabelGarbageCollectionCaption = new javax.swing.JLabel();
+        jLabelGarbageCollection = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Simulation Core Info");
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jPanelSolvers.setBorder(javax.swing.BorderFactory.createTitledBorder("Solvers"));
+        jPanelSolvers.setLayout(new java.awt.GridBagLayout());
+
+        jLabelThreadPoolCaption.setText("Solver thread pool size:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanelSolvers.add(jLabelThreadPoolCaption, gridBagConstraints);
+
+        jLabelThreadPool.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelThreadPool.setText("-");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 6, 6);
+        jPanelSolvers.add(jLabelThreadPool, gridBagConstraints);
+
+        jScrollPaneSolvers.setPreferredSize(new java.awt.Dimension(560, 100));
+
+        jTableSolvers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Solver", "Nodes", "Elements", "Parallel tasks", "Serial networks", "Threads"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPaneSolvers.setViewportView(jTableSolvers);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelSolvers.add(jScrollPaneSolvers, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 6, 12);
+        getContentPane().add(jPanelSolvers, gridBagConstraints);
+
+        jPanelCycleTime.setBorder(javax.swing.BorderFactory.createTitledBorder("Cycle Time"));
+        jPanelCycleTime.setLayout(new java.awt.GridBagLayout());
 
         jLabelCycleTimeMinCaption.setText("Minimum cycle time:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 6, 6);
-        getContentPane().add(jLabelCycleTimeMinCaption, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanelCycleTime.add(jLabelCycleTimeMinCaption, gridBagConstraints);
 
         jLabelCycleTimeMin.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabelCycleTimeMin.setText("_____._ ms");
@@ -94,16 +219,16 @@ public class SimulationCoreInfo extends javax.swing.JFrame implements
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(12, 0, 6, 12);
-        getContentPane().add(jLabelCycleTimeMin, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 6, 6);
+        jPanelCycleTime.add(jLabelCycleTimeMin, gridBagConstraints);
 
         jLabelCycleTimeAverageCaption.setText("Average cycle time:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 6, 6);
-        getContentPane().add(jLabelCycleTimeAverageCaption, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelCycleTime.add(jLabelCycleTimeAverageCaption, gridBagConstraints);
 
         jLabelCycleTimeAverage.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabelCycleTimeAverage.setText("_____._ ms");
@@ -113,16 +238,16 @@ public class SimulationCoreInfo extends javax.swing.JFrame implements
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 12);
-        getContentPane().add(jLabelCycleTimeAverage, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelCycleTime.add(jLabelCycleTimeAverage, gridBagConstraints);
 
         jLabelCycleTimeMaxCaption.setText("Maximum cycle time:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 12, 6);
-        getContentPane().add(jLabelCycleTimeMaxCaption, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelCycleTime.add(jLabelCycleTimeMaxCaption, gridBagConstraints);
 
         jLabelCycleTimeMax.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabelCycleTimeMax.setText("_____._ ms");
@@ -132,57 +257,356 @@ public class SimulationCoreInfo extends javax.swing.JFrame implements
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 12);
-        getContentPane().add(jLabelCycleTimeMax, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelCycleTime.add(jLabelCycleTimeMax, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 6, 12);
+        getContentPane().add(jPanelCycleTime, gridBagConstraints);
+
+        jPanelJvm.setBorder(javax.swing.BorderFactory.createTitledBorder("Java VM of the Simulation"));
+        jPanelJvm.setLayout(new java.awt.GridBagLayout());
+
+        jLabelHeapUsedCaption.setText("Used heap:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanelJvm.add(jLabelHeapUsedCaption, gridBagConstraints);
+
+        jProgressBarHeapUsed.setString("-");
+        jProgressBarHeapUsed.setStringPainted(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 6, 6);
+        jPanelJvm.add(jProgressBarHeapUsed, gridBagConstraints);
+
+        jLabelHeapCommittedCaption.setText("Committed heap:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelJvm.add(jLabelHeapCommittedCaption, gridBagConstraints);
+
+        jLabelHeapCommitted.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelHeapCommitted.setText("_____ MiB");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelJvm.add(jLabelHeapCommitted, gridBagConstraints);
+
+        jLabelNonHeapCaption.setText("Non-heap memory:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelJvm.add(jLabelNonHeapCaption, gridBagConstraints);
+
+        jLabelNonHeap.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelNonHeap.setText("_____ MiB");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelJvm.add(jLabelNonHeap, gridBagConstraints);
+
+        jLabelThreadsCaption.setText("Threads (live / peak / daemon):");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelJvm.add(jLabelThreadsCaption, gridBagConstraints);
+
+        jLabelThreads.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelThreads.setText("- / - / -");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelJvm.add(jLabelThreads, gridBagConstraints);
+
+        jLabelCpuLoadCaption.setText("CPU load (process / system):");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelJvm.add(jLabelCpuLoadCaption, gridBagConstraints);
+
+        jLabelCpuLoad.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelCpuLoad.setText("- / - %");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelJvm.add(jLabelCpuLoad, gridBagConstraints);
+
+        jLabelProcessorsCaption.setText("Available processors:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelJvm.add(jLabelProcessorsCaption, gridBagConstraints);
+
+        jLabelProcessors.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelProcessors.setText("-");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelJvm.add(jLabelProcessors, gridBagConstraints);
+
+        jLabelGarbageCollectionCaption.setText("Garbage collections:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 6, 6);
+        jPanelJvm.add(jLabelGarbageCollectionCaption, gridBagConstraints);
+
+        jLabelGarbageCollection.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabelGarbageCollection.setText("-");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 6);
+        jPanelJvm.add(jLabelGarbageCollection, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 12, 12);
+        getContentPane().add(jPanelJvm, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public void updateComponent(PropertyChangeEvent evt) {
-        // The cycle times are received as double values only.
-    }
-
-    @Override
-    public void updateComponent(String propertyName, Object newValue) {
-        // The cycle times are received as double values only.
+    /**
+     * Displays all values of this window from the output snapshot of the
+     * model. Called by the ControlPanel on the event dispatch thread for each
+     * received snapshot.
+     *
+     * @param snapshot output snapshot of the model
+     */
+    public void updateSnapshot(ValueSnapshot snapshot) {
+        updateSolverTable(snapshot.intValues);
+        updateCycleTimes(snapshot.doubleValues);
+        updateJvmValues(snapshot.doubleValues, snapshot.intValues);
     }
 
     /**
-     * Displays the cycle times when one of the cycle time parameters of
-     * CycleTimeStatistics is received, while all other values are ignored.
+     * Fills the solver table with all solvers that are found in the int
+     * values of the snapshot. A solver is recognized by its node count
+     * parameter, whose name consists of the solver prefix, the name of the
+     * solver and the node suffix. The rows are sorted by the solver name and
+     * only rebuilt if the set of solvers changed, because the values of a
+     * solver do not change after the model was built.
      *
-     * @param propertyName name of the output parameter
-     * @param newValue value of the parameter in milliseconds
+     * @param intValues int values of the output snapshot
      */
-    @Override
-    public void updateComponent(String propertyName, double newValue) {
-        switch (propertyName) {
-            case CycleTimeStatistics.PARAMETER_MIN ->
-                jLabelCycleTimeMin.setText(
-                        String.format(CYCLE_TIME_FORMAT, newValue));
-            case CycleTimeStatistics.PARAMETER_AVERAGE ->
-                jLabelCycleTimeAverage.setText(
-                        String.format(CYCLE_TIME_FORMAT, newValue));
-            case CycleTimeStatistics.PARAMETER_MAX ->
-                jLabelCycleTimeMax.setText(
-                        String.format(CYCLE_TIME_FORMAT, newValue));
-            default -> {
+    private void updateSolverTable(Map<String, Integer> intValues) {
+        Integer poolSize = intValues.get(
+                SolverStatistics.PARAMETER_THREAD_POOL_SIZE);
+        if (poolSize == null) {
+            jLabelThreadPool.setText(NOT_AVAILABLE);
+        } else if (poolSize == 0) {
+            jLabelThreadPool.setText("no thread pool, solving in series");
+        } else if (poolSize < 0) {
+            jLabelThreadPool.setText("unknown size");
+        } else {
+            jLabelThreadPool.setText(poolSize + " threads");
+        }
+
+        TreeSet<String> solverNames = new TreeSet<>();
+        for (String parameter : intValues.keySet()) {
+            if (parameter.startsWith(SolverStatistics.PARAMETER_PREFIX)
+                    && parameter.endsWith(SolverStatistics.SUFFIX_NODES)) {
+                solverNames.add(parameter.substring(
+                        SolverStatistics.PARAMETER_PREFIX.length(),
+                        parameter.length()
+                        - SolverStatistics.SUFFIX_NODES.length()));
             }
+        }
+        List<String> sortedNames = new ArrayList<>(solverNames);
+        if (sortedNames.equals(displayedSolverNames)) {
+            return;
+        }
+        displayedSolverNames = sortedNames;
+
+        DefaultTableModel model = (DefaultTableModel) jTableSolvers.getModel();
+        model.setRowCount(0);
+        for (String solverName : sortedNames) {
+            String baseName = SolverStatistics.PARAMETER_PREFIX + solverName;
+            model.addRow(new Object[]{solverName,
+                intValues.get(baseName + SolverStatistics.SUFFIX_NODES),
+                intValues.get(baseName + SolverStatistics.SUFFIX_ELEMENTS),
+                intValues.get(baseName
+                + SolverStatistics.SUFFIX_PARALLEL_TASKS),
+                intValues.get(baseName
+                + SolverStatistics.SUFFIX_SERIAL_NETWORKS),
+                intValues.get(baseName + SolverStatistics.SUFFIX_THREADS)});
         }
     }
 
-    @Override
-    public void updateComponent(String propertyName, boolean newValue) {
-        // The cycle times are received as double values only.
+    /**
+     * Displays the cycle times when they are part of the snapshot, which is
+     * the case after the first cycle of the MainLoop.
+     *
+     * @param doubleValues double values of the output snapshot
+     */
+    private void updateCycleTimes(Map<String, Double> doubleValues) {
+        jLabelCycleTimeMin.setText(formatOrNotAvailable(CYCLE_TIME_FORMAT,
+                doubleValues.get(CycleTimeStatistics.PARAMETER_MIN)));
+        jLabelCycleTimeAverage.setText(formatOrNotAvailable(CYCLE_TIME_FORMAT,
+                doubleValues.get(CycleTimeStatistics.PARAMETER_AVERAGE)));
+        jLabelCycleTimeMax.setText(formatOrNotAvailable(CYCLE_TIME_FORMAT,
+                doubleValues.get(CycleTimeStatistics.PARAMETER_MAX)));
+    }
+
+    /**
+     * Displays the memory, thread, CPU and garbage collection values of the
+     * JVM that runs the simulation. The progress bar shows the used heap in
+     * relation to the maximum heap, or to the committed heap if the JVM has no
+     * heap limit, because this is the limit at which the simulation would run
+     * out of memory.
+     *
+     * @param doubleValues double values of the output snapshot
+     * @param intValues int values of the output snapshot
+     */
+    private void updateJvmValues(Map<String, Double> doubleValues,
+            Map<String, Integer> intValues) {
+        Double heapUsed = doubleValues.get(
+                JvmStatisticsOutput.PARAMETER_HEAP_USED);
+        Double heapCommitted = doubleValues.get(
+                JvmStatisticsOutput.PARAMETER_HEAP_COMMITTED);
+        Double heapMax = doubleValues.get(
+                JvmStatisticsOutput.PARAMETER_HEAP_MAX);
+        if (heapUsed == null || heapCommitted == null || heapMax == null) {
+            // The JVM was not sampled yet, all other values are missing too.
+            return;
+        }
+        double heapLimit = heapMax;
+        if (heapLimit <= 0) {
+            heapLimit = heapCommitted;
+        }
+        int heapPercent = (int) Math.round(heapUsed / heapLimit * 100.0);
+        jProgressBarHeapUsed.setValue(heapPercent);
+        jProgressBarHeapUsed.setString(String.format(
+                "%.0f / %.0f MiB (%d %%)", heapUsed, heapLimit, heapPercent));
+        jLabelHeapCommitted.setText(String.format(MEMORY_FORMAT,
+                heapCommitted));
+        jLabelNonHeap.setText(formatOrNotAvailable(MEMORY_FORMAT,
+                doubleValues.get(JvmStatisticsOutput.PARAMETER_NON_HEAP_USED)));
+
+        jLabelThreads.setText(String.format("%d / %d / %d",
+                intValues.get(JvmStatisticsOutput.PARAMETER_THREAD_COUNT),
+                intValues.get(JvmStatisticsOutput.PARAMETER_PEAK_THREAD_COUNT),
+                intValues.get(
+                        JvmStatisticsOutput.PARAMETER_DAEMON_THREAD_COUNT)));
+        jLabelCpuLoad.setText(formatLoad(doubleValues.get(
+                JvmStatisticsOutput.PARAMETER_PROCESS_CPU_LOAD))
+                + " / " + formatLoad(doubleValues.get(
+                        JvmStatisticsOutput.PARAMETER_SYSTEM_CPU_LOAD)));
+        jLabelProcessors.setText(String.valueOf(intValues.get(
+                JvmStatisticsOutput.PARAMETER_AVAILABLE_PROCESSORS)));
+        jLabelGarbageCollection.setText(String.format("%d (%d ms in total)",
+                intValues.get(JvmStatisticsOutput.PARAMETER_GC_COUNT),
+                intValues.get(JvmStatisticsOutput.PARAMETER_GC_TIME)));
+    }
+
+    /**
+     * Formats a value with the given format or returns NOT_AVAILABLE if the
+     * value is not part of the snapshot.
+     *
+     * @param format format with exactly one floating point conversion
+     * @param value value from the snapshot or null
+     * @return text for a value label
+     */
+    private static String formatOrNotAvailable(String format, Double value) {
+        if (value == null) {
+            return NOT_AVAILABLE;
+        }
+        return String.format(format, value);
+    }
+
+    /**
+     * Formats a CPU load in percent, while a missing or negative value, which
+     * JvmStatistics writes if the platform does not provide the load, results
+     * in NOT_AVAILABLE.
+     *
+     * @param load CPU load in percent or null
+     * @return text of the load
+     */
+    private static String formatLoad(Double load) {
+        if (load == null || load < 0) {
+            return NOT_AVAILABLE;
+        }
+        return String.format("%5.1f %%", load);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelCpuLoad;
+    private javax.swing.JLabel jLabelCpuLoadCaption;
     private javax.swing.JLabel jLabelCycleTimeAverage;
     private javax.swing.JLabel jLabelCycleTimeAverageCaption;
     private javax.swing.JLabel jLabelCycleTimeMax;
     private javax.swing.JLabel jLabelCycleTimeMaxCaption;
     private javax.swing.JLabel jLabelCycleTimeMin;
     private javax.swing.JLabel jLabelCycleTimeMinCaption;
+    private javax.swing.JLabel jLabelGarbageCollection;
+    private javax.swing.JLabel jLabelGarbageCollectionCaption;
+    private javax.swing.JLabel jLabelHeapCommitted;
+    private javax.swing.JLabel jLabelHeapCommittedCaption;
+    private javax.swing.JLabel jLabelHeapUsedCaption;
+    private javax.swing.JLabel jLabelNonHeap;
+    private javax.swing.JLabel jLabelNonHeapCaption;
+    private javax.swing.JLabel jLabelProcessors;
+    private javax.swing.JLabel jLabelProcessorsCaption;
+    private javax.swing.JLabel jLabelThreadPool;
+    private javax.swing.JLabel jLabelThreadPoolCaption;
+    private javax.swing.JLabel jLabelThreads;
+    private javax.swing.JLabel jLabelThreadsCaption;
+    private javax.swing.JPanel jPanelCycleTime;
+    private javax.swing.JPanel jPanelJvm;
+    private javax.swing.JPanel jPanelSolvers;
+    private javax.swing.JProgressBar jProgressBarHeapUsed;
+    private javax.swing.JScrollPane jScrollPaneSolvers;
+    private javax.swing.JTable jTableSolvers;
     // End of variables declaration//GEN-END:variables
 }

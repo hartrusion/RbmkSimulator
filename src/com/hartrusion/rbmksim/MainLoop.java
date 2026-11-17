@@ -76,6 +76,13 @@ public class MainLoop implements Runnable, ModelManipulation {
     private final CycleTimeStatistics cycleTimeStatistics
             = new CycleTimeStatistics(outputValues);
 
+    /**
+     * Memory, thread and CPU values of the JVM that runs the simulation, which
+     * are sent to the GUI with the output values.
+     */
+    private final JvmStatisticsOutput jvmStatisticsOutput
+            = new JvmStatisticsOutput(outputValues);
+
     public void init() {
         core.registerTurbine(turbine);
         core.registerThermalLayout(process);
@@ -97,6 +104,13 @@ public class MainLoop implements Runnable, ModelManipulation {
         turbine.init();
         turbine.registerParameterOutput(outputValues);
         turbine.registerController(controller);
+
+        // The structure of the solvers is final after the initialization of
+        // the subsystems, so it is written to the output values only once.
+        SolverStatistics solverStatistics = new SolverStatistics(outputValues);
+        solverStatistics.addSolver(process.getSolver());
+        solverStatistics.addSolver(turbine.getRotorSolver());
+        solverStatistics.addSolver(turbine.getOilSolver());
     }
 
     @Override
@@ -136,6 +150,7 @@ public class MainLoop implements Runnable, ModelManipulation {
 
         stopTime = System.nanoTime();
         cycleTimeStatistics.addCycle(stopTime - startTime);
+        jvmStatisticsOutput.addCycle();
         if (stopTime - startTime > maxTime) {
             if (initialIterations > 2) {
                 maxTime = stopTime - startTime;
