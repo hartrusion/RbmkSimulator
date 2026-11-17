@@ -422,9 +422,10 @@ public class ServerView extends javax.swing.JFrame implements InteractiveView {
     }
 
     /**
-     * Displays minimum, average and maximum cycle time of the last completed
-     * window of CycleTimeStatistics. The values are missing in the snapshot
-     * until the first window of the MainLoop is complete.
+     * Displays minimum, average and maximum cycle time of the most recent
+     * cycles, which CycleTimeStatistics evaluates after each cycle. The values
+     * are missing in the snapshot until the MainLoop has finished its first
+     * cycle.
      *
      * @param snapshot output snapshot of the model
      */
@@ -437,7 +438,7 @@ public class ServerView extends javax.swing.JFrame implements InteractiveView {
             jLabelCycleTime.setText("-");
             return;
         }
-        jLabelCycleTime.setText(String.format("%.2f / %.2f / %.2f ms",
+        jLabelCycleTime.setText(String.format("%.1f / %.1f / %.1f ms",
                 min, average, max));
     }
 

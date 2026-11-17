@@ -70,7 +70,7 @@ public class MainLoop implements Runnable, ModelManipulation {
     long initialIterations = 0;
 
     /**
-     * Minimum, maximum and average cycle time over a window of cycles, which
+     * Minimum, maximum and average cycle time of the most recent cycles, which
      * are sent to the GUI with the output values.
      */
     private final CycleTimeStatistics cycleTimeStatistics

@@ -20,15 +20,17 @@ import com.hartrusion.values.ValueReceiver;
 
 /**
  * Collects the execution times of the cycles of MainLoop and calculates the
- * minimum, the maximum and the average over a window of a fixed number of
- * cycles. The simulation has to finish each cycle within the 100 ms cycle
- * period, so these values show how much time is left on the machine that runs
- * the simulation. Each completed window is written as output parameters into
- * the ValueReceiver of MainLoop, so that the values are part of the output
- * snapshot and reach the GUI and the network clients like all other measured
- * values of the simulator, where ServerView displays them. The window is
- * restarted afterwards, so the values are updated once per window and not on
- * every cycle.
+ * minimum, the maximum and the average over the most recent cycles. The
+ * simulation has to finish each cycle within the 100 ms cycle period, so these
+ * values show how much time is left on the machine that runs the simulation.
+ * The cycle times are kept in a ring buffer of a fixed number of cycles, in
+ * which a circulating index overwrites the oldest entry with each new cycle, so
+ * that the values are evaluated again after every cycle and always describe the
+ * last cycles. The results are written as output parameters into the
+ * ValueReceiver of MainLoop, so that they are part of the output snapshot that
+ * is sent to the controller with every cycle and reach the GUI and the network
+ * clients like all other measured values of the simulator, where ServerView and
+ * SimulationCoreInfo display them.
  * <p>
  * LLM code generated with Claude Opus 5.5
  *
@@ -37,27 +39,27 @@ import com.hartrusion.values.ValueReceiver;
 public class CycleTimeStatistics {
 
     /**
-     * Output parameter name of the shortest cycle time of the last window in
-     * milliseconds.
+     * Output parameter name of the shortest cycle time of the recorded cycles
+     * in milliseconds.
      */
     public static final String PARAMETER_MIN = "MainLoop#CycleTimeMin";
 
     /**
-     * Output parameter name of the longest cycle time of the last window in
-     * milliseconds.
+     * Output parameter name of the longest cycle time of the recorded cycles
+     * in milliseconds.
      */
     public static final String PARAMETER_MAX = "MainLoop#CycleTimeMax";
 
     /**
-     * Output parameter name of the average cycle time of the last window in
-     * milliseconds.
+     * Output parameter name of the average cycle time of the recorded cycles
+     * in milliseconds.
      */
     public static final String PARAMETER_AVERAGE = "MainLoop#CycleTimeAverage";
 
     /**
-     * Number of cycles that one window contains.
+     * Number of cycles that the ring buffer holds.
      */
-    public static final int WINDOW_CYCLES = 100;
+    public static final int BUFFER_CYCLES = 100;
 
     private static final double NANOSECONDS_PER_MILLISECOND = 1e6;
 
@@ -68,61 +70,57 @@ public class CycleTimeStatistics {
     private final ValueReceiver output;
 
     /**
-     * Number of cycles that were added to the current window.
+     * Ring buffer with the cycle times of the most recent cycles in
+     * nanoseconds.
      */
-    private int cycleCount;
+    private final long[] cycleNanos = new long[BUFFER_CYCLES];
 
     /**
-     * Sum of the cycle times of the current window in nanoseconds.
+     * Index of the ring buffer entry that the next cycle overwrites.
      */
-    private long sumNanos;
+    private int nextIndex;
 
     /**
-     * Shortest cycle time of the current window in nanoseconds.
+     * Number of valid entries in the ring buffer, which is lower than its
+     * length only until the buffer was filled once after the start of the
+     * MainLoop.
      */
-    private long minNanos;
+    private int validCount;
 
     /**
-     * Longest cycle time of the current window in nanoseconds.
-     */
-    private long maxNanos;
-
-    /**
-     * @param output receiver that gets the values of each completed window
+     * @param output receiver that gets the calculated values after each cycle
      */
     public CycleTimeStatistics(ValueReceiver output) {
         this.output = output;
-        resetWindow();
     }
 
     /**
-     * Adds the execution time of one cycle to the current window and writes
-     * minimum, maximum and average to the output when the window is complete.
-     * Called at the end of each cycle of MainLoop.
+     * Writes the execution time of one cycle into the ring buffer and writes
+     * minimum, maximum and average of all valid entries to the output. Called
+     * at the end of each cycle of MainLoop.
      *
-     * @param cycleNanos execution time of the cycle in nanoseconds
+     * @param cycleTimeNanos execution time of the cycle in nanoseconds
      */
-    public void addCycle(long cycleNanos) {
-        cycleCount++;
-        sumNanos += cycleNanos;
-        minNanos = Math.min(minNanos, cycleNanos);
-        maxNanos = Math.max(maxNanos, cycleNanos);
-        if (cycleCount < WINDOW_CYCLES) {
-            return;
+    public void addCycle(long cycleTimeNanos) {
+        cycleNanos[nextIndex] = cycleTimeNanos;
+        nextIndex = (nextIndex + 1) % BUFFER_CYCLES;
+        if (validCount < BUFFER_CYCLES) {
+            validCount++;
+        }
+
+        long minNanos = Long.MAX_VALUE;
+        long maxNanos = 0;
+        long sumNanos = 0;
+        for (int idx = 0; idx < validCount; idx++) {
+            minNanos = Math.min(minNanos, cycleNanos[idx]);
+            maxNanos = Math.max(maxNanos, cycleNanos[idx]);
+            sumNanos += cycleNanos[idx];
         }
         output.setParameterValue(PARAMETER_MIN,
                 minNanos / NANOSECONDS_PER_MILLISECOND);
         output.setParameterValue(PARAMETER_MAX,
                 maxNanos / NANOSECONDS_PER_MILLISECOND);
         output.setParameterValue(PARAMETER_AVERAGE,
-                sumNanos / (double) cycleCount / NANOSECONDS_PER_MILLISECOND);
-        resetWindow();
-    }
-
-    private void resetWindow() {
-        cycleCount = 0;
-        sumNanos = 0;
-        minNanos = Long.MAX_VALUE;
-        maxNanos = 0;
+                sumNanos / (double) validCount / NANOSECONDS_PER_MILLISECOND);
     }
 }

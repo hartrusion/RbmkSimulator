@@ -124,6 +124,13 @@ public class ControlPanel extends javax.swing.JFrame implements
     private FrameDebugFlow frameDebugFlow;
 
     /**
+     * Window with information about the simulation core, which is opened from
+     * the help menu and receives the double value updates of this control
+     * panel while it is open. The field is null while the window is closed.
+     */
+    private SimulationCoreInfo simulationCoreInfo;
+
+    /**
      * Creates new form ControlPanel
      */
     public ControlPanel() {
@@ -260,6 +267,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemDebugFlow = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jMenuItemDebugReactivity = new javax.swing.JMenuItem();
+        jMenuItemShowCoreInfo = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -612,6 +620,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuSecret.add(jMenuItemDebugReactivity);
 
         jMenuHelp.add(jMenuSecret);
+
+        jMenuItemShowCoreInfo.setText("Show Core Info");
+        jMenuItemShowCoreInfo.addActionListener(this::jMenuItemShowCoreInfoActionPerformed);
+        jMenuHelp.add(jMenuItemShowCoreInfo);
 
         jMenuBar1.add(jMenuHelp);
 
@@ -1687,6 +1699,21 @@ public class ControlPanel extends javax.swing.JFrame implements
         initializeDiagram(df);
     }//GEN-LAST:event_jMenuItemDebugReactivityActionPerformed
 
+    private void jMenuItemShowCoreInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemShowCoreInfoActionPerformed
+        if (simulationCoreInfo != null) {
+            simulationCoreInfo.toFront();
+            return;
+        }
+        simulationCoreInfo = new SimulationCoreInfo();
+        simulationCoreInfo.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                simulationCoreInfo = null;
+            }
+        });
+        simulationCoreInfo.setVisible(true);
+    }//GEN-LAST:event_jMenuItemShowCoreInfoActionPerformed
+
     private void jMenuWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuWordsActionPerformed
         AuthorDialog dialog = new AuthorDialog(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
@@ -1898,6 +1925,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemRecirculation;
     private javax.swing.JMenuItem jMenuItemRepair;
+    private javax.swing.JMenuItem jMenuItemShowCoreInfo;
     private javax.swing.JMenuItem jMenuItemStartServer;
     private javax.swing.JMenuItem jMenuItemStartupPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemTriggerDisaster;
@@ -2074,6 +2102,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         }
         if (frameDebugFlow != null) {
             frameDebugFlow.updateComponent(propertyName, newValue);
+        }
+        if (simulationCoreInfo != null) {
+            simulationCoreInfo.updateComponent(propertyName, newValue);
         }
     }
 
