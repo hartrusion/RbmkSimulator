@@ -266,6 +266,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemPresetLevelControl = new javax.swing.JMenuItem();
         jMenuItemPresetMPC = new javax.swing.JMenuItem();
         jMenuItemTurbineOperator = new javax.swing.JMenuItem();
+        jMenuItemPresetPressureControl = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemPresetNone = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
@@ -572,6 +573,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuItemTurbineOperator.setText("Turbine Operator");
         jMenuItemTurbineOperator.addActionListener(this::jMenuItemTurbineOperatorActionPerformed);
         jMenuPresets.add(jMenuItemTurbineOperator);
+
+        jMenuItemPresetPressureControl.setText("Pressure control");
+        jMenuItemPresetPressureControl.addActionListener(this::jMenuItemPresetPressureControlActionPerformed);
+        jMenuPresets.add(jMenuItemPresetPressureControl);
         jMenuPresets.add(jSeparator1);
 
         jMenuItemPresetNone.setText("Clear (close all)");
@@ -1753,6 +1758,73 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItemRepairActionPerformed
 
     /**
+     * Opens and arranges the windows which are needed to control the drum
+     * pressure during startup. The drum pressure and the startup pressure
+     * setpoint diagrams are placed in the top left corner next to the panels
+     * of the pressure setpoint, the turbine bypass and the deaerators, while
+     * the feedwater, coolant and auxiliary condensation panels are placed
+     * below them. Both loop mnemonics fill the right side so that the drum
+     * states are visible next to the controls.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private void jMenuItemPresetPressureControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPresetPressureControlActionPerformed
+        jMenuItemPresetNoneActionPerformed(null); // close all
+
+        jMenuItem2ActionPerformed(null); // Drum Pressure diagram
+        jMenuItemStartupPressureSetpointActionPerformed(null);
+
+        jMenuItemPressureSetpointActionPerformed(null);
+        jMenuItemTurbineBypassActionPerformed(null);
+        jMenuItemDeaeratorsActionPerformed(null);
+        jMenuItemFeedwaterActionPerformed(null);
+        jMenuItemAuxCondActionPerformed(null);
+        jMenuItemCoolantActionPerformed(null);
+
+        jMenuItemMnemonicLoop1ActionPerformed(null);
+        jMenuItemMnemonicLoop2ActionPerformed(null);
+        jMenuItemMnemonicAuxCondenserActionPerformed(null);
+
+        // 1st row: diagrams, setpoint and deaerators, then both loops
+        JDesktopPaneEnhanced.windowPlaceAtZero(
+                getDiagramInstance("Drum Pressure"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getDiagramInstance("Startup Pressure Setpoint"),
+                getDiagramInstance("Drum Pressure"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Pressure Setpoint"),
+                getDiagramInstance("Startup Pressure Setpoint"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getControlPanelInstance("Turbine Bypass"),
+                getControlPanelInstance("Pressure Setpoint"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Deaerators"),
+                getControlPanelInstance("Pressure Setpoint"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Loop 1"),
+                getControlPanelInstance("Deaerators"));
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getMnemonicInstance("Loop 2"),
+                getMnemonicInstance("Loop 1"));
+
+        // Left column below the drum pressure diagram:
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getControlPanelInstance("Feedwater"),
+                getDiagramInstance("Drum Pressure"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getControlPanelInstance("Coolant"),
+                getControlPanelInstance("Feedwater"));
+
+        // Auxiliary condensation panel and its mnemonic next to feedwater:
+        JDesktopPaneEnhanced.windowPlaceRightTo(
+                getControlPanelInstance("Aux. Condensation"),
+                getControlPanelInstance("Feedwater"));
+        JDesktopPaneEnhanced.windowPlaceBelow(
+                getMnemonicInstance("Aux Condenser"),
+                getControlPanelInstance("Aux. Condensation"));
+    }//GEN-LAST:event_jMenuItemPresetPressureControlActionPerformed
+
+    /**
      * Makes some initializations to the mnemonic frame object and add it to the
      * list to have a reference to the created instance.
      *
@@ -1939,6 +2011,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenuItem jMenuItemPresetMPC;
     private javax.swing.JMenuItem jMenuItemPresetMnemonics;
     private javax.swing.JMenuItem jMenuItemPresetNone;
+    private javax.swing.JMenuItem jMenuItemPresetPressureControl;
     private javax.swing.JMenuItem jMenuItemPresetReactorOperator;
     private javax.swing.JMenuItem jMenuItemPressureSetpoint;
     private javax.swing.JMenuItem jMenuItemRecirculation;
