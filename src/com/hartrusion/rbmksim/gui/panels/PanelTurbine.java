@@ -551,7 +551,6 @@ public class PanelTurbine extends AbstractPanelWidget
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonTrip1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonTrip1Close.setText("C");
         jButtonTrip1Close.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonTrip1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -562,7 +561,6 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         jPanel1.add(jButtonTrip1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 20, 20, 20));
 
-        jButtonTrip1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonTrip1Open.setText("O");
         jButtonTrip1Open.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonTrip1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -582,7 +580,6 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut1.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelCaptionLPShut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 4, 51, -1));
 
-        jButtonLPShutClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLPShutClose.setText("C");
         jButtonLPShutClose.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonLPShutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -593,7 +590,6 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         jPanel1.add(jButtonLPShutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 20, 20, 20));
 
-        jButtenLPShutOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtenLPShutOpen.setText("O");
         jButtenLPShutOpen.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtenLPShutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -604,7 +600,6 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         jPanel1.add(jButtenLPShutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 20, 20, 20));
 
-        jButtonTrip2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonTrip2Close.setText("C");
         jButtonTrip2Close.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonTrip2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -615,7 +610,6 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         jPanel1.add(jButtonTrip2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 60, 20, 20));
 
-        jButtonTrip2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonTrip2Open.setText("O");
         jButtonTrip2Open.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonTrip2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -644,7 +638,6 @@ public class PanelTurbine extends AbstractPanelWidget
         jLabelCaptionLPShut10.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelCaptionLPShut10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 44, 51, -1));
 
-        jButtonSuperheaterShutoffClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonSuperheaterShutoffClose.setText("C");
         jButtonSuperheaterShutoffClose.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonSuperheaterShutoffClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -655,7 +648,6 @@ public class PanelTurbine extends AbstractPanelWidget
         });
         jPanel1.add(jButtonSuperheaterShutoffClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 60, 20, 20));
 
-        jButtonSuperheaterShutoffOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonSuperheaterShutoffOpen.setText("O");
         jButtonSuperheaterShutoffOpen.setToolTipText("Fast trip valves. Control hydraulics must be available to operate those.");
         jButtonSuperheaterShutoffOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));

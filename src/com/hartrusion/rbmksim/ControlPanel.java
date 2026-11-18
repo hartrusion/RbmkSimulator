@@ -1895,6 +1895,9 @@ public class ControlPanel extends javax.swing.JFrame implements
      * @param object JInternalFrame object
      */
     private void initializeDiagram(InternalFrameDiagram cpf) {
+        // The diagram is configured completely at this point, so that all of
+        // its axes exist and can get the colors of the GUI theme.
+        cpf.applyGuiTheme();
         cpf.setVisible(true);
         jDesktopPane1.add(cpf);
 

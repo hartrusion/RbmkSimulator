@@ -77,7 +77,6 @@ public class PanelPreheaters extends AbstractPanelWidget
         setPreferredSize(new java.awt.Dimension(260, 130));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton1Close.setText("C");
         jButton1Close.setToolTipText("");
         jButton1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -88,7 +87,6 @@ public class PanelPreheaters extends AbstractPanelWidget
         });
         add(jButton1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 20, 20));
 
-        jButton1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton1Open.setText("O");
         jButton1Open.setToolTipText("");
         jButton1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -99,7 +97,6 @@ public class PanelPreheaters extends AbstractPanelWidget
         });
         add(jButton1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 20, 20, 20));
 
-        jButton2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton2Open.setText("O");
         jButton2Open.setToolTipText("");
         jButton2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -110,7 +107,6 @@ public class PanelPreheaters extends AbstractPanelWidget
         });
         add(jButton2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 62, 20, 20));
 
-        jButton2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton2Close.setText("C");
         jButton2Close.setToolTipText("");
         jButton2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -121,7 +117,6 @@ public class PanelPreheaters extends AbstractPanelWidget
         });
         add(jButton2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 62, 20, 20));
 
-        jButton3Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton3Open.setText("O");
         jButton3Open.setToolTipText("");
         jButton3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -132,7 +127,6 @@ public class PanelPreheaters extends AbstractPanelWidget
         });
         add(jButton3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 104, 20, 20));
 
-        jButton3Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton3Close.setText("C");
         jButton3Close.setToolTipText("");
         jButton3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));

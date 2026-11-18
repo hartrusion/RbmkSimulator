@@ -276,6 +276,19 @@ public class ChornobylMetalTheme extends OceanTheme {
         return WHITE_BUTTON_FOREGROUND;
     }
 
+    /**
+     * Tells whether this theme has a dark background with light text, so that
+     * elements that are not colored by the Metal look and feel, such as the
+     * plots of the diagrams, can choose a matching color palette.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return true for a dark theme, false for a light theme
+     */
+    public boolean isDarkTheme() {
+        return false;
+    }
+
     @Override
     public String getName() {
         return "Chornobyl Metal";

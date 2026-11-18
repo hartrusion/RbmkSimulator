@@ -147,7 +147,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPumpsToRegen2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPumpsToRegen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 170, 51, 14));
 
-        jButtonPumpsToRegenClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonPumpsToRegenClose.setText("C");
         jButtonPumpsToRegenClose.setToolTipText("");
         jButtonPumpsToRegenClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -158,7 +157,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonPumpsToRegenClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 184, 20, 20));
 
-        jButtonPumpsToRegenOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonPumpsToRegenOpen.setText("O");
         jButtonPumpsToRegenOpen.setToolTipText("");
         jButtonPumpsToRegenOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -191,7 +189,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPumpsToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPumpsToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 51, 14));
 
-        jButtonPumpsToCoolerClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonPumpsToCoolerClose.setText("C");
         jButtonPumpsToCoolerClose.setToolTipText("");
         jButtonPumpsToCoolerClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -202,7 +199,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonPumpsToCoolerClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 184, 22, 20));
 
-        jButtonPumpsToCoolerOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonPumpsToCoolerOpen.setText("O");
         jButtonPumpsToCoolerOpen.setToolTipText("");
         jButtonPumpsToCoolerOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -229,7 +225,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabeljLabelCaptionRegenToCooler2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabeljLabelCaptionRegenToCooler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 124, 51, 14));
 
-        jButtonRegenToCoolerClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonRegenToCoolerClose.setText("C");
         jButtonRegenToCoolerClose.setToolTipText("");
         jButtonRegenToCoolerClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -240,7 +235,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonRegenToCoolerClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 138, 20, 20));
 
-        jButtonRegenToCoolerOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonRegenToCoolerOpen.setText("O");
         jButtonRegenToCoolerOpen.setToolTipText("");
         jButtonRegenToCoolerOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -267,7 +261,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionTreatmentBypass2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionTreatmentBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 78, 51, 14));
 
-        jButtonTreatmentBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonTreatmentBypassClose.setText("C");
         jButtonTreatmentBypassClose.setToolTipText("");
         jButtonTreatmentBypassClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -278,7 +271,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonTreatmentBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 92, 20, 20));
 
-        jButtonTreatmentBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonTreatmentBypassOpen.setText("O");
         jButtonTreatmentBypassOpen.setToolTipText("");
         jButtonTreatmentBypassOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -370,7 +362,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionRegenToDrums2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionRegenToDrums2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 78, 51, 14));
 
-        jButtonRegenToDrumsClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonRegenToDrumsClose.setText("C");
         jButtonRegenToDrumsClose.setToolTipText("");
         jButtonRegenToDrumsClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -381,7 +372,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonRegenToDrumsClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, 20, 20));
 
-        jButtonRegenToDrumsOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonRegenToDrumsOpen.setText("O");
         jButtonRegenToDrumsOpen.setToolTipText("");
         jButtonRegenToDrumsOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -408,7 +398,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionPassiveFlow2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 124, 51, 14));
 
-        jButtonPassiveFlowOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonPassiveFlowOpen.setText("O");
         jButtonPassiveFlowOpen.setToolTipText("");
         jButtonPassiveFlowOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -419,7 +408,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonPassiveFlowOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 138, 20, 20));
 
-        jButtonPassiveFlowClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonPassiveFlowClose.setText("C");
         jButtonPassiveFlowClose.setToolTipText("");
         jButtonPassiveFlowClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -589,7 +577,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlodownLoop1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionBlodownLoop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 228, 51, 14));
 
-        jButtonDrumBlowdown1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumBlowdown1Close.setText("C");
         jButtonDrumBlowdown1Close.setToolTipText("");
         jButtonDrumBlowdown1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -600,7 +587,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonDrumBlowdown1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 242, 20, 20));
 
-        jButtonDrumBlowdown1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumBlowdown1Open.setText("O");
         jButtonDrumBlowdown1Open.setToolTipText("");
         jButtonDrumBlowdown1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -619,7 +605,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         jLabelCaptionBlodownLoop2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionBlodownLoop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 228, 51, 14));
 
-        jButtonDrumBlowdown2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumBlowdown2Close.setText("C");
         jButtonDrumBlowdown2Close.setToolTipText("");
         jButtonDrumBlowdown2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -630,7 +615,6 @@ public class PanelBlowdown extends AbstractPanelWidget {
         });
         add(jButtonDrumBlowdown2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 242, 22, 20));
 
-        jButtonDrumBlowdown2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumBlowdown2Open.setText("O");
         jButtonDrumBlowdown2Open.setToolTipText("");
         jButtonDrumBlowdown2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));

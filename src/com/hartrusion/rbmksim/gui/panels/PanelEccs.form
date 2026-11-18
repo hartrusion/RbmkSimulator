@@ -192,9 +192,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDrumDrain1CoolantClose">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="80" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -212,9 +209,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDrumDrain1CoolantOpen">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -257,9 +251,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDrumDrain2CoolantClose">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="80" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -277,9 +268,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDrumDrain2CoolantOpen">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -856,9 +844,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSprinklerCoolant1Close">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="80" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -876,9 +861,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSprinklerCoolant1Open">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -931,9 +913,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSprinklerCoolant2Close">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="80" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -951,9 +930,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSprinklerCoolant2Open">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1618,9 +1594,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader11Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1638,9 +1611,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader11Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1699,9 +1669,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader12Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1719,9 +1686,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader12Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1764,9 +1728,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader13Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1784,9 +1745,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader13Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1829,9 +1787,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader21Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1849,9 +1804,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader21Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1894,9 +1846,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader22Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1914,9 +1863,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader22Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1959,9 +1905,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader23Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1979,9 +1922,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonToMcpHeader23Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -2760,9 +2700,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCoolantPSPP1Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -2780,9 +2717,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCoolantPSPP1Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -2991,9 +2925,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCoolantPSPP2Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -3011,9 +2942,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCoolantPSPP2Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -3222,9 +3150,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCoolantPSPP3Close">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="80" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="C"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -3242,9 +3167,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCoolantPSPP3Open">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="80" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="O"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">

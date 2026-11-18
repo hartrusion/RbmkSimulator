@@ -321,14 +321,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrainDrum2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionDrainDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 174, 58, 14));
 
-        jButtonDrumDrain1CoolantClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumDrain1CoolantClose.setText("C");
         jButtonDrumDrain1CoolantClose.setToolTipText("");
         jButtonDrumDrain1CoolantClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrumDrain1CoolantClose.addActionListener(this::jButtonDrumDrain1CoolantCloseActionPerformed);
         add(jButtonDrumDrain1CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 238, 20, 20));
 
-        jButtonDrumDrain1CoolantOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumDrain1CoolantOpen.setText("O");
         jButtonDrumDrain1CoolantOpen.setToolTipText("");
         jButtonDrumDrain1CoolantOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -343,14 +341,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrumDrain1Coolant.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionDrumDrain1Coolant, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 224, 52, 14));
 
-        jButtonDrumDrain2CoolantClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDrumDrain2CoolantClose.setText("C");
         jButtonDrumDrain2CoolantClose.setToolTipText("");
         jButtonDrumDrain2CoolantClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonDrumDrain2CoolantClose.addActionListener(this::jButtonDrumDrain2CoolantCloseActionPerformed);
         add(jButtonDrumDrain2CoolantClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 238, 20, 20));
 
-        jButtonDrumDrain2CoolantOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDrumDrain2CoolantOpen.setText("O");
         jButtonDrumDrain2CoolantOpen.setToolTipText("");
         jButtonDrumDrain2CoolantOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -527,14 +523,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP9.setText("Feed Pump 3");
         add(jLabelCaptionPSPP9, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 142, 76, 14));
 
-        jButtonSprinklerCoolant1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonSprinklerCoolant1Close.setText("C");
         jButtonSprinklerCoolant1Close.setToolTipText("");
         jButtonSprinklerCoolant1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSprinklerCoolant1Close.addActionListener(this::jButtonSprinklerCoolant1CloseActionPerformed);
         add(jButtonSprinklerCoolant1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 356, 20, 20));
 
-        jButtonSprinklerCoolant1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonSprinklerCoolant1Open.setText("O");
         jButtonSprinklerCoolant1Open.setToolTipText("");
         jButtonSprinklerCoolant1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -552,14 +546,12 @@ public class PanelEccs extends AbstractPanelWidget
         panelWidgetSprinklerPump2.setChornobylPrefix("Bubbler2#SprinklerPump");
         add(panelWidgetSprinklerPump2, new org.netbeans.lib.awtextra.AbsoluteConstraints(664, 266, -1, -1));
 
-        jButtonSprinklerCoolant2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonSprinklerCoolant2Close.setText("C");
         jButtonSprinklerCoolant2Close.setToolTipText("");
         jButtonSprinklerCoolant2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonSprinklerCoolant2Close.addActionListener(this::jButtonSprinklerCoolant2CloseActionPerformed);
         add(jButtonSprinklerCoolant2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 356, 20, 20));
 
-        jButtonSprinklerCoolant2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonSprinklerCoolant2Open.setText("O");
         jButtonSprinklerCoolant2Open.setToolTipText("");
         jButtonSprinklerCoolant2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -764,14 +756,12 @@ public class PanelEccs extends AbstractPanelWidget
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonToMcpHeader11Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonToMcpHeader11Close.setText("C");
         jButtonToMcpHeader11Close.setToolTipText("");
         jButtonToMcpHeader11Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonToMcpHeader11Close.addActionListener(this::jButtonToMcpHeader11CloseActionPerformed);
         jPanel1.add(jButtonToMcpHeader11Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 40, 20, 20));
 
-        jButtonToMcpHeader11Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonToMcpHeader11Open.setText("O");
         jButtonToMcpHeader11Open.setToolTipText("");
         jButtonToMcpHeader11Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -791,14 +781,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrumDrain4.setText("MCP Pressure Header");
         jPanel1.add(jLabelCaptionDrumDrain4, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 6, 146, -1));
 
-        jButtonToMcpHeader12Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonToMcpHeader12Close.setText("C");
         jButtonToMcpHeader12Close.setToolTipText("");
         jButtonToMcpHeader12Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonToMcpHeader12Close.addActionListener(this::jButtonToMcpHeader12CloseActionPerformed);
         jPanel1.add(jButtonToMcpHeader12Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 80, 20, 20));
 
-        jButtonToMcpHeader12Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonToMcpHeader12Open.setText("O");
         jButtonToMcpHeader12Open.setToolTipText("");
         jButtonToMcpHeader12Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -813,14 +801,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionToMcp12.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelCaptionToMcp12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 66, -1, -1));
 
-        jButtonToMcpHeader13Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonToMcpHeader13Close.setText("C");
         jButtonToMcpHeader13Close.setToolTipText("");
         jButtonToMcpHeader13Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonToMcpHeader13Close.addActionListener(this::jButtonToMcpHeader13CloseActionPerformed);
         jPanel1.add(jButtonToMcpHeader13Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 120, 20, 20));
 
-        jButtonToMcpHeader13Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonToMcpHeader13Open.setText("O");
         jButtonToMcpHeader13Open.setToolTipText("");
         jButtonToMcpHeader13Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -835,14 +821,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionToMcp13.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelCaptionToMcp13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 106, -1, -1));
 
-        jButtonToMcpHeader21Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonToMcpHeader21Close.setText("C");
         jButtonToMcpHeader21Close.setToolTipText("");
         jButtonToMcpHeader21Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonToMcpHeader21Close.addActionListener(this::jButtonToMcpHeader21CloseActionPerformed);
         jPanel1.add(jButtonToMcpHeader21Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 40, 20, 20));
 
-        jButtonToMcpHeader21Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonToMcpHeader21Open.setText("O");
         jButtonToMcpHeader21Open.setToolTipText("");
         jButtonToMcpHeader21Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -857,14 +841,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionToMcp21.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelCaptionToMcp21, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 26, -1, -1));
 
-        jButtonToMcpHeader22Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonToMcpHeader22Close.setText("C");
         jButtonToMcpHeader22Close.setToolTipText("");
         jButtonToMcpHeader22Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonToMcpHeader22Close.addActionListener(this::jButtonToMcpHeader22CloseActionPerformed);
         jPanel1.add(jButtonToMcpHeader22Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 80, 20, 20));
 
-        jButtonToMcpHeader22Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonToMcpHeader22Open.setText("O");
         jButtonToMcpHeader22Open.setToolTipText("");
         jButtonToMcpHeader22Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -879,14 +861,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionToMcp22.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelCaptionToMcp22, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 66, -1, -1));
 
-        jButtonToMcpHeader23Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonToMcpHeader23Close.setText("C");
         jButtonToMcpHeader23Close.setToolTipText("");
         jButtonToMcpHeader23Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonToMcpHeader23Close.addActionListener(this::jButtonToMcpHeader23CloseActionPerformed);
         jPanel1.add(jButtonToMcpHeader23Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 120, 20, 20));
 
-        jButtonToMcpHeader23Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonToMcpHeader23Open.setText("O");
         jButtonToMcpHeader23Open.setToolTipText("");
         jButtonToMcpHeader23Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -1121,14 +1101,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionHeaderPPSPumps.setText("From Pressure Suppresion Pool");
         jPanel3.add(jLabelCaptionHeaderPPSPumps, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 252, -1));
 
-        jButtonCoolantPSPP1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonCoolantPSPP1Close.setText("C");
         jButtonCoolantPSPP1Close.setToolTipText("");
         jButtonCoolantPSPP1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonCoolantPSPP1Close.addActionListener(this::jButtonCoolantPSPP1CloseActionPerformed);
         jPanel3.add(jButtonCoolantPSPP1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 262, 20, 20));
 
-        jButtonCoolantPSPP1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonCoolantPSPP1Open.setText("O");
         jButtonCoolantPSPP1Open.setToolTipText("");
         jButtonCoolantPSPP1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -1193,14 +1171,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP2F12.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel3.add(jLabelCaptionPSPP2F12, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 42, 72, -1));
 
-        jButtonCoolantPSPP2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonCoolantPSPP2Close.setText("C");
         jButtonCoolantPSPP2Close.setToolTipText("");
         jButtonCoolantPSPP2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonCoolantPSPP2Close.addActionListener(this::jButtonCoolantPSPP2CloseActionPerformed);
         jPanel3.add(jButtonCoolantPSPP2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 262, 20, 20));
 
-        jButtonCoolantPSPP2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonCoolantPSPP2Open.setText("O");
         jButtonCoolantPSPP2Open.setToolTipText("");
         jButtonCoolantPSPP2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -1265,14 +1241,12 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPP3F13.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel3.add(jLabelCaptionPSPP3F13, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 42, 72, -1));
 
-        jButtonCoolantPSPP3Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonCoolantPSPP3Close.setText("C");
         jButtonCoolantPSPP3Close.setToolTipText("");
         jButtonCoolantPSPP3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonCoolantPSPP3Close.addActionListener(this::jButtonCoolantPSPP3CloseActionPerformed);
         jPanel3.add(jButtonCoolantPSPP3Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 262, 20, 20));
 
-        jButtonCoolantPSPP3Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonCoolantPSPP3Open.setText("O");
         jButtonCoolantPSPP3Open.setToolTipText("");
         jButtonCoolantPSPP3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));

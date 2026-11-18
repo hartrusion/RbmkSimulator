@@ -16,7 +16,11 @@
  */
 package com.hartrusion.rbmksim.gui.diagrams;
 
+import com.hartrusion.plot.Axes;
 import com.hartrusion.plot.FigureJPane;
+import com.hartrusion.plot.SubPlot;
+import com.hartrusion.rbmksim.gui.GuiTheme;
+import java.util.Iterator;
 import com.hartrusion.rbmksim.gui.diagrams.DiagramFrame;
 import com.hartrusion.values.ValueHandler;
 
@@ -69,5 +73,53 @@ public class InternalFrameDiagram extends javax.swing.JInternalFrame {
     
     public FigureJPane getFigure() {
         return figureJPane1;
+    }
+
+    /**
+     * Applies the dark or light theme of the jmplot library to the figure and
+     * to all of its axes, depending on whether the active GUI theme is dark.
+     * The figure only sets its own background, whereas each axes sets the
+     * colors of its box and rulers, which is the reason why all axes have to
+     * be visited. A figure either holds its axes directly, which are created
+     * by setYRulers and of which only the last one exists, or it holds them in
+     * a subplot, so that the method has to be called after the diagram was
+     * configured by a preset. Called from ControlPanel when a diagram is
+     * initialized.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    public void applyGuiTheme() {
+        boolean darkTheme = GuiTheme.getActiveTheme()
+                .getChornobylMetalTheme().isDarkTheme();
+        if (darkTheme) {
+            figureJPane1.setThemeDark();
+        } else {
+            figureJPane1.setThemeLight();
+        }
+        applyGuiThemeToAxes(figureJPane1.getLastAxes(), darkTheme);
+        SubPlot subPlot = figureJPane1.getSubPlot();
+        if (subPlot != null) {
+            Iterator<Axes> axesIterator = subPlot.getAxesIterator();
+            while (axesIterator.hasNext()) {
+                applyGuiThemeToAxes(axesIterator.next(), darkTheme);
+            }
+        }
+    }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @param axes Axes to color, nothing happens if it is null
+     * @param darkTheme true to apply the dark jmplot theme
+     */
+    private void applyGuiThemeToAxes(Axes axes, boolean darkTheme) {
+        if (axes == null) {
+            return;
+        }
+        if (darkTheme) {
+            axes.setThemeDark();
+        } else {
+            axes.setThemeLight();
+        }
     }
 }

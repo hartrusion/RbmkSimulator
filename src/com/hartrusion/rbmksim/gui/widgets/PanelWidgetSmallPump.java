@@ -81,7 +81,6 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
         setPreferredSize(new java.awt.Dimension(52, 70));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonDischargeClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonDischargeClose.setText("C");
         jButtonDischargeClose.setToolTipText("");
         jButtonDischargeClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -92,7 +91,6 @@ public class PanelWidgetSmallPump extends AbstractPanelWidget {
         });
         add(jButtonDischargeClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 15, 20, 20));
 
-        jButtonDischargeOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonDischargeOpen.setText("O");
         jButtonDischargeOpen.setToolTipText("");
         jButtonDischargeOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));

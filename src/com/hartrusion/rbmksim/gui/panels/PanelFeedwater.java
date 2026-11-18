@@ -153,7 +153,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionFeed22.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionFeed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 198, 52, 14));
 
-        jButtonFeed23Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed23Open.setText("O");
         jButtonFeed23Open.setToolTipText("");
         jButtonFeed23Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -164,7 +163,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButtonFeed23Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 212, 20, 20));
 
-        jButtonFeed23Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed23Close.setText("C");
         jButtonFeed23Close.setToolTipText("");
         jButtonFeed23Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -195,7 +193,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelFeed12.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelFeed12, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 72, 52, 14));
 
-        jButtonFeed12Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed12Open.setText("O");
         jButtonFeed12Open.setToolTipText("");
         jButtonFeed12Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -206,7 +203,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButtonFeed12Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 86, 20, 20));
 
-        jButtonFeed12Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed12Close.setText("C");
         jButtonFeed12Close.setToolTipText("");
         jButtonFeed12Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -225,7 +221,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelFeed22.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelFeed22, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 156, 52, 14));
 
-        jButtonFeed22Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed22Open.setText("O");
         jButtonFeed22Open.setToolTipText("");
         jButtonFeed22Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -236,7 +231,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButtonFeed22Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 170, 20, 20));
 
-        jButtonFeed22Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed22Close.setText("C");
         jButtonFeed22Close.setToolTipText("");
         jButtonFeed22Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -255,7 +249,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelFeed13.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelFeed13, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 114, 52, 14));
 
-        jButtonFeed13Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed13Open.setText("O");
         jButtonFeed13Open.setToolTipText("");
         jButtonFeed13Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -266,7 +259,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButtonFeed13Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 128, 20, 20));
 
-        jButtonFeed13Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed13Close.setText("C");
         jButtonFeed13Close.setToolTipText("");
         jButtonFeed13Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -300,7 +292,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelLoop1DA1Dis.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelLoop1DA1Dis, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 302, 52, 14));
 
-        jButton3to1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton3to1Open.setText("O");
         jButton3to1Open.setToolTipText("");
         jButton3to1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -311,7 +302,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButton3to1Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 316, 20, 20));
 
-        jButton3to1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton3to1Close.setText("C");
         jButton3to1Close.setToolTipText("");
         jButton3to1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -330,7 +320,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDA1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionDA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 268, 52, 14));
 
-        jButton1to3Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton1to3Open.setText("O");
         jButton1to3Open.setToolTipText("");
         jButton1to3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -341,7 +330,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButton1to3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 282, 20, 20));
 
-        jButton1to3Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton1to3Close.setText("C");
         jButton1to3Close.setToolTipText("");
         jButton1to3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -397,7 +385,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabeljLabelCaptionRegenToCooler11.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabeljLabelCaptionRegenToCooler11, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 302, 52, 14));
 
-        jButton3to2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton3to2Open.setText("O");
         jButton3to2Open.setToolTipText("");
         jButton3to2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -408,7 +395,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButton3to2Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 316, 20, 20));
 
-        jButton3to2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton3to2Close.setText("C");
         jButton3to2Close.setToolTipText("");
         jButton3to2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -427,7 +413,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelCaptionDA2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionDA2, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 268, 52, 14));
 
-        jButton2to3Open.setBackground(new java.awt.Color(128, 0, 0));
         jButton2to3Open.setText("O");
         jButton2to3Open.setToolTipText("");
         jButton2to3Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -438,7 +423,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         add(jButton2to3Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 282, 20, 20));
 
-        jButton2to3Close.setBackground(new java.awt.Color(0, 128, 0));
         jButton2to3Close.setText("C");
         jButton2to3Close.setToolTipText("");
         jButton2to3Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -552,7 +536,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelFeed11.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelFeed11, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 2, -1, -1));
 
-        jButtonFeed11Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed11Open.setText("O");
         jButtonFeed11Open.setToolTipText("");
         jButtonFeed11Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -563,7 +546,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         jPanel1.add(jButtonFeed11Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 18, 20, 20));
 
-        jButtonFeed11Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed11Close.setText("C");
         jButtonFeed11Close.setToolTipText("");
         jButtonFeed11Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -593,7 +575,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         jLabelFeed21.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel2.add(jLabelFeed21, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 2, -1, -1));
 
-        jButtonFeed21Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonFeed21Open.setText("O");
         jButtonFeed21Open.setToolTipText("");
         jButtonFeed21Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -604,7 +585,6 @@ public class PanelFeedwater extends AbstractPanelWidget
         });
         jPanel2.add(jButtonFeed21Open, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 18, 20, 20));
 
-        jButtonFeed21Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonFeed21Close.setText("C");
         jButtonFeed21Close.setToolTipText("");
         jButtonFeed21Close.setMargin(new java.awt.Insets(0, 0, 0, 0));

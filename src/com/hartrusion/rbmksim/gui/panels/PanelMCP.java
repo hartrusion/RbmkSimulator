@@ -178,7 +178,6 @@ public class PanelMCP extends AbstractPanelWidget
         jLabel16.setText("Rc. Flow");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 108, 52, 14));
 
-        jButtonLoop1Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop1Close.setText("C");
         jButtonLoop1Close.setToolTipText("");
         jButtonLoop1Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -189,7 +188,6 @@ public class PanelMCP extends AbstractPanelWidget
         });
         add(jButtonLoop1Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 24, 20, 20));
 
-        jButtonLoop1Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop1Open.setText("O");
         jButtonLoop1Open.setToolTipText("");
         jButtonLoop1Open.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -208,7 +206,6 @@ public class PanelMCP extends AbstractPanelWidget
         jLabelCaptionPassiveFlow2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPassiveFlow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 10, 68, 14));
 
-        jButtonLoop2Close.setBackground(new java.awt.Color(0, 128, 0));
         jButtonLoop2Close.setText("C");
         jButtonLoop2Close.setToolTipText("");
         jButtonLoop2Close.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -219,7 +216,6 @@ public class PanelMCP extends AbstractPanelWidget
         });
         add(jButtonLoop2Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 64, 20, 20));
 
-        jButtonLoop2Open.setBackground(new java.awt.Color(128, 0, 0));
         jButtonLoop2Open.setText("O");
         jButtonLoop2Open.setToolTipText("");
         jButtonLoop2Open.setMargin(new java.awt.Insets(0, 0, 0, 0));

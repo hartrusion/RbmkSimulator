@@ -99,9 +99,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDischargeClose">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="5c" green="5c" red="5c" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -119,9 +116,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDischargeOpen">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -164,9 +158,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSuctionClose">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="5c" green="5c" red="5c" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="C"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -184,9 +175,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSuctionOpen">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="O"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">

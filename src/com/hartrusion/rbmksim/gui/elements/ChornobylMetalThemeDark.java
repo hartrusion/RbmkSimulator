@@ -243,6 +243,11 @@ public class ChornobylMetalThemeDark extends ChornobylMetalTheme {
     }
 
     @Override
+    public boolean isDarkTheme() {
+        return true;
+    }
+
+    @Override
     public String getName() {
         return "Chornobyl Metal Dark";
     }

@@ -185,7 +185,6 @@ public class PanelCoolant extends AbstractPanelWidget {
         jLabelAuxiliary.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelAuxiliary, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 68, 52, 14));
 
-        jButtonMainToAuxOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonMainToAuxOpen.setText("O");
         jButtonMainToAuxOpen.setToolTipText("Allows supplying aux condensers and blowdown aftercooler from main pumps.");
         jButtonMainToAuxOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -196,7 +195,6 @@ public class PanelCoolant extends AbstractPanelWidget {
         });
         add(jButtonMainToAuxOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 86, 20, 20));
 
-        jButtonMainToAuxClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonMainToAuxClose.setText("C");
         jButtonMainToAuxClose.setToolTipText("Allows supplying aux condensers and blowdown aftercooler from main pumps.");
         jButtonMainToAuxClose.setMargin(new java.awt.Insets(0, 0, 0, 0));

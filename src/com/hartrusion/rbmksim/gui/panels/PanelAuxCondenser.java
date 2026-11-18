@@ -112,7 +112,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         panelCondensatePump1.setChornobylPrefix("AuxCond1#CondPumps");
         add(panelCondensatePump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 50, -1, -1));
 
-        jButtonBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonBypassClose.setText("C");
         jButtonBypassClose.setToolTipText("");
         jButtonBypassClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -123,7 +122,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         });
         add(jButtonBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 54, 20, 20));
 
-        jButtonBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonBypassOpen.setText("O");
         jButtonBypassOpen.setToolTipText("");
         jButtonBypassOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -310,7 +308,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         add(lightBulbControl1Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 84, -1, -1));
         add(lightBulbControl2Active, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 84, -1, -1));
 
-        jButtonCondToHotwellClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonCondToHotwellClose.setText("C");
         jButtonCondToHotwellClose.setToolTipText("");
         jButtonCondToHotwellClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -321,7 +318,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         });
         add(jButtonCondToHotwellClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 104, 20, 20));
 
-        jButtonCondToHotwellOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonCondToHotwellOpen.setText("O");
         jButtonCondToHotwellOpen.setToolTipText("");
         jButtonCondToHotwellOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -332,7 +328,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         });
         add(jButtonCondToHotwellOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 104, 20, 20));
 
-        jButtonCondToDrainClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonCondToDrainClose.setText("C");
         jButtonCondToDrainClose.setToolTipText("");
         jButtonCondToDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -343,7 +338,6 @@ public class PanelAuxCondenser extends AbstractPanelWidget
         });
         add(jButtonCondToDrainClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 104, 20, 20));
 
-        jButtonCondToDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonCondToDrainOpen.setText("O");
         jButtonCondToDrainOpen.setToolTipText("");
         jButtonCondToDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));

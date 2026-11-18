@@ -225,7 +225,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelEjectorSuction.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelEjectorSuction, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 200, 40, 14));
 
-        jButtonEjector1SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector1SuctionClose.setText("C");
         jButtonEjector1SuctionClose.setToolTipText("");
         jButtonEjector1SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -236,7 +235,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1SuctionClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 198, 20, 20));
 
-        jButtonEjector1SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector1SuctionOpen.setText("O");
         jButtonEjector1SuctionOpen.setToolTipText("");
         jButtonEjector1SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -247,7 +245,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1SuctionOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 198, 20, 20));
 
-        jButtonEjector1InClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector1InClose.setText("C");
         jButtonEjector1InClose.setToolTipText("");
         jButtonEjector1InClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -258,7 +255,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1InClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 258, 20, 20));
 
-        jButtonEjector1InOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector1InOpen.setText("O");
         jButtonEjector1InOpen.setToolTipText("");
         jButtonEjector1InOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -269,7 +265,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1InOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 258, 20, 20));
 
-        jButtonEjector2InOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector2InOpen.setText("O");
         jButtonEjector2InOpen.setToolTipText("");
         jButtonEjector2InOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -280,7 +275,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2InOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 258, 20, 20));
 
-        jButtonEjector2InClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector2InClose.setText("C");
         jButtonEjector2InClose.setToolTipText("");
         jButtonEjector2InClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -307,7 +301,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelEjectorSteam.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelEjectorSteam, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 234, 40, 14));
 
-        jButtonEjector3InOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector3InOpen.setText("O");
         jButtonEjector3InOpen.setToolTipText("");
         jButtonEjector3InOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -318,7 +311,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector3InOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 258, 20, 20));
 
-        jButtonEjector3InClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector3InClose.setText("C");
         jButtonEjector3InClose.setToolTipText("");
         jButtonEjector3InClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -329,7 +321,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector3InClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 258, 20, 20));
 
-        jButtonEjector1OutClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector1OutClose.setText("C");
         jButtonEjector1OutClose.setToolTipText("");
         jButtonEjector1OutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -340,7 +331,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1OutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 284, 20, 20));
 
-        jButtonEjector1OutOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector1OutOpen.setText("O");
         jButtonEjector1OutOpen.setToolTipText("");
         jButtonEjector1OutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -351,7 +341,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1OutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 284, 20, 20));
 
-        jButtonEjector2OutOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector2OutOpen.setText("O");
         jButtonEjector2OutOpen.setToolTipText("");
         jButtonEjector2OutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -362,7 +351,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2OutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 284, 20, 20));
 
-        jButtonEjector2OutClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector2OutClose.setText("C");
         jButtonEjector2OutClose.setToolTipText("");
         jButtonEjector2OutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -373,7 +361,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2OutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 284, 20, 20));
 
-        jButtonEjector3OutOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector3OutOpen.setText("O");
         jButtonEjector3OutOpen.setToolTipText("");
         jButtonEjector3OutOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -384,7 +371,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector3OutOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 284, 20, 20));
 
-        jButtonEjector3OutClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector3OutClose.setText("C");
         jButtonEjector3OutClose.setToolTipText("");
         jButtonEjector3OutClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -395,7 +381,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector3OutClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 284, 20, 20));
 
-        jButtonEjector2SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector2SuctionOpen.setText("O");
         jButtonEjector2SuctionOpen.setToolTipText("");
         jButtonEjector2SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -406,7 +391,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2SuctionOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 198, 20, 20));
 
-        jButtonEjector2SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector2SuctionClose.setText("C");
         jButtonEjector2SuctionClose.setToolTipText("");
         jButtonEjector2SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -417,7 +401,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2SuctionClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 198, 20, 20));
 
-        jButtonEjector3SuctionOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector3SuctionOpen.setText("O");
         jButtonEjector3SuctionOpen.setToolTipText("");
         jButtonEjector3SuctionOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -428,7 +411,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector3SuctionOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 198, 20, 20));
 
-        jButtonEjector3SuctionClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector3SuctionClose.setText("C");
         jButtonEjector3SuctionClose.setToolTipText("");
         jButtonEjector3SuctionClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -456,7 +438,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelBypass, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 296, 52, 14));
 
-        jButtonEjectorBypassClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjectorBypassClose.setText("C");
         jButtonEjectorBypassClose.setToolTipText("Main Ejector Bypass");
         jButtonEjectorBypassClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -467,7 +448,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjectorBypassClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 310, 20, 20));
 
-        jButtonEjectorBypassOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjectorBypassOpen.setText("O");
         jButtonEjectorBypassOpen.setToolTipText("Main Ejector Bypass");
         jButtonEjectorBypassOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -682,7 +662,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelBypass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 230, 52, 14));
 
-        jButtonEjectorTurbineTapClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjectorTurbineTapClose.setText("C");
         jButtonEjectorTurbineTapClose.setToolTipText("Steam Supply for Main Ejectors from Turbine Tap");
         jButtonEjectorTurbineTapClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -693,7 +672,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjectorTurbineTapClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 256, 20, 20));
 
-        jButtonEjectorTurbineTapOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjectorTurbineTapOpen.setText("O");
         jButtonEjectorTurbineTapOpen.setToolTipText("Steam Supply for Main Ejectors from Turbine Tap");
         jButtonEjectorTurbineTapOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -713,7 +691,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelBypass2.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelBypass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 242, 78, 14));
 
-        jButtonEjector1CondensateClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector1CondensateClose.setText("C");
         jButtonEjector1CondensateClose.setToolTipText("");
         jButtonEjector1CondensateClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -724,7 +701,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1CondensateClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 310, 20, 20));
 
-        jButtonEjector1CondensateOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector1CondensateOpen.setText("O");
         jButtonEjector1CondensateOpen.setToolTipText("");
         jButtonEjector1CondensateOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -735,7 +711,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector1CondensateOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 310, 20, 20));
 
-        jButtonEjector2CondensateOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector2CondensateOpen.setText("O");
         jButtonEjector2CondensateOpen.setToolTipText("");
         jButtonEjector2CondensateOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -746,7 +721,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2CondensateOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 310, 20, 20));
 
-        jButtonEjector2CondensateClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector2CondensateClose.setText("C");
         jButtonEjector2CondensateClose.setToolTipText("");
         jButtonEjector2CondensateClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -757,7 +731,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector2CondensateClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 20, 20));
 
-        jButtonEjector3CondensateOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonEjector3CondensateOpen.setText("O");
         jButtonEjector3CondensateOpen.setToolTipText("");
         jButtonEjector3CondensateOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -768,7 +741,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         add(jButtonEjector3CondensateOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 310, 20, 20));
 
-        jButtonEjector3CondensateClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonEjector3CondensateClose.setText("C");
         jButtonEjector3CondensateClose.setToolTipText("");
         jButtonEjector3CondensateClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -797,7 +769,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         panelWidgetMakeupPump1.setChornobylPrefix("Makeup1#Pumps");
         jPanel1.add(panelWidgetMakeupPump1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 14, -1, -1));
 
-        jButtonColdCondensateDrainClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonColdCondensateDrainClose.setText("C");
         jButtonColdCondensateDrainClose.setToolTipText("Drains the cold condensate storage tank");
         jButtonColdCondensateDrainClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -817,7 +788,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelColdCondensateDrain.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelColdCondensateDrain, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
 
-        jButtonColdCondensateDrainOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonColdCondensateDrainOpen.setText("O");
         jButtonColdCondensateDrainOpen.setToolTipText("Drains the cold condensate storage tank");
         jButtonColdCondensateDrainOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -828,7 +798,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         });
         jPanel1.add(jButtonColdCondensateDrainOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 84, 20, 20));
 
-        jButtonColdCondensateFillClose.setBackground(new java.awt.Color(0, 128, 0));
         jButtonColdCondensateFillClose.setText("C");
         jButtonColdCondensateFillClose.setToolTipText("Fills the cold condensate tank with additional demineralized water");
         jButtonColdCondensateFillClose.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -848,7 +817,6 @@ public class PanelCondensation extends AbstractPanelWidget {
         jLabelColdCondensateFill.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanel1.add(jLabelColdCondensateFill, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 24, -1, -1));
 
-        jButtonColdCondensateFillOpen.setBackground(new java.awt.Color(128, 0, 0));
         jButtonColdCondensateFillOpen.setText("O");
         jButtonColdCondensateFillOpen.setToolTipText("Fills the cold condensate tank with additional demineralized water");
         jButtonColdCondensateFillOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
