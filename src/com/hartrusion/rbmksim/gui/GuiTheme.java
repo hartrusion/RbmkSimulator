@@ -16,22 +16,22 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
+import com.hartrusion.rbmksim.gui.elements.ChornobylMetalThemeDark;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /**
  * Lists the GUI themes that the simulator can be displayed with and installs
- * them as the Swing look and feel. A GUI theme is the combination of a look and
- * feel class and, for the Metal look and feel, the Metal theme that colors it,
- * so that the ChornobylMetalTheme and the FlatLaf themes can be handled the
- * same way.
+ * them as the Swing look and feel. All GUI themes use the Metal look and feel,
+ * so that the shapes of buttons and other components stay the same, and only
+ * differ in the Metal theme that colors it. Each Metal theme derives from
+ * ChornobylMetalTheme, which also defines the colors of the panel buttons, so
+ * that AbstractPanelWidget can read these colors with getChornobylMetalTheme()
+ * from the active GUI theme.
  * <p>
  * Swing only applies a look and feel to components that are created after it
  * was installed. The simulator therefore does not update existing windows,
@@ -52,15 +52,11 @@ public enum GuiTheme {
      * Metal look and feel with the gray ChornobylMetalTheme, which is the
      * original appearance of the simulator.
      */
-    CHORNOBYL_METAL("Chornobyl Metal"),
+    CHORNOBYL_METAL("Chornobyl Metal", new ChornobylMetalTheme()),
     /**
-     * Dark theme of the FlatLaf library.
+     * Metal look and feel with the dark ChornobylMetalThemeDark.
      */
-    FLATLAF_DARK("FlatLaf Dark"),
-    /**
-     * Light theme of the FlatLaf library.
-     */
-    FLATLAF_LIGHT("FlatLaf Light");
+    CHORNOBYL_METAL_DARK("Chornobyl Metal Dark", new ChornobylMetalThemeDark());
 
     /**
      * The GUI theme that is installed by default on startup.
@@ -78,12 +74,24 @@ public enum GuiTheme {
      */
     private final String displayName;
 
-    GuiTheme(String displayName) {
+    /**
+     * Metal theme that colors the Metal look and feel of this GUI theme. The
+     * instance is created once with the enumeration, so that the colors which
+     * are read from it on every button update are never created again.
+     */
+    private final ChornobylMetalTheme chornobylMetalTheme;
+
+    GuiTheme(String displayName, ChornobylMetalTheme chornobylMetalTheme) {
         this.displayName = displayName;
+        this.chornobylMetalTheme = chornobylMetalTheme;
     }
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public ChornobylMetalTheme getChornobylMetalTheme() {
+        return chornobylMetalTheme;
     }
 
     /**
@@ -109,25 +117,12 @@ public enum GuiTheme {
      * @return true if the GUI theme was installed successfully
      */
     public boolean apply() {
-        LookAndFeel lookAndFeel;
-        switch (this) {
-            case FLATLAF_DARK:
-                lookAndFeel = new FlatDarkLaf();
-                break;
-            case FLATLAF_LIGHT:
-                lookAndFeel = new FlatLightLaf();
-                break;
-            case CHORNOBYL_METAL:
-            default:
-                // The Metal theme is a static setting of Metal and has to be
-                // set again each time, because the Metal look and feel reads
-                // it only when it is installed.
-                MetalLookAndFeel.setCurrentTheme(new ChornobylMetalTheme());
-                lookAndFeel = new MetalLookAndFeel();
-                break;
-        }
+        // The Metal theme is a static setting of Metal and has to be set
+        // again each time, because the Metal look and feel reads it only when
+        // it is installed.
+        MetalLookAndFeel.setCurrentTheme(chornobylMetalTheme);
         try {
-            UIManager.setLookAndFeel(lookAndFeel);
+            UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(GuiTheme.class.getName()).log(Level.SEVERE,
                     "Unable to install GUI theme " + displayName, ex);

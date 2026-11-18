@@ -165,11 +165,8 @@ public class ControlPanel extends javax.swing.JFrame implements
      */
     private void selectActiveThemeMenuItem() {
         switch (GuiTheme.getActiveTheme()) {
-            case FLATLAF_DARK:
-                jRadioButtonMenuItemThemeFlatLafDark.setSelected(true);
-                break;
-            case FLATLAF_LIGHT:
-                jRadioButtonMenuItemThemeFlatLafLight.setSelected(true);
+            case CHORNOBYL_METAL_DARK:
+                jRadioButtonMenuItemThemeChornobylMetalDark.setSelected(true);
                 break;
             case CHORNOBYL_METAL:
             default:
@@ -215,8 +212,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jMenuTheme = new javax.swing.JMenu();
         jRadioButtonMenuItemThemeChornobylMetal = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItemThemeFlatLafDark = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItemThemeFlatLafLight = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItemThemeChornobylMetalDark = new javax.swing.JRadioButtonMenuItem();
         jMenuControls = new javax.swing.JMenu();
         jMenuItemCoreControl = new javax.swing.JMenuItem();
         jMenuItemRecirculation = new javax.swing.JMenuItem();
@@ -368,15 +364,10 @@ public class ControlPanel extends javax.swing.JFrame implements
         jRadioButtonMenuItemThemeChornobylMetal.addActionListener(this::jRadioButtonMenuItemThemeChornobylMetalActionPerformed);
         jMenuTheme.add(jRadioButtonMenuItemThemeChornobylMetal);
 
-        buttonGroupTheme.add(jRadioButtonMenuItemThemeFlatLafDark);
-        jRadioButtonMenuItemThemeFlatLafDark.setText("FlatLaf Dark");
-        jRadioButtonMenuItemThemeFlatLafDark.addActionListener(this::jRadioButtonMenuItemThemeFlatLafDarkActionPerformed);
-        jMenuTheme.add(jRadioButtonMenuItemThemeFlatLafDark);
-
-        buttonGroupTheme.add(jRadioButtonMenuItemThemeFlatLafLight);
-        jRadioButtonMenuItemThemeFlatLafLight.setText("FlatLaf Light");
-        jRadioButtonMenuItemThemeFlatLafLight.addActionListener(this::jRadioButtonMenuItemThemeFlatLafLightActionPerformed);
-        jMenuTheme.add(jRadioButtonMenuItemThemeFlatLafLight);
+        buttonGroupTheme.add(jRadioButtonMenuItemThemeChornobylMetalDark);
+        jRadioButtonMenuItemThemeChornobylMetalDark.setText("Chornobyl Metal Dark");
+        jRadioButtonMenuItemThemeChornobylMetalDark.addActionListener(this::jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed);
+        jMenuTheme.add(jRadioButtonMenuItemThemeChornobylMetalDark);
 
         jMenuView.add(jMenuTheme);
 
@@ -1622,13 +1613,9 @@ public class ControlPanel extends javax.swing.JFrame implements
         parentControlRoom.switchTheme(GuiTheme.CHORNOBYL_METAL);
     }//GEN-LAST:event_jRadioButtonMenuItemThemeChornobylMetalActionPerformed
 
-    private void jRadioButtonMenuItemThemeFlatLafDarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeFlatLafDarkActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.FLATLAF_DARK);
-    }//GEN-LAST:event_jRadioButtonMenuItemThemeFlatLafDarkActionPerformed
-
-    private void jRadioButtonMenuItemThemeFlatLafLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeFlatLafLightActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.FLATLAF_LIGHT);
-    }//GEN-LAST:event_jRadioButtonMenuItemThemeFlatLafLightActionPerformed
+    private void jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed
+        parentControlRoom.switchTheme(GuiTheme.CHORNOBYL_METAL_DARK);
+    }//GEN-LAST:event_jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed
 
     private void jMenuItemStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartServerActionPerformed
         parentControlRoom.startServer();
@@ -2043,8 +2030,7 @@ public class ControlPanel extends javax.swing.JFrame implements
     private javax.swing.JMenu jMenuView;
     private javax.swing.JMenuItem jMenuWords;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeChornobylMetal;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeFlatLafDark;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeFlatLafLight;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemThemeChornobylMetalDark;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;

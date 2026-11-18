@@ -16,34 +16,29 @@
  */
 package com.hartrusion.rbmksim.gui.widgets;
 
-import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.rbmksim.gui.GuiTheme;
 import com.hartrusion.rbmksim.gui.InteractiveComponent;
+import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
 
 /**
  * Base class for panels that are used with the MVC pattern with switches.
- * Provides some color constants, methods to set those to the buttons and an
+ * Provides methods to set the state colors of the panel buttons and an
  * instance of an action receiver (usually the controller instance).
+ * <p>
+ * The panel buttons exist in the types green, red, gray, yellow and white,
+ * and each type has a normal and a highlighted state. The colors of these
+ * states are not defined here but in the ChornobylMetalTheme of the active
+ * GUI theme, so that a dark theme can provide its own button colors.
  *
  * @author Viktor Alexander Hartung
  */
 public abstract class AbstractPanelWidget extends javax.swing.JPanel
         implements InteractiveComponent {
-
-    protected static final Color GREEN = new Color(0, 128, 0);
-    protected static final Color LIME = new Color(0, 255, 0);
-    protected static final Color DARKRED = new Color(128, 0, 0);
-    protected static final Color RED = new Color(255, 0, 0);
-    protected static final Color DARKYELLOW = new Color(128, 128, 0);
-    protected static final Color YELLOW = new Color(208, 208, 0);
-    protected static final Color WHITE = new Color(255, 255, 255);
-    protected static final Color GRAY = new Color(128, 128, 128);
-    protected static final Color LIGHTGRAY = new Color(208, 208, 208);
-    protected static final Color DARKGRAY = new Color(92, 92, 92);
 
     protected ActionReceiver controller;
 
@@ -114,74 +109,98 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     }
 
     /**
+     * Returns the Metal theme of the active GUI theme, which holds the colors
+     * of the panel buttons. The theme is read on each call instead of being
+     * kept in a field, because the GUI theme can be switched while the
+     * application runs.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return Metal theme of the active GUI theme
+     */
+    private ChornobylMetalTheme getActiveChornobylMetalTheme() {
+        return GuiTheme.getActiveTheme().getChornobylMetalTheme();
+    }
+
+    /**
      * Used to set green buttons either to highlight or non-highlited state.
+     * The colors of all panel button types are taken from the active theme.
      *
      * @param button
-     * @param val
+     * @param val true for the highlighted state
      */
     protected void setGreenButtonColor(JButton button, boolean val) {
+        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
         if (val) {
-            button.setBackground(LIME);
+            button.setBackground(theme.getGreenButtonHighlight());
         } else {
-            button.setBackground(GREEN);
+            button.setBackground(theme.getGreenButtonBackground());
         }
+        button.setForeground(theme.getGreenButtonForeground());
     }
     
     /**
      * Used to set gray buttons either to highlight or non-highlited state.
      *
      * @param button
-     * @param val
+     * @param val true for the highlighted state
      */
     protected void setGrayButtonColor(JButton button, boolean val) {
+        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
         if (val) {
-            button.setBackground(LIGHTGRAY);
+            button.setBackground(theme.getGrayButtonHighlight());
         } else {
-            button.setBackground(DARKGRAY);
+            button.setBackground(theme.getGrayButtonBackground());
         }
+        button.setForeground(theme.getGrayButtonForeground());
     }
 
     /**
      * Used to set red buttons either to highlight or non-highlited state.
      *
      * @param button
-     * @param val
+     * @param val true for the highlighted state
      */
     protected void setRedButtonColor(JButton button, boolean val) {
+        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
         if (val) {
-            button.setBackground(RED);
+            button.setBackground(theme.getRedButtonHighlight());
         } else {
-            button.setBackground(DARKRED);
+            button.setBackground(theme.getRedButtonBackground());
         }
+        button.setForeground(theme.getRedButtonForeground());
     }
 
     /**
      * Used to set yellow buttons either to highlight or non-highlited state.
      *
      * @param button
-     * @param val
+     * @param val true for the highlighted state
      */
     protected void setYellowButtonColor(JButton button, boolean val) {
+        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
         if (val) {
-            button.setBackground(YELLOW);
+            button.setBackground(theme.getYellowButtonHighlight());
         } else {
-            button.setBackground(DARKYELLOW);
+            button.setBackground(theme.getYellowButtonBackground());
         }
+        button.setForeground(theme.getYellowButtonForeground());
     }
     
     /**
-     * Used to set yellow buttons either to highlight or non-highlited state.
+     * Used to set white buttons either to highlight or non-highlited state.
      *
      * @param button
-     * @param val
+     * @param val true for the highlighted state
      */
     protected void setWhiteButtonColor(JButton button, boolean val) {
+        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
         if (val) {
-            button.setBackground(WHITE);
+            button.setBackground(theme.getWhiteButtonHighlight());
         } else {
-            button.setBackground(GRAY);
+            button.setBackground(theme.getWhiteButtonBackground());
         }
-        button.setForeground(Color.BLACK);
+        button.setForeground(theme.getWhiteButtonForeground());
     }
 
     /**

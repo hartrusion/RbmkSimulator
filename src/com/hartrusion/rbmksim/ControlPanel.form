@@ -151,26 +151,15 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItemThemeChornobylMetalActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItemThemeFlatLafDark">
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItemThemeChornobylMetalDark">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroupTheme"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="FlatLaf Dark"/>
+                    <Property name="text" type="java.lang.String" value="Chornobyl Metal Dark"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItemThemeFlatLafDarkActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItemThemeFlatLafLight">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupTheme"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="FlatLaf Light"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItemThemeFlatLafLightActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
