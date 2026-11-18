@@ -126,7 +126,14 @@ public class NeutronFluxModel implements Runnable {
      * number is "a" of 1-e^(-a*x).
      */
     private final double A_POSITIVE_FEEDBACK = 0.4;
-
+    
+    /**
+     * Additional linear feedback part of the neutron flux grow rate
+     * 
+     * Between 0.02 and 0.05
+     */
+    private final double B_LINEAR_FEEDBACK = 0.05;
+    
     /**
      * Marks the event of the prompt neutron excursion.
      */
@@ -231,9 +238,11 @@ public class NeutronFluxModel implements Runnable {
 
         if (!promptExcursion) {
             // This is the input on the multiplier block that is used to generate 
-            // the positive feedback behavior in the beginning
+            // the positive feedback behavior in the beginning, with a 
+            // linear feedback present over the whole neutron flux range.
             posFeedbackMultiplier = 1.0 - Math.exp(
-                    -A_POSITIVE_FEEDBACK * xNeutronFlux);
+                    -A_POSITIVE_FEEDBACK * xNeutronFlux)
+                    + B_LINEAR_FEEDBACK * xNeutronFlux;
         } else {
             // Allow fast runaway even for very small neutron flux values
             // immediately
