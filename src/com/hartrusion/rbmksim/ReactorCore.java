@@ -292,9 +292,14 @@ public class ReactorCore extends Subsystem implements Runnable {
             globalControlTransient = false;
             globalControlActive = false;
         } else {
-            // On enabling, force the currect setpoint once to the current 
+            // On enabling, force the currect setpoint once to the current
             // neutron flux value. After that, run to the target setpoint.
-            if (!oldGlobalControlEnabled) {
+            // The first cycle after loading a saved state is excluded,
+            // because load() inverts oldGlobalControlEnabled only to resend
+            // the property change event, whereas the restored setpoint must
+            // be kept. Forcing it to the neutron flux would remove the saved
+            // control deviation and make the automatic rods jump.
+            if (!oldGlobalControlEnabled && !useLoadedValues) {
                 setpointNeutronFlux.forceOutputValue(
                         neutronFluxModel.getYNeutronFlux());
             } else {
