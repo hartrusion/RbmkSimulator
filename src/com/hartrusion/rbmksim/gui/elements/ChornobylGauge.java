@@ -16,6 +16,8 @@
  */
 package com.hartrusion.rbmksim.gui.elements;
 
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
+import com.hartrusion.rbmksim.gui.RbmkElementColors;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -37,7 +39,9 @@ import javax.swing.UIManager;
 /**
  * A linear gauge as it can be found everywhere in the control panel, which
  * shows a value as two small orange spots on a black bar with tick marks and
- * labels above it and the unit in the upper left corner.
+ * labels above it and the unit in the upper left corner. All colors are taken
+ * from the RbmkElementColors of the active GUI theme, so that the dark theme
+ * can show the gauge with a dark background and blue spots and labels.
  * <p>
  * The gauge is designed for a base size of 125 x 27 pixels, but it scales to
  * any size that it gets from its layout. All coordinates are calculated as
@@ -115,7 +119,8 @@ public final class ChornobylGauge extends javax.swing.JComponent {
     private int xPosIndicator;
 
     /**
-     * Color of the spots, which is red if the value is out of the scale.
+     * Color of the spots, which is one of the two indicator colors of the
+     * theme, depending on whether the value is inside the scale.
      */
     private Color spotColor;
 
@@ -178,6 +183,17 @@ public final class ChornobylGauge extends javax.swing.JComponent {
      * Reference to the tooltip object if it is present.
      */
     private javax.swing.JToolTip activeToolTip;
+
+    /**
+     * Colors of the active GUI theme, which are read once when the gauge is
+     * created, because all windows are created again when the GUI theme is
+     * switched. The field is initialized before the constructor runs, so that
+     * initComponents() can already take its colors from it.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private final RbmkElementColors elementColors
+            = GuiThemeManager.getActiveTheme().getElementColors();
 
     /**
      * Creates new form Gauge
@@ -262,13 +278,13 @@ public final class ChornobylGauge extends javax.swing.JComponent {
         Color newColor;
         if (value > maximum) {
             newPosition = xPosIndicatorMax;
-            newColor = Color.RED;
+            newColor = elementColors.getGaugeIndicatorOutOfRange();
         } else if (value < minimum) {
             newPosition = xPosIndicatorMin;
-            newColor = Color.RED;
+            newColor = elementColors.getGaugeIndicatorOutOfRange();
         } else {
             newPosition = getCoordinateValue(value);
-            newColor = Color.ORANGE;
+            newColor = elementColors.getGaugeIndicator();
         }
         if (newPosition == xPosIndicator && newColor == spotColor) {
             return false;
@@ -430,8 +446,8 @@ public final class ChornobylGauge extends javax.swing.JComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(245, 245, 225));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBackground(elementColors.getGaugeBackground());
+        setBorder(javax.swing.BorderFactory.createLineBorder(elementColors.getGaugeBorder()));
         setMaximumSize(new java.awt.Dimension(125, 27));
         setMinimumSize(new java.awt.Dimension(125, 27));
         setName(""); // NOI18N
@@ -509,9 +525,10 @@ public final class ChornobylGauge extends javax.swing.JComponent {
         g2b.setColor(getBackground());
         g2b.fillRect(0, 0, imageWidth, imageHeight);
 
-        // Black rectangle in the back and the tick marks above it
-        g2b.setColor(Color.BLACK);
+        // Bar in the back and the tick marks above it
+        g2b.setColor(elementColors.getGaugeBar());
         g2b.fillRect(barX, barY, barWidth, barHeight);
+        g2b.setColor(elementColors.getGaugeScale());
         for (int idx = 0; idx < tickCoordinates.length; idx++) {
             g2b.fillRect(tickCoordinates[idx], barY - tickHeight,
                     lineWidth, tickHeight);

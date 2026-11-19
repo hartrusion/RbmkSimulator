@@ -2,13 +2,11 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
-    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="aa" green="c5" red="cd" type="rgb"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="elementColors.getControlLoopBackground()" type="code"/>
     </Property>
-    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-        <LineBorder/>
-      </Border>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="javax.swing.BorderFactory.createLineBorder(elementColors.getControlLoopBorder())" type="code"/>
     </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[140, 38]"/>
@@ -39,16 +37,16 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="jButtonDown">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e5" green="e5" red="e5" type="rgb"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonBackground()" type="code"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
             <Font bold="true" component="jButtonDown" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonForeground()" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25c0;"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -77,11 +75,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAuto">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e5" green="e5" red="e5" type="rgb"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonBackground()" type="code"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonForeground()" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="A"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -109,11 +107,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSetpoint">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e5" green="e5" red="e5" type="rgb"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonBackground()" type="code"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonForeground()" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="S"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -141,11 +139,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonHand">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e5" green="e5" red="e5" type="rgb"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonBackground()" type="code"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonForeground()" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="H"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -173,16 +171,16 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonUp">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="80" type="rgb"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopIncreaseButtonBackground()" type="code"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
             <Font bold="true" component="jButtonUp" property="font" relativeSize="true" size="-2"/>
           </FontInfo>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="elementColors.getControlLoopButtonForeground()" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x25b6;"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>

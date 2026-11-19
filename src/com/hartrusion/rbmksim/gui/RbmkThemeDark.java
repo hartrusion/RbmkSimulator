@@ -22,18 +22,21 @@ import java.awt.Color;
 /**
  * Dark GUI theme of the simulator, which takes the dark colors of the Metal
  * look and feel from ChornobylMetalThemeDark of the utils package and adds the
- * colors of the panel buttons. The class has to derive from
- * ChornobylMetalThemeDark instead of RbmkTheme, because Java allows only one
- * base class and the dark Metal colors are only available from the dark
- * theme, so that the panel button colors are defined by the interface
- * RbmkPanelButtonColors, which both RbmkTheme and this class implement.
+ * colors of the panel buttons and of the self drawn elements. The class has to
+ * derive from ChornobylMetalThemeDark instead of RbmkTheme, because Java
+ * allows only one base class and the dark Metal colors are only available from
+ * the dark theme, so that the additional colors are defined by the interfaces
+ * RbmkPanelButtonColors and RbmkElementColors, which both RbmkTheme and this
+ * class implement. The element colors replace the bright and yellowed panel
+ * parts of the light theme by dark metallic blue modules and dark displays
+ * with blue indicators, so that they do not glare on the dark panels.
  * <p>
  * LLM code generated with Claude Opus 5.5
  *
  * @author Viktor Alexander Hartung
  */
 public class RbmkThemeDark extends ChornobylMetalThemeDark
-        implements RbmkPanelButtonColors {
+        implements RbmkPanelButtonColors, RbmkElementColors {
     
     // Panel button colors, which are the same as in the light theme for now
     // and can be adapted to the dark background here.
@@ -56,6 +59,39 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     private static final Color WHITE_BUTTON_BACKGROUND = new Color(128, 128, 128);
     private static final Color WHITE_BUTTON_HIGHLIGHT = new Color(255, 255, 255);
     private static final Color WHITE_BUTTON_FOREGROUND = new Color(0, 0, 0);
+
+    // ChornobylGauge colors. The light colors are the original black bar with
+    // orange spots on a pale panel, while the dark theme uses a dark panel on
+    // which the spots and all labels are drawn in one modern blue.
+    private static final Color GAUGE_BACKGROUND = new Color(30, 34, 40);
+    private static final Color GAUGE_BORDER = new Color(78, 86, 98);
+    private static final Color GAUGE_BAR = new Color(12, 14, 18);
+    private static final Color GAUGE_SCALE = new Color(88, 166, 255);
+    private static final Color GAUGE_INDICATOR = new Color(88, 166, 255);
+    private static final Color GAUGE_INDICATOR_OUT_OF_RANGE = new Color(255, 92, 92);
+
+    // Displays of both control loop modules, which are white with black lines
+    // in the light theme and nearly black with gray blue lines and softened
+    // marker colors in the dark theme.
+    private static final Color CONTROL_LOOP_BORDER = new Color(78, 86, 98);
+    private static final Color CONTROL_LOOP_DISPLAY_BACKGROUND = new Color(14, 17, 22);
+    private static final Color CONTROL_LOOP_DISPLAY_SCALE = new Color(150, 168, 192);
+    private static final Color CONTROL_LOOP_VALUE_MARKER = new Color(80, 200, 120);
+    private static final Color CONTROL_LOOP_SETPOINT_MARKER = new Color(255, 92, 92);
+    private static final Color CONTROL_LOOP_OUTPUT_MARKER = new Color(88, 166, 255);
+    private static final Color CONTROL_LOOP_INDICATOR_ACTIVE = new Color(230, 238, 255);
+    private static final Color CONTROL_LOOP_INDICATOR_INACTIVE = new Color(64, 72, 84);
+
+    // Modules of the control loops, which imitate yellowed plastic parts in the
+    // light theme and dark metallic blue parts in the dark theme.
+    private static final Color CONTROL_LOOP_BACKGROUND = new Color(46, 58, 76);
+    private static final Color CONTROL_LOOP_BUTTON_BACKGROUND = new Color(64, 80, 104);
+    private static final Color CONTROL_LOOP_BUTTON_SELECTED = new Color(96, 120, 156);
+    private static final Color CONTROL_LOOP_BUTTON_FOREGROUND = new Color(214, 224, 238);
+    private static final Color CONTROL_LOOP_INCREASE_BUTTON_BACKGROUND = new Color(112, 36, 36);
+    private static final Color CONTROL_LOOP_VALVE_BACKGROUND = new Color(40, 46, 56);
+    private static final Color CONTROL_LOOP_VALVE_BUTTON_BACKGROUND = new Color(58, 72, 94);
+    private static final Color CONTROL_LOOP_VALVE_BUTTON_FOREGROUND = new Color(214, 224, 238);
     
 
     @Override
@@ -132,5 +168,114 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     public Color getWhiteButtonForeground() {
         return WHITE_BUTTON_FOREGROUND;
     }
-    
+
+    @Override
+    public Color getGaugeBackground() {
+        return GAUGE_BACKGROUND;
+    }
+
+    @Override
+    public Color getGaugeBorder() {
+        return GAUGE_BORDER;
+    }
+
+    @Override
+    public Color getGaugeBar() {
+        return GAUGE_BAR;
+    }
+
+    @Override
+    public Color getGaugeScale() {
+        return GAUGE_SCALE;
+    }
+
+    @Override
+    public Color getGaugeIndicator() {
+        return GAUGE_INDICATOR;
+    }
+
+    @Override
+    public Color getGaugeIndicatorOutOfRange() {
+        return GAUGE_INDICATOR_OUT_OF_RANGE;
+    }
+
+    @Override
+    public Color getControlLoopBorder() {
+        return CONTROL_LOOP_BORDER;
+    }
+
+    @Override
+    public Color getControlLoopDisplayBackground() {
+        return CONTROL_LOOP_DISPLAY_BACKGROUND;
+    }
+
+    @Override
+    public Color getControlLoopDisplayScale() {
+        return CONTROL_LOOP_DISPLAY_SCALE;
+    }
+
+    @Override
+    public Color getControlLoopValueMarker() {
+        return CONTROL_LOOP_VALUE_MARKER;
+    }
+
+    @Override
+    public Color getControlLoopSetpointMarker() {
+        return CONTROL_LOOP_SETPOINT_MARKER;
+    }
+
+    @Override
+    public Color getControlLoopOutputMarker() {
+        return CONTROL_LOOP_OUTPUT_MARKER;
+    }
+
+    @Override
+    public Color getControlLoopIndicatorActive() {
+        return CONTROL_LOOP_INDICATOR_ACTIVE;
+    }
+
+    @Override
+    public Color getControlLoopIndicatorInactive() {
+        return CONTROL_LOOP_INDICATOR_INACTIVE;
+    }
+
+    @Override
+    public Color getControlLoopBackground() {
+        return CONTROL_LOOP_BACKGROUND;
+    }
+
+    @Override
+    public Color getControlLoopButtonBackground() {
+        return CONTROL_LOOP_BUTTON_BACKGROUND;
+    }
+
+    @Override
+    public Color getControlLoopButtonSelected() {
+        return CONTROL_LOOP_BUTTON_SELECTED;
+    }
+
+    @Override
+    public Color getControlLoopButtonForeground() {
+        return CONTROL_LOOP_BUTTON_FOREGROUND;
+    }
+
+    @Override
+    public Color getControlLoopIncreaseButtonBackground() {
+        return CONTROL_LOOP_INCREASE_BUTTON_BACKGROUND;
+    }
+
+    @Override
+    public Color getControlLoopValveBackground() {
+        return CONTROL_LOOP_VALVE_BACKGROUND;
+    }
+
+    @Override
+    public Color getControlLoopValveButtonBackground() {
+        return CONTROL_LOOP_VALVE_BUTTON_BACKGROUND;
+    }
+
+    @Override
+    public Color getControlLoopValveButtonForeground() {
+        return CONTROL_LOOP_VALVE_BUTTON_FOREGROUND;
+    }
 }

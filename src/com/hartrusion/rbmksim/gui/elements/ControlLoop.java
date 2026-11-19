@@ -20,7 +20,8 @@ import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
-import java.awt.Color;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
+import com.hartrusion.rbmksim.gui.RbmkElementColors;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -41,14 +42,15 @@ import javax.swing.ToolTipManager;
  * There are two buttons for up/down, one button that toggles between setpoint
  * and output setting for the up and down buttons and two buttons to trigger
  * manual or automatic mode.
+ * <p>
+ * All colors of the module and its displays are taken from the
+ * RbmkElementColors of the active GUI theme, so that the light theme shows the
+ * yellowed plastic module while the dark theme shows a dark metallic blue one.
  *
  * @author Viktor Alexander Hartung
  */
 public class ControlLoop extends javax.swing.JPanel
         implements UpdateReceiver {
-
-    protected static final Color DARKRED = new Color(128, 0, 0);
-    protected static final Color RED = new Color(255, 0, 0);
 
     protected ActionReceiver controller;
 
@@ -56,8 +58,6 @@ public class ControlLoop extends javax.swing.JPanel
     private final int[] outMajorTickY
             = {36, 38, 40, 42, 46, 48, 50, 52, 56, 58, 60, 62, 66, 68, 70, 72,
                 76, 78, 80, 82};
-
-    private static final Color COLOR_DARKGREEN = new Color(0, 128, 0);
 
     private double outValue = 50;
     private int outValueXCoord = 45;
@@ -91,6 +91,17 @@ public class ControlLoop extends javax.swing.JPanel
     private javax.swing.JToolTip activeToolTip;
 
     private boolean setpointSelected;
+
+    /**
+     * Colors of the active GUI theme, which are read once when the module is
+     * created, because all windows are created again when the GUI theme is
+     * switched. The field is initialized before the constructor runs, so that
+     * initComponents() can already take its colors from it.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private final RbmkElementColors elementColors
+            = GuiThemeManager.getActiveTheme().getElementColors();
 
     public String getControlComponent() {
         return component;
@@ -215,16 +226,16 @@ public class ControlLoop extends javax.swing.JPanel
         jButtonHand = new javax.swing.JButton();
         jButtonUp = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(205, 197, 170));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBackground(elementColors.getControlLoopBackground());
+        setBorder(javax.swing.BorderFactory.createLineBorder(elementColors.getControlLoopBorder()));
         setMaximumSize(new java.awt.Dimension(140, 38));
         setMinimumSize(new java.awt.Dimension(140, 38));
         setPreferredSize(new java.awt.Dimension(140, 38));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonDown.setBackground(new java.awt.Color(229, 229, 229));
+        jButtonDown.setBackground(elementColors.getControlLoopButtonBackground());
         jButtonDown.setFont(jButtonDown.getFont().deriveFont(jButtonDown.getFont().getStyle() | java.awt.Font.BOLD, jButtonDown.getFont().getSize()-2));
-        jButtonDown.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonDown.setForeground(elementColors.getControlLoopButtonForeground());
         jButtonDown.setText("◀");
         jButtonDown.setToolTipText("");
         jButtonDown.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -241,8 +252,8 @@ public class ControlLoop extends javax.swing.JPanel
         });
         add(jButtonDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 20, 20, 16));
 
-        jButtonAuto.setBackground(new java.awt.Color(229, 229, 229));
-        jButtonAuto.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonAuto.setBackground(elementColors.getControlLoopButtonBackground());
+        jButtonAuto.setForeground(elementColors.getControlLoopButtonForeground());
         jButtonAuto.setText("A");
         jButtonAuto.setToolTipText("");
         jButtonAuto.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -256,8 +267,8 @@ public class ControlLoop extends javax.swing.JPanel
         });
         add(jButtonAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 20, 16));
 
-        jButtonSetpoint.setBackground(new java.awt.Color(229, 229, 229));
-        jButtonSetpoint.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonSetpoint.setBackground(elementColors.getControlLoopButtonBackground());
+        jButtonSetpoint.setForeground(elementColors.getControlLoopButtonForeground());
         jButtonSetpoint.setText("S");
         jButtonSetpoint.setToolTipText("");
         jButtonSetpoint.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -271,8 +282,8 @@ public class ControlLoop extends javax.swing.JPanel
         });
         add(jButtonSetpoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 2, 20, 16));
 
-        jButtonHand.setBackground(new java.awt.Color(229, 229, 229));
-        jButtonHand.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonHand.setBackground(elementColors.getControlLoopButtonBackground());
+        jButtonHand.setForeground(elementColors.getControlLoopButtonForeground());
         jButtonHand.setText("H");
         jButtonHand.setToolTipText("");
         jButtonHand.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -286,9 +297,9 @@ public class ControlLoop extends javax.swing.JPanel
         });
         add(jButtonHand, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 20, 20, 16));
 
-        jButtonUp.setBackground(new java.awt.Color(128, 0, 0));
+        jButtonUp.setBackground(elementColors.getControlLoopIncreaseButtonBackground());
         jButtonUp.setFont(jButtonUp.getFont().deriveFont(jButtonUp.getFont().getStyle() | java.awt.Font.BOLD, jButtonUp.getFont().getSize()-2));
-        jButtonUp.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonUp.setForeground(elementColors.getControlLoopButtonForeground());
         jButtonUp.setText("▶");
         jButtonUp.setToolTipText("");
         jButtonUp.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -314,9 +325,11 @@ public class ControlLoop extends javax.swing.JPanel
     private void jButtonSetpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetpointActionPerformed
         setpointSelected = !setpointSelected;
         if (setpointSelected) {
-            jButtonSetpoint.setBackground(Color.LIGHT_GRAY);
+            jButtonSetpoint.setBackground(
+                    elementColors.getControlLoopButtonSelected());
         } else {
-            jButtonSetpoint.setBackground(new Color(229, 229, 229));
+            jButtonSetpoint.setBackground(
+                    elementColors.getControlLoopButtonBackground());
         }
     }//GEN-LAST:event_jButtonSetpointActionPerformed
 
@@ -375,10 +388,10 @@ public class ControlLoop extends javax.swing.JPanel
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Upper display
-        // A rectangle with a black frame
-        g2.setColor(Color.WHITE);
+        // A rectangle with a frame
+        g2.setColor(elementColors.getControlLoopDisplayBackground());
         g2.fillRect(29, 3, 60, 15);
-        g2.setColor(Color.BLACK);
+        g2.setColor(elementColors.getControlLoopDisplayScale());
         g2.drawRect(29, 3, 60, 15);
 
         // inner scale
@@ -390,18 +403,18 @@ public class ControlLoop extends javax.swing.JPanel
         g2.drawLine(84, 8, 84, 13);
 
         // Reference value marker from above
-        g2.setColor(COLOR_DARKGREEN);
+        g2.setColor(elementColors.getControlLoopValueMarker());
         g2.drawLine(valueXCoord, 4, valueXCoord, 8);
 
         // Setpoint marker from below
-        g2.setColor(Color.RED);
+        g2.setColor(elementColors.getControlLoopSetpointMarker());
         g2.drawLine(setpointXCoord, 13, setpointXCoord, 17);
 
         // Lower display
-        // A rectangle with a black frame
-        g2.setColor(Color.WHITE);
+        // A rectangle with a frame
+        g2.setColor(elementColors.getControlLoopDisplayBackground());
         g2.fillRect(29, 21, 60, 13);
-        g2.setColor(Color.BLACK);
+        g2.setColor(elementColors.getControlLoopDisplayScale());
         g2.drawRect(29, 21, 60, 13);
         // Major tick lines
         for (int idx = 0; idx < outMajorTickX.length; idx++) {
@@ -414,15 +427,15 @@ public class ControlLoop extends javax.swing.JPanel
                     outMajorTickY[idx], 32);
         }
         // Value marker
-        g2.setColor(Color.BLUE);
+        g2.setColor(elementColors.getControlLoopOutputMarker());
         g2.drawLine(outValueXCoord, 21, outValueXCoord, 26);
 
         // A small indicator light, same as on the IntegralSwitch class
         Ellipse2D.Float circle;
         if (indicatorActive) {
-            g2.setColor(Color.WHITE);
+            g2.setColor(elementColors.getControlLoopIndicatorActive());
         } else {
-            g2.setColor(Color.GRAY);
+            g2.setColor(elementColors.getControlLoopIndicatorInactive());
         }
 
         circle = new Ellipse2D.Float(102, 4, 6, 6);

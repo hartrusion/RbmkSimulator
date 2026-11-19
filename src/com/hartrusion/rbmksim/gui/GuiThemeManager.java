@@ -28,10 +28,12 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * them as the Swing look and feel. All GUI themes use the Metal look and feel,
  * so that the shapes of buttons and other components stay the same, and only
  * differ in the Metal theme that colors it. Each Metal theme derives from
- * ChornobylMetalTheme of the utils package and implements the interface
- * RbmkPanelButtonColors, which adds the colors of the panel buttons that are
- * only used by the simulator, so that AbstractPanelWidget can read these
- * colors with getPanelButtonColors() from the active GUI theme.
+ * ChornobylMetalTheme of the utils package and implements the interfaces
+ * RbmkPanelButtonColors and RbmkElementColors, which add the colors of the
+ * panel buttons and of the self drawn elements that are only used by the
+ * simulator, so that AbstractPanelWidget can read the button colors with
+ * getPanelButtonColors() and the elements like ChornobylGauge can read their
+ * colors with getElementColors() from the active GUI theme.
  * <p>
  * Swing only applies a look and feel to components that are created after it
  * was installed. The simulator therefore does not update existing windows,
@@ -89,18 +91,25 @@ public enum GuiThemeManager {
     private final RbmkPanelButtonColors panelButtonColors;
 
     /**
-     * Takes the theme as a type that is both a ChornobylMetalTheme and
-     * RbmkPanelButtonColors, so that the compiler ensures that every GUI theme
-     * provides the panel button colors and no cast is needed when they are
-     * read.
+     * Colors of the self drawn elements of this GUI theme, which is again the
+     * same object as chornobylMetalTheme.
+     */
+    private final RbmkElementColors elementColors;
+
+    /**
+     * Takes the theme as a type that is a ChornobylMetalTheme and implements
+     * RbmkPanelButtonColors and RbmkElementColors, so that the compiler
+     * ensures that every GUI theme provides all simulator colors and no cast
+     * is needed when they are read.
      * <p>
      * LLM code generated with Claude Opus 5.5
      */
-    <T extends ChornobylMetalTheme & RbmkPanelButtonColors> GuiThemeManager(
+    <T extends ChornobylMetalTheme & RbmkPanelButtonColors & RbmkElementColors> GuiThemeManager(
             String displayName, T theme) {
         this.displayName = displayName;
         this.chornobylMetalTheme = theme;
         this.panelButtonColors = theme;
+        this.elementColors = theme;
     }
 
     public String getDisplayName() {
@@ -118,6 +127,15 @@ public enum GuiThemeManager {
      */
     public RbmkPanelButtonColors getPanelButtonColors() {
         return panelButtonColors;
+    }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return Colors of the self drawn elements of this GUI theme
+     */
+    public RbmkElementColors getElementColors() {
+        return elementColors;
     }
 
     /**
