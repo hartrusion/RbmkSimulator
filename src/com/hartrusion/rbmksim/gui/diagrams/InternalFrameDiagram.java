@@ -19,7 +19,7 @@ package com.hartrusion.rbmksim.gui.diagrams;
 import com.hartrusion.plot.Axes;
 import com.hartrusion.plot.FigureJPane;
 import com.hartrusion.plot.SubPlot;
-import com.hartrusion.rbmksim.gui.GuiTheme;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
 import java.util.Iterator;
 import com.hartrusion.rbmksim.gui.diagrams.DiagramFrame;
 import com.hartrusion.values.ValueHandler;
@@ -89,7 +89,7 @@ public class InternalFrameDiagram extends javax.swing.JInternalFrame {
      * LLM code generated with Claude Opus 5.5
      */
     public void applyGuiTheme() {
-        boolean darkTheme = GuiTheme.getActiveTheme()
+        boolean darkTheme = GuiThemeManager.getActiveTheme()
                 .getChornobylMetalTheme().isDarkTheme();
         if (darkTheme) {
             figureJPane1.setThemeDark();

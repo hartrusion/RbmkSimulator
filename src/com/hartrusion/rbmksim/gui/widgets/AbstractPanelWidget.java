@@ -20,20 +20,19 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.ActionReceiver;
-import com.hartrusion.mvc.UpdateReceiver;
-import com.hartrusion.rbmksim.gui.GuiTheme;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
 import com.hartrusion.rbmksim.gui.InteractiveComponent;
-import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
+import com.hartrusion.rbmksim.gui.RbmkTheme;
 
 /**
  * Base class for panels that are used with the MVC pattern with switches.
- * Provides methods to set the state colors of the panel buttons and an
- * instance of an action receiver (usually the controller instance).
+ * Provides methods to set the state colors of the panel buttons and an instance
+ * of an action receiver (usually the controller instance).
  * <p>
- * The panel buttons exist in the types green, red, gray, yellow and white,
- * and each type has a normal and a highlighted state. The colors of these
- * states are not defined here but in the ChornobylMetalTheme of the active
- * GUI theme, so that a dark theme can provide its own button colors.
+ * The panel buttons exist in the types green, red, gray, yellow and white, and
+ * each type has a normal and a highlighted state. The colors of these states
+ * are not defined here but in the RbmkTheme of the active GUI theme, so that a
+ * dark theme can provide its own button colors.
  *
  * @author Viktor Alexander Hartung
  */
@@ -76,13 +75,13 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
             }
         }
     }
-    
+
     /**
      * Updates a set of two buttons when receiving a property change event that
      * contains a ValveState. This gets created in ValveActuatorMonitor and this
      * method can be called to process the event to display the new valves state
-     * with an open and close button (gray and green). Its named "less" as it 
-     * is less colorful, was not intended in initial architecture.
+     * with an open and close button (gray and green). Its named "less" as it is
+     * less colorful, was not intended in initial architecture.
      *
      * @param buttonClose Gray Close-Button
      * @param buttonOpen Red Open-Button
@@ -118,19 +117,21 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      *
      * @return Metal theme of the active GUI theme
      */
-    private ChornobylMetalTheme getActiveChornobylMetalTheme() {
-        return GuiTheme.getActiveTheme().getChornobylMetalTheme();
+    private RbmkTheme getActiveRbmkTheme() {
+        // The RBMK-Theme is an extension of the chernobyl metal theme.
+        return (RbmkTheme) GuiThemeManager
+                .getActiveTheme().getChornobylMetalTheme();
     }
 
     /**
-     * Used to set green buttons either to highlight or non-highlited state.
-     * The colors of all panel button types are taken from the active theme.
+     * Used to set green buttons either to highlight or non-highlited state. The
+     * colors of all panel button types are taken from the active theme.
      *
      * @param button
      * @param val true for the highlighted state
      */
     protected void setGreenButtonColor(JButton button, boolean val) {
-        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
+        RbmkTheme theme = getActiveRbmkTheme();
         if (val) {
             button.setBackground(theme.getGreenButtonHighlight());
         } else {
@@ -138,7 +139,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
         }
         button.setForeground(theme.getGreenButtonForeground());
     }
-    
+
     /**
      * Used to set gray buttons either to highlight or non-highlited state.
      *
@@ -146,7 +147,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setGrayButtonColor(JButton button, boolean val) {
-        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
+        RbmkTheme theme = getActiveRbmkTheme();
         if (val) {
             button.setBackground(theme.getGrayButtonHighlight());
         } else {
@@ -162,7 +163,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setRedButtonColor(JButton button, boolean val) {
-        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
+        RbmkTheme theme = getActiveRbmkTheme();
         if (val) {
             button.setBackground(theme.getRedButtonHighlight());
         } else {
@@ -178,7 +179,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setYellowButtonColor(JButton button, boolean val) {
-        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
+        RbmkTheme theme = getActiveRbmkTheme();
         if (val) {
             button.setBackground(theme.getYellowButtonHighlight());
         } else {
@@ -186,7 +187,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
         }
         button.setForeground(theme.getYellowButtonForeground());
     }
-    
+
     /**
      * Used to set white buttons either to highlight or non-highlited state.
      *
@@ -194,7 +195,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setWhiteButtonColor(JButton button, boolean val) {
-        ChornobylMetalTheme theme = getActiveChornobylMetalTheme();
+        RbmkTheme theme = getActiveRbmkTheme();
         if (val) {
             button.setBackground(theme.getWhiteButtonHighlight());
         } else {

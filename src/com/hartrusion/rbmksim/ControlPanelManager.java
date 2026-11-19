@@ -23,7 +23,7 @@ import com.hartrusion.mvc.InteractiveView;
 import com.hartrusion.mvc.UpdateReceiver;
 import com.hartrusion.mvc.ViewerController;
 import com.hartrusion.rbmksim.gui.AlarmSound;
-import com.hartrusion.rbmksim.gui.GuiTheme;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
@@ -123,7 +123,7 @@ public class ControlPanelManager implements InteractiveView {
      *
      * @param theme GUI theme to switch to
      */
-    public void switchTheme(GuiTheme theme) {
+    public void switchTheme(GuiThemeManager theme) {
         if (!theme.apply()) {
             return;
         }

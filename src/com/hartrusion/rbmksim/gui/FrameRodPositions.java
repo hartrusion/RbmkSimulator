@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import com.hartrusion.mvc.UpdateReceiver;
-import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
+import com.hartrusion.swing.ChornobylMetalTheme;
 
 /**
  *

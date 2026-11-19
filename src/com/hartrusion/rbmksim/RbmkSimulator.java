@@ -30,7 +30,7 @@ import com.hartrusion.mvc.AwtUpdater;
 import com.hartrusion.mvc.Controller;
 import com.hartrusion.mvc.net.ClassBlueprints;
 import com.hartrusion.mvc.net.SocketServer;
-import com.hartrusion.rbmksim.gui.GuiTheme;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
 import com.hartrusion.util.SimpleLogOut;
 
 /**
@@ -124,7 +124,7 @@ public class RbmkSimulator {
 
     private void run() {
         // Install the initial GUI theme before any window is created.
-        GuiTheme.DEFAULT_THEME.apply();
+        GuiThemeManager.DEFAULT_THEME.apply();
 
         // Create an AWT updater for the control panel instances
         AwtUpdater updt = new AwtUpdater();

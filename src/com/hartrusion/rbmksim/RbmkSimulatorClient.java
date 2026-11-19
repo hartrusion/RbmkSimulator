@@ -24,7 +24,7 @@ import com.hartrusion.util.SimpleLogOut;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.hartrusion.rbmksim.gui.GuiTheme;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
 
 /**
  * Standalone network client for the RBMK simulator.
@@ -86,7 +86,7 @@ public class RbmkSimulatorClient {
     }
 
     private void setLookAndFeel() {
-        if (!GuiTheme.DEFAULT_THEME.apply()) {
+        if (!GuiThemeManager.DEFAULT_THEME.apply()) {
             throw new RuntimeException("Failed to initialize look and feel.");
         }
     }

@@ -16,8 +16,8 @@
  */
 package com.hartrusion.rbmksim.gui;
 
-import com.hartrusion.rbmksim.gui.elements.ChornobylMetalTheme;
-import com.hartrusion.rbmksim.gui.elements.ChornobylMetalThemeDark;
+import com.hartrusion.swing.ChornobylMetalTheme;
+import com.hartrusion.swing.ChornobylMetalThemeDark;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -46,7 +46,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author Viktor Alexander Hartung
  */
-public enum GuiTheme {
+public enum GuiThemeManager {
 
     /**
      * Metal look and feel with the gray ChornobylMetalTheme, which is the
@@ -61,13 +61,13 @@ public enum GuiTheme {
     /**
      * The GUI theme that is installed by default on startup.
      */
-    public static final GuiTheme DEFAULT_THEME = CHORNOBYL_METAL;
+    public static final GuiThemeManager DEFAULT_THEME = CHORNOBYL_METAL;
 
     /**
      * The GUI theme that was installed last with apply(), which is null as long
      * as no GUI theme was installed by this enumeration.
      */
-    private static GuiTheme activeTheme;
+    private static GuiThemeManager activeTheme;
 
     /**
      * Name of the GUI theme as it is presented to the user.
@@ -81,7 +81,7 @@ public enum GuiTheme {
      */
     private final ChornobylMetalTheme chornobylMetalTheme;
 
-    GuiTheme(String displayName, ChornobylMetalTheme chornobylMetalTheme) {
+    GuiThemeManager(String displayName, ChornobylMetalTheme chornobylMetalTheme) {
         this.displayName = displayName;
         this.chornobylMetalTheme = chornobylMetalTheme;
     }
@@ -100,7 +100,7 @@ public enum GuiTheme {
      *
      * @return Active GUI theme
      */
-    public static GuiTheme getActiveTheme() {
+    public static GuiThemeManager getActiveTheme() {
         if (activeTheme == null) {
             return DEFAULT_THEME;
         }
@@ -124,7 +124,7 @@ public enum GuiTheme {
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GuiTheme.class.getName()).log(Level.SEVERE,
+            Logger.getLogger(GuiThemeManager.class.getName()).log(Level.SEVERE,
                     "Unable to install GUI theme " + displayName, ex);
             return false;
         }

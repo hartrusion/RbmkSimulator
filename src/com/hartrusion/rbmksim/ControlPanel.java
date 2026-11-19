@@ -41,7 +41,7 @@ import com.hartrusion.rbmksim.gui.widgets.*;
 import com.hartrusion.rbmksim.gui.mnemonic.*;
 import com.hartrusion.rbmksim.gui.panels.PanelEccs;
 import com.hartrusion.rbmksim.gui.panels.PanelPressureSetpoint;
-import com.hartrusion.util.JDesktopPaneEnhanced;
+import com.hartrusion.swing.JDesktopPaneEnhanced;
 import com.hartrusion.values.ValueHandler;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -164,7 +164,7 @@ public class ControlPanel extends javax.swing.JFrame implements
      * LLM code generated with Claude Opus 5.5
      */
     private void selectActiveThemeMenuItem() {
-        switch (GuiTheme.getActiveTheme()) {
+        switch (GuiThemeManager.getActiveTheme()) {
             case CHORNOBYL_METAL_DARK:
                 jRadioButtonMenuItemThemeChornobylMetalDark.setSelected(true);
                 break;
@@ -188,7 +188,7 @@ public class ControlPanel extends javax.swing.JFrame implements
         jSeparator4 = new javax.swing.JSeparator();
         buttonGroupTheme = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jDesktopPane1 = new com.hartrusion.util.JDesktopPaneEnhanced();
+        jDesktopPane1 = new com.hartrusion.swing.JDesktopPaneEnhanced();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNewPanel = new javax.swing.JMenuItem();
@@ -1610,11 +1610,11 @@ public class ControlPanel extends javax.swing.JFrame implements
     }//GEN-LAST:event_jMenuItemViewECCSActionPerformed
 
     private void jRadioButtonMenuItemThemeChornobylMetalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeChornobylMetalActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.CHORNOBYL_METAL);
+        parentControlRoom.switchTheme(GuiThemeManager.CHORNOBYL_METAL);
     }//GEN-LAST:event_jRadioButtonMenuItemThemeChornobylMetalActionPerformed
 
     private void jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed
-        parentControlRoom.switchTheme(GuiTheme.CHORNOBYL_METAL_DARK);
+        parentControlRoom.switchTheme(GuiThemeManager.CHORNOBYL_METAL_DARK);
     }//GEN-LAST:event_jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed
 
     private void jMenuItemStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartServerActionPerformed
@@ -1950,7 +1950,7 @@ public class ControlPanel extends javax.swing.JFrame implements
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTheme;
-    private com.hartrusion.util.JDesktopPaneEnhanced jDesktopPane1;
+    private com.hartrusion.swing.JDesktopPaneEnhanced jDesktopPane1;
     private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuControls;
