@@ -38,18 +38,7 @@
   <SubComponents>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterVessel1Pressure">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMinimum" type="double" value="30.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="30 bar"/>
         <Property name="rightLabel" type="java.lang.String" value="100 bar"/>
       </Properties>
@@ -65,18 +54,7 @@
     </Container>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterVessel2Pressure">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMinimum" type="double" value="30.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="30 bar"/>
         <Property name="rightLabel" type="java.lang.String" value="100 bar"/>
       </Properties>
@@ -1156,19 +1134,8 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterPSPTemperature">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMaximum" type="double" value="90.0"/>
         <Property name="chornobylMinimum" type="double" value="20.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="20 &#xb0;C"/>
         <Property name="rightLabel" type="java.lang.String" value="90 &#xb0;C"/>
       </Properties>
@@ -1200,18 +1167,7 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterPSPLevel">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMaximum" type="double" value="2.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="0 m"/>
         <Property name="rightLabel" type="java.lang.String" value="2 m"/>
       </Properties>
@@ -1275,19 +1231,8 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterCCSTemperature">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMaximum" type="double" value="60.0"/>
         <Property name="chornobylMinimum" type="double" value="20.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="20 &#xb0;C"/>
         <Property name="rightLabel" type="java.lang.String" value="60 &#xb0;C"/>
       </Properties>
@@ -1319,18 +1264,7 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterCCSLevel">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMaximum" type="double" value="10.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="0 m"/>
         <Property name="rightLabel" type="java.lang.String" value="10 m"/>
       </Properties>
@@ -1378,18 +1312,7 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterDrum1Pressure">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMaximum" type="double" value="75.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="0 bar"/>
         <Property name="rightLabel" type="java.lang.String" value="75 bar"/>
       </Properties>
@@ -1421,18 +1344,7 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterDrum1Level">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMinimum" type="double" value="-100.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="-100 cm"/>
         <Property name="rightLabel" type="java.lang.String" value="100 cm"/>
       </Properties>
@@ -1480,18 +1392,7 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterDrum2Pressure">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMaximum" type="double" value="75.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="0 bar"/>
         <Property name="rightLabel" type="java.lang.String" value="75 bar"/>
       </Properties>
@@ -1523,18 +1424,7 @@
     </Component>
     <Container class="com.hartrusion.rbmksim.gui.elements.Ammeter" name="ammeterDrum2Level">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="chornobylMinimum" type="double" value="-100.0"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="leftLabel" type="java.lang.String" value="-100 cm"/>
         <Property name="rightLabel" type="java.lang.String" value="100 cm"/>
       </Properties>

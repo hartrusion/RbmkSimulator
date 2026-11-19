@@ -98,6 +98,21 @@ public class RbmkTheme extends ChornobylMetalTheme
     private static final Color CONTROL_LOOP_VALVE_BUTTON_BACKGROUND = new Color(255, 255, 204);
     private static final Color CONTROL_LOOP_VALVE_BUTTON_FOREGROUND = new Color(0, 0, 0);
 
+    // Ammeter colors, which are a white scale with black pointer in the light
+    // theme and a dark neutral scale with a light pointer in the dark theme
+    // that matches the ChornobylGauge.
+    private static final Color AMMETER_BACKGROUND = new Color(255, 255, 255);
+    private static final Color AMMETER_FOREGROUND = new Color(0, 0, 0);
+    private static final Color AMMETER_BORDER = new Color(0, 0, 0);
+
+    // Core instrument of PanelCoreControl, which is a unique instrument of the
+    // control room. The light theme keeps its gray panel with green digits on
+    // dark readings, while the dark theme uses a warm gray with yellowish
+    // digits.
+    private static final Color CORE_INSTRUMENT_BACKGROUND = new Color(204, 204, 204);
+    private static final Color CORE_INSTRUMENT_READING_BACKGROUND = new Color(51, 51, 51);
+    private static final Color CORE_INSTRUMENT_READING_FOREGROUND = new Color(0, 255, 153);
+
     @Override
     public Color getGreenButtonBackground() {
         return GREEN_BUTTON_BACKGROUND;
@@ -281,5 +296,35 @@ public class RbmkTheme extends ChornobylMetalTheme
     @Override
     public Color getControlLoopValveButtonForeground() {
         return CONTROL_LOOP_VALVE_BUTTON_FOREGROUND;
+    }
+
+    @Override
+    public Color getAmmeterBackground() {
+        return AMMETER_BACKGROUND;
+    }
+
+    @Override
+    public Color getAmmeterForeground() {
+        return AMMETER_FOREGROUND;
+    }
+
+    @Override
+    public Color getAmmeterBorder() {
+        return AMMETER_BORDER;
+    }
+
+    @Override
+    public Color getCoreInstrumentBackground() {
+        return CORE_INSTRUMENT_BACKGROUND;
+    }
+
+    @Override
+    public Color getCoreInstrumentReadingBackground() {
+        return CORE_INSTRUMENT_READING_BACKGROUND;
+    }
+
+    @Override
+    public Color getCoreInstrumentReadingForeground() {
+        return CORE_INSTRUMENT_READING_FOREGROUND;
     }
 }

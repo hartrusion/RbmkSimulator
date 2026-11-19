@@ -20,11 +20,12 @@ import java.awt.Color;
 
 /**
  * Defines the colors of the self drawn elements of the control panels, which
- * are the linear ChornobylGauge and the two control loop modules ControlLoop
- * and ControlLoopValve. These elements draw their displays themselves and
- * imitate panel parts of a real control room, so that their colors can not be
- * taken from the Metal look and feel and have to be provided by the GUI theme
- * in addition to the Metal colors.
+ * are the linear ChornobylGauge, the pointer instrument Ammeter, the two
+ * control loop modules ControlLoop and ControlLoopValve and the core
+ * instrument of PanelCoreControl. These elements imitate unique panel parts of
+ * a real control room, so that their colors can not be taken from the Metal
+ * look and feel and have to be provided by the GUI theme in addition to the
+ * Metal colors.
  * <p>
  * The colors are defined by an interface for the same reason as the
  * RbmkPanelButtonColors, because the light RbmkTheme and the dark
@@ -36,10 +37,14 @@ import java.awt.Color;
  * ColorUIResource, because Swing replaces any ColorUIResource of a component
  * by the default of the look and feel when the component UI is updated.
  * <p>
- * The getters of the ChornobylGauge start with "Gauge", while the getters
- * that start with "ControlLoop" are used by both control loop modules unless
- * they name the ControlLoopValve explicitly, because both modules have the same
- * kind of small display with a frame, a scale and markers.
+ * The getters of the ChornobylGauge start with "Gauge" and those of the
+ * Ammeter with "Ammeter", while the getters that start with "ControlLoop" are
+ * used by both control loop modules unless they name the ControlLoopValve
+ * explicitly, because both modules have the same kind of small display with a
+ * frame, a scale and markers. The getters that start with "CoreInstrument"
+ * belong to the panel jPanelCoreInstrument of PanelCoreControl, which shows
+ * the neutron flux, the reactivity and the xenon on digital readings and
+ * contains two Ammeters.
  * <p>
  * LLM code generated with Claude Opus 5.5
  *
@@ -160,4 +165,34 @@ public interface RbmkElementColors {
      * ControlLoopValve
      */
     Color getControlLoopValveButtonForeground();
+
+    /**
+     * @return Background of the scale of the Ammeter
+     */
+    Color getAmmeterBackground();
+
+    /**
+     * @return Arc, pointer and labels of the Ammeter
+     */
+    Color getAmmeterForeground();
+
+    /**
+     * @return Line border around the Ammeter
+     */
+    Color getAmmeterBorder();
+
+    /**
+     * @return Background of the core instrument panel
+     */
+    Color getCoreInstrumentBackground();
+
+    /**
+     * @return Background of the digital readings of the core instrument
+     */
+    Color getCoreInstrumentReadingBackground();
+
+    /**
+     * @return Digits of the digital readings of the core instrument
+     */
+    Color getCoreInstrumentReadingForeground();
 }

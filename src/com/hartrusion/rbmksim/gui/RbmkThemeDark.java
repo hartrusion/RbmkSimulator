@@ -40,15 +40,16 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     
     // Green, red and gray panel buttons, which are muted to fit the dark
     // metallic blue elements. The normal state is a dark tint of the color,
-    // while the highlighted state stays clearly brighter so that the state of
-    // a valve can still be recognized at a glance, and the text uses the same
-    // light gray blue as the control loop modules.
+    // while the highlighted state stays clearly brighter and the green and red
+    // highlights keep a strong saturation, so that the state of a valve can
+    // still be recognized at a glance. The text uses the same light gray blue
+    // as the control loop modules.
     private static final Color GREEN_BUTTON_BACKGROUND = new Color(26, 70, 46);
-    private static final Color GREEN_BUTTON_HIGHLIGHT = new Color(56, 160, 96);
+    private static final Color GREEN_BUTTON_HIGHLIGHT = new Color(36, 178, 88);
     private static final Color GREEN_BUTTON_FOREGROUND = new Color(214, 224, 238);
 
     private static final Color RED_BUTTON_BACKGROUND = new Color(84, 30, 34);
-    private static final Color RED_BUTTON_HIGHLIGHT = new Color(196, 64, 64);
+    private static final Color RED_BUTTON_HIGHLIGHT = new Color(214, 46, 46);
     private static final Color RED_BUTTON_FOREGROUND = new Color(214, 224, 238);
 
     private static final Color GRAY_BUTTON_BACKGROUND = new Color(52, 58, 68);
@@ -68,7 +69,7 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     // ChornobylGauge colors. The light colors are the original black bar with
     // orange spots on a pale panel, while the dark theme uses a dark panel on
     // which the spots and all labels are drawn in one modern blue.
-    private static final Color GAUGE_BACKGROUND = new Color(30, 34, 40);
+    private static final Color GAUGE_BACKGROUND = new Color(32, 33, 35);
     private static final Color GAUGE_BORDER = new Color(78, 86, 98);
     private static final Color GAUGE_BAR = new Color(12, 14, 18);
     private static final Color GAUGE_SCALE = new Color(88, 166, 255);
@@ -97,6 +98,21 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     private static final Color CONTROL_LOOP_VALVE_BACKGROUND = new Color(40, 46, 56);
     private static final Color CONTROL_LOOP_VALVE_BUTTON_BACKGROUND = new Color(58, 72, 94);
     private static final Color CONTROL_LOOP_VALVE_BUTTON_FOREGROUND = new Color(214, 224, 238);
+
+    // Ammeter colors, which are a white scale with black pointer in the light
+    // theme and a dark neutral scale with a light pointer in the dark theme
+    // that matches the ChornobylGauge.
+    private static final Color AMMETER_BACKGROUND = new Color(36, 37, 40);
+    private static final Color AMMETER_FOREGROUND = new Color(205, 212, 222);
+    private static final Color AMMETER_BORDER = new Color(78, 86, 98);
+
+    // Core instrument of PanelCoreControl, which is a unique instrument of the
+    // control room. The light theme keeps its gray panel with green digits on
+    // dark readings, while the dark theme uses a warm gray with yellowish
+    // digits.
+    private static final Color CORE_INSTRUMENT_BACKGROUND = new Color(68, 65, 57);
+    private static final Color CORE_INSTRUMENT_READING_BACKGROUND = new Color(30, 29, 26);
+    private static final Color CORE_INSTRUMENT_READING_FOREGROUND = new Color(232, 200, 112);
     
 
     @Override
@@ -282,5 +298,35 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     @Override
     public Color getControlLoopValveButtonForeground() {
         return CONTROL_LOOP_VALVE_BUTTON_FOREGROUND;
+    }
+
+    @Override
+    public Color getAmmeterBackground() {
+        return AMMETER_BACKGROUND;
+    }
+
+    @Override
+    public Color getAmmeterForeground() {
+        return AMMETER_FOREGROUND;
+    }
+
+    @Override
+    public Color getAmmeterBorder() {
+        return AMMETER_BORDER;
+    }
+
+    @Override
+    public Color getCoreInstrumentBackground() {
+        return CORE_INSTRUMENT_BACKGROUND;
+    }
+
+    @Override
+    public Color getCoreInstrumentReadingBackground() {
+        return CORE_INSTRUMENT_READING_BACKGROUND;
+    }
+
+    @Override
+    public Color getCoreInstrumentReadingForeground() {
+        return CORE_INSTRUMENT_READING_FOREGROUND;
     }
 }

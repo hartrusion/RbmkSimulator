@@ -274,18 +274,12 @@ public class PanelEccs extends AbstractPanelWidget
         setPreferredSize(new java.awt.Dimension(910, 550));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ammeterVessel1Pressure.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterVessel1Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterVessel1Pressure.setChornobylMinimum(30.0);
-        ammeterVessel1Pressure.setForeground(new java.awt.Color(0, 0, 0));
         ammeterVessel1Pressure.setLeftLabel("30 bar");
         ammeterVessel1Pressure.setRightLabel("100 bar");
         add(ammeterVessel1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 76, 92, 58));
 
-        ammeterVessel2Pressure.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterVessel2Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterVessel2Pressure.setChornobylMinimum(30.0);
-        ammeterVessel2Pressure.setForeground(new java.awt.Color(0, 0, 0));
         ammeterVessel2Pressure.setLeftLabel("30 bar");
         ammeterVessel2Pressure.setRightLabel("100 bar");
         add(ammeterVessel2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 76, 92, 58));
@@ -624,11 +618,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPVP1.setPreferredSize(new java.awt.Dimension(52, 14));
         add(jLabelCaptionPVP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 134, 72, 14));
 
-        ammeterPSPTemperature.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterPSPTemperature.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterPSPTemperature.setChornobylMaximum(90.0);
         ammeterPSPTemperature.setChornobylMinimum(20.0);
-        ammeterPSPTemperature.setForeground(new java.awt.Color(0, 0, 0));
         ammeterPSPTemperature.setLeftLabel("20 °C");
         ammeterPSPTemperature.setRightLabel("90 °C");
         add(ammeterPSPTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 30, 92, 58));
@@ -638,10 +629,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionPSPTemperature.setText("Temperature");
         add(jLabelCaptionPSPTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 90, 92, 14));
 
-        ammeterPSPLevel.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterPSPLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterPSPLevel.setChornobylMaximum(2.0);
-        ammeterPSPLevel.setForeground(new java.awt.Color(0, 0, 0));
         ammeterPSPLevel.setLeftLabel("0 m");
         ammeterPSPLevel.setRightLabel("2 m");
         add(ammeterPSPLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 30, 92, 58));
@@ -661,11 +649,8 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionGaugesCCS.setText("Cold condensate storage (Makeup)");
         add(jLabelCaptionGaugesCCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 118, 200, 14));
 
-        ammeterCCSTemperature.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterCCSTemperature.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterCCSTemperature.setChornobylMaximum(60.0);
         ammeterCCSTemperature.setChornobylMinimum(20.0);
-        ammeterCCSTemperature.setForeground(new java.awt.Color(0, 0, 0));
         ammeterCCSTemperature.setLeftLabel("20 °C");
         ammeterCCSTemperature.setRightLabel("60 °C");
         add(ammeterCCSTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 136, 92, 58));
@@ -675,10 +660,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionCCSTemperature.setText("Temperature");
         add(jLabelCaptionCCSTemperature, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 196, 92, 14));
 
-        ammeterCCSLevel.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterCCSLevel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterCCSLevel.setChornobylMaximum(10.0);
-        ammeterCCSLevel.setForeground(new java.awt.Color(0, 0, 0));
         ammeterCCSLevel.setLeftLabel("0 m");
         ammeterCCSLevel.setRightLabel("10 m");
         add(ammeterCCSLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 136, 92, 58));
@@ -693,10 +675,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionGaugesDrum1.setText("Steam Drum 1");
         add(jLabelCaptionGaugesDrum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 12, 200, 14));
 
-        ammeterDrum1Pressure.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterDrum1Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterDrum1Pressure.setChornobylMaximum(75.0);
-        ammeterDrum1Pressure.setForeground(new java.awt.Color(0, 0, 0));
         ammeterDrum1Pressure.setLeftLabel("0 bar");
         ammeterDrum1Pressure.setRightLabel("75 bar");
         add(ammeterDrum1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 30, 92, 58));
@@ -706,10 +685,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrum1Pressure.setText("Pressure");
         add(jLabelCaptionDrum1Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 90, 92, 14));
 
-        ammeterDrum1Level.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterDrum1Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterDrum1Level.setChornobylMinimum(-100.0);
-        ammeterDrum1Level.setForeground(new java.awt.Color(0, 0, 0));
         ammeterDrum1Level.setLeftLabel("-100 cm");
         ammeterDrum1Level.setRightLabel("100 cm");
         add(ammeterDrum1Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, 92, 58));
@@ -724,10 +700,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionGaugesDrum2.setText("Steam Drum 2");
         add(jLabelCaptionGaugesDrum2, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 118, 200, 14));
 
-        ammeterDrum2Pressure.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterDrum2Pressure.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterDrum2Pressure.setChornobylMaximum(75.0);
-        ammeterDrum2Pressure.setForeground(new java.awt.Color(0, 0, 0));
         ammeterDrum2Pressure.setLeftLabel("0 bar");
         ammeterDrum2Pressure.setRightLabel("75 bar");
         add(ammeterDrum2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 136, 92, 58));
@@ -737,10 +710,7 @@ public class PanelEccs extends AbstractPanelWidget
         jLabelCaptionDrum2Pressure.setText("Pressure");
         add(jLabelCaptionDrum2Pressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 196, 92, 14));
 
-        ammeterDrum2Level.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterDrum2Level.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterDrum2Level.setChornobylMinimum(-100.0);
-        ammeterDrum2Level.setForeground(new java.awt.Color(0, 0, 0));
         ammeterDrum2Level.setLeftLabel("-100 cm");
         ammeterDrum2Level.setRightLabel("100 cm");
         add(ammeterDrum2Level, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 136, 92, 58));

@@ -19,6 +19,8 @@ package com.hartrusion.rbmksim.gui.panels;
 import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
+import com.hartrusion.rbmksim.gui.RbmkElementColors;
 import com.hartrusion.rbmksim.gui.widgets.AbstractPanelWidget;
 import java.beans.PropertyChangeEvent;
 import com.hartrusion.rbmksim.ChannelData;
@@ -35,6 +37,19 @@ public class PanelCoreControl extends AbstractPanelWidget {
      * Used to switch the digit display of the setpoint only.
      */
     boolean globalControlEnabled;
+
+    /**
+     * Colors of the active GUI theme, which are read once when the panel is
+     * created, because all windows are created again when the GUI theme is
+     * switched. The field is initialized before the constructor runs, so that
+     * initComponents() can already take its colors from it. The panel uses
+     * the colors for its core instrument jPanelCoreInstrument, which is a
+     * unique instrument of the control room with its own color definitions.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private final RbmkElementColors elementColors
+            = GuiThemeManager.getActiveTheme().getElementColors();
 
     /**
      * Creates new form ControlPanelRodSelector
@@ -1334,13 +1349,13 @@ public class PanelCoreControl extends AbstractPanelWidget {
         lightBulbRPSLock.setForeground(new java.awt.Color(255, 0, 0));
         add(lightBulbRPSLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
 
-        jPanelCoreInstrument.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelCoreInstrument.setBackground(elementColors.getCoreInstrumentBackground());
         jPanelCoreInstrument.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCoreInstrument.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelReadingXe.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingXe.setBackground(elementColors.getCoreInstrumentReadingBackground());
         jLabelReadingXe.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingXe.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingXe.setForeground(elementColors.getCoreInstrumentReadingForeground());
         jLabelReadingXe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingXe.setText("___");
         jLabelReadingXe.setToolTipText("Xenon percentage indicated as percentage from full load equilibrium");
@@ -1350,9 +1365,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingXe.setPreferredSize(new java.awt.Dimension(52, 18));
         jPanelCoreInstrument.add(jLabelReadingXe, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 32, 38, 18));
 
-        jLabelReadingReactivity.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingReactivity.setBackground(elementColors.getCoreInstrumentReadingBackground());
         jLabelReadingReactivity.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingReactivity.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingReactivity.setForeground(elementColors.getCoreInstrumentReadingForeground());
         jLabelReadingReactivity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingReactivity.setText("-_,____");
         jLabelReadingReactivity.setToolTipText("Caclulated reactivity of the core");
@@ -1362,9 +1377,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingReactivity.setPreferredSize(new java.awt.Dimension(52, 18));
         jPanelCoreInstrument.add(jLabelReadingReactivity, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 32, 64, 18));
 
-        jLabelReadingFlux.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReadingFlux.setBackground(elementColors.getCoreInstrumentReadingBackground());
         jLabelReadingFlux.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingFlux.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReadingFlux.setForeground(elementColors.getCoreInstrumentReadingForeground());
         jLabelReadingFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingFlux.setText("___,__");
         jLabelReadingFlux.setToolTipText("Neutron flux (0..100 %)");
@@ -1419,21 +1434,15 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelCaptionRate.setPreferredSize(new java.awt.Dimension(52, 14));
         jPanelCoreInstrument.add(jLabelCaptionRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 42, 74, 14));
 
-        ammeterFluxLog.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterFluxLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterFluxLog.setChornobylMaximum(-1.0);
         ammeterFluxLog.setChornobylMinimum(-6.0);
         ammeterFluxLog.setChornobylValue(-3.5);
-        ammeterFluxLog.setForeground(new java.awt.Color(0, 0, 0));
         ammeterFluxLog.setLeftLabel("-6");
         ammeterFluxLog.setRightLabel("-1");
         jPanelCoreInstrument.add(ammeterFluxLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 62, 38));
 
-        ammeterRate.setBackground(new java.awt.Color(255, 255, 255));
-        ammeterRate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ammeterRate.setChornobylMaximum(2.5);
         ammeterRate.setChornobylMinimum(-2.5);
-        ammeterRate.setForeground(new java.awt.Color(0, 0, 0));
         ammeterRate.setLeftLabel("-2.5");
         ammeterRate.setRightLabel("+2.5");
         jPanelCoreInstrument.add(ammeterRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 4, 62, 38));

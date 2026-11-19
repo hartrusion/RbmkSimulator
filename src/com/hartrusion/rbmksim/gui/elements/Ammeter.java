@@ -16,6 +16,8 @@
  */
 package com.hartrusion.rbmksim.gui.elements;
 
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
+import com.hartrusion.rbmksim.gui.RbmkElementColors;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -36,6 +38,10 @@ import javax.swing.ToolTipManager;
  * the lower middle. Called ammeter (short for ampere meter) as those things are
  * moving their pointer according to the current value but they can be used to
  * display other values too.
+ * <p>
+ * The scale background, the pointer color and the border are taken from the
+ * RbmkElementColors of the active GUI theme with the form properties, so that
+ * the instances on the panels do not set own colors.
  *
  * @author Viktor Alexander Hartung
  */
@@ -58,6 +64,17 @@ public class Ammeter extends javax.swing.JComponent {
      * Reference to the tooltip object if it is present.
      */
     private javax.swing.JToolTip activeToolTip;
+
+    /**
+     * Colors of the active GUI theme, which are read once when the ammeter is
+     * created, because all windows are created again when the GUI theme is
+     * switched. The field is initialized before the constructor runs, so that
+     * initComponents() can already take its colors from it.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private final RbmkElementColors elementColors
+            = GuiThemeManager.getActiveTheme().getElementColors();
 
     /**
      * Creates new form Ammeter
@@ -182,6 +199,9 @@ public class Ammeter extends javax.swing.JComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setBackground(elementColors.getAmmeterBackground());
+        setBorder(javax.swing.BorderFactory.createLineBorder(elementColors.getAmmeterBorder()));
+        setForeground(elementColors.getAmmeterForeground());
         setPreferredSize(new java.awt.Dimension(40, 30));
         setLayout(null);
     }// </editor-fold>//GEN-END:initComponents
