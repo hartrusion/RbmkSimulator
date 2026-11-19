@@ -22,12 +22,17 @@ import java.awt.Color;
 /**
  * Extends the generic Theme which was designed for the simulator but placed 
  * in the external utils package by colors that are only used by the simulator.
+ * The colors of the Metal look and feel are inherited from the light
+ * ChornobylMetalTheme, while this class adds the colors of the panel buttons,
+ * which are defined by the interface RbmkPanelButtonColors, because the dark
+ * RbmkThemeDark derives from ChornobylMetalThemeDark and can therefore not
+ * derive from this class.
  * 
  * @author Viktor Alexander Hartung
  */
-public class RbmkTheme extends ChornobylMetalTheme {
-    
-    
+public class RbmkTheme extends ChornobylMetalTheme
+        implements RbmkPanelButtonColors {
+
     // Green panel buttons, which show for example a closed valve.
     private static final Color GREEN_BUTTON_BACKGROUND = new Color(0, 128, 0);
     private static final Color GREEN_BUTTON_HIGHLIGHT = new Color(0, 255, 0);
@@ -56,73 +61,77 @@ public class RbmkTheme extends ChornobylMetalTheme {
     private static final Color WHITE_BUTTON_HIGHLIGHT = new Color(255, 255, 255);
     private static final Color WHITE_BUTTON_FOREGROUND = new Color(0, 0, 0);
 
-    /**
-     * Returns the background of a green panel button in its normal state. The
-     * getters of the panel button colors follow the same scheme for all
-     * types, where the background belongs to the normal state, the highlight
-     * replaces the background in the highlighted state and the foreground is
-     * the text color of both states.
-     * <p>
-     * LLM code generated with Claude Opus 5.5
-     *
-     * @return Background of a not highlighted green panel button
-     */
+    @Override
     public Color getGreenButtonBackground() {
         return GREEN_BUTTON_BACKGROUND;
     }
 
+    @Override
     public Color getGreenButtonHighlight() {
         return GREEN_BUTTON_HIGHLIGHT;
     }
 
+    @Override
     public Color getGreenButtonForeground() {
         return GREEN_BUTTON_FOREGROUND;
     }
 
+    @Override
     public Color getRedButtonBackground() {
         return RED_BUTTON_BACKGROUND;
     }
 
+    @Override
     public Color getRedButtonHighlight() {
         return RED_BUTTON_HIGHLIGHT;
     }
 
+    @Override
     public Color getRedButtonForeground() {
         return RED_BUTTON_FOREGROUND;
     }
 
+    @Override
     public Color getGrayButtonBackground() {
         return GRAY_BUTTON_BACKGROUND;
     }
 
+    @Override
     public Color getGrayButtonHighlight() {
         return GRAY_BUTTON_HIGHLIGHT;
     }
 
+    @Override
     public Color getGrayButtonForeground() {
         return GRAY_BUTTON_FOREGROUND;
     }
 
+    @Override
     public Color getYellowButtonBackground() {
         return YELLOW_BUTTON_BACKGROUND;
     }
 
+    @Override
     public Color getYellowButtonHighlight() {
         return YELLOW_BUTTON_HIGHLIGHT;
     }
 
+    @Override
     public Color getYellowButtonForeground() {
         return YELLOW_BUTTON_FOREGROUND;
     }
 
+    @Override
     public Color getWhiteButtonBackground() {
         return WHITE_BUTTON_BACKGROUND;
     }
 
+    @Override
     public Color getWhiteButtonHighlight() {
         return WHITE_BUTTON_HIGHLIGHT;
     }
 
+    @Override
     public Color getWhiteButtonForeground() {
         return WHITE_BUTTON_FOREGROUND;
     }

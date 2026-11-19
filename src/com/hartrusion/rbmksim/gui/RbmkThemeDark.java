@@ -20,10 +20,20 @@ import com.hartrusion.swing.ChornobylMetalThemeDark;
 import java.awt.Color;
 
 /**
+ * Dark GUI theme of the simulator, which takes the dark colors of the Metal
+ * look and feel from ChornobylMetalThemeDark of the utils package and adds the
+ * colors of the panel buttons. The class has to derive from
+ * ChornobylMetalThemeDark instead of RbmkTheme, because Java allows only one
+ * base class and the dark Metal colors are only available from the dark
+ * theme, so that the panel button colors are defined by the interface
+ * RbmkPanelButtonColors, which both RbmkTheme and this class implement.
+ * <p>
+ * LLM code generated with Claude Opus 5.5
  *
  * @author Viktor Alexander Hartung
  */
-public class RbmkThemeDark extends RbmkTheme {
+public class RbmkThemeDark extends ChornobylMetalThemeDark
+        implements RbmkPanelButtonColors {
     
     // Panel button colors, which are the same as in the light theme for now
     // and can be adapted to the dark background here.

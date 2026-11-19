@@ -22,7 +22,7 @@ import com.hartrusion.control.ValveState;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.rbmksim.gui.GuiThemeManager;
 import com.hartrusion.rbmksim.gui.InteractiveComponent;
-import com.hartrusion.rbmksim.gui.RbmkTheme;
+import com.hartrusion.rbmksim.gui.RbmkPanelButtonColors;
 
 /**
  * Base class for panels that are used with the MVC pattern with switches.
@@ -31,7 +31,8 @@ import com.hartrusion.rbmksim.gui.RbmkTheme;
  * <p>
  * The panel buttons exist in the types green, red, gray, yellow and white, and
  * each type has a normal and a highlighted state. The colors of these states
- * are not defined here but in the RbmkTheme of the active GUI theme, so that a
+ * are not defined here but in the RbmkPanelButtonColors of the active GUI
+ * theme, so that a
  * dark theme can provide its own button colors.
  *
  * @author Viktor Alexander Hartung
@@ -108,19 +109,16 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
     }
 
     /**
-     * Returns the Metal theme of the active GUI theme, which holds the colors
-     * of the panel buttons. The theme is read on each call instead of being
-     * kept in a field, because the GUI theme can be switched while the
-     * application runs.
+     * Returns the panel button colors of the active GUI theme. The colors are
+     * read on each call instead of being kept in a field, because the GUI
+     * theme can be switched while the application runs.
      * <p>
      * LLM code generated with Claude Opus 5.5
      *
-     * @return Metal theme of the active GUI theme
+     * @return Panel button colors of the active GUI theme
      */
-    private RbmkTheme getActiveRbmkTheme() {
-        // The RBMK-Theme is an extension of the chernobyl metal theme.
-        return (RbmkTheme) GuiThemeManager
-                .getActiveTheme().getChornobylMetalTheme();
+    private RbmkPanelButtonColors getActivePanelButtonColors() {
+        return GuiThemeManager.getActiveTheme().getPanelButtonColors();
     }
 
     /**
@@ -131,7 +129,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setGreenButtonColor(JButton button, boolean val) {
-        RbmkTheme theme = getActiveRbmkTheme();
+        RbmkPanelButtonColors theme = getActivePanelButtonColors();
         if (val) {
             button.setBackground(theme.getGreenButtonHighlight());
         } else {
@@ -147,7 +145,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setGrayButtonColor(JButton button, boolean val) {
-        RbmkTheme theme = getActiveRbmkTheme();
+        RbmkPanelButtonColors theme = getActivePanelButtonColors();
         if (val) {
             button.setBackground(theme.getGrayButtonHighlight());
         } else {
@@ -163,7 +161,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setRedButtonColor(JButton button, boolean val) {
-        RbmkTheme theme = getActiveRbmkTheme();
+        RbmkPanelButtonColors theme = getActivePanelButtonColors();
         if (val) {
             button.setBackground(theme.getRedButtonHighlight());
         } else {
@@ -179,7 +177,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setYellowButtonColor(JButton button, boolean val) {
-        RbmkTheme theme = getActiveRbmkTheme();
+        RbmkPanelButtonColors theme = getActivePanelButtonColors();
         if (val) {
             button.setBackground(theme.getYellowButtonHighlight());
         } else {
@@ -195,7 +193,7 @@ public abstract class AbstractPanelWidget extends javax.swing.JPanel
      * @param val true for the highlighted state
      */
     protected void setWhiteButtonColor(JButton button, boolean val) {
-        RbmkTheme theme = getActiveRbmkTheme();
+        RbmkPanelButtonColors theme = getActivePanelButtonColors();
         if (val) {
             button.setBackground(theme.getWhiteButtonHighlight());
         } else {

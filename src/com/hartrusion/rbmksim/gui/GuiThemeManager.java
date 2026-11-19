@@ -17,7 +17,6 @@
 package com.hartrusion.rbmksim.gui;
 
 import com.hartrusion.swing.ChornobylMetalTheme;
-import com.hartrusion.swing.ChornobylMetalThemeDark;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -29,9 +28,10 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * them as the Swing look and feel. All GUI themes use the Metal look and feel,
  * so that the shapes of buttons and other components stay the same, and only
  * differ in the Metal theme that colors it. Each Metal theme derives from
- * ChornobylMetalTheme, which also defines the colors of the panel buttons, so
- * that AbstractPanelWidget can read these colors with getChornobylMetalTheme()
- * from the active GUI theme.
+ * ChornobylMetalTheme of the utils package and implements the interface
+ * RbmkPanelButtonColors, which adds the colors of the panel buttons that are
+ * only used by the simulator, so that AbstractPanelWidget can read these
+ * colors with getPanelButtonColors() from the active GUI theme.
  * <p>
  * Swing only applies a look and feel to components that are created after it
  * was installed. The simulator therefore does not update existing windows,
@@ -49,14 +49,14 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public enum GuiThemeManager {
 
     /**
-     * Metal look and feel with the gray ChornobylMetalTheme, which is the
-     * original appearance of the simulator.
+     * Metal look and feel with the gray RbmkTheme, which is the original
+     * appearance of the simulator.
      */
-    CHORNOBYL_METAL("Chornobyl Metal", new ChornobylMetalTheme()),
+    CHORNOBYL_METAL("Chornobyl Metal", new RbmkTheme()),
     /**
-     * Metal look and feel with the dark ChornobylMetalThemeDark.
+     * Metal look and feel with the dark RbmkThemeDark.
      */
-    CHORNOBYL_METAL_DARK("Chornobyl Metal Dark", new ChornobylMetalThemeDark());
+    CHORNOBYL_METAL_DARK("Chornobyl Metal Dark", new RbmkThemeDark());
 
     /**
      * The GUI theme that is installed by default on startup.
@@ -81,9 +81,26 @@ public enum GuiThemeManager {
      */
     private final ChornobylMetalTheme chornobylMetalTheme;
 
-    GuiThemeManager(String displayName, ChornobylMetalTheme chornobylMetalTheme) {
+    /**
+     * Colors of the panel buttons of this GUI theme, which is the same object
+     * as chornobylMetalTheme, but seen through the interface that the
+     * simulator adds to the Metal theme.
+     */
+    private final RbmkPanelButtonColors panelButtonColors;
+
+    /**
+     * Takes the theme as a type that is both a ChornobylMetalTheme and
+     * RbmkPanelButtonColors, so that the compiler ensures that every GUI theme
+     * provides the panel button colors and no cast is needed when they are
+     * read.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    <T extends ChornobylMetalTheme & RbmkPanelButtonColors> GuiThemeManager(
+            String displayName, T theme) {
         this.displayName = displayName;
-        this.chornobylMetalTheme = chornobylMetalTheme;
+        this.chornobylMetalTheme = theme;
+        this.panelButtonColors = theme;
     }
 
     public String getDisplayName() {
@@ -92,6 +109,15 @@ public enum GuiThemeManager {
 
     public ChornobylMetalTheme getChornobylMetalTheme() {
         return chornobylMetalTheme;
+    }
+
+    /**
+     * LLM code generated with Claude Opus 5.5
+     *
+     * @return Colors of the panel buttons of this GUI theme
+     */
+    public RbmkPanelButtonColors getPanelButtonColors() {
+        return panelButtonColors;
     }
 
     /**
