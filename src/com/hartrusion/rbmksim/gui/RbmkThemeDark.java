@@ -38,20 +38,25 @@ import java.awt.Color;
 public class RbmkThemeDark extends ChornobylMetalThemeDark
         implements RbmkPanelButtonColors, RbmkElementColors {
     
-    // Panel button colors, which are the same as in the light theme for now
-    // and can be adapted to the dark background here.
-    private static final Color GREEN_BUTTON_BACKGROUND = new Color(0, 128, 0);
-    private static final Color GREEN_BUTTON_HIGHLIGHT = new Color(0, 255, 0);
-    private static final Color GREEN_BUTTON_FOREGROUND = new Color(255, 255, 255);
+    // Green, red and gray panel buttons, which are muted to fit the dark
+    // metallic blue elements. The normal state is a dark tint of the color,
+    // while the highlighted state stays clearly brighter so that the state of
+    // a valve can still be recognized at a glance, and the text uses the same
+    // light gray blue as the control loop modules.
+    private static final Color GREEN_BUTTON_BACKGROUND = new Color(26, 70, 46);
+    private static final Color GREEN_BUTTON_HIGHLIGHT = new Color(56, 160, 96);
+    private static final Color GREEN_BUTTON_FOREGROUND = new Color(214, 224, 238);
 
-    private static final Color RED_BUTTON_BACKGROUND = new Color(128, 0, 0);
-    private static final Color RED_BUTTON_HIGHLIGHT = new Color(255, 0, 0);
-    private static final Color RED_BUTTON_FOREGROUND = new Color(255, 255, 255);
+    private static final Color RED_BUTTON_BACKGROUND = new Color(84, 30, 34);
+    private static final Color RED_BUTTON_HIGHLIGHT = new Color(196, 64, 64);
+    private static final Color RED_BUTTON_FOREGROUND = new Color(214, 224, 238);
 
-    private static final Color GRAY_BUTTON_BACKGROUND = new Color(92, 92, 92);
-    private static final Color GRAY_BUTTON_HIGHLIGHT = new Color(208, 208, 208);
-    private static final Color GRAY_BUTTON_FOREGROUND = new Color(255, 255, 255);
+    private static final Color GRAY_BUTTON_BACKGROUND = new Color(52, 58, 68);
+    private static final Color GRAY_BUTTON_HIGHLIGHT = new Color(122, 134, 150);
+    private static final Color GRAY_BUTTON_FOREGROUND = new Color(214, 224, 238);
 
+    // Yellow and white panel buttons, which are still the same as in the light
+    // theme.
     private static final Color YELLOW_BUTTON_BACKGROUND = new Color(128, 128, 0);
     private static final Color YELLOW_BUTTON_HIGHLIGHT = new Color(208, 208, 0);
     private static final Color YELLOW_BUTTON_FOREGROUND = new Color(255, 255, 255);
