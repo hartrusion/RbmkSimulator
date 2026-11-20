@@ -360,12 +360,12 @@ public class ControlPanel extends javax.swing.JFrame implements
         jMenuTheme.setText("Theme");
 
         buttonGroupTheme.add(jRadioButtonMenuItemThemeChornobylMetal);
-        jRadioButtonMenuItemThemeChornobylMetal.setText("Chornobyl Metal");
+        jRadioButtonMenuItemThemeChornobylMetal.setText("Light");
         jRadioButtonMenuItemThemeChornobylMetal.addActionListener(this::jRadioButtonMenuItemThemeChornobylMetalActionPerformed);
         jMenuTheme.add(jRadioButtonMenuItemThemeChornobylMetal);
 
         buttonGroupTheme.add(jRadioButtonMenuItemThemeChornobylMetalDark);
-        jRadioButtonMenuItemThemeChornobylMetalDark.setText("Chornobyl Metal Dark");
+        jRadioButtonMenuItemThemeChornobylMetalDark.setText("Dark");
         jRadioButtonMenuItemThemeChornobylMetalDark.addActionListener(this::jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed);
         jMenuTheme.add(jRadioButtonMenuItemThemeChornobylMetalDark);
 

@@ -145,7 +145,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroupTheme"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Chornobyl Metal"/>
+                    <Property name="text" type="java.lang.String" value="Light"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItemThemeChornobylMetalActionPerformed"/>
@@ -156,7 +156,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroupTheme"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Chornobyl Metal Dark"/>
+                    <Property name="text" type="java.lang.String" value="Dark"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItemThemeChornobylMetalDarkActionPerformed"/>
