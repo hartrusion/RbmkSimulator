@@ -17,6 +17,7 @@
 package com.hartrusion.rbmksim.gui.diagrams;
 
 import com.hartrusion.plot.Axes;
+import com.hartrusion.plot.Legend;
 import com.hartrusion.plot.FigureJPane;
 import com.hartrusion.plot.SubPlot;
 import com.hartrusion.rbmksim.gui.GuiThemeManager;
@@ -76,11 +77,14 @@ public class InternalFrameDiagram extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Applies the dark or light theme of the jmplot library to the figure and
-     * to all of its axes, depending on whether the active GUI theme is dark.
-     * The figure only sets its own background, whereas each axes sets the
-     * colors of its box and rulers, which is the reason why all axes have to
-     * be visited. A figure either holds its axes directly, which are created
+     * Applies the dark or light theme of the jmplot library to the figure, to
+     * all of its axes and to its legend, depending on whether the active GUI
+     * theme is dark. The figure only sets its own background, whereas each
+     * axes sets the colors of its box and rulers and passes the theme on to
+     * its cursors and texts, also to those that are added later, which is the
+     * reason why all axes have to be visited. The legend belongs to the figure
+     * and not to an axes, so that it has to be themed separately, and a figure
+     * of the simulator holds at most one legend, which is the last one. A figure either holds its axes directly, which are created
      * by setYRulers and of which only the last one exists, or it holds them in
      * a subplot, so that the method has to be called after the diagram was
      * configured by a preset. Called from ControlPanel when a diagram is
@@ -97,6 +101,14 @@ public class InternalFrameDiagram extends javax.swing.JInternalFrame {
             figureJPane1.setThemeLight();
         }
         applyGuiThemeToAxes(figureJPane1.getLastAxes(), darkTheme);
+        Legend legend = figureJPane1.getLastLegend();
+        if (legend != null) {
+            if (darkTheme) {
+                legend.setThemeDark();
+            } else {
+                legend.setThemeLight();
+            }
+        }
         SubPlot subPlot = figureJPane1.getSubPlot();
         if (subPlot != null) {
             Iterator<Axes> axesIterator = subPlot.getAxesIterator();
