@@ -20,10 +20,38 @@ import com.hartrusion.control.ControlCommand;
 import com.hartrusion.mvc.ActionCommand;
 import com.hartrusion.mvc.ActionReceiver;
 import com.hartrusion.mvc.UpdateReceiver;
+import com.hartrusion.rbmksim.gui.GuiThemeManager;
+import com.hartrusion.rbmksim.gui.RbmkElementColors;
 import java.beans.BeanProperty;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JOptionPane;
 
 /**
+ * A small module to change a setpoint of the model, which consists of a
+ * digital reading and two buttons to decrease and increase the setpoint.
+ * <p>
+ * The module does not hold the setpoint value itself, but controls a Setpoint
+ * object of the model, which is a SetpointIntegrator that changes its value
+ * with a limited rate. Pressing a button sends SETPOINT_DECREASE or
+ * SETPOINT_INCREASE and releasing it sends SETPOINT_STOP, so that the setpoint
+ * moves with the limited rate as long as the button is held, which prevents a
+ * setpoint step. The reading only shows the value that the model sends back
+ * with updateComponent. This coupling is the reason why the module is not a
+ * JSpinner, because a JSpinner owns its value, changes it in fixed steps and
+ * would cause a setpoint step with every typed value.
+ * <p>
+ * A click on the reading opens an input dialog, in which the user can enter a
+ * new setpoint value that is sent as a number to the Setpoint object, which
+ * then sets it immediately. This causes an intended setpoint step, because
+ * reaching a far setpoint like 100 % neutron flux with the buttons takes very
+ * long, and the consequences of a setpoint step are the responsibility of the
+ * user, which the simulator shall be able to show.
+ * <p>
+ * All colors are taken from the RbmkElementColors of the active GUI theme,
+ * where the reading uses the colors of all digital readings.
+ * <p>
+ * LLM code generated with Claude Opus 5.5 (documentation, theme colors and
+ * setpoint input dialog)
  *
  * @author Viktor Alexander Hartung
  */
@@ -34,6 +62,22 @@ public class SetpointControl extends javax.swing.JPanel
 
     private String component = "undefined";
     private String displayFormat = "%.1f";
+
+    /**
+     * Last setpoint value that was received from the model, which is offered
+     * as initial text in the input dialog. It is NaN until the first value
+     * was received.
+     */
+    private double receivedSetpointValue = Double.NaN;
+
+    /**
+     * Colors of the active GUI theme, which are read once when the module is
+     * created, because all windows are created again when the GUI theme is
+     * switched. The field is initialized before the constructor runs, so that
+     * initComponents() can already take its colors from it.
+     */
+    private final RbmkElementColors elementColors
+            = GuiThemeManager.getActiveTheme().getElementColors();
 
     public String getComponent() {
         return component;
@@ -85,15 +129,15 @@ public class SetpointControl extends javax.swing.JPanel
         jButtonLower = new javax.swing.JButton();
         jLabelReading = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(239, 239, 239));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBackground(elementColors.getSetpointControlBackground());
+        setBorder(javax.swing.BorderFactory.createLineBorder(elementColors.getSetpointControlBorder()));
         setMaximumSize(new java.awt.Dimension(92, 22));
         setMinimumSize(new java.awt.Dimension(92, 22));
         setPreferredSize(new java.awt.Dimension(92, 22));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonUpper.setBackground(new java.awt.Color(255, 255, 204));
-        jButtonUpper.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonUpper.setBackground(elementColors.getSetpointControlButtonBackground());
+        jButtonUpper.setForeground(elementColors.getSetpointControlButtonForeground());
         jButtonUpper.setText(">");
         jButtonUpper.setToolTipText("");
         jButtonUpper.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -110,8 +154,8 @@ public class SetpointControl extends javax.swing.JPanel
         });
         add(jButtonUpper, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 2, 16, 18));
 
-        jButtonLower.setBackground(new java.awt.Color(255, 255, 204));
-        jButtonLower.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonLower.setBackground(elementColors.getSetpointControlButtonBackground());
+        jButtonLower.setForeground(elementColors.getSetpointControlButtonForeground());
         jButtonLower.setText("<");
         jButtonLower.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButtonLower.setMaximumSize(new java.awt.Dimension(16, 18));
@@ -127,15 +171,21 @@ public class SetpointControl extends javax.swing.JPanel
         });
         add(jButtonLower, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 2, 16, 18));
 
-        jLabelReading.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelReading.setBackground(elementColors.getDigitalReadingBackground());
         jLabelReading.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReading.setForeground(new java.awt.Color(0, 255, 153));
+        jLabelReading.setForeground(elementColors.getDigitalReadingForeground());
         jLabelReading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReading.setText("___,_");
+        jLabelReading.setToolTipText("Click to enter a new setpoint value");
         jLabelReading.setMaximumSize(new java.awt.Dimension(52, 18));
         jLabelReading.setMinimumSize(new java.awt.Dimension(52, 18));
         jLabelReading.setOpaque(true);
         jLabelReading.setPreferredSize(new java.awt.Dimension(52, 18));
+        jLabelReading.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelReadingMouseClicked(evt);
+            }
+        });
         add(jLabelReading, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 52, 18));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -159,6 +209,49 @@ public class SetpointControl extends javax.swing.JPanel
                 ControlCommand.SETPOINT_STOP));
     }//GEN-LAST:event_jButtonLowerMouseReleased
 
+    private void jLabelReadingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelReadingMouseClicked
+        askForSetpointValue();
+    }//GEN-LAST:event_jLabelReadingMouseClicked
+
+
+    /**
+     * Asks the user for a new setpoint value with an input dialog and sends it
+     * as a Double to the Setpoint object of the model, which sets it
+     * immediately. Both a comma and a point are accepted as decimal separator,
+     * because the reading is formatted with the default locale. Nothing is
+     * sent if the dialog is cancelled, and an error message is shown if the
+     * text is not a finite number.
+     * <p>
+     * Called from the mouse click handler of the reading.
+     * <p>
+     * LLM code generated with Claude Opus 5.5
+     */
+    private void askForSetpointValue() {
+        String initialText = "";
+        if (!Double.isNaN(receivedSetpointValue)) {
+            initialText = String.format(displayFormat, receivedSetpointValue);
+        }
+        Object input = JOptionPane.showInputDialog(this,
+                "Enter new Setpoint Value", "Setpoint",
+                JOptionPane.QUESTION_MESSAGE, null, null, initialText);
+        if (input == null) {
+            return;
+        }
+        String text = input.toString().trim().replace(',', '.');
+        double newValue;
+        try {
+            newValue = Double.parseDouble(text);
+        } catch (NumberFormatException ex) {
+            newValue = Double.NaN;
+        }
+        if (Double.isNaN(newValue) || Double.isInfinite(newValue)) {
+            JOptionPane.showMessageDialog(this,
+                    "\"" + input + "\" is not a valid setpoint value.",
+                    "Setpoint", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        controller.userAction(new ActionCommand(component, newValue));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLower;
@@ -179,6 +272,7 @@ public class SetpointControl extends javax.swing.JPanel
     @Override
     public void updateComponent(String propertyName, double newValue) {
         if (propertyName.equals(component)) {
+            receivedSetpointValue = newValue;
             jLabelReading.setText(
                 String.format(displayFormat, newValue));
         }

@@ -1353,9 +1353,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jPanelCoreInstrument.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCoreInstrument.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelReadingXe.setBackground(elementColors.getCoreInstrumentReadingBackground());
+        jLabelReadingXe.setBackground(elementColors.getDigitalReadingBackground());
         jLabelReadingXe.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingXe.setForeground(elementColors.getCoreInstrumentReadingForeground());
+        jLabelReadingXe.setForeground(elementColors.getDigitalReadingForeground());
         jLabelReadingXe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingXe.setText("___");
         jLabelReadingXe.setToolTipText("Xenon percentage indicated as percentage from full load equilibrium");
@@ -1365,9 +1365,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingXe.setPreferredSize(new java.awt.Dimension(52, 18));
         jPanelCoreInstrument.add(jLabelReadingXe, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 32, 38, 18));
 
-        jLabelReadingReactivity.setBackground(elementColors.getCoreInstrumentReadingBackground());
+        jLabelReadingReactivity.setBackground(elementColors.getDigitalReadingBackground());
         jLabelReadingReactivity.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingReactivity.setForeground(elementColors.getCoreInstrumentReadingForeground());
+        jLabelReadingReactivity.setForeground(elementColors.getDigitalReadingForeground());
         jLabelReadingReactivity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingReactivity.setText("-_,____");
         jLabelReadingReactivity.setToolTipText("Caclulated reactivity of the core");
@@ -1377,9 +1377,9 @@ public class PanelCoreControl extends AbstractPanelWidget {
         jLabelReadingReactivity.setPreferredSize(new java.awt.Dimension(52, 18));
         jPanelCoreInstrument.add(jLabelReadingReactivity, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 32, 64, 18));
 
-        jLabelReadingFlux.setBackground(elementColors.getCoreInstrumentReadingBackground());
+        jLabelReadingFlux.setBackground(elementColors.getDigitalReadingBackground());
         jLabelReadingFlux.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
-        jLabelReadingFlux.setForeground(elementColors.getCoreInstrumentReadingForeground());
+        jLabelReadingFlux.setForeground(elementColors.getDigitalReadingForeground());
         jLabelReadingFlux.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelReadingFlux.setText("___,__");
         jLabelReadingFlux.setToolTipText("Neutron flux (0..100 %)");

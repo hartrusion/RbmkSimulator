@@ -21,8 +21,8 @@ import java.awt.Color;
 /**
  * Defines the colors of the self drawn elements of the control panels, which
  * are the linear ChornobylGauge, the pointer instrument Ammeter, the two
- * control loop modules ControlLoop and ControlLoopValve and the core
- * instrument of PanelCoreControl. These elements imitate unique panel parts of
+ * control loop modules ControlLoop and ControlLoopValve, the setpoint module
+ * SetpointControl and the core instrument of PanelCoreControl. These elements imitate unique panel parts of
  * a real control room, so that their colors can not be taken from the Metal
  * look and feel and have to be provided by the GUI theme in addition to the
  * Metal colors.
@@ -44,7 +44,10 @@ import java.awt.Color;
  * frame, a scale and markers. The getters that start with "CoreInstrument"
  * belong to the panel jPanelCoreInstrument of PanelCoreControl, which shows
  * the neutron flux, the reactivity and the xenon on digital readings and
- * contains two Ammeters.
+ * contains two Ammeters. The getters that start with "DigitalReading" are
+ * shared by all digital readings with green digits, which are the readings of
+ * the core instrument and of SetpointControl, because these digits imitate
+ * the same kind of display and shall look the same in all places.
  * <p>
  * LLM code generated with Claude Opus 5.5
  *
@@ -187,12 +190,32 @@ public interface RbmkElementColors {
     Color getCoreInstrumentBackground();
 
     /**
-     * @return Background of the digital readings of the core instrument
+     * @return Background of the setpoint module SetpointControl
      */
-    Color getCoreInstrumentReadingBackground();
+    Color getSetpointControlBackground();
 
     /**
-     * @return Digits of the digital readings of the core instrument
+     * @return Line border around SetpointControl
      */
-    Color getCoreInstrumentReadingForeground();
+    Color getSetpointControlBorder();
+
+    /**
+     * @return Background of the two buttons of SetpointControl
+     */
+    Color getSetpointControlButtonBackground();
+
+    /**
+     * @return Text of the two buttons of SetpointControl
+     */
+    Color getSetpointControlButtonForeground();
+
+    /**
+     * @return Background of the digital readings
+     */
+    Color getDigitalReadingBackground();
+
+    /**
+     * @return Digits of the digital readings
+     */
+    Color getDigitalReadingForeground();
 }

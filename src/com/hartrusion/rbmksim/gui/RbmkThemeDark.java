@@ -107,12 +107,19 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     private static final Color AMMETER_BORDER = new Color(78, 86, 98);
 
     // Core instrument of PanelCoreControl, which is a unique instrument of the
-    // control room. The light theme keeps its gray panel with green digits on
-    // dark readings, while the dark theme uses a warm gray with yellowish
-    // digits.
+    // control room with a gray panel in the light theme and a warm gray panel
+    // in the dark theme.
     private static final Color CORE_INSTRUMENT_BACKGROUND = new Color(68, 65, 57);
-    private static final Color CORE_INSTRUMENT_READING_BACKGROUND = new Color(30, 29, 26);
-    private static final Color CORE_INSTRUMENT_READING_FOREGROUND = new Color(232, 200, 112);
+
+    // SetpointControl, whose buttons share the dark metallic blue color of the
+    // ControlLoopValve buttons.
+    private static final Color SETPOINT_CONTROL_BACKGROUND = new Color(40, 46, 56);
+
+    // Digital readings with green digits, which are used by the core
+    // instrument and by SetpointControl. They keep the colors of the light
+    // theme, because the green matches the mnemonics of the panels.
+    private static final Color DIGITAL_READING_BACKGROUND = new Color(51, 51, 51);
+    private static final Color DIGITAL_READING_FOREGROUND = new Color(0, 255, 153);
     
 
     @Override
@@ -321,12 +328,32 @@ public class RbmkThemeDark extends ChornobylMetalThemeDark
     }
 
     @Override
-    public Color getCoreInstrumentReadingBackground() {
-        return CORE_INSTRUMENT_READING_BACKGROUND;
+    public Color getSetpointControlBackground() {
+        return SETPOINT_CONTROL_BACKGROUND;
     }
 
     @Override
-    public Color getCoreInstrumentReadingForeground() {
-        return CORE_INSTRUMENT_READING_FOREGROUND;
+    public Color getSetpointControlBorder() {
+        return CONTROL_LOOP_BORDER;
+    }
+
+    @Override
+    public Color getSetpointControlButtonBackground() {
+        return CONTROL_LOOP_VALVE_BUTTON_BACKGROUND;
+    }
+
+    @Override
+    public Color getSetpointControlButtonForeground() {
+        return CONTROL_LOOP_VALVE_BUTTON_FOREGROUND;
+    }
+
+    @Override
+    public Color getDigitalReadingBackground() {
+        return DIGITAL_READING_BACKGROUND;
+    }
+
+    @Override
+    public Color getDigitalReadingForeground() {
+        return DIGITAL_READING_FOREGROUND;
     }
 }
